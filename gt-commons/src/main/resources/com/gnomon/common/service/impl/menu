@@ -1,0 +1,67 @@
+<div class="float-menu">
+				<a href="/6dPPM_Web/workbench/workbench.action?sid=${sid}">
+					<div class="float-menu-icon"><img src="../img/HOME.png" width="70px" height="70px" /></div>
+	            	<div class="float-menu-title">首页</div>
+				</a>	            
+	        </div>
+			<div class="float-menu">
+				<a href="/6dPPM_Web/portal/portal.action?sid=${sid}">
+					<div class="float-menu-icon"><img src="../img/workbench.png" width="70px" height="70px" /></div>
+	            	<div class="float-menu-title">项目组合</div>
+				</a>	            
+	        </div>
+	       
+			<div class="float-menu">
+				<a href="/6dPPM_Web/program/program!toProgramList.action?sid=${sid}">
+					<div class="float-menu-icon"><img src="../img/PM.png" width="70px" height="70px" /></div>
+	            	<div class="float-menu-title">项目管理</div>
+				</a>	            
+	        </div>
+	        <div class="float-menu">
+	        	<a href="/dms_portal/dms/app.action?sid=${sid}" >
+		            <div class="float-menu-icon"><img src="../img/DMS.png" width="70px" height="70px" /></div>
+		            <div class="float-menu-title">文档管理</div>
+				</a>	            
+	        </div>
+	        <div class="float-menu">
+	        	<a href="/6dPPM_Web/ims/ims.action?sid=${sid}">
+		            <div class="float-menu-icon"><img src="../img/IMS.png" width="70px" height="70px" /></div>
+		            <div class="float-menu-title">问题管理</div>
+	            </a>
+	        </div>
+	        <div class="float-menu">
+	        	<a href="/6dPPM_Web/tms/taskmanage!toTms.action?sid=${sid}">
+		            <div class="float-menu-icon"><img src="../img/TMS.png" width="70px" height="70px" /></div>
+		            <div class="float-menu-title">任务管理</div>
+	            </a>
+	        </div>
+	        <div class="float-menu">
+	        	<a href="/6dPPM_Web/workspace/workspace!toWorkspaceCenter.action?sid=${sid}">
+		            <div class="float-menu-icon"><img src="../img/Workspace.png" width="70px" height="70px" /></div>
+		            <div class="float-menu-title">工作空间</div>
+		         </a>
+	        </div>
+			<div class="float-menu">
+	        	<a href="/portal/workflow/login.wf?sid=${sid}&cmd=Navigation_Frame_Top&systemId=21" target="_blank">
+		            <div class="float-menu-icon"><img src="../img/OA.png" width="70px" height="70px" /></div>
+		            <div class="float-menu-title">OA</div>
+		         </a>
+	        </div>
+	        <div class="float-menu">
+	        	<a href="/supplier_portal/sp/sp!toExcelImport.action?sid=${sid}">
+		            <div class="float-menu-icon"><img src="../img/TDM.png" width="70px" height="70px" /></div>
+		            <div class="float-menu-title">试验管理</div>
+		         </a>
+	        </div> 
+	        <div class="float-menu">
+	        	<a href="">
+		            <div class="float-menu-icon"><img src="../img/car.png" width="70px" height="70px" /></div>
+		            <div class="float-menu-title">试制管理</div>
+		         </a>
+	        </div> 
+	        <div class="float-menu">
+	        	<a href="/6dPPM_Web/systemsettings/systemsettings.action?sid=${sid}">
+		            <div class="float-menu-icon"><img src="../img/setting.png" width="70px" height="70px" /></div>
+		            <div class="float-menu-title">设置</div>
+		         </a>
+	        </div> 

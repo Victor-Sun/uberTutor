@@ -1,0 +1,6 @@
+<nd = 'http://gnomontech.com/nd'>
+[nd:document] > nt:file
+  orderable mixin
+  - ex:property (string)
+  = ''
+    primary mandatory 

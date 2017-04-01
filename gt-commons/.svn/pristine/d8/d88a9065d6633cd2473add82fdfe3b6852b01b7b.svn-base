@@ -1,0 +1,147 @@
+package com.gnomon.common.system.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.gnomon.common.system.dao.GTUserDao;
+import com.gnomon.common.system.dao.SysDepartmentDAO;
+import com.gnomon.common.system.dao.SysUserVMDAO;
+import com.gnomon.common.system.entity.SysDepartmentEntity;
+import com.gnomon.common.system.entity.SysUserEntity;
+
+@Service
+@Transactional
+public class SysUserDepartmentService {
+	
+	@Autowired
+	private SysUserVMDAO sysUserVMDAO;
+	
+	@Autowired
+	private SysDepartmentDAO sysDepartmentDAO;
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private GTUserDao gtUserDao;
+	
+	/*
+	 * 系统用户信息取得
+	 */
+	public List<Map<String, Object>> getSysUserList(
+			String departmentId, boolean includeSubDept,
+			String searchUserName, String deptType) {
+		StringBuffer sql = new StringBuffer();
+		List<Object> params = new ArrayList<Object>();
+		
+		if ("group".equals(deptType)) {
+			sql.append(" SELECT T2.*");
+			sql.append(" FROM");
+			sql.append(" SYS_MY_WORKGROUP_MEMBER T1 INNER JOIN V_SYS_USER T2");
+			sql.append(" ON T1.USER_ID = T2.ID");
+			sql.append(" WHERE");
+			sql.append(" T1.WORKGROUP_ID = ?");
+			params.add(departmentId);
+			if (searchUserName != null && searchUserName.length() > 0) {
+				sql.append(" AND (T2.USERNAME LIKE ? OR T2.USERID LIKE ? ) ");
+				params.add("%" + searchUserName + "%");
+				params.add("%" + searchUserName + "%");
+			}
+		} else {
+			// 查询用户列表
+			if (! includeSubDept) {
+				// 不包含下级部门人员
+				sql.append(" SELECT *");
+				sql.append(" FROM");
+				sql.append(" V_SYS_USER");
+				sql.append(" WHERE");
+				sql.append(" DEPARTMENT_ID = ?");
+				params.add(departmentId);
+//				if (selectFM) {
+//					sql.append(" AND PROFILE_ID = ?");
+//					params.add("FM");
+//				}
+				if (searchUserName != null && searchUserName.length() > 0) {
+					sql.append(" AND (USERNAME LIKE ? or USERID LIKE ? ) ");
+					params.add("%" + searchUserName + "%");
+					params.add("%" + searchUserName + "%");
+				}
+			} else {
+				// 包含下级部门
+				sql.append("  SELECT  T2.*,T1.DEPARTMENT_NAME,T4.TITLE PROFILE_NAME FROM (SELECT ID,NAME DEPARTMENT_NAME from sys_department t1 start with ID=? connect by prior ID=PARENT_ID) t1 ,sys_user t2,SYS_USER_ROLE T3,SYS_ROLE T4 where t1.id=t2.department_id and  T2.USERID = T3.USER_ID and T3.ROLE_ID = T4.ROLE_ID ");
+//				sql.append(" FROM");
+//				sql.append(" V_SYS_USER T1");
+//				sql.append(",V_SYS_DEPARTMENT_TREE T2");
+//				sql.append(" WHERE");
+//				sql.append(" T1.DEPARTMENT_ID = T2.ID");
+////				if (selectFM) {
+////					sql.append(" AND T1.PROFILE_ID = ?");
+////					params.add("FM");
+////				}
+//				sql.append(" AND T2.PATH LIKE (");
+//				sql.append(" SELECT PATH");
+//				sql.append(" FROM");
+//				sql.append(" V_SYS_DEPARTMENT_TREE");
+//				sql.append(" WHERE");
+//				sql.append(" ID = ?) || '%'");
+				params.add(departmentId);
+				if (searchUserName != null && searchUserName.length() > 0) {
+					sql.append(" AND (T2.USERNAME LIKE ? or T2.USERID LIKE ? )  ");
+					params.add("%" + searchUserName + "%");
+					params.add("%" + searchUserName + "%");
+				}
+			}
+		}
+		// 返回结果
+		return this.jdbcTemplate.queryForList(sql.toString(), params.toArray());
+    }
+	
+	/**
+	 * 系统用户信息取得（全部）
+	 */
+	public List<Map<String, Object>> getSysUserList() {
+		StringBuffer sql = new StringBuffer();
+
+		sql.append(" SELECT *");
+		sql.append(" FROM");
+		sql.append(" V_SYS_USER");
+		sql.append(" ORDER BY EMPLOYEE_NO");
+		
+		// 返回结果
+		return this.jdbcTemplate.queryForList(sql.toString());
+    }
+	
+	/*
+	 * 系统用户信息取得(专业经理)
+	 */
+	public List<Map<String, Object>> getUserList() {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT *");
+		sql.append(" FROM");
+		sql.append(" V_SYS_USER");
+		sql.append(" ORDER BY EMPLOYEE_NO");
+
+		// 返回结果
+		return this.jdbcTemplate.queryForList(sql.toString());
+    }
+	
+	/*
+	 * 系统组织信息取得
+	 */
+	public List<SysDepartmentEntity> getSysDepartmentList() {
+		List<SysDepartmentEntity> result = this.sysDepartmentDAO.getAll();
+        return result;
+    }
+
+	public void resetPassword(String userId){
+		SysUserEntity sysUserEntity = gtUserDao.get(userId);
+		sysUserEntity.setPassword("oqGiG3w2C/s4l945xI++My4Wpv2cCyLi");
+		gtUserDao.save(sysUserEntity);
+	}
+}

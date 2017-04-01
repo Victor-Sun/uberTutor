@@ -1,0 +1,3 @@
+webserver.hostname=127.0.0.1
+webserver.httpPort=8098
+webserver.profileUUID=1D482544CFEC4568B39BEDCB68526441

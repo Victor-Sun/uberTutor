@@ -1,0 +1,6 @@
+#Created by JInto - www.guh-software.de
+#Thu Jan 09 16:09:05 CST 2014
+dms.webservice.ServerContentPath=http\://127.0.0.1\:8098/dms
+dms.webservice.password=123456
+dms.webservice.username=PDMS
+
