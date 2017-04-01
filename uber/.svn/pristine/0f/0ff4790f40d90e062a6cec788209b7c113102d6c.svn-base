@@ -1,0 +1,458 @@
+Ext.define('ExtApp.view.scheduler.Panel',{
+    extend: 'Sch.panel.SchedulerTree',
+
+    requires : [
+        'ExtApp.data.TimeAxis',
+        'ExtApp.view.scheduler.column.Header',
+        'Sch.util.Date',
+        'ExtApp.view.scheduler.PanelController',
+        'ExtApp.view.scheduler.PanelModel', 
+        'ExtApp.model.Base',
+        'Ext.util.TextMetrics',
+        'ExtApp.scheduler.DragDrop',
+        'Ext.menu.Menu'
+    ],
+    mixin: [
+         'ExtApp.view.projectmanagment.timeline.mixin.Localizable'
+    ],
+    xtype : 'timelinepanel',
+
+    //Special timeaxis for the stages
+    timeAxis : {
+        xclass : 'ExtApp.data.TimeAxis'
+    },
+
+    cls   : 'timelinepanel',
+    
+    controller: 'scheduler-panel',
+
+    //Set the rowHeight
+    rowHeight : 60,
+
+    viewModel : {
+        type : 'scheduler-panel'
+    },
+
+    columns : [
+        {
+            xtype     : 'headercolumn',//Special headercolumn for stage header
+            dataIndex : 'Name',
+            tdCls     : 'rowbottomline',//Set rowline for the lockedgrid
+            width     : 120,
+            flex      : 1,
+            height    : 30,
+//            editor: {
+//                allowBlank: false
+//            },
+            renderer: function(value){
+            	return "<div style='white-space:normal' >" + value + "</div>";  
+            },
+            listeners: {
+            	dblclick: 'onDblclickName'
+            }
+        }
+    ],
+    
+    //handled by controller
+    listeners : {
+        eventresizeend      : 'onResizeEnd',
+        eventclick          : 'onEventClick',
+        //eventcontextmenu    : 'onEventRightClick',
+        //schedulecontextmenu : 'onBlockRightClick',
+        eventdrop		    : 'onEventdrop'
+//        	edit:function(editor,e){
+//        		alert(22);
+//        	},
+//        	 drop: function(node, data, dropRec, dropPosition) { 
+////                 var dropOn = dropRec ? ' ' + dropPosition + ' ' + dropRec.get('name') : ' on empty view';
+//        		 alert(333);
+//             }
+    },
+
+    viewConfig  : {
+
+        horizontalEventSorterFn : function (a, b) {
+            var same = a.get('Line') === b.get('Line') ? 0 : 1;
+            return a.get('Line') < b.get('Line') ? -1 : same;
+        },
+
+        getDataForTooltipTpl : function (event) {
+
+            var target = Ext.fly(this.tip.triggerEvent.getTarget()).up('.task-milestone'),
+                model = event;
+
+            if (target) {
+                var id = target.getAttribute('data-id');
+                model = event.MileStones().getByInternalId(id);
+            }
+
+            return {
+                Name : model.get('Name') || model.get('ShortName')
+            }
+        }
+    },
+
+    //get tpl for markup hover task tooltip
+    getTooltipTemplate : function () {
+        return new Ext.XTemplate(
+            '{Name}'
+        );
+    },
+
+    showContextMenu : function (pos, context) {
+    	if (context.eventClick) {
+    		if (context.model.get('TaskType') == 'TASK_TYPE_ACTIVITY') {
+    			this.contextMenu = new Ext.menu.Menu({
+                    controller : 'scheduler-panel',
+                    items : [
+                        {
+                            text    : 'Add item',
+                            handler : 'onAddItemClick'
+                        },{
+                            text    : 'Delete item',
+                            handler : 'onDeleteItemClick'
+                        }
+                    ]
+                });
+    		} else if (context.model.get('ResourceId') == 'Major') {
+    			this.contextMenu = new Ext.menu.Menu({
+                    controller : 'scheduler-panel',
+                    items : [
+                        {
+                        	text    : 'Add item',
+                            handler : 'onAddItemClick'
+                        }
+                    ]
+                });
+    		} else {
+    			this.contextMenu = new Ext.menu.Menu({
+                    controller : 'scheduler-panel',
+                    items : [
+                        {
+                            text    : 'Delete item',
+                            handler : 'onDeleteItemClick'
+                        }
+                    ]
+                });
+    		}
+    	} else {
+    		this.contextMenu = new Ext.menu.Menu({
+                controller : 'scheduler-panel',
+                items : [
+                    {
+                        text    : 'Add item',
+                        handler : 'onAddItemClick'
+                    }
+                ]
+            });
+    	}
+        this.contextMenu.context = context;
+        this.contextMenu.showAt(pos);
+    },
+
+    getBodyTemplate : function () {
+
+        return new Ext.XTemplate(
+            //The wrapper
+            '<div data-id="{taskId}" class="task" style="{style}">',
+            '<div class="task-inner" style="{innerStyle}">',
+            '{[this.renderMileStones(values)]}',
+            //Label is set on inner-body
+            '<div class="task-inner-body {position}" style="{innerBodyStyle}">{label}</div>',
+            '<div class="task-inner-extra" style="{innerExtraStyle}"></div>',
+            '</div>',
+            '</div>',
+            {
+                //if milestones are bound to a task
+                renderMileStones : function (values) {
+                    var inner = '';
+                    for (var i = 0; i < values.milestones.length; i++) {
+                        var milestone = values.milestones[i];
+                        inner += '<div class="task-milestone" data-id="' + milestone.id + '" style="left:' + (milestone.left - values.left) + 'px;">' +
+                            '<div class="task-milestone-inner" style="' + milestone.taskMileStoneInnerStyle + '"></div>' +
+                            //Label is set here
+                            '<div class="task-milestone-body ' + milestone.position + '">' + milestone.label + '</div>' +
+                            '</div>';
+                    }
+                    return inner;
+                }
+            }
+        );
+    },
+
+    //provides tpl data for eventBodyTemplate
+    eventRenderer : function (eventRec, resourceRec, templateData, row) {
+        var type = resourceRec.get('Type'),
+            style   = '',
+            innerStyle = '',
+            innerBodyStyle = '',
+            innerExtraStyle = '',
+            mileStones = [],
+            color = eventRec.get('Color');
+
+        eventRec.MileStones().each(function (mileStone) {
+
+                var data = {
+                    left   : this.getCoordinateFromDate(mileStone.get('Date')),
+                    label  : mileStone.get('ShortName') || mileStone.get('Name'),
+                    position : mileStone.getLabelPosition(mileStone),
+                    id       : mileStone.internalId
+                };
+
+                var color = mileStone.get('Color');
+
+                if (color) {
+                    data.taskMileStoneInnerStyle = 'border-top-color:' + color + ';';
+                }
+
+                mileStones.push(data);
+
+            }, this);
+
+
+        if (eventRec.isMileStone()) {
+            innerStyle += 'border-top-color:' + color + ';';
+        }
+        else {
+            style = 'background:' + color + ';';
+        }
+
+        switch (type) {
+
+            case BlockTypes.Major:
+                templateData.cls = 'major';
+                break;
+
+            case BlockTypes.Gate:
+                templateData.cls = 'gate';
+                //this is for drawing a vertical line
+                innerExtraStyle = 'height: ' + this.getHeight() + 'px;';
+
+                if (color) {
+                    innerBodyStyle += 'background:' + color + ';';
+                    innerExtraStyle += 'border-left-color:' + color + ';';
+                }
+
+                break;
+
+            case BlockTypes.Function:
+
+                //just an example
+
+                if (!eventRec.isMileStone()) {
+
+                    //Just as example
+                    // var label = eventRec.get('ShortName') || eventRec.get('Name'),
+                    //     labelWidth = this.textMetrix.getWidth(label);
+                    //
+                    // if (labelWidth > templateData.width) {
+                    //     innerBodyStyle += 'text-overflow: ellipsis; overflow: hidden;';
+                    // }
+
+                    innerBodyStyle += 'text-overflow: ellipsis; overflow: hidden;';//let css3 handle this for each case
+                    
+                }
+
+                templateData.cls = 'function';
+                break;
+        }
+
+        return {
+            label           : eventRec.get('ShortName') || eventRec.get('Name'),
+            milestones      : mileStones,
+            left            : templateData.left,
+            position        : eventRec.getLabelPosition(eventRec),
+            style           : style || '',
+            taskId          : eventRec.getInternalId(),//set id for tooltip resolving record
+            innerStyle      : innerStyle || '',
+            innerBodyStyle  : innerBodyStyle || '',
+            innerExtraStyle : innerExtraStyle || '',
+            type            : type
+        };
+
+    },
+
+    //Add a line under the Major and Gate row
+    rowRenderer : function (val, meta, resource, rowIndex, colIndex) {
+
+        var type = resource.get('Type');
+
+        switch (type) {
+
+            case BlockTypes.Major:
+                meta.tdCls = 'rowbottomline';
+                break;
+
+            case BlockTypes.Gate:
+                meta.tdCls = 'rowbottomline';
+                break;
+
+            case BlockTypes.Function:
+                break;
+        }
+    },
+
+
+    //Validate dragging on resource type M, G, F
+    // 时程表拖拉时的验证
+    dndValidatorFn: function (dragRecords, targetResourceRecord, newDate) {
+    	var me = this;
+        var milestones = [];
+        return Ext.Array.every(dragRecords, function (record) {
+        	// 如果二级计划，则不能拖动主节点、质量阀、主计划的任务节点
+        	if (me.up('timelinepanel').planLevel == '2') {
+        		if (record.get('TaskType') == 'TASK_TYPE_MAIN_NODE' ||
+        				record.get('TaskType') == 'TASK_TYPE_GATE' ||
+        				record.get('PlanLevel') != '2') {
+        			ExtApp.util.Util.showErrorMsg('不允许在二级计划中更改主计划节点信息！');
+        			return false;
+        		}
+        	}
+        	// 如果不是关联到活动的节点（不能超过活动的起始时间）或主节点（不能超过项目的起始时间）
+            if (!record.internalMilestone) {
+                var resource = record.getResource();
+                milestones = record.MileStones().getRange();
+                //return resource.get('Type') === targetResourceRecord.get('Type');
+                // 不能跨泳道拖动时程表
+                return resource.get('Id') === targetResourceRecord.get('Id');
+            } else {
+                for (var i = 0; i < milestones.length; i++) {
+                    if (milestones[i].get('Date').getTime() === newDate.getTime())
+                        return false;
+                }
+                return true;
+            }
+        })
+    },
+    
+    // 改变活动起始时间验证
+    resizeValidatorFn: function(resourceRecord, eventRecord, startDate, endDate, e) {
+    	// 如果二级计划，则不能拖动主计划的活动起始时间
+    	if (this.up('timelinepanel').planLevel == '2') {
+    		if (eventRecord.get('PlanLevel') != '2') {
+    			ExtApp.util.Util.showErrorMsg('不允许在二级计划中更改主计划节点信息！');
+    			return false;
+    		}
+    	}
+    },
+
+    //Disable dragcreate for Major and Gate row
+    // 新建时验证
+    createValidatorFn : function ( resourceRecord, startDate, endDate, e ) {
+            //var type = resourceRecord.get('Type');
+            //return type !== BlockTypes.Major && type !== BlockTypes.Gate;
+    	return false;
+    },
+
+    getTextMetrics: function () {
+        if (!this.tmEl) {
+            this.tmEl = Ext.getBody().createChild();
+            this.tmEl.addCls('task-inner-body');
+        }
+
+        return new Ext.util.TextMetrics(this.tmEl);
+    },
+
+    initComponent : function () {
+    	if (! this.editPrivilege) {
+    		this.readOnly = true;
+    	}
+
+        //Render a task in the scheduler chart, see sass/src/view/scheduler for the css markup
+        this.eventBodyTemplate = this.getBodyTemplate();
+        this.tooltipTpl = this.getTooltipTemplate();
+
+        var controller = this.getController();
+
+        //set delegate to task cls
+        this.tipCfg = {
+            on  : Ext.emptyFn, //HACK we do not want other listeners (beforeshow) to be set internally.
+            listeners : {
+                beforeshow : {
+                    fn: function () {
+                        controller.onBeforeShowTooltip.apply(view, arguments);
+                    }
+                }
+            },
+
+            delegate:'.task', cls: 'sch-tip', showDelay: 400, hideDelay: 0, autoHide: true, anchor: 'b'
+        };
+
+        this.callParent(arguments);
+
+        var view = this.getSchedulingView();
+        view.textMetrix = this.getTextMetrics();
+        //Add a custom renderer for row markup. 
+        this.registerRenderer(this.rowRenderer, this);
+    }
+},
+function() {
+	Sch.preset.Manager.registerPreset('dispByMonth', {
+        shiftIncrement    : 1,
+        shiftUnit         : "WEEK",
+        displayDateFormat : 'Y-m-d',
+        timeResolution    : {
+            unit      : "DAY",
+            increment : 1
+        },
+        headerConfig      : {
+            //Lowest row
+            bottom : {
+                unit     : "MONTH",
+                renderer : function (start, end, cfg) {
+
+                    var timeAxis    = this.timeAxis,
+                        stage       = timeAxis.getStage(start),
+                        projectEnd  = timeAxis.project.end;
+                    //Count down
+                    //cfg.headerCls = 'stageday' + (stage ? ' ' + stage.headerCls : '');
+                    //return Sch.util.Date.getDurationInDays(projectEnd, start);
+                    var dispNum = Sch.util.Date.getDurationInMonths(projectEnd, start);
+                    // 时程表显示例： -3、-2、-1、1、2、3
+                    if (dispNum + 7 < 0) {
+                    	return dispNum + 7;
+                    }
+                    return dispNum + 8;
+                }
+            },
+            top    : {
+                unit       : "YEAR",
+                align	   : 'center',
+                renderer : function (start, end, cfg) {
+                    return start.getFullYear();
+                }
+            },
+            middle : {
+                unit     : "MONTH",
+                renderer : function (start, end, cfg) {
+                    return start.getMonth() + 1;
+                }
+            }
+        }
+    });
+
+    Sch.preset.Manager.registerPreset('progress', {
+        shiftIncrement    : 1,
+        shiftUnit         : "WEEK",
+        displayDateFormat : 'Y-m-d',
+        timeResolution    : {
+            unit      : "DAY",
+            increment : 1
+        },
+        headerConfig      : {
+            middle : {
+                unit     : "MONTH",
+                renderer : function (start, end, cfg) {
+                    return start.getMonth() + 1;
+                }
+            },
+            top    : {
+                unit       : "YEAR",
+                align	   : 'center',
+                renderer : function (start, end, cfg) {
+                    return start.getFullYear();
+                }
+            }
+        }
+    });
+});

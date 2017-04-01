@@ -1,0 +1,98 @@
+Ext.define('ExtApp.view.projectManagement.issue.finishedissue.FinishedIssueWindow',{
+	xtype:'finishedIssueWindow',
+	extend:'Ext.window.Window',
+	border:true,
+	bodyStyle:'border:5px',
+	cls:'shadow',
+//	width:Ext.getBody().getViewSize().width,
+//	height:Ext.getBody().getViewSize().height,
+	
+	maximized: true,
+	
+	// margin:'65 0 0 250',
+	title:'问题归档',
+	controller: 'finishedIssue',
+	layout:{
+		type:'border'
+	},
+	appId:0,
+	record:null,
+	initComponent: function() {
+		var me = this;
+//		var alertPanel = Ext.create('ExtApp.view.projectManagement.issue.raiseissue.AlertPanel');
+		var issueBaseInfoForm = Ext.create('ExtApp.view.projectManagement.issue.common.IssueBaseInfoForm',
+				{programId:me.programId, programVehicleId: me.programVehicleId, region:'center',issueId:me.issueId,record:me.record});
+//		var raiseIssueDocuments = Ext.create('ExtApp.view.projectManagement.issue.raiseissue.RaiseIssueDocuments');
+		
+    	var notes = Ext.create('ExtApp.view.projectManagement.issue.solveissue.Notes',{issueId:me.issueId});
+		var notesStore = Ext.create('ExtApp.store.projectmanagement.issue.solveissue.Notes');
+		notes.setStore(notesStore);
+		notesStore.load({params:{issueId:me.issueId}});
+//		var alertPanel = Ext.create('AFC.view.application.da022.application.AlertPanel',{content:me.record.get('returnDescription')});
+//		if('RESUBMIT' == status){
+//			alertPanel.setHidden(false);
+//		}else{
+//			alertPanel.setHidden(true);
+//		}
+//		alertPanel.setHidden(true);
+    	me.items = [issueBaseInfoForm,
+			    	  {
+			xtype:'tabpanel',
+			region:'east',
+			// split:true,
+//			collapsible:true,
+//			collapsed:true,
+			border:true,
+			width:'20%',
+			layout:'fit',
+			scrollable: 'y',
+			items:[{
+				xtype: 'panel',
+				title: '汇报进度',
+				items: [notes]
+			},{
+				xtype: 'panel',
+				title: '评审信息',
+				items: [{
+					xtype:'appraise'
+						}]
+//			},{
+//				xtype: 'panel',
+//				title: ''
+			}]
+		}
+//	        ,{
+//			xtype:'tabpanel',
+//			defaults:{
+//				layout:{
+//					type:'fit'
+//				}
+//			},
+//			flex:1,
+//			activeTab:0,
+//			items:[{
+//				title:'Document',
+//				items:[raiseIssueDocuments]
+//			}]
+//		}
+	 ];
+    	
+    	me.fbar=[
+    	  	        { xtype: 'tbfill' },
+      			{ type:'button', text:'知识归档',value:'SAVE',
+      				listeners: {
+      					click: 'archiveIssue'
+      				}
+//    	  	    },
+//      			{ type:'button', text:'关闭',value:'CLOSE',
+//      				listeners: {
+//      					click: 'closeWindow'
+//      				}
+      			}
+      	    ];
+    	
+    	
+    	me.callParent(arguments);
+ 		
+	}
+});

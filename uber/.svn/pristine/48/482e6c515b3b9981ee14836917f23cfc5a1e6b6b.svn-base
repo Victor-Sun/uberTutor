@@ -1,0 +1,42 @@
+Ext.define('ExtApp.view.projectmanagement.issue.contribution.ContributionViewGrid',{
+	extend: 'Ext.grid.Panel',
+	xtype: 'contributionviewgrid',
+	layout: 'fit',
+	title: 'Contributions Most Viewed',
+
+	store: 'contribution',
+	columnLines: true,
+	
+	
+	initComponent: function () {
+		this.columns = [{
+			text: 'Rank',
+			xtype: 'rownumberer'
+		},{
+			text: 'Issue',
+			width: 100,
+			locked: true,
+			sortable: false,
+			dataIndex: 'issue'
+		},{
+//			text: 'Total Contributions',
+//			sortable: false,
+//			flex: 1,
+//			dataIndex: 'contributionCount'
+//		},{
+			text: 'Times Viewed',
+			sortable: false,
+			flex: 1,
+			dataIndex: 'viewCount'
+//		},{
+//			text: 'Last Contribution',
+//			sortable: false,
+//			flex: 1,
+//			formatter: 'date("m/d/Y")',
+//            dataIndex: 'lastContribution'
+		}];
+		//Sorts the store
+//		Ext.getStore('').sort({property:'', direction: 'ASC'});
+		this.callParent();
+	}
+});

@@ -1,0 +1,63 @@
+Ext.define('ExtApp.data.TimeAxis', {
+    extend     : "Sch.data.TimeAxis",
+
+    requires : [
+        'Sch.util.Date'
+    ],
+
+    config : {
+        project : null   
+    },
+    
+    continuous : false,
+
+    //returns the corresponding stage belonging to a date.
+    getStage : function (date) {
+
+        if (!this.project || !this.project.stages || this.project.stages.length === 0)
+            return;
+
+        var D = Sch.util.Date,
+            stages = this.project.stages,
+            stage = null;
+
+        this.forEachStageInterval(function (start, end, header, cls, i) {
+            if (D.betweenLesser(date, start, end)) {
+                stage = stages[i];
+                return false;
+            }
+        }, this);
+        
+        return stage;
+    },
+    
+    
+    //Iterates each stage in the project
+    forEachStageInterval : function (iteratorFn, scope) {
+        scope               = scope || this;
+
+        if (!this.project || !this.project.stages || this.project.stages.length === 0) throw 'Invalid time axis configuration';
+
+        var D               = Sch.util.Date,
+            project         = this.project,
+            stages          = project.stages,
+            end             = project.end,
+            intervalEnd;
+
+        for (var i = 0; i < stages.length; i++) {
+
+            var stageEnd = stages[i + 1] ? stages[i + 1].start : end,
+                durationIndays = D.getDurationInDays(stages[i].start, stageEnd);
+
+            intervalEnd     =  D.min(this.getNext(stages[i].start, D.DAY, durationIndays), stageEnd);
+            if (iteratorFn.call(scope, stages[i].start, intervalEnd, stages[i].header, stages[i].headerCls, i) === false)
+                break;
+        }
+    },
+
+    //An override 
+    timeSpanInAxis: function(start, end) {
+       return Sch.util.Date.intersectSpans(start, end, this.getStart(), this.getEnd());
+    }
+
+});

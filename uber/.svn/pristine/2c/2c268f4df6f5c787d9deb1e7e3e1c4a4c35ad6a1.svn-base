@@ -1,0 +1,30 @@
+Ext.define('ExtApp.model.myworkspace.TodoListPMModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.todoListPM',
+    
+    fields: [
+             'id',
+             'taskId',
+             'taskProgressStatusCode',
+             {name:'attCnt',type:'number'},
+             'taskName',
+             'taskTypeName',
+             'programCode',
+             'programId',
+             'taskPriorityName',
+             'taskStatusName',
+             {name:'delayDays', type:'number'},
+             'taskOwnerName',
+             'publishByName',
+             {name:'lastReportDate', type:'date'},
+             {name:'plannedFinishDate', type:'date'},
+             'programVehicleName',
+             'professionalFieldName',
+             {name: 'processStepId', type: 'number'},
+             {name: 'currentStepId', type: 'number'},
+             {name: 'processTaskOwner'},
+             {name: 'processId', type: 'number'},
+             {name: 'processCode'}
+      ]
+
+});

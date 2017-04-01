@@ -1,0 +1,192 @@
+/**
+ * 质量问题管理-我的待办-关闭审核Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.step.MyTaskInfo15Controller', {
+    extend: 'ExtApp.view.common.IssueStepViewController',
+    alias: 'controller.myTaskInfo15',
+    //初期加载
+    init: function() {
+    	var me = this;
+    	var form = this.lookupReference('refVerificationScheme08');
+    	form.load({
+            url:'/pdms/ims/my-task!getVerificationLine.action',
+			params: {
+				keyId: this.view.keyId,
+	    		formKey: this.view.formKey
+			},
+            success: function(form,result,data) {
+    			Ext.each(result.result.data, function (record) {
+    				me.addPanel(record);
+    			});
+            }
+        });
+    },
+    //加载验证方案
+    addPanel: function (record) {
+    	var refPanel = this.lookupReference('refVerificationScheme08');
+		var fieldlabelIndex = refPanel.items.length + 1;
+		var configItem=[{
+			xtype:'fieldset',
+			title:'<B>验证方案 '+ fieldlabelIndex+'</B>',
+			collapsible: true,
+			scrollable: true,
+			layout:{
+				type:'vbox'
+			},
+			defaults: {
+				layout: 'hbox',
+				defaults: {
+					margin: 5
+				}
+			},
+			items:[{
+				xtype:'container',
+				items:[{
+					xtype:'combo',
+					fieldLabel:'验证方案' + fieldlabelIndex,
+					readOnly:true,
+					bind:{
+						store:'{verification}'
+					},
+					queryMode:'local',
+					displayField:'name',
+					valueField:'id',
+					name:'verification',
+					value:record.verification
+				},{
+					xtype:'textareafield',
+					fieldLabel:'通过要求',
+					readOnly:true,
+					width: 560,
+					readOnly:true,
+					name:'passRequest',
+					value:record.passRequest
+				}]
+			},{
+				xtype: 'container',
+				items: [{
+					xtype:'textareafield',
+					fieldLabel:'实施信息',
+					width: 845,
+					readOnly:true,
+					name:'implementVehicle',
+					value:record.implementVehicle
+				},{
+					xtype:'textfield',
+					hidden:true,
+					readOnly:true,
+					name:'uid',
+					value:record.uid
+				}]
+			},{
+				xtype:'container',
+				items:[{
+					xtype:'textfield',
+					fieldLabel:'验证部门',
+					readOnly:true,
+					name:'deptName',
+					value:record.deptName
+				},{
+					xtype:'textfield',
+					fieldLabel:'验证工程师',
+					readOnly:true,
+					name:'verificationEngineerName',
+					value:record.verificationEngineerName
+				}]
+			},{
+				xtype: 'container',
+				items: [{
+					xtype:'textareafield',
+					fieldLabel:'验证效果',
+					width: 845,
+					readOnly:true,
+					name:'VerificationResult',
+					value:record.verificationResult
+				}]
+			},{
+				xtype: 'container',
+				items: [{
+					xtype:'imsFileAttachment',
+					width: 740,
+					margin: '5 5 5 0',
+					scrollable: 'y',
+					programId: null,
+		    		sourceType: 'SOURCE_TYPE_RESULT_ATTACHMENT',
+		    		sourceId: record.uid,
+		    		editable: false
+				}]
+			}]
+		}];
+		refPanel.add(configItem[0]);
+    },
+    // 点击【同意关闭】
+    agreeClose : function(btn) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	if(v_form.isValid() == false){
+    		Ext.Msg.alert('提示', "请填写必填项！！！");
+    		return;
+    	}
+    	
+    	v_form.submit({
+    		url: '/pdms/ims/ims-issue!save.action',
+            params: {
+            	model: Ext.encode(v_form.getFieldValues()),
+//            	keyId: me.view.keyId,
+//            	formKey: me.view.formKey,
+//            	taskId: me.view.taskId,
+//            	ProcessInstanceId: me.view.ProcessInstanceId,
+            	method:'updateIssue',
+            	action:'NEXT'
+            },
+    	    waitMsg : '正在提交数据',
+    	    waitTitle : '提示',
+    	    method : "POST",
+    	    success : function(form, action) {
+    	    	var gridTask = me.getView().grid.getStore().load();
+    	    	me.getView().close();
+    	    },
+    	    failure : function(form, action) {
+    	    	ExtApp.util.Util.handleFormFailure(action);
+    	    }
+	    });
+    },
+    // 点击【不同意关闭】
+    disAgreeClose : function(btn) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	
+    	var isDp = v_form.findField('isDp');
+    	isDp.allowBlank = true;
+    	var returnReasonWindow = Ext.create('ExtApp.view.common.ReturnReasonWindow',{
+			callback:function(returnComment){
+        		if(returnComment == null || returnComment == ''){
+        			Ext.Msg.alert('提示', '必须添加备注！');
+        			return;
+        		}
+        		returnReasonWindow.close();
+				me.getView().mask('正在提交... 请耐心等待...');
+				v_form.submit({
+		    		url: '/pdms/ims/ims-issue!save.action',
+		            params: {
+		            	returnComment:returnComment,
+		            	method:'updateIssue',
+		            	action:'RETURN'
+		            },
+		    	    waitMsg : '正在提交数据',
+		    	    waitTitle : '提示',
+		    	    method : "POST",
+		    	    success : function(form, action) {
+		    	    	var gridTask = me.getView().grid.getStore().load();
+		    	    	me.getView().close();
+		    	    },
+		    	    failure : function(form, action) {
+		    	    	ExtApp.util.Util.handleFormFailure(action);
+		    	    }
+			    });
+			}
+		});
+    	returnReasonWindow.show();
+		return;
+    }
+});

@@ -1,0 +1,102 @@
+/**
+ * 时程表泳道设定-泳道设定
+ */
+Ext.define('ExtApp.view.projectmanagement.timeline.setting.TimeLineSetting',{
+	extend:'Ext.window.Window',
+	xtype:'timeLineSetting',
+	
+	width:800,
+	height:600,
+	modal: true,
+	closable: false,
+	
+	controller: 'timeLineSetting',
+	
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+	defaults:{
+		margin:10
+	},
+	
+	initComponent: function() {
+		var functionStore = Ext.create(
+			'ExtApp.store.projectmanagement.TimeLineFunctionStore');
+		functionStore.getProxy().extraParams = {
+			vehicleId: this.vehicleId, parentObsId: this.obsId};
+		functionStore.load();
+	
+		this.items = [{
+			xtype:'fieldset',
+			title: '泳道信息',
+			flex:1,
+			layout: 'fit',
+			items:[{
+				xtype:'panel',
+				layout:'fit',
+				items:[{
+					xtype:'grid',
+					reference: 'refTimeLineSettingGrid',
+					store: functionStore,
+					columns: [{
+						xtype: 'rownumberer'
+					},{
+						text: '泳道名称',
+						dataIndex: 'displayName',
+						flex: 1,
+						editor: {
+  		                    allowBlank: false,
+  		                    maxLength: 50
+  		                }
+					},{
+						text: '关联组织',
+  						flex: 1,
+  						dataIndex: 'childObsName'
+					},{
+						text: '显示顺序',
+						dataIndex: 'seqNo',
+						width: 80,
+						editor: {
+							xtype: 'numberfield',
+  		                    minValue: 1,
+  		                    maxValue: 99999
+  		                }
+					},{ 
+						xtype: 'actioncolumn',
+  		                width: 30,
+  		                align: 'center',
+  		                sortable: false,
+  		                menuDisabled: true,
+  		                items: [{
+  		                    iconCls: 'cell-editing-delete-row',
+  		                    handler: 'deleteLane'
+  		                }]
+					}],
+					tbar: [{
+						text: 'Add',
+		                iconCls: 'icon-add',
+		                handler: 'onAddLane'
+					}],
+					listeners: {
+						edit: 'onEditLane',
+		  		    	cellclick: 'onCellclick',
+		  		    	canceledit: 'onCanceledit'
+					}
+				}]
+			}]
+		},{
+			flex: 1,
+			xtype: 'panel',
+			layout:'fit',
+			reference: 'refTimeLineTask'
+		}],
+		this.tools = [{
+			text:'确定',
+	    	xtype: 'button',
+	    	iconCls: 'x-fa fa-circle-o',
+	    	handler: 'confirm'
+		}];
+		this.callParent();
+	}
+});

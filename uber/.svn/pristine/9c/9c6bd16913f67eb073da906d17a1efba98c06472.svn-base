@@ -1,0 +1,54 @@
+Ext.define('ExtApp.view.forum.ForumReplyController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.forumReply',
+    onButtonClickSubmit: function(button, e, options){
+        var me = this;
+        if (me.lookupReference('forumReplyForm').isValid()){
+        	me.doSubmit(button.value);
+        }
+    },
+    doSubmit: function(flag) {
+    	var me = this;
+        var form = this.lookupReference('forumReplyForm');
+        var win = form.up('window');
+    	me.getView().mask('正在提交... 请耐心等待...');
+        form.submit({
+        	params:{parentPostId:me.getView().parentId},
+            clientValidation: true,
+            url: '/pdms/pm/forum!replyPost.action',
+            scope: me,
+            success: 'onSubmitSuccess',
+            failure: 'onSubmitFailure'
+        });
+        
+    
+    },
+
+    onSubmitFailure: function(form, action) {
+
+        this.getView().unmask();
+
+        /*var result = Packt.util.Util.decodeJSON(action.response.responseText);
+
+        switch (action.failureType) {
+            case Ext.form.action.Action.CLIENT_INVALID:
+                Packt.util.Util.showErrorMsg('Form fields may not be submitted with invalid values');
+                break;
+            case Ext.form.action.Action.CONNECT_FAILURE:
+                Packt.util.Util.showErrorMsg(action.response.responseText);
+                break;
+            case Ext.form.action.Action.SERVER_INVALID:
+                Packt.util.Util.showErrorMsg(result.msg);
+        }*/
+
+        //alternative to code above - reuse code
+        ExtApp.util.Util.handleFormFailure(action);
+    },
+
+    onSubmitSuccess: function(form, action) {
+    	var me = this;
+    	this.getView().unmask();
+    	me.getView().grid.getStore().load({params:{sourceId:me.getView().sourceId,source:me.getView().source}});
+    	me.getView().close();	
+    }
+});

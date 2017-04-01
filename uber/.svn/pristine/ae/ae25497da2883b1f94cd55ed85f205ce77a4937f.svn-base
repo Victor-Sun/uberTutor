@@ -1,0 +1,49 @@
+/**
+ * 部门空间-部门自建任务-查看问题
+ */
+Ext.define('ExtApp.view.deptworkspace.deptissue.ViewDeptIssueWindowController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.viewDeptIssueWindow',
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	if (me.view.statusCode == 'COMPLETE') {
+        	var privilegeStore = Ext.create('ExtApp.store.common.SysPrivilegeStore');
+        	// 归档问题权限判定
+        	privilegeStore.load({params: {privilegeCode: '800305'}});
+        	privilegeStore.on('load', function() {
+        		if (this.data.getAt(0).data.privilege) {
+        			me.view.query('#btnArchive')[0].show();
+        		}
+        	});
+    	}
+    },
+    
+    // 知识归档
+    archiveDeptIssue: function(button, e, options){
+    	var me = this;
+    	var archiveWin = Ext.create({
+    		xtype: 'archiveDeptIssueWindow',
+    		issueId: me.view.issueId,
+    		parentCaller: me
+    	});
+    	archiveWin.down('deptIssueForm').load({
+			params: {
+				issueId: me.view.issueId
+			}
+    	});
+    	archiveWin.down('archiveDeptIssueForm').load({
+			params: {
+				issueId: me.view.issueId
+			}
+    	});
+    	archiveWin.show();
+    },
+    
+    // 关闭
+    closeWindow: function() {
+    	this.view.close();
+    }
+    	
+});

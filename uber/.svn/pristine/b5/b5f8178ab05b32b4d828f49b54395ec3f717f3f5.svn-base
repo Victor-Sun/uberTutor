@@ -1,0 +1,16 @@
+﻿
+Ext.define('ExtApp.store.myworkspace.TodoListPMDeliverableStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.todoListPMDeliverable',
+
+    model: 'ExtApp.model.myworkspace.TodoListPMDeliverableModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/mw/todo-list!getDeliverableInfo.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

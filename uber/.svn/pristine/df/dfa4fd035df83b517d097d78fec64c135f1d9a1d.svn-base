@@ -1,0 +1,116 @@
+/**
+ * 工作联系单 Controller
+ */
+Ext.define('ExtApp.view.workorder.WorkOrderDraftController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.workOrderDraft',
+    createWorkOrder:function(){
+    	var me = this;
+    	var grid = me.getView().down('grid');
+    	Ext.create("ExtApp.view.workorder.WorkOrderWindow",{grid:grid}).show();
+    },
+    
+	StepWindow1: function() {
+		Ext.create({
+			xtype: 'workorderinboundstep1'
+		}).show();
+	},
+	
+	StepWindow2: function() {
+		Ext.create({
+			xtype: 'workorderinboundstep2'
+		}).show();
+	},
+	
+	StepWindow3: function() {
+		Ext.create({
+			xtype: 'workorderinboundstep3'
+		}).show();
+	},
+	
+	StepWindow4: function() {
+		Ext.create({
+			xtype: 'workorderinboundstep4'
+		}).show();
+	},
+	
+	StepWindow8: function() {
+		Ext.create({
+			xtype: 'workorderinboundstep8'
+		}).show();
+	},
+	inboundWorkOrderSave:function(){
+		var me = this;
+        var form = this.lookupReference('workOrderInbandForm');
+        if (form.isValid()){
+    		me.getView().mask('正在提交... 请耐心等待...');
+            form.submit({
+            	params:{action:'SAVE',method:'updateInboundWorkOrder'},
+                clientValidation: true,
+                url: '/pdms/workorder/workorder!save.action',
+                scope: me,
+                success: 'onSubmitSuccess',
+                failure: 'onSubmitFailure'
+            });
+    	}
+	},
+	inboundWorkOrderNext:function(){
+		var me = this;
+        var form = this.lookupReference('workOrderInbandForm');
+        if (form.isValid()){
+    		me.getView().mask('正在提交... 请耐心等待...');
+            form.submit({
+            	params:{action:'NEXT',method:'updateInboundWorkOrder'},
+                clientValidation: true,
+                url: '/pdms/workorder/workorder!save.action',
+                scope: me,
+                success: 'onSubmitSuccess',
+                failure: 'onSubmitFailure'
+            });
+    	}
+	},
+    onSubmitFailure: function(form, action) {
+        this.getView().unmask();
+        ExtApp.util.Util.handleFormFailure(action);
+    },
+
+    onSubmitSuccess: function(form, action) {
+        var view = this.getView();
+        view.unmask();
+        var form = this.lookupReference('workOrderInbandForm');
+        var win = form.up('window');
+        win.close();
+        Ext.Msg.alert('提示', '提交成功！');
+        var grid = win.grid;
+        if(grid){
+        	grid.getStore().load();
+        }
+    },
+    // 双击交付物列表
+    onCelldblclick: function(grid , td , cellIndex , record , tr , rowIndex , e , eOpts) {
+    	var me = this;
+    	var rec = grid.getStore().getAt(rowIndex);
+    	var programId = me.getView().programId;
+    	var grid = me.getView().down('grid');
+    	var woType = rec.get('woType');
+    	var win = null;
+    	if(woType == 'INBOUND'){
+    		win = Ext.create("ExtApp.view.workorder.inbound.WorkOrderInboundStep1",{grid:grid,workOrderId:rec.get('id'),title:'新建接收工联单'}).show();
+    	}else{
+    		win = Ext.create("ExtApp.view.workorder.outbound.WorkOrderOutboundStep1",{grid:grid,workOrderId:rec.get('id'),title:'新建发出工联单'}).show();
+    	}
+    	
+    	win.down('form').getForm().load({
+    		params:{id:rec.get('id')},
+    		url:'/pdms/workorder/workorder!getWorkOrderForm.action',
+    		success: function(form, action) {
+    			if( win.down('form').getForm().findField('isProjectType')){
+    				win.down('form').getForm().findField('isProjectType').setValue({isProjectType:action.result.data.isProjectType});
+    			}
+    			if( win.down('form').getForm().findField('onlineMode')){
+    				win.down('form').getForm().findField('onlineMode').setValue({onlineMode:action.result.data.onlineMode});
+    			}
+    	    }
+    	});
+    }
+});

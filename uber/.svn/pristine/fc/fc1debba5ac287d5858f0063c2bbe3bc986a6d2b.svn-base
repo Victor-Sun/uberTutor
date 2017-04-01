@@ -1,0 +1,99 @@
+/**
+ * 质量问题管理-我的待办-问题确认Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.step3.MyTaskInfo0301Controller', {
+    extend: 'ExtApp.view.common.IssueStepViewController',
+    alias: 'controller.myTaskInfo0301',
+    // 点击【提交】
+    updSubmit: function(btn) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	if(v_form.isValid() == false){
+    		Ext.Msg.alert('提示', "请填写必填项！！！");
+    		return;
+    	}
+    	var gridNotify = this.view.down('forumMember').down('grid');
+
+    	var data = [];
+    	var records = gridNotify.store.getModifiedRecords();
+    	v_form.submit({
+    		url: '/pdms/ims/ims-issue!save.action',
+            params: {
+            	model: Ext.encode(v_form.getFieldValues()),
+//            	keyId: me.view.keyId,
+//            	formKey: me.view.formKey,
+//            	taskId: me.view.taskId,
+//            	ProcessInstanceId: me.view.ProcessInstanceId,
+            	method:'updateIssue',
+            	action:'NEXT'
+            },
+    	    waitMsg : '正在提交数据',
+    	    waitTitle : '提示',
+    	    method : "POST",
+    	    success : function(form, action) {
+    	    	var gridTask = me.getView().grid.getStore().load();
+    	    	me.getView().destroy();
+    	    },
+    	    failure : function(form, action) {
+    	    	ExtApp.util.Util.handleFormFailure(action);
+    	    }
+	    });
+    },
+    // 点击【回退】
+    fallback : function(btn) {
+    	var me = this
+    	var v_form = me.view.getForm();
+    	
+    	var issueNatureId = v_form.findField('issueNatureId');
+    	issueNatureId.allowBlank = true;
+    	var isIssueReason = v_form.findField('isIssueReason');
+    	isIssueReason.allowBlank = true;
+    	var tempActionField = v_form.findField('tempAction');
+    	tempActionField.allowBlank = true;
+    	
+    	var returnReasonWindow = Ext.create('ExtApp.view.common.ReturnReasonWindow',{
+			callback:function(returnComment){
+        		if(returnComment == null || returnComment == ''){
+        			Ext.Msg.alert('提示', '必须添加备注！');
+        			return;
+        		}
+        		returnReasonWindow.close();
+				me.getView().mask('正在提交... 请耐心等待...');
+				v_form.submit({
+		    		url: '/pdms/ims/ims-issue!save.action',
+		            params: {
+		            	returnComment:returnComment,
+		            	method:'updateIssue',
+		            	action:'RETURN'
+		            },
+		    	    waitMsg : '正在提交数据',
+		    	    waitTitle : '提示',
+		    	    method : "POST",
+		    	    success : function(form, action) {
+		    	    	var gridTask = me.getView().grid.getStore().load();
+		    	    	me.getView().destroy();
+		    	    },
+		    	    failure : function(form, action) {
+		    	    	ExtApp.util.Util.handleFormFailure(action);
+		    	    }
+			    });
+			}
+		});
+    	returnReasonWindow.show();
+		return;
+    },
+	// 点击【问题性质】
+    selcombo: function(combo, newValue, oldValue, eOpts) {
+    	var me = this.view;
+    	var v_form = me.getForm();
+    	var datefield = v_form.findField('reconfirmDate');
+    	if(newValue == "ISSUE_NATURE_3"){
+    		datefield.setHidden(false);
+    		datefield.allowBlank = false;
+    	}else{
+    		datefield.setHidden(true);
+    		datefield.allowBlank = true;
+    		datefield.setValue("");
+    	};
+    }
+});

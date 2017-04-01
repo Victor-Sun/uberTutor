@@ -1,0 +1,43 @@
+/**
+ * 评论Window
+ */
+Ext.define('ExtApp.view.forum.IssueCommentWindow',{
+	extend:'Ext.window.Window',
+	xtype:'issueCommentWindow',
+
+	modal: true,
+	closable: false,
+	
+	layout:{
+		type:'fit'
+	},
+	
+	controller: 'issueCommentWindow',
+	
+	width: 800,
+	height: 600,
+	
+	title: '评论',
+	
+	initComponent: function() {
+		var me = this;
+		
+		this.items = [{
+			xtype: 'panel',
+			layout: 'fit',
+			items: [{
+				xtype: 'issueComment',
+				sourceId: me.sourceId,
+				source: me.source
+			}]
+		}];
+
+		this.tools = [{
+			text:'关闭',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'closeWindow'
+		}];
+		this.callParent();
+	}
+});

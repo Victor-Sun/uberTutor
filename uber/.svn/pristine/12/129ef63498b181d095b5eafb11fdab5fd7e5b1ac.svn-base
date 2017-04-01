@@ -1,0 +1,29 @@
+{
+  "name": "bryntum-gantt-pro-neptune",
+  "format": "1",
+  "version": "4.2.7",
+  "creator": "Bryntum",
+  "summary": "The Neptune theme for Ext Gantt",
+  "detailedDescription": "The Neptune theme for Ext Gantt",
+  "type": "code",
+  "signatures": [
+    {
+      "name": "Bryntum",
+      "uuid": "e7fd1d2f-e151-442d-a624-1c8bd50d9842",
+      "created": "2016-09-23T10:58:50Z",
+      "algorithm": "SHA1withRSA",
+      "nonce": "M3pwbiYWdOY\u003d",
+      "signature": "PrEG5uZyIABFAUiF4csTRfity52EJ1IpnXj9mYE/C7Oj9BqojQVOQey89cJlIGMgYONFbM4236q2vGSVWMnGGqKifF296a0v0aZbbp5BP25I2HAyrCNNPxd3KHI3VIrtuYhCPk+NJJzXk43vSTdc/kUbRAB8depXQN5ugCmkN+sJf6hEhuwb8DZ4KP0z0PbjDe5v5dWmoVR3wrA93F1xbK36xWgfRDRQWZjGuJM6QErw5HOv+Qr0jTn9WrT38AkTl3BYTWgzAXJPmADL6n0V3WoryuGuJ4/0Y8jxrbLELz2QICLZe2q1LniIy16uM1p+ppNrxBMBrlArAle2e/HErA\u003d\u003d"
+    }
+  ],
+  "css": [
+    {
+      "path": "resources/css/bryntum-gantt-pro-neptune.css"
+    }
+  ],
+  "resources": [
+    "resources/images"
+  ],
+  "output": "${package.dir}/build",
+  "framework": "ext"
+}

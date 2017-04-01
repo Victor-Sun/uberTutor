@@ -1,0 +1,7 @@
+Ext.define('ExtApp.model.projectmanagement.DevTypeModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.devType',
+
+    fields: ['id', 'name']
+             
+});

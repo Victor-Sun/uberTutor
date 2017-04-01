@@ -1,0 +1,31 @@
+/**
+ * 质量问题管理-提交问题-删除窗口Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.MySubInfoDeleteButtonController',{
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.mySubInfoDeleteButton',
+
+    //点击确定
+    confirm: function(btn) {
+		Ext.Ajax.request({
+    		url:'/pdms/ims/submission!deleteIssue.action',
+    		params: {
+    			keyId: this.view.up('qmsmain').down('mySubInfo').keyId
+			},
+			success: function(response, opts) {
+				var gridTask = btn.ownerCt.ownerCt.up('qmsmain').down('mySubInfo').up('mydraft').down('grid');
+				var v_form = btn.ownerCt.ownerCt.up('qmsmain').down('mySubInfo');
+    	    	gridTask.getStore().load();
+				btn.ownerCt.ownerCt.destroy();
+				v_form.destroy();
+		    },
+			failure: function(response, opts) {
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	});
+	},
+    //点击【取消】
+	closeWin: function(btn) {
+    	btn.ownerCt.ownerCt.destroy();
+	}
+});

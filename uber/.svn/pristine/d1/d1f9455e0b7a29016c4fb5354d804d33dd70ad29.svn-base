@@ -1,0 +1,14 @@
+/**
+ * 个人管理-已办任务-工作联系单ViewModel
+ */
+Ext.define('ExtApp.view.myworkspace.DoneListConnViewModel',{
+	 extend: 'Ext.app.ViewModel',
+	    alias: 'viewmodel.doneListConn',
+
+	    stores: {
+	    	doneListConn: {
+	            type: 'doneListConn'
+	        }
+	    }
+
+});

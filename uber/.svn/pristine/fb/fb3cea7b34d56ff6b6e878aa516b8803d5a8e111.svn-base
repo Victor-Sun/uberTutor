@@ -1,0 +1,7 @@
+Ext.define('ExtApp.model.common.ObsDepartmentModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.obsDepartment',
+    
+    fields: ['id', 'text', 'iconCls', 'expanded', 'leaf']
+
+});

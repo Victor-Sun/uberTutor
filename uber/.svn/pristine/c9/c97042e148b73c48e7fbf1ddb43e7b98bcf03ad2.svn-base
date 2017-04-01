@@ -1,0 +1,77 @@
+/**
+ * 项目管理-基本信息Controller
+ */
+Ext.define('ExtApp.view.projectmanagement.base.ProjectBaseInfoHomePageController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.projectBaseInfoHomePage',
+
+    // 初始化
+    init: function() {
+    	var me = this;
+    	// 显示基本信息页面时，需要判断查看权限
+    	if (me.view.record.get('programStauts') == 'draft' ||
+    			ExtApp.util.Util.getPrivilege('P0201', me.view.projectPrivilege)) {
+    		var baseInfo = Ext.create({
+    			xtype: 'projectBaseInfo',
+            	title: '项目基本信息',
+            	programId: me.view.programId,
+            	projectPrivilege: me.view.projectPrivilege,
+            	programStauts: me.view.record.get('programStauts'),
+            	programType: me.view.record.get('programType')
+    		});
+    		me.view.add(baseInfo);
+    		me.view.setActiveTab(baseInfo);
+    	}
+    	
+    	// 显示项目主计划页面时，需要判断查看权限
+    	if (ExtApp.util.Util.getPrivilege('P1402', me.view.projectPrivilege)) {
+    		var mainPlan = Ext.create({
+    			title: '进展报表',
+    			xtype: 'progressreport',
+    			programId: me.view.programId
+    		});
+    		me.view.add(mainPlan);
+    		if (! me.view.getActiveTab()) {
+    			me.view.setActiveTab(mainPlan);
+    		}
+    	}
+		
+    	// 显示项目OpenIssue页面时，需要判断查看权限
+    	if (ExtApp.util.Util.getPrivilege('P1401', me.view.projectPrivilege)) {
+    		var openIssue = Ext.create({
+    			xtype: 'projectOpenIssue',
+            	title: 'Open Issue',
+            	programId: me.view.programId,
+            	projectPrivilege: me.view.projectPrivilege
+    		});
+    		me.view.add(openIssue);
+    		if (! me.view.getActiveTab()) {
+    			me.view.setActiveTab(openIssue);
+    		}
+    	}
+    	
+    	// 显示文档管理时，需要判断查看权限
+    	if (ExtApp.util.Util.getPrivilege('P0704', me.view.projectPrivilege)) {
+    		var document = Ext.create({
+    			title: '项目文档',
+    			xtype: 'projectDocumentBase',
+    			programId: me.view.programId
+    		});
+    		me.view.add(document);
+    		if (! me.view.getActiveTab()) {
+    			me.view.setActiveTab(document);
+    		}
+    	}
+    	
+       	// 显示项目笔记时，需要判断查看权限
+    	if (ExtApp.util.Util.getPrivilege('P0602', me.view.projectPrivilege)) {//todo
+    		var projectNoteMain = Ext.create({
+    			title: '项目笔记',
+    			xtype: 'projectNoteMain',
+    			programId: me.view.programId
+    		});
+    		me.view.add(projectNoteMain);
+    	}
+    }
+
+});

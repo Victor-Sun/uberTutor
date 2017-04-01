@@ -1,0 +1,60 @@
+Ext.define('ExtApp.view.projectmanagement.extplan.ext201.Ext201ContralList', {
+	extend:'Ext.container.Container',
+    xtype: 'ext201ContralList',
+    controller: 'ext201ContralList',
+    title:'零件开发管控表',
+  	margin:10,
+  	cls:'shadow',
+  	layout: 'fit',
+  	initComponent: function() {
+  		var me = this;
+  		var store = Ext.create('ExtApp.store.projectmanagement.extplan.ext201.Ext201ContralListStore');
+  		store.load({params:{extProjectId:me.projectId}});
+  	
+  		this.items = [{
+  				xtype: 'grid',
+  				store: store,
+  				layout: 'fit',
+  				columns: [
+  			  			{xtype: 'rownumberer'},
+  						{ text:'采购类型', width: 200, dataIndex:'sourcingType'},
+  						{ text:'零件编号', width: 200, dataIndex:'itemNo'},
+  						{ text:'零件名称', width: 200, dataIndex:'itemName'},
+  						{ text:'产品工程师', width: 200, dataIndex:'userName'},
+  						{ text:'设计责任部门', width: 200, dataIndex:'obsName'},
+  						{ text:'重要度', width: 200, dataIndex:'severityLevel'},
+  						{ text:'开发类型', width: 200, dataIndex:'devType'},
+  						{ text:'是否同步开发', width: 200, dataIndex:'isSe'},
+  						{ text:'硬件开模周期', width: 200, dataIndex:'productionToolingPeriod'},
+  						{ text:'状态', width: 200, dataIndex:'status'},
+  						{ text:'D1数据评审计划完成', width: 200, dataIndex:'[D1数据评审]_PLANNED_FINISH_DA'},
+  						{ text:'D1数据评审实际完成', width: 200, dataIndex:'[D1数据评审]_ACTUAL_FINISH_DAT'},
+  						{ text:'D1数据评审计划发布', width: 200, dataIndex:'[D1数据发布]_PLANNED_FINISH_DA'},
+  						{ text:'D1数据评审实际发布', width: 200, dataIndex:'[D1数据发布]_ACTUAL_FINISH_DAT'},
+  						{ text:'Interface 计划Item3计划完成', width: 200, dataIndex:'[INTERFACE1]_PLANNED_FINISH_D'},
+  						{ text:'Interface 计划Item3实际完成', width: 200, dataIndex:'[INTERFACE1]_ACTUAL_FINISH_DA'},
+  						{ text:'Interface 计划Item4计划完成', width: 200, dataIndex:'[INTERFACE2]_PLANNED_FINISH_D'},
+  						{ text:'Interface 计划Item4实际完成', width: 200, dataIndex:'[INTERFACE2]_ACTUAL_FINISH_DA'},
+  						{ text:'供应商定点Item5计划完成', width: 200, dataIndex:'[SRC 1]_PLANNED_FINISH_DATE'},
+  						{ text:'供应商定点 计划Item5实际完成', width: 200, dataIndex:'[SRC 1]_ACTUAL_FINISH_DATE'},
+  						{ text:'供应商定点 计划Item6计划完成', width: 200, dataIndex:'[SRC 2]_PLANNED_FINISH_DATE'},
+  						{ text:'供应商定点 计划Item6实际完成', width: 200, dataIndex:'[SRC 2]_ACTUAL_FINISH_DATE'},
+  						{ text:'样件到货 计划Item7计划完成', width: 200, dataIndex:'[OTS1]_PLANNED_FINISH_DATE'},
+  						{ text:'样件到货 计划Item7实际完成', width: 200, dataIndex:'[OTS1]_ACTUAL_FINISH_DATE'},
+  						{ text:'样件到货 计划Item8计划完成', width: 200, dataIndex:'[OTS2]_PLANNED_FINISH_DATE'},
+  						{ text:'样件到货 计划Item8实际完成', width: 200, dataIndex:'[OTS2]_ACTUAL_FINISH_DATE'},
+  						{ text:'DV 设计认可 计划Item9计划完成', width: 200, dataIndex:'[DV1]_PLANNED_FINISH_DATE'},
+  						{ text:'DV 设计认可 计划Item9实际完成', width: 200, dataIndex:'[DV1]_ACTUAL_FINISH_DATE'},
+  						{ text:'DV 设计认可 计划Item10计划完成', width: 200, dataIndex:'[DV2]_PLANNED_FINISH_DATE'},
+  						{ text:'DV 设计认可 计划Item10实际完成', width: 200, dataIndex:'[DV2]_ACTUAL_FINISH_DATE'}
+  					],
+  	            dockedItems: [{
+                      xtype: 'pagingtoolbar',
+                      dock: 'bottom',
+                      displayInfo: true,
+                      store: store
+                  }]
+  			}];
+  		this.callParent(arguments);
+  	}
+});

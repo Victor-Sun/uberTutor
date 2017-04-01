@@ -1,0 +1,17 @@
+/**
+ * 个人管理-待办任务-ViewModel
+ */
+Ext.define('ExtApp.view.myworkspace.TodoListViewModel',{
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.todoList',
+    
+	stores: {
+        todoListQMS: {
+            type: 'todoListQMS'
+        },
+    	todoListConn: {
+            type: 'todoListConn'
+        }
+    }
+
+});

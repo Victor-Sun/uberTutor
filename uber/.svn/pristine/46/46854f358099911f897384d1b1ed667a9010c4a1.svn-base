@@ -1,0 +1,7 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectTemplateLibraryModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.projectTemplateLibrary',
+    
+    fields: ['id', 'text', 'iconCls', 'leaf', 'type', 'programTempId']
+
+});

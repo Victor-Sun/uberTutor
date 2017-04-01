@@ -1,0 +1,17 @@
+/*
+ * 通知提醒Store
+ */
+Ext.define('ExtApp.store.projectmanagement.ProjectNoteListStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectNoteList',
+    fields: ['id','title'],
+    pageSize:ExtApp.common.Constants.pageSize,
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-note!getNoteList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

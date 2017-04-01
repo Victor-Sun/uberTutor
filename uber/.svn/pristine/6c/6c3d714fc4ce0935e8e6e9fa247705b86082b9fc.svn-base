@@ -1,0 +1,17 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectValveDocument01Store', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectValveDocument01',
+    
+    model: 'ExtApp.model.projectmanagement.ProjectValveDocument01Model',
+
+    groupField: 'obsName',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-valve-document!getProjectValveDocument.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

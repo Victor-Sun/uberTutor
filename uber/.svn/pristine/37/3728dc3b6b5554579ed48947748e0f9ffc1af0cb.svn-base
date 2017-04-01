@@ -1,0 +1,13 @@
+/**
+ * 质量问题管理-仪表盘ViewModel
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.QMSDashboardViewModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.qmsDashboard',
+    
+    stores: {
+    	program:{
+        	type: 'program'
+        }
+    }
+});

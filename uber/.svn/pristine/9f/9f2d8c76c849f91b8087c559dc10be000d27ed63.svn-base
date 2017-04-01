@@ -1,0 +1,132 @@
+/**
+ * 项目管理-车型项目-节点进度趋势图
+ */
+Ext.define('ExtpApp.view.projectmanagment.vehicle.TaskProgressChart',{
+	extend: 'Ext.panel.Panel',
+	xtype: 'taskProgressChart',
+	
+	controller: 'taskProgressChart',
+	
+	layout: 'fit',
+	
+	initComponent: function() {
+		// Store
+		var store = Ext.create('ExtApp.store.projectmanagement.VehicleDashboardTaskProgressStore');
+		store.getProxy().extraParams = {programVehicleId: this.programVehicleId};
+		store.load();
+		
+		this.items = [{
+			xtype: 'cartesian',
+	        width: '100%',
+	        height: 300,
+	        interactions: {
+	            type: 'panzoom'
+	        },
+	        animation: {
+	            duration: 200
+	        },
+	        store: store,
+	        legend: {
+	        	docked: 'top'
+	        },
+	        insetPadding: 20,
+	        innerPadding: {
+	            left: 20,
+	            right: 20
+	        },
+	        axes: [{
+	            type: 'numeric',
+	            position: 'left',
+	            grid: true,
+	            minimum: 0,
+	            maximum: 100,
+	            renderer: 'onAxisLabelRender'
+	        }, {
+	            type: 'category',
+	            position: 'bottom',
+	            grid: true,
+	            label: {
+	                rotate: {
+	                    degrees: -45
+	                }
+	            }
+	        }],
+	        series: [{
+	            type: 'line',
+	            title: '计划进度',
+	            xField: 'dateTo',
+	            yField: 'nodePlanCompleteRate',
+	            colors: ['red'],
+	            style: {
+	                lineWidth: 2
+	            },
+	            marker: {
+	            	type: 'square',
+	                fx: {
+	                    duration: 200,
+	                    easing: 'backOut'
+	                },
+	                radius: 4,
+	                lineWidth: 2
+	            },
+//	            label: {
+//	                field: 'nodePlanCompleteRate',
+//	                display: 'over'
+//	            },
+	            highlight: {
+	                fillStyle: '#000',
+	                radius: 5,
+	                lineWidth: 2,
+	                strokeStyle: '#fff'
+	            },
+	            tooltip: {
+	                trackMouse: true,
+	                showDelay: 0,
+	                dismissDelay: 0,
+	                hideDelay: 0,
+	                renderer: 'onSeriesTooltipRender'
+	            }
+	        },{
+	        	type: 'line',
+	        	title: '实际进度',
+	            xField: 'dateTo',
+	            yField: 'nodeActualCompleteRate',
+	            colors: ['green'],
+	            style: {
+	                lineWidth: 2
+	            },
+	            marker: {
+	                radius: 4,
+	                lineWidth: 2,
+	                type: 'triangle',
+	                fx: {
+	                    duration: 200,
+	                    easing: 'backOut'
+	                }
+	            },
+//	            label: {
+//	                field: 'nodeActualCompleteRate',
+//	                display: 'over'
+//	            },
+	            highlight: {
+	                fillStyle: '#000',
+	                radius: 5,
+	                lineWidth: 2,
+	                strokeStyle: '#fff'
+	            },
+	            tooltip: {
+	                trackMouse: true,
+	                showDelay: 0,
+	                dismissDelay: 0,
+	                hideDelay: 0,
+	                renderer: 'onSeriesTooltipRender'
+	            }
+	        }],
+	        listeners: {
+	            itemhighlightchange: 'onItemHighlightChange'
+	        }
+		}];
+		this.callParent();
+	}
+	
+})

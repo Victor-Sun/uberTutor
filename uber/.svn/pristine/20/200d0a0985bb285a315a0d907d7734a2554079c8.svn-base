@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectTemplateGateNodeDeliverableStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectTemplateGateNodeDeliverable',
+    
+    model: 'ExtApp.model.projectmanagement.ProjectTemplateGateNodeDeliverableModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-temp!getTemplateGateNodeDeliverable.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

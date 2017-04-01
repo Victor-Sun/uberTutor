@@ -1,0 +1,191 @@
+/**
+ * 项目管理-专项-试验计划
+ */
+Ext.define('ExtApp.view.projectManagement.extplan.ProjectExtensionPlan01List',{
+	extend:'Ext.panel.Panel',
+	xtype:'projectExtensionPlan01List',
+	
+	scrollable:'y',
+	title: '试验计划清单',
+	
+	initComponent: function() {
+		
+		var liststore = Ext.create(						
+			'ExtApp.store.projectmanagement.ProjectExtensionPlanListStore');
+		liststore.getProxy().extraParams = {extProjectId: this.extProjectId};
+		liststore.load();
+		
+		this.items = [{
+			xtype: 'grid',
+			store: liststore,
+			columns: [{
+	            columns: [{
+	                text     : '序号',
+	                flex:1,
+	                xtype: 'rownumberer'
+	            }, {
+	                text     : '样车阶段',
+	                flex:1,
+	                dataIndex: 'c01'
+	            }]
+	        },{
+	        	text:'车辆基本信息',
+	        	columns:[{
+					text:'样车编号',
+					flex:1,
+					dataIndex:'c02'
+				},{
+					text:'车型代码',
+					flex:1,
+					dataIndex:'c03'
+				},{
+					text:'发动机排量',
+					flex:1,
+					dataIndex:'c04'
+				},{
+					text:'变速器',
+					flex:1,
+					dataIndex:'c05'
+				},{
+					text:'驱动型式',
+					flex:1,
+					dataIndex:'c06'
+				},{
+					text:'原型车样车编号（如有）',
+					flex:1,
+					dataIndex:'c07'
+				},{
+					text:'配置',
+					flex:1,
+					dataIndex:'c08'
+				}]
+	        },{
+	        	text:'试验需求信息',
+	        	columns:[{
+					text:'实验项目',
+					flex:1,
+					dataIndex:'c09'
+				},{
+					text:'试验提出人',
+					flex:1,
+					dataIndex:'c10'
+				},{
+					text:'提出组',
+					flex:1,
+					dataIndex:'c11'
+				},{
+					text:'试验地点',
+					flex:1,
+					dataIndex:'c12'
+				},{
+					text:'试验完成后状态',
+					flex:1,
+					dataIndex:'c13'
+				}]
+	        },{
+	        	columns:[{
+					text:'是否委托给试制试验部执行',
+					flex:1,
+					dataIndex:'c14'
+				}]
+	        },{
+	        	text:'车辆/试制要求',
+	        	columns:[{
+					text:'是/否需要电泳',
+					flex:1,
+					dataIndex:'c15'
+				}]
+	        },{
+	        	columns:[{
+					text:'是/否需要中上涂',
+					flex:1,
+					dataIndex:'c16'
+				}]
+	        },{
+	        	text:'车辆状态',
+	        	columns:[{
+					text:'涂装颜色',
+					flex:1,
+					dataIndex:'c17'
+				},{
+					text:'伪装方案',
+					flex:1,
+					dataIndex:'c18'
+				},{
+					text:'配重要求',
+					flex:1,
+					dataIndex:'c19'
+				},{
+					text:'对车辆状态要求',
+					flex:1,
+					dataIndex:'c20'
+				}]
+	        },{
+	        	columns:[{
+					text:'完全率（百分比）',
+					flex:1,
+					dataIndex:'c21'
+				}]
+	        },{
+	        	text:'试验计划',
+	        	columns:[{
+					text:'试验计划开始时间',
+					flex:1,
+					dataIndex:'c22'
+				},{
+					text:'试验实际开始时间',
+					flex:1,
+					dataIndex:'c23'
+				},{
+					text:'试验计划结束时间',
+					flex:1,
+					dataIndex:'c24'
+				},{
+					text:'试验实际结束时间',
+					flex:1,
+					dataIndex:'c25'
+				},{
+					text:'计划交车时间',
+					flex:1,
+					dataIndex:'c26'
+				},{
+					text:'实际交车时间',
+					flex:1,
+					dataIndex:'c27'
+				}]
+	        },{
+	        	text:'补充装车信息',
+	        	columns:[{
+					text:'示例：座椅/电池类型',
+					flex:1,
+					dataIndex:'c28'
+				},{
+					text:'滑移门',
+					flex:1,
+					dataIndex:'c29'
+				},{
+					text:'天窗',
+					flex:1,
+					dataIndex:'c30'
+				}]
+	        },{
+	        	columns:[{
+					text:'备注',
+					flex:1,
+					dataIndex:'c31'
+				}]
+	        }],
+	        tbar: [{
+	            text: '导出Excel',
+	            handler: ''
+	        }],
+	        dockedItems: [{
+				xtype: 'pagingtoolbar',
+				dock: 'bottom',
+				displayInfo: true,
+				store: liststore
+			}]
+		}]
+		this.callParent(arguments);
+	}	    	
+});

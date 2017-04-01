@@ -1,0 +1,39 @@
+Ext.define('ExtApp.view.projectmanagement.extplan.ext301.NodeList',{
+	extend: 'Ext.grid.Panel',
+	requires: [
+        'Ext.selection.CellModel'
+    ],
+	xtype: 'nodeList',
+	columns: [{
+		text: '节点',
+		dataIndex: 'title',
+		flex: 1
+	},{
+		xtype: 'datecolumn',
+		text: '计划完成',
+		dataIndex: 'plannedFinishDate',
+		flex: 1,
+		format: 'Y/m/d',
+		editor: {
+            xtype: 'datefield',
+            format: 'Y/m/d'
+        }
+	},{
+		text: '负责人',
+		dataIndex: 'ownerName',
+		felx: 1
+	}],
+	selModel: 'cellmodel',
+    plugins: [new Ext.grid.plugin.CellEditing({
+        clicksToEdit: 1
+    })],
+	listeners:{
+		edit: 'edit'
+	},
+	initComponent: function() {
+		var me = this;
+		var partNodeItemStore = Ext.create('ExtApp.store.projectmanagement.extplan.ext301.PartNodeItemStore');
+		me.store = partNodeItemStore;
+		me.callParent(arguments);
+	}
+});

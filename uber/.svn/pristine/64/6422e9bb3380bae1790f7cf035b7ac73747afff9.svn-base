@@ -1,0 +1,17 @@
+
+Ext.define('ExtApp.store.common.ObsUserStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.obsUser',
+
+    model: 'ExtApp.model.common.ObsUserModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/com/obs-user!getObsUserList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+
+});

@@ -1,0 +1,246 @@
+/**
+ * 项目管理-组织Controller
+ */
+Ext.define('ExtApp.view.projectmanagement.org.ProjectOrganization02Controller', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.projectOrganization02',
+    
+    // 初始化
+    init: function() {
+    	var grid = this.view.down('grid');
+    	// 只有专业领域下显示专业经理
+    	if (! this.view.isRespDept) {
+    		if (this.view.query('#panelFunctionMgr').length > 0) {
+    			this.view.query('#panelFunctionMgr')[0].setHidden(true);
+    		}
+    	}
+    	// 根据权限显示页面
+    	if (! this.view.editPrivilege ||
+    			(this.view.baselineId && this.view.baselineId != null)) {
+			grid.down('toolbar').setHidden(true);
+			// 隐藏操作栏
+			grid.down('actioncolumn').setHidden(true);
+			// 隐藏保存按钮
+			if (this.view.down('toolbar').query('#BTNP0600').length > 0) {
+				this.view.down('toolbar').query('#BTNP0600')[0].setHidden(true);
+    		}
+			// 基本信息只读
+			Ext.each(this.view.getForm().getFields().items, function(field) {
+				field.setReadOnly(true);
+				field.fieldCls = 'text-readonly';
+			});
+			// 隐藏专业经理选择按钮
+			if (this.view.query('#BTNSelFnGroupMgr').length > 0) {
+				this.view.query('#BTNSelFnGroupMgr')[0].setHidden(true);
+			}
+    	} else {
+    		this.view.rowEditing = new Ext.grid.plugin.RowEditing({
+	            clicksToEdit: 2
+	        });
+    		grid.addPlugin(this.view.rowEditing);
+    	}
+    	// 基本信息
+    	if (! this.view.infoEditFlag) {
+    		// 基本信息只读
+    		Ext.each(this.view.getForm().getFields().items, function(field) {
+				field.setReadOnly(true);
+				field.fieldCls = 'text-readonly';
+			});
+    		// 保存按钮不显示
+    		if (this.view.query('#BTNP0600').length > 0) {
+    			this.view.query('#BTNP0600')[0].setHidden(true);
+    		}
+			// 隐藏专业经理选择按钮
+    		if (this.view.query('#BTNSelFnGroupMgr').length > 0) {
+				this.view.query('#BTNSelFnGroupMgr')[0].setHidden(true);
+			}
+    	}
+    },
+    
+    // 保存基本信息
+    saveInfo: function(btn) {
+    	var me = this;
+        var form = this.view.getForm();
+        if (form.isValid()) {
+        	Ext.getBody().mask('Please Waiting...');
+            form.submit({
+                clientValidation: true,
+                url: '/pdms/pm/project-organization!updateObsInfo.action',
+                params: {
+                	obsId: this.view.obsId,
+                	programVehicleId: this.view.programVehicleId,
+                	model: Ext.encode(form.getFieldValues())
+                },
+                scope: me,
+                success: function(form, action) {
+                	var obsTree = me.view.up('projectOrganizationTab').activeTab.down('treepanel');
+                	obsTree.getSelection()[0].set('text', form.findField('obsName').value);
+                	obsTree.getSelection()[0].commit();
+                	Ext.getBody().unmask();
+                	ExtApp.util.Util.showToast("基本信息保存成功！");
+                },
+                failure: function(form, action) {
+                	Ext.getBody().unmask();
+                	ExtApp.util.Util.handleFormFailure(action);
+                }
+            });
+        }
+    },
+    
+    // 专业经理选择
+    selectUser: function() {
+    	var me = this;
+    	me.userType = 'FM';
+    	Ext.create({
+    		xtype: 'sysUserDepartment',
+    		parentCaller: me
+        }).show();
+    },
+
+    // 添加用户
+    addUser: function(btnObj) {
+    	var me = this;
+    	me.userType = 'USERS';
+    	Ext.create({
+    		xtype: 'sysUserDepartment',
+    		multiSelect: true,
+    		parentCaller: me
+    	}).show();
+    },
+    
+    // 添加用户/选择专业经理 - 确定
+    confirmUser: function(userData) {
+    	var me = this;
+    	if (this.userType == 'FM') {
+    		var form = this.view.getForm();
+        	// 提交保存
+        	me.view.mask('Please Waiting...');
+        	Ext.Ajax.request({
+    			url: '/pdms/pm/project-plan!updateFuncitonManager.action',
+        	 	params: {
+        	 		userId: userData.id,
+        	 		obsId: me.view.obsId
+        	 	},
+    			scope: me,
+    			success: function(response, opts) {
+    				me.view.unmask();
+    		    	var obj = Ext.decode(response.responseText);
+    		    	if (obj.success) {
+    		        	form.findField('fnGroupMgrName').setValue(userData.name);
+    		        	form.findField('fnGroupMgrId').setValue(userData.id);
+    		    		ExtApp.util.Util.showToast("专业经理保存成功！");
+    		        } else {
+    		        	ExtApp.util.Util.handleRequestFailure(response);
+    		        }
+    		    },
+    			failure: function(response, opts) {
+    				me.view.unmask();
+    		    	ExtApp.util.Util.handleRequestFailure(response);
+    		    }
+        	});
+    	} else {
+    		var grid = this.view.down('grid');
+        	var me = this;
+        	var modelData = [];
+        	for (var i = 0; i <userData.length; i++) {
+        		modelData.push(userData[i].data);
+        	}
+        	me.view.mask('Please Waiting...');
+        	Ext.Ajax.request({
+        		url: '/pdms/pm/project-organization!createObsUserInfo.action',
+        		params: {
+        			obsId: me.view.obsId,
+        			programId: me.view.programId,
+        			model: Ext.encode(modelData)
+    			},
+    			scope: me,
+    			success: function(response, opts) {
+    				me.view.unmask();
+    		    	var obj = Ext.decode(response.responseText);
+    		    	if (obj.success) {
+    		    		grid.getStore().reload();
+    		    		if (obj.data) {
+    		    			ExtApp.util.Util.showInfoMsg(obj.data);
+    		    		} else {
+    		    			ExtApp.util.Util.showToast("提交成功！");
+    		    		}
+    		        } else {
+    		        	ExtApp.util.Util.handleRequestFailure(response);
+    		        }
+    		    },
+    			failure: function(response, opts) {
+    				me.view.unmask();
+    		    	ExtApp.util.Util.handleRequestFailure(response);
+    		    }
+        	});
+    	}
+    },
+    
+    // 修改项目组织成员信息
+    onEdit: function(editor, context, eOpts) {
+    	var me = this;
+    	Ext.Ajax.request({
+    		url: '/pdms/pm/project-organization!updateObsUserInfo.action',
+    		params: {
+    			obsId: me.view.obsId,
+    			programId: me.view.programId,
+    			model: Ext.encode(context.record.data)
+			},
+			scope: me,
+			success: function(response, opts) {
+		    	var obj = Ext.decode(response.responseText);
+		    	if (obj.success) {
+		    		context.record.commit();
+			    	context.grid.getStore().reload();
+			    	ExtApp.util.Util.showToast("提交成功！");
+		        } else {
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	})
+    },
+    
+    // 删除人员
+    deleteUser: function(grid, rowIndex) {
+    	var me = this;
+    	var record = grid.getStore().getAt(rowIndex);
+    	Ext.MessageBox.confirm('提示', '您确定要删除该条记录吗?', function(btn) {
+    		// 提示信息点击【YES】则删除
+    		if (btn == 'yes') {
+    	    	Ext.Ajax.request({
+    	    		url:'/pdms/pm/project-organization!deleteObsUserInfo.action',
+    	    		params: {
+    	    			obsId: me.view.obsId,
+    	    			userId: record.data.userId,
+    	    			userObsId: record.data.id
+    				},
+    				scope: me,
+    				success: function(response, opts) {
+    			    	var obj = Ext.decode(response.responseText);
+    			    	if (obj.success) {
+    			    		grid.getStore().reload();
+        			    	ExtApp.util.Util.showToast("删除成功！");
+    			        } else {
+    			        	ExtApp.util.Util.handleRequestFailure(response);
+    			        }
+    			    },
+    				failure: function(response, opts) {
+    			    	ExtApp.util.Util.handleRequestFailure(response);
+    			    }
+    	    	})
+    		}
+    	});
+    },
+    
+    // 取消更新
+    onCanceledit: function(editor, context, eOpts) {
+    	var id = context.record.data.id;
+    	if (id.indexOf('projectmanagement') != -1) {
+    		// 新增记录时，如果取消，则需要删除增加的空行
+    		context.grid.getStore().removeAt(context.rowIdx);
+    	}
+    }
+});

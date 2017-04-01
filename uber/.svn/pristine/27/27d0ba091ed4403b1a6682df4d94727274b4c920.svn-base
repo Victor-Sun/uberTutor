@@ -1,0 +1,110 @@
+/**
+ * 部门空间-部门自建任务-问题归档
+ */
+Ext.define('ExtApp.view.deptworkspace.deptissue.ArchiveDeptIssueForm',{
+	extend:'Ext.form.Panel',
+	xtype:'archiveDeptIssueForm',
+	
+	scrollable: true,
+	
+	url: '/pdms/dws/dept-issue!getDeptIssue.action',
+	
+	viewModel: {
+		data: {
+			value: '',
+			value2:''
+		},
+		formulas: {
+			count: {
+				bind: '{value}',
+				get: function(value) {
+					var counter = 500 - value.length;
+					return "（最多500个字符, 还可输入 " + counter + " 个字符）";
+				}
+			},
+			count2: {
+				bind: '{value2}',
+				get: function(value2) {
+					var counter = 500 - value2.length;
+					return "（最多500个字符, 还可输入  " + counter + " 个字符）";
+				}
+			},
+			count3: {
+				bind: '{value3}',
+				get: function(value3) {
+					var counter = 500 - value3.length;
+					return "（最多500个字符, 还可输入  " + counter + " 个字符）";
+				}
+			}
+		}
+	},
+	
+	initComponent: function() {
+		var me = this;
+		
+		me.items = [{
+			xtype: 'fieldset',
+			title: '归档信息',
+			margin: 20,
+			items: [{
+				xtype:'panel',
+				layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				items:[{
+					xtype: 'textfield',
+					fieldLabel: '标题',
+					labelWidth: 130,
+					name: 'issueTitle',
+					padding:'10 25 10 30',
+					minWidth:250,
+					labelAlign: 'top'
+				},{
+					xtype:'textarea',
+					name:'issueDescription',
+					padding:'10 25 0 30',
+					labelAlign:'top', 
+					minWidth:250,
+					enforceMaxLength:true,
+					maxLength:500,
+					bind: '{value}',
+					fieldLabel:'问题描述'
+				},{
+					xtype:'box',
+					padding:'0 25 10 30',
+					bind: '{count}'
+				},{
+					xtype:'textarea',
+					name:'issueCause',
+					padding:'10 25 0 30',
+					labelAlign:'top', 
+					minWidth:250,
+					enforceMaxLength:true,
+					maxLength:500,
+					bind: '{value2}',
+					fieldLabel:'备注'
+				},{
+					xtype:'box',
+					padding:'0 25 10 30',
+					bind: '{count2}'
+				},{
+					xtype:'textarea',
+					name:'issueResolution',
+					padding:'10 25 0 30',
+					labelAlign:'top', 
+					minWidth:250,
+					enforceMaxLength:true,
+					maxLength:500,
+					bind: '{value3}',
+					fieldLabel:'解决方案'
+				},{
+					xtype:'box',
+					padding:'0 25 10 30',
+					bind: '{count3}'
+				}]
+			}]
+		}];
+		me.callParent(arguments);
+	}
+});

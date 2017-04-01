@@ -1,0 +1,13 @@
+Ext.define('ExtApp.store.projectmanagement.extplan.ext301.TempStdObsStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.tempStdObsStore',
+    fields: ['id', 'obsCode','obsName'],
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/ext301-checkpoint-temp!getTempStdObsList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

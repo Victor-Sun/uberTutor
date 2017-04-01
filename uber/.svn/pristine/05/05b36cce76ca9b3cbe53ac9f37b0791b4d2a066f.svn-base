@@ -1,0 +1,100 @@
+Ext.define('ExtApp.view.projectmanagement.issue.contribution.ContributionPage',{
+	extend: 'Ext.panel.Panel',
+	xtype: 'contributionpage',
+	
+	layout: {
+		type: 'vbox',
+		align: 'stretch'
+	},
+	items: [{
+		xtype: 'tabpanel',
+		flex: 1,
+		layout: 'fit',
+		items: [{
+//			title: 'Statistics - List',
+//			xtype: 'panel',
+//			layout: {
+//				type: 'hbox',
+//				align: 'stretch',
+//			},
+//			defaults: {
+//				cls: 'shadow',
+//				flex: 1,
+//				margin: 10,
+//			},
+//			items: [{
+//				xtype: 'contributiongrid'
+//			},{
+//				xtype: 'contributionreferencegrid'
+//			},{
+//				xtype: 'contributionviewgrid'
+//			},{
+//				title: 'Project'
+//			}]
+//		},{
+			xtype: 'panel',
+			title: 'Statistics - Chart',
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
+			defaults: {
+				cls: 'shadow',
+				flex: 1,
+				margin: 10
+			},
+			items: [{
+				xtype: 'container',
+				layout: {
+					type: 'hbox',
+					align: 'stretch'
+				},
+				defaults: {
+					flex: 1
+				},
+				items: [{
+					title: 'Top 10 Contributors',
+					layout: 'fit',
+					items: [{
+						xtype: 'contributionuserchart'
+					}]
+				},{
+					title: 'Top 10 Referenced Contributions',
+					layout: 'fit',
+					items: [{
+						xtype: 'contributionreferencechart'
+					}]
+				}]
+			},{
+				xtype: 'container',
+				layout: {
+					type: 'hbox',
+					align: 'stretch'
+				},
+				defaults: {
+					flex: 1
+				},
+				items: [{
+					title: 'Top 10 Viewed Contributions',
+					layout: 'fit',
+					items: [{
+						xtype: 'contributionviewchart'
+					}]
+				},{
+					title: 'Projects with Highest Contribution Count',
+					layout: 'fit',
+					items: [{
+						xtype: 'contributionprojectchart'
+					}]
+				}]
+			}]
+//		},{
+//			title: 'Search User',
+//			layout: 'fit',
+//			xtype: 'searchuser',
+//		},{
+//			title: 'User Info',
+//			xtype: 'userinfo',
+		}]
+	}]
+});

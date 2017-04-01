@@ -1,0 +1,77 @@
+/**
+ * 项目管理-组织-基本信息View
+ */
+Ext.define('ExtApp.view.projectmanagement.org.ProjectOrganization01',{
+	extend:'Ext.panel.Panel',
+	xtype:'projectOrganization01',
+	
+	controller:'projectOrganizationTab',
+	layout: 'fit',
+
+	initComponent: function() {
+		// 一级组织架构编辑权限
+		this.editPrivilege = ExtApp.util.Util.getPrivilege(
+				'P0602', this.projectPrivilege, this.programVehicleId);
+		// 查看基线页面不能编辑
+		if (this.baselineId && this.baselineId != null) {
+			this.editPrivilege = false;
+		}
+		var useStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProjectOrganization01Store');
+		useStore.getProxy().extraParams = {
+			programId: this.programId,
+			programVehicleId: this.programVehicleId,
+			baselineId: this.baselineId};
+		useStore.load();
+			
+		this.items = [{
+			xtype:'panel',
+			margin:10,
+			layout:{
+				type:'hbox',
+				align:'stretch'
+			},
+			items:[{
+				flex:1,
+				xtype:'panel',	
+				layout: 'fit',
+				margin:5,
+				cls:'shadow',
+				items:[{
+					xtype:'treepanel',
+					scrollable:'y',
+					rootVisible: false,
+                    store:useStore,
+					listeners:{
+						selectionchange: 'onSelectionchange',
+						itemcontextmenu: 'showMenuLevelOne'
+					}
+				}]
+			},{
+				flex:3,
+				xtype:'panel',
+				margin:5,
+				cls:'shadow',
+				reference: 'mainCardPanel',
+				layout: {
+					type: 'card'
+				}
+			}]
+		}];
+//		this.tbar = [{
+////			xtype:'button',
+////			itemId: 'BTNP0607',
+////			text:'发布',
+////			iconCls: 'x-fa fa-file-sound-o',
+////			handler: 'deployLevelOne',
+////			hidden: true
+////		},{
+//			xtype:'button',
+//			itemId: 'BTNP0603',
+//			iconCls: 'x-fa fa-files-o',
+//			text:'历史版本',
+//			hidden: true
+//		}];
+		this.callParent(arguments);
+	}
+});

@@ -1,0 +1,19 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectValveDocument01Model', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.projectValveDocument01',
+    
+    fields: [
+             {name: 'id'},
+             {name: 'code'},
+             {name: 'name'},
+             {name: 'obsId'},
+             {name: 'obsName'},
+             {name: 'progress'},
+             {name: 'quality'},
+             {name: 'attcnt', type: 'number'},
+             {name: 'isKey'},
+             {name: 'isFit'},
+             {name: 'refTaskId'}
+    ]
+
+});

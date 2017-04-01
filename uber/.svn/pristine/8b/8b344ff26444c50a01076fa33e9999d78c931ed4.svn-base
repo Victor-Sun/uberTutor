@@ -1,0 +1,14 @@
+Ext.define('ExtApp.view.forum.ForumGridController',{
+	extend: 'Ext.app.ViewController',
+	alias: 'controller.forumgrid',
+	createPost:function(){
+		me = this;
+		Ext.create('ExtApp.view.forum.ForumPost',{grid:me.getView(),sourceId:me.getView().sourceId,source:me.getView().source}).show();
+	},
+	replyPost:function(th,record,item,index,e,eOpts){
+		me = this;
+		if('BUTTON' == e.event.srcElement.nodeName){
+			Ext.create('ExtApp.view.forum.ForumReply',{grid:me.getView(),sourceId:me.getView().sourceId,source:me.getView().source,parentId:e.event.srcElement.value}).show();
+		}
+	}
+});

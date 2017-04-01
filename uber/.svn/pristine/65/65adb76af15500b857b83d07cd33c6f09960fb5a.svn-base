@@ -1,0 +1,17 @@
+Ext.define('ExtApp.store.qualityissuemanagement.LastAccessStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.lastaccess',
+
+    fields: ['qeTitle', 'qeStatus', 'qeLevel', 'beProject', 'formKey', 'mark', 'risk', 'id' ],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/last-access!getImsIssue.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    pageSize:15
+//    autoLoad: true
+});

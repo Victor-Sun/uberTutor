@@ -1,0 +1,95 @@
+/**
+ * 待办任务-基本信息
+ */
+Ext.define('ExtApp.view.myworkspace.task.PmTaskGeneral',{
+	extend:'Ext.form.Panel',
+	xtype:'pmTaskGeneral',
+	
+	margin:10,
+	
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+	
+	initComponent: function() {
+		this.items = [{
+			xtype:'panel',
+			layout:{
+				type:'vbox',
+				align:'stretch'
+			},
+			defaults:{
+				layout:{
+					type:'hbox',
+					align:'stretch'
+				},
+				defaults:{
+					xtype:'textfield',
+					readOnly: true,
+					fieldCls: 'text-readonly',
+					labelAlign:top,
+					labelWidth:80,
+					flex:1,
+					margin:2
+				}
+			},
+			items:[{
+				xtype:'panel',
+				items:[{
+					fieldLabel:'任务名称',
+					name: 'taskName'
+				}]
+			},{
+				xtype:'panel',
+				items:[{
+					fieldLabel:'所属项目',
+					name: 'programCode'
+				},{
+					fieldLabel:'所属项目组织',
+					name: 'obsName'
+				}]
+			},{
+				xtype:'panel',
+				items:[{
+					fieldLabel:'优先级',
+					name: 'taskPriorityName'
+				},{
+					fieldLabel:'状态',
+					name: 'taskStatusName'
+				}]
+			},{
+				xtype:'panel',
+				items:[{
+					fieldLabel:'责任人',
+					name: 'taskOwnerName'
+				},{
+					fieldLabel:'发布人',
+					name: 'publishByName'
+				}]
+			},{
+				xtype:'panel',
+				items:[{
+					xtype: 'datefield',
+					fieldLabel:'计划开始日期',
+					format: 'Y/m/d',
+					name: 'plannedStartDate'
+				},{
+					xtype: 'datefield',
+					fieldLabel:'计划完成日期',
+					format: 'Y/m/d',
+					name: 'plannedFinishDate'
+				}]
+			},{
+				xtype:'panel',
+				margin:'0 0 5 0',
+				items:[{
+					xtype:'textarea',
+					fieldLabel:'任务描述',
+					name: 'taskDescription'
+				}]
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

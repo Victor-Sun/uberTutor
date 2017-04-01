@@ -1,0 +1,32 @@
+Ext.define('ExtApp.store.qualityissuemanagement.MergedIssueStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.mergedIssue',
+
+    fields: [
+         {name: 'id'},
+         {name: 'code'},
+         {name: 'title'},
+         {name: 'issueStatus'},
+         {name: 'issueLevel'},
+         {name: 'programCode'},
+         {name: 'obsName'},
+         {name: 'riskLevelCode'},
+         {name: 'daysElapsed', type: 'number'},
+         {name: 'listingDate', type: 'date'},
+         {name: 'delistDate', type: 'date'},
+         {name: 'formClassId'},
+         {name: 'taskName'},
+         {name: 'taskOwnerName'}
+    ],
+    
+    pageSize: ExtApp.common.Constants.pageSize,
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/ims-issue!getMergedIssueList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

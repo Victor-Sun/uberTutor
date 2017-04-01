@@ -1,0 +1,99 @@
+Ext.define('ExtApp.view.projectmanagement.cp.ProjectValveDocument02Controller', {
+	extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.projectValveDocument02',
+    
+    init: function() {
+//    	// 阀门已通过
+//    	if (this.view.isGatePass) {
+//    		var toolbarItems = this.view.down('toolbar').items;
+//    		// 隐藏阀门通过按钮
+//    		toolbarItems.getAt(0).setHidden(true);
+//    		toolbarItems.getAt(2).setHidden(true);
+//    		// 隐藏阀门状态变更按钮
+//    		this.view.down('combobox').setHidden(true);
+//    		// 追加阀门已 通过
+//    		this.view.down('form').add({
+//    			xtype:'displayfield',
+//				fieldLabel:'通过状态'	,
+//				value: '阀门已通过',
+//				columnWidth: 1
+//    		});
+//    	}
+    },
+    
+    // 更改阀门状态
+    onChangeGateStatus: function(combol, newValue, oldValue, eOpts) {
+    	if (! newValue ||
+    			newValue.indexOf('GATE_STATUS_') != 0) {
+    		return;
+    	}
+    	var sc = this.lookupReference('refGateStatusCode');
+    	sc.setValue(newValue);
+    },
+    
+    // 取消
+    cancel: function(btn) {
+    	this.view.close(); 
+	},
+
+    // 确定
+    confirm: function(btn) {
+    	var me = this;
+    	var form = this.view.down('form').getForm();
+    	if (form.isValid()) {
+    		me.view.mask('Please Waiting...');
+	    	var gateStatus = form.findField('gateStatusCode').value;
+	    	form.submit({
+                clientValidation: true,
+                url: '/pdms/pm/project-valve-document!updateGateStatus.action',
+                params: {
+                	taskId: me.view.taskId,
+					gateStatus: gateStatus
+                },
+                scope: me,
+                success: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.showToast("提交成功！");
+                	me.view.parentCaller.changeGateStatus(gateStatus);
+                	me.view.close();
+                },
+                failure: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.handleFormFailure(action);
+                }
+            });
+    	}
+	}
+//
+//	// 阀门通过
+//	forward: function(btn) {
+//		var me = this;
+//		var form = this.view.down('form').getForm();
+//		if (form.isValid()) {
+//			me.view.mask('Please Waiting...');
+//	    	var gateStatus = form.findField('gateStatusCode').value;
+//	    	form.submit({
+//                clientValidation: true,
+//                url: '/pdms/pm/project-valve-document!updateGateStatusForward.action',
+//                params: {
+//                	taskId: me.view.taskId,
+//    				programId: me.view.programId,
+//    				programVehicleId: me.view.programVehicleId
+//                },
+//                scope: me,
+//                success: function(form, action) {
+//                	var result = ExtApp.util.Util.decodeJSON(action.response.responseText);
+//                	me.view.unmask();
+//                	ExtApp.util.Util.showToast("提交成功！");
+//                	me.view.up().lookupController().changeGateStatus(
+//                			"GATE_STATUS_GREEN", result.data, true);
+//                	me.view.close();
+//                },
+//                failure: function(form, action) {
+//                	me.view.unmask();
+//                	ExtApp.util.Util.handleFormFailure(action);
+//                }
+//            });
+//    	}
+//	}
+});

@@ -1,0 +1,25 @@
+/**
+ * 质量问题管理-我的草稿-详细信息ViewModel
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.MySubInfoViewModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.mySubInfo',
+
+    stores: {
+    	problemSource: {
+            type: 'problemSource'
+        },
+        buildPhase: {
+            type: 'buildPhase'
+        },
+        testType: {
+            type: 'testType'
+        },
+        program: {
+            type: 'program'
+        },
+        programVehicle: {
+            type: 'programVehicle'
+        }
+    }
+});

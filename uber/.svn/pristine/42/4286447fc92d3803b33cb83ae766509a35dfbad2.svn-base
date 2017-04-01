@@ -1,0 +1,14 @@
+/**
+ * 项目管理-计划-主计划-阶段ViewModel
+ */
+Ext.define('ExtApp.view.projectManagement.stage.ProjectPlanStageViewModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.projectPlanStage',
+
+    formulas: {
+    	disableFlg: function (get) {
+    		var action = this.getView().action;
+            return action=='view';
+        }
+    }
+});

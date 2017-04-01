@@ -1,0 +1,197 @@
+/**
+ * This class is the main view for the application. It is specified in app.js as the
+ * "mainView" property. That setting automatically applies the "viewport"
+ * plugin causing this view to become the body element (i.e., the viewport).
+ *
+ * TODO - Replace this content of this view to suite the needs of your application.
+ */
+Ext.define('ExtApp.view.systemsettings.main.SysMain', {
+    extend: 'Ext.container.Viewport',
+    xtype: 'sysmain',
+	
+    requires: [
+    'ExtApp.view.systemsettings.main.SysMainController',
+    'ExtApp.view.systemsettings.main.SysMainContainerWrap'
+    ],
+	
+     controller: 'sysmain',
+	
+	listeners: {
+//         render: 'onMainViewRender'
+    },
+
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+	
+	initComponent: function() {
+		var  treeStore = Ext.create('Ext.data.TreeStore', {
+			root: {
+				expanded: true,
+				singleExpand:true,
+				children:[{
+//					text:'项目组织模型',
+//					iconCls:'x-fa ',
+//					expanded: true,
+//					viewType:'projectOrgModel',
+//					leaf:true
+					
+					text:'项目管理',
+					children:[{
+						text:'角色管理',
+						iconCls:'x-fa ',
+						viewType: 'projectrolemanager',
+						leaf:true
+					},{
+						text:'权限管理',
+						iconCls:'x-fa ',
+						viewType: 'projectuserrole',
+						leaf:true
+					}]
+				},{
+					text:'系统管理',
+					children:[{
+						text:'角色管理',
+						leaf:true,
+						viewType:'systemuser'
+					},{
+						text:'用户角色管理',
+						leaf:true,
+						viewType:'systemrole'
+					}]
+				}]
+			}
+		});
+	
+		this.items = [{
+			xtype: 'toolbar',
+			cls: 'sencha-dash-dash-headerbar shadow',
+			height: 64,
+			itemId: 'headerBar',
+			items: [{
+				xtype: 'panel',
+				reference: 'senchaLogo',
+				cls: 'sencha-logo',
+				width: 200,
+				layout:{
+					type:'hbox'
+				},
+				items:[{
+					xtype:'toolbar',
+					flex:1,
+					items:[{
+						iconCls:'x-fa fa-th',
+						margin:'8 8 8 5',
+						arrowVisible:false,
+						ui:'header',
+						menuAlign:'tr',
+						menu:[{
+							iconCls: 'x-fa fa-home',
+							text:'Home',
+							viewType:'appmain',
+							listeners:{
+								click: 'onClickSubMenu'
+							}
+//						},{
+//							text:'item two'
+//						},{
+//							text:'item three'
+						}]
+					},{
+						xtype:'tbtext',
+						margin:'0 0 0 20',
+						text:'<div class="main-logo"><b>系统设置</b></div>'
+					}]									
+//				},{
+//					xtype:'panel',
+//					margin:'0 0 0 10',
+//					html:'<div class="main-logo" style="font-size:25px"></div>'
+
+				}]
+			},{
+				margin: '0 0 0 8',
+				ui: 'header',
+				iconCls:'x-fa fa-navicon',
+				id: 'main-navigation-btn',
+				handler: 'onToggleNavigationSize'
+			},
+			'->',
+			{
+				iconCls:'x-fa fa-search',
+				ui: 'header',
+				href: '#searchresults',
+				hrefTarget: '_self',
+				tooltip: '搜索'
+			},{
+				iconCls:'x-fa fa-envelope',
+				ui: 'header',
+				href: '#alerts',
+				hrefTarget: '_self',
+				tooltip: '新消息提醒'
+			},{
+				iconCls:'x-fa fa-gear',
+				ui: 'header',
+				href: '#settings',
+				hrefTarget: '_self',
+				tooltip:'个人设置'
+			},{
+				iconCls:'x-fa fa-sign-out',
+				ui: 'header',
+				href: '#logout',
+				hrefTarget: '_self',
+				tooltip: '注销'
+			},{
+				xtype: 'tbtext',
+				itemId:'userNameItemId',
+				text: '',
+				cls: 'top-user-name'
+			},{
+				xtype: 'image',
+				cls: 'header-right-profile-image',
+				height: 35,
+				width: 35,
+				alt:'current user image',
+				src: 'resources/images/user-profile/2.png'
+			}]
+		}
+		,{
+			xtype: 'qmsMainContainerWrap',
+			reference: 'mainContainerWrap',
+			layout:{
+				type:'hbox',
+				align:'stretchmax'
+			},
+			scrollable: 'y',
+			flex: 1,
+			items: [{
+				xtype: 'treelist',
+				reference: 'navigationTreeList',
+				itemId: 'navigationTreeList',
+				ui: 'navigation',
+				store: treeStore,
+				width: 200,
+				expanderFirst: false,
+				expanderOnly: false,
+				listeners: {
+					selectionchange: 'onNavigationTreeSelectionChange'
+				}
+			},{
+				xtype: 'container',
+				flex: 1,
+				reference: 'mainCardPanel',
+				cls: 'sencha-dash-right-main-container',
+				itemId: 'contentPanel',
+				defaults:{
+					minHeight:500
+				},
+				layout: {
+					type: 'card',
+					anchor: '100%'
+				}
+			}]
+		}];
+		
+		this.callParent(arguments);
+	}
+});

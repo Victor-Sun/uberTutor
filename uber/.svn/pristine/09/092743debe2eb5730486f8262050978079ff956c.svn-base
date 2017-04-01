@@ -1,0 +1,76 @@
+﻿/**
+ * 质量问题管理-待办事项-ViewModel
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.MyTaskViewModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.myTask',
+
+    stores: {
+    	myTask: {
+            type: 'myTask'
+        },
+        testType: {
+            type: 'testType'
+        },
+        problemSource: {
+            type: 'problemSource'
+        },
+        buildPhase: {
+            type: 'buildPhase'
+        },
+        faultState:{
+        	type: 'faultState'
+        },
+        issueType:{
+        	type: 'issueType'
+        },
+        verification:{
+        	type: 'verification'
+        },
+        effectConfirmation:{
+        	type: 'effectConfirmation'
+        },
+        issueLevel:{
+        	type: 'issueLevel'
+        },
+        resDepartment:{
+        	type: 'resDepartment'
+        },
+        txtDepartment:{
+        	type: 'txtDepartment'
+        },
+        changeLog:{
+        	type: 'changeLog'
+        },
+        mergeInfo:{
+        	type: 'mergeInfo'
+        },
+        mainInfo:{
+        	type: 'mainInfo'
+        },
+        program:{
+        	type: 'program'
+        },
+        subProgramVehicle: {
+            type: 'subProgramVehicle'
+        },
+        vImsPart: {
+            type: 'vImsPart'
+        },
+        vImsPartName: {
+            type: 'vImsPartName'
+        },
+        searchChoice: {
+            type: 'searchChoice'
+        },
+        engineers: {
+            type: 'engineers'
+        },
+        engineerLeads: {
+            type: 'engineerLeads'
+        },
+        issueNature: {
+            type: 'issueNature'
+        }
+    }
+});

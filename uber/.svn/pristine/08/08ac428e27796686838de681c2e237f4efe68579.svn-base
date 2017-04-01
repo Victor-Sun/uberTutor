@@ -1,0 +1,233 @@
+/**
+ * 个人管理-待办任务-分配责任部门
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.step1.MyTaskInfo01', {
+	extend:'Ext.form.Panel',
+	xtype:'myTaskInfo01',
+	viewModel:'myTask',
+	header: false,
+	issueId:null,
+	
+	layout: {
+		type: 'border'
+	},
+	controller: 'myTaskInfo01',
+	initComponent:function() {
+		var me = this;
+		var resDepartmentStore = Ext.create('ExtApp.store.qualityissuemanagement.ResDepartmentStore');
+		resDepartmentStore.load({params:{keyId:me.record.get('subProjectId'),queryFlg:1}});
+		var issueMember = Ext.create('ExtApp.view.qualityissuemanagement.qedashboard.ForumMember',{sourceId:me.issueId});
+		me.items = [{
+			xtype:'tabpanel',
+			region: 'center',
+			defaults: {
+				scrollable: 'y'
+			},
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
+			margin:0,
+			items:[{
+				xtype:'panel',
+				title:'问题信息',
+				layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				items:[{
+					xtype:'issueBaseInfo'
+				},{
+					xtype:'issueDetailInfo'
+				},{
+					xtype:'tabpanel',
+					layout: 'fit',
+					activeTab: 1,
+					items:[{
+//						title:'问题描述',
+//						xtype:'issueDescription'
+//					},{
+						// 附件描述
+						xtype:'imsSubmitAttachment',
+						title:'描述附件',
+						margin: 0,
+						height:150,
+//						width:1000,
+						scrollable: 'y',
+						programId: null,
+			    		sourceType: 'SOURCE_TYPE_DES_ATTACHMENT',
+			    		sourceId: this.issueId,
+			    		editable:false
+					},{
+						xtype:'panel',
+						title:'分配责任部门',
+						layout:{
+							type:'vbox',
+							align: 'stretch'
+						},
+						items:[{
+							xtype: 'fieldset',
+							margin: 5,
+							title:'分配责任部门',
+							layout: 'vbox',
+							defaults: {
+								layout: 'hbox'
+							},
+							items: [{// line2
+								xtype:'container',
+								layout:{
+									type:'hbox',
+									align:'stretch'
+								},
+								defaults: {
+									labelAlign: 'top'
+								},
+								items:[{
+									xtype:'combo',
+									fieldLabel:'责任部门 &nbsp;<span style="color: red;">*</span>',
+									editable:false,
+									queryMode:'local',
+									displayField:'name',
+									valueField:'id',
+									margin:'0 0 10 0',
+									allowBlank:false,
+									name:'deptId',
+									store:resDepartmentStore
+								},{
+									xtype: 'textfield',
+									fieldLabel:'专业经理 &nbsp;<span style="color: red;">*</span>',
+									emptyText: '<单击选择人员>',
+									name : "fmName",
+									editable: false,
+									allowBlank:false,
+									listeners:{
+										click: {
+								            element: 'el',
+								            fn: 'selectMember'
+								        }
+									},
+									margin:'0 0 10 10'
+								},{
+									xtype:'combo',
+									fieldLabel:'问题等级 &nbsp;<span style="color: red;">*</span>',
+									readOnly: false,
+									editable:false,
+									bind:{
+										store:'{issueLevel}'
+									},
+									queryMode:'local',
+									displayField:'name',
+									valueField:'id',
+									margin:'0 0 10 10',
+									allowBlank:false,
+									name:'issueLevelCode'
+								},{
+									xtype:'textfield',
+									fieldLabel:'专业经理ID',
+									hidden:true,
+									readOnly:true,
+									name:'fm'
+								}]
+							}]
+						}]						
+					}]
+				}]
+			},{
+				xtype:'forum',
+				region:'center',
+				title:'协作',
+				sourceId:this.issueId,
+				source:'IMS-ISSUE',
+				forumMember:issueMember
+			},{
+				xtype:'mergedIssue',
+				title:'合并信息',
+				issueId: this.issueId
+//			},{
+//				xtype:'changeLog',
+//				flex: 1,
+//				margin: 0,
+//				title:'变更日志',
+//				issueId: me.issueId
+			},{
+				xtype:'historyForm',
+				flex: 1,
+				margin: 0,
+				title:'历史表单',
+				issueId: this.issueId
+			},{
+				xtype:'onePageReport',
+				margin: 0,
+				title:'一页纸报告',
+				issueId:this.issueId,
+				height:this.height
+			}]
+		},{
+			xtype:'operationLog',
+			collapsible: true,
+			split: true,
+			region:'east',
+			width: '20%',
+			margin: 0,
+			title:'操作日志',
+			issueId: me.issueId
+		}];
+		me.dockedItems = [{
+			xtype:'toolbar',
+			dock: 'bottom',
+			cls: 'shadow',
+			defaults: {
+				scale: 'medium'
+			},
+//			renderTo:document.body,
+			items:['->',{
+				text:'分配',
+				ui: 'blue',
+				itemId:'btnDistribution',
+				handler:'distribution',
+				hidden: false
+			},{
+				text:'通过',
+				ui: 'blue',
+				itemId:'btnAdopt',
+				handler:'distribution',
+				hidden: !false
+			},{
+				text:'回退',
+				ui: 'blue',
+				itemId:'btnFallback',
+				handler:'fallback'
+			},{
+				text:'合并',
+				itemId:'btnCombined',
+				ui: 'blue',
+				handler:'mergeIssue',
+				hidden: false
+			},{
+				text:'挂牌',
+				ui: 'blue',
+				hidden: ! me.listingPrivilege,
+				handler: function() {
+					ExtApp.view.qualityissuemanagement.qedashboard.MyTaskInfoCommonController.listing(me, me.issueId);
+				}
+			},{
+				itemId:'delListingItemId',
+				text:'摘牌',
+				ui: 'blue',
+				hidden: ! me.delListingPrivilege,
+				handler: function() {
+					ExtApp.view.qualityissuemanagement.qedashboard.MyTaskInfoCommonController.delListing(me, me.issueId);
+				}
+			},{
+				itemId:'undoListingItemId',
+				text:'取消挂牌',
+				ui: 'blue',
+				hidden: ! me.undoListingPrivilege,
+				handler: function() {
+					ExtApp.view.qualityissuemanagement.qedashboard.MyTaskInfoCommonController.undoListing(me, me.issueId);
+				}
+			}]
+		}];
+		this.callParent();
+	}
+});

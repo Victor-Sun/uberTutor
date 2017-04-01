@@ -1,0 +1,46 @@
+/**
+ * 项目管理-主节点-SOP节点
+ */
+Ext.define('ExtApp.view.projectManagement.mainnode.ProjectPlanSOP',{
+	extend:'Ext.form.Panel',
+	xtype:'projectPlanSOP',
+	
+	layout: 'fit',
+	
+	url: '/pdms/pm/project-plan-major-node!getProjectPlanSOP.action',
+	controller: 'projectPlanSOP',
+	
+	initComponent: function() {
+		
+		this.items = [{
+			xtype: 'panel',
+			layout: {
+				type: 'hbox',
+				align: 'stretch'
+			},
+			defaults: {
+				margin: 5,
+				readOnly: true,
+				fieldCls: 'text-readonly'
+			},
+			items: [{
+				xtype: 'textfield',
+				flex: 1,
+				fieldLabel: '名称',
+				name: 'taskName'
+			},{
+				xtype: 'datefield',
+				flex: 1,
+				fieldLabel: 'SOP时间',
+				format: 'Y/m/d',
+				name: 'plannedFinishDate'
+			}],
+			tbar: [{
+				text: '编辑SOP',
+                iconCls: 'x-fa fa-edit',
+                handler: 'editSOP'
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

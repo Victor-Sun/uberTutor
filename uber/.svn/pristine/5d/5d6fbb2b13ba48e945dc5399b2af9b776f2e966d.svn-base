@@ -1,0 +1,14 @@
+
+Ext.define('ExtApp.view.myworkspace.task.PmTaskTimeReportLogController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.pmTaskTimeReportLog',
+
+    renderPercentComplete: function (value) {
+    	if (value == null) {
+    		return '';
+    	} else {
+    		var percentComplete = value * 100 + '%';
+    		return percentComplete;
+    	}
+	}
+});

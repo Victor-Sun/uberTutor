@@ -1,0 +1,30 @@
+/**
+ * 质量问题管理-用户首页-热点问题-详细信息
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.QMSDashboardHotInfo',{
+	extend:'Ext.window.Window',
+	xtype:'qmsdashboardhotinfo',
+
+	//viewModel: 'myTaskInfo01CompareWindow',
+//	controller: 'myTaskInfo01ComparedWindow',
+	closeAction:"hide",
+//	modal: true,
+	width:1300,
+	scrollable: 'y',
+
+	initComponent: function() {
+		var bodyHeight = Ext.Element.getViewportHeight() - 100;
+		this.height = bodyHeight;
+
+//		this.tbar = ['->',{
+//			text:'合并确定',
+//			iconCls:'x-fa fa-clone',
+//			handler:'confirm'
+//		},{
+//			text:'返回',
+//			iconCls:'x-fa fa-reply',
+//			handler:'cancel'
+//		}]
+		this.callParent();
+	}
+});

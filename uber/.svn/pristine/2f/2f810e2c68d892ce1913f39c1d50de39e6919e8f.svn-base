@@ -1,0 +1,63 @@
+/**
+ * 首页-个人设置-常用项目View
+ */
+Ext.define('ExtApp.view.toolbarsettings.ProgramChangePws',{
+	extend:'Ext.panel.Panel',
+	xtype:'programChangePws',
+
+	controller: 'programChangePws',
+	width:800,
+	height:300,
+	scrollable: 'y',
+
+	initComponent: function() {
+		this.items = [{
+			xtype:'form',
+			reference: 'refpersonalSettingsForm',
+			layout:{
+				type:'vbox',
+				align:'stretch'
+			},
+			items:[{
+				xtype:'toolbar',
+				items:['->',{
+					text:'确定',
+					iconCls: 'x-fa fa-save',
+					handler: 'personalSettings'
+				}]
+			},{
+				xtype:'panel',
+				layout:'center',
+				items:[{
+					xtype:'panel',
+					reference: 'refpersonalSettingsField',
+					margin:10,
+					flex:1,
+					defaults:{
+						margin:5
+					},
+					items:[{
+						xtype:'textfield',
+						fieldLabel:'原口令',
+						emptyText: '请输入原口令',
+				        inputType: 'password',
+						name: 'oldPws'
+					},{
+						xtype:'textfield',
+						fieldLabel:'新口令',
+						emptyText: '请输入新口令',
+				        inputType: 'password',
+						name: 'newPws'
+					},{
+						xtype:'textfield',
+						fieldLabel:'确认口令',
+						emptyText: '请再次输入新口令',
+				        inputType: 'password',
+						name: 'againPws'
+					}]
+				}]
+			}]		
+		}]
+		this.callParent(arguments);
+	}
+});

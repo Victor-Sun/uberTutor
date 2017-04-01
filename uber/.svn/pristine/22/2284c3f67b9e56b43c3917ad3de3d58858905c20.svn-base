@@ -1,0 +1,13 @@
+Ext.define('ExtApp.store.projectmanagement.extplan.ext201.common.ChecklistNotes', {
+    extend: 'Ext.data.Store',
+    alias: 'store.checklistNotes',
+    fields:['id','note','createDate', 'taskId'],
+	proxy: {
+    	type: 'ajax',
+    	url: '/pdms/pm/project-extension-plan!getChecklistNotes.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

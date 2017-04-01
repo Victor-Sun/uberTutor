@@ -1,0 +1,73 @@
+Ext.define('ExtApp.model.Event', {
+
+    extend      : 'Sch.model.Event',
+
+    mixins : [
+        'ExtApp.model.Base'
+    ],
+    
+    requires : [
+        'ExtApp.model.MileStone'
+    ],
+
+    fields      : [
+        { name : 'Line', type : 'int', defaultValue : 1 },
+        { name : 'MileStoneChange', type : 'int', defaultValue : 0 , persist : false }
+        //Inner MileStones are read from the task data. The convert function will turn the data into MileStone models.
+        // { name  : 'MileStones', convert : function(value) {
+        //     return Ext.Array.map(value || [], function (ms) {
+        //         return new Timeline.model.MileStone(ms);
+        //     });
+        // }}
+    ].concat(ExtApp.model.Base.fields),
+
+    hasMany: [{
+        name: 'MileStones',
+        associationKey: 'MileStones',
+        model: 'ExtApp.model.MileStone'
+    }],
+    
+    setMileStoneChange : function () {
+        var change = this.get('MileStoneChange');
+        change++;
+        this.set('MileStoneChange', change);  
+    },
+
+    isMileStone : function () {
+        return this.getStartDate().getTime() === this.getEndDate().getTime();  
+    },
+
+    //Update all inner MileStones 
+    setStartDate : function (start) {
+
+        var milestones = this.MileStones(),
+            prevDate = Ext.Date.clone(this.getStartDate());
+
+        milestones.each(function (milestone) {
+            var stoneDate = milestone.get('Date'),
+                diff = Ext.Date.diff(prevDate, start, Ext.Date.MINUTE);
+
+            milestone.set('Date', Ext.Date.add(stoneDate, Ext.Date.MINUTE, diff));
+        });
+        
+        this.callParent(arguments);
+        this.setMileStoneChange();
+    },
+
+    
+    //Major task and MileStones are not resizable
+    getResizable : function (){
+        
+        var resource = this.getResource();
+        
+        if (resource && resource.get('Type') === BlockTypes.Major) {
+            return false;
+        }
+
+        if (!this.isMileStone())
+            return this.callParent();
+        else 
+            return false;
+    }
+
+});

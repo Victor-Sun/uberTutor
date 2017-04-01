@@ -1,0 +1,156 @@
+Ext.define('ExtApp.view.projectmanagement.extplan.ext301.PartsPool',{
+	extend: 'Ext.tab.Panel',
+	xtype: 'partspool',
+	controller: 'partsPool',
+	layout: {
+		type: 'fit'
+	},
+	defaults: {
+//		padding: 1,
+		cls: 'shadow'
+	},
+//	margin: 10,
+//	header: {
+//		items: [{
+//			xtype: 'component',
+//			html: '计划编辑&nbsp;<i class="x-fa fa-arrow-right"></i>&nbsp;计划检查&nbsp;<i class="x-fa fa-arrow-right"></i>&nbsp;计划确认&nbsp;<i class="x-fa fa-arrow-right"></i>&nbsp;执行',
+//		}],
+//		itemPosition: 0
+//	},
+//	title: '计划编辑&nbsp;<i class="x-fa fa-arrow-right"></i>&nbsp;计划检查&nbsp;<i class="x-fa fa-arrow-right"></i>&nbsp;计划确认&nbsp;<i class="x-fa fa-arrow-right"></i>&nbsp;执行',
+	items: [{
+		xtype:'tabpanel',
+		title: '计划信息',
+		region: 'fit',
+		defaults: {
+			scrollable: true
+		},
+		layout: {
+			type: 'vbox',
+			align: 'stretch'
+		},
+//		margin:'10 0 10 0',
+		items:[{
+			title: '计划编辑',
+			layout: {
+				type: 'hbox',
+				align: 'stretch'
+			},
+			defaults: {
+				padding: 1,
+				cls: 'shadow'
+			},
+			items: [{
+				title: '零件清单',
+				xtype: 'partSchedulePool',
+				flex: 4,
+				dockedItems: [{
+					xtype: 'toolbar',
+					dock: 'top',
+					items: [{
+						xtype: 'button', 
+						text: '提交',
+						value:'NEXT',
+						handler:'submitPartSchedule'
+					},{
+						xtype: 'button', 
+						text: '批量设置',
+						handler:'batchSetFinishDate'
+					},{
+						xtype: 'button', 
+						text: '导出',
+						handler:'exportPartControll'
+					},{
+						xtype: 'button', 
+						text: '导入',
+						handler:'importPartControll'
+					}]
+				}]
+			},{
+				xtype: 'splitter'
+			},{
+				title: '节点清单',
+				xtype: 'nodeList',
+				flex: 6
+			}]
+		},{
+			title: '计划检查',
+			layout: {
+				type: 'hbox',
+				align: 'stretch'
+			},
+			defaults: {
+				padding: 1,
+				cls: 'shadow'
+			},
+			items: [{
+				title: '管控表',
+				xtype: 'partCheckControl',
+				flex: 4
+			}]
+		},{
+			title: '计划确认',
+			layout: {
+				type: 'hbox',
+				align: 'stretch'
+			},
+			defaults: {
+				padding: 1,
+				cls: 'shadow'
+			},
+			items: [{
+				title: '管控表',
+				xtype: 'partConfirmControlList',
+				flex: 4
+			}]
+		}]
+	},{
+		title: '执行',
+		xtype: 'partExcutePanel'
+	},{
+		title:'管控表',
+		xtype:'partPlannedControlList'
+	}],
+	initComponent: function() {
+		var me = this;
+		var program = Ext.create('ExtApp.store.qualityissuemanagement.ProgramStore');
+		program.load();
+		var programVehicleStore = Ext.create('ExtApp.store.qualityissuemanagement.ProgramVehicleStore');
+		
+		me.dockedItems = [{
+			xtype: 'toolbar',
+			cls: 'shadow',
+			dock: 'top',
+			items: [{
+				xtype:'combo',
+				fieldLabel:'项目 ',
+				editable: false,
+				store: program,
+				queryMode:'local',
+				displayField:'name',
+				valueField:'id',
+				listeners: {
+					change: function(combo, newValue, oldValue, eOpts) {
+				    	programVehicleStore.load({params:{programId: newValue}});
+				    }
+				},
+				allowBlank:false,
+				name:'projectId'
+			},{
+				xtype : 'combo',
+				fieldLabel:'车型',
+				editable: false,
+				queryMode:'local',
+				displayField:'name',
+				valueField:'id',
+				allowBlank:false,
+				store:programVehicleStore,
+				name:'subProjectId',
+				listeners: {
+					change: 'changeMenu'
+				}
+			}]
+		}],
+		this.callParent();
+	}
+});

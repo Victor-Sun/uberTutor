@@ -1,0 +1,19 @@
+/**
+ * 码表信息Store
+ */
+Ext.define('ExtApp.store.common.CodeTableStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.codeTable',
+
+    model: 'ExtApp.model.common.CodeTableModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/com/sys-code!getSysCodeList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+    
+});

@@ -1,0 +1,29 @@
+/**
+ * 历史表单Store
+ */
+Ext.define('ExtApp.store.qualityissuemanagement.HistoryFormStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.historyForm',
+
+    fields: [
+         {name: 'issueId'},
+         {name: 'code'},
+         {name: 'title'},
+         {name: 'issueStatus'},
+         {name: 'issueLevel'},
+         {name: 'programCode'},
+         {name: 'revision'},
+         {name: 'hstCreateDate', type: 'date'}
+    ],
+    
+    pageSize: ExtApp.common.Constants.pageSize,
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/history-form!getHistoryForm.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

@@ -1,0 +1,73 @@
+/*
+* 通知提醒View
+*/
+Ext.define('ExtApp.view.projectManagement.note.NoteList',{
+	extend:'Ext.container.Container',
+	xtype:'noteList',
+	
+	controller: 'noteList',
+	cls: 'shadow',
+	layout: 'fit',
+	
+	initComponent: function() {
+		var me = this;
+		var noteStore = Ext.create('ExtApp.store.projectmanagement.ProjectNoteListStore');
+//		noteStore.load();
+	
+		this.items = [{
+			itemId:'noteListId',
+			xtype: 'grid',
+			hideHeaders: true,
+			store: noteStore,
+			selModel: {
+//	        	type: 'spreadsheet',
+		        checkboxSelect: true
+//		        cellSelect: false,
+//		        mode: 'SIMPLE'
+		    },
+			columns:[{
+				xtype: 'templatecolumn',
+				flex: 1,
+				tpl:'<div class="text-wrapper">'+
+				        '<div class="notify-content">'+
+							'<div class="notify-paragraph">'+
+								'<span class="notify-title">{title}</span><br><br>'+
+								'<span style="color: #1e90ff;">{createDate}</span style="color: #cecece;">&nbsp;<br>'+
+							'</div>'+
+						'</div>'+
+					'</div>'
+//				text:'标题',
+//				flex: 1,
+//				dataIndex:'title',
+//				renderer: 'renderNotity'
+//			},{
+//				text:'来源',
+//				flex: 1,
+//				dataIndex:'noticeSourceName',
+//				renderer: 'renderNotity'
+//			},{
+//				text:'内容',
+//				flex: 1,
+//				dataIndex:'content',
+//				renderer: 'renderNotity'
+			}],
+			listeners:{
+	        	celldblclick: 'onCelldblclick',
+	        	cellclick:'cellclick'
+			},
+			dockedItems: [{
+				xtype: 'toolbar',
+				dock: 'top',
+				items: [{
+					xtype: 'button', 
+					text: '新建笔记',
+					handler:'newNote'
+				}]
+			}]
+//			tbar: [{
+//				
+//			}]
+		}];
+		this.callParent();
+	}
+});

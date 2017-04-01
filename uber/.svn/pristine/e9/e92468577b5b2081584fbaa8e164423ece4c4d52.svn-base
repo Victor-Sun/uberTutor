@@ -1,0 +1,114 @@
+/**
+ * 项目管理-节点清单管理Controller
+ */
+Ext.define('ExtApp.view.projectmanagement.ProjectNodeListController', {
+	extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.projectNodeList',
+    
+    init: function() {
+    	// 权限控制
+    	if (! ExtApp.util.Util.getPrivilege('P0302', this.view.projectPrivilege,
+    			this.view.programVehicleId)) {
+    		this.view.down('grid').down('toolbar').query('#BTNP0302')[0].setHidden(true);
+    	}
+    },
+    
+    //更改进展状态
+    selectStatus:function(combo, record, eOpts) {
+    	var rec = combo.$widgetRecord.data;
+    	if (rec.taskStatusCode != 'TASK_STATUS_IN_PROCESS') {
+    		ExtApp.util.Util.showErrorMsg("该任务不在进行中、不允许更改状态!");
+    		combo.setValue(rec.taskProgressStatusCode);
+    		return;
+    	}
+    	Ext.getBody().mask('Please Waiting...');
+    	Ext.Ajax.request({
+    		url:'/pdms/pm/project-task-list!ProjectTaskListChange.action',
+    		params: {
+    			taskId: rec.id,
+    			taskProgressStatusCode: record.data.code
+			},
+			scope: combo,
+			success: function(response, opts) {
+		    	Ext.getBody().unmask();
+		    	var obj = Ext.decode(response.responseText);
+    	        if (obj.success) {
+    	        	this.up('grid').getStore().reload();
+    		    	ExtApp.util.Util.showToast("更新成功！");
+    	        } else {
+    	        	ExtApp.util.Util.handleRequestFailure(response);
+    	        }
+		    },
+			failure: function(response, opts) {
+				Ext.getBody().unmask();
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	})
+    },
+    
+    // 查询
+    search: function(btn, e) {
+    	var me = this;
+    	me.view.mask('Please Waiting...');
+    	var form = me.view.down('toolbar').down('form').getForm();
+    	var store = Ext.create(
+			'ExtApp.store.projectmanagement.ProjectNodeListStore');
+    	store.getProxy().extraParams = {
+    		programVehicleId: me.view.programVehicleId,
+			searchModel: Ext.encode(form.getFieldValues())
+		};
+    	store.load();
+    	store.on('load', function() {
+    		me.view.down('grid').setStore(this);
+    		me.view.down('pagingtoolbar').setStore(this);
+    		me.view.unmask();
+    	});
+    },
+    
+    // 重置
+    reloadSearch: function() {
+    	var me = this;
+
+    	var form = this.view.down('toolbar').down('form').getForm();
+    	Ext.each(form.getFields().items, function(field) {
+    		if (field.xtype != 'displayfield') {
+    			if (field.xtype == 'checkbox') {
+        			field.setValue(true);
+        		} else {
+        			field.setValue('');
+        		}
+    		}
+		});
+    	this.search();
+    },
+    
+    // 导出
+    export2Excel:function(){
+    	var me = this;
+    	var url = 'rpt=pm/projectNodeListReport.brt&emitter=toxls';
+    	// 车型ID
+    	var params = 'programVehicleId=' + me.view.programVehicleId + ';';
+    	// 查询条件
+    	var form = me.view.down('toolbar').down('form').getForm();
+    	// 计划完成时间From
+    	if (form.findField('searchPFDateFrom').value != '' && form.findField('searchPFDateFrom').value != null) {
+    		params += 'searchPFDateFrom=' + ExtApp.util.Util.formatDate(form.findField('searchPFDateFrom').value, '-') + ';';
+    	}
+    	// 计划完成时间To
+    	if (form.findField('searchPFDateTo').value != '' && form.findField('searchPFDateTo').value != null) {
+    		params += 'searchPFDateTo=' + ExtApp.util.Util.formatDate(form.findField('searchPFDateTo').value, '-') + ';';
+    	}
+    	// 节点名称
+    	if (form.findField('searchTaskName').value !='' && form.findField('searchTaskName').value != null) {
+    		params += 'searchTaskName=' + form.findField('searchTaskName').value + ';';
+    	}
+    	// 专业领域
+    	if (form.findField('searchRespObsId').value !='' && form.findField('searchRespObsId').value != null) {
+    		params += 'searchRespObsId=' + form.findField('searchRespObsId').value + ';';
+    	}
+    	if (params.length > 0) {
+    		url += '&params=' + params;
+    	}
+    	ExtApp.util.Util.openReport(url);
+    }
+});

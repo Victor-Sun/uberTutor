@@ -1,0 +1,149 @@
+/**
+ * 项目管理-车型项目-交付物看板
+ */
+Ext.define('ExtApp.view.projectmanagement.vehicle.DeliverableStatusChart',{
+	extend:'Ext.panel.Panel',
+	xtype:'deliverableStatusChart',
+
+	layout: 'fit',
+	margin: 10,
+	
+	controller: 'deliverableStatusChart',
+	
+	initComponent: function() {
+		// Store
+		var store = Ext.create('ExtApp.store.projectmanagement.VehicleDashboardDeliverableStore');
+		store.getProxy().extraParams = {programVehicleId: this.programVehicleId};
+		store.load();
+
+		this.items = [{
+			xtype:'panel',
+			layout: {
+				type:'vbox',
+				align:'stretch'
+			},
+			items: [{
+				xtype: 'panel',
+				layout: 'hbox',
+				items: [{
+					xtype: 'displayfield',
+					fieldLabel: '<b>总数量</b>',
+					width: 80
+				},{
+					xtype: 'progressbar',
+					itemId: 'totalCnt',
+					flex: 1,
+					width: '100%'
+				}]
+			},{
+				xtype: 'panel',
+				margin: '10 0 0 0',
+				layout: 'hbox',
+				items: [{
+					xtype: 'displayfield',
+					fieldLabel: '<b>状态</b>',
+					width: 80,
+					labelSeparator: ''
+				}]
+			},{
+				xtype: 'panel',
+				margin: '0 0 5 0',
+				height: 2,
+				bodyStyle: {
+					background: '#D0D0D0'
+				}
+			},{
+				xtype: 'panel',
+				layout: 'hbox',
+				items: [{
+					xtype: 'displayfield',
+					fieldLabel: '已提交',
+					width: 80
+				},{
+					xtype: 'progressbar',
+					itemId: 'submitedCnt',
+					flex: 1,
+					width: '100%'
+				}]
+			},{
+				xtype: 'panel',
+				layout: 'hbox',
+				items: [{
+					xtype: 'displayfield',
+					fieldLabel: '未提交',
+					width: 80
+				},{
+					xtype: 'progressbar',
+					itemId: 'unsubmitCnt',
+					flex: 1,
+					width: '100%'
+				}]
+			},{
+				xtype: 'panel',
+				margin: '10 0 0 0',
+				layout: 'hbox',
+				items: [{
+					xtype: 'displayfield',
+					fieldLabel: '<b>当前节点状态</b>',
+					width: 80,
+					labelSeparator: ''
+				}]
+			},{
+				xtype: 'panel',
+				margin: '0 0 5 0',
+				height: 2,
+				bodyStyle: {
+					background: '#D0D0D0'
+				}
+			},{
+				xtype:'grid',
+				store: store,
+				columns:[{
+					text: '<center>当<br>前<br>节<br>点</center>',
+					dataIndex: 'gateCode',
+					flex: 1,
+					align: 'center'
+				},{ 
+					text: '<center>总<br>数<br>量</center>',
+					flex: 1,
+					dataIndex: 'total',
+					align: 'center'
+				},{ 
+					text: '<center>未<br>启<br>动</center>',
+					flex: 1,
+					dataIndex: 'notStart',
+					align: 'center'
+				},{
+					text: '风险状况',
+					columns: [{
+						text: '<center><img src="resources/images/Green.png" width="15px"/><br>无风险</center>',
+						width: 70,
+						dataIndex: 'green',
+						align: 'center'
+					},{ 
+						text: '<center><img src="resources/images/GreenYellow.png" width="15px"/><br>小风险</center>',
+						width: 70,
+						dataIndex: 'greenYellow',
+						align: 'center'
+					},{ 
+						text: '<center><img src="resources/images/Yellow.png" width="15px"/><br>中风险</center>',
+						width: 70,
+						dataIndex: 'yellow',
+						align: 'center'
+					},{ 
+						text: '<center><img src="resources/images/Red.png" width="15px"/><br>大风险</center>',
+						width: 70,
+						dataIndex: 'red',
+						align: 'center'
+					},{ 
+						text: '<center><img src="resources/images/Blue.png" width="15px"/><br>无法判断</center>',
+						width: 80,
+						dataIndex: 'blue',
+						align: 'center'
+					}]
+				}]
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

@@ -1,0 +1,29 @@
+﻿/**
+ * 项目管理-基本信息-开发范围
+ */
+Ext.define('ExtApp.view.projectmanagement.base.ProjectBaseInfo05',{
+	extend:'Ext.panel.Panel',
+	xtype:'projectBaseInfo05',
+	
+	margin:20,
+
+	initComponent: function() {
+
+	    this.items = [{
+			xtype:'fieldset',
+			title: '<B>开发范围</B>',
+			collapsible:true,
+			items:[{
+				xtype: 'panel',
+				items: [{
+					xtype: 'fileAttachment',
+					programId: this.programId,
+		    		sourceType: 'SOURCE_TYPE_PM_SCOPE',
+		    		sourceId: this.programId,
+		    		editable: this.editPrivilege
+				}]
+			}]
+	    }];
+		this.callParent(arguments);
+	}
+});

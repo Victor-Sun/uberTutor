@@ -1,0 +1,73 @@
+/**
+ * 部门空间-部门自建任务-问题表单
+ */
+Ext.define('ExtApp.view.deptworkspace.deptissue.DeptIssueFormController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.deptIssueForm',
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	var form = me.view.getForm();
+    	// 提交问题并且非草稿时
+    	if (me.view.actionType == 'raise') {
+    		me.view.query('#performPanel')[0].setHidden(true);
+    		// 科室
+    		form.findField('subDeptId').setReadOnly(false);
+    		form.findField('subDeptId').fieldCls = '';
+    		// 提出人
+    		form.findField('raiseBy').setReadOnly(false);
+    		form.findField('raiseBy').fieldCls = '';
+    		if (! (me.view.issueId && me.view.issueId != null && me.view.issueId != '')) {
+        		// POST提交者信息
+    			var loginUserStore = Ext.create(
+    				'ExtApp.store.common.LoginUserInfoStore');
+    			loginUserStore.load();
+    			loginUserStore.on('load', function() {
+    				form.findField('deptId').setValue(
+    						this.data.getAt(0).data.topDepartmentId);
+    				form.findField('deptName').setValue(
+    						this.data.getAt(0).data.topDepartmentName);
+    				form.findField('subDeptId').setValue(
+    						this.data.getAt(0).data.departmentId);
+    				form.findField('raiseBy').setValue(
+    						this.data.getAt(0).data.userId);
+    				form.findField('respDeptId').setValue(
+    						this.data.getAt(0).data.topDepartmentId);
+    				form.findField('respDeptName').setValue(
+    						this.data.getAt(0).data.topDepartmentName);
+    				form.findField('createBy').setValue(
+    						this.data.getAt(0).data.userId);
+    				form.findField('createByName').setValue(
+    						this.data.getAt(0).data.userName);
+    			});
+    		}
+    	} else if (this.view.actionType == 'process') {
+    		if (me.view.statusCode != 'OPEN') {
+        		// 提交问题以外，表单只读
+            	Ext.each(form.getFields().items, function(field) {
+            		if (field.xtype != 'displayfield') {
+            			field.setReadOnly(true);
+            			field.fieldCls = 'text-readonly';
+            		}
+        		});
+            	// 备注可填写
+            	form.findField('issueCause').setReadOnly(false);
+        		form.findField('issueCause').fieldCls = '';
+    		} else {
+    			// 不可以修改责任人
+    			form.findField('respUserId').setReadOnly(true);
+        		form.findField('respUserId').fieldCls = 'text-readonly';
+    		}
+    	} else {
+    		// 提交问题以外，表单只读
+        	Ext.each(form.getFields().items, function(field) {
+        		if (field.xtype != 'displayfield') {
+        			field.setReadOnly(true);
+        			field.fieldCls = 'text-readonly';
+        		}
+    		});
+    	}
+    }
+
+});

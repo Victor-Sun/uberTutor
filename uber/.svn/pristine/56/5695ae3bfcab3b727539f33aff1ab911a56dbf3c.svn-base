@@ -1,0 +1,14 @@
+Ext.define('ExtApp.view.projectManagement.issue.finishedissue.FinishedIssueFormController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.finishedIssue',
+    closeWindow:function(){
+    	var me = this;
+    	me.getView().close();
+    },
+    archiveIssue:function(){
+    	var me = this;
+    	var view = me.getView();
+    	var win = Ext.create("ExtApp.view.projectManagement.issue.archiveissue.ArchiveIssueWindow",{programId:view.programId,grid:view.grid,issueId:view.issueId}).show();
+		view.close();
+    }
+});

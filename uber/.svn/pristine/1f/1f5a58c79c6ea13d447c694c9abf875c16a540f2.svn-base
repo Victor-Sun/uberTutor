@@ -1,0 +1,15 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectTemplateGateNodeDeliverableModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.projectTemplateGateNodeDeliverable',
+
+    fields: [
+	    'taskName',
+	    'code',
+	    'name',
+	    'checkitemName',
+	    'checkRequirement',
+	    'obsName',
+	    'isKey'
+	]
+
+});

@@ -1,0 +1,23 @@
+{
+  "name": "bryntum-scheduler",
+  "format": "1",
+  "version": "4.2.7",
+  "creator": "Bryntum",
+  "summary": "Ext Scheduler Component",
+  "detailedDescription": "Ext Scheduler Component",
+  "type": "code",
+  "signatures": [
+    {
+      "name": "Bryntum",
+      "uuid": "e7fd1d2f-e151-442d-a624-1c8bd50d9842",
+      "created": "2016-09-23T08:54:52Z",
+      "algorithm": "SHA1withRSA",
+      "nonce": "5UWEWgpTr80\u003d",
+      "signature": "gAQAqZbA5qFiTnLtTU42yyRrux/h5tE97E9eX5sXiCggpmNd1xl7tRofyA/Lp9wvS6VZX1tbOnRPcY8H/v2GVsA7cbP8Bv0JuM0/LX7cT9vdAsHA95Xzpl+6sAon9Ufj8itKKWci2W5zOOsAEAu54C0C6RqelxmKGnL8lcy97l2i31alG9jRDPVrF/ZXcRyAciaRt4zI8Ba6C9xFspx1WNWUtgKVBo2HBkzfPe08OIYoTW1iyDMWoX3OuzXGfIBTsq9goXFHG/TWdy1doa1orcso9qA0OkIrfIkq0ufjj5ZiJX2zaP8Ur4jDPNqLXaAElaDZ008fhoIOFtck/lqoeg\u003d\u003d"
+    }
+  ],
+  "output": "${package.dir}/build",
+  "framework": "ext",
+  "toolkit": "classic",
+  "classpath": "${package.dir}/src"
+}

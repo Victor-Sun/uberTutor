@@ -1,0 +1,10 @@
+/**
+ * 项目管理-车型信息Tab
+ */
+Ext.define('ExtApp.view.projectManagement.report.ProjectDBStatusReportHomePage',{
+	extend:'Ext.tab.Panel',
+	xtype:'projectDBStatusReportHomePage',
+	
+	controller: 'projectDBStatusReportHomePage'
+	
+});

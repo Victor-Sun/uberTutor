@@ -1,0 +1,78 @@
+/**
+ * 质量问题管理-提交问题-知会-人员选择窗口Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.QeNotifySelectWindowController',{
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.qeNotifySelectWindow',
+
+	//点击确定
+    confirm: function(btn) {
+
+    	var gridSelected = this.view.down('qeNotifySelectedMemGrid').down('grid');
+    	var gridNotify = this.getView().up('qmsmain').down('qeNotify').down('grid');
+
+    	for (i = 0; i < gridSelected.getStore().getCount(); i++) {
+
+    		var intId = gridNotify.getStore().getCount();
+    		if (intId != 0 ) {
+    			intId = intId + 1;
+    		}
+    		var valId = gridSelected.getStore().getAt(i).get('memId');
+    		var valName = gridSelected.getStore().getAt(i).get('memName');
+
+    		var gridStore = gridNotify.getStore();
+    		if (gridStore.find('CurrentId', valId) == -1) {
+    			gridStore.insert(intId, {
+	    			CurrentId : valId,
+	    			CurrentName : valName
+	    		});
+    		} else {
+    	    	ExtApp.util.Util.showToast(Ext.String.format('员工['+valName+']已选择!.........'));
+    		}
+    	}
+    	btn.ownerCt.ownerCt.destroy();
+	},
+	//点击取消
+	closeWin: function(btn) {
+    	btn.ownerCt.ownerCt.destroy();
+	},
+	//增加人员
+	addMember: function(btn) {
+
+    	var gridSelect = this.view.down('qeNotifySelectMemberGrid').down('grid');
+    	var gridSelected = this.view.down('qeNotifySelectedMemGrid').down('grid');
+
+    	if (gridSelect.getSelection().length != 0){
+
+			Ext.each(gridSelect.getSelection(), function (record) {
+
+	    		var intId = gridSelected.getStore().getCount();
+	    		if (intId != 0 ) {
+	    			intId = intId + 1;
+	    		}
+        		var valId = record.data.id;
+        		var valName = record.data.name;
+        		var valPosition = record.data.profileName;
+
+        		var gridStore = gridSelected.getStore();
+        		if (gridStore.find('memId', valId) == -1) {
+        			gridStore.insert(intId, {
+            			memId : valId,
+            			memName : valName,
+            			memPosition : valPosition
+            		});
+        		} else {
+        	    	ExtApp.util.Util.showToast(Ext.String.format('员工['+valName+']已选择!.........'));
+        		}
+			});
+    	}else if (gridSelect.getSelection().length == 0){
+	    	ExtApp.util.Util.showToast(Ext.String.format('请选择至少一位员工!.......'));
+    	}
+	},
+	//删除人员
+	removeMember: function(btn) {
+
+    	var gridSelected = this.view.down('qeNotifySelectedMemGrid').down('grid');
+    	gridSelected.getStore().remove(gridSelected.getSelection());
+	}
+});

@@ -1,0 +1,16 @@
+Ext.define('ExtApp.view.projectmanagement.vehicle.ChartHelpController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.chartHelp',
+
+    listen: {
+        global: {
+            mousedown: 'dismissWindowCheck'
+        }
+    },
+
+    dismissWindowCheck: function(ev){
+        var view = this.getView();
+        if(!view.owns(ev.getTarget()))
+            view.close();
+    }
+});

@@ -1,0 +1,18 @@
+/**
+ * 首页-系统设置-权限管理Store
+ */
+Ext.define('ExtApp.store.systemsettings.ProjectrolemanagerPowerStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectrolemanagerPower',
+
+    model: 'ExtApp.model.systemsettings.ProjectrolemanagerPowerModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/sys/projectmanager!getProjectrolemanagerPower.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

@@ -1,0 +1,17 @@
+/**
+ * 项目管理-专项（根）View
+ */
+Ext.define('ExtApp.view.projectManagement.extplan.ProjectExtensionPlan',{
+	extend:'Ext.panel.Panel',
+	xtype:'projectExtensionPlan',
+	
+	items: [{
+		xtype:'panel',
+		items:[{
+			xtype:'panel',
+			margin:'10 10 10 10',
+			height:400,
+			bodyStyle: "background-color:transparent;"
+		}]
+	}]
+});

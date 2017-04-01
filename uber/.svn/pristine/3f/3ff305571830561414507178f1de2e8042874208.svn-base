@@ -1,0 +1,69 @@
+/**
+ * 项目计划-专业领域/专业组计划
+ */
+Ext.define('ExtApp.view.projectManagement.deptplan.DeptPlanBaseController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.deptPlanBase',
+    
+    editPrivilege: false,
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	
+    	if (me.view.record.get('planLevel') == '2') {
+        	var editStore = Ext.create(
+    			'ExtApp.store.projectmanagement.ObsPrivilegeStore');
+    		editStore.getProxy().extraParams = {
+    			obsId: me.view.record.get('fnGroupId')};
+    		editStore.load();
+    		editStore.on('load', function() {
+    			var obsEditFlg = this.data.getAt(0).get('obsCanEdit');
+    			me.setEditPrivilege('P1002', obsEditFlg, me.view.record.get('fnGroupId'));
+    		});
+    	} else {
+    		me.setEditPrivilege('P0902', true);
+    	}
+    },
+    
+    // 取得编辑权限
+    setEditPrivilege: function(editPrivilegeCode, obsEditFlg, obsId) {
+    	var me = this;
+    	
+		// 计划编辑权限取得
+		me.editPrivilege = ExtApp.util.Util.getPrivilege(
+				editPrivilegeCode, me.view.projectPrivilege, me.view.programVehicleId);
+    	
+    	// 计划状态取得
+    	var statusStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProjectPlanStatusStore');
+    	if (obsId) {
+    		statusStore.getProxy().extraParams = {
+    			programVehicleId: this.view.programVehicleId, obsId: obsId};
+    	} else {
+    		statusStore.getProxy().extraParams = {
+    			programVehicleId: this.view.programVehicleId};
+    	}
+		statusStore.load();
+		statusStore.on('load', function() {
+			var planStatus = this.data.getAt(0).get('planStatus');
+	    	// 编辑权限判定
+			me.editPrivilege = me.editPrivilege &&
+					planStatus == 'INACTIVE' &&
+					obsEditFlg &&
+					! (me.view.baselineId && me.view.baselineId != null);
+			// 泳道Tree
+			var functionTree = Ext.create({
+				xtype:'deptPlanFunction',
+				programId: me.view.programId,
+	        	programVehicleId: me.view.programVehicleId,
+	        	record: me.view.record,
+	        	projectPrivilege: me.view.projectPrivilege,
+	        	editPrivilege: me.editPrivilege,
+	        	baselineId: me.view.baselineId
+			});
+			var refPanel = me.lookupReference('refFunction');
+			refPanel.add(functionTree);
+		});
+    }
+});

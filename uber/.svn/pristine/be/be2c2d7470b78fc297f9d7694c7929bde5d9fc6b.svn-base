@@ -1,0 +1,15 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectPlanQualityValveModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.projectPlanQualityValve',
+    
+    fields: [
+             {name: 'id'},
+             {name: 'taskName'},
+             {name: 'plannedFinishDate', type: 'date'},
+             {name: 'percent', type: 'float'},
+             {name: 'count'},
+             {name: 'gateStatusCode'},
+             {name: 'vehicleId'}
+    ]
+
+});

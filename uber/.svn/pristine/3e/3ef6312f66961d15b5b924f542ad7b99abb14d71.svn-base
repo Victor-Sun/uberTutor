@@ -1,0 +1,90 @@
+/**
+ * 项目管理-查看基线
+ */
+Ext.define('ExtApp.view.projectmanagement.baseline.BaselineListController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.baselineList',
+    
+    // 双击列表
+    onCelldblclick: function(grid , td , cellIndex , record , tr , rowIndex , e , eOpts) {
+    	var rec = grid.getStore().getAt(rowIndex);
+    	// 查看项目计划基线详细
+		Ext.create({
+    		xtype: 'baselineWindow',
+    		programId: this.view.programId,
+    		programVehicleId: this.view.programVehicleId,
+    		obsId: this.view.obsId,
+    		baselineId: rec.get('id'),
+    		isActive: rec.get('isActive'),
+    		projectPrivilege: this.view.projectPrivilege,
+    		parentCaller: this
+    	}).show();
+    },
+    
+    // 默认基线（是/否）
+    renderIsDefault: function(value, meta, record) {
+    	if (value == 'Y') {
+    		value = '是';
+    	} else {
+    		value = '否';
+    	}
+    	return this.renderIsActive(value, meta, record);
+    },
+    
+    // 默认基线（是/否）
+    renderIsActive: function(value, meta, record) {
+    	if (record.get('isActive') == 'N') {
+    		value = '<font color="D0D0D0">' + value + '</font>';
+    	}
+    	return value;
+    },
+    
+    // 关闭
+    closeWindow: function(btn) {
+    	this.view.close();
+    },
+    
+    // 与最新版本比较
+    compareWithLatest: function() {
+    	var me = this;
+    	var selModel = me.view.down('grid').getSelection();
+    	if (selModel.length != 1) {
+    		ExtApp.util.Util.showErrorMsg('请选择任意一个版本与最新计划做对比！');
+    		return;
+    	}
+    	// 导出比较结果
+    	var url = 'rpt=pm/pm_task_change_log.brt&emitter=toxls';
+    	// 车型ID
+    	var params = 'programVehicleId=' + me.view.programVehicleId + ';';
+    	// 基线ID
+    	params += 'baselineId=' + selModel[0].data.id + ';';
+    	// OBSID
+    	if (me.view.obsId && me.view.obsId != null && me.view.obsId != '') {
+    		params += 'obsId=' + me.view.obsId + ';';
+    	}
+    	if (params.length > 0) {
+    		url += '&params=' + params;
+    	}
+    	ExtApp.util.Util.openReport(url);
+    },
+    
+    // 对比所选版本
+    compare: function() {
+    	var me = this;
+    	var selModel = me.view.down('grid').getSelection();
+    	if (selModel.length != 2) {
+    		ExtApp.util.Util.showErrorMsg('请选择任意两个版本进行对比！');
+    		return;
+    	}
+    	// 导出比较结果
+    	var url = 'rpt=pm/pm_task_baseline_change_log.brt&emitter=toxls';
+    	// 车型ID
+    	var params = 'baselineId_1=' + selModel[0].data.id + ';';
+    	// 基线ID
+    	params += 'baselineId_2=' + selModel[1].data.id + ';';
+    	if (params.length > 0) {
+    		url += '&params=' + params;
+    	}
+    	ExtApp.util.Util.openReport(url);
+    }
+});

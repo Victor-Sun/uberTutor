@@ -1,0 +1,27 @@
+/**
+ * 质量问题管理-管理员问题管理-风险等级
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qemanagement.RiskLevelWinController',{
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.riskLevelWin',
+    //风险等级   点击【确定】
+    confirm: function(btn) {
+    	var me = this;
+	    Ext.Ajax.request({
+			url:'/pdms/ims/risk-level!saveRiskLevel.action',
+			params: {
+				keyId: me.view.keyId,
+				riskLevelCode: me.view.down('radiogroup').getValue().risk
+			},
+			success: function(response, opts) {
+		    	ExtApp.util.Util.showToast(Ext.String.format('风险等级设定成功!'));
+		    	me.view.parentCaller.refreshView();
+		    	btn.up('riskLevelWin').destroy();
+		    }
+	    });
+    },
+    // 点击【取消】
+    cancel: function(btn) {
+    	btn.up('riskLevelWin').destroy();
+    }
+});

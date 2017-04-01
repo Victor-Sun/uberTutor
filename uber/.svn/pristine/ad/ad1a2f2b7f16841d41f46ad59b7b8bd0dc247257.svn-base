@@ -1,0 +1,49 @@
+/**
+ * 项目计划导入
+ */
+Ext.define('ExtApp.view.projectmanagement.extplan.ext202.Ext202ImportController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.ext202Import',
+    downloadTemplate:function(){
+    	var me = this;
+    	var projectId = me.getView().projectId;
+    	document.location.href = '/pdms/pm/ext202item!exportExcel.action?extProjectId='+projectId;
+    },
+    // 导入
+    import: function(btn, e) {
+    	var me = this;
+        var form = this.view.down('form').getForm();
+        if (form.isValid()) {
+        	//Ext.getBody().mask('Please Waiting...');
+            me.getView().mask('Please Waiting...');
+            form.submit({
+                clientValidation: true,
+                url: '/pdms/pm/ext202item!importFromExcel.action',
+                params: {
+                	extProjectId: me.view.projectId
+                },
+                scope: me,
+                success: 'onSuccess',
+                failure: 'onFailure'
+            });
+        }
+    },
+    
+    // 成功后操作
+    onSuccess: function(form, action) {
+    	//Ext.getBody().unmask();
+    	this.view.unmask();
+    	ExtApp.util.Util.showToast("导入成功！");
+        this.view.close();
+    },
+    
+    // 失败后操作
+    onFailure: function(form, action) {
+    	ExtApp.util.Util.handleFormFailure(action);
+    	this.view.unmask();
+    	ExtApp.util.Util.showToast("导入失败！");
+    	this.view.close();
+    }
+
+
+});

@@ -1,0 +1,467 @@
+/**
+ * 项目管理-项目计划-节点详细信息
+ */
+Ext.define('ExtApp.view.projectmanagement.deptplan.DeptPlanTaskDetail',{
+	extend: 'Ext.window.Window',
+	xtype: 'deptPlanTaskDetail',
+	
+	controller: 'deptPlanTaskDetail',
+	
+	width: 1100,
+	height: 650,
+	
+	modal: true,
+	closable: false,
+	
+	layout: {
+		type: 'vbox',
+		align: 'stretch'
+	},
+	
+	initComponent: function() {
+		var me = this;
+		
+		// obsId判定
+		var useObsId = '';
+		if (me.obsId && me.obsId != null && me.obsId != '') {
+			useObsId = me.obsId;
+		}
+		
+		var respObsId = '';
+		if (me.respObsId && me.respObsId != null && me.respObsId != '') {
+			respObsId = me.respObsId;
+		} else if (me.obsId && me.obsId != null && me.obsId != '') {
+			respObsId = me.obsId;
+		}
+		
+		// 节点类型Store
+		var typeStore = Ext.create('Ext.data.Store', {
+			fields: [
+		         {name: 'code', type: 'string'},
+		         {name: 'name', type: 'string'}
+		     ],
+		     data: [
+		         {code: 'TASK_TYPE_NODE', name: 'Node(节点)'},
+		         {code: 'TASK_TYPE_ACTIVITY', name: 'Activity(活动)'}
+		     ]
+		});
+		
+    	// Title显示位置Store
+    	var titleDispStore = Ext.create('ExtApp.store.common.CodeTableStore');
+    	titleDispStore.getProxy().extraParams = {type: 'TITLE_DISP_LOCATION'};
+    	titleDispStore.load();
+    	
+		// 负责人
+		var obsUserStore = Ext.create('ExtApp.store.common.ObsUserStore');
+		obsUserStore.getProxy().extraParams = {
+			programVehicleId: me.programVehicleId,
+			obsId: me.obsId,
+			includeSubDept: true};
+		obsUserStore.load();
+		var obsUserCombo = Ext.create('Ext.form.ComboBox', {
+			xtype: 'combo',
+			flex: 1,
+			fieldLabel: '负责人',
+			name: 'taskOwner',
+			store: obsUserStore,
+		    queryMode: 'local',
+		    valueField: 'userId',
+		    displayField: 'userName',
+		    forceSelection: true,
+		    listConfig: {
+                getInnerTpl: function() {
+                    return '<div class="search-item">' +
+		                       '<span class="results-left" style="min-width: 80px;"><h3>{userName}</h3></span>' +
+		                       '<span class="results-right" style="min-width: 100px;">{obsName}</span>' +
+		                   '</div>';
+                }
+		    }
+		});
+    	
+		// 负责主体
+		var respDeptStore;
+		if (useObsId != '') {
+			respDeptStore = Ext.create('ExtApp.store.projectmanagement.RespDeptChildStore');
+			respDeptStore.load({params:{programVehicleId: me.programVehicleId, rootObsId: useObsId}});
+		} else {
+			respDeptStore = Ext.create('ExtApp.store.projectmanagement.RespDeptStore');
+			respDeptStore.load({params:{programVehicleId: me.programVehicleId}});
+		}
+		// 负责主体判定
+		var respDeptCombo;
+		if (me.actionType == 'new') {
+			respDeptCombo = Ext.create('Ext.form.ComboBox', {
+				xtype: 'combobox',
+				flex: 1,
+				fieldLabel: '负责主体',
+				store: respDeptStore,
+			    queryMode: 'local',
+			    displayField: 'obsName',
+			    valueField: 'id',
+			    name: 'respObsId',
+			    value: respObsId,
+			    forceSelection: true,
+			    allowBlank: false
+//				listeners: {
+//					change: function(combo, newValue, oldValue, eOpts) {
+//						obsUserStore.load({
+//							params: {
+//								programVehicleId: me.programVehicleId,
+//								includeSubDept: true,
+//								obsId: newValue
+//							}
+//						});
+//					}
+//			    }
+			});
+		} else {
+			respDeptCombo = Ext.create('Ext.form.ComboBox', {
+				xtype: 'combobox',
+				flex: 1,
+				fieldLabel: '负责主体',
+				store: respDeptStore,
+			    queryMode: 'local',
+			    displayField: 'obsName',
+			    valueField: 'id',
+			    name: 'respObsId',
+			    forceSelection: true,
+			    allowBlank: false
+//				listeners: {
+//					change: function(combo, newValue, oldValue, eOpts) {
+//						obsUserStore.load({
+//							params: {
+//								programVehicleId: me.programVehicleId,
+//								includeSubDept: true,
+//								obsId: newValue
+//							}
+//						});
+//					}
+//			    }
+			});
+		}
+		
+		// 所属阀门Store
+		var gateStore = Ext.create('ExtApp.store.projectmanagement.ProjectValveDocumentStore');
+		gateStore.getProxy().extraParams = {
+			programId: me.programId,
+			programVehicleId: me.programVehicleId
+		};
+		gateStore.load();
+		
+    	// 节点类型为【活动】时
+		var hide4Activity = false;
+		if (me.taskTypeCode == 'TASK_TYPE_ACTIVITY') {
+			hide4Activity = true;
+		}
+		
+		// 新建节点时
+		var hide4new = false;
+		if (me.actionType == 'new') {
+			hide4new = true;
+		}
+		
+		this.items = [{
+			xtype: 'form',
+			scrollable: 'y',
+			//height: 500,
+			flex: 1,
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
+			items: [{
+				xtype: 'fieldset',
+				title: '节点信息',
+				margin: 10,
+				layout: {
+					type: 'vbox',
+					align: 'stretch'
+				},
+				defaults: {
+					layout: {
+						type: 'hbox',
+						align: 'stretch'
+					}
+				},
+				items: [{
+					xtype: 'panel',
+					defaults: {
+						margin: 5
+					},
+					items: [{
+						xtype: 'textfield',
+						flex: 1,
+						fieldLabel: '名称',
+						name: 'taskName',
+						allowBlank: false,
+		                maxLength: 255
+					},{
+						xtype: 'combobox',
+						flex: 1,
+		    			name: 'taskTypeCode',
+						fieldLabel: '类型',
+						store: typeStore,
+					    queryMode: 'local',
+					    displayField: 'name',
+					    valueField: 'code',
+					    forceSelection: true,
+					    allowBlank: false,
+					    listeners: {
+					    	change: 'onChangeTaskType'
+					    }
+					},{
+						xtype: 'combobox',
+						hidden: hide4Activity,
+						flex: 1,
+		    			name: 'titleDispLocation',
+						fieldLabel: '标题显示位置',
+						store: titleDispStore,
+					    queryMode: 'local',
+					    displayField: 'name',
+					    valueField: 'code',
+					    forceSelection: true,
+					    allowBlank: false,
+					    value: 'TITLE_DISP_LOCATION_UP'
+					},{
+						xtype: 'panel',
+						hidden: ! hide4Activity,
+						flex: 1,
+						itemId: 'dumyColumn'
+					}]
+				},{
+					xtype: 'panel',
+					defaults: {
+						margin: 5
+					},
+					items: [respDeptCombo, obsUserCombo, {
+						xtype: 'panel',
+						flex: 1
+					}]
+				},{
+					xtype: 'panel',
+					defaults: {
+						margin: 5
+					},
+					items: [{
+						xtype: 'datefield',
+						flex: 1,
+						format: 'Y/m/d',
+						name: 'plannedStartDate',
+						fieldLabel: '开始时间'
+					},{
+						xtype: 'datefield',
+						flex: 1,
+						format: 'Y/m/d',
+						name: 'plannedFinishDate',
+						fieldLabel: '截止时间'
+					},{
+						xtype: 'numberfield',
+						flex: 1,
+						fieldLabel: '周期（天）',
+						name: 'durationDays',
+						minValue: 0,
+		                maxValue: 99999
+					}]
+				},{
+					xtype: 'panel',
+					itemId: 'rPanel',
+					hidden: hide4Activity,
+					defaults: {
+						margin: 5
+					},
+					items: [{
+						xtype: 'panel',
+						flex: 1,
+						layout: {
+							type: 'hbox',
+							align: 'stretch'
+						},
+						items: [{
+							xtype: 'textfield',
+							flex: 1,
+							name: 'relationTaskName',
+							fieldLabel: '关联节点',
+							readOnly: true,
+							fieldCls: 'text-readonly'
+						},{
+					        xtype: 'hiddenfield',
+					        name: 'relationTaskId'
+						},{
+							xtype: 'button',
+							itemId: 'btnSelectRefTask',
+							text:'选择',
+							handler: 'selectRefTask'
+						},{
+							xtype: 'button',
+							itemId: 'btnClearRefTask',
+							text:'清除',
+							handler: 'clearRefTask'
+						}]
+					},{
+						xtype: 'panel',
+						flex: 1,
+						layout: {
+							type: 'hbox',
+							align: 'stretch'
+						},
+						items: [{
+							xtype: 'textfield',
+							flex: 1,
+							name: 'parentTaskName',
+							fieldLabel: '关联活动',
+							readOnly: true,
+							fieldCls: 'text-readonly'
+						},{
+					        xtype: 'hiddenfield',
+					        name: 'parentId'
+						},{
+							xtype: 'button',
+							itemId: 'btnSelectRefActivity',
+							text:'选择',
+							handler: 'selectRefActivity'
+						},{
+							xtype: 'button',
+							itemId: 'btnClearRefActivity',
+							text:'清除',
+							handler: 'clearRefActivity'
+						}]
+					},{
+						xtype: 'panel',
+						flex: 1
+					}]
+				}]
+			},{
+				xtype: 'fieldset',
+				itemId: 'dPanel',
+				hidden: hide4Activity,
+				title: '关联交付物信息',
+				margin: 10,
+				layout: {
+					type: 'vbox',
+					align: 'stretch'
+				},
+				defaults: {
+					layout: {
+						type: 'hbox',
+						align: 'stretch'
+					}
+				},
+				items: [{
+					xtype: 'panel',
+					items: [{
+						xtype: 'displayfield',
+						flex: 1,
+						value: '<font color="red">*请注意，若指定所属阀门，则该关联交付物为阀门交付物，否则认为是普通交付物。*</font>'
+					}]
+				},{
+					xtype: 'panel',
+					defaults: {
+						margin: 5
+					},
+					items: [{
+						xtype: 'textfield',
+						flex: 1,
+						name: 'deliverableName',
+						fieldLabel: '交付物名称'
+					},{
+						xtype: 'combobox',
+						flex: 1,
+						fieldLabel: '所属阀门',
+						store: gateStore,
+					    queryMode: 'local',
+					    displayField: 'taskName',
+					    valueField: 'id',
+					    name: 'gateId',
+					    forceSelection: true,
+					    hidden: useObsId != ''
+					},{
+						xtype:'checkbox',
+						flex: 1,
+						fieldLabel:'关键交付物',
+						name:'isKey',
+						hidden: useObsId != ''
+					},{
+						xtype: 'hiddenfield',
+				        name: 'srcDeliverableId'
+					}]
+				},{
+					xtype: 'panel',
+					defaults: {
+						margin: 5
+					},
+					items: [{
+						xtype: 'textfield',
+						flex: 1,
+						name: 'checkitemName',
+						fieldLabel: '检查项目',
+						maxLength: 500
+					}]
+				},{
+					xtype: 'panel',
+					defaults: {
+						margin: 5
+					},
+					items: [{
+						xtype: 'textarea',
+						flex: 1,
+						name: 'checkRequirement',
+						fieldLabel: '单项通过要求及验收办法',
+						labelAlign: 'top',
+		                maxLength: 2000
+					}]
+				}]
+			}]
+//			dockedItems: [{
+//				xtype: 'toolbar',
+//				dock: 'top',
+//				items: ['->',{
+//					xtype: 'button',
+//					itemId: 'btnSave',
+//					iconCls: 'x-fa fa-save',
+//					text: '保存',
+//					handler: 'saveTaskDetail'
+//				}]
+//			}]
+		},{
+			xtype: 'tabpanel',
+			collapsible: true,
+			collapsed: true,
+			split: true,
+			height: 350,
+			title: '前后置任务信息',
+			hidden: hide4Activity || hide4new,
+			items: [{
+				title: '前置任务',
+  				xtype: 'deptPlanPreTask',
+  				programVehicleId: this.programVehicleId,
+  	  			taskId: this.taskId,
+	  	  		baselineId: this.baselineId,
+	  	  		editPrivilege: this.editPrivilege,
+				preType: 'PRE'
+			},{
+				title: '后置任务',
+  				xtype: 'deptPlanPreTask',
+  				programVehicleId: this.programVehicleId,
+  	  			taskId: this.taskId,
+	  	  		baselineId: this.baselineId,
+	  	  		editPrivilege: this.editPrivilege,
+				preType: 'POST'
+			}]
+		}];
+		
+		this.tools = [{
+			text: '保存',
+			xtype: 'button',
+			itemId: 'btnSave',
+			iconCls: 'x-fa fa-save',
+			handler: 'saveTaskDetail'
+		},{
+			text:'关闭',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'closeWindow'
+		}];
+	
+		this.callParent();
+	}
+});

@@ -1,0 +1,660 @@
+/**
+ * 质量问题管理-我的待办-对策决定
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.step7.MyTaskInfo07Controller', {
+    extend: 'ExtApp.view.common.IssueStepViewController',
+    alias: 'controller.myTaskInfo07',
+    
+    target: null,
+
+    //初期加载
+//    init: function() {
+//    	var me = this;
+//		var firstFlg_part = '0';
+//		var firstFlg_plan = '0';
+//    	
+////    	var partForm = this.lookupReference('refVerificationSchemePart04');
+////    	partForm.load({
+////            url:'/pdms/ims/my-task!getPartLine.action',
+////			params: {
+////				keyId: this.view.keyId
+////			},
+////            success: function(partForm,result,data) {
+////    			Ext.each(result.result.data, function (record) {
+////    				if (firstFlg_part == '0') {
+////        				me.firstAddPart(record);
+////        				firstFlg_part = '1';
+////    				} else {
+////        				me.addPart(record);
+////    				}
+////    			});
+////            }
+////        });
+////    	var form = this.lookupReference('refVerificationSchemeS04');
+////    	form.load({
+////            url:'/pdms/ims/my-task!getVerificationLine.action',
+////			params: {
+////				keyId: this.view.keyId,
+////	    		formKey: this.view.formKey
+////			},
+////            success: function(form,result,data) {
+////    			Ext.each(result.result.data, function (record) {
+////    				if (firstFlg_plan == '0') {
+////        				me.firstAddPlan(record);
+////        				firstFlg_plan = '1';
+////    				} else {
+////    					me.addPanel(record);
+////    				}
+////    			});
+////            }
+////        });
+//    },
+    //加载验证方案
+    addPanel: function (record) {
+    	var refPanel = this.lookupReference('refVerificationSchemeS04');
+		var fieldlabelIndex = refPanel.items.length + 2;
+		// 只读标志
+		var readOnlyFlg = false;
+
+		if (this.view.formKey != "040" && this.view.editFlg == true) {
+			readOnlyFlg = true;
+		};
+		var configItem=[{
+			xtype:'form',
+			layout:{
+				type:'hbox'
+			},
+			defaults: {
+				margin: 5
+			},
+			items:[{
+				xtype:'combo',
+				margin: '5 5 5 0',
+				fieldLabel:'验证方案' + fieldlabelIndex,
+				readOnly:readOnlyFlg,
+				editable: false,
+				bind: {
+					store:'{verification}'
+				},
+				queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'id',
+				name:'verification',
+				value:record.verification
+			},{
+				xtype : 'textareafield',
+				fieldLabel : '通过要求',
+				readOnly:readOnlyFlg,
+				width: 565,
+				name:'passRequest',
+				value:record.passRequest
+			},{
+				xtype:'textfield',
+				hidden:true,
+				name:'uid',
+				value:record.uid
+			},{
+				xtype:'button',
+				text:'删除',
+				hidden:readOnlyFlg,
+				handler:'delPl'
+			}]
+		}];
+		refPanel.add(configItem[0]);
+    },
+    //加载零件
+    addPart: function (record) {
+    	var refPanel = this.lookupReference('refVerificationSchemePart04');
+		var fieldlabelIndex = refPanel.items.length + 1;
+		// 只读标志
+		var readOnlyFlg = false;
+
+//		if (this.view.formKey != "040" && this.view.editFlg == true) {
+//			readOnlyFlg = true;
+//		};
+		var configItem = Ext.create({
+			xtype:'form',
+			layout:{
+				type:'hbox'
+			},
+			defaults: {
+				margin: 5
+			},
+			items:[{
+				xtype:'combo',
+				margin: '5 5 5 0',
+				fieldLabel:'故障零件代号',
+	            publishes: 'value',
+				bind: {
+					store:'{vImsPart}'
+				},
+				queryMode: 'local',
+			    displayField: 'partCode',
+			    valueField: 'id',
+			    listeners: {
+					change: 'selcombo'
+				},
+				hidden:readOnlyFlg,
+				name:'partNumber'
+			},{
+				xtype:'textfield',
+				fieldLabel:'故障零件代号',
+				readOnly: true,
+				hidden: !readOnlyFlg,
+				name: 'troublePartNumber',
+				value:record.troublePartNumber
+			},{
+				xtype:'textfield',
+				fieldLabel:'故障零件名称',
+				readOnly:true,
+				name:'partName',
+				value:record.partName
+			},{
+				xtype:'combo',
+				fieldLabel:'故障零件状态',
+				bind: {
+					store:'{faultState}'
+				},
+				queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'id',
+				readOnly:readOnlyFlg,
+				name:'partStatus',
+				value:record.partStatus
+			},{
+				xtype:'textfield',
+				hidden:true,
+				name:'partId',
+				value:record.partId
+			},{
+				xtype:'textfield',
+				hidden:true,
+				name:'partNumberId',
+				value:record.partId
+			},{
+				xtype:'button',
+				text:'删除',
+				hidden:readOnlyFlg,
+				handler:'delPr'
+			}]
+		});
+		var v_form = configItem.getForm();
+		refPanel.add(configItem);
+    	v_form.findField('partNumber').setValue(record.partNumber);
+    },
+    // 点击【添加方案】
+	addPL: function() {
+		var formPanel = this.lookupReference('refVerificationSchemeS04');       //验证方案form
+		var feildlabelIndex = formPanel.items.length + 2;
+		var configItem=[{
+			xtype:'form',
+			layout:{
+				type:'hbox'
+			},
+			defaults: {
+				margin: 5
+			},
+			items:[{
+			    xtype:'combo',
+			    margin: '5 5 5 0',
+			    fieldLabel: '验证方案' + feildlabelIndex,
+			    editable:false,
+			    allowBlank:true,
+				bind:{
+					store:'{verification}'
+				},
+				queryMode:'local',
+				displayField:'name',
+				valueField:'id',
+			    name: 'verification'
+			},{
+			    xtype:'textareafield',
+			    fieldLabel:'通过要求',
+			    width : 565,
+			    allowBlank:true,
+			    name:'passRequest'
+			},{
+				xtype:'textfield',
+				hidden:true,
+				allowBlank:true,
+				name:'uid'
+			},{
+				xtype:'button',
+				text:'删除',
+				handler:'delPl'
+			}]
+		}];
+        formPanel.add(configItem[0]);
+    },
+    // 点击【添加零件】
+	addLJ: function() {
+		var formPanel = this.lookupReference('refVerificationSchemePart04');    //故障零件form
+		var feildlabelIndex = formPanel.items.length + 1;
+		var configItem=[{
+			xtype:'form',
+			layout:{
+				type:'hbox'
+			},
+			defaults: {
+				margin: 5
+			},
+			items:[{
+				xtype:'combo',
+				margin: '5 5 5 0',
+				fieldLabel:'故障零件代号',
+	            publishes: 'value',
+				editable: true,
+				allowBlank:true,
+				bind: {
+					store:'{vImsPart}'
+				},
+				queryMode: 'local',
+			    displayField: 'partCode',
+			    valueField: 'id',
+			    listeners: {
+					change: 'selcombo'
+				},
+				name: 'partNumber'
+			},{
+				xtype:'textfield',
+				fieldLabel:'故障零件代号',
+				readOnly: true,
+				allowBlank:true,
+				hidden: true,
+				name: 'troublePartNumber'
+			},{
+				xtype:'textfield',
+				fieldLabel:'故障零件名称',
+				editable: false,
+				allowBlank:true,
+				name: 'partName'
+			},{
+				xtype:'combo',
+				fieldLabel:'故障零件状态',
+				editable: false,
+				allowBlank:true,
+				bind: {
+					store:'{faultState}'
+				},
+				queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'id',
+				name: 'partStatus'
+			},{
+				xtype:'textfield',
+				hidden:true,
+				allowBlank:true,
+				name:'partId'
+			},{
+				xtype:'textfield',
+				hidden:true,
+				allowBlank:true,
+				name:'partNumberId'
+			},{
+				xtype:'button',
+				text:'删除',
+				handler:'delPr'
+			}]
+		}];
+        formPanel.add(configItem[0]);
+    },
+	// 点击【删除验证方案】
+	delPl: function(btn) {
+		var me = btn.ownerCt.getForm();
+		var uid = me.findField('uid').getValue();
+		Ext.Ajax.request({
+    		url:'/pdms/ims/my-task-info04!deletePlan.action',
+    		params: {
+    			uid: uid
+			},
+			success: function(response, opts) {
+				var v_form = btn.ownerCt.ownerCt;
+				var v_count = null;
+				btn.ownerCt.destroy();
+				for (var i = 0; i < v_form.items.length; i++) {
+					v_count = i + 2;
+					v_form.items.items[i].items.items[0].setFieldLabel('验证方案' + v_count);
+				}
+		    },
+			failure: function(response, opts) {
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	});
+	},
+	// 点击【删除零件】
+	delPr: function(btn) {
+		var me = btn.ownerCt.getForm();
+		var you = this;
+		var PartId = me.findField('partId').getValue();
+		Ext.Ajax.request({
+    		url:'/pdms/ims/my-task-info04!deletePart.action',
+    		params: {
+    			partId: PartId
+			},
+			success: function(response, opts) {
+				btn.ownerCt.destroy();
+				you.sortPartReNumber();
+		    },
+			failure: function(response, opts) {
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	});
+	},
+    // 点击【保存】
+	sumbmit : function(btn) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	if(v_form.isValid() == false){
+    		Ext.Msg.alert('提示', "请填写必填项！！！");
+    		return;
+    	}
+    	v_form.submit({
+    		url: '/pdms/ims/ims-issue!save.action',
+            params: {
+//            	model: Ext.encode(v_form.getFieldValues()),
+//            	keyId: me.view.keyId,
+//            	formKey: me.view.formKey,
+//            	taskId: me.view.taskId,
+//            	ProcessInstanceId: me.view.ProcessInstanceId,
+            	method:'updateIssue',
+            	action:'NEXT'
+            },
+    	    waitMsg : '正在提交数据',
+    	    waitTitle : '提示',
+    	    method : "POST",
+    	    success : function(form, action) {
+    	    	var gridTask = me.getView().grid.getStore().load();
+    	    	me.getView().close();
+    	    },
+    	    failure : function(form, action) {
+    	    	ExtApp.util.Util.handleFormFailure(action);
+    	    }
+	    });
+    },
+    // 点击【保存】
+	save : function(btn) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	if(v_form.isValid() == false){
+    		Ext.Msg.alert('提示', "请填写必填项！！！");
+    		return;
+    	}
+    	v_form.submit({
+    		url: '/pdms/ims/my-task-info04!save.action',
+			params: {
+				method:'saveMyTask'
+			},
+    	    waitMsg : '正在提交数据',  
+    	    waitTitle : '提示',  
+    	    method : "POST",
+    	    action:'SAVE',
+    	    success : function(form, action) {  
+    	    	var gridTask = me.getView().grid.getStore().load();
+    	    	me.getView().close();
+    	    },  
+    	    failure : function(form, action) {
+    	    	ExtApp.util.Util.handleFormFailure(action);
+    	    }
+    	});
+    },
+    // 点击【通过】
+    approve: function(btn) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	
+//    	var gridNotify = this.view.down('qeNotify').down('grid');
+//    	var data = [];
+//    	var records = gridNotify.store.getModifiedRecords();
+    	v_form.submit({
+    		url: '/pdms/ims/ims-issue!save.action',
+            params: {
+            	model: Ext.encode(v_form.getFieldValues()),
+//            	keyId: me.view.keyId,
+//            	formKey: me.view.formKey,
+//            	taskId: me.view.taskId,
+//            	ProcessInstanceId: me.view.ProcessInstanceId,
+            	method:'updateIssue',
+            	action:'NEXT'
+            },
+    	    waitMsg : '正在提交数据',
+    	    waitTitle : '提示',
+    	    method : "POST",
+    	    success : function(form, action) {
+    	    	var gridTask = me.getView().grid.getStore().load();
+    	    	me.getView().close();
+    	    },
+    	    failure : function(form, action) {
+    	    	ExtApp.util.Util.handleFormFailure(action);
+    	    }
+	    });
+    },
+    // 点击【回退】
+    fallback : function(btn) {
+    	var me = this
+    	var v_form = me.view.getForm();
+    	var returnReasonWindow = Ext.create('ExtApp.view.common.ReturnReasonWindow',{
+			callback:function(returnComment){
+        		if(returnComment == null || returnComment == ''){
+        			Ext.Msg.alert('提示', '必须添加备注！');
+        			return;
+        		}
+        		returnReasonWindow.close();
+				me.getView().mask('正在提交... 请耐心等待...');
+				v_form.submit({
+		    		url: '/pdms/ims/ims-issue!save.action',
+		            params: {
+		            	returnComment:returnComment,
+		            	method:'updateIssue',
+		            	action:'RETURN'
+		            },
+		    	    waitMsg : '正在提交数据',
+		    	    waitTitle : '提示',
+		    	    method : "POST",
+		    	    success : function(form, action) {
+		    	    	var gridTask = me.getView().grid.getStore().load();
+		    	    	me.getView().close();
+		    	    },
+		    	    failure : function(form, action) {
+		    	    	ExtApp.util.Util.handleFormFailure(action);
+		    	    }
+			    });
+			}
+		});
+    	returnReasonWindow.show();
+		return;
+    },
+	// 点击【故障零件名称】
+    selcombo: function(combo, newValue, oldValue, eOpts) {
+    	var v_form = combo.ownerCt.getForm();
+    	//故障零件代号再编成
+		if (newValue != null  && combo.getDisplayValue().length >= 7) {
+	    	v_form.findField('partNumberId').setValue(newValue);
+			this.selPartReNumber(combo)
+		}
+    	var store = Ext.create(
+    			'ExtApp.store.qualityissuemanagement.VImsPartNameStore');
+    	store.getProxy().extraParams = {id: newValue};
+    	store.load();
+    	var subCombo = combo.ownerCt.items.items[2];
+    	subCombo.reset();
+    	
+    	store.on('load', function() {
+    		if (this.getAt(0) != null) {
+        		subCombo.setValue(this.getAt(0).data.partName);
+    		}
+    	});
+    },
+	// 点击【计划对策时间】
+    selexpecteddatefield: function(combo, newValue, oldValue, eOpts) {
+    	var me = this.view
+    	var v_form = me.getForm();
+    	var planClosedDate = v_form.findField('PlanClosedDate');
+    	planClosedDate.setMinValue(newValue);
+    },
+	// 点击【计划关闭时间】
+    selplanCloseddatefield: function(combo, newValue, oldValue, eOpts) {
+    	var me = this.view
+    	var v_form = me.getForm();
+    	var expectedDate = v_form.findField('expectedDate');
+    	expectedDate.setMaxValue(newValue);
+    },
+	// 点击【是否对策】
+    isAction: function(combo, newValue, oldValue, eOpts) {
+    	var me = this;
+    	var v_form = me.view.down('form').getForm();
+    	var isActionfield = v_form.findField('isAction');
+    	if(newValue == "Y"||newValue == "是"){
+    		isActionfield.setValue("Y");
+    	}else{
+    		isActionfield.setValue("N");
+    	};
+    },
+    //审核&&批准
+    selectMember: function(v) {
+    	var me = this;
+    	this.target = v.getTarget().name;
+//    	this.dialog = me.add({
+//			title:"请选择...",
+//        	xtype: 'myTaskInfo04SelectWindow',
+//        	Target: target,
+//        	formKey: this.view.formKey
+//        });
+    	this.dialog = me.view.add({
+    		xtype: 'sysUserDepartment',
+    		parentCaller: this
+    	});
+        this.dialog.show();
+    },
+    firstAddPart: function(record) {
+		var v_form = this.lookupReference('refValidationPart').getForm();
+
+		v_form.findField('partNumber').setValue(record.partNumber);
+		v_form.findField('troublePartNumber').setValue(record.troublePartNumber);
+    	v_form.findField('partName').setValue(record.partName);
+    	v_form.findField('partStatus').setValue(record.partStatus);
+    	v_form.findField('partId').setValue(record.partId);
+    },
+    firstAddPlan: function(record) {
+    	var v_form = this.lookupReference('refValidationPlan').getForm();
+    	v_form.findField('verification').setValue(record.verification);
+    	v_form.findField('passRequest').setValue(record.passRequest);
+    	v_form.findField('uid').setValue(record.uid);
+    },
+    //故障零件代号再编成
+    selPartReNumber: function(combo) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+		var v_ValidationPart = this.lookupReference('refValidationPart');                        //原配零件
+		var v_ValidationSchemePart = this.lookupReference('refVerificationSchemePart04');        //添加的零件
+    	var v_subProject = v_form.findField('subProjectCode').getValue();                    //子项目ID
+    	var partCount = 0;                                                                       //零件序号集计
+    	var firstFlg = '0';                                                                      //原配零件flg
+		//重复零件统计
+		for (var i = 0; i < v_ValidationSchemePart.items.getCount() + 1; i++) {
+	    	if (firstFlg == '0') {
+				if (v_ValidationPart.items.get(0).rawValue.substring(0,7) == combo.getDisplayValue()) {
+					partCount++;
+				}
+				firstFlg = '1';
+	    	}
+			if (v_ValidationSchemePart.items.getCount() > 0){
+				if (v_ValidationSchemePart.items.get(i).items.get(0).rawValue.substring(0,7) == combo.getDisplayValue()) {
+					partCount++;
+				}
+			}
+			if (v_ValidationSchemePart.items.getCount() - i == 1) {
+				break; 
+			}
+		}
+		var v_partNum = (Array(4).join(0) + partCount).slice(-4);
+    	combo.setRawValue(combo.getDisplayValue() + v_subProject + v_partNum);
+    	this.sortPartReNumber();
+    },
+    //故障零件代号排序
+    sortPartReNumber: function() {
+    	var me = this;
+    	var v_form = me.view.getForm();
+		var v_ValidationPart = this.lookupReference('refValidationPart');                        //原配零件
+		var v_ValidationSchemePart = this.lookupReference('refVerificationSchemePart04');        //添加的零件
+    	var v_subProject = v_form.findField('subProjectCode').getValue();                    //子项目ID
+    	var partCount = 0;                                                                       //零件序号集计
+    	var BNSFlg = null;                                                                       //零件存在记录flg
+    	var firstFlg = '0';                                                                      //原配零件flg
+    	var BNS = new Array();
+    	var BNScount = new Array();
+		//零件重组
+		for (var i = 0; i < v_ValidationSchemePart.items.getCount() + 1; i++) {
+			var comboValue = null;
+	    	if (firstFlg == '0' && v_ValidationPart.items.get(0).rawValue != "") {
+				comboValue = v_ValidationPart.items.get(0).rawValue.substring(0,7);
+	    		BNS[i] = v_ValidationPart.items.get(0).rawValue.substring(0,7);
+	    		BNScount[i] = 1;
+				firstFlg = '1';
+	    		partCount = (Array(4).join(0) + BNScount[i]).slice(-4);
+				v_ValidationPart.items.get(0).setRawValue(comboValue + v_subProject + partCount);
+	    	}
+			if (v_ValidationSchemePart.items.getCount() > 0 && v_ValidationSchemePart.items.get(i).items.get(0).rawValue != ""){
+				comboValue = v_ValidationSchemePart.items.get(i).items.get(0).rawValue.substring(0,7);
+				//零件遍历
+		    	BNSFlg = null;
+				for (var j = 0; j < BNS.length; j++) {
+					if (v_ValidationSchemePart.items.get(i).items.get(0).rawValue.substring(0,7) == BNS[j]) {
+				    	BNSFlg = j;
+					}
+				}
+				//零件不存在
+				if (BNSFlg == null) {
+					BNS[BNS.length] = v_ValidationSchemePart.items.get(i).items.get(0).rawValue.substring(0,7);
+		    		BNScount[BNS.length - 1] = 1;
+		    		partCount = (Array(4).join(0) + BNScount[BNS.length - 1]).slice(-4);
+				} else {
+					BNScount[BNSFlg] = 1;
+					//如果不是第一个零件
+					if (BNSFlg != 0) {
+						BNScount[BNSFlg] = 0;
+					}
+					//零件个数统计
+					for (var j = 0; j <= i; j++) {
+						if (BNS[BNSFlg] == v_ValidationSchemePart.items.get(j).items.get(0).rawValue.substring(0,7)) {
+							BNScount[BNSFlg]++;
+						}
+					}
+		    		partCount = (Array(4).join(0) + BNScount[BNSFlg]).slice(-4);
+				}
+				v_ValidationSchemePart.items.get(i).items.get(0).setRawValue(comboValue + v_subProject + partCount);
+			}
+			if (v_ValidationSchemePart.items.getCount() - i == 1) {
+				break; 
+			}
+		}
+    },
+    // 添加用户/选择专业经理 - 确定
+    confirmUser: function(userData) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	var Target = this.target;
+    	//审核人
+    	var lineMgrName = v_form.findField('lineMgrName');
+    	//审核人ID
+    	var lineMgr = v_form.findField('lineMgr');
+    	//批准人
+    	var deptMgrName = v_form.findField('deptMgrName');
+    	//批准人ID
+    	var deptMgr = v_form.findField('deptMgr');
+    	//04复审人
+//    	var vse = me.getForm().findField('vse04');
+    	//04复审人ID
+//    	var vseId = me.getForm().findField('vseId04');
+    	
+    	if(Target == "lineMgrName"){
+    		lineMgrName.setValue(userData.name);
+			lineMgr.setValue(userData.id);
+		}else if(Target == "deptMgrName"){
+			deptMgrName.setValue(userData.name);
+			deptMgr.setValue(userData.id);
+//		}else if(Target == "vse04"){
+//			vse.setValue(userData.name);
+//			vseId.setValue(userData.id);
+		}
+    }
+});

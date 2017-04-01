@@ -1,0 +1,26 @@
+Ext.define('ExtApp.view.projectmanagement.extplan.ext201.ChecklistNotes', {
+    extend: 'Ext.grid.Panel',
+    xtype: 'checklistNotes',
+    requires: [
+        'Ext.selection.CellModel',
+        'Ext.grid.*',
+        'Ext.data.*',
+        'Ext.util.*',
+        'Ext.form.*'
+    ],
+    itemId:'checklistItemNotesId',
+    title:'备注',
+    columns: [
+  			{xtype: 'rownumberer'},
+			{ text:'备注', flex: 1, dataIndex:'note'},
+			{ text:'创建时间', flex: 1, dataIndex:'createDate'}
+		],
+	    dockedItems: [
+	                  {
+	                      xtype: 'pagingtoolbar',
+	                      dock: 'bottom',
+	                      displayInfo: true
+	                  }
+	              ]
+
+});

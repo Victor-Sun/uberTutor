@@ -1,0 +1,14 @@
+Ext.define('ExtApp.model.myworkspace.PmTaskForumModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.pmTaskForum',
+
+    fields: [
+         {name: 'id'},
+         {name: 'name'},
+         {name: 'price', type: 'date'},
+         {name: 'change'},
+         {name: 'lastChange', type: 'date'},
+         {name: 'industry'},
+         {name: 'desc'}
+     ]
+});

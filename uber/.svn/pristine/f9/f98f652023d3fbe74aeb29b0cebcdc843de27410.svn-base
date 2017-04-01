@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.ProgramTempStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.programTemp',
+
+    fields: ['id', 'name'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-upload!getProgramTemp.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

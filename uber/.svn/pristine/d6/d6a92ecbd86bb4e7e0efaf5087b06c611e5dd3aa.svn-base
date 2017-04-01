@@ -1,0 +1,17 @@
+/**
+ * 项目管理-Window Controller
+ */
+Ext.define('ExtApp.view.projectmanagement.issue.ProjectOpenIssue01Controller', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.projectOpenIssue01',
+    
+    init: function() {
+    	var form = this.lookupReference('refProjectOpenIssue01');
+    	form.load({
+    		url: '/pdms/pm/project-open-issue!getProjectOpenIssueForm.action',
+			params: {
+				issueId: this.view.issueId
+			}
+        })
+    }
+});

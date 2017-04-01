@@ -1,0 +1,19 @@
+/**
+ * 项目组store
+ */
+Ext.define('ExtApp.store.qualityissuemanagement.ProgramStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.program',
+
+    fields: ['id', 'name'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/combo!getProgram.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

@@ -1,0 +1,22 @@
+/**
+ * 首页-节点完成状况
+ */
+Ext.define('NodeSeriesController',{
+	extend:'Ext.app.ViewController',
+	alias:'controller.nodeseries',
+
+	onAxisLabelRender: function(axis, label, layoutContext) {
+		return layoutContext.renderer(label) + '%';
+	},
+	
+	onSeriesTooltipRender: function (tooltip, record, item) {
+		var fieldIndex = Ext.Array.indexOf(item.series.getYField(), item.field);
+		//var process = item.series.getTitle()[fieldIndex];
+        //tooltip.setHtml(process + '数量：' + record.get(item.field));
+		if (fieldIndex == 0) {
+			tooltip.setHtml('计划完成 比率：' + record.get('PlannedRatio') + '%<br>计划完成数量：' + record.get('plannedCnt') );
+		} else {
+			tooltip.setHtml('实际完成比率：' + record.get('ActualRatio') + '%<br>实际完成数量：' + record.get('actualCnt') );
+		}
+    }
+})

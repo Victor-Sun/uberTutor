@@ -1,0 +1,103 @@
+/**
+ * 项目管理-计划-主计划-时程表view
+ */
+Ext.define('ExtApp.view.projectmanagement.timeline.ProjectTimeLine',{
+	extend:'Ext.panel.Panel',
+	xtype:'projectTimeLine',
+	
+	requires: [
+       'Ext.plugin.Viewport',
+       'ExtApp.view.projectmanagement.timeline.ProjectTimeLineController',
+       'ExtApp.view.scheduler.Panel',
+       'Sch.data.CrudManager',
+       'ExtApp.data.TimeAxis'
+   ],
+
+	controller: 'projectTimeLine',
+	
+	layout: 'fit',
+	
+    initComponent: function() {
+    	// 时程表显示方式Store
+    	var dispStore = Ext.create('Ext.data.Store', {
+    	    fields: ['value', 'name'],
+    	    data : [
+    	        {"value":"W", "name":"以周为单位显示"},
+    	        {"value":"M", "name":"以月为单位显示"},
+    	        {"value":"Q", "name":"以季为单位显示"}
+    	    ]
+    	});
+    	
+    	// 二级计划
+    	if (this.planLevel == '2') {
+    		this.tbar = [{
+    			xtype: 'combobox',
+    			itemId: 'comDisplayMode',
+				fieldLabel: '显示方式',
+				store: dispStore,
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'value',
+			    editable: false,
+			    listeners: {
+			    	change: 'onChangeDisplayMode'
+			    }
+    		},'->',{
+    			text:'刷新',
+    			iconCls: 'x-fa fa-refresh',
+    			handler: 'refreshTimeline'
+    	    },{
+    			text:'全屏',
+    			iconCls: 'x-fa fa-tv',
+    			handler: 'preview'
+    		},{
+    			text:'打印',
+    			itemId: 'BTNP1004',
+    			iconCls: 'x-fa fa-print',
+    			handler: 'printTimeline',
+    			hidden: true
+//    		},{
+//    			text: '设定泳道信息',
+//    			itemId: 'BTNP1006',
+//    			iconCls: 'x-fa fa-cog',
+//    			handler: 'setTimeLine',
+//    			hidden: true
+    		}];
+    	} else {
+    		this.tbar = [{
+    			xtype: 'combobox',
+    			itemId: 'comDisplayMode',
+				fieldLabel: '显示方式',
+				store: dispStore,
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'value',
+			    editable: false,
+			    listeners: {
+			    	change: 'onChangeDisplayMode'
+			    }
+    		},'->',{
+    			text:'刷新',
+    			iconCls: 'x-fa fa-refresh',
+    			handler: 'refreshTimeline'
+    	    },{
+    			text:'全屏',
+    			iconCls: 'x-fa fa-tv',
+    			handler: 'preview'
+    		},{
+    			text:'打印',
+    			itemId: 'BTNP0904',
+    			iconCls: 'x-fa fa-print',
+    			handler: 'printTimeline',
+    			hidden: true
+//    		},{
+//    			text: '设定泳道信息',
+//    			itemId: 'BTNP0906',
+//    			iconCls: 'x-fa fa-gavel',
+//    			handler: 'setTimeLine',
+//    			hidden: true
+    		}];
+    	}
+        this.callParent();
+    }
+});

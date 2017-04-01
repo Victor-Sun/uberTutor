@@ -1,0 +1,69 @@
+/*
+ * 项目管理-阀门交付物
+ */
+Ext.define('ExtApp.view.projectmanagement.cp.ProjectValveDocument01',{
+	extend:'Ext.panel.Panel',
+	xtype:'projectValveDocument01',
+          
+	controller: 'projectValveDocument01',
+
+//	cls:'shadow',
+	margin:20,
+	layout: 'fit',
+	
+	width: 300,
+//	collapsible: true,
+    
+    initComponent: function() {
+
+    	var useStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProjectValveDocument01Store');
+    		useStore.getProxy().extraParams = {taskId: this.taskId};
+    		useStore.load();
+    	this.items = [{
+
+    		xtype:'grid',
+    		cls:'multigrid',
+    		border: true,
+    		columnLines:false,
+    		hideHeaders: true,
+	        store: useStore,
+	        features: [{
+	            ftype: 'grouping',
+	            multi: true,
+	            groupHeaderTpl: '{name}',
+	            expandAll:true,
+	            hideGroupedHeader: true
+	        }],
+	        columns: [{
+	            width: 25,
+	            dataIndex: 'progress',
+	            renderer: 'renderTaskProgressSmall'
+	        },{
+	            text: '附件',
+	            width: 25,
+	            dataIndex: 'attcnt',
+	            renderer: 'renderAttachmentSmall'
+	        },{
+	            text: '是否关联任务',
+	            width: 25,
+	            dataIndex: 'refTaskId',
+	            renderer: 'renderRelationTask'
+	        },{
+	            text: '负责主体',
+	            flex: 1,
+	            dataIndex: 'obsName'
+	        },{
+	            text: '阀门交付物',
+	            flex: 1,
+	            dataIndex: 'name',
+	            renderer: 'renderDeliverbleName'
+	        }],
+	        listeners: {
+            	celldblclick: 'onCelldblclick'
+			}
+    	}];
+    	
+        this.callParent();
+    }
+});

@@ -1,0 +1,13 @@
+Ext.define('ExtApp.store.projectmanagement.extplan.ext202.Ext202Modle', {
+    extend: 'Ext.data.Store',
+    alias: 'store.ext202Modle',
+    fields:['id','description'],
+	proxy: {
+    	type: 'ajax',
+    	url: '/pdms/pm/ext202item!getExt202ModelList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

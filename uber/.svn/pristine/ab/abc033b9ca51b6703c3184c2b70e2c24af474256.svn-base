@@ -1,0 +1,242 @@
+/**
+ * 质量问题管理-问题提交-01
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.IssueBaseIno', {
+	extend:'Ext.form.Panel',
+	xtype:'issueBaseIno',
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+	margin:'0 10 10 10',
+	initComponent:function() {
+		var me = this;
+		var problemSource = Ext.create('ExtApp.store.qualityissuemanagement.ProblemSourceStore');
+		problemSource.load();
+		var program = Ext.create('ExtApp.store.qualityissuemanagement.ProgramStore');
+		program.load();
+		var buildPhase = Ext.create('ExtApp.store.qualityissuemanagement.BuildPhaseStore');
+		buildPhase.load();
+		var testType = Ext.create('ExtApp.store.qualityissuemanagement.TestTypeStore');
+		testType.load();
+		
+		var programVehicleStore = Ext.create('ExtApp.store.qualityissuemanagement.ProgramVehicleStore');
+//		programVehicleStore.load({params:{programId: me.record.get('projectId')}});
+		me.items = [{
+			xtype:'panel',
+			layout:{
+				type:'vbox',
+				align:'stretch'
+			},
+			margin:'10 10 10 10',
+			items:[{//line3
+				xtype:'panel',		
+				layout:{
+					type:'hbox',
+					align:'stretch'
+				},
+				items:[{
+			        xtype:'hiddenfield', 
+			        name: 'id'
+				},{
+//			        xtype:'hiddenfield', 
+//			        name: 'submitUser'
+//				},{
+//			        xtype:'hiddenfield', 
+//			        name: 'createBy'
+//				},{
+//			        xtype:'hiddenfield', 
+//			        name: 'createDate'
+//				},{
+					xtype:'textfield',
+					fieldLabel:'问题标题',
+//					style:'background:#ebf1de;',
+//					fieldStyle:'background-color: red; background-image: none;',
+					margin:'10 0 10 0',
+					width: 845,
+					allowBlank:false,
+					name:'title'
+				}]
+			},{//line4
+				xtype:'panel',
+				layout:{
+					type:'hbox',
+					align:'stretch'
+				},
+				margin:'0 0 10 0',
+				items:[{
+					xtype:'textfield',
+					fieldLabel:'问题提出人',
+					readOnly:true,
+					style:'opacity:1;',
+					name:'submitUserName'
+				},{
+					xtype : 'datefield',
+					fieldLabel:'提出时间',
+					readOnly:true,
+					margin:'0 0 0 10',
+					format: 'Y/m/d',
+					style:'opacity:1;',
+					name:'openDateStr',
+					value: new Date()
+				},{
+					xtype : 'combo',
+					fieldLabel:'问题来源',
+					readOnly:true,
+					editable: false,
+					store: problemSource,
+				    queryMode: 'local',
+				    displayField: 'name',
+				    valueField: 'id',
+					margin:'0 0 0 10',
+					style:'opacity:1;',
+					name:'issueSourceId'
+				}]
+			},{//line5
+				xtype:'panel',
+				layout:{
+					type:'hbox',
+					align:'stretch'
+				},
+				margin:'0 0 10 0',
+				items:[{
+					xtype:'combo',
+					fieldLabel:'所属项目',
+					editable: false,
+					store: program,
+					queryMode:'local',
+					displayField:'name',
+					valueField:'id',
+					listeners: {
+						change: function(combo, newValue, oldValue, eOpts) {
+					    	programVehicleStore.load({params:{programId: newValue}});
+					    }
+					},
+					allowBlank:false,
+					name:'projectId'
+				},{
+					xtype : 'combo',
+					fieldLabel:'子项目',
+					editable: false,
+					queryMode:'local',
+					displayField:'name',
+					valueField:'id',
+					margin:'0 0 0 10',
+					allowBlank:false,
+					store:programVehicleStore,
+					name:'subProjectId'
+				},{
+					xtype : 'combo',
+					fieldLabel:'样车阶段',
+					editable: false,
+					store: buildPhase,
+				    queryMode: 'local',
+				    displayField: 'name',
+				    valueField: 'id',
+					margin:'0 0 0 10',
+					allowBlank:false,
+					name:'stageId'
+				}]
+			},{//line6
+				xtype:'panel',
+				layout:{
+					type:'hbox',
+					align:'stretch'
+				},
+				margin:'0 0 10 0',
+				items:[{
+					xtype:'datefield',
+					fieldLabel:'发生时间',
+					format: 'Y/m/d',
+					allowBlank:false,
+					name:'occurrenceDateStr',
+		            maxValue: new Date()
+				},{
+					xtype : 'textfield',
+					fieldLabel:'发生场地',
+					margin:'0 0 0 10',
+					allowBlank:false,
+					name:'occurrenceSite'
+				},{
+					xtype : 'combo',
+					fieldLabel:'试验类型',
+					editable: true,
+					store: testType,
+					queryMode: 'local',
+				    displayField: 'name',
+				    valueField: 'id',
+					margin:'0 0 0 10',
+					allowBlank:false,
+					name:'testTypeId'
+				}]
+			},{//line7
+				xtype:'panel',
+				layout:{
+					type:'hbox',
+					align:'middle'
+				},
+				margin:'0 0 10 0',
+				items:[{
+					xtype:'textfield',
+					fieldLabel:'样车编号',
+					allowBlank:false,
+					name:'sampleNumber'
+				},{
+					xtype : 'textfield',
+					fieldLabel:'故障零件里程',
+					margin:'0 0 0 10',
+					allowBlank:false,
+					name:'troublePartMileage'
+				},{
+					xtype : 'numberfield',
+					fieldLabel:'试验进展',
+					margin:'0 0 0 10',
+					name:'testProgress',
+			        minValue: 0,
+			        maxValue:100,
+			        allowBlank:false
+				},{
+					xtype:'label',
+					html:'<div style="text-align:left;"><b>%</b></div>'
+				}]
+			},{//line8
+				xtype:'panel',
+				margin:'0 0 10 0',
+				items:[{
+					xtype:'textareafield',
+					fieldLabel:'问题描述',
+					margin:'0 0 0 0',
+					height:64,
+					width:1000,
+					allowBlank:false,
+					name:'description'
+				}]
+			},{//line9
+				xtype:'panel',
+				margin:'0 0 10 0',
+				items:[{
+					xtype:'textareafield',
+					fieldLabel:'处置措施',
+					margin:'0 0 0 0',
+					height:64,
+					width:1000,
+					allowBlank:false,
+					name:'disposalMeasures'
+				}]
+			},{//line10
+				xtype:'panel',
+				margin:'0 0 10 0',
+				items:[{
+					xtype:'textareafield',
+					fieldLabel:'初步原因分析',
+					margin:'0 0 0 0',
+					height:64,
+					width:1000,
+					allowBlank:false,
+					name:'firstCauseAnalysis'
+				}]
+			}]
+		}];
+		me.callParent();
+	}
+});

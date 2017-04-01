@@ -1,0 +1,140 @@
+Ext.define('ExtApp.view.Test',{
+	extend:'Ext.container.Container',
+	xtype:'testtable',
+	
+	margin:10,
+	cls:'shadow',
+	
+	items:
+	[{
+		xtype:'panel',
+		layout:{
+			type:'vbox',
+			align:'stretch'
+		},
+		items: 
+		[{
+			xtype:'panel',
+			padding:'0 0 25 0',
+			items:
+			[{
+				xtype: 'button',
+				text: '新建'
+			}]
+		},
+		{
+			xtype: 'panel',
+			layout: 
+			{
+				type:'hbox'
+			},
+			items: 
+			[{		
+				xtype: 'panel',
+				layout:
+				{
+					type: 'fit'
+				},
+				items: 
+				[{
+					xtype: 'menu',
+					title: '文件夹',
+					floating: false,
+					items: 
+					[{
+						text: '专项1'
+					},
+					{
+						text: '专项2'
+					},
+					{
+						text: '专项3'
+					},
+					{
+						text: '专项4'
+					},
+					{
+						text: '专项5'
+					},
+					{
+						text: '专项6'
+					},
+					{
+						text: '专项7'
+					},
+					{
+						text: '专项8'
+					},
+					{
+						text: '专项9'
+					},
+					{
+						text: '专项10'
+					}]	
+				}]
+			},
+			{
+				xtype: 'tabpanel',
+				padding: '0 0 0 20',
+				items: 
+				[{
+					title: '文档',
+					xtype: 'panel',
+					items: 
+					[{
+						xtype: 'toolbar',
+						items: 
+						[{
+							xtype: 'button',
+							text: '新建'
+						},
+						{
+							xtype: 'button',
+							text: '删除'
+						},
+						{
+							xtype: 'button',
+							text: '更新'
+						},
+						{
+							xtype: 'button',
+							text: '下载'
+						},
+						{
+							xtype: 'button',
+							text: '版本'
+						}]
+					},
+					{
+						xtype: 'panel',
+						items: 
+						[{
+							// xtype:'image',
+							// src:'resources/images/grid.png'
+							xtype: 'grid',
+							width: 1000,
+							columns:
+							[
+								{text: '名称', dataIndex: 'name'},
+								{text: '类型', dataIndex: 'types'},
+								{text: '大小', dataIndex: 'size'},
+								{text: '版本', dataIndex: 'version'},
+								{text: '修改日期', dataIndex: 'datemodified'},
+								{text: '修改人', dataIndex: 'modifier'}
+							],
+							store:
+							{
+								fields:['name', 'types', 'size', 'version', 'datemodified', 'modifier'],
+								data:
+								[
+									{name: '文件1.doc',types: '会议纪要',size: '100k',version: '1', datemodifed: '2015/5/15 15:30',modifier: '张三'},
+									{name: '文件2.ppt',types: '报告',size: '200k',version: '2', datemodifed: '2016/5/15 15:30',modifier: '李四'}
+								]
+							}
+						}]
+					}]
+				}]
+			}]
+		}]
+	}]
+});	

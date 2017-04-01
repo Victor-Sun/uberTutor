@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.AllProgramStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.allProgram',
+
+    fields: ['id', 'programCode', 'programName'],
+
+	proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-list!getAllProgram.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

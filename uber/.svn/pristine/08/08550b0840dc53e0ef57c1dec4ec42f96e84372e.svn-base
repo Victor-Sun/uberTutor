@@ -1,0 +1,93 @@
+/**
+ * 质量问题管理-待办任务-to实施措施Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.common.MyTaskInfoTo05Controller', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.myTaskInfoTo05',
+    //初期加载
+    init: function() {
+    	var me = this;
+    	var form = this.lookupReference('refVerificationSchemeTo05');
+    	form.load({
+            url:'/pdms/ims/my-task!getVerificationLine.action',
+			params: {
+				keyId: this.view.keyId,
+				historyFlag: this.view.historyFlag
+			},
+            success: function(form,result,data) {
+    			Ext.each(result.result.data, function (record) {
+    				me.addPanel(record);
+    			});
+            }
+        });
+    },
+    //加载验证方案
+    addPanel: function (record) {
+    	var refPanel = this.lookupReference('refVerificationSchemeTo05');
+		var fieldlabelIndex = refPanel.items.length + 1;
+//		var deptStore = Ext.create(
+//		'ExtApp.store.qualityissuemanagement.TxtDepartmentStore');
+//		deptStore.getProxy().extraParams = {keyId: this.view.keyId};
+//		deptStore.load();
+
+		var configItem=[{
+			xtype:'fieldset',
+			title:'<B>验证方案 '+ fieldlabelIndex+'</B>',
+			collapsible: true,
+			scrollable: true,
+			layout:{
+				type:'vbox'
+			},
+			defaults: {
+				layout: 'hbox',
+				defaults: {
+					margin: 5
+				}
+			},
+			items:[{
+				xtype:'container',
+				items:[{
+					xtype:'combo',
+					fieldLabel:'验证方案' + fieldlabelIndex,
+					readOnly:true,
+					bind:{
+						store:'{verification}'
+					},
+					queryMode:'local',
+					displayField:'name',
+					valueField:'id',
+					name:'verification',
+					value:record.verification
+				},{
+					xtype:'textareafield',
+					fieldLabel:'通过要求',
+					width: 560,
+					readOnly:true,
+					name:'passRequest',
+					value:record.passRequest
+				}]
+			},{
+				xtype: 'container',
+				items: [{
+					xtype:'textareafield',
+					fieldLabel:'实施信息',
+					width: 845,
+					readOnly:true,
+					name:'implementVehicle',
+					value:record.implementVehicle
+				}]
+				
+			},{
+				xtype: 'container',
+				items: [{
+					xtype:'textfield',
+					fieldLabel:'验证部门',
+					readOnly:true,
+					name:'deptName',
+					value:record.deptName
+				}]
+			}]
+		}];
+		refPanel.add(configItem[0]);
+    }
+});

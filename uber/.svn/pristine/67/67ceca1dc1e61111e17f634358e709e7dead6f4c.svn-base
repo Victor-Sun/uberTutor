@@ -1,0 +1,17 @@
+Ext.define('ExtApp.store.qualityissuemanagement.MyParticipationStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.myparticipation',
+
+    fields: ['qeTitle', 'qeStatus', 'qeLevel', 'beProject', 'formKey', 'risk', 'id' ],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/my-participation!getImsIssue.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    pageSize:15
+//    autoLoad: true
+});

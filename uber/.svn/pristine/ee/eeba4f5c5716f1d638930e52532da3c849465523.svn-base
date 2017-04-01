@@ -1,0 +1,97 @@
+/**
+ * 项目管理-项目计划-计划节点/活动信息-节点新增
+ */
+Ext.define('ExtApp.view.projectmanagement.timeline.DeptPlanTaskAddController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.deptPlanTaskAdd',
+    
+    // 类型变更
+    onChangeTaskType: function(combo, newValue, oldValue, eOpts) {
+    	var readOnlyStyle = 'background-color: #e2e2e2; color: #949495;';
+    	var inputStyle = 'background-color: #ffffff; color: #000000;';
+    	var form = this.view.down('form').getForm();
+    	if (newValue == 'TASK_TYPE_NODE') {
+    		// 开始时间无需输入
+    		form.findField('plannedStartDate').setValue(null);
+    		form.findField('plannedStartDate').setReadOnly(true);
+    		form.findField('plannedStartDate').setFieldStyle(readOnlyStyle);
+    		// 周期无需输入、固定为1天
+    		form.findField('durationDays').setValue(0);
+    		form.findField('durationDays').setReadOnly(true);
+    		form.findField('durationDays').setFieldStyle(readOnlyStyle);
+    	} else {
+    		// 开始时间输入放开
+    		form.findField('plannedStartDate').setValue(null);
+    		form.findField('plannedStartDate').setReadOnly(false);
+    		form.findField('plannedStartDate').setFieldStyle(inputStyle);
+    		// 周期输入放开
+    		form.findField('durationDays').setValue(null);
+    		form.findField('durationDays').setReadOnly(false);
+    		form.findField('durationDays').setFieldStyle(inputStyle);
+    	}
+    },
+    
+    // 保存
+    saveTask: function() {
+    	var me = this;
+        var form = this.view.down('form').getForm();
+
+        if (form.findField('taskTypeCode').value == 'TASK_TYPE_NODE') {
+        	// 必须输入截止时间
+        	if (form.findField('plannedFinishDate').value == '' ||
+        			form.findField('plannedFinishDate').value == null) {
+        		ExtApp.util.Util.showErrorMsg('必须输入截止时间!');
+        		return;
+        	}
+        } else {
+        	// 必须输入开始时间、截止时间、周期（天）中的任意两个
+        	if ((form.findField('plannedStartDate').value == null ||
+        				form.findField('plannedStartDate').value == '') &&
+        		(form.findField('plannedFinishDate').value == null ||
+        				form.findField('plannedFinishDate').value == '') ||
+        		(form.findField('plannedStartDate').value == null ||
+        				form.findField('plannedStartDate').value == '') &&
+        		(form.findField('durationDays').value == null ||
+        				form.findField('durationDays').value == '') ||
+        		(form.findField('plannedFinishDate').value == null ||
+        				form.findField('plannedFinishDate').value == '') &&
+        		(form.findField('durationDays').value == null ||
+        				form.findField('durationDays').value == '')) {
+        		ExtApp.util.Util.showErrorMsg('必须输入开始时间、截止时间、周期（天）中的任意二者!');
+        		return;
+        	}
+        }
+        
+        if (form.isValid()){
+        	me.view.mask('Please Waiting...');
+            form.submit({
+                clientValidation: true,
+                url: '/pdms/pm/dept-plan!addTask.action',
+                params: {
+                	programId: me.view.programId,
+        			programVehicleId: me.view.programVehicleId,
+        			obsId: me.view.respObsId,
+        			functionId: me.view.functionId,
+        			planLevel: me.view.planLevel,
+                	model: Ext.encode(form.getFieldValues())
+                },
+                scope: me,
+                success: function(form, action) {
+                	me.view.unmask();
+                	me.view.parentCaller.view.down('grid').store.reload();
+                	ExtApp.util.Util.showToast("添加成功！");
+                	me.closeWindow();
+                },
+                failure: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.handleFormFailure(action);
+                }
+            });
+        }
+    },
+   
+    // 关闭
+    closeWindow: function() {
+    	this.view.close();
+    }
+});

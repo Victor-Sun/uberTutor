@@ -1,0 +1,80 @@
+/**
+ * 项目管理-导入模板
+ */
+Ext.define('ExtApp.view.projectManagement.deploy.ProgramTemplate',{
+	extend:'Ext.window.Window',
+	xtype:'programTemplate',
+
+	modal: true,
+	closable: false,
+	
+	layout:{
+		type:'fit'
+	},
+	
+	controller: 'programTemplate',
+	
+	width: 400,
+	height: 200,
+	
+	title: '导入模板',
+	
+	initComponent: function() {
+		var me = this;
+		
+		// 项目类型Store
+		var programTempStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProgramTempStore');
+		programTempStore.getProxy().extraParams = {programId: this.programId};
+		programTempStore.load();
+		
+		this.items = [{
+			xtype:'form',
+			margin:10,
+			layout:{
+				type:'vbox',
+				align:'stretch'
+			},
+	      	items: [{
+				xtype: 'panel',
+				layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				items: [{
+					xtype: 'combobox',
+					flex: 1,
+					fieldLabel: '项目模板',
+				    queryMode: 'local',
+				    displayField: 'name',
+				    valueField: 'id',
+				    name: 'programTempId',
+				    store: programTempStore,
+				    editable: false,
+				    allowBlank:false
+				},{
+					xtype:'datefield',
+					fieldLabel: 'SOP时间',
+					flex: 1,
+					name: 'sopDate',
+					format: 'Y/m/d',
+					allowBlank:false,
+					value: me.sop
+				}]
+			}]
+		}];
+		
+		this.tools = [{
+			text:'导入',
+			xtype: 'button',
+			iconCls: 'x-fa fa-circle-o',
+			handler: 'confirmImport'
+		},{
+			text:'取消',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'cancelImport'
+		}];
+		this.callParent(arguments);
+	}
+});

@@ -1,0 +1,10 @@
+/**
+ * 项目管理-二级计划-专业领域
+ */
+Ext.define('ExtApp.view.projectManagement.dept.DeptBase',{
+	extend:'Ext.tab.Panel',
+	xtype:'deptBase',
+	layout: 'fit',
+	controller: 'deptBase'
+
+});

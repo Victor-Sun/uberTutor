@@ -1,0 +1,138 @@
+/**
+ * 质量问题管理-待办任务-to对策决定Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.common.MyTaskInfoTo04Controller', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.myTaskInfoTo04',
+    
+    init: function() {
+    	var me = this;
+    	if(me.lookupReference('refOfflineAttachment')){
+    		var store = me.lookupReference('refOfflineAttachment').down('grid').getStore();
+    		store.on('load',function() {
+    			var count = store.getCount();
+            	if(count < 1){
+            		me.lookupReference('refOfflineAttachment').hide();
+            	}
+    		});
+    		
+    	}
+    	var partForm = this.lookupReference('refVerificationSchemePartTo04');
+    	partForm.load({
+            url:'/pdms/ims/my-task!getPartLine.action',
+			params: {
+				keyId: this.view.keyId,
+				historyFlag: this.view.historyFlag
+			},
+            success: function(partForm,result,data) {
+    			Ext.each(result.result.data, function (record) {
+    				me.addPart(record);
+    			});
+            }
+        });
+    	var planForm = this.lookupReference('refVerificationSchemeTo04');
+    	planForm.load({
+            url:'/pdms/ims/my-task!getVerificationLine.action',
+			params: {
+				keyId: this.view.keyId,
+				historyFlag: this.view.historyFlag
+			},
+            success: function(form,result,data) {
+    			Ext.each(result.result.data, function (record) {
+    				me.addPanel(record);
+    			});
+            }
+        });
+    },
+    //加载验证方案
+    addPanel: function (record) {
+    	var refPanel = this.lookupReference('refVerificationSchemeTo04');
+		var fieldlabelIndex = refPanel.items.length + 1;
+		var configItem = [{
+			xtype:'container',
+			layout:{
+				type:'hbox'
+//				align: 'stretchmax'
+			},
+			items:[{
+				xtype:'combo',
+				margin: 5,
+				flex: 2,
+				fieldLabel:'验证方案' + fieldlabelIndex,
+				readOnly:true,
+				editable: false,
+				bind: {
+					store:'{verification}'
+				},
+				queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'id',
+				name:'verification',
+				value:record.verification
+			},{
+				xtype : 'textareafield',
+				margin: 5,
+				fieldLabel : '通过要求',
+				flex: 3,
+				readOnly:true,
+				name:'passRequest',
+				value:record.passRequest
+			}]
+		}];
+		refPanel.add(configItem[0]);
+    },
+    //加载零件
+    addPart: function (record) {
+    	var refPanel = this.lookupReference('refVerificationSchemePartTo04');
+		var fieldlabelIndex = refPanel.items.length + 1;
+		var configItem=[{
+			xtype:'container',
+			layout:{
+				type:'hbox'
+			},
+			items:[{
+				xtype:'textfield',
+				fieldLabel:'故障零件代号',
+				margin:'0 0 10 0',
+				readOnly: true,
+				name: 'partNumber',
+				value:record.partNumber
+			},{
+				xtype:'textfield',
+				fieldLabel:'故障零件名称',
+				readOnly:true,
+				margin:'0 0 10 10',
+				name:'partName',
+				value:record.partName
+			},{
+				xtype:'combo',
+				fieldLabel:'故障零件状态',
+				bind: {
+					store:'{faultState}'
+				},
+				queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'id',
+				readOnly:true,
+				margin:'0 0 10 10',
+				name:'partStatus',
+				value:record.partStatus
+			}]
+		}];
+		refPanel.add(configItem[0]);
+    },
+	// 点击【是否对策】
+    isAction: function(th, newValue, oldValue, eOpts) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	var isActionfield = v_form.findField('isAction');
+    	if(newValue.isAction == "Y"){
+    		v_form.findField('noActionReason').hide();
+//    		v_form.findField('noActionReason').allowBlank = true;
+    	}else{
+    		v_form.findField('noActionReason').show();
+//    		v_form.findField('noActionReason').allowBlank = false;
+    	};
+    	
+    }
+});

@@ -1,0 +1,83 @@
+Ext.define('ExtApp.view.myworkspace.task.PmTaskDetail',{
+	extend:'Ext.tab.Panel',
+	xtype:'pmTaskDetail',
+	
+	layout:'fit',
+	
+	margin:10,
+	
+	initComponent: function() {		
+		// 执行状况
+		var performance =Ext.create(
+				'ExtApp.view.myworkspace.task.PmTaskPerformance',
+				{programId: this.programId,
+				 taskId: this.taskId,
+				 processTaskId: this.processTaskId,
+				 processId: this.processId,
+				 taskStatusCode: this.taskStatusCode,
+				 viewFlag: this.viewFlag}
+		);
+		performance.load({
+			url: '/pdms/mw/todo-list!getTodoTaskInfo.action',
+			params: {
+				processTaskId: this.processTaskId
+			}
+		});
+		
+		// 交付物信息
+		var deliverableInfo =Ext.create(
+				'ExtApp.view.myworkspace.task.PmTaskDeliverable',
+				{programId: this.programId,
+				 taskId: this.taskId,
+				 viewFlag: this.viewFlag}
+		);
+		
+		// 附件
+		var attachmentInfo =Ext.create(
+				'ExtApp.view.myworkspace.task.PmTaskAttachment',
+				{programId: this.programId,
+				 taskId: this.taskId,
+				 viewFlag: this.viewFlag}
+		);
+		
+		// 汇报记录
+		var report =Ext.create(
+				'ExtApp.view.myworkspace.task.PmTaskTimeReportLog',
+				{taskId: this.taskId}
+		);
+
+		// 延期变更记录
+		var extension =Ext.create(
+				'ExtApp.view.myworkspace.task.PmTaskExtensionLog',
+				{taskId: this.taskId}
+		);
+		
+//		// 讨论区
+//		var forum = Ext.create(
+//				'ExtApp.view.myworkspace.task.PmTaskForum',
+//				{taskId: this.taskId}
+//		);
+		
+		// 任务优先级
+		var priorityStore = Ext.create(
+			'ExtApp.store.common.CodeTableStore');
+		priorityStore.getProxy().extraParams = {type: 'TASK_PRIORITY'};
+		priorityStore.load();
+		
+		this.items = [
+		    // 执行状况
+		    performance,
+			// 交付物信息
+			deliverableInfo,
+			// 附件信息
+			attachmentInfo,
+			// 汇报记录
+			report,
+			// 延期变更记录
+			extension
+			// 讨论区
+			//forum
+		];
+		this.callParent(arguments);
+	}
+});

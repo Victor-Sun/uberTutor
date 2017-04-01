@@ -1,0 +1,49 @@
+/**
+ * 部门空间-文档管理-新建文件夹
+ */
+Ext.define('ExtApp.view.deptworkspace.document.CreateDeptFolderController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.createDeptFolder',
+	
+    // 确定
+    confirm: function(btn) {
+    	var me = this;
+
+    	var folderName = this.view.query('#folderName')[0].value;
+    	if (folderName == '') {
+    		ExtApp.util.Util.showErrorMsg('文件夹名称不允许为空！');
+    	}
+    	
+    	me.view.mask('Please Waiting...');
+    	Ext.Ajax.request({
+    		url: '/pdms/dws/dept-document!createFolder.action',
+    		params: {
+    			parentId: me.view.parentId,
+    			folderName: folderName
+			},
+			scope: me,
+			success: function(response, opts) {
+				me.view.unmask();
+				var obj = Ext.decode(response.responseText);
+				if (obj.success) {
+					var tree = me.view.parentCaller.view.down('treepanel');
+					var node = tree.getStore().getNodeById(me.view.parentId);
+    		    	tree.getStore().getProxy().extraParams.departmentId = me.view.departmentId;
+    		        tree.getStore().load({node:node});
+                    me.cancel();
+		        } else {
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+				me.view.unmask();
+		    	ExtApp.util.Util.handleRequestFailure(response);	
+		    }
+    	});
+    },
+    
+    // 取消
+    cancel: function() {
+    	this.view.close();
+    }
+});

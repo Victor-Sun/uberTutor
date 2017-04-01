@@ -1,0 +1,84 @@
+/**
+ * 部门空间-部门自建任务-问题归档
+ */
+Ext.define('ExtApp.view.deptworkspace.deptissue.ArchiveDeptIssueWindow',{
+	extend:'Ext.window.Window',
+	xtype:'archiveDeptIssueWindow',
+	
+	border:true,
+	bodyStyle:'border:5px',
+	cls:'shadow',
+	maximized: true,
+	layout: 'border',
+	
+	controller: 'archiveDeptIssueWindow',
+	
+	title:'问题归档',
+
+	initComponent: function() {
+		var me = this;
+
+		// 进展状况
+		var notesStore = Ext.create('ExtApp.store.deptworkspace.DeptIssueNotesStore');
+		notesStore.load({params: {issueId: me.issueId}});
+		
+    	me.items = [{
+    		xtype: 'container',
+    		layout: 'border',
+    		region: 'center',
+    		items:[{
+    			xtype: 'deptIssueForm',
+	    		region: 'center',
+	    		issueId: me.issueId,
+	    		actionType: 'view'
+    		},{
+    			xtype: 'tabpanel',
+				region:'east',
+				width:'20%',
+				border:true,
+				items:[{
+					xtype: 'panel',
+					layout:'fit',
+					title:'问题进展',
+					items: [{
+						xtype: 'deptIssueNotes',
+						store: notesStore,
+						issueId: me.issueId,
+						editPrivilege: false
+					}]
+				},{
+					xtype: 'panel',
+					layout:'fit',
+					title:'审批信息',
+					items: [{
+						xtype: 'deptIssueProcessRecord',
+						issueId: me.issueId
+					}]
+				}]
+    		}]
+    	},{
+			xtype: 'archiveDeptIssueForm',
+			issueId: me.issueId,
+			region: 'east',
+			width: '30%',
+			title: '归档信息'
+		}];
+    	
+	    me.fbar=[{
+	    	xtype: 'tbfill'
+	    },{
+	    	type:'button',
+	    	text:'完成归档',
+			listeners: {
+				click: 'onButtonClickSubmit'
+			}
+	    },{
+	    	type:'button',
+	    	text:'取消归档',
+			listeners: {
+				click: 'closeWindow'
+			}
+		}];
+	    me.callParent(arguments);
+	}
+});

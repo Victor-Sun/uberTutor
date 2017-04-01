@@ -1,0 +1,43 @@
+﻿/**
+ * 主计划信息
+ */
+Ext.define('ExtApp.view.projectmanagement.vehicle.MainPlanInfo',{
+	extend:'Ext.form.Panel',
+	xtype:'mainPlanInfo',
+	layout: 'fit',
+	url: '/pdms/pm/project-plan!getMainDeployPlan.action',
+	initComponent: function() {
+		var me = this;
+		me.items = [{
+			xtype:'panel',
+			layout: 'column',
+			padding: 5,
+			defaults: {
+		    	labelAlign: 'right',
+		    	labelWidth: 60,
+		    	margin:4,
+		    	readOnly: true,
+				fieldCls: 'text-readonly'
+		    },
+			items:[{
+				xtype: 'textfield',
+				columnWidth:0.3,
+				fieldLabel: '状态',
+				name: 'planStatusName'
+			},{
+				xtype: 'textfield',
+				columnWidth:0.3,
+				fieldLabel: '当前基线',
+				name: 'title'
+			},{
+				xtype: 'textfield',
+				columnWidth:0.4,
+				fieldLabel: '更新日期',
+				name: 'publishDate'
+			}]
+		}];
+
+		this.callParent(arguments);
+		me.getForm().load({params:{programVehicleId:me.programVehicleId}})
+	}
+});

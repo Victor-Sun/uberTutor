@@ -1,0 +1,53 @@
+/**
+ * 论坛成员组件
+ */
+Ext.define('ExtApp.view.projectManagement.issue.IssueMember',{
+	extend:'Ext.panel.Panel',
+	xtype:'issueMember',
+	controller: 'issueMember',
+//	margin: 10,
+	layout: 'fit',
+	initComponent:function() {
+
+		var me = this;
+		var issueMemberStore = Ext.create('ExtApp.store.qualityissuemanagement.IssueMemberStore');
+		issueMemberStore.load({params:{issueId:me.sourceId}});
+		this.items = [{
+			xtype:'fieldset',
+	    	title: '<B>知会</B>',
+			margin: '5 10 10 10',
+			layout: 'fit',
+	    	items:[{
+	    		xtype:'grid',
+				cls: 'allRecordsCls',
+//				width:200,
+//				height:600,
+//				hideHeaders: true,
+				viewConfig: {
+					preserveScrollOnRefresh: true,
+					stripeRows: false
+				},
+				columnLines: true,
+				flex: 1,
+				store: issueMemberStore,
+				columns: [
+					{ text: '用户', flex: 2, dataIndex: 'userName'},
+					{ text: 'Last Joined', flex: 1, dataIndex: 'createDate',xtype: 'datecolumn',formate:'Y-m-d'}
+				],
+				dockedItems: [{
+					xtype: 'toolbar',
+					dock: 'top',
+					items: [{
+						text: '增加',
+						iconCls: 'x-fa fa-plus-circle',
+						handler: 'addMember'
+					},{
+						iconCls: 'x-fa fa-refresh',
+						handler: 'onResetClick'
+					}]
+				}]
+	    	}]
+		}];
+		this.callParent();
+	}
+});

@@ -1,0 +1,44 @@
+/**
+ * 质量问题管理-问题提交-知会-人员窗口
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.QeNotifyWindow',{
+	extend:'Ext.window.Window',
+	xtype:'qeNotifyWindow',
+	
+	layout:{
+		type:'vbox'
+	},
+	controller: 'qeNotifyWindow',
+	closeAction:"hide",
+	width:300,
+	modal: true,
+	items:[{
+		xtype:"form",
+		margin:'10 10 10 0',
+		reference: 'refDesattAchmentForm',
+		layout:{
+			type:'hbox',
+			align:'middle'
+		},
+		items:[{
+			xtype:'label',
+			html:'<div style="text-align:center;"><b>请选择人员</b></div>',
+			width:100
+		},{
+			xtype: 'textfield',
+			emptyText: '<单击选择人员>',
+			name : "upfile",
+			listeners:{
+				click: {
+		            element: 'el', //bind to the underlying el property on the panel
+		            fn: 'selectMember'
+		        }
+			}
+		}]
+	}],
+	buttons: [{
+		text: '取消',
+		handler: 'closeWin'
+	}],
+	layout:"fit"
+});

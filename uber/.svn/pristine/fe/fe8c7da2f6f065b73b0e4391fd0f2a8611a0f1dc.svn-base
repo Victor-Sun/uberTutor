@@ -1,0 +1,7 @@
+Ext.define('ExtApp.model.common.CodeTableModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.codeTable',
+    
+    fields: ['code', 'name', 'description']
+
+});

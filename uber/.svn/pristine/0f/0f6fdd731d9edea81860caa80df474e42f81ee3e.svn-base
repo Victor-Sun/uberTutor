@@ -1,0 +1,16 @@
+/**
+ * 个人管理-已办任务-质量问题Store
+ */
+Ext.define('ExtApp.store.myworkspace.DoneListQMSStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.doneListQMS',
+
+    fields: ['workName', 'workType', 'title', 'state', 'grade', 'project', 'waitTime', 'endDate','workDate'],
+
+    data : [
+        {workName: '原因分析1',   workType: '处理', title: '问题1', state: '解决', grade: 'A', project: 'A10', waitTime: '1', endDate: '2016/5/2', workDate: '2016/5/2'},
+        {workName: '原因分析2 ',   workType: '知会', title: '问题2', state: '解决', grade: 'B', project: 'A11', waitTime: '2', endDate: '2016/5/3', workDate: '2016/5/4'},
+        {workName: '原因分析3',   workType: '处理', title: '问题3', state: '解决', grade: 'C', project: 'A12', waitTime: '3', endDate: '2016/5/4', workDate: '2016/5/3'}
+    ]
+
+});

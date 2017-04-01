@@ -1,0 +1,14 @@
+Ext.define('ExtApp.model.projectmanagement.DeptPlanRefTaskModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.deptPlanRefTask',
+    
+    fields: [
+             {name: 'id'},
+             {name: 'taskName'},
+             {name: 'plannedFinishDate', type: 'date'},
+             {name: 'vehicleId'},
+             {name: 'vehicleName'},
+             {name: 'functionGroupId'},
+             {name: 'functionGroupName'}
+    ]
+});

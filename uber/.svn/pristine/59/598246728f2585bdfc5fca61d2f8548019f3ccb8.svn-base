@@ -1,0 +1,25 @@
+/**
+ * 质量问题管理-问题提交ViewModel
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.SubmissionViewModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.submission',
+
+    stores: {
+    	problemSource: {
+            type: 'problemSource'
+        },
+        buildPhase: {
+            type: 'buildPhase'
+        },
+        testType: {
+            type: 'testType'
+        },
+        program: {
+            type: 'program'
+        },
+        programVehicle: {
+            type: 'programVehicle'
+        }
+    }
+});

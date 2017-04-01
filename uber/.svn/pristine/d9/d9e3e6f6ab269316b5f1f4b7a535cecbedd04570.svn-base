@@ -1,0 +1,18 @@
+/**
+ * 个人管理-已办任务-基本信息Store
+ */
+Ext.define('ExtApp.store.myworkspace.DoneListPMStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.doneListPMStore',
+
+    model: 'ExtApp.model.myworkspace.DoneListPMModel',
+    pageSize:ExtApp.common.Constants.pageSize,
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/mw/done-list!getDoneListPM.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

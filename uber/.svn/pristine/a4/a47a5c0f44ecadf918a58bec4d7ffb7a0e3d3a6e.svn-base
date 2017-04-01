@@ -1,0 +1,12 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectTemplateSwimLaneModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.projectTemplateSwimLane',
+    
+    fields: [
+        'id',
+		'displayName',
+		'childObsName',
+		'seqNo'
+	]
+
+});

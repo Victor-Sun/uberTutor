@@ -1,0 +1,96 @@
+/**
+ * PMS首页
+ */
+Ext.define('ExtApp.view.dashboard.DashboardPMS',{
+	extend:'Ext.container.Container',
+	xtype:'admindashboard',
+	
+	controller:'dashboardPMS',
+
+	requires:[
+	     'Ext.ux.layout.ResponsiveColumn'
+	],
+	
+	layout:'responsivecolumn',
+	
+	scrollable:'y',
+	initComponent: function() {
+
+//		this.items = [{
+//			xtype:'dashboard-widget',
+//			containerColor:'blue',
+//			userCls:'big-50 small-100',
+//			height:235,
+//			items:[{
+//				title:'常用项目',
+//				items:[{
+//					xtype: 'dashCommonProject',
+//					scrollable:false
+//				}]
+//			}]
+//		},{
+//			xtype:'dashboard-widget',
+//			containerColor:'blue',
+//			userCls:'big-50 small-100',
+//			height:235,
+//			items:[{
+//				title: '待办任务',
+//				items:[{
+//					xtype: 'dashTodoList',
+//					scrollable:false
+//				}]
+//				
+//			}]
+//		},{
+//			xtype:'dashboard-widget',
+//			containerColor:'blue',
+//			userCls:'big-100 small-100',
+//			height:235,
+//			items:[{
+//				title:'多项目状态报表',
+//				items:[{
+//					xtype: 'projectReport',
+//					scrollable:false
+//				}]
+//			}]
+//		},{
+//			xtype:'dashboard-widget',
+//			containerColor:'blue',
+//			userCls:'big-100 small-100',
+//			height:235,
+//			items:[{
+//				title:'进展报表',
+//				items:[{
+//					xtype:'dashProgressReport',
+//					scrollable:false
+//				}]
+//			}]
+//		},{
+//			xtype:'dashboard-widget',
+//			containerColor:'blue',
+//			userCls:'big-100 small-100',
+//			height:500,
+//			items:[{
+//				title:'质量问题报表',
+//				items:[{
+//					xtype:'dashboardchartcontainer',
+//					scrollable:false
+//				}]
+//			}]
+//
+//		},{
+//			xtype:'dashboard-widget',
+//			containerColor:'blue',
+//			height:300,
+//			userCls:'big-100 small-100 shadow',
+//			items:[{
+//				title:'节点完成率报表',
+//				items:[{
+//					xtype:'nodechart',
+//					scrollable:false
+//				}]
+//			}]
+//		}];
+		this.callParent(arguments);
+	}
+});

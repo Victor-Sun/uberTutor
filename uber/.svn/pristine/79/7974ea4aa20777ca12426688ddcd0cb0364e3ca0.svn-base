@@ -1,0 +1,163 @@
+.id {
+    background-color : #F6F6F6 !important;
+    background-image : -moz-linear-gradient(left center, #F6F6F6, #E9E9E9) !important;
+    background-image : -webkit-linear-gradient(left, #F6F6F6, #E9E9E9) !important;
+    background-image : linear-gradient(left, #F6F6F6, #E9E9E9) !important;
+}
+
+.gnt-color-palette {
+    background-color : #E9F2FF;
+    border           : 1px solid #8EAACE;
+    position         : absolute;
+    height           : 95px;
+    width            : 152px;
+}
+
+.first-row .sch-gantt-labelct-left {
+    display : none;
+}
+
+.sch-ganttview .kickoff {
+    border-left : 2px dotted #00a000;
+}
+
+.sch-gantt-project-line-text {
+    background-color : #f33;
+    left             : -1px;
+}
+
+.sch-rollup-wrap .sch-gantt-progress-bar span {
+    display : none;
+}
+
+.enable-taskarea .gnt-taskarea {
+    display : block;
+}
+
+.filterfield input {
+    border-left   : 0;
+    border-right  : 0;
+    border-bottom : 0;
+    padding-left  : 30px;
+}
+
+.filterfield .x-form-text-wrap:before {
+    content  : "\f002";
+    font     : 20px/1 FontAwesome;
+    color    : #bbb;
+    margin   : 5px;
+    position : absolute;
+}
+
+.gnt-national-holiday {
+    background-color    : #eee;
+    background-position : center 140px !important;
+    background-repeat   : no-repeat;
+}
+
+/* toolbar & icons */
+
+.gantt-secondary-toolbar {
+
+    background : #5fa2dd;
+}
+
+.x-panel-header .x-tool-img {
+    font       : 20px/1 FontAwesome;
+    background : none;
+    width      : 20px;
+    height     : 20px;
+    margin     : 0 2px;
+}
+
+.x-panel-header .x-tool-disabled .x-tool-img {
+    color : #cfcfcf;
+}
+
+.x-panel-header .x-mask {
+    background : none;
+    filter     : none;
+}
+
+.icon-previous .x-tool-img:before {
+    content     : "\f104";
+    font-weight : bold;
+}
+
+.icon-next .x-tool-img:before {
+    content     : "\f105";
+    font-weight : bold;
+}
+
+.icon-expand-all .x-tool-img:before {
+    content     : "\f103";
+    font-weight : bold;
+}
+
+.icon-collapse-all .x-tool-img:before {
+    content     : "\f102";
+    font-weight : bold;
+}
+
+.icon-zoom-in .x-tool-img:before {
+    content : "\f00e";
+}
+
+.icon-zoom-out .x-tool-img:before {
+    content : "\f010";
+}
+
+.icon-zoom-to-fit .x-tool-img:before {
+    content : "\f0b2";
+}
+
+.icon-undo .x-tool-img:before {
+    content : "\f0e2"
+}
+
+.icon-redo .x-tool-img:before {
+    content : "\f01e"
+}
+
+.icon-fullscreen .x-tool-img:before {
+    content   : "\f108";
+    font-size : 0.8em;
+}
+
+.icon-critical-path .x-tool-img:before {
+    content : "\f06d";
+}
+
+.icon-add-task .x-tool-img:before {
+    content : "\f067";
+}
+
+.icon-remove-task .x-tool-img:before {
+    content : "\f068";
+}
+
+.icon-indent .x-tool-img:before {
+    content : "\f03c";
+}
+
+.icon-outdent .x-tool-img:before {
+    content : "\f03b";
+}
+
+.icon-calendar .x-tool-img:before {
+    content : "\f073";
+}
+
+.icon-save .x-tool-img:before {
+    content : "\f0c7";
+}
+
+.icon-settings .x-tool-img:before {
+    content : "\f013";
+}
+
+.icon-print .x-tool-img:before {
+    content : "\f02f";
+}
+
+/* EOF toolbar icons */

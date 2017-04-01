@@ -1,0 +1,224 @@
+/**
+ * 质量问题管理-待办事项-Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.MyTaskController',{
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.myTask',
+
+    onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    	var me = this;
+    	var rec = grid.getStore().getAt(rowIndex);
+    	var refPanel = me.view.up('tabpanel');
+		//表单重复控制
+		for (var i = 0; i < refPanel.items.getCount(); i++) {
+			if (refPanel.items.get(i).keyId == rec.get('keyId')&&refPanel.items.get(i).taskId == rec.get('taskId')) {
+				refPanel.setActiveTab(refPanel.items.get(i));
+				return;
+			}
+		}
+	
+    	Ext.Ajax.request({
+    		params: {keyId: rec.get('keyId'),formKey: strLength,taskId: rec.get('taskId')},
+   	 		url: '/pdms/ims/my-task!getMyTaskVImsIssue.action',
+			success: function(response, opts) {
+				var result = ExtApp.util.Util.decodeJSON(response.responseText);
+				var formRecord = Ext.create('Ext.data.Model',result.data);
+				var win = Ext.create({xtype: formClassId,workOrderId:workOrderId,record:formRecord,grid:th,title:stepName}).show();
+				win.down('form').loadRecord(formRecord);
+				if(win.down('form').getForm().findField('isProjectType')){
+					win.down('form').getForm().findField('isProjectType').setValue({isProjectType:result.data.isProjectType});
+				}
+				if(win.down('form').getForm().findField('onlineMode')){
+					win.down('form').getForm().findField('onlineMode').setValue({onlineMode:result.data.onlineMode});
+				}
+				
+				var newView = Ext.create({
+		    		xtype:formClassId,
+		    		closable:true,
+		    		keyId: rec.get('keyId'),
+		    		ProcessInstanceId: rec.get('processInstanceId'),
+					taskId: rec.get('taskId'),
+		    		formKey: formKey,
+					scrollable: true,
+		    		height:this.view.ownerCt.ownerCt.height
+		        });
+				newView.loadRecord(formRecord);
+				newView.setTitle(rec.get('taskName'));
+		    	refPanel.add(newView);
+		    	refPanel.setActiveTab(newView);
+		    },
+		    failure: function(response, opts) {
+		    	var result = ExtApp.util.Util.decodeJSON(response.responseText); 
+		    	ExtApp.util.Util.showErrorMsg(result.data);
+		    }
+        });
+    	
+    	
+    	
+    },
+	//【责任部门】
+	selResCombo: function(form, keyId, taskId) {
+		var deptResStore = Ext.create(
+				'ExtApp.store.qualityissuemanagement.ResDepartmentStore');
+		deptResStore.getProxy().extraParams = {keyId: keyId,taskId: taskId};
+		deptResStore.load();
+		var deptResCombo = form.findField('ReDepartment');
+
+		deptResStore.on('load', function() {
+			deptResCombo.setStore(this);
+		});
+	},
+	//【责任工程师】
+	selEgrCombo: function(form, keyId, action) {
+		var deptEgrStore = Ext.create(
+				'ExtApp.store.qualityissuemanagement.EngineersStore');
+		deptEgrStore.getProxy().extraParams = {keyId: keyId,
+											   programObsId: action.result.data.programObsId,
+											   programVehicleId: action.result.data.programVehicleId};
+		deptEgrStore.load();
+		var deptEgrCombo = form.findField('ResponEngineer');
+
+		deptEgrStore.on('load', function() {
+			deptEgrCombo.setStore(this);
+		});
+	},
+	//加载验证方案MyTaskInfo11
+    addPanel: function (m_form, v_form, record) {
+    	var refPanel = v_form.owner;
+		var fieldlabelIndex = refPanel.items.length + 1;
+		var seq = record.seq;
+//		var engineersStore = Ext.create(
+//			'ExtApp.store.qualityissuemanagement.EngineersStore');
+//		engineersStore.getProxy().extraParams = {
+//			keyId: m_form.keyId,
+//			programObsId: record.programObsId,
+//			programVehicleId: m_form.programVehicleId
+//			};
+//		engineersStore.load();
+		var configItem=[{
+			xtype:'panel',
+			title:'<B>验证方案'+ seq+'</B>',
+			layout:{
+				type:'vbox'
+			},
+			scrollable: 'x',
+			margin:10,
+			cls:'shadow',
+			items:[{
+				xtype:'panel',
+				layout:{
+					type:'hbox'
+				},
+				items:[{
+					xtype:'combo',
+					fieldLabel:'验证方案' + seq,
+					readOnly:true,
+					editable:false,
+					bind:{
+						store:'{verification}'
+					},
+					queryMode:'local',
+					displayField:'name',
+					valueField:'id',
+					margin:'0 0 10 10',
+					name:'VerificationScheme',
+					value:record.VerificationScheme
+				},{
+					xtype:'textareafield',
+					fieldLabel:'通过要求',
+					readOnly:true,
+					width:505,
+					margin:'0 0 0 10',
+					name:'Request',
+					value:record.Request
+				},{
+					xtype:'textfield',
+					fieldLabel:'实施信息',
+					margin:'0 10 0 10',
+					readOnly:true,
+					name:'ImplementVehicle',
+					value:record.ImplementVehicle
+				},{
+					xtype:'textfield',
+					hidden:true,
+					readOnly:true,
+					name:'UId',
+					value:record.UId
+				}]
+			},{
+				xtype:'panel',
+				layout:{
+					type:'hbox'
+				},
+				items:[{
+					xtype:'textfield',
+					fieldLabel:'验证部门',
+					readOnly:true,
+					margin:'10 0 10 10',
+					name:'deptId',
+					value:record.deptId
+				},{
+					xtype:'textfield',
+					itemId:'engineerIndex' + fieldlabelIndex,
+					fieldLabel:'验证工程师',
+					readOnly:true,
+					emptyText: '<单击选择人员>',
+					editable:false,
+					allowBlank:false,
+					margin:'10 0 10 10',
+					name:'VerificationEngineer',
+					listeners:{
+						click: {
+				            element: 'el',
+				            fn: 'selectMember'
+				        }
+					},
+					value:record.VerificationEngineer
+				},{
+					xtype:'textfield',
+					hidden:true,
+					readOnly:true,
+					name:'VerificationEngineerId',
+					value:record.VerificationEngineerId
+				}]
+			}]
+		}];
+		refPanel.add(configItem[0]);
+    },
+    //关注
+    licheck: function() {
+    	var me = this.view;
+    	var v_Flg = null;
+    	var check = this.lookupReference("refCheckbox").getValue();
+    	var me = this.view.ownerCt.ownerCt.ownerCt.up('qmsmain');
+    	if (check == true) {
+    		v_Flg = 'Y';
+    	} else if (check == false) {
+    		v_Flg = 'N';
+    	}
+	    Ext.Ajax.request({
+			url:'/pdms/ims/ims-issue-mark!saveImsIssueMark.action',
+			params: {
+				keyId: this.view.ownerCt.ownerCt.ownerCt.keyId,
+				isConcern: v_Flg
+			},
+			success: function(response, opts) {
+				if (check == true) {
+					var view = me;
+			    	this.dialog = view.add({
+						title:"添加关注成功",
+			        	xtype: 'licheckView'
+			        });
+			        this.dialog.show();
+		    	} else if (check == false) {
+		    		var view = me;
+			    	this.dialog = view.add({
+						title:"取消关注成功",
+			        	xtype: 'licheckView'
+			        });
+			        this.dialog.show();
+		    	}
+		    }
+	    });
+    }
+});

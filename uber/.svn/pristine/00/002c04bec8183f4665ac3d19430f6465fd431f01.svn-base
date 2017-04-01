@@ -1,0 +1,12 @@
+Ext.define('ExtApp.model.myworkspace.TodoListPMDeliverableModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.todoListPMDeliverable',
+    
+	fields: [
+	         'id',
+	         'taskName',
+	         'code',
+	         'name',
+	         'memo'
+	]
+});

@@ -1,0 +1,13 @@
+/**
+ * 质量问题管理-问题提交-知会ViewModel
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.QeNotifyViewModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.qeNotify',
+
+    stores: {
+    	qeNotify: {
+            type: 'qeNotify'
+        }
+    }
+});

@@ -1,0 +1,52 @@
+/**
+ * 待办任务-交付物
+ */
+Ext.define('ExtApp.view.myworkspace.task.PmTaskDeliverable',{
+	extend:'Ext.grid.Panel',
+	xtype:'pmTaskDeliverable',
+	
+	title:'交付物',
+	
+	controller: 'pmTaskDeliverable',
+	
+	listeners: {
+    	celldblclick: 'onCelldblclick'
+	},
+	
+	initComponent: function() {
+		
+		this.store = Ext.create(
+			'ExtApp.store.myworkspace.TodoListPMDeliverableStore');
+		this.store.getProxy().extraParams = {taskId: this.taskId};
+		this.store.load();
+		
+		this.columns = [{
+			xtype: 'rownumberer'
+		},{
+			text:'所属阀门',
+			flex: 1,
+			dataIndex:'taskName'
+		},{
+			text:'交付物编号',
+			flex: 1,
+			dataIndex:'code'
+		},{
+			text:'交付物名称',
+			flex: 1,
+			dataIndex:'name'
+		},{
+			text:'备注',
+			flex: 1,
+			dataIndex:'memo'
+		}];
+		
+		this.dockedItems = [{
+			xtype: 'pagingtoolbar',
+			dock: 'bottom',
+			displayInfo: true,
+			store: this.store
+		}];
+		
+		this.callParent(arguments);
+	}
+});

@@ -1,0 +1,92 @@
+Ext.define('ExtApp.view.projectmanagement.extplan.ext201.ChecklistController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.checklist',
+    openChecklistWindow:function(grid, rowIndex, colIndex){
+    	var rec = grid.getStore().getAt(rowIndex);
+   	 	var id = rec.get('id');
+   	 	var checklistWindow = Ext.create('ExtApp.view.projectmanagement.extplan.ext201.ChecklistWindow');
+   	 	checklistWindow.show();
+   	 	checklistWindow.down('form').getForm().findField('id').setValue(id);
+    },
+    openChecklistDocumentWindow:function(grid, rowIndex, colIndex){
+    	var rec = grid.getStore().getAt(rowIndex);
+   	 	var checklistId = rec.get('id');
+    	Ext.create('ExtApp.view.projectmanagement.extplan.ext201.ChecklistDocumentGridWindow',{checklistId:checklistId,grid:grid}).show();
+    },
+    submitComment:function(button){
+    	var me = this;
+   	 	var reviewComment = button.up('checklistWindow').down('form').getForm().findField('reviewComment').getValue();
+   	 	var id = button.up('checklistWindow').down('form').getForm().findField('id').getValue();
+   	 	var isCompleted = button.up('checklistWindow').down('form').getForm().findField('isCompleted').getValue();
+   	 	Ext.Ajax.request({
+   	 		params:{taskId:id,remark:reviewComment,isCompleted:isCompleted},  
+   	 		url: '/pdms/pm/project-extension-plan!updateExt201TaskStatus.action',
+			success: function(response, opts) {
+				var result = ExtApp.util.Util.decodeJSON(response.responseText);
+				if (!result){ //#4
+					result = {};
+		    		result.success = false;
+		    	 	result.msg = response.responseText;
+		 		}
+				if(result.success){
+//					me.getView().unmask();
+					me.getView().close();
+//					me.getView().destroy();
+					var grid = Ext.ComponentQuery.query('#checklistItemId')[0];
+					grid.getStore().load({params:{taskId:grid.taskId}});
+					var checklistItemNotes = Ext.ComponentQuery.query('#checklistItemNotesId')[0];
+				    checklistItemNotes.getStore().load({params:{taskId:grid.taskId}});
+				}else{
+//					me.getView().unmask();
+					ExtApp.util.Util.showErrorMsg(result.data);
+				}
+		    },
+		
+		    failure: function(response, opts) {
+		    	var result = ExtApp.util.Util.decodeJSON(response.responseText); 
+		    	ExtApp.util.Util.showErrorMsg(result.data);
+		    }
+        });
+    }, 
+    uploadFile:function(appId){    	
+    	var me = this;
+        var form = this.lookupReference('checklistDocumentForm');
+        var checklistId = form.up('window').checklistId;
+        var id = form.up('window').documentId;
+        var params={};
+        if(id == null){
+        	params = {
+        			taskId:checklistId
+            };
+        }else{
+        	params = {
+        			taskId:checklistId,
+        			id:id
+            };
+        }
+       
+        if (form.isValid()){
+            me.getView().mask('正在上传... 请耐心等待！...');
+            form.submit({
+                clientValidation: true,
+                scope: me,
+                params:params,
+                success: 'onUploadSuccess',
+                failure: 'onSubmitFailure'
+            });
+        }
+   },    
+   onUploadSuccess: function(form, action) {
+	   var view = this.getView();
+       view.unmask();
+       var form = this.lookupReference('checklistDocumentForm');
+       var grid = form.up('window').grid;
+       grid.getStore().load({params:{taskId:form.up('window').checklistId}});
+       form.up('window').close();
+   },
+   onSubmitFailure: function(form, action) {
+
+       this.getView().unmask();
+       ExtApp.util.Util.handleFormFailure(action);
+   }
+});

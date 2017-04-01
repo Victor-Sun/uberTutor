@@ -1,0 +1,25 @@
+/**
+ * 个人管理-待办任务-审批流程
+ */
+Ext.define('ExtApp.view.myworkspace.TodoListFlow',{
+	extend:'Ext.panel.Panel',
+	xtype:'todoListFlow',
+	
+	title:'流程审批<font color="red"><b>（10）</b></font>',
+	
+	items:[{
+		xtype:'panel',
+		bodyStyle: "background-color:#dfe8f6",
+		items:[{
+			xtype:'panel',
+			margin:'10 10 10 10',
+			height:400,
+			bodyStyle: "background-color:transparent;",
+			html:'<font size="4" color="#9d9d9d"><B>1、任务标签上增加醒目的数字小标示，提醒此模块有待办任务。<BR>'
+				+ '2、列表字段（待定）：与项目管理待办任务列表一致。<BR>'
+				+ '3、任务列表的属性支持筛选和排序。<BR>'
+				+ '4、点击待办任务列表，可打开任务的办理表单。<BR>'
+				+ '</B></font>'
+		}]
+	}]
+});

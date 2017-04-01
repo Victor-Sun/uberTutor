@@ -1,0 +1,23 @@
+Ext.define('ExtApp.store.deptworkspace.DeptDocumentListStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.deptDocumentList',
+    
+    fields: ['docmentIndexId',
+             'documentRevisionId',
+             'documentName',
+             'folderName',
+             'createBy',
+             {name: 'createDate', type: 'date'}
+    ],
+    
+    pageSize:ExtApp.common.Constants.pageSize,
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/dws/dept-document!getDocumentList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

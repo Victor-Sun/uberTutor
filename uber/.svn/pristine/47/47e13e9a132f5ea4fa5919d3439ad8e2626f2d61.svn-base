@@ -1,0 +1,220 @@
+/**
+ * 质量问题管理-问题提交-01
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.QuestionInfo01', {
+	extend:'Ext.form.Panel',
+	xtype:'questionInfo01',
+
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+	defaults: {
+		margin: '2 10 2 10',
+		layout: {
+			type: 'hbox'
+		},
+		defaults: {
+			margin: '2 5'
+		}
+	},
+	margin: 10,
+	initComponent:function() {
+		var me = this;
+		var problemSource = Ext.create('ExtApp.store.qualityissuemanagement.ProblemSourceStore');
+		problemSource.load();
+		var program = Ext.create('ExtApp.store.qualityissuemanagement.ProgramStore');
+		program.load();
+		var buildPhase = Ext.create('ExtApp.store.qualityissuemanagement.BuildPhaseStore');
+		buildPhase.load();
+		var testType = Ext.create('ExtApp.store.qualityissuemanagement.TestTypeStore');
+		testType.load();
+		
+		var programVehicleStore = Ext.create('ExtApp.store.qualityissuemanagement.ProgramVehicleStore');
+		if(me.record){
+			programVehicleStore.load({params:{programId: me.record.get('programId')}});
+		}
+		me.items = [{
+			xtype:'container',		
+			items:[{
+		        xtype:'hiddenfield', 
+		        name: 'id'
+			},{
+//		        xtype:'hiddenfield', 
+//		        name: 'submitUser'
+//			},{
+//		        xtype:'hiddenfield', 
+//		        name: 'createBy'
+//			},{
+//		        xtype:'hiddenfield', 
+//		        name: 'createDate'
+//			},{
+				xtype:'textfield',
+				fieldLabel:'问题标题 &nbsp;<span style="color: red;">*</span>',
+//				style:'background:#ebf1de;',
+//				fieldStyle:'background-color: red; background-image: none;',
+				width: 845,
+				allowBlank:false,
+				name:'title'
+			}]
+		},{//line4
+			xtype:'container',
+			items:[{
+				xtype:'textfield',
+				fieldLabel:'问题提出人',
+				readOnly:true,
+				style:'opacity:1;',
+				name:'submitUserName'
+			},{
+				xtype : 'datefield',
+				fieldLabel:'提出时间',
+				readOnly:true,
+				format: 'Y/m/d',
+				style:'opacity:1;',
+				name:'openDateStr',
+				value: new Date()
+			},{
+				xtype : 'combo',
+				fieldLabel:'问题来源',
+				readOnly:true,
+				editable: false,
+				store: problemSource,
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'id',
+				style:'opacity:1;',
+				name:'issueSourceId'
+			}]
+		},{//line5
+			xtype:'container',
+			items:[{
+				xtype:'combo',
+				fieldLabel:'所属项目 &nbsp;<span style="color: red;">*</span>',
+				editable: false,
+				store: program,
+				queryMode:'local',
+				displayField:'name',
+				valueField:'id',
+				listeners: {
+					change: function(combo, newValue, oldValue, eOpts) {
+				    	programVehicleStore.load({params:{programId: newValue}});
+				    }
+				},
+				allowBlank:false,
+				name:'projectId'
+			},{
+				xtype : 'combo',
+				fieldLabel:'子项目 &nbsp;<span style="color: red;">*</span>',
+				editable: false,
+				queryMode:'local',
+				displayField:'name',
+				valueField:'id',
+				allowBlank:false,
+				store:programVehicleStore,
+				name:'subProjectId'
+			},{
+				xtype : 'combo',
+				fieldLabel:'样车阶段 &nbsp;<span style="color: red;">*</span>',
+				editable: false,
+				store: buildPhase,
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'id',
+				allowBlank:false,
+				name:'stageId'
+			}]
+		},{//line6
+			xtype:'container',
+			items:[{
+				xtype:'textfield',
+				fieldLabel:'样车编号 &nbsp;<span style="color: red;">*</span>',
+				allowBlank:false,
+				name:'sampleNumber'
+			},{
+				xtype:'datefield',
+				fieldLabel:'发生时间 &nbsp;<span style="color: red;">*</span>',
+				format: 'Y/m/d',
+				allowBlank:false,
+				name:'occurrenceDateStr',
+	            maxValue: new Date()
+			},{
+				xtype : 'textfield',
+				fieldLabel:'发生场地 &nbsp;<span style="color: red;">*</span>',
+				allowBlank:false,
+				name:'occurrenceSite'
+			}]
+		},{//line7
+			xtype:'container',
+			items:[{
+				xtype : 'combo',
+				fieldLabel:'试验类型 &nbsp;<span style="color: red;">*</span>',
+				editable: true,
+				store: testType,
+				queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'id',
+				allowBlank:false,
+				forceSelection:true,
+				name:'testTypeId'
+			},{
+				xtype : 'numberfield',
+				fieldLabel:'故障零件里程 &nbsp;<span style="color: red;">*</span>',
+				allowBlank:false,
+				minValue: 0,
+				hideTrigger:true,
+				name:'troublePartMileage'
+			},{
+				xtype : 'numberfield',
+				fieldLabel:'试验进展 &nbsp;<span style="color: red;">*</span>',
+				name:'testProgress',
+		        minValue: 0,
+		        hideTrigger:true,
+		        allowBlank:false
+			},{
+				xtype:'label',
+				itemId:'percentSigns',
+				margin: 0,
+				html:'<b>%</b>'
+			}]
+		},{//line8
+			xtype:'container',
+			items:[{
+				xtype:'textareafield',
+				fieldLabel:'问题描述 &nbsp;<span style="color: red;">*</span>',
+				height:64,
+				width:1000,
+				allowBlank:false,
+				name:'description'
+			}]
+		},{//line9
+			xtype:'container',
+			items:[{
+				xtype:'textareafield',
+				fieldLabel:'处置措施 &nbsp;<span style="color: red;">*</span>',
+				height:64,
+				width:1000,
+				allowBlank:false,
+				name:'disposalMeasures'
+			}]
+		},{//line10
+			xtype:'container',
+			items:[{
+				xtype:'textareafield',
+				fieldLabel:'初步原因分析 &nbsp;',
+				height:64,
+				width:1000,
+				name:'firstCauseAnalysis'
+			}]
+		},{//line10
+			xtype:'container',
+			items:[{
+				xtype:'textareafield',
+				fieldLabel:'备注',
+				height:64,
+				width:1000,
+				name:'memo'
+			}]
+		}];
+		me.callParent();
+	}
+});

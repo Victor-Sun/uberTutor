@@ -1,0 +1,31 @@
+Ext.define('ExtApp.view.workorder.common.WorkOrderDocumentController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.workOrderDocument',
+    uploadFile:function(){    	
+    	var me = this;
+        var form = this.lookupReference('workOrderDocumentForm');
+        var workOrderId = form.up('window').workOrderId;
+        if (form.isValid()){
+            me.getView().mask('正在上传... 请耐心等待！...');
+            form.submit({
+                clientValidation: true,
+                scope: me,
+                params:{id:workOrderId},
+                success: 'onUploadSuccess',
+                failure: 'onSubmitFailure'
+            });
+        }
+   },    
+   onUploadSuccess: function(form, action) {
+	   var view = this.getView();
+       view.unmask();
+       var form = this.lookupReference('workOrderDocumentForm');
+       var grid = form.up('window').grid;
+       grid.getStore().load({params:{id:form.up('window').workOrderId}});
+       form.up('window').close();
+   },
+   onSubmitFailure: function(form, action) {
+       this.getView().unmask();
+       ExtApp.util.Util.handleFormFailure(action);
+   }
+});

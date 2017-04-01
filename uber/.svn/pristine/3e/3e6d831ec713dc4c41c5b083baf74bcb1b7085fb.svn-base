@@ -1,0 +1,30 @@
+Ext.define('ExtApp.view.workorder.common.WorkOrderApprovalNodeInfo',{
+	extend:'Ext.panel.Panel',
+	title: '审批节点信息',
+	xtype: 'workorderapprovalnodeinfo',
+	layout: {
+		type: 'vbox',
+		align: 'stretch'
+	},
+	items: [{
+		xtype: 'gridpanel',
+		title: '需求',
+		flex: 1,
+		columns: [
+		          { text: '节点名称',flex: 1},
+		          { text: '审核时间',flex: 1},
+		          { text: '审核意见',flex: 1},
+		          { text: '审核/审批人',flex: 1}
+		          ]
+	},{
+		xtype: 'gridpanel',
+		title: '反馈',
+		flex: 1,
+		columns: [
+		          { text: '节点名称',flex: 1},
+		          { text: '审核时间',flex: 1},
+		          { text: '审核意见',flex: 1},
+		          { text: '审核/审批人',flex: 1}
+		          ]
+	}]
+});

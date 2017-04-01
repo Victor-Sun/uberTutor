@@ -1,0 +1,105 @@
+Ext.define('ExtApp.view.projectmanagement.extplan.ext201.ChecklistDocumentGridWindow', {
+	extend: 'Ext.window.Window',
+    xtype: 'checklistDocumentGridWindow', 
+	title:'文档管理',
+	width:500,
+	height:500,
+	itemId:'checklistDocumentGridWindowItemId',
+	creditLineChecklistId:null,
+	appChecklistId:null,
+	appId:null,
+	initComponent: function() {
+		var me = this;
+		var store = Ext.create('ExtApp.store.projectmanagement.extplan.ext201.common.ChecklistDocuments');
+		store.load({params:{taskId:me.checklistId}});
+		me.items = [{
+			xtype:'grid',
+			flex:1,
+			height:'400px',
+			tbar:[
+					{ type:'button', text:'上传',
+						listeners: {
+							click:function(button){
+								Ext.create('ExtApp.view.projectmanagement.extplan.ext201.ChecklistDocumentWindow',{checklistId:me.checklistId,grid:button.up('grid')}).show();
+							}
+						}
+					}
+			],
+			store:store,
+			columns:[
+				{ xtype: 'rownumberer'},
+				{ text:'名称', flex: 1, dataIndex:'title'},
+				{ text:'上传人', flex: 1, dataIndex:'createBy'},
+				{ text:'上传时间', flex: 1, dataIndex:'createDate'},
+				{ xtype:'actioncolumn',
+		            width:50,
+		            items: [{
+		            	iconCls:'x-fa fa-upload',
+//		                tooltip: 'Edit',s
+		                handler: function(grid, rowIndex, colIndex) {
+		                	 var rec = grid.getStore().getAt(rowIndex);
+		                	 var id = rec.get('id');
+		                	 Ext.create('ExtApp.view.projectmanagement.extplan.ext201.ChecklistDocumentWindow',{checklistId:me.checklistId,documentId:id,grid:grid}).show();
+		                }
+//		            	//,
+//		                getClass: function(v, meta, rec) {
+//		                	var appStatus = rec.get('appStatus');
+//		                    if (appStatus == 'RESUBMIT' || appStatus == 'DRAFT' || appStatus == ''  || appStatus == null) {
+//		                          return 'x-fa fa-upload';
+//		                    }else{
+//		                    	return 'x-hidden';
+//		                    }
+//		            	}
+		            }
+//		            ,{
+//		            	iconCls:'x-fa fa-remove',
+//		                tooltip: 'Delete',
+//		                handler: function(grid, rowIndex, colIndex) {
+//		                	 var rec = grid.getStore().getAt(rowIndex);
+//		                	 var appChecklistId = rec.get('appChecklistId');
+//		                	 var appId = rec.get('appId');
+//		                	 var creditLineChecklistId = rec.get('creditLineChecklistId');
+//		                	 Ext.Ajax.request({
+//		                		 url: '/afc/dealerdocument/dealerdocument!deleteAppDocument.action',
+//		                		 params:{id:appChecklistId},
+//		                	     success: function(response, opts) {
+//		                	    	 var result = AFC.util.Util.decodeJSON(response.responseText);
+//		                	 		 if (!result){ //#4
+//		            	    	 		 result = {};
+//		            	    	 		 result.success = false;
+//		            	    	 		 result.msg = response.responseText;
+//		                	 		 }
+//		                	 		 grid.getStore().load({params:{creditLineChecklistId:creditLineChecklistId,appId:appId}});
+//		                	     },
+//
+//		                	     failure: function(response, opts) {
+//		                	    	 var result = AFC.util.Util.decodeJSON(response.responseText);
+//		                	 		 
+//		                	     }
+//		                	 });
+//		                },
+//		                getClass: function(v, meta, rec) {
+//		                	var appStatus = rec.get('appStatus');
+//		                    if (appStatus == 'RESUBMIT' || appStatus == 'DRAFT' || appStatus == ''  || appStatus == null) {
+//		                          return 'x-fa fa-remove';
+//		                    }else{
+//		                    	return 'x-hidden';
+//		                    }
+//		            	}
+//		            }
+		            ]
+		        }
+			],
+			dockedItems: [
+	            {
+	                xtype: 'pagingtoolbar',
+	                dock: 'bottom',
+	                displayInfo: true,
+	                store:store
+	            }
+	        ]
+		}];
+		me.callParent(arguments);
+			
+	}
+});

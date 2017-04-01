@@ -1,0 +1,31 @@
+#hibernate
+hibernate.dialect=org.hibernate.dialect.Oracle10gDialect
+hibernate.format_sql=false
+hibernate.show_sql=false
+
+jdbc.driver=oracle.jdbc.driver.OracleDriver
+jdbc.url=jdbc:oracle:thin:@demo.gnomontech.com:1521:orcl
+jdbc.username=pdms
+jdbc.password=pdms
+
+
+#jcr
+jcr.repository.jndiName=jcr/repository
+
+#mail
+sgmw.ims.email.send.from=admin
+
+#dms setting,  modify if necessary
+dms.rpc.serverName=localhost
+dms.rpc.port=8080
+dms.rpc.contentPath=dms
+#report server setting , modify if necessary
+
+#BIM mock
+bim.server.url=http://localhost:8080/pdms
+bim.systemCode=PMS
+bim.restful.username=bbcservicet
+bim.restful.password=password
+bim.restful.TargetOrganizationService.findBySystemCode=/mockbimserver/target-organization-service!findBySystemCode.action
+bim.restful.TargetAccountService.findXAttrBySystemCode=/mockbimserver/target-account-service!findXAttrBySystemCode.action
+bim.restful.TargetAccountService.findBy=/mockbimserver/target-organization-account!findBy.action

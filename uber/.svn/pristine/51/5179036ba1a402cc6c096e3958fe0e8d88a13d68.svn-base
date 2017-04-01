@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.VehicleTypeStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.vehicleType',
+
+    fields: ['id', 'name'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-base-info!getVehicleTypeList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

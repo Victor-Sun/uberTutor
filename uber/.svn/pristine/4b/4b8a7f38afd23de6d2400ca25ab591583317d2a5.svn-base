@@ -1,0 +1,89 @@
+Ext.define('ExtApp.view.projectManagement.issue.ProjectVehicleOpenIssueLineChart',{
+	xtype:'projectVehicleOpenIssueLineChart',
+	extend:'Ext.Panel',
+	controller: 'projectVehicleOpenIssueLineChart',
+	title:'趋势图',
+	width: 650,
+	initComponent: function() {
+		var me = this;
+		var projectOpenIssueLineStore = Ext.create('ExtApp.store.projectmanagement.issue.ProjectVeicleOpenIssueLineStore');
+		projectOpenIssueLineStore.load({params:{programVehicleId: me.programVehicleId}});
+		me.items = [{
+	        xtype: 'cartesian',
+	        reference: 'chart',
+	        width: '100%',
+	        height: 500,
+	        legend: {
+	            type: 'sprite',
+	            docked: 'right'
+	        },
+	        store: projectOpenIssueLineStore,
+	        insetPadding: 40,
+	        
+	        axes: [{
+	            type: 'numeric',
+	            fields: ['data1', 'data2', 'data3', 'data4' ],
+	            position: 'left',
+	            grid: true,
+	            minimum: 0
+	        }, {
+	            type: 'category',
+	            fields: 'month',
+	            position: 'bottom',
+	            grid: true,
+	            label: {
+	                rotate: {
+	                    degrees: -45
+	                }
+	            }
+	        }],
+	        series: [{
+	            type: 'line',
+	            title: 'Total',
+	            xField: 'month',
+	            yField: 'data1',
+	            marker: {
+	                type: 'square',
+	                fx: {
+	                    duration: 200,
+	                    easing: 'backOut'
+	                }
+	            },
+	            highlightCfg: {
+	                scaling: 2
+	            }
+	        }, {
+	            type: 'line',
+	            title: 'Total Closed',
+	            xField: 'month',
+	            yField: 'data2',
+	            marker: {
+	                type: 'triangle',
+	                fx: {
+	                    duration: 200,
+	                    easing: 'backOut'
+	                }
+	            },
+	            highlightCfg: {
+	                scaling: 2
+	            }
+	        }, {
+	            type: 'line',
+	            title: 'Total Open',
+	            xField: 'month',
+	            yField: 'data3',
+	            marker: {
+	                type: 'arrow',
+	                fx: {
+	                    duration: 200,
+	                    easing: 'backOut'
+	                }
+	            },
+	            highlightCfg: {
+	                scaling: 2
+	            }
+	        }]
+	    }];
+		me.callParent(arguments);
+	}
+});

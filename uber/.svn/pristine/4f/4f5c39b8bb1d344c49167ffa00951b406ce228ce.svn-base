@@ -1,0 +1,59 @@
+/**
+ * 用户明细
+ */
+Ext.define('ExtApp.view.systemmanagement.UserWindow',{
+	extend:'Ext.window.Window',
+	xtype:'userWindow',
+	
+	modal: true,
+	closable: true,
+	layout:{
+		type:'fit'
+	},
+	width: 400,
+	height:400,
+	title: '用户信息',
+	controller:'user',
+	initComponent: function() {
+		var me = this;
+		me.items = [{
+			xtype:'form',
+			layout:{
+				type:'vbox',
+				align:'stretch'
+			},
+			defaults: {
+				labelAlign: 'top',
+		    	padding:'10 25 10 30',
+		    	labelWidth: 130,
+		    	readOnly: true,
+				fieldCls: 'text-readonly'
+			},
+			items:[{
+				xtype: 'textfield',
+				fieldLabel: '姓名',
+				name: 'name'
+			},{
+				xtype: 'textfield',
+				fieldLabel: '部门',
+				name: 'departmentName'
+			},{
+				xtype: 'textfield',
+				fieldLabel: '角色',
+				name: 'profileName'
+			}]
+		}];
+		me.fbar = [{
+			text:'重置密码',
+			xtype: 'button',
+			iconCls: 'x-fa fa-circle-o',
+			handler: 'resetPassword'
+		},{
+			text:'关闭',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'cancel'
+		}];
+		this.callParent(arguments);
+	}
+});

@@ -1,0 +1,19 @@
+Ext.define('ExtApp.model.dashboard.ProjectReportModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.projectReport',
+    
+    fields: [
+		'id',
+		'programId',
+		'programCode',
+		'vehicleName',
+		'pmName',
+		'nextGate',
+		'statusCodePs',
+		'statusCodeQi',
+		'statusCodePi',
+		'statusCodeVc',
+		'statusCodeIb'
+      ]
+
+});

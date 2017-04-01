@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectTreeStore', {
+    extend: 'Ext.data.TreeStore',
+    alias: 'store.projectTree',
+    
+    model: 'ExtApp.model.projectmanagement.ProjecTreeModel',
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-tree!getProjectTree.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

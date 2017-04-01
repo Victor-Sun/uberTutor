@@ -1,0 +1,17 @@
+Ext.define('ExtApp.model.projectmanagement.ProgramVehicleModel', {
+	extend: 'ExtApp.model.Base',
+	alias: 'model.programVehicle',
+    
+	fields: [
+	         {name: 'id'},
+	         {name: 'vehicleCode'},
+	         {name: 'vehicleName'},
+	         {name: 'pm'},
+	         {name: 'qm'},
+	         {name: 'pmName'},
+	         {name: 'qmName'},
+	         {name: 'sopDate', type: 'date'},
+	         {name: 'zcSopDate', type: 'date'}
+	]
+
+});

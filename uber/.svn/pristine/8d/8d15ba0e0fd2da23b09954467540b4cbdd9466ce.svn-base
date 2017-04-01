@@ -1,0 +1,404 @@
+/**
+ * 部门空间-项目OpenIssue
+ */
+Ext.define('ExtApp.view.deptworkspace.pmissue.DeptPmIssue',{
+	extend:'Ext.panel.Panel',
+	xtype:'deptPmIssue',
+
+	controller: 'deptPmIssue',
+	layout: 'fit',
+	
+	initComponent: function() {
+		var issueStore = Ext.create('ExtApp.store.deptworkspace.DeptmanagementOpenIssueStore');
+		issueStore.load();
+		
+		// 平台项目
+		var programStore = Ext.create('ExtApp.store.projectmanagement.AllProgramStore');
+		programStore.load();
+		// 车型
+		var vehicleStore = Ext.create('ExtApp.store.projectmanagement.AllVehicleByProgramStore');
+		
+		this.items = [{
+			xtype: 'panel',
+			layout: 'border',
+			items: [{
+				xtype:'grid',
+				region: 'center',
+				title: '问题列表',
+				store: issueStore,
+				columns:[{
+					text:'进度状态',
+					width:80,
+					dataIndex:'progressStatus',
+					renderer: 'renderIssueProgress',
+					align: 'center'
+				},{
+					text:'问题标题',
+					flex: 1,
+					dataIndex:'issueTitle'
+				},{
+					text:'提出日期',
+					width:100,
+					dataIndex:'raiseDate',
+					formatter: 'date("Y/m/d")'
+				},{
+					text:'当前任务负责人',
+					width:150,
+					dataIndex:'taskOwner'
+				},{
+					text:'完成状态',
+					width:100,
+					dataIndex:'statusCodeName'
+				},{
+					text:'计划偏离天数',
+					width:150,
+					dataIndex:'daysDelayed'
+				},{
+					text:'优先级',
+					width:100,
+					dataIndex:'issuePriorityName'
+				}],
+				listeners:{
+		        	selectionchange: 'onSelectionChange',
+		        	celldblclick: 'onCelldblclick'
+				},
+				dockedItems: [{
+					xtype: 'pagingtoolbar',
+					dock: 'bottom',
+					displayInfo: true,
+					store: issueStore
+				}]
+			},{
+				xtype: 'form',
+				itemId: 'detailForm',
+				collapsible: true,
+				region: 'east',
+				width: '33%',
+				split: true,
+				scrollable: true,
+				title: '问题信息',
+				items: [{
+					xtype: 'panel',
+					layout:{
+						type:'vbox',
+						align:'stretchmax'
+					},
+					defaults: {
+						layout: 'column',
+						defaults: {
+							readOnly: true,
+							fieldCls: 'text-readonly',
+							labelAlign: 'top',
+							margin: 5,
+							labelWidth: 100,
+							columnWidth: 0.5
+						}
+					},
+					items:[{
+						xtype:'panel',
+						items:[{
+							xtype: 'textfield',
+							fieldLabel: '提出人',
+							name: 'raiseByName'
+						},{
+							xtype: 'textfield',
+							fieldLabel: '问题来源',
+							name: 'issueSourceTitle'
+						}]
+					},{
+						xtype:'panel',
+						items:[{
+							xtype: 'textfield',
+							fieldLabel: '项目',
+							name: 'programCode'
+						},{
+							xtype: 'textfield',
+							fieldLabel: '车型',
+							name: 'vehicleCode'
+						}]
+					},{
+						xtype:'panel',
+						items:[{
+							xtype: 'textfield',
+							fieldLabel: '责任组',
+							name: 'respObsName'
+						},{
+							xtype: 'textfield',
+							fieldLabel: '责任人',
+							name: 'respUserName'
+						}]
+					},{
+						xtype:'panel',
+						items:[{
+							xtype: 'datefield',
+							fieldLabel: '计划完成日期',
+							name: 'dueDate',
+							format: 'Y-m-d'
+	                    },{
+	                    	xtype: 'datefield',
+							fieldLabel: '实际完成日期',
+							name: 'actualFinishDate',
+							format: 'Y-m-d'
+						}]
+					},{
+						xtype:'panel',
+						items:[{
+							xtype:'counterTextArea',
+							columnWidth: 1,
+							name:'issueDescription',
+							letterPadding: 2,
+							enforceMaxLength:true,
+							maxLength:500,
+							fieldLabel:'问题描述'
+						}]
+					},{
+						xtype:'panel',
+						items:[{
+							xtype:'counterTextArea',
+							columnWidth: 1,
+							name:'issueCause',
+							letterPadding: 2,
+							enforceMaxLength:true,
+							maxLength:500,
+							fieldLabel:'备注'
+						}]
+					}]
+				}],
+				dockedItems: [{
+					xtype: 'toolbar',
+					cls: 'shadow',
+					dock: 'top',
+					items: [{
+						xtype: 'button',
+						margin: '0 0 0 5',
+						text: '评论',
+						iconCls: 'x-fa fa-pencil-square-o',
+						handler: 'comment'
+					}]
+				}]
+			}],
+			tbar: [{
+				xtype: 'form',
+		    	margin: 2,
+		    	layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				width: '100%',
+				items: [{
+					xtype: 'fieldset',
+					flex:1,
+			    	title: '<B>高级查询</B>',
+			    	titleAlign: 'right',
+			    	collapsible:true,
+			    	collapsed: true,
+			    	margin: 2,
+			    	layout: 'fit',
+			    	items: [{
+			    		xtype: 'panel',
+			    		layout:{
+							type:'vbox',
+							align:'stretch'
+						},
+						items: [{
+							xtype: 'panel',
+							flex: 1,
+				    		layout: 'column',
+				    		defaults: {
+				    			defaults: {
+				    				labelAlign: 'right',
+					    			margin: 5
+				    			}
+				    		},
+				    		items: [{
+				    			xtype: 'panel',
+				    			columnWidth: 0.5,
+				    			layout:{
+									type:'hbox',
+									align:'stretch'
+								},
+								items: [{
+									xtype: 'displayfield',
+									width: 100,
+					    			value: '计划完成时间'
+								},{
+									xtype: 'datefield',
+									format: 'Y/m/d',
+									name: 'searchDueDateFrom'
+								},{
+									xtype: 'displayfield',
+					    			value: '~'
+								},{
+									xtype: 'datefield',
+									format: 'Y/m/d',
+									name: 'searchDueDateTo'
+								}]
+				    		},{
+				    			xtype: 'panel',
+				    			columnWidth: 0.5,
+				    			layout:{
+									type:'hbox',
+									align:'stretch'
+								},
+								items: [{
+									xtype: 'combo',
+					    			fieldLabel: '项目',
+					    		    name: 'searchProgram',
+					    		    store: programStore,
+					    		    queryMode: 'local',
+					    		    displayField: 'programCode',
+					    		    valueField: 'id',
+					    		    forceSelection: true,
+					    		    width: 300,
+					    			listeners: {
+					    				change: function(combo, newValue, oldValue, eOpts) {
+					    					vehicleStore.load({params:{programId: newValue}});
+					    				}
+					    		    }
+								}]
+				    		}]
+						},{
+							xtype: 'panel',
+							flex: 1,
+				    		layout: 'column',
+				    		defaults: {
+				    			defaults: {
+				    				labelAlign: 'right',
+					    			margin: 5
+				    			}
+				    		},
+				    		items: [{
+				    			xtype: 'panel',
+				    			columnWidth: 0.5,
+				    			layout:{
+									type:'hbox',
+									align:'stretch'
+								},
+								items: [{
+									xtype: 'displayfield',
+									width: 100,
+					    			value: '实际完成时间'
+								},{
+									xtype: 'datefield',
+									format: 'Y/m/d',
+									name: 'searchAFDateFrom'
+								},{
+									xtype: 'displayfield',
+					    			value: '~'
+								},{
+									xtype: 'datefield',
+									format: 'Y/m/d',
+									name: 'searchAFDateTo'
+								}]
+				    		},{
+				    			xtype: 'panel',
+				    			columnWidth: 0.5,
+				    			layout:{
+									type:'hbox',
+									align:'stretch'
+								},
+								items: [{
+									xtype: 'combo',
+					    			fieldLabel: '车型',
+					    		    name: 'searchVechile',
+					    		    store: vehicleStore,
+					    		    queryMode: 'local',
+					    		    displayField: 'vehicleCode',
+					    		    valueField: 'id',
+					    		    forceSelection: true,
+					    		    width: 300
+								}]
+				    		}]
+						},{
+							xtype: 'panel',
+							flex: 1,
+				    		layout: 'column',
+				    		defaults: {
+				    			defaults: {
+				    				labelAlign: 'right',
+					    			margin: 5
+				    			}
+				    		},
+				    		items: [{
+				    			xtype: 'panel',
+				    			columnWidth: 0.5,
+				    			layout:{
+									type:'hbox',
+									align:'stretch'
+								},
+								items: [{
+									xtype: 'displayfield',
+									width: 100,
+					    			value: '责任人'
+								},{
+									xtype: 'textfield',
+					    			name: 'searchTaskOwner'
+								}]
+				    		}]
+						}]
+			    	}]
+				},{
+					xtype: 'panel',
+					margin: '10 2 2 2',
+		    		layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					defaults: {
+		    			labelAlign: 'right',
+		    			labelWidth: 60
+		    		},
+					items: [{
+						xtype: 'textfield',
+						name: 'searchIssueTite',
+						fieldLabel: '问题标题'
+			    	},{
+						xtype:'checkbox',
+						name:'searchWaiting',
+						checked: true,
+						margin: '0 0 0 10',
+						labelWidth: 40,
+						labelSeparator: '',
+						fieldLabel:'等待中'
+			    	},{
+						xtype:'checkbox',
+						name:'searchProcessing',
+						checked: true,
+						margin: '0 0 0 10',
+						labelWidth: 40,
+						labelSeparator: '',
+						fieldLabel:'处理中'
+					},{
+						xtype:'checkbox',
+						name:'searchComplete',
+						checked: true,
+						margin: '0 0 0 10',
+						labelWidth: 40,
+						labelSeparator: '',
+						fieldLabel:'已完成'
+					},{
+						xtype: 'button',
+						margin: '0 0 0 20',
+						text: '查询',
+						iconCls: 'x-fa fa-search',
+						handler: 'search'
+					},{
+						xtype: 'button',
+						margin: '0 0 0 5',
+						text: '重置',
+						iconCls: 'x-fa fa-rotate-left',
+						handler: 'reloadSearch'
+			    	},{
+			    		xtype:'button',
+			    		margin: '0 0 0 5',
+			  			text: '导出',
+			  			itemId: 'btnExportIssue',
+			  			iconCls: 'fa fa-file-excel-o',
+			  			handler: 'export2Excel'
+			    	}]
+				}]
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

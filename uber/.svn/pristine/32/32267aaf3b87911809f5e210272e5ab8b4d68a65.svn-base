@@ -1,0 +1,80 @@
+Ext.define('ExtApp.view.forum.ForumPost',{
+	extend: 'Ext.window.Window',
+	xtype: 'forumpost',
+	width:400,
+	height:200,
+	closable: false,
+	title: '新留言',
+	controller: 'forumPost',
+	layout: {
+		type: 'vbox',
+		align: 'stretch'
+	},
+	
+	viewModel: {
+		data: {
+			value: ''
+		},
+		formulas: {
+			count: {
+				bind: '{value}',
+				get: function(value){
+					var counter = 500 - value.length;
+					return "还有 " + counter + " 字符";
+				}
+			}
+		}
+	},
+	tools: [{
+		xtype: 'button',
+		text: '确定',
+		iconCls: 'x-fa fa-check',
+		handler:'onButtonClickSubmit'
+	},{
+		xtype: 'button',
+		text: '取消',
+		iconCls: 'x-fa fa-close',
+		handler: function () { this.up('window').close(); }
+	}],
+	
+	initComponent: function() {
+		
+		this.items = [{
+			xtype: 'form',
+			reference: 'forumPostForm',
+			flex: 1,
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
+			margin: '5 10 10 10',
+//			title: 'New Post',
+			items: [{
+				xtype: 'textarea',
+				margin: '5 0 0 0',
+				flex: 1,
+				name:'content',
+				width: '100%',
+				bind: '{value}',
+				maxLength:500
+			},{
+				xtype:'box',
+				padding:'5 25 10 5',
+				bind: '{count}'
+			}]			
+		}];
+//		this.dockedItems = [{
+//			xtype: 'toolbar',
+//			dock: 'bottom',
+//			items: ['->',{
+//				text: '确定',
+//				iconCls: 'x-fa fa-check'
+//			},{
+//				text: '取消',
+//				iconCls: 'x-fa fa-close',
+//				handler: function () { this.up('window').close(); }
+//			}]
+//		}];
+		this.callParent(arguments);
+	}
+});

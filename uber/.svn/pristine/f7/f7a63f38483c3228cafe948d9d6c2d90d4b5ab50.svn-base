@@ -1,0 +1,41 @@
+/**
+ * 项目管理-项目计划-质量阀-质量阀信息
+ */
+Ext.define('ExtApp.view.projectManagement.valve.GateInfoController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.gateInfo',
+    
+    // 确定
+    confirm: function() {
+    	var me = this;
+    	var form = me.view.down('form').getForm();
+        if (form.isValid()) {
+        	me.view.mask('Please Waiting...');
+        	form.submit({
+        		clientValidation: true,
+                url: '/pdms/pm/project-plan-quality-valve!addProjectPlanQualityValve.action',
+                params: {
+                	programId: this.view.programId,
+        			programVehicleId: this.view.programVehicleId,
+        			model: Ext.encode(form.getFieldValues())
+    			},
+                scope: me,
+       	 	 	success: function(form, action) {
+       	 	 		me.view.unmask();
+       	 	 		me.view.parentCaller.refreshView();
+		        	ExtApp.util.Util.showToast("添加成功！");
+    	   	 	 	me.closeWindow();
+        	 	},
+        	 	failure: function(form, action) {
+        	 		me.view.unmask();
+                	ExtApp.util.Util.handleFormFailure(action);
+                }
+        	});
+        }
+    },
+
+    // 关闭
+    closeWindow: function() {
+    	this.view.close();
+    }
+});

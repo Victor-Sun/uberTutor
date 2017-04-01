@@ -1,0 +1,59 @@
+/**
+ * 项目管理-泳道信息
+ */
+Ext.define('ExtApp.view.projectmanagement.deptplan.CreateFunctionController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.createFunction',
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	if (me.view.actionType == 'update') {
+    		me.view.down('form').load({
+    			url: '/pdms/pm/dept-plan!getFunctionInfo.action',
+    			params: {
+    				functionId: me.view.functionId
+    			}
+    		});
+    	}
+    },
+    
+    // 确定
+    confirm: function(btn) {
+    	var me = this;
+        var form = me.view.down('form').getForm();
+        var url = '/pdms/pm/dept-plan!createFunction.action';
+        if (me.view.actionType == 'update') {
+        	url = '/pdms/pm/dept-plan!updateFunction.action';
+        }
+        if (form.isValid()){
+        	me.view.mask('Please Waiting...');
+            form.submit({
+                clientValidation: true,
+                url: url,
+                params: {
+                	programId: me.view.programId,
+                	programVehicleId: me.view.programVehicleId,
+                	planId: me.view.planId,
+                	functionId: me.view.functionId,
+                	model: Ext.encode(form.getFieldValues())
+                },
+                scope: me,
+                success: function(form, action) {
+                	me.view.unmask();
+                	me.view.parentCaller.refreshView();
+                    me.cancel();
+                },
+                failure: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.handleFormFailure(action);
+                }
+            });
+        }
+    },
+    
+    // 取消
+    cancel: function() {
+    	this.view.close();
+    }
+});

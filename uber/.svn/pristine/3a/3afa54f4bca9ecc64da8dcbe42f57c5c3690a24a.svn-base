@@ -1,0 +1,62 @@
+/**
+ * 零件信息列表
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.part.ImsPart',{
+	extend:'Ext.panel.Panel',
+	xtype:'imsPart',
+	controller: 'imsPart',
+	layout:'fit',
+	margin:10,
+	initComponent: function() {
+		var imsPartStore = Ext.create('ExtApp.store.qualityissuemanagement.ImsPartStore');
+		imsPartStore.load();
+		this.items = [{
+			xtype:'grid',
+			title:'零件列表',
+			layout:'fit',
+			store: imsPartStore,
+			columns:[{
+				xtype: 'rownumberer'
+			},{
+				text:'零件编码',
+				flex: 1,
+				dataIndex:'code'
+			},{
+				text:'零件名称',
+				flex: 1,
+				dataIndex:'name'
+			},{
+				text:'系统编码',
+				flex: 1,
+				dataIndex:'systemNo',
+				formatter: 'date("Y/m/d")'
+			},{
+				text:'系统名称',
+				flex: 1,
+				dataIndex:'systemName'
+			},{
+				text:'组编码',
+				flex: 1,
+				dataIndex:'groupNo'
+			},{
+				text:'组名称',
+				flex: 1,
+				dataIndex:'groupName'
+			}],
+			listeners:{
+	        	celldblclick: 'onCelldblclick'
+			},
+			tbar: [{
+	            text: '导入零件',
+	            handler: 'importPart'
+	        }],
+			dockedItems: [{
+				xtype: 'pagingtoolbar',
+				dock: 'bottom',
+				displayInfo: true,
+				store: imsPartStore
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

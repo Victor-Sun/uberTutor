@@ -1,0 +1,48 @@
+/**
+ * 附件列表
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.ImsFileAttachment',{
+	extend:'Ext.container.Container',
+	xtype:'imsFileAttachment',
+	controller: 'imsFileAttachment',
+	
+	layout: {
+		type: 'hbox',
+		align: 'stretch'
+	},
+	
+	minHeight: 45,
+	
+	initComponent: function() {
+		
+		var me = this;
+		
+		var hiddenFlg = false;
+		if (typeof(me.editable) != 'undefined' && me.editable != null) {
+			hiddenFlg = ! me.editable;
+		}
+		
+		me.items = [{
+			xtype: 'toolbar',
+			width: 100,
+			margin: '5 5 5 0',
+			items: [{
+				xtype: 'button',
+				iconCls: 'x-fa fa-upload',
+//				margin: '5 5 5 0',
+				text: '附件',
+				hidden: hiddenFlg,
+				handler: 'uploadFile'
+			}]
+		},{
+			xtype: 'imsFileAttachmentGrid',
+			width: 738,
+			margin: '5 5 5 0',
+			programId:me.programId,
+    		sourceType: me.sourceType,
+    		sourceId: me.sourceId,
+    		editable:me.editable
+		}];
+		me.callParent();
+	}
+});

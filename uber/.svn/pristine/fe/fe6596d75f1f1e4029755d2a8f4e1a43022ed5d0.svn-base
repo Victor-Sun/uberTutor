@@ -1,0 +1,36 @@
+Ext.define('ExtApp.view.projectManagement.extplan.ext202.Ext202ModelController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.ext202Model',
+    saveExtendedProject:function(){
+    	var me = this;
+    	var form = this.lookupReference('extendedProjectForm');
+    	if (form.isValid()){
+            me.getView().mask('正在保存... 请耐心等待...');
+            form.submit({
+                clientValidation: true,
+                url: '/pdms/pm/project-tree!save.action',
+                scope: me,
+                success: 'onSubmitSuccess',
+                failure: 'onSubmitFailure'
+            });
+        }
+    },
+    
+    onSubmitFailure: function(form, action) {
+        this.getView().unmask();
+        ExtApp.util.Util.handleFormFailure(action);
+    },
+
+    onSubmitSuccess: function(form, action) {
+    	var view = this.getView();
+        view.unmask();
+        var form = this.lookupReference('extendedProjectForm');
+        var win = form.up('window');
+        var tree = form.up('window').tree;
+        win.close();
+        Ext.Msg.alert('提示', '保存成功！');
+        tree.getStore().load();
+        
+    }
+
+});

@@ -1,0 +1,349 @@
+Ext.define('ExtApp.view.qualityissuemanagement.main.QmsMainController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.qmsmain',
+
+    routes: {
+        ':node': 'onRouteChange'
+    },
+
+    lastView: null,
+
+    setCurrentView: function(hashTag) {
+        hashTag = (hashTag || '').toLowerCase();
+        var me = this,
+            refs = me.getReferences(),
+            mainCard = refs.mainCardPanel,
+            mainLayout = mainCard.getLayout(),
+            navigationList = refs.navigationTreeList,
+            store = navigationList.getStore(),
+            node = store.findNode('routeId', hashTag) ||
+                   store.findNode('viewType', hashTag),
+            view = (node && node.get('viewType')) || 'page404',
+            lastView = me.lastView,
+            existingItem = mainCard.child('component[routeId=' + hashTag + ']'),
+            newView;
+
+        // Kill any previously routed window
+        if (lastView && lastView.isWindow) {
+            lastView.destroy();
+        }
+        
+        //新增加
+        if(existingItem){
+        	existingItem.destroy();
+        }
+        
+        lastView = mainLayout.getActiveItem();
+
+        newView = Ext.create({
+            xtype: view,
+            routeId: hashTag,  // for existingItem search later
+            hideMode: 'offsets'
+        });
+
+        if (!newView || !newView.isWindow) {
+            // !newView means we have an existing view, but if the newView isWindow
+            // we don't add it to the card layout.
+            // newView is set (did not exist already), so add it and make it the
+            // activeItem.
+            Ext.suspendLayouts();
+            mainLayout.setActiveItem(mainCard.add(newView));
+            Ext.resumeLayouts(true);
+        }
+
+        navigationList.setSelection(node);
+
+        if (newView.isFocusable(true)) {
+            newView.focus();
+        }
+
+        me.lastView = newView;
+    },
+
+    // 点击菜单动作
+    onNavigationTreeSelectionChange: function (tree, node) {
+    	var me = this.view;
+    	var viewType = node.get('viewType');
+    	if (! viewType) {
+			return;
+		}
+
+        var to = node && (node.get('routeId') || node.get('viewType'));
+        if (to) {
+            this.redirectTo(to);
+        }
+        
+        if (viewType == 'emptydashboard') {
+        	if (me.down('submission') != null) {
+            	me.down('submission').destroy();
+        	}
+    		var newWin = Ext.create({
+    			title:"问题来源",
+            	xtype: 'submissWin'
+            });
+    		newWin.show();
+    		newWin.down('form').getForm().load({
+				url: '/pdms/ims/ims-issue!getMyLastIssueForm.action',
+				success: function(form, action) {
+					
+				}
+			});
+    	} else if (viewType == 'qmsdashboard') {
+        	if (me.down('dashboardCartesian') != null) {
+            	var store1 = Ext.create(
+						'ExtApp.store.qualityissuemanagement.QMSBrowsersStore');
+				store1.getProxy().extraParams = {partStatus: null};
+				store1.load();
+			
+				store1.on('load', function() {
+					me.down('dashboardCartesian').setStore(this);
+				});
+        	}
+        	if (me.down('dashboardPolar') != null) {
+        		var store2 = Ext.create(
+						'ExtApp.store.qualityissuemanagement.QMSDashboardStore');
+				store2.getProxy().extraParams = {partStatus: null};
+				store2.load();
+			
+				store2.on('load', function() {
+					var chPolar = me.down('dashboardPolar');
+					chPolar.setStore(this);
+		    		if (chPolar.legend != null) {
+				        var storeLegend = chPolar.legend.getStore();
+				        if (this.data.length != 0) {
+				        	for (var i = 0; i < this.totalCount; i++) {
+				        		storeLegend.getAt(i).data.disabled = false;
+				        		chPolar.series[0].setHiddenByIndex(i, false);
+					        	if (this.getAt(i).get('data1') == '0') {
+					        		storeLegend.getAt(i).data.disabled = true;
+					        		chPolar.series[0].setHiddenByIndex(i, true);
+					        	}
+				        	}
+				        }
+				        me.down('polar').legend.refresh();
+				        me.down('polar').redraw();
+		    		}
+				});
+        	}
+        	if (me.down('qmsdashboardgeneral') != null) {
+    			var store3 = Ext.create(
+						'ExtApp.store.qualityissuemanagement.QMSGeneralStore');
+				store3.getProxy().extraParams = {partStatus: null};
+				store3.load();
+			
+				store3.on('load', function() {
+					me.down('qmsdashboardgeneral').down('cartesian').setStore(this);
+					var form = me.down('qmsdashboardgeneral').getForm();
+					var data1 = parseInt(this.getAt(0).data.data1, 10);
+					var data2 = parseInt(this.getAt(0).data.data2, 10);
+					var data3 = parseInt(this.getAt(0).data.data3, 10);
+					var rate = 0;
+					if (data1 + data2 + data3 != 0){
+			    		rate = data1*100.0/(data1 + data2 + data3);
+					}
+					form.findField('totalCount').setValue(data1 + data2 + data3);
+					form.findField('continueFollow').setValue(data3);
+					form.findField('PreShutdown').setValue(data2);
+					form.findField('shutdown').setValue(data1);
+					form.findField('totalClosureRate').setValue(rate.toFixed(1)+'%');
+				});
+        	}
+    	}
+//        if (me.down(viewType) != null && me.down(viewType).down('grid') != null) {
+//    		me.down(viewType).down('grid').store.reload();
+//        }
+    },
+
+    onToggleNavigationSize: function () {
+        var me = this,
+            refs = me.getReferences(),
+            navigationList = refs.navigationTreeList,
+            treepanel = refs.treelistpanel,
+            wrapContainer = refs.mainContainerWrap,
+            collapsing = !navigationList.getMicro(),
+            new_width = collapsing ? 64 : 200;
+
+        if (Ext.isIE9m || !Ext.os.is.Desktop) {
+            Ext.suspendLayouts();
+
+            refs.senchaLogo.setWidth(new_width);
+            treepanel.setWidth(new_width);
+            navigationList.setWidth(new_width);
+            navigationList.setMicro(collapsing);
+
+            Ext.resumeLayouts(); // do not flush the layout here...
+
+            // No animation for IE9 or lower...
+            wrapContainer.layout.animatePolicy = wrapContainer.layout.animate = null;
+            wrapContainer.updateLayout();  // ... since this will flush them
+        }
+        else {
+            if (!collapsing) {
+                // If we are leaving micro mode (expanding), we do that first so that the
+                // text of the items in the navlist will be revealed by the animation.
+                navigationList.setMicro(false);
+            }
+
+            // Start this layout first since it does not require a layout
+            refs.senchaLogo.animate({dynamic: true, to: {width: new_width}});
+
+            // Directly adjust the width config and then run the main wrap container layout
+            // as the root layout (it and its chidren). This will cause the adjusted size to
+            // be flushed to the element and animate to that new size.
+            treepanel.width = new_width;
+            navigationList.width = new_width;
+            wrapContainer.updateLayout({isRoot: true});
+            navigationList.el.addCls('nav-tree-animating');
+
+            // We need to switch to micro mode on the navlist *after* the animation (this
+            // allows the "sweep" to leave the item text in place until it is no longer
+            // visible.
+            if (collapsing) {
+            	navigationList.setMicro(true);
+                navigationList.el.removeCls('nav-tree-animating');
+            }
+        }
+    },
+
+    onMainViewRender:function() {
+    	//this.setCurrentView("qmsdashboard");
+    	var me = this; 
+    	var task = new Ext.util.DelayedTask(function() {
+    		me.setCurrentView("todoListIMS");
+    		Ext.getBody().unmask();
+ 		});
+    	task.delay(1500);
+    },
+
+    onRouteChange:function(id){
+        this.setCurrentView(id);
+    },
+
+    onSearchRouteChange: function () {
+        this.setCurrentView('searchresults');
+    },
+
+    onSwitchToModern: function () {
+        Ext.Msg.confirm('Switch to Modern', 'Are you sure you want to switch toolkits?',
+                        this.onSwitchToModernConfirmed, this);
+    },
+
+    onSwitchToModernConfirmed: function (choice) {
+        if (choice === 'yes') {
+            var s = location.search;
+
+            // Strip "?classic" or "&classic" with optionally more "&foo" tokens
+            // following and ensure we don't start with "?".
+            s = s.replace(/(^\?|&)classic($|&)/, '').replace(/^\?/, '');
+
+            // Add "?modern&" before the remaining tokens and strip & if there are
+            // none.
+            location.search = ('?modern&' + s).replace(/&$/, '');
+        }
+    },
+
+    onEmailRouteChange: function () {
+        this.setCurrentView('email');
+    },
+    
+    onClickSubMenu: function(item) {
+        var userName = Ext.ComponentQuery.query('#userNameItemId')[0].html;
+		this.getView().destroy();
+		//Ext.create('ExtApp.view.main.Main');
+		var mainView = Ext.create({
+			xtype: item.viewType
+		});
+        var userNameText = Ext.ComponentQuery.query('#userNameItemId')[0];
+        userNameText.setText(userName);
+	},
+	
+	//Header Buttons
+	//通知窗口
+	notifications: function() {
+		Ext.create({
+            xtype: 'nofityWindow'
+        }).show();
+		//this.dialog.setPosition( 200, 65);
+		//this.dialog.show();
+	},
+	
+	//个人设置
+	personalSettings: function() {
+		this.dialog = this.view.add({
+            xtype: 'personalSettings'
+        });
+		this.dialog.show();
+	},
+	
+	//Logout
+	logout: function(button, e, options) {
+    	Ext.Ajax.request({
+    		url: '/pdms/main/login!logout.action',
+			success: function(response, opts) {
+				var result = ExtApp.util.Util.decodeJSON(response.responseText);
+				if(result.success){
+					button.up('qmsmain').destroy();
+					var href = window.location.href;
+					window.location.href = href.substring(0,href.indexOf('#'));
+				}else{
+					ExtApp.util.Util.showErrorMsg(result.data);
+				}
+		    },
+		    failure: function(response, opts) {
+		    	var result = ExtApp.util.Util.decodeJSON(response.responseText); 
+		    }
+    	});
+	},
+	
+	//通知窗口
+	notifications: function() {
+		var me = this;
+		Ext.create({
+            xtype: 'nofityWindow',
+            parentCaller: me
+        }).show();
+		//this.dialog.setPosition( 200, 65);
+		//this.dialog.show();
+	},
+	
+	information: function() {
+		var me = this;
+    	Ext.Ajax.request({
+    		url:'/pdms/com/report-message!getReportMessage.action',
+			scope: me,
+			success: function(response, opts) {
+				me.view.unmask();
+				var obj = Ext.decode(response.responseText);
+				if (obj.success) {
+					var window = Ext.create({
+			            xtype: 'appinfo',
+			            version: obj.data.version,
+			            contact: obj.data.contact,
+			            copyright: obj.data.copyright
+			        });
+			        window.show();
+				} else {
+					ExtApp.util.Util.handleRequestFailure(response);
+				}
+		    },
+			failure: function(response, opts) {
+				me.view.unmask();
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	})
+//		var me = this;
+//		var store = Ext.create(
+//			'ExtApp.store.common.AppInfoStore');
+//	    store.load();
+//	    store.on('load', function() {
+//	    	me.version = this.getAt(0).data.version;
+//		});
+//		var window = Ext.create({
+//            xtype: 'appinfo'
+//        });
+//        window.show();
+	},
+	help:function(){
+		window.open('resources/help/manual.htm');
+	}
+});

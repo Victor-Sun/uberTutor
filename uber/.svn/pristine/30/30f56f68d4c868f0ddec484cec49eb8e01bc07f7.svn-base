@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectDBQualityProblemStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectDBQualityProblem',
+
+    model: 'ExtApp.model.projectmanagement.ProjectDBQualityProblemModel',
+
+    data: [
+        { os: '1/6', data1: 68.3 },
+        { os: '2/6', data1: 1.7 },
+        { os: '3/6', data1: 17.9 },
+        { os: '4/6', data1: 10.2 },
+        { os: '5/6', data1: 1.9 },
+        { os: '6/6', data1: 1.9 }
+    ]
+});

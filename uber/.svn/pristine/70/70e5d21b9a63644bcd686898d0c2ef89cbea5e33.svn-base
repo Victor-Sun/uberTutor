@@ -1,0 +1,81 @@
+/**
+ * 项目管理-车型项目-开放问题
+ */
+Ext.define('ExtApp.view.projectmanagement.vehicle.OpenIssueChart',{
+	extend:'Ext.panel.Panel',
+	xtype:'openIssueChart',
+
+	layout: 'fit',
+	margin: 10,
+	
+	controller: 'openIssueChart',
+	
+	initComponent: function() {
+
+		this.items = [{
+			xtype:'panel',
+			layout: {
+				type:'vbox',
+				align:'stretch'
+			},
+			items: [{
+				xtype: 'panel',
+				layout: 'hbox',
+				items: [{
+					xtype: 'displayfield',
+					fieldLabel: '<b>总数量</b>',
+					width: 80
+				},{
+					xtype: 'progressbar',
+					itemId: 'totalCnt',
+					flex: 1,
+					width: '100%'
+				}]
+			},{
+				xtype: 'panel',
+				margin: '10 0 0 0',
+				layout: 'hbox',
+				items: [{
+					xtype: 'displayfield',
+					fieldLabel: '<b>状态</b>',
+					width: 80,
+					labelSeparator: ''
+				}]
+			},{
+				xtype: 'panel',
+				margin: '0 0 5 0',
+				height: 2,
+				bodyStyle: {
+					background: '#D0D0D0'
+				}
+			},{
+				xtype: 'panel',
+				layout: 'hbox',
+				items: [{
+					xtype: 'displayfield',
+					fieldLabel: '已关闭',
+					width: 80
+				},{
+					xtype: 'progressbar',
+					itemId: 'closedCnt',
+					flex: 1,
+					width: '100%'
+				}]
+			},{
+				xtype: 'panel',
+				layout: 'hbox',
+				items: [{
+					xtype: 'displayfield',
+					fieldLabel: '进行中',
+					width: 80
+				},{
+					xtype: 'progressbar',
+					itemId: 'inProcessCnt',
+					flex: 1,
+					width: '100%'
+				}]
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

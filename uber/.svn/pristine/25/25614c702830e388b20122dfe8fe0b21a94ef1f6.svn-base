@@ -1,0 +1,24 @@
+Ext.define('ExtApp.view.projectManagement.extplan.ProjectExtensionPlanInfoController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.projectExtensionPlanInfo',
+    
+    // 更改进度状态
+    onChangeProgress: function(combol, newValue, oldValue, eOpts) {
+    	var df = combol.up('toolbar').down('displayfield');
+    	df.setValue(newValue);
+    },
+    
+    // 添加列属性
+    addColumn: function(btnObj) {
+    	var gridStore = btnObj.up('grid').getStore();
+    	var model = Ext.create(
+    			'ExtApp.model.projectmanagement.ProjectExtensionPlanColumnDefModel');
+    	gridStore.insert(0, model);
+    },
+    
+    // 删除列属性
+    deleteColumn: function(grid, rowIndex) {
+    	grid.getStore().removeAt(rowIndex);
+    }
+
+});

@@ -1,0 +1,19 @@
+/**
+ * 对策决定-故障零件代号store
+ */
+Ext.define('ExtApp.store.qualityissuemanagement.VImsPartStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.vImsPart',
+
+    fields: ['id', 'name'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/combo!getVImsPart.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

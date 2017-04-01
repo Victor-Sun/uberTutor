@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectDBStatusReportStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectDBStatusReport',
+
+    model: 'ExtApp.model.projectmanagement.ProjectDBStatusReportModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-status-report!getProjectDBStatusReport.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

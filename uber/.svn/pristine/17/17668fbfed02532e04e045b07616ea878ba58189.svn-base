@@ -1,0 +1,129 @@
+Ext.define('ExtpApp.view.projectmanagment.temp.DashboardLine',{
+	extend: 'Ext.panel.Panel',
+	xtype: 'dashboardLine',
+	controller: 'dashboard',
+	layout: {
+		type: 'fit'
+	},
+	items: [{
+		xtype: 'cartesian',
+        reference: 'chart',
+        width: '100%',
+        height: 500,
+        interactions: {
+            type: 'panzoom'
+        },
+        animation: {
+            duration: 200
+        },
+        store: {
+            type: 'dashboardtest'
+        },
+        legend: {
+        	docked: 'top'
+        },
+        insetPadding: 20,
+        innerPadding: {
+            left: 20,
+            right: 20
+        },
+//	        sprites: [{
+//	            type: 'text',
+//	            text: 'Line Charts - Basic Line',
+//	            fontSize: 22,
+//	            width: 100,
+//	            height: 30,
+//	            x: 40, // the sprite x position
+//	            y: 20  // the sprite y position
+//	        }],
+        axes: [{
+            type: 'numeric',
+            position: 'left',
+            grid: true,
+            minimum: 0,
+            maximum: 100,
+            renderer: 'onAxisLabelRender'
+        }, {
+            type: 'category',
+            position: 'bottom',
+            grid: true,
+            label: {
+                rotate: {
+                    degrees: -45
+                }
+            }
+        }],
+        series: [{
+            type: 'line',
+            title: 'Data 1',
+            xField: 'month',
+            yField: 'data1',
+            style: {
+                lineWidth: 2
+            },
+            marker: {
+            	type: 'square',
+                fx: {
+                    duration: 200,
+                    easing: 'backOut'
+                },
+                radius: 4,
+                lineWidth: 2
+            },
+            label: {
+                field: 'data1',
+                display: 'over'
+            },
+            highlight: {
+                fillStyle: '#000',
+                radius: 5,
+                lineWidth: 2,
+                strokeStyle: '#fff'
+            },
+            tooltip: {
+                trackMouse: true,
+                showDelay: 0,
+                dismissDelay: 0,
+                hideDelay: 0,
+                renderer: 'onSeriesTooltipRender'
+            }
+        },{
+        	type: 'line',
+        	title: 'Data 2',
+            xField: 'month',
+            yField: 'data2',
+            style: {
+                lineWidth: 2
+            },
+            marker: {
+                radius: 4,
+                lineWidth: 2,
+                type: 'triangle',
+                fx: {
+                    duration: 200,
+                    easing: 'backOut'
+                }
+            },
+            label: {
+                field: 'data2',
+                display: 'over'
+            },
+            highlight: {
+                fillStyle: '#000',
+                radius: 5,
+                lineWidth: 2,
+                strokeStyle: '#fff'
+            },
+            tooltip: {
+                trackMouse: true,
+                showDelay: 0,
+                dismissDelay: 0,
+                hideDelay: 0,
+                renderer: 'onSeriesTooltipRender'
+            }
+        }],
+        listeners: {
+            itemhighlightchange: 'onItemHighlightChange'
+        }
+	}]
+})

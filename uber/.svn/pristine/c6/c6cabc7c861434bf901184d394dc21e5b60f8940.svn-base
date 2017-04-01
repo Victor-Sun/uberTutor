@@ -1,0 +1,51 @@
+Ext.define('ExtApp.view.dashboard.DashCommonProject',{
+	extend:'Ext.container.Container',
+	xtype:'dashCommonProject',
+	
+	controller:'dashCommonProject',
+	
+	scrollable:'y',
+	margin:0,
+	initComponent: function() {
+
+		var commonStore = Ext.create(
+			'ExtApp.store.dashboard.DashCommonProjectStore');
+		commonStore.load();
+
+		this.items = [{
+			itemId:'dashCommonProjectItemId',
+			xtype:'grid',
+			viewConfig:{
+				stripeRows:true
+			},
+			cls:'grid-test',
+			margin:0,
+			height: 200,
+			store: commonStore,
+			columns:[{
+				text:'项目代码',
+				dataIndex:'code',
+				flex: 1
+			},{
+				text:'项目名称',
+				dataIndex:'programName',
+				flex: 1
+			},{
+				text:'项目经理',
+				dataIndex:'pmName',
+				flex: 1
+			}],
+			listeners:{
+	        	celldblclick: 'onCelldblclick'
+			},
+	        dockedItems: [{
+                xtype: 'pagingtoolbar',
+                dock: 'bottom',
+                displayInfo: true,
+                store: commonStore
+            }]
+		}];
+		this.callParent(arguments);
+	}
+
+});

@@ -1,0 +1,20 @@
+Ext.define('ExtApp.model.projectmanagement.DeptPlanDeliverableModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.deptPlanDeliverable',
+    
+    fields: [
+             {name: 'id'},
+             {name: 'taskId'},
+             {name: 'taskName'},
+             {name: 'attachmentCode'},
+             {name: 'attachmentName'},
+             {name: 'obsName'},
+             {name: 'username'},
+             {name: 'submitDate', type: 'date'},
+             //{name: 'refFlag'},
+             {name: 'obsId'},
+             {name: 'userId'},
+             {name: 'gateDate', type: 'date'}
+    ]
+
+});

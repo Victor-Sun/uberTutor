@@ -1,0 +1,14 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectPlanMainNodeModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.projectPlanMainNode',
+    
+    fields: [
+             {name: 'id'},
+             {name: 'programId'},
+             {name: 'taskName'},
+             {name: 'taskProgressStatusCode'},
+             {name: 'plannedFinishDate', type: 'date'},
+             {name: 'vehicleId'}
+    ]
+
+});

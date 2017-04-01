@@ -1,0 +1,20 @@
+Ext.define('ExtApp.view.myworkspace.task.PmTaskCommentController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.pmtaskcomment',
+	
+	renderTitleColumn: function (value, metaData, record) {
+        var view = this.getView(),
+            plugin = view.getPlugin('rowexpander'),
+            tpl = view.titleTpl;
+
+        if (!tpl.isTemplate) {
+            view.titleTpl = tpl = new Ext.XTemplate(tpl);
+        }
+
+        var data = Ext.Object.chain(record.data);
+
+        // data.expanded = plugin.recordsExpanded[record.internalId] ? ' style="display: none"' : '';
+
+        return tpl.apply(data);
+    }
+});

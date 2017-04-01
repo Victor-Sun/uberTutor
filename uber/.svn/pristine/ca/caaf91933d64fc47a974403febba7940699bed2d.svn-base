@@ -1,0 +1,17 @@
+Ext.define('ExtApp.store.deptworkspace.DeptmanagementOpenIssueStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.deptmanagementOpenIssue',
+    
+    model: 'ExtApp.model.projectmanagement.ProjectOpenIssueModel',
+    
+    pageSize:ExtApp.common.Constants.pageSize,
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-open-issue!getDeptOpenIssue.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

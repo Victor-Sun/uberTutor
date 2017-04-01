@@ -1,0 +1,19 @@
+/**
+ * 试验类型store
+ */
+Ext.define('ExtApp.store.qualityissuemanagement.TestTypeStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.testType',
+
+    fields: ['id', 'name'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/combo!getTestType.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

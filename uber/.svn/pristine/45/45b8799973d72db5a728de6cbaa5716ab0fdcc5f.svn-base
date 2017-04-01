@@ -1,0 +1,74 @@
+/**
+ * 项目计划导入
+ */
+Ext.define('ExtApp.view.projectmanagement.extplan.ext301.PartCheckControlController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.partCheckControl',
+    importPartList:function(){
+    	var me = this;
+    	var partImport = Ext.create('ExtApp.view.projectmanagement.extplan.ext301.PartImport',{programVehicleId:me.view.record.get('vehicleId'),projectId:me.view.record.get('partProjectId')});
+    	partImport.show();
+    },
+    initSchedule:function(){
+    	var me = this;
+    	Ext.getBody().mask();
+    	Ext.Ajax.request({
+	   	 	 url: '/pdms/pm/ext301!initSchedule.action',
+	   	 	 params: {
+	   	 		programVehicleId:me.view.record.get('vehicleId')
+	   	 	 },
+	   	 	 scope: me,
+	   	 	 success: function(response, opts) {
+	   	     	Ext.getBody().unmask();
+	   	    	var obj = Ext.decode(response.responseText);
+	   	        if (obj.success) {
+	   	        	ExtApp.util.Util.showToast("下发计划成功！");
+	   	        } else {
+	   	        	ExtApp.util.Util.handleRequestFailure(response);
+	   	        }
+	   	    },
+		    failure: function(response, opts) {
+		        Ext.getBody().unmask();
+		        ExtApp.util.Util.handleRequestFailure(response);
+		    }
+       });
+    },
+    submitPartCheck:function(button){
+    	var me = this;
+    	var selections = me.view.getSelection();
+    	var modelData = [];
+    	for(var i=0;i<selections.length;i++){
+    		modelData.push(selections[i].data.ITEM_ID);
+    	}
+    	
+    	Ext.getBody().mask();
+    	Ext.Ajax.request({
+    		 programVehicleId:me.view.programVehicleId,
+	   	 	 url: '/pdms/pm/ext301!processSchedule.action',
+	   	 	 params: {
+    			 model: Ext.encode(modelData),
+    			 action:button.value
+			 },
+	   	 	 scope: me,
+	   	 	 success: function(response, opts) {
+	   	     	Ext.getBody().unmask();
+	   	    	var obj = Ext.decode(response.responseText);
+	   	        if (obj.success) {
+	   	        	ExtApp.util.Util.showToast("提交成功！");
+	   	        	me.view.reconfigureGrid(me.view.programVehicleId);
+	   	        } else {
+	   	        	ExtApp.util.Util.handleRequestFailure(response);
+	   	        }
+	   	    },
+		    failure: function(response, opts) {
+		        Ext.getBody().unmask();
+		        ExtApp.util.Util.handleRequestFailure(response);
+		    }
+       });
+    },
+    search:function(button){
+    	var me = this;
+    	var obsName = button.previousSibling('textfield').getValue(); 
+    	me.view.reconfigureGrid(me.view.programVehicleId,obsName);
+    }
+});

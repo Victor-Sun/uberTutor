@@ -1,0 +1,69 @@
+{
+  "success"  : true,
+  "data": [
+      {
+        "Id"      : "Major",
+        "Name"    : "MAJOR MILESTONE",
+        "expanded": false,
+        "leaf"    : true,
+        "Type"    : "M"
+      },
+      {
+        "Id"      : "Gate",
+        "Name"    : "GATE",
+        "expanded": false,
+        "leaf"    : true,
+        "Type"    : "G"
+      },
+      {
+        "Id"      : 3,
+        "Name"    : "F1",
+        "expanded": false,
+        "leaf": true,
+        "Type"    : "F"
+      },
+      {
+        "Id"      : 4,
+        "Name"    : "F2",
+        "expanded": false,
+        "leaf"    : true,
+        "Type"    : "F"
+      },
+      {
+        "Id"      : 5,
+        "Name"    : "F3",
+        "expanded": false,
+        "leaf"    : true,
+        "Type"    : "F"
+      },
+      {
+        "Id"      : 6,
+        "Name"    : "F4",
+        "expanded": false,
+        "leaf"    : true,
+        "Type"    : "F"
+      },
+      {
+        "Id"      : 7,
+        "Name"    : "F5",
+        "expanded": false,
+        "leaf"    : true,
+        "Type"    : "F"
+      },
+      {
+        "Id"      : 8,
+        "Name"    : "F6",
+        "expanded": false,
+        "leaf"    : true,
+        "Type"    : "F"
+      },
+      {
+        "Id"      : 9,
+        "Name"    : "F7",
+        "expanded": false,
+        "leaf"    : true,
+        "Type"    : "F"
+      }
+    ]
+}
+

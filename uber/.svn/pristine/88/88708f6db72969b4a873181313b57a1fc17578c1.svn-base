@@ -1,0 +1,7 @@
+Ext.define('ExtApp.view.projectManagement.gantt.crud.CrudManager', {
+    extend          : 'Gnt.data.CrudManager',
+    alias           : 'crudmanager.advanced-crudmanager',
+    autoLoad        : true,
+    autoSync:true,
+    trackResponseType :true
+});

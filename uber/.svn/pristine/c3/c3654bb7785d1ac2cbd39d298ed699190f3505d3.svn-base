@@ -1,0 +1,36 @@
+/**
+ * 质量问题管理-历史表单-Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.HistoryFormController',{
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.historyForm',
+    
+    // 双击列表
+    onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    	var me = this;
+    	var rec = grid.getStore().getAt(rowIndex);
+    	var refPanel = this.view.up('tabpanel');
+//		for (var i = 0; i < refPanel.items.getCount(); i++) {
+//			if (refPanel.items.get(i).issueId == rec.get('issueId')) {
+//				refPanel.setActiveTab(refPanel.items.get(i));
+//				return;
+//			}
+//		}
+    	
+    	var newView = Ext.create({
+    		xtype: 'historyFormInfo',
+    		//issueId: rec.get('issueId'),
+    		hstId: rec.get('id'),
+			scrollable: true,
+    		height:me.view.ownerCt.ownerCt.height
+        });
+		
+		newView.load({
+			url: '/pdms/ims/ims-issue!getImsIssueForm.action',
+			params: {issueId: rec.get('id'), historyFlag: true}
+		});
+		newView.setTitle(rec.get('title'));
+		refPanel.add(newView);
+		refPanel.setActiveTab(newView);
+    }
+});

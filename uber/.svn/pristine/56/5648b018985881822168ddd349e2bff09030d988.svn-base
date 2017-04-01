@@ -1,0 +1,41 @@
+Ext.define('ExtApp.view.common.CommentWindow',{
+	xtype:'commentWindow',
+	extend:'Ext.window.Window',
+	width:400,
+	height:200,
+	// margin:'65 0 0 250',
+	title:'备注',
+	scrollable:'y',
+	callback:null,
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+	items:[{
+	    xtype:'form',
+	    reference: 'commentForm',
+	    width: 200,
+	    items: [{
+			xtype:'textarea',
+			name:'commont',
+			padding:10,
+			width:'90%',
+			fieldLabel:'备注'
+		}]
+	}],
+	initComponent: function() {
+		me = this;
+			
+    	me.fbar = [
+    				{ type:'button', text:'确认',
+    					handler: function() {
+    						var commont = me.down('form').getForm().findField('commont').getValue();
+    						if (typeof me.callback == "function"){
+    				            me.callback(commont);
+    				        }
+    					}
+    				}
+    		];
+    	me.callParent(arguments);  		
+	}
+});

@@ -1,0 +1,23 @@
+{
+  "data": {
+    "created": "2016-06-21T10:59:09Z",
+    "email": "support@bryntum.com",
+    "expires": "2021-06-22T00:00:00Z",
+    "name": "Bryntum",
+    "uuid": "e7fd1d2f-e151-442d-a624-1c8bd50d9842"
+  },
+  "publicKey": {
+    "algorithm": "RSA",
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4Gbv66WdIbEkLteW1mtnIZo8OeE8DHxjCn1+OaXIHJRvVQAtzajt5yDDs0MVBi0lKfpxiHEtlxJk9+0nUaU/b1Bk8rJa9GPHoYb6uv6ZOt0GZzbmMlrXtCe358akKqIAmR+jjz9DLwcSiefSNuWfNvMqIYh9q0WXMfP0JURTxYuD7/RCDeZjZcusHIM1DtAwuDLQ1FXRLcY+KQ0H1V0jqyo7brpO9XcIfQPhWHoVMQjDFDkoOtQSMJyMfy3PqZ70YbheF0wBswSyVLjNnrL2vT0SqLZA55c4hKZzr634J+amakpJeLnkALEf0xJDCceL3yaE64hkbnOlRUh1KzB8RQIDAQAB"
+  },
+  "signatures": [
+    {
+      "name": "Bryntum",
+      "uuid": "e7fd1d2f-e151-442d-a624-1c8bd50d9842",
+      "created": "2016-06-21T10:59:16Z",
+      "algorithm": "SHA1withRSA",
+      "nonce": "gPtp/eU+3zc\u003d",
+      "signature": "vURujnsM8MZL1vRiviO8G2zXTaqagu02OSCnRdtPjOhEztZfNUh9jKc7nXiccLOUdSu1I1gRiPEJhIbtgCHXsVp1XxA+z6Uut98QKdQfv/EvI/qyS7Bx3Wclw/hsdLbwE6+QyRLEidr+biI+PBFrctIrEU42D4Yx9X518oFpHxpEfwgwbFSgbZC2jB4tBDt6wigrdi/tf94sp0TNAJyYoeVT3s+iQGk5NhndHkHSOVu/vltRkyPt3wPFn6rvxs+6bPy3g3/zllCwSkqbQTUR9aqnHD+sk5H4kRiilthWtrG4tZQLqEZ6yjPPMCAICegQpyt2wNFYEa5VhN6HT4/7HA\u003d\u003d"
+    }
+  ]
+}

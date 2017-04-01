@@ -1,0 +1,27 @@
+/**
+ * 个人管理-待办任务-申请计划变更
+ */
+Ext.define('ExtApp.view.myworkspace.task.PmTaskApplicationController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.pmTaskApplication',
+
+    // 其他框显示
+    other: function() {
+    	var check = this.lookupReference("refOtherCheck").getValue();
+    	if (check == true) {
+        	this.lookupReference("refOther").setDisabled(false);
+    	}else if (check == false) {
+        	this.lookupReference("refOther").setDisabled(true);
+    	}
+	},
+
+	// 确定
+	confirm: function(btn) {
+		this.cancel();
+	},
+	
+	// 取消
+	cancel: function(btn) {
+		this.view.destroy();
+	}
+});

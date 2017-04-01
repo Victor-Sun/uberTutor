@@ -1,0 +1,19 @@
+/**
+ * 质量问题管理-主信息Store
+ */
+Ext.define('ExtApp.store.qualityissuemanagement.MainInfoStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.mainInfo',
+
+    pageSize:15,
+    fields: ['mainQeNum', 'mainQeTitle', 'mainQePeople','mainQeTime','id'],
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/main-info!getMainInfo.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

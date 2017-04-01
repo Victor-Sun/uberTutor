@@ -1,0 +1,9 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectOpenIssue01Model', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.projectOpenIssue01',
+    
+    fields: [
+             'progressDescription'
+     ]
+
+});

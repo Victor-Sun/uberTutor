@@ -1,0 +1,51 @@
+Ext.define('ExtApp.view.systemsettings.systemmanager.SystemUserRoleManager',{
+	extend:'Ext.panel.Panel',
+	xtype:'systemuser',
+	
+	margin:20,
+	layout:{
+		type:'hbox',
+		align:'stretch'
+	},
+	
+	items:[{
+		xtype:'panel',
+		flex:1,
+		title:'用户'
+	},{
+		xtype:'panel',
+		flex:1,
+		layout:{
+			type:'vbox',
+			align:'stretch'
+		},
+		items:[{
+			xtype:'fieldset',
+			flex:1,
+			title:'用户角色',
+			margin:10,
+			items:[{
+				xtype:'grid',
+				margin:0,
+				scrollable:true,
+				columns:[
+			         {text:'角色', dataIndex:'role'},
+			         {text:'默认', dataIndex:'default'}
+				]
+			}]
+		},{
+			xtype:'fieldset',
+			flex:1,
+			title:'角色权限',
+			margin:10,
+			items:[{
+		    	xtype:'grid', 
+		    	margin:0,
+				scrollable:true,
+				columns:[
+			         {text:'权限', dataIndex:'permission'}
+				]
+			}]
+		}]
+	}]
+});

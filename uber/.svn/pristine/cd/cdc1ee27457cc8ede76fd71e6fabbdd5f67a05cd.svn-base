@@ -1,0 +1,14 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectDocumentListStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectDocumentList',
+    fields: ['id','programId','sourceType','sourceId','documentId','documentRevisionId','documentName','createBy','createDate'],
+    pageSize:ExtApp.common.Constants.pageSize,
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-document!getProjectDocumentList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

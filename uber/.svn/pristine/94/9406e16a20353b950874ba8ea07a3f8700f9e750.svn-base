@@ -1,0 +1,10 @@
+/**
+ * 质量问题管理-问题提交-初始空白
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.EmptyDashboard',{
+	extend:'Ext.form.Panel',
+	xtype:'emptydashboard',
+	id:'idEmptyDashboard',
+
+	scrollable: 'y'
+});

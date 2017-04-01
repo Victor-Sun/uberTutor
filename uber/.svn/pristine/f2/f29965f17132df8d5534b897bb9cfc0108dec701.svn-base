@@ -1,0 +1,58 @@
+/**
+ * 质量问题管理-提交问题-知会Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.QeNotifyController',{
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.qeNotify',
+
+	// 点击【增加】
+    addMember: function() {
+    	var me = this;
+    	Ext.create({
+    		xtype: 'sysUserDepartment',
+    		title: '知会',
+    		multiSelect: true,
+    		parentCaller: me
+    	}).show();
+//    	var me = this;
+//    	this.view.add({
+//			title:"知会",
+//			xtype: 'sysUserDepartment',
+//			multiSelect: true,
+//    		parentCaller: me
+//        }).show();	
+    },
+    
+    onResetClick: function(){
+        //refresh source grid
+        this.view.down('grid').getStore().load();
+    },
+    // 添加用户/选择专业经理 - 确定
+    confirmUser: function(userData) {
+		var grid = this.view.down('grid');
+    	var me = this;
+    	var modelData = [];
+    	for (var i = 0; i <userData.length; i++) {
+    		modelData.push(userData[i].data);
+    	}
+		var intId = grid.getStore().getCount();
+
+    	Ext.each(modelData, function (record) {
+    		var valId = record.id;
+    		var valName = record.name;
+
+    		var gridStore = grid.getStore();
+    		if (gridStore.find('CurrentId', valId) == -1) {
+        		if (intId != 0) {
+        			intId = intId + 1;
+        		}
+    			gridStore.insert(intId, {
+	    			CurrentId : valId,
+	    			CurrentName : valName
+        		});
+    		} else {
+    	    	ExtApp.util.Util.showToast(Ext.String.format('员工['+valName+']已选择!.........'));
+    		}
+		});
+	}
+});

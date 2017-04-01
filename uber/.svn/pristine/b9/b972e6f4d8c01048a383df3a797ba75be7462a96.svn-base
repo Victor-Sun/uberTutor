@@ -1,0 +1,378 @@
+/**
+ * 项目管理-项目计划-节点计划
+ */
+Ext.define('ExtApp.view.projectManagement.depttasklist.DeptPlanTaskList',{
+	extend:'Ext.tab.Panel',
+	xtype:'deptPlanTaskList',
+	
+	controller: 'deptPlanTaskList',
+	
+	layout: 'fit',
+	
+	initComponent: function() {
+		var me = this;
+		
+		// 负责人Store
+		var obsUserStore = Ext.create('ExtApp.store.common.ObsUserStore');
+		obsUserStore.getProxy().extraParams = {
+			programVehicleId: me.programVehicleId,
+			obsId: me.record.get('fnGroupId'),
+			includeSubDept: true};
+		obsUserStore.load();
+	
+		// 节点计划列表Store
+		var taskStore = Ext.create(
+			'ExtApp.store.projectmanagement.DeptPlanTaskStore');
+		taskStore.getProxy().extraParams = {
+			programVehicleId: this.programVehicleId,
+			obsId: me.record.get('fnGroupId'),
+			baselineId: me.baselineId};
+		taskStore.load();
+		
+		// 负责主体Store
+		var obsId = this.record.get('fnGroupId');
+		var respDeptStore;
+		if (obsId && obsId != null && obsId != '') {
+			respDeptStore = Ext.create('ExtApp.store.projectmanagement.RespDeptChildStore');
+			respDeptStore.getProxy().extraParams = {
+				programVehicleId: me.programVehicleId,
+				rootObsId: obsId};
+		} else {
+			respDeptStore = Ext.create('ExtApp.store.projectmanagement.RespDeptStore');
+			respDeptStore.getProxy().extraParams = {programVehicleId: this.programVehicleId};
+		}
+		respDeptStore.load();
+		
+		var statusHidden = (this.baselineId && this.baselineId != null);
+	    
+		this.items = [{
+			title: '节点信息',
+	  		xtype:'grid',
+	  		margin:0,
+	  		store: taskStore,
+	  		layout: 'fit',
+	  		selModel: 'checkboxmodel',
+	  		columns: [{
+	  			xtype: 'rownumberer'
+	  		},{
+	  			text: '进展状态',
+				width: 80,
+				dataIndex: 'progressStatus',
+				renderer: 'renderIssueProgress',
+				align: 'center',
+				filter: false,
+				hidden: statusHidden
+	  		},{
+	  			text: '风险状态',
+	  			width: 80,
+	  			dataIndex: 'taskProgressStatusCode',
+	  			renderer: 'renderTaskProgress',
+	  			align: 'center',
+	  			filter: false,
+	  			hidden: statusHidden
+	  		},{
+	  			text: '名称',
+	  			flex: 1,
+	  			dataIndex: 'taskName'
+	  		},{
+	  			text: '类型',
+	  			flex: 1,
+	  			dataIndex: 'taskTypeName'
+	  		},{
+	  			text: '负责主体',
+	  			flex: 1,
+	  			dataIndex: 'obsName'
+	  		},{
+	  			text: '负责人',
+	  			flex: 1,
+	  			dataIndex: 'taskOwnerName',
+	  			editor: {
+	    	        xtype: 'combo',
+	    	        typeAhead: true,
+	    	        store: obsUserStore,
+					queryMode: 'local',
+					valueField: 'userId',
+					displayField: 'userName',
+					forceSelection: true,
+					listConfig: {
+		                getInnerTpl: function() {
+		                    return '<div class="search-item">' +
+				                       '<span class="results-left" style="min-width: 80px;"><h3>{userName}</h3></span>' +
+				                       '<span class="results-right" style="min-width: 100px;">{obsName}</span>' +
+				                   '</div>';
+		                }
+				    }
+	            }
+	  		},{
+			  	text: '开始时间',
+		  		flex: 1,
+		  		dataIndex: 'plannedStartDate',
+		  		formatter: 'date("Y/m/d")'
+	  		},{
+	  			text: '截止时间',
+	  			flex: 1,
+	  			dataIndex: 'plannedFinishDate',
+	  			formatter: 'date("Y/m/d")'
+	  		},{
+	  			text: '周期（天）',
+	  			flex: 1,
+	  			dataIndex: 'durationDays'
+	  		},{
+	  			xtype: 'actioncolumn',
+	  			width: 30,
+	  			align: 'center',
+	  			sortable: false,
+	  			menuDisabled: true,
+	  			items: [{
+	  				iconCls: 'cell-editing-delete-row',
+	  				handler: 'deleteNode'
+			  	}]
+	  		}],
+	  		tbar: [{
+				xtype: 'form',
+		    	margin: 2,
+		    	layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				width: '100%',
+				items: [{
+					xtype: 'fieldset',
+					flex:1,
+			    	title: '<B>高级查询</B>',
+			    	titleAlign: 'right',
+			    	collapsible:true,
+			    	collapsed: true,
+			    	margin: 2,
+			    	layout: 'fit',
+			    	items: [{
+			    		xtype: 'panel',
+			    		layout:{
+							type:'vbox',
+							align:'stretch'
+						},
+			    		items: [{
+			    			xtype: 'panel',
+			    			layout: 'column',
+			    			defaults: {
+				    			defaults: {
+				    				labelAlign: 'right',
+					    			margin: 5
+				    			}
+				    		},
+			    			items: [{
+			    				xtype: 'panel',
+				    			columnWidth: 0.5,
+				    			layout:{
+									type:'hbox',
+									align:'stretch'
+								},
+								items: [{
+									xtype: 'displayfield',
+					    			value: '开始时间'
+								},{
+									xtype: 'datefield',
+									format: 'Y/m/d',
+									name: 'searchPSDateFrom'
+								},{
+									xtype: 'displayfield',
+					    			value: '~'
+								},{
+									xtype: 'datefield',
+									format: 'Y/m/d',
+									name: 'searchPSDateTo'
+								}]
+				    		},{
+				    			xtype: 'panel',
+				    			columnWidth: 0.3,
+				    			layout:{
+									type:'hbox',
+									align:'stretch'
+								},
+								items: [{
+									xtype: 'combobox',
+									flex: 1,
+									fieldLabel: '负责主体',
+									store: respDeptStore,
+								    queryMode: 'local',
+								    displayField: 'obsName',
+								    valueField: 'id',
+								    name: 'searchObsId',
+								    forceSelection: true
+								}]
+				    		},{
+				    			xtype: 'panel',
+				    			columnWidth: 0.2,
+				    			layout:{
+									type:'hbox',
+									align:'stretch'
+								},
+								items: [{
+									xtype: 'panel'
+								}]
+			    			}]
+			    		},{
+			    			xtype: 'panel',
+			    			layout: 'column',
+			    			defaults: {
+				    			defaults: {
+				    				labelAlign: 'right',
+					    			margin: 5
+				    			}
+				    		},
+			    			items: [{
+			    				xtype: 'panel',
+				    			columnWidth: 0.5,
+				    			layout:{
+									type:'hbox',
+									align:'stretch'
+								},
+								items: [{
+									xtype: 'displayfield',
+					    			value: '截止时间'
+								},{
+									xtype: 'datefield',
+									format: 'Y/m/d',
+									name: 'searchPFDateFrom'
+								},{
+									xtype: 'displayfield',
+					    			value: '~'
+								},{
+									xtype: 'datefield',
+									format: 'Y/m/d',
+									name: 'searchPFDateTo'
+								}]
+				    		},{
+				    			xtype: 'panel',
+				    			columnWidth: 0.3,
+				    			layout:{
+									type:'hbox',
+									align:'stretch'
+								},
+								items: [{
+									xtype: 'textfield',
+									name: 'searchTaskOwner',
+									width: '100%',
+									fieldLabel: '负责人',
+									listeners: {
+					    				change: function(text, newValue, oldValue, eOpts) {
+					    					if (newValue != null && newValue != '') {
+					    						var form = me.down('toolbar').down('form').getForm();
+					    						form.findField('searchTaskOwnerNull').setValue(false);
+					    					}
+					    				}
+					    		    }
+								}]
+				    		},{
+				    			xtype: 'panel',
+				    			columnWidth: 0.2,
+				    			layout:{
+									type:'hbox',
+									align:'stretch'
+								},
+								items: [{
+									xtype:'checkbox',
+									name:'searchTaskOwnerNull',
+									checked: false,
+									margin: '0 0 0 10',
+									labelWidth: 80,
+									labelSeparator: '',
+									fieldLabel:'负责人为空',
+									listeners: {
+					    				change: function(ck, newValue, oldValue, eOpts) {
+					    					if (newValue) {
+					    						var form = me.down('toolbar').down('form').getForm();
+					    						form.findField('searchTaskOwner').setValue(null);
+					    					}
+					    				}
+					    		    }
+								}]
+			    			}]
+			    		}]
+			    	}]
+				},{
+					xtype: 'panel',
+					margin: '10 2 2 2',
+		    		layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					defaults: {
+		    			labelAlign: 'right',
+		    			labelWidth: 60
+		    		},
+					items: [{
+						xtype: 'textfield',
+						name: 'searchTaskName',
+						fieldLabel: '节点名称'
+			    	},{
+						xtype:'checkbox',
+						name:'searchTaskTypeNode',
+						checked: true,
+						margin: '0 0 0 10',
+						labelWidth: 30,
+						labelSeparator: '',
+						fieldLabel:'节点'
+					},{
+						xtype:'checkbox',
+						name:'searchTaskTypeActivity',
+						checked: true,
+						margin: '0 0 0 10',
+						labelWidth: 30,
+						labelSeparator: '',
+						fieldLabel:'活动'
+					},{
+						xtype: 'button',
+						margin: '0 0 0 20',
+						text: '查询',
+						iconCls: 'x-fa fa-search',
+						handler: 'search'
+					},{
+						xtype: 'button',
+						margin: '0 0 0 5',
+						text: '重置',
+						iconCls: 'x-fa fa-rotate-left',
+						handler: 'reloadSearch'
+					},{
+						xtype: 'tbfill'
+			    	},{
+			    		xtype:'button',
+	  					text: '新建节点',
+			  			itemId: 'btnAddNode',
+			  			iconCls: 'fa fa-plus',
+			  			handler: 'onAddNode'
+			  		},{
+			  			xtype:'button',
+			  			text: '删除节点',
+			  			itemId: 'btnBatchDeleteNode',
+			  			iconCls: 'fa fa-remove',
+			  			handler: 'batchDeleteNode'
+			  		},{
+			  			xtype:'button',
+			  			text: '导入节点',
+			  			itemId: 'btnBatchImportNode',
+			  			iconCls: 'fa fa-upload',
+			  			handler: 'batchImportNode'
+			  		},{
+			  			xtype:'button',
+			  			text: '设置负责人',
+			  			itemId: 'btnSelResponsibleUser',
+			  			iconCls: 'fa fa-user',
+			  			handler: 'selResponsibleUser'
+			    	}]
+				}]
+			}],
+	  		dockedItems: [{
+	  			xtype: 'pagingtoolbar',
+	  			dock: 'bottom',
+	  			displayInfo: true,
+	  			store: taskStore
+	  		}],
+	  		listeners:{
+	  			edit: 'onEditTaskOwner',
+	  			celldblclick: 'onCelldblclick'
+	  		}
+		}];
+		this.callParent();
+	}
+});

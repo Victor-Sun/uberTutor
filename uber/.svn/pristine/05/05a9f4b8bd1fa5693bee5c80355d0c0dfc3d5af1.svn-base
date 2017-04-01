@@ -1,0 +1,46 @@
+/**
+ * 项目管理-主计划
+ */
+Ext.define('ExtApp.view.projectManagement.mainplan.MainPlanBaseController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.mainPlanBase',
+
+    // 初始化
+    init: function() {
+    	var me = this;
+    	
+		var timeline = Ext.create({
+			xtype: 'timeLineBase',
+			title: '时程表',
+        	programId: me.view.programId,
+        	programVehicleId: me.view.programVehicleId,
+        	record: me.view.record,
+        	projectPrivilege: me.view.projectPrivilege
+		});
+		me.view.add(timeline);
+		me.view.setActiveTab(timeline);
+		
+		var projectTaskList = Ext.create({
+			xtype: 'projectTaskList',
+			title: '任务清单',
+			programVehicleId: me.view.programVehicleId,
+			record: me.view.record,
+        	projectPrivilege: me.view.projectPrivilege
+		});
+		me.view.add(projectTaskList);
+		if (! me.view.getActiveTab()) {
+			me.view.setActiveTab(projectTaskList);
+		}
+		
+		var extensionLog = Ext.create({
+			xtype: 'projectTaskExtensionLog',
+			title: '任务延期记录',
+			programVehicleId: me.view.programVehicleId,
+        	projectPrivilege: me.view.projectPrivilege
+		});
+		me.view.add(extensionLog);
+		if (! me.view.getActiveTab()) {
+			me.view.setActiveTab(extensionLog);
+		}
+    }
+});

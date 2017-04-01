@@ -1,0 +1,48 @@
+/**
+ * 项目管理-新建文件夹
+ */
+Ext.define('ExtApp.view.projectManagement.document.CreateFolder',{
+	extend:'Ext.window.Window',
+	xtype:'createFolder',
+
+	controller:'createFolder',
+
+	modal: true,
+	closable: false,
+	
+	layout: 'fit',
+	
+	width: 300,
+	height: 150,
+	
+	title: '新建文件夹',
+	
+	initComponent: function() {
+		var me = this;
+		this.items = [{
+			xtype: 'panel',
+			margin: 10,
+			layout:{
+				type:'vbox',
+				align:'stretch'
+			},
+			items: [{
+				xtype: 'textfield',
+				itemId: 'folderName',
+				fieldLabel: '文件夹名称'
+			}]
+		}];
+		this.tools = [{
+			text:'确定',
+			xtype: 'button',
+			iconCls: 'x-fa fa-circle-o',
+			handler: 'confirm'
+		},{
+			text:'关闭',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'cancel'
+		}];
+		this.callParent(arguments);
+	}
+});

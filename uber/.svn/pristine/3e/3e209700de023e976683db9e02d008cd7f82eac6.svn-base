@@ -1,0 +1,151 @@
+Ext.define('ExtApp.view.rolemanage.RolesController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.roles',
+    openRoleWindow:function(th, record, item, index, e, eOpts ){
+    	var window = Ext.create("ExtApp.view.rolemanage.RoleWindow",{grid:th}).show();
+    	window.down('form').getForm().loadRecord(record);
+    },
+    openAddRoleWindow: function(button, e, options){
+    	var grid = button.up('grid');
+    	Ext.create("ExtApp.view.rolemanage.RoleWindow",{grid:grid}).show();
+    },
+    closeWindow:function(button, e, options){
+    	button.up('window').close();
+    },   
+    onButtonClickSubmit: function(button, e, options){
+        var me = this;
+        if (me.lookupReference('roleForm').isValid()){
+        	me.doSubmit();
+        }
+    },
+    doSubmit: function() {
+    	var me = this;
+        form = me.lookupReference('roleForm');
+		me.getView().mask('Saving... Please wait...');
+		form.submit({
+			clientValidation: true,
+		    url: '/pdms/role/role!save.action',
+		    scope: me,
+		    success: 'onSubmitSuccess',
+		    failure: 'onSubmitFailure'
+		});
+    },
+    onSubmitFailure: function(form, action) {
+        this.getView().unmask();
+        ExtApp.util.Util.handleFormFailure(action);
+    },
+    onSubmitSuccess: function(form, action) {
+    	var me = this;
+    	var view = this.getView();
+        view.unmask();    
+        var win = form.owner.up('window');
+        var grid = win.grid;
+        win.close();
+        grid.getStore().load();
+    },
+    openRoleUsers: function(grid, rowIndex, colIndex){
+    	var record = grid.getStore().getAt(rowIndex);
+    	var roleId = record.get('roleId');
+    	var roleUsers = Ext.create("ExtApp.view.rolemanage.RoleUsers",{roleId:roleId});
+    	Ext.create("Ext.window.Window",{
+    		title:'角色用户管理',
+    		maximized: true,
+    		layout:{
+    			type:'border'
+    		},
+    		items: [{
+    			xtype: 'panel',
+    			layout: 'card',
+    			region: 'center',
+    			items: [roleUsers]
+    		}]
+    	}).show();
+    },
+    openAddUseWindow: function(button, e, options){
+    	var grid = button.up('grid');
+    	var roleId = button.up('roleUsers').roleId;
+    	Ext.create("ExtApp.view.rolemanage.UserWindow",{grid:grid,roleId:roleId}).show();
+    },
+    openRoleMenus: function(grid, rowIndex, colIndex){
+    	var record = grid.getStore().getAt(rowIndex);
+    	var roleId = record.get('roleId');
+    	var roleMenus = Ext.create("ExtApp.view.rolemanage.RoleMenus",{roleId:roleId});
+    	var roleMenuStore = Ext.create("ExtApp.store.rolemanage.RoleMenus",{proxy: {
+	        type: 'ajax',
+	        url: '/pdms/role/role!getRoleMenuList.action',
+	        extraParams:{  
+	        	roleId:roleId  
+            } 
+	    }});
+    	roleMenus.setStore(roleMenuStore);
+    	roleMenuStore.load();
+    	var window = Ext.create("Ext.window.Window",{
+    		title: '角色组件权限管理',
+    		maximized: true,
+    		layout:{
+    			type:'border'
+    		},
+    		items: [{
+    			xtype: 'panel',
+    			layout: 'card',
+    			scrollable:'y',
+    			region: 'center',
+    			items: [roleMenus]
+    		}],
+    		tools: [{
+                text: '保存',
+                xtype: 'button',
+		        handler: function(){
+		        	var records = roleMenus.getChecked();
+		            var names = [];
+		        	Ext.Array.each(records, function(rec){
+		        		names.push(rec.get('id'));
+		        	});
+		        	Ext.Ajax.request({
+                		 url: '/pdms/role/role!saveRoleMenu.action',
+                		 params:{roleId:roleId,idStr:names.join(',')},
+                	     success: function(response, opts) {
+                	    	 var result = ExtApp.util.Util.decodeJSON(response.responseText);
+                	 		 if (!result){ //#4
+            	    	 		 result = {};
+            	    	 		 result.success = false;
+            	    	 		 result.msg = response.responseText;
+                	 		 }
+                	 		window.close();
+                	     },
+                	     failure: function(response, opts) {
+                	    	 var result = ExtApp.util.Util.decodeJSON(response.responseText);           	 		 
+                	     }
+                	 });
+		        }
+		    }]
+    	}).show();
+    },
+    saveUserRole: function(button, e, options){
+        var me = this;
+        if (me.lookupReference('userForm').isValid()){
+        	me.saveUser();
+        }
+    },
+    saveUser: function() {
+    	var me = this;
+        form = me.lookupReference('userForm').getForm();
+		me.getView().mask('Saving... Please wait...');
+		form.submit({
+			clientValidation: true,
+		    url: '/pdms/role/role!saveUserRole.action',
+		    scope: me,
+		    success: 'saveUserSuccess',
+		    failure: 'onSubmitFailure'
+		});
+    },
+    saveUserSuccess: function(form, action) {
+    	var me = this;
+    	var view = this.getView();
+        view.unmask();    
+        var win = form.owner.up('window');
+        var grid = win.grid;
+        win.close();
+        grid.getStore().load({params:{roleId:win.roleId}});
+    }
+});

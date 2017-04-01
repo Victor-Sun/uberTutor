@@ -1,0 +1,22 @@
+Ext.define('ExtApp.store.projectmanagement.ContributionProjectStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.contributionproject',
+    
+    fields: [
+	  {name: 'project'},
+	  {name: 'contributionCount'}
+	],
+    
+    data: [
+		{'project': 'Project One', 'contributionCount': '50'},
+		{'project': 'Project Two', 'contributionCount': '60'},
+		{'project': 'Project Three', 'contributionCount': '45'},
+		{'project': 'Project Four', 'contributionCount': '32'},
+		{'project': 'Project Five', 'contributionCount': '26'},
+		{'project': 'Project Six', 'contributionCount': '25'},
+		{'project': 'Project Seven', 'contributionCount': '29'},
+		{'project': 'Project Eight', 'contributionCount': '55'},
+		{'project': 'Project Nine', 'contributionCount': '99'},
+		{'project': 'Project Ten', 'contributionCount': '25'}
+    ]
+});

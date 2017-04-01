@@ -1,0 +1,146 @@
+/**
+ * 
+ */
+Ext.define('ExtApp.view.projectmanagement.extplan.ext301.PartsPoolController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.partsPool',
+    onSelectionChange: function (selModel, records) {
+    	var me = this;
+        var rec = records[0];
+        if(rec){
+        	var id = rec.get('id');
+            me.view.down('nodeList').getStore().load({params:{id:id}});
+        }
+    },
+    batchSetFinishDate:function(){
+    	var me = this;
+    	var batchProcessScheduleWindow = Ext.create('ExtApp.view.projectmanagement.extplan.ext301.BatchProcessScheduleWindow',{programVehicleId:me.view.programVehicleId,partSchedulePool:me.view.down('partSchedulePool')});
+    	batchProcessScheduleWindow.show();
+    },
+    batchProcessSchedule:function(){
+    	var me = this;
+    	var selections = me.view.partSchedulePool.getSelection();
+    	var modelData = [];
+    	for(var i=0;i<selections.length;i++){
+    		modelData.push(selections[i].data.id);
+    	}
+    	form = me.view.down('form').getForm();
+		me.getView().mask('Saving... Please wait...');
+		form.submit({
+			clientValidation: true,
+			params: {
+				model: Ext.encode(modelData)
+			},
+		    url: '/pdms/pm/ext301!batchProcessSchedule.action',
+		    scope: me,
+		    success: 'onSubmitSuccess',
+		    failure: 'onSubmitFailure'
+		});
+    },
+    onSubmitFailure: function(form, action) {
+        this.getView().unmask();
+        ExtApp.util.Util.handleFormFailure(action);
+    },
+    onSubmitSuccess: function(form, action) {
+    	var me = this;
+    	var view = me.getView();
+        view.unmask();    
+        view.partSchedulePool.getStore().load({params:{programVehicleId:me.view.programVehicleId}});
+        view.close();
+        
+    },
+    submitPartSchedule:function(button){
+    	var me = this;
+    	var selections = me.view.down('partSchedulePool').getSelection();
+    	var modelData = [];
+    	for(var i=0;i<selections.length;i++){
+    		modelData.push(selections[i].data.id);
+    	}
+    	
+    	Ext.getBody().mask();
+    	Ext.Ajax.request({
+    		 programVehicleId:me.view.programVehicleId,
+	   	 	 url: '/pdms/pm/ext301!processSchedule.action',
+	   	 	 params: {
+    			 model: Ext.encode(modelData),
+    			 action:button.value
+			 },
+	   	 	 scope: me,
+	   	 	 success: function(response, opts) {
+	   	     	Ext.getBody().unmask();
+	   	    	var obj = Ext.decode(response.responseText);
+	   	        if (obj.success) {
+	   	        	ExtApp.util.Util.showToast("提交成功！");
+	   	        	me.view.down('partSchedulePool').getStore().load({params:{programVehicleId:me.view.programVehicleId}});
+	   	        } else {
+	   	        	ExtApp.util.Util.handleRequestFailure(response);
+	   	        }
+	   	    },
+		    failure: function(response, opts) {
+		        Ext.getBody().unmask();
+		        ExtApp.util.Util.handleRequestFailure(response);
+		    }
+       });
+    },
+    edit:function(editor, e){
+    	var me = this;
+    	Ext.getBody().mask();
+    	Ext.Ajax.request({
+	   	 	 url: '/pdms/pm/ext301!saveNodeInfo.action',
+	   	 	 params: {
+	   	 		taskId:e.record.data.taskId,
+	   	 		plannedFinishDate:e.record.data.plannedFinishDate,
+	   	 		actualFinishDate:e.record.data.actualFinishDate
+	   	 	 },
+	   	 	 scope: me,
+	   	 	 success: function(response, opts) {
+	   	     	Ext.getBody().unmask();
+	   	    	var obj = Ext.decode(response.responseText);
+	   	        if (obj.success) {
+	   	        	e.record.commit();
+	   	        } else {
+	   	        	ExtApp.util.Util.handleRequestFailure(response);
+	   	        }
+	   	    },
+		    failure: function(response, opts) {
+		        Ext.getBody().unmask();
+		        ExtApp.util.Util.handleRequestFailure(response);
+		    }
+       });
+    },
+	onItemClick: function(view, record, item, index, e, eOpts) {
+		var me = this;
+        var id = record.get('id');
+	},
+	changeMenu:function(combo, newValue, oldValue, eOpts){
+		var me = this;
+		me.view.programVehicleId = newValue;
+		me.view.down('partSchedulePool').getStore().load({params:{programVehicleId:newValue}});
+		me.view.down('partSchedulePool').programVehicleId = newValue;
+		me.view.down('partCheckControl').reconfigureGrid(newValue);
+		me.view.down('partCheckControl').programVehicleId = newValue;
+		me.view.down('partConfirmControlList').reconfigureGrid(newValue);
+		me.view.down('partConfirmControlList').programVehicleId = newValue;
+		me.view.down('partExcutePanel').getPartExcuteHeader(newValue);
+		me.view.down('partExcutePanel').programVehicleId = newValue;
+		me.view.down('partPlannedControlList').programVehicleId = newValue;
+		me.view.down('partPlannedControlList').reconfigureGrid();
+//		me.view.down('partFileAttachmentGrid').sourceType = 'SOURCE_TYPE_PART_CONTROLL';
+//		me.view.down('partFileAttachmentGrid').sourceId = newValue;
+//		me.view.down('partFileAttachment').sourceType = 'SOURCE_TYPE_PART_CONTROLL';
+//		me.view.down('partFileAttachment').sourceId = newValue;
+//		var store = me.view.down('partFileAttachmentGrid').getStore();
+//		store.getProxy().extraParams = {
+//			sourceType: 'SOURCE_TYPE_PART_CONTROLL', sourceId: newValue};
+//		store.load();
+	},
+	exportPartControll:function(){
+    	var me = this;
+    	ExtApp.util.Util.openReport('rpt=pm/partControlRpt.brt&xlsbtn&emitter=toxls&params=programVehicleId='+me.view.programVehicleId);
+    },
+    importPartControll:function(){
+    	var me = this;
+    	var partUpdateImport = Ext.create('ExtApp.view.projectmanagement.extplan.ext301.PartUpdateImport',{programVehicleId:me.view.programVehicleId,grid:me.view.down('partSchedulePool')});
+    	partUpdateImport.show();
+    }
+});

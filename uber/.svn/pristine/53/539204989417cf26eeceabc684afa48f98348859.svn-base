@@ -1,0 +1,21 @@
+Ext.define('ExtApp.store.projectmanagement.ProgramReportStatusStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.programReportStatus',
+    
+    fields: [
+		 {name: 'id'},
+		 {name: 'createDate', type: 'date'},
+		 {name: 'createByName'},
+		 {name: 'statusCodeTotal'},
+		 {name: 'memo'}
+	],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-status-report!getReportStatusList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

@@ -1,0 +1,247 @@
+/**
+ * 质量问题管理-我的草稿-详细信息View
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.MySubInfo',{
+	extend:'Ext.form.Panel',
+	xtype:'mySubInfo',
+
+	viewModel: 'mySubInfo',
+	controller: 'mySubInfo',
+	
+	keyId: null,
+	closable:true,
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+	scrollable: true,
+	initComponent: function() {
+
+		this.items = [{
+			xtype:'tabpanel',
+			layout: 'fit',
+			defaults: {
+				scrollable: 'y'
+			},
+			margin:0,
+			items:[{
+				xtype:'panel',
+				title:'问题信息',
+				margin:'20 0 0 0',
+				layout:{
+					type:'vbox'
+				},
+				scrollable: true,
+				items:[{//line1
+					xtype:'textfield',
+					fieldLabel:'问题标题',
+					margin:'0 0 10 0',
+					width: 845,
+					name:'ProTitle'
+				},{//line2
+					xtype:'panel',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					margin:'0 0 10 0',
+					items:[{
+						xtype:'textfield',
+						fieldLabel:'问题提出人', 
+						readOnly:true,
+						name:'QestionOut'
+					},{
+						xtype : 'datefield',
+						fieldLabel:'提出时间',
+						readOnly:true,
+						margin:'0 0 0 10',
+						format: 'Y/m/d',
+						name:'ProposedTime'
+					},{
+						xtype : 'combo',
+						fieldLabel:'问题来源',
+						readOnly:true,
+						margin:'0 0 0 10',
+						editable: false,
+						bind: {
+							store: '{problemSource}'
+				        },
+					    queryMode: 'local',
+					    displayField: 'name',
+					    valueField: 'id',
+						name:'ProblemSource'
+					}]
+				},{//line3
+					xtype:'panel',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					margin:'0 0 10 0',
+					items:[{
+						xtype:'combo',
+						fieldLabel:'所属项目',
+						queryMode:'local',
+						displayField:'name',
+						valueField:'id',
+						listeners: {
+							change: 'selcombo'
+						},
+						name:'BeProject'
+					},{
+						xtype : 'combo',
+						fieldLabel:'子项目',
+						editable: false,
+						queryMode:'local',
+						displayField:'name',
+						valueField:'id',
+						margin:'0 0 0 10',
+						name:'SubProject'
+					},{
+						xtype : 'combo',
+						fieldLabel:'样车阶段',
+						editable: false,
+						bind: {
+							store: '{buildPhase}'
+				        },
+					    queryMode: 'local',
+					    displayField: 'name',
+					    valueField: 'id',
+						margin:'0 0 0 10',
+						name:'BuildPhase'
+					}]
+				},{//line4
+					xtype:'panel',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					margin:'0 0 10 0',
+					items:[{
+						xtype:'datefield',
+						fieldLabel:'发生时间',
+						format: 'Y/m/d',			
+						name:'OccurrenceTime',
+			            maxValue: new Date()
+					},{
+						xtype : 'textfield',
+						fieldLabel:'发生场地',
+						margin:'0 0 0 10',
+						name:'OccurrenceSite'
+					},{
+						xtype : 'combo',
+						fieldLabel:'实验类型',
+						editable: false,
+						bind: {
+							store:'{testType}'
+						},
+						queryMode: 'local',
+					    displayField: 'name',
+					    valueField: 'id',
+						margin:'0 0 0 10',
+						name:'ExperimentType'
+					}]
+				},{//line5
+					xtype:'panel',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					margin:'0 0 10 0',
+					items:[{
+						xtype:'textfield',
+						fieldLabel:'样车编号', 
+						name:'FaultNumber'
+					},{
+						xtype : 'textfield',
+						fieldLabel:'故障零件里程',
+						margin:'0 0 0 10',
+						name:'PartMileage'
+					},{
+						xtype : 'numberfield',
+						fieldLabel:'实验进展',
+						margin:'0 0 0 10',
+						name:'ProgressExper',
+				        minValue: 1,
+				        maxValue: 100
+					}]
+				},{//line6
+					xtype:'textareafield',
+					fieldLabel:'问题描述',
+					margin:'0 0 10 0',
+					width:1000,
+					name:'QeDescription'
+				},{//line7
+					xtype:'textareafield',
+					fieldLabel:'处置措施',
+					margin:'0 0 10 0',
+					width:1000,
+					name:'DisposalMeasures'
+				},{//line8
+					xtype:'textareafield',
+					fieldLabel:'初步原因分析',
+					margin:'0 0 10 0',
+					width:1000,
+					name:'PreliminaryCause'
+				},{
+					xtype:'tabpanel',
+					items:[{
+						xtype:'panel',
+						title:'描述附件',
+						margin:'10 10 10 10',
+						layout:{
+							type:'vbox'
+						},
+						items:[{//备注
+							xtype:'panel',
+							items:[{
+								xtype:'textareafield',
+								fieldLabel:'备注',
+								margin:'0 0 0 0',
+								height:96,
+								width:1000,
+								name:'memo'
+							}]
+						},{
+							xtype:'imsSubmitAttachment',
+							height:150,
+							width:1000,
+							scrollable: 'y',
+							programId: null,
+				    		sourceType: 'SOURCE_TYPE_DES_ATTACHMENT',
+				    		sourceId: this.keyId
+						},{//审核确认栏
+							xtype:'toolbar',
+							reference:'refBoAttToolbar01',
+							renderTo: document.body,
+							items:[{
+								xtype: 'tbspacer',
+								width: 100
+							},{
+								text: '提交',
+								handler:'saveSubmit'
+							},{
+								xtype: 'tbspacer',
+								width: 88
+							},{
+								text: '保存草稿',
+								handler:'updDraft'
+							},{
+								xtype: 'tbspacer',
+								width: 88
+							},{
+								text: '删除',
+								itemId:'btnDelete',
+								handler:'deleteSubmit'
+							}]
+						}]
+					}]
+				}]
+			},{
+	        	xtype: 'qeNotify',
+				title:'知会'
+			}]
+		}];
+		this.callParent();
+	}
+});

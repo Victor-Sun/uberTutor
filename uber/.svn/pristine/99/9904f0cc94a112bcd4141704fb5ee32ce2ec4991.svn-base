@@ -1,0 +1,67 @@
+/**
+ * 项目管理-导出模板
+ */
+Ext.define('ExtApp.view.projectManagement.deploy.ExportPlan',{
+	extend:'Ext.window.Window',
+	xtype:'exportPlan',
+
+	modal: true,
+	closable: false,
+	
+	layout:{
+		type:'fit'
+	},
+	
+	controller: 'exportPlan',
+	
+	width: 300,
+	height: 150,
+	
+	title: '导出模板',
+	
+	initComponent: function() {
+		var me = this;
+		
+		this.items = [{
+			xtype:'form',
+			margin:10,
+			layout:{
+				type:'vbox',
+				align:'stretch'
+			},
+	      	items: [{
+				xtype: 'panel',
+				layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				items: [{
+					xtype: 'textfield',
+					fieldLabel: '模板编码',
+					name: 'templateCode',
+					allowBlank:false,
+					maxLength: 100
+				},{
+					xtype: 'textfield',
+					fieldLabel: '模板名称',
+					name: 'templateName',
+					allowBlank:false,
+					maxLength: 100
+				}]
+			}]
+		}];
+		
+		this.tools = [{
+			text:'导出',
+			xtype: 'button',
+			iconCls: 'x-fa fa-circle-o',
+			handler: 'confirmExport'
+		},{
+			text:'取消',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'closeWindow'
+		}];
+		this.callParent(arguments);
+	}
+});

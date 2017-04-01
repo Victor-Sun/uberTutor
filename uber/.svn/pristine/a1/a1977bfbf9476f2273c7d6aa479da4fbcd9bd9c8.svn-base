@@ -1,0 +1,34 @@
+@import 'Event';
+
+.timelinepanel {
+
+  .x-tree-icon {
+    display: none
+  }
+
+  .x-tree-elbow-img {
+    display: none
+  }
+
+  .x-grid-inner-normal .sch-column-header {
+    background-image: none;
+  }
+
+  .sch-header-row-top tr {
+    height : 25px !important;
+  }
+
+  .sch-header-row-middle tr {
+    height : 25px !important;
+  }
+
+  .rowbottomline {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+
+  .sch-timelinepanel-splitter {
+    background: none;
+  }
+
+}

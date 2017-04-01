@@ -1,0 +1,21 @@
+Ext.define('ExtApp.store.projectmanagement.DeptPlanTreeStore', {
+    extend: 'Ext.data.TreeStore',
+    alias: 'store.deptPlanTree',
+
+    fields: [
+             {name: 'id'},
+             {name: 'text'},
+             {name: 'iconCls'},
+             {name: 'expanded', type: 'boolean'},
+             {name: 'leaf', type: 'boolean'}
+    ],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/dept-plan!getDeptPlanTree.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

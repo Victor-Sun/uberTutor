@@ -1,0 +1,66 @@
+/**
+ * 部门空间-部门自建任务-进度Notes
+ */
+Ext.define('ExtApp.view.deptworkspace.deptissue.DeptIssueNotesController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.deptIssueNotes',
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	if (typeof(me.view.editPrivilege) != 'undefined') {
+    		if (! me.view.editPrivilege) {
+        		me.view.down('toolbar').setHidden(true);
+        	}
+    	} else {
+    		var isMemberStore = Ext.create('Ext.data.Store', {
+    		    fields: [{name: 'isMember', type: 'boolean'}],
+    		    proxy: {
+    		    	type: 'ajax',
+    		    	url: '/pdms/dws/dept-issue!isDeptIssueMember.action',
+    		        reader: {
+    		            type: 'json',
+    		            rootProperty: 'data'
+    		        }
+    		    }
+    		});
+    		// 不是讨论组成员，则不能汇报进度
+    		isMemberStore.load({params:{issueId: me.view.issueId}});
+    		isMemberStore.on('load', function() {
+        		if (! this.data.getAt(0).data.isMember) {
+        			me.view.down('toolbar').setHidden(true);
+        		}
+        	});
+    	}
+    },
+    
+    // 汇报进度
+    onButtonClickSubmit: function (button, e, options) {
+    	var me = this;
+    	Ext.create({
+    		xtype: 'notesReport',
+    		issueId: me.view.issueId,
+    		parentCaller: me
+    	}).show();
+    },
+    
+    // 修饰Title
+	renderTitleColumn: function (value, metaData, record) {
+        var view = this.getView(),
+            plugin = view.getPlugin('rowexpander'),
+            tpl = view.titleTpl;
+
+        if (!tpl.isTemplate) {
+            view.titleTpl = tpl = new Ext.XTemplate(tpl);
+        }
+
+        var data = Ext.Object.chain(record.data);
+
+        return tpl.apply(data);
+    },
+    
+    // 刷新页面
+    refreshView: function() {
+    	this.view.store.reload();
+    }
+});

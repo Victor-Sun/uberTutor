@@ -1,0 +1,16 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectDBStatusReport01Model', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.projectDBStatusReport01',
+
+    fields:[
+            'jieduan',
+            'tichu',
+            'tichuren',
+            'fengxian',
+            'rpn',
+            'zerenren',
+            'shijian',
+            'zhuangtai'
+    ]
+             
+});

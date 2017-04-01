@@ -1,0 +1,80 @@
+/**
+ * 项目管理-项目基本信息基线详细
+ */
+Ext.define('ExtApp.view.projectmanagement.baseline.biBaselineWindowController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.biBaselineWindow',
+    
+    // 初始化
+    init: function() {
+		// 权限控制
+    	var setBaselinePrivilege = ExtApp.util.Util.getPrivilege(
+    			'P0207', this.view.projectPrivilege);
+    	if (setBaselinePrivilege && this.view.editPrivilege) {
+    		this.view.tools[0].hidden = false;
+    	}
+    },
+    
+//    // 复制为草稿
+//    setBaseline: function() {
+//    	var me = this;
+//    	Ext.getBody().mask('Please Waiting...');
+//    	Ext.Ajax.request({
+//    	    url: '/pdms/pm/baseline!setDefaultBiBaseline.action',
+//    	 	params: {
+//    	 		programId: me.view.programId,
+//    	 		baselineId: me.view.baselineId
+//    	 	},
+//    	 	scope: me,
+//    	 	success: function(response, opts) {
+//    	        Ext.getBody().unmask();
+//    	    	var obj = Ext.decode(response.responseText);
+//    	        if (obj.success) {
+//    	        	ExtApp.util.Util.showToast("复制成功！");
+//    	        	// 打开草稿Tab
+//    	        	me.openDraftTab();
+//    	        	// 关闭父页面
+//    	        	me.view.parentCaller.closeWindow();
+//    	        	// 关闭页面
+//    	        	me.closeWindow();
+//    	        } else {
+//    	        	ExtApp.util.Util.handleRequestFailure(response);
+//    	        }
+//    	 	},
+// 		    failure: function(response, opts) {
+// 		    	Ext.getBody().unmask();
+// 		    	ExtApp.util.Util.handleRequestFailure(response);
+// 		    }
+//        });
+//    },
+//    
+//    // 打开草稿页面
+//    openDraftTab: function() {
+//    	var me = this;
+//    	var tabView = me.view.parentCaller.view.parentCaller.view.up('projectBaseInfoHomePage');
+//    	var draftTitle = '基本信息-草稿';
+//    	// 草稿已经存在，则默认显示草稿Tab
+//    	for (var i = 0; i < tabView.items.getCount(); i++) {
+//    		if (tabView.items.get(i).title == draftTitle) {
+//    			var draft = tabView.items.get(i);
+//    			draft.down('baseInfoCommon').load();
+//    			tabView.setActiveTab(draft);
+//    			return;
+//    		}
+//    	}
+//    	var baseInfoDraft = Ext.create({
+//			title: draftTitle,
+//			xtype: 'projectBaseInfoDraft',
+//			programId: me.view.programId,
+//			programType: me.view.programType
+//		});
+//    	tabView.add(baseInfoDraft);
+//    	tabView.setActiveTab(baseInfoDraft);
+//    },
+
+    // 关闭
+    closeWindow: function() {
+    	this.view.close();
+    }
+
+});

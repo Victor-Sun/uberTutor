@@ -1,0 +1,19 @@
+/**
+ * 对策决定-验证方案store
+ */
+Ext.define('ExtApp.store.qualityissuemanagement.VerificationStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.verification',
+
+    fields: ['id', 'name'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/combo!getVerification.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

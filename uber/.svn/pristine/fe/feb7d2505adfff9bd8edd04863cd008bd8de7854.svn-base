@@ -1,0 +1,4 @@
+Ext.define('ExtApp.view.projectManagement.gantt.store.Calendars', {
+    extend : 'Gnt.data.CalendarManager',
+    alias  : 'store.advanced-calendars-store'
+});

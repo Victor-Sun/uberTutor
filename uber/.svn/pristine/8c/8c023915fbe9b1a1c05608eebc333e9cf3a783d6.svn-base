@@ -1,0 +1,42 @@
+Ext.define('ExtApp.view.dashboard.DashTodoListTaskWindow',{
+	extend:'Ext.window.Window',
+	xtype:'dashTodoListTaskWindow',
+	
+	controller:'dashTodoList',
+	
+//	scrollable:'y',
+	width:1000,
+	height:600,
+	closable: false,
+	modal: true,
+	layout:'fit',
+	
+	header: {
+        items: [{
+            text:'关闭',
+            xtype: 'button',
+            iconCls: 'x-fa fa-close',
+            handler: 'closeWindow'
+        }]
+    },
+
+	initComponent: function() {
+		var todoView = Ext.create({
+			xtype: 'pmTask',
+			processTaskId: this.processTaskId,
+    		taskId: this.taskId,
+    		programId: this.programId,
+    		processCode: this.processCode,
+    		processId: this.processId,
+    		processStepId: this.processStepId,
+    		completeFlag: this.completeFlag,
+    		taskProgressStatusCode: this.taskProgressStatusCode,
+    		taskStatusCode: this.taskStatusCode,
+    		processTaskProgressStatus: this.processTaskProgressStatus,
+    		header: false
+		});
+		this.items = [todoView];
+		this.callParent(arguments);
+	}
+
+});

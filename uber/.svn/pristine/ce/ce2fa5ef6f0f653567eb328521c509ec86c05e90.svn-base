@@ -1,0 +1,22 @@
+/**
+ * 项目管理-文档View
+ */
+Ext.define('ExtApp.view.projectManagement.ProjectDocumentFolder',{
+	extend:'Ext.panel.Panel',
+	xtype:'projectDocumentFolder',
+	
+	items: [{
+		xtype:'tabpanel',
+		items: [{
+			title:'项目文档',
+			xtype:'panel',
+			items:[{
+				xtype:'panel',
+				margin:'10 10 10 10',
+				height:400,
+				bodyStyle: "background-color:transparent;",
+				html:'<font size="4" color="#9d9d9d"><B>项目文档列表</B></font>'
+			}]
+		}]
+	}]
+});

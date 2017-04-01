@@ -1,0 +1,59 @@
+Ext.define('ExtApp.view.projectmanagement.time.locale.Cn',{
+	extend: 'Sch.locale.Locale',
+	requires: ['Sch.locale.En'],
+	singleton : true,
+	
+	l10n : {
+		'Sch.widget.ExportDialogForm' : {
+            formatFieldLabel            : '纸张格式',
+            orientationFieldLabel       : '方向',
+            rangeFieldLabel             : '进度表范围',
+            showHeaderLabel             : '显示标题栏',
+            showFooterLabel             : '显示页脚',
+            orientationPortraitText     : '纵向',
+            orientationLandscapeText    : '横向',
+            completeViewText            : '全屏显示',
+            currentViewText             : '可视的',
+            dateRangeText               : '日期范围',
+            dateRangeFromText           : '开始日期',
+            dateRangeToText             : '结束日期',
+            exportersFieldLabel         : '分页设定',
+            adjustCols                  : '调整列宽',
+            adjustColsAndRows           : '调整列宽和行高',
+            specifyDateRange            : '指定日期范围',
+            columnPickerLabel           : '选列',
+            completeDataText            : '完成计划日期（所有事件）',
+            dpiFieldLabel               : '分辨率 ',
+            rowsRangeLabel              : '行区间',
+            allRowsLabel                : '所有行',
+            visibleRowsLabel            : '可视的行',
+            columnEmptyText             : '[无标题]'
+        },
+		
+        'Sch.plugin.exporter.MultiPageVertical': {
+            name: '多页 (垂直)'
+        },
+        
+        'Sch.plugin.exporter.MultiPage': {
+            name: '多页'
+        },
+        
+        'Sch.widget.ExportDialog' : {
+            title                       : '导出设置',
+            exportButtonText            : '导出',
+            cancelButtonText            : '取消',
+            progressBarText             : '正在导出...'
+        },
+        
+		'Sch.plugin.Printable' : {
+            dialogTitle         : '打印设置',
+            exportButtonText    : '打印'
+        }
+	},
+	
+	apply : function (classNames) {
+        Gnt.locale.En.apply(classNames);
+        this.callParent(arguments);
+    }
+
+});

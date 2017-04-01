@@ -1,0 +1,30 @@
+Ext.define('ExtApp.view.forum.Forum',{
+	extend: 'Ext.container.Container',
+	xtype: 'forum',
+	viewModel: {
+		type: 'forum'
+	},
+	cls: 'userProfile-container',
+	layout: {
+		type: 'hbox',
+		align: 'stretch'
+	},
+	defaults: {
+		cls: 'shadow',
+		flex: 1,
+		scrollable: 'y'
+	},
+	forumMember:null,
+	initComponent:function() {
+		var me = this;
+		this.items = [me.forumMember,{
+			xtype: 'forumgrid',
+			flex: 3,
+			scrollable: 'y',
+			sourceId:me.sourceId,
+			source:me.source,
+			title: '协作'
+		}];
+		this.callParent();
+	}
+});

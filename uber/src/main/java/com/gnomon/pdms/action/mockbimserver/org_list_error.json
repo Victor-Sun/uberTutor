@@ -1,0 +1,8 @@
+{
+  "message" : "指定的 [目标系统] 不存在.",
+  "success" : false,
+  "exception" : {
+    "name" : "record.not.exists",
+    "message" : "指定的 [目标系统] 不存在."
+  }
+}

@@ -1,0 +1,105 @@
+/**
+ * 项目管理-项目计划-选择交付物
+ */
+Ext.define('ExtApp.view.projectManagement.deptplan.DeptPlanDeliverable',{
+	extend:'Ext.window.Window',
+	xtype:'deptPlanDeliverable',
+	
+	controller: 'deptPlanDeliverable',
+    
+	width: 800,
+    height: 600,
+    modal: true,
+    closable: false,
+    
+    layout: 'fit',
+    
+    title: '阀门交付物',
+    
+    initComponent: function() {
+    	var deliverableStore = Ext.create(
+			'ExtApp.store.projectmanagement.DeptPlanDeliverableStore');
+    	deliverableStore.getProxy().extraParams = {
+    		programVehicleId: this.programVehicleId,
+    		obsId: this.obsId
+    	};
+    	deliverableStore.load();
+    	
+    	this.items = [{
+    		xtype:'grid',
+	        store: deliverableStore,
+	        columns: [{
+	            text: '所属阀门',
+	            width: 80,
+	            dataIndex: 'taskName'
+	        },{
+	            text: '交付物名称',
+	            flex: 1,
+	            dataIndex: 'attachmentName'
+	        }],
+	        listeners:{
+            	celldblclick: 'onCelldblclick'
+			},
+	        tbar: [{
+				xtype: 'form',
+		    	margin: 2,
+		    	layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				width: '100%',
+				items: [{
+					xtype: 'panel',
+					margin: '10 2 2 2',
+		    		layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					defaults: {
+		    			labelAlign: 'right',
+		    			labelWidth: 70
+		    		},
+					items: [{
+						xtype: 'textfield',
+						name: 'searchDeliverableName',
+						fieldLabel: '交付物名称'
+					},{
+						xtype: 'textfield',
+						name: 'searchTaskName',
+						fieldLabel: '所属阀门'
+					},{
+						xtype: 'button',
+						margin: '0 0 0 20',
+						text: '查询',
+						iconCls: 'x-fa fa-search',
+						handler: 'search'
+					},{
+						xtype: 'button',
+						margin: '0 0 0 5',
+						text: '重置',
+						iconCls: 'x-fa fa-rotate-left',
+						handler: 'reloadSearch'
+			    	}]
+				}]
+			}],
+			dockedItems: [{
+	  			xtype: 'pagingtoolbar',
+	  			dock: 'bottom',
+	  			displayInfo: true,
+	  			store: deliverableStore
+	  		}]
+    	}];
+    	this.tools = [{
+    		text:'确定',
+    		xtype: 'button',
+			iconCls: 'x-fa fa-circle-o',
+			handler: 'confirm'
+		},{
+			text:'关闭',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'cancel'
+    	}];
+        this.callParent();
+    }
+});

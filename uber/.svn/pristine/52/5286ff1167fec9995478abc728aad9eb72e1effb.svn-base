@@ -1,0 +1,161 @@
+/**
+ * 项目管理-Tree Controller
+ */
+Ext.define('ExtApp.view.projectmanagement.ProjectTreeController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.projectTree',
+
+	itemcontextmenu:function ( th , record , item , index , e , eOpts ) {
+		var me = this;
+		e.preventDefault();  
+        e.stopEvent();  
+		if(record.get('viewType') == 'projectExtensionPlan' && record.get('createEpPrivilege') == true){
+			var menu = Ext.create('Ext.menu.Menu', {
+			    floating: true, 
+			    items: [{
+			        text: '新增专项',
+			        listeners: {
+			    		click:function(item , e , eOpts ){
+			    			var vehicleId = record.get('vehicleId');
+			    			var win = Ext.create('ExtApp.view.projectManagement.extplan.ExtendedProject',{tree:th,vehicleId:vehicleId,record:record});
+			    			win.show();
+			    		}
+			        }
+			    }]
+			}); 
+			menu.showAt(e.getXY());
+		}else if(record.get('viewType') == 'ext201ProjectPanel'){
+			var menu = Ext.create('Ext.menu.Menu', {
+			    floating: true, 
+			    items: [{
+			        text: '导入零件清单',
+			        listeners: {
+			    		click:function(item , e , eOpts ){
+			    			var projectId = record.get('idValue');
+			    			var win = Ext.create('ExtApp.view.projectmanagement.extplan.ext201.Ext201PartImport',{tree:th,projectId:projectId});
+			    			win.show();
+			    		}
+			        }
+			    }]
+			}); 
+			menu.showAt(e.getXY());
+		}else if(record.get('viewType') == 'ext202PanelList'){
+			var menu = Ext.create('Ext.menu.Menu', {
+			    floating: true, 
+			    items: [{
+			        text: '导入零件清单',
+			        listeners: {
+			    		click:function(item , e , eOpts ){
+			    			var projectId = record.get('idValue');
+			    			var win = Ext.create('ExtApp.view.projectmanagement.extplan.ext202.Ext202Import',{tree:th,projectId:projectId});
+			    			win.show();
+			    		}
+			        }
+			    }]
+			}); 
+			menu.showAt(e.getXY());
+		}else if(record.get('viewType') == 'ext201StagePanel'){
+			var menu = Ext.create('Ext.menu.Menu', {
+			    floating: true, 
+			    items: [{
+			        text: '启动零件任务',
+			        listeners: {
+			    		click:function(item , e , eOpts ){
+			    			var projectId = record.get('projectId');
+			    			var stageId = record.get('stageId');
+			    			me.releaseExt201StageItem(projectId,stageId);
+			    		}
+			        }
+			    }]
+			}); 
+			menu.showAt(e.getXY());s
+		}else if(record.get('viewType') == 'ext203Panel'){
+			var menu = Ext.create('Ext.menu.Menu', {
+			    floating: true, 
+			    items: [{
+			        text: '导入Project',
+			        listeners: {
+			    		click:function(item , e , eOpts ){
+			    			var projectId = record.get('idValue');
+			    			var win = Ext.create('ExtApp.view.projectmanagement.extplan.ext203.Ext203ProjectImport',{tree:th,projectId:projectId});
+			    			win.show();
+			    		}
+			        }
+			    }]
+			}); 
+			menu.showAt(e.getXY());
+//		}else if(record.get('type') == 'DEPT'){
+//			var menu = Ext.create('Ext.menu.Menu', {
+//			    floating: true, 
+//			    items: [{
+//			        text: '删除计划',
+//			        listeners: {
+//			    		click:function(item , e , eOpts ){
+//			    			me.deleteObs(record,1);
+//			    		}
+//			        }
+//			    }]
+//			}); 
+//			menu.showAt(e.getXY());
+		}
+	},
+	releaseExt201StageItem:function(projectId,stageId){
+		Ext.Ajax.request({
+   	 	 url: '/pdms/pm/project-extension-plan!releaseExt201StageItem.action',
+   	 	 params: {
+   	 		extProjectId: projectId,
+   	 		stageId: stageId
+   	 	 },
+   	 	 scope: me,
+	   	 	 success: function(response, opts) {
+	   	     	Ext.getBody().unmask();
+	   	    	var obj = Ext.decode(response.responseText);
+	   	        if (obj.success) {
+	   	        	ExtApp.util.Util.showToast("零件计划发布成功！");
+	   	        } else {
+	   	        	ExtApp.util.Util.handleRequestFailure(response);
+	   	        }
+	   	    },
+		    failure: function(response, opts) {
+		        Ext.getBody().unmask();
+		        ExtApp.util.Util.handleRequestFailure(response);
+		    }
+       });
+	}
+//	// 删除下级组织
+//	deleteObs: function (record, planLevel) {
+//		var me = this;
+//    	Ext.MessageBox.confirm('提示', '删除组织将删除所有关联任务，清空交付物关键活动，并设交付物为【不适用】,确认删除？', function(btn) {
+//    		// 提示信息点击【YES】则删除
+//    		if (btn == 'yes') {
+//    	    	Ext.Ajax.request({
+//    	    		url:'/pdms/pm/project-organization!deleteObsInfo.action',
+//    	    		params: {
+////    	    			programId: me.view.up('projectOrganizationTab').programId,
+////    	        		programVehicleId: me.view.up('projectOrganizationTab').programVehicleId,
+//    	    			obsId: record.get('id')
+//    				},
+//    				scope: me,
+//    				success: function(response, opts) {
+//    			    	var obj = Ext.decode(response.responseText);
+//        		    	if (obj.success) {
+//        		    		me.view.down('treepanel').store.reload();
+////        					if (planLevel == '1') {
+////        						// 删除一级组织架构时，需要刷新二级组织Tree
+////            					me.view.up('projectOrganizationTab').down(
+////            							'projectOrganization03').down('treepanel').store.reload();
+////        					}
+//        			    	ExtApp.util.Util.showToast("删除成功！");
+//        		        } else {
+//        		        	ExtApp.util.Util.handleRequestFailure(response);
+//        		        }
+//    			    },
+//    				failure: function(response, opts) {
+//    			    	ExtApp.util.Util.handleRequestFailure(response);
+//    			    }
+//    	    	})
+//    		}
+//    	});
+//	}
+
+});

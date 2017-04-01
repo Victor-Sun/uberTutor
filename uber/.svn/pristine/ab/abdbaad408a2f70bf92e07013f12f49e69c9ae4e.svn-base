@@ -1,0 +1,46 @@
+/**
+ * 附件列表
+ */
+Ext.define('ExtApp.view.projectmanagement.extplan.ext301.PartFileAttachmentGrid',{
+	extend:'Ext.grid.Panel',
+	xtype:'partFileAttachmentGrid',
+//	controller: 'imsFileAttachment',
+	
+	cls: 'ims-grid shadow',
+	padding: 5,
+	hideHeaders: true,
+	
+	initComponent: function() {
+		var me = this;
+		// 附件列表
+		me.store = Ext.create('ExtApp.store.common.DocumentIndexStore');
+		me.store.getProxy().extraParams = {
+			sourceType: me.sourceType, sourceId: me.sourceId};
+		me.store.load();
+		
+		// 可编辑标志
+		var hiddenFlg = false;
+		if (typeof(me.editable) != 'undefined' && me.editable != null) {
+			hiddenFlg = ! me.editable;
+		}
+		
+		me.columns = [{
+			xtype: 'templatecolumn',
+			tpl: '<i class="{documentTypeIcons}"  style = "color:green"></i> &nbsp{documentName}', 
+			flex: 1,
+			listeners: {
+				click: 'onFileClick'
+			}
+		},{
+			xtype: 'actioncolumn',
+			width: 45,
+			items: [{
+				iconCls: 'x-fa fa-trash',
+	            handler: 'deleteFile'
+			}],
+	        hidden: hiddenFlg
+		}];
+		
+		me.callParent();
+	}
+});

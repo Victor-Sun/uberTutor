@@ -1,0 +1,8 @@
+/**
+ * 项目管理-项目模板库-主计划(主节点)Controller
+ */
+Ext.define('ExtApp.view.projectmanagement.templatelibrary.ProjectTemplateMainNodeController',{
+	extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.projectTemplateMainNode'
+
+});

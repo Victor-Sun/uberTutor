@@ -1,0 +1,121 @@
+/**
+ * 项目管理-项目文档-项目交付物类型文档
+ */
+Ext.define('ExtApp.view.projectmanagement.document.DeliverableDocument',{
+	extend:'Ext.panel.Panel',
+	xtype:'deliverableDocument',
+	
+	requires: [
+	    'Ext.grid.feature.Grouping'
+	],
+	
+	controller: 'deliverableDocument',
+
+	layout: 'fit',
+	
+	initComponent: function() {
+		var me = this;
+		var docStore = Ext.create('ExtApp.store.projectmanagement.DeliverableDocumentStore');
+		docStore.getProxy().extraParams = {
+			programId: me.programId
+		};
+		docStore.load();
+	
+		this.items = [{
+			xtype: 'grid',
+			store: docStore,
+		    features: [{
+	            ftype: 'grouping',
+	            groupHeaderTpl: '{name}',
+	            hideGroupedHeader: true
+	        }],
+			columns: [{
+				xtype: 'rownumberer'
+			},{
+				text: '文档名称',
+				flex: 1,
+				dataIndex: 'documentName',
+				renderer: 'renderFileLink',
+				listeners: {
+					click: 'onFileClick'
+				}
+			},{
+				text: '上传人',
+				flex: 1,
+				dataIndex: 'createBy'
+			},{
+				text: '上传时间',
+				flex: 1,
+				dataIndex: 'createDate'
+			}],
+			tbar: [{
+				xtype: 'panel',
+				layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				margin: 5,
+			    defaults: {
+			    	defaults: {
+				    	labelAlign: 'right',
+				    	labelWidth: 70
+				    }
+			    },
+			    items: [{
+			    	xtype: 'panel',
+			    	margin: 2,
+			    	layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items: [{
+						xtype: 'textfield',
+						itemId: 'searchVehicleCode',
+						fieldLabel: '车型编码'
+					},{
+						xtype: 'textfield',
+						itemId: 'searchGateCode',
+						fieldLabel: '所属阀门'
+					},{
+						xtype: 'button',
+						margin: '0 0 0 10',
+						text: '查询',
+						iconCls: 'x-fa fa-search',
+						handler: 'search'
+					}]
+			    },{
+			    	xtype: 'panel',
+			    	margin: 2,
+			    	layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items: [{
+						xtype: 'textfield',
+						itemId: 'searchDeliverableName',
+						fieldLabel: '交付物名称'
+					},{
+						xtype: 'textfield',
+						itemId: 'searchDocumentName',
+						fieldLabel: '文档名称'
+
+					},{
+						xtype: 'button',
+						margin: '0 0 0 10',
+						text: '重置',
+						iconCls: 'x-fa fa-rotate-left',
+						handler: 'reloadSearch'
+					}]
+			    }]
+			}],
+            dockedItems: [{
+                xtype: 'pagingtoolbar',
+                dock: 'bottom',
+                displayInfo: true,
+                store: docStore
+            }]
+		}];
+		this.callParent(arguments);
+	}
+
+});

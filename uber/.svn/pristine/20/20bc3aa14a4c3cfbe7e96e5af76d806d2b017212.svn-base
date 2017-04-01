@@ -1,0 +1,52 @@
+/**
+ * 论坛成员组件
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.ForumMember',{
+	extend:'Ext.panel.Panel',
+	xtype:'forumMember',
+	controller: 'forumMember',
+	margin:'0 5 0 0',
+	layout: 'fit',
+	title: '知会',
+	initComponent:function() {
+
+		var me = this;
+		var forumMemberStore = Ext.create('ExtApp.store.qualityissuemanagement.ForumMemberStore');
+		forumMemberStore.load({params:{issueId:me.sourceId}});
+		this.items = [{
+			xtype:'fieldset',
+			margin: '5 10 10 10',
+			layout: 'fit',
+	    	items:[{
+	    		xtype:'grid',
+				cls: 'allRecordsCls',
+//				width:200,
+//				height:600,
+//				hideHeaders: true,
+				viewConfig: {
+					preserveScrollOnRefresh: true,
+					stripeRows: false
+				},
+				columnLines: true,
+				store: forumMemberStore,
+				columns: [
+					{ text: '用户', flex: 2, dataIndex: 'userName'},
+					{ text: '参加时间', flex: 1, dataIndex: 'createDate',xtype: 'datecolumn',formate:'Y-m-d'}
+				],
+				dockedItems: [{
+					xtype: 'toolbar',
+					dock: 'top',
+					items: [{
+						text: '增加',
+						iconCls: 'x-fa fa-plus-circle',
+						handler: 'addMember'
+					},{
+						iconCls: 'x-fa fa-refresh',
+						handler: 'onResetClick'
+					}]
+				}]
+	    	}]
+		}];
+		this.callParent();
+	}
+});

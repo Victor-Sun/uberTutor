@@ -1,0 +1,54 @@
+/**
+ * 我的工作组-新建工作组
+ */
+Ext.define('ExtApp.view.toolbarsettings.CreateWorkGroup',{
+	extend:'Ext.window.Window',
+	xtype:'createWorkGroup',
+	
+	controller: 'createWorkGroup',
+
+	modal: true,
+	closable: false,
+	
+	layout:{
+		type:'fit'
+	},
+	
+	width: 300,
+	height: 100,
+	
+	title: '工作组信息',
+	
+	initComponent: function() {
+		var me = this;
+		this.items = [{
+			xtype:'form',
+			margin:10,
+			layout:{
+				type:'vbox',
+	      		align:'stretch'
+	      	},
+	      	items: [{
+	      		xtype: 'textfield',
+				name: 'groupName',
+				flex: 1,
+				fieldLabel: '名称',
+				allowBlank:false,
+				maxLength:50,
+				value: me.groupName
+			}]
+		}];
+		this.tools = [{
+			text:'确定',
+			xtype: 'button',
+			iconCls: 'x-fa fa-circle-o',
+			handler: 'confirm'
+		},{
+			text:'取消',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'cancel'
+		}];
+		this.callParent();
+	}
+});

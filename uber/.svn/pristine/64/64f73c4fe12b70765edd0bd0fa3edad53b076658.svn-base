@@ -1,0 +1,24 @@
+/**
+ * 个人管理-待办任务-质量管理任务
+ */
+Ext.define('ExtApp.view.myworkspace.TodoListQMS',{
+	extend:'Ext.panel.Panel',
+	xtype:'todoListQMS',
+	
+	layout: 'fit',
+
+	initComponent: function() {
+		var me = this;
+		var store = Ext.create('ExtApp.store.qualityissuemanagement.IssueListStore');
+		store.getProxy().extraParams = {listType: 'mytask'};
+		store.load();
+		store.on('load',function() {
+			me.setTitle('质量管理任务<font color="red"><b>（' + this.data.length + '）</b></font>');   
+		});
+		this.items = [{
+			xtype: 'mytask'
+		}];
+		this.callParent();
+	}
+});
+

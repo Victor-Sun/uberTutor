@@ -1,0 +1,22 @@
+/**
+ * 项目管理-项目计划-质量阀
+ */
+Ext.define('ExtApp.view.projectManagement.valve.QualityValveBase',{
+	extend:'Ext.panel.Panel',
+	xtype:'qualityValveBase',
+	
+	controller: 'qualityValveBase',
+	
+	layout: 'fit',
+    
+	initComponent: function() {
+		var me = this;
+		
+		me.title = me.record.get('vehicleName') + ' <i class="x-fa fa-arrow-right" style="font-style: none;"></i>' + ' 项目主计划' + ' <i class="x-fa fa-arrow-right" style="font-style: none;"></i>' + ' 质量阀';
+		if (me.record.get('planLevel') == '2') {
+			me.title = me.record.get('vehicleName') + ' <i class="x-fa fa-arrow-right" style="font-style: none;"></i>' +' 项目二级计划' + ' <i class="x-fa fa-arrow-right" style="font-style: none;"></i> ' + me.record.get('fnGroupName') + ' <i class="x-fa fa-arrow-right" style="font-style: none;"></i>' + ' 质量阀';
+		}
+		
+		this.callParent();
+	}
+});

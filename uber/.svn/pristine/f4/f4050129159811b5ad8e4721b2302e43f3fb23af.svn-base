@@ -1,0 +1,150 @@
+/**
+ * 部门空间-项目OpenIssue
+ */
+Ext.define('ExtApp.view.deptworkspace.pmissue.DeptPmIssueController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.deptPmIssue',
+    
+    // 双击交付物列表
+    onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    	var me = this;
+    	var rec = grid.getStore().getAt(rowIndex);
+    	var programId = me.getView().programId;
+    	var grid = me.getView().down('grid');
+//    	if (rec.get('status') == 'COMPLETE') {
+//    		var win = Ext.create("ExtApp.view.projectManagement.issue.finishedissue.FinishedIssueWindow",
+//    				{programId:programId, grid:grid, issueId:rec.get('id'), record:rec}).show();
+//    		win.down('form').load({params:{issueId:rec.get('id')}});
+//    	} else {
+    		var win = Ext.create("ExtApp.view.projectManagement.issue.readonlyissue.ReadOnlyIssueWindow",
+    				{programId:programId,grid:grid,issueId:rec.get('id'),status:rec.get('status'),record:rec}).show();
+    		win.down('form').load({params:{issueId:rec.get('id')}});
+//    	}
+    },
+    
+    // 选中列表数据
+    onSelectionChange: function(grid, records, eOpts) {
+        if (records[0]) {
+        	this.view.query('#detailForm')[0].getForm().loadRecord(records[0]);
+        	this.view.query('#detailForm')[0].issueId = records[0].get('id');
+        	this.view.query('#detailForm')[0].issueUuid = records[0].get('issueUuid');
+        }
+    },
+
+    // 查询
+    search: function(btn, e) {
+    	var me = this;
+    	me.view.mask('Please Waiting...');
+    	var form = me.view.down('toolbar').down('form').getForm();
+    	var store = Ext.create(
+			'ExtApp.store.deptworkspace.DeptmanagementOpenIssueStore');
+    	store.getProxy().extraParams = {
+			searchModel: Ext.encode(form.getFieldValues())
+		};
+    	store.load();
+    	store.on('load', function() {
+    		me.view.down('grid').setStore(this);
+    		me.view.down('pagingtoolbar').setStore(this);
+    		me.view.unmask();
+    	});
+    },
+    
+    // 重置
+    reloadSearch: function() {
+    	var me = this;
+
+    	var form = this.view.down('toolbar').down('form').getForm();
+    	Ext.each(form.getFields().items, function(field) {
+    		if (field.xtype != 'displayfield') {
+    			if (field.xtype == 'checkbox') {
+        			field.setValue(true);
+        		} else {
+        			field.setValue('');
+        		}
+    		}
+		});
+    	this.search();
+    },
+    
+    // 导出
+    export2Excel:function(){
+    	var me = this;
+    	var url = 'rpt=pm/pm_dept_pmissue_list.brt&emitter=toxls';
+    	// 查询条件
+    	var params = '';
+    	var form = me.view.down('toolbar').down('form').getForm();
+    	// 问题标题
+    	if (form.findField('searchIssueTite').value !='') {
+    		params += 'searchIssueTite=' + form.findField('searchIssueTite').value + ';';
+    	}
+    	// 状态
+    	var statusCode = "";
+    	if (form.findField('searchWaiting').checked) {
+    		statusCode += "'OPEN'";
+    	}
+    	if (form.findField('searchProcessing').checked) {
+    		if (statusCode.length > 0) {
+    			statusCode += ",";
+    		}
+    		statusCode += "'PENDING'";
+    	}
+    	if (form.findField('searchComplete').checked) {
+    		if (statusCode.length > 0) {
+    			statusCode += ",";
+    		}
+    		statusCode += "'COMPLETE'";
+    	}
+    	if (statusCode.length > 0) {
+    		params += 'searchStatusCode=' + statusCode + ';';
+    	}
+    	// 计划完成时间From
+    	if (form.findField('searchDueDateFrom').value != '' && form.findField('searchDueDateFrom').value != null) {
+    		params += 'searchDueDateFrom=' + ExtApp.util.Util.formatDate(form.findField('searchDueDateFrom').value, '-') + ';';
+    	}
+    	// 计划完成时间To
+    	if (form.findField('searchDueDateTo').value != '' && form.findField('searchDueDateTo').value != null) {
+    		params += 'searchDueDateTo=' + ExtApp.util.Util.formatDate(form.findField('searchDueDateTo').value, '-') + ';';
+    	}
+    	// 实际完成时间From
+    	if (form.findField('searchAFDateFrom').value != '' && form.findField('searchAFDateFrom').value != null) {
+    		params += 'searchAFDateFrom=' + ExtApp.util.Util.formatDate(form.findField('searchAFDateFrom').value, '-') + ';';
+    	}
+    	// 实际完成时间To
+    	if (form.findField('searchAFDateTo').value != '' && form.findField('searchAFDateTo').value != null) {
+    		params += 'searchAFDateTo=' + ExtApp.util.Util.formatDate(form.findField('searchAFDateTo').value, '-') + ';';
+    	}
+    	// 项目
+    	if (form.findField('searchProgram').value != '' && form.findField('searchProgram').value != null) {
+    		params += 'searchProgram=' + form.findField('searchProgram').value + ';';
+    	}
+    	// 车型
+    	if (form.findField('searchVechile').value != '' && form.findField('searchVechile').value != null) {
+    		params += 'searchVechile=' + form.findField('searchVechile').value + ';';
+    	}
+    	// 责任人
+    	if (form.findField('searchTaskOwner').value !='') {
+    		params += 'searchTaskOwner=' + form.findField('searchTaskOwner').value + ';';
+    	}
+    	if (params.length > 0) {
+    		url += '&params=' + params;
+    	}
+    	ExtApp.util.Util.openReport(url);
+    },
+    
+    // 评论
+    comment: function() {
+    	var me = this;
+    	if (! me.view.query('#detailForm')[0].issueId ||
+    			me.view.query('#detailForm')[0].issueId == '' ||
+    			me.view.query('#detailForm')[0].issueId == null) {
+    		ExtApp.util.Util.showErrorMsg('请选择要评论的问题!');
+    		return;
+    	}
+    	Ext.create({
+    		xtype: 'issueCommentWindow',
+    		sourceId:me.view.query('#detailForm')[0].issueUuid,
+			source:'PM-ISSUE-COMMENT',
+    		parentCaller: me
+    	}).show();
+    }
+});

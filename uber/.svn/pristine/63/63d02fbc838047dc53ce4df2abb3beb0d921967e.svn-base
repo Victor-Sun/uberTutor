@@ -1,0 +1,12 @@
+/**
+ * 评论Window
+ */
+Ext.define('ExtApp.view.forum.IssueCommentWindowController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.issueCommentWindow',
+
+    // 关闭页面
+    closeWindow: function() {
+    	this.view.close();
+    }
+});

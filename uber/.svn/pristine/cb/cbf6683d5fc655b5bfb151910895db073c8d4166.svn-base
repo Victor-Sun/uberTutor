@@ -1,0 +1,41 @@
+
+Ext.define('ExtApp.view.myworkspace.task.PmTaskForumQe',{
+	extend:'Ext.window.Window',
+	xtype:'PmTaskForumQe',
+
+	controller: 'PmTaskForumQe',
+	
+	layout:{
+		type:'vbox'
+	},
+	margin:'20 20 20 20',
+	closeAction:'hide',
+	width:500,
+	title:"提出问题",
+	
+	items:[{
+		xtype:'form',
+		items:[{
+			margin:'10 10 10 10',
+			xtype : 'textfield',
+			flex:1,
+			reference: 'todoListPMTask02Form1',
+			fieldLabel : '问题概要'
+		},{
+			margin:'10 10 10 10',
+			xtype:'textareafield',
+			reference: 'todoListPMTask02Form2',
+			flex:1,
+			fieldLabel : '提出的问题'
+		}]
+	}],
+	
+	bbar:{
+		xtype:'toolbar',
+		items:[{
+			xtype:'button',
+			text:'提交',
+			handler: 'uploadFile'
+		}]
+	}
+});

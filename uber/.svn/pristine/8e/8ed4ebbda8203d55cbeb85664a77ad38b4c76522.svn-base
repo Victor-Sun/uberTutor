@@ -1,0 +1,10 @@
+/**
+ * 个人管理-待办任务-工作联系单View
+ */
+Ext.define('ExtApp.view.myworkspace.TodoListConnMission',{
+	extend:'Ext.panel.Panel',
+	xtype:'todoListConnMission',
+	
+	closable:true
+
+});

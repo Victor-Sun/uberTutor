@@ -1,0 +1,140 @@
+/**
+ * 项目管理-时程表节点编辑
+ */
+Ext.define('ExtApp.view.projectmanagement.timeline.ProjectTimeLineEvent', {
+	extend:'Ext.window.Window',
+	xtype:'projectTimeLineEvent',
+
+	controller:'projectTimeLineEvent',
+
+	width:400,
+	height:200,
+	closable: false,
+	modal: true,
+
+	initComponent: function() {
+    	// Title显示位置Store
+    	var titleDispStore = Ext.create(
+			'ExtApp.store.common.CodeTableStore');
+    	titleDispStore.getProxy().extraParams = {type: 'TITLE_DISP_LOCATION'};
+    	titleDispStore.load();
+		
+		this.items = [{
+			xtype: 'form',
+			layout: 'column',
+		    margin:10,
+		    defaults: {
+		    	columnWidth:1,
+		    	margin:2
+		    },
+		    items: [{
+				xtype: 'textfield',
+				fieldLabel: '名称',
+				name: 'taskName',
+				value: this.model.get('TaskName')
+			},{
+				xtype: 'datefield',
+				format: 'Y/m/d',
+				name: 'date',
+				fieldLabel: '时间',
+				value: (this.model.get('Date') == null || this.model.get('Date') == '' ? this.model.get('EndDate') : this.model.get('Date'))
+//			},{
+//				xtype: 'datefield',
+//				format: 'Y/m/d',
+//				name: 'plannedStartDate',
+//				fieldLabel: '开始时间',
+//				value: this.model.get('StartDate')
+//			},{
+//				xtype: 'datefield',
+//				format: 'Y/m/d',
+//				name: 'plannedFinishDate',
+//				fieldLabel: '结束时间',
+//				value: this.model.get('EndDate')
+			},{
+				xtype: 'combobox',
+    			name: 'titleDispLocation',
+				fieldLabel: '标题显示位置',
+				store: titleDispStore,
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'code',
+			    editable: false,
+			    value: this.model.get('TitleDispLocation')
+//			},{
+//				xtype: 'panel',
+//				itemId: 'panRelationTask',
+//				margin: '0 0 5 0',
+//				flex: 1,
+//				layout:{
+//					type:'hbox',
+//					align:'stretch'
+//				},
+//				items: [{
+//					xtype: 'textfield',
+//					name: 'relationTaskName',
+//					flex: 1,
+//					fieldLabel: '关联节点',
+//					readOnly: true,
+//					fieldCls: 'text-readonly',
+//					value: this.model.get('RelationTaskName')
+//				},{
+//			        xtype: 'hiddenfield',
+//			        name: 'relationTaskId',
+//			        value: this.model.get('RelationTaskId')
+//				},{
+//					xtype: 'button',
+//					text:'选择',
+//					handler: 'selectTaskNode'
+//				}]
+//			},{
+//				xtype: 'panel',
+//				itemId: 'panParentTask',
+//				margin: '0 0 5 0',
+//				flex: 1,
+//				layout:{
+//					type:'hbox',
+//					align:'stretch'
+//				},
+//				items: [{
+//					xtype: 'textfield',
+//					name: 'parentTaskName',
+//					flex: 1,
+//					fieldLabel: '关联活动',
+//					readOnly: true,
+//					fieldCls: 'text-readonly',
+//					value: this.model.get('ParentTaskName')
+//				},{
+//			        xtype: 'hiddenfield',
+//			        name: 'parentTaskId',
+//			        value: this.model.get('ParentTaskId')
+//				},{
+//					xtype: 'button',
+//					text:'选择',
+//					handler: 'selectTaskActivity'
+//				}]
+			},{
+				xtype: 'hiddenfield',
+				name: 'taskId',
+				value: this.model.get('TaskId')
+			},{
+				xtype: 'hiddenfield',
+				name: 'taskType',
+				value: this.model.get('TaskType')
+			}]
+		}];
+		
+		this.tools = [{
+			text:'保存',
+	        xtype: 'button',
+	        iconCls: 'x-fa fa-save',
+	        handler: 'saveTask'
+		},{
+			text:'关闭',
+	        xtype: 'button',
+	        iconCls: 'x-fa fa-close',
+	        handler: 'closeWindow'
+		}];
+		
+		this.callParent();
+	}
+});

@@ -1,0 +1,7 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectDBPerformanceModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.projectDBPerformance',
+
+    fields: ['os', 'data1' ]
+ 
+});

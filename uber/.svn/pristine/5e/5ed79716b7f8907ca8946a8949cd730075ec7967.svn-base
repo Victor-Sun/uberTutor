@@ -1,0 +1,57 @@
+Ext.define('ExtApp.view.projectManagement.gantt.locale.Cn', {
+    extend    : 'Sch.locale.Locale',
+    requires  : 'Gnt.locale.En',
+    singleton : true,
+
+    l10n : {
+        'ExtApp.view.projectManagement.gantt.Application' : {
+            error           : '错误',
+            requestError    : '请求错误'
+        },
+
+        'ExtApp.view.projectManagement.gantt.view.ControlHeader' : {
+            previousTimespan        : '上一个时段',
+            nextTimespan            : '下一个时段',
+            collapseAll             : '全部折叠',
+            expandAll               : '全部展开',
+            zoomOut                 : '缩小',
+            zoomIn                  : '放大',
+            zoomToFit               : '最佳比例',
+            undo                    : '回退',
+            redo                    : '重复',
+            viewFullScreen          : '显示全屏',
+            highlightCriticalPath   : '突出显示关键路径',
+            addNewTask              : '添加任务',
+            newTask                 : '新任务',
+            removeSelectedTasks     : '删除选定的任务',
+            indent                  : '缩排',
+            outdent                 : '减少缩排',
+            manageCalendars         : '管理日历',
+            saveChanges             : '保存更改',
+            language                : '语言: ',
+            selectLanguage          : '选择语言...',
+            tryMore                 : '尝试更多功能...',
+            print                   : '打印'
+        },
+
+        'ExtApp.view.projectManagement.gantt.plugin.TaskContextMenu' : {
+            changeTaskColor         : '改变任务颜色'
+        },
+
+        'ExtApp.view.projectManagement.gantt.view.GanttSecondaryToolbar' : {
+            toggleChildTasksGrouping        : '切换子任务分组',
+            toggleRollupTasks               : '切换汇总任务',
+            highlightTasksLonger8           : '突出长于8天的任务',
+            filterTasksWithProgressLess30   : '过滤: 有进展的任务 < 30%',
+            clearFilter                     : '清除过滤',
+            scrollToLastTask                : '滚动到最后任务'
+        }
+
+    },
+
+    apply : function (classNames) {
+        Gnt.locale.En.apply(classNames);
+        this.callParent(arguments);
+    }
+
+});

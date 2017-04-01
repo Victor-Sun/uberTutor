@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.dashboard.DashboardPMSStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.dashboardPMS',
+
+    model: 'ExtApp.model.dashboard.DashboardPMSModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/dashboard/dashboard-pms!getDashboardPMS.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

@@ -1,0 +1,247 @@
+Ext.define('ExtApp.view.workorder.common.WorkOrderAssignPanel',{
+	extend: 'Ext.panel.Panel',
+	xtype: 'workorderassignpanel',
+	height: '55%',
+	initComponent: function() {
+		var me = this;
+		var pgDirectorStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/workorder/workorder!getUserList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    },
+			autoLoad:true
+		});
+		
+		// Create the combo box, attached to the states data store
+		var pgDirector = Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '项目总监',
+		    store: pgDirectorStore,
+		    name:'pgDirector',
+		    queryMode: 'local',
+		    displayField: 'name',
+		    allowBlank:false,
+		    valueField: 'id',
+		    forceSelection:true,
+		    typeAhead:true,
+		    padding:'10 25 10 30',
+		    labelAlign: 'top'
+		});
+		
+		var lineMgrStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/workorder/workorder!getUserList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    },
+			autoLoad:true
+		});
+		
+		// Create the combo box, attached to the states data store
+		var lineMgr = Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '科长',
+		    store: lineMgrStore,
+		    name:'lineMgr',
+		    queryMode: 'local',
+		    displayField: 'name',
+		    valueField: 'id',
+		    forceSelection:true,
+		    typeAhead:true,
+		    hidden:true,
+		    padding:'10 25 10 30',
+		    labelAlign: 'top'
+		});
+		
+		var deptMgrStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/workorder/workorder!getUserList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    },
+			autoLoad:true
+		});
+		
+		// Create the combo box, attached to the states data store
+		var deptMgr = Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '部长',
+		    store: deptMgrStore,
+		    name:'deptMgr',
+		    queryMode: 'local',
+		    displayField: 'name',
+		    valueField: 'id',
+		    forceSelection:true,
+		    typeAhead:true,
+		    hidden:true,
+		    padding:'10 25 10 30',
+		    labelAlign: 'top'
+		});
+		
+		
+		var deptDirectorStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/workorder/workorder!getUserList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    },
+			autoLoad:true
+		});
+		
+		// Create the combo box, attached to the states data store
+		var deptDirector = Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '院领导',
+		    store: deptDirectorStore,
+		    name:'deptDirector',
+		    queryMode: 'local',
+		    displayField: 'name',
+		    valueField: 'id',
+		    forceSelection:true,
+		    typeAhead:true,
+		    hidden:true,
+		    padding:'10 25 10 30',
+		    labelAlign: 'top'
+		});
+		
+		var woAgentStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/workorder/workorder!getUserList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    },
+			autoLoad:true
+		});
+		
+		// Create the combo box, attached to the states data store
+		var woAgent = Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '窗口负责人',
+		    store: woAgentStore,
+		    name:'woAgent',
+		    queryMode: 'local',
+		    displayField: 'name',
+		    valueField: 'id',
+		    forceSelection:true,
+		    typeAhead:true,
+		    padding:'10 25 10 30',
+		    labelAlign: 'top'
+		});
+		
+		
+		
+		me.items = [{
+	        layout: {
+	            type: 'vbox',
+	            align: 'stretch'
+	        },
+	        items: [{
+	            xtype: 'fieldset',
+	            margin: '5 10 5 10',
+	            layout: {
+	            	type: 'vbox',
+	            	align: 'stretch'
+	            },
+	            items: [{
+	                xtype: 'textarea',
+	                fieldLabel: '需求',
+	                name:'workDescription',
+	                allowBlank:false,
+	                labelAlign: 'top',
+	                margin: 5
+	            }]
+	        },{
+	            xtype: 'fieldset',
+	            margin: '5 10 5 10',
+	            layout: {
+	                type: 'vbox',
+	                align: 'stretch'
+	            },
+	            items: [{
+	                xtype: 'container',
+	                layout: {
+	                	type: 'hbox',
+	                	align: 'stretch'
+	                },
+	                items: [{
+                		xtype: 'radiogroup',
+	                    fieldLabel: '项目类/非项目类',
+	//	                    labelWidth: 75,
+	                    padding:'10 25 10 30',
+	                    labelAlign: 'top',
+	                    name:'isProjectType',
+	                    allowBlank:false,
+	                    items: [
+	                        { boxLabel: '是', name: 'isProjectType', inputValue: 'Y', checked:true},
+	                        { boxLabel: '否', name: 'isProjectType', inputValue: 'N'}
+	                    ],
+	    				listeners: {
+	    					change: function(th , newValue , oldValue , eOpts){
+	    						if('Y' == newValue.isProjectType){
+	    							pgDirector.show();
+	    							lineMgr.hide();
+	    							deptMgr.hide();
+	    							deptDirector.hide();
+	    							pgDirector.allowBlank = false;
+	    							lineMgr.allowBlank = true;
+	    							deptMgr.allowBlank = true;
+	    							deptDirector.allowBlank = true;
+	    						}else{
+	    							pgDirector.hide();
+	    							lineMgr.show();
+	    							deptMgr.show();
+	    							deptDirector.show();
+	    							pgDirector.allowBlank = true;
+	    							lineMgr.allowBlank = false;
+	    							deptMgr.allowBlank = false;
+	    							deptDirector.allowBlank = false;
+	    						}
+	    					}
+	    				}
+                	},pgDirector,lineMgr,deptMgr,deptDirector,{
+        		        xtype:'hiddenfield', 
+        		        name: 'pm'
+        			},{
+        		        xtype:'hiddenfield', 
+        		        name: 'eng'
+        			}]
+	            },{
+	            	xtype: 'container',
+	            	layout: {
+	                	type: 'hbox',
+	                	align: 'stretch'
+	                },
+	            	items: [{
+	            		xtype: 'radiogroup',
+		                fieldLabel: '线上处理',
+		                labelAlign: 'top',
+		                padding:'10 25 10 30',
+		                name:'onlineMode',
+		                allowBlank:false,
+		                items: [
+		                    { boxLabel: '是', name: 'onlineMode', inputValue: 'Y', checked:true},
+		                    { boxLabel: '否', name: 'onlineMode', inputValue: 'N'}
+		                ]
+	            	},woAgent]
+	            }]
+	        }]
+		}];
+		me.callParent(arguments);
+	}
+});

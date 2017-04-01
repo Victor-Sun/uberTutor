@@ -1,0 +1,13 @@
+/**
+ * 质量问题管理-问题提交-问题来源选择窗口ViewModel
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.SubmissWinViewModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.submissWin',
+
+    stores: {
+    	problemSource: {
+            type: 'problemSource'
+        }
+    }
+});

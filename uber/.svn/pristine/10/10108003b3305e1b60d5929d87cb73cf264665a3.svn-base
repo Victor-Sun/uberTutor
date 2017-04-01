@@ -1,0 +1,28 @@
+/**
+ * 项目管理-试制计划
+ */
+Ext.define('ExtApp.view.projectManagement.extplan.ProjectExtensionPlan02',{
+	extend:'Ext.tab.Panel',
+	xtype:'projectExtensionPlan02',
+	
+	scrollable:'y',
+
+	initComponent: function() {
+		// 专项基本信息
+		var planInfo = Ext.create(
+				'ExtApp.view.projectManagement.extplan.ProjectExtensionPlanInfo',
+				{extProjectId: this.nodeId});
+		planInfo.load({
+			url: '/pdms/pm/project-extension-plan!getExtensionPlanInfo.action',
+			params: {extProjectId: this.nodeId}
+		});
+		
+		// 专项列表信息
+		var list = Ext.create(						
+				'ExtApp.view.projectManagement.extplan.ProjectExtensionPlan02List',
+				{extProjectId: this.nodeId});
+
+		this.items = [planInfo, list];
+		this.callParent(arguments);
+	}
+});

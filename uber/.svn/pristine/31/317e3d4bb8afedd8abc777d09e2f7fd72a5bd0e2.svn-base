@@ -1,0 +1,94 @@
+/**
+ * 我的待办-问题确认To03
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.common.MyTaskInfoTo03',{
+	extend:'Ext.form.Panel',
+	xtype:'myTaskInfoTo03',
+	keyId:null,
+	margin: 5,
+	layout:{
+		type:'vbox',
+		align: 'stretch'
+	},
+	initComponent: function() {
+		var me = this;
+		me.items = [{
+			xtype:'fieldset',
+			title: '<b>问题确认</b>',
+			layout:{
+				type:'vbox'
+			},
+			defaults: {
+				margin: 5,
+				layout: {
+					type: 'hbox'
+				}
+			},
+			items:[{
+				//line 2
+				xtype:'container',
+				padding: 1,
+				items:[{
+					xtype:'combo',
+//					labelAlign: 'top',
+					fieldLabel:'问题性质',
+					editable: false,
+					queryMode: 'local',
+				    displayField: 'name',
+				    valueField: 'id',
+					name:'issueNatureId',//Missing
+					readOnly:true,
+//					allowBlank:false,
+					bind: {
+						store:'{issueNature}'
+					}
+				}]	
+			},{
+				// line1
+				xtype:'container',
+				items:[{
+					xtype:'textareafield',
+//					labelAlign: 'top',
+					fieldLabel:'理由',
+					width:845,
+					readOnly:true,
+					name:'isIssueReason'
+				}]
+			},{
+				xtype: 'container',
+				items: [{
+					xtype: 'imsFileAttachment',
+					margin: '5 5 5 0',
+					sourceType: 'SOURCE_TYPE_ISSUE_REASON_ATTACHMENT',
+		    		sourceId: me.issueId,
+		    		editable:false
+				}]
+				
+			}]
+		},{
+			xtype:'fieldset',
+			title: '<b>临时措施</b>',
+			layout:{
+				type:'vbox'
+			},
+			defaults: {
+				margin: 5,
+				layout: {
+					type: 'hbox'
+				}
+			},
+			items:[{
+				//line 2
+				xtype:'container',
+				items:[{
+					xtype:'textareafield',
+					fieldLabel:'临时措施',
+					width:845,
+					readOnly:true,
+					name:'tempAction'
+				}]	
+			}]
+		}]
+		this.callParent();
+	}
+});

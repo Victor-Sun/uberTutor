@@ -1,0 +1,20 @@
+/**
+ * 质量问题管理-待办任务-to责任确认Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.common.MyTaskInfoTo02Controller', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.myTaskInfoTo02',
+
+    init: function() {
+    	var me = this;
+//    	var form = this.lookupReference('refVerificationSchemeTo02');
+//    	form.load({
+//            url:'/pdms/ims/my-task!getMyTaskTo02VImsIssue.action',
+//			params: {
+//				keyId: this.view.keyId,
+//	    		formKey: this.view.formKey,
+//	    		taskId: this.view.taskId
+//			}
+//        });
+    }
+});

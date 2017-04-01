@@ -1,0 +1,116 @@
+/**
+ * 质量问题管理-仪表盘-Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.QMSDashboardController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.qmsDashboard',
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	var store = Ext.create(
+			'ExtApp.store.qualityissuemanagement.DashboardIMSStore');
+    	store.load();
+    	store.on('load', function() {
+        	for (var i = 0; i < this.data.length; i++) {
+        		var title = this.data.getAt(i).get('title');
+        		//var iconCls = this.data.getAt(i).get('iconCls');
+        		var xType = this.data.getAt(i).get('xType');
+        		//var height = this.data.getAt(i).get('widgetWidth');
+        		if(me.view){
+        			me.view.add({
+            			title:title,
+            			xtype:xType
+            		});
+        		}
+        	}
+    	});
+    },
+
+	// 点击【项目/Project】
+    selcombo: function(combo, newValue, oldValue, eOpts) {
+
+		var me = this.view;
+    	if (oldValue == null) {
+    		return;
+    	}
+    	if (me.down('dashboardCartesian') != null) {
+	    	var store1 = Ext.create(
+	    			'ExtApp.store.qualityissuemanagement.QMSBrowsersStore');
+	    	store1.getProxy().extraParams = {partStatus: newValue};
+	    	store1.load();
+	
+	    	store1.on('load', function() {
+	    		me.down('dashboardCartesian').setStore(this);
+	    	});
+    	}
+
+    	if (me.down('qmsdashboardhot') != null &&
+    			me.down('qmsdashboardhot').down('grid') != null) {
+    		var storeHot = Ext.create('ExtApp.store.qualityissuemanagement.IssueListStore');
+    		storeHot.getProxy().extraParams = {
+    			listType: 'qmsdashboardhot',
+    			partStatus: newValue
+    		};
+    		storeHot.load();
+	    	storeHot.on('load', function() {
+	    		me.down('qmsdashboardhot').down('grid').setStore(this);
+	    	});
+    	}
+
+    	if (me.down('dashboardPolar') != null) {
+	    	var store2 = Ext.create(
+					'ExtApp.store.qualityissuemanagement.QMSDashboardStore');
+			store2.getProxy().extraParams = {partStatus: newValue};
+			store2.load();
+	
+	    	store2.on('load', function() {
+	    		var chPolar = me.down('dashboardPolar');
+	    		chPolar.setStore(this);
+	    		if (chPolar.legend != null) {
+		            var storeLegend = chPolar.legend.getStore();
+			        if (this.data.length != 0) {
+			        	for (var i = 0; i < this.totalCount; i++) {
+			        		storeLegend.getAt(i).data.disabled = false;
+			        		chPolar.series[0].setHiddenByIndex(i, false);
+				        	if (this.getAt(i).get('data1') == '0') {
+				        		storeLegend.getAt(i).data.disabled = true;
+				        		chPolar.series[0].setHiddenByIndex(i, true);
+				        	}
+			        	}
+			        }
+			        me.down('polar').legend.refresh();
+			        me.down('polar').redraw();
+	    		}
+	    	});
+    	}
+
+    	if (me.down('qmsdashboardgeneral') != null) {
+	    	var store3 = Ext.create(
+					'ExtApp.store.qualityissuemanagement.QMSGeneralStore');
+			store3.getProxy().extraParams = {partStatus: newValue};
+			store3.load();
+	
+	    	store3.on('load', function() {
+	    		me.down('qmsdashboardgeneral').down('cartesian').setStore(this);
+	    		var form = me.down('qmsdashboardgeneral').getForm();
+	    		var data1 = parseInt(this.getAt(0).data.data1, 10);
+	    		var data2 = parseInt(this.getAt(0).data.data2, 10);
+	    		var data3 = parseInt(this.getAt(0).data.data3, 10);
+	    		var rate = 0;
+	    		if (data1 + data2 + data3 != 0){
+	        		rate = data1*100.0/(data1 + data2 + data3);
+	    		}
+	    		form.findField('totalCount').setValue(data1 + data2 + data3);
+	    		form.findField('continueFollow').setValue(data3);
+	    		form.findField('PreShutdown').setValue(data2);
+	    		form.findField('shutdown').setValue(data1);
+	    		form.findField('totalClosureRate').setValue(rate.toFixed(1)+'%');
+	    	});
+    	}
+    },
+    // 点击【默认设置】
+    defaultSet: function() {
+    	this.view.down('tagfield').reset();
+    }
+});

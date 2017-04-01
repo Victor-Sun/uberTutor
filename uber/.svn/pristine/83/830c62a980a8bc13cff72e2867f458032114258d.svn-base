@@ -1,0 +1,26 @@
+#hibernate
+hibernate.dialect=org.hibernate.dialect.Oracle10gDialect
+hibernate.format_sql=false
+hibernate.show_sql=false
+
+#jcr
+jcr.repository.jndiName=jcr/repository
+
+
+#dms setting,  modify if necessary
+dms.rpc.serverName=127.0.0.1
+dms.rpc.port=8616
+#dms.rpc.serverName=localhost
+#dms.rpc.port=8080
+dms.rpc.contentPath=dms
+#report server setting , modify if necessary
+reportserver.url=http://demo.gnomontech.com:8090
+
+#BIM mock
+bim.server.url=
+bim.systemCode=PMS
+bim.restful.username=bbcservice
+bim.restful.password=password
+bim.restful.TargetOrganizationService.findBySystemCode=/target-organization-service!findBySystemCode.action
+bim.restful.TargetAccountService.findXAttrBySystemCode=/target-account-service!findXAttrBySystemCode.action
+bim.restful.TargetAccountService.findBy=/target-organization-account!findBy.action

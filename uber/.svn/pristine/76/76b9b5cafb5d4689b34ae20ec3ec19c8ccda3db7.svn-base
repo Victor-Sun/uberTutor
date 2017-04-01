@@ -1,0 +1,21 @@
+/**
+ * 多项目报表-进展报表
+ */
+Ext.define('ExtApp.view.multiproject.Progressreport',{
+	extend:'Ext.container.Container',
+	xtype:'progressreport',
+	
+	controller: 'progressreport',
+	
+	layout: 'fit',
+
+//	margin: 20,
+	cls:'shadow',
+	
+	items:[{
+		xtype:'panel',
+		layout: 'fit',
+		reference: 'refProcessReport',
+		title:'进展报表'
+	}]
+});

@@ -1,0 +1,16 @@
+Ext.define('ExtApp.store.projectmanagement.DevTypeStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.devType',
+
+    model: 'ExtApp.model.projectmanagement.DevTypeModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-base-info!getDevType.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

@@ -1,0 +1,224 @@
+/**
+ * 项目管理-项目列表-任务列表View
+ */
+Ext.define('ExtApp.view.projectManagement.tasklist.ProjectTaskList',{
+	extend:'Ext.panel.Panel',
+	xtype:'projectTaskList',
+
+	controller: 'projectTaskList',
+	
+	layout: 'fit',
+	
+	initComponent: function() {
+		var me = this;
+
+		var taskListStore = Ext.create(
+			'ExtApp.store.projectManagement.ProjectTaskListStore');
+		taskListStore.getProxy().extraParams = {
+			programVehicleId: this.programVehicleId,
+			obsId: this.obsId};
+		taskListStore.load();
+		
+		// 专业组Store
+		var respDeptStore;
+		if (me.obsId && me.obsId != null && me.obsId != '') {
+			respDeptStore = Ext.create('ExtApp.store.projectmanagement.RespDeptChildStore');
+			respDeptStore.getProxy().extraParams = {
+				programVehicleId: me.programVehicleId,
+				rootObsId: me.obsId};
+			respDeptStore.load();
+		} else {
+			respDeptStore = Ext.create('ExtApp.store.projectmanagement.RespDeptStore');
+			respDeptStore.getProxy().extraParams = {programVehicleId: this.programVehicleId};
+			respDeptStore.load();
+		}
+		
+		me.items = [{
+			xtype:'panel',
+			layout: 'fit',
+//			margin:10,
+			items:[{
+				xtype: 'grid',
+				store: taskListStore,
+				columns: [{
+					xtype: 'rownumberer'
+				},{
+					text: '进展状态',
+					width: 80,
+					dataIndex: 'progressStatus',
+					renderer: 'renderIssueProgress',
+					align: 'center',
+					filter: false
+				},{
+					text:'风险状态',
+					dataIndex:'taskProgressStatusCode',
+					renderer: 'renderTaskProgress',
+					align: 'center',
+					width: 80
+				},{
+					text:'任务名称',
+					dataIndex:'taskName',
+					flex: 1
+				},{
+					text:'责任人',
+					dataIndex:'taskOwnerName',
+					flex: 1
+				},{ 
+					text: '负责主体',
+					flex: 1,
+					dataIndex: 'obsName'
+				},{
+					text:'计划完成日期',
+					dataIndex:'plannedFinishDate',
+					formatter: 'date("Y/m/d")',
+					flex: 1,
+					filter: {
+						type: 'date'
+					}
+				},{
+					text:'实际完成日期',
+					dataIndex:'actualFinishDate',
+					formatter: 'date("Y/m/d")',
+					flex: 1,
+					filter: {
+						type: 'date'
+					}
+				},{
+					text:'最近更新时间',
+					dataIndex:'lastReportDate',
+					formatter: 'date("Y/m/d")',
+					flex: 1,
+					filter: {
+						type: 'date'
+					}
+				},{
+					text:'关联任务信息',
+					columns: [{
+						text:'任务名称',
+						dataIndex: 'rtName',
+						flex: 1
+					},{
+						text:'所属专业领域',
+						dataIndex: 'rtFunctionObsName',
+						flex: 1
+					},{
+						text:'所属专业组',
+						dataIndex: 'rtObsName',
+						flex: 1
+					}]
+				},{ 
+					text: '前置节点',
+					flex: 1,
+					dataIndex: 'preTaskName'
+				},{ 
+					text: '后置节点',
+					flex: 1,
+					dataIndex: 'postTaskName'
+				}],
+				tbar: [{
+					xtype: 'form',
+			    	margin: 2,
+			    	layout:{
+						type:'vbox',
+						align:'stretch'
+					},
+					width: '100%',
+					items: [{
+						xtype: 'fieldset',
+						flex:1,
+				    	title: '<B>高级查询</B>',
+				    	titleAlign: 'right',
+				    	collapsible:true,
+				    	collapsed: true,
+				    	margin: 2,
+				    	layout: 'fit',
+				    	items: [{
+				    		xtype: 'panel',
+				    		layout: 'column',
+				    		defaults: {
+				    			defaults: {
+				    				labelAlign: 'right',
+					    			margin: 5
+				    			}
+				    		},
+				    		items: [{
+				    			xtype: 'panel',
+				    			columnWidth: 0.5,
+				    			layout:{
+									type:'hbox',
+									align:'stretch'
+								},
+								items: [{
+									xtype: 'displayfield',
+					    			value: '计划完成时间'
+								},{
+									xtype: 'datefield',
+									format: 'Y/m/d',
+									name: 'searchPFDateFrom'
+								},{
+									xtype: 'displayfield',
+					    			value: '~'
+								},{
+									xtype: 'datefield',
+									format: 'Y/m/d',
+									name: 'searchPFDateTo'
+								}]
+				    		}]
+				    	}]
+					},{
+						xtype: 'panel',
+						margin: '10 2 2 2',
+			    		layout:{
+							type:'hbox',
+							align:'stretch'
+						},
+						defaults: {
+			    			labelAlign: 'right',
+			    			labelWidth: 60
+			    		},
+						items: [{
+							xtype: 'textfield',
+							name: 'searchTaskName',
+							fieldLabel: '节点名称'
+						},{
+							xtype: 'combobox',
+							fieldLabel: '负责主体',
+							store: respDeptStore,
+						    queryMode: 'local',
+						    displayField: 'obsName',
+						    valueField: 'id',
+						    name: 'searchRespObsId',
+						    forceSelection: true
+						},{
+							xtype: 'button',
+							margin: '0 0 0 20',
+							text: '查询',
+							iconCls: 'x-fa fa-search',
+							handler: 'search'
+						},{
+							xtype: 'button',
+							margin: '0 0 0 5',
+							text: '重置',
+							iconCls: 'x-fa fa-rotate-left',
+							handler: 'reloadSearch'
+						},{
+							xtype: 'tbfill'
+				    	},{
+				    		xtype: 'button',
+				    		text:'导出',
+							iconCls: 'x-fa fa-file-excel-o',
+							handler: 'export2Excel'
+				    	}]
+					}]
+				}],
+				dockedItems: [{
+				     xtype: 'pagingtoolbar',
+				     dock: 'bottom',
+				     displayInfo: true,
+				     store: taskListStore
+				}]
+			}]
+		}];
+		this.callParent();
+	}
+});

@@ -1,0 +1,364 @@
+/**
+ * 质量问题管理-合并信息
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.MergeInfo',{
+	extend:'Ext.panel.Panel',
+	xtype:'mergeInfo',
+	
+	controller:'myTask',
+	viewModel: 'myTask',
+//	controller: 'mergeInfo',
+
+	flex: 1,
+	keyId:null,
+	cls:'shadow',
+	layout: {
+		type:'vbox',
+		align: 'stretch'
+	},
+	initComponent:function() {
+
+		var mainStore = Ext.create(
+			'ExtApp.store.qualityissuemanagement.MainInfoStore');
+		mainStore.getProxy().extraParams = {
+			mergeId: this.keyId
+		};
+		mainStore.load();
+
+		var mergeStore = Ext.create(
+			'ExtApp.store.qualityissuemanagement.MergeInfoStore');
+		mergeStore.getProxy().extraParams = {
+			mergeId: this.keyId
+		};
+		mergeStore.load();
+	
+		this.items = [{
+			xtype: 'container',
+			layout: {
+				type: 'hbox',
+				align: 'stretch'
+			},
+			items: [{
+				xtype:'panel',
+//				title:'主问题',
+				width: '30%',
+				layout: {
+					type: 'vbox',
+					align: 'stretch'
+				},
+				defaults: {
+					flex: 1
+				},
+				items:[{
+					xtype:'grid',
+					cls: 'allRecordsCls',
+					viewConfig: {
+						preserveScrollOnRefresh: true,
+						stripeRows: false
+					},
+					columnLines: true,
+					store: mainStore,
+					columns: [
+						{ text: '问题编号', flex:1, dataIndex: 'mainQeNum' },
+//						renderer: 'renderLink',
+//						listeners: {
+//							click: 'onClickCell'
+//						}},
+						{ text: '问题标题', flex:1, dataIndex: 'mainQeTitle'},
+						{ text: '问题提出人', flex:1, dataIndex: 'mainQePeople' },
+						{ text: '问题提出时间', flex:1, dataIndex: 'mainQeTime' }
+					]
+				},{
+					xtype:'grid',
+					store: mergeStore,
+					columns: [
+						{ text: '<b>被合并的问题</b>', flex:1, dataIndex: 'qeNum' },
+//						renderer: 'renderLink',
+//						listeners: {
+//							click: 'onClickCell'
+//						}},
+						{ flex:1, dataIndex: 'qeTitle'},
+						{ width:'15%', dataIndex: 'qePeople' },
+						{ width:'15%', dataIndex: 'qeTime' }
+					]
+				}]
+			},
+			{
+				xtype: 'panel',
+				margin: '0 0 0 5',
+				flex: 1,
+				layout: {
+					type: 'vbox',
+					align: 'stretch'
+				},
+//				title: 'center area',
+				items:[{
+					//mytaskinfoone
+					xtype:'panel',
+					margin:'10 5 0 5',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					defaults:{
+						labelWidth: 75
+					},
+					items:[{
+						xtype:'textfield',
+						fieldLabel:'问题编号',
+						readOnly:true,
+						name:'QestionId'
+					},{
+						xtype:'textfield',
+						fieldLabel:'问题状态',
+						margin:'0 0 0 10',
+						readOnly:true,
+						name:'QeStatus'
+					},{
+						xtype:'textfield',
+						fieldLabel:'责任部门',
+						readOnly:true,
+						margin:'0 0 0 10',
+						name:'ResDepartment'
+					}]
+				},{
+					//mytaskinfotwo
+					xtype:'panel',
+					margin:'10 5 0 5',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					defaults:{
+						labelWidth: 75
+					},
+					items:[{
+						xtype:'textfield',
+						fieldLabel:'责任工程师',
+						readOnly:true,
+						name:'ResponEngineer'
+					},{
+						xtype:'textfield',
+						fieldLabel:'问题等级',
+						readOnly:true,
+						margin:'0 0 0 10',
+						name:'QeLevel'
+					}]
+				},{
+					//mytaskinfo
+					xtype:'panel',
+					margin:'10 5 0 5',
+					layout:{
+						type:'vbox',
+						align: 'stretch'
+					},
+					items:[{
+						xtype:'panel',
+						layout:{
+							type:'hbox',
+							align: 'stretch'
+						},
+						defaults:{
+							labelWidth: 75
+						},
+						items:[{
+							xtype:'textfield',
+							fieldLabel:'问题标题',
+							margin:'0 5 10 0',
+							flex: 1,
+//							width:845,
+							readOnly:true,
+							name:'ProTitle'
+//						},{
+//						    xtype:'panel',
+//						    layout:{
+//						    	type:'hbox',
+//								align:'middle'
+//						    },	
+//					    	items:[{
+//								xtype:'label',
+//								html:'<b>添加关注</b>',
+//								margin:'0 0 0 10'
+//							},{
+//								xtype:'label',
+//								html:'关注',
+//								margin:'0 0 0 10'
+//							},{
+//								xtype:'checkbox',
+//					        	reference: 'refCheckbox',
+//								margin:'0 0 0 5',
+//					        	listeners: {
+//					        		click : {
+//							            element: 'el',
+//							            fn: 'licheck'
+//							        }
+//					        	},
+//					        	name:'focus'
+//							}]
+						}]
+					},{// line2
+						xtype:'panel',
+						layout:{
+							type:'hbox',
+							align:'stretch'
+						},
+						defaults:{
+							labelWidth: 75
+						},
+						items:[{
+							xtype:'textfield',
+							fieldLabel:'问题提出人',
+							margin:'0 0 10 0',
+							readOnly:true,
+							name:'QestionOut'
+						},{
+							xtype:'datefield',
+							fieldLabel:'提出时间',
+							format: 'Y/m/d',
+							margin:'0 0 10 10',
+							readOnly:true,
+							name:'ProposedTime'
+						},{
+							xtype:'textfield',
+							fieldLabel:'问题来源',
+							margin:'0 0 10 10',
+							readOnly:true,
+							name:'ProblemSource'
+						}]
+					},{// line3
+						xtype:'panel',
+						layout:{
+							type:'hbox',
+							align:'stretch'
+						},
+						defaults:{
+							labelWidth: 75
+						},
+						items:[{
+							xtype:'textfield',
+							fieldLabel:'所属项目',
+							readOnly:true,
+							margin:'0 0 10 0',
+							name:'BeProject'
+						},{
+							xtype:'textfield',
+							fieldLabel:'子项目',
+							readOnly:true,
+							margin:'0 0 10 10',
+							name:'SubProject'
+						},{
+							xtype:'textfield',
+							fieldLabel:'样车阶段',
+							margin:'0 0 10 10',
+							readOnly:true,
+							name:'BuildPhase'
+						}]
+					},{// line4
+						xtype:'panel',
+						layout:{
+							type:'hbox',
+							align:'stretch'
+						},
+						defaults:{
+							labelWidth: 75
+						},
+						items:[{
+							xtype:'datefield',
+							fieldLabel:'发生时间',
+							format: 'Y/m/d',
+							margin:'0 0 10 0',
+							readOnly:true,
+							name:'OccurrenceTime'
+						},{
+							xtype:'textfield',
+							fieldLabel:'发生场地',
+							margin:'0 0 10 10',
+							readOnly:true,
+							name:'OccurrenceSite'
+						},{
+							xtype:'textfield',
+							fieldLabel:'试验类型',
+							margin:'0 0 10 10',
+							readOnly:true,
+							name:'ExperimentType'
+						}]
+					},{// line5
+						xtype:'panel',
+						layout:{
+							type:'hbox',
+							align:'stretch'
+						},
+						items:[{
+							xtype:'textfield',
+							labelWidth: 75,
+							fieldLabel:'样车编号',
+							margin:'0 0 10 0',
+							readOnly:true,
+							name:'FaultNumber'
+						},{
+							xtype:'textfield',
+							labelWidth: 75,
+							fieldLabel:'故障零件里程',
+							margin:'0 0 10 10',
+							readOnly:true,
+							name:'PartMileage'
+						},{
+							xtype:'textfield',
+							labelWidth: 75,
+							fieldLabel:'试验进展',
+							margin:'0 0 10 10',
+							readOnly:true,
+							name:'ProgressExper'
+						}]
+					},{// line6
+						xtype:'textareafield',
+						fieldLabel:'问题描述',
+						labelWidth: 80,
+						margin:'0 0 10 0',
+						width:1000,
+						readOnly:true,
+						name:'QeDescription'
+					},{// line7
+						xtype:'textareafield',
+						fieldLabel:'处置措施',
+						labelWidth: 80,
+						margin:'0 0 10 0',
+						width:1000,
+						readOnly:true,
+						name:'DisposalMeasures'
+					},{// line8
+						xtype:'textareafield',
+						fieldLabel:'初步原因分析',
+						labelWidth: 80,
+						margin:'0 0 10 0',
+						width:1000,
+						readOnly:true,
+						name:'PreliminaryCause'
+					},{
+						xtype:'textfield',
+						labelWidth: 75,
+						fieldLabel:'子项目ID',
+						readOnly:true,
+						hidden:true,
+						name:'programVehicleId'
+					},{
+						xtype:'textfield',
+						labelWidth: 75,
+						fieldLabel:'子项目CODE',
+						readOnly:true,
+						hidden:true,
+						name:'programVehicleCode'
+					},{
+						xtype:'textfield',
+						labelWidth: 75,
+						fieldLabel:'责任部门ID',
+						hidden:true,
+						readOnly:true,
+						name:'ResDepartmentId'
+					}]
+				}]
+			}]
+		}]
+	this.callParent();
+	}
+});

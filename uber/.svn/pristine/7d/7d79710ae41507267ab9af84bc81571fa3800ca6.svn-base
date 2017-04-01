@@ -1,0 +1,136 @@
+/**
+ * 部门空间-文档管理
+ */
+Ext.define('ExtApp.view.deptworkspace.document.DeptDocumentController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.deptDocument',
+
+    // 点击菜单动作
+    onItemclick: function(view, record, item, index, e, eOpts) {
+    	var me = this;
+		var refs = this.getReferences();
+        var mainCard = refs.mainCardPanel;
+        var lastView = mainCard.getLayout().getActiveItem();
+        if (lastView != null) {
+        	lastView.destroy();
+        }
+
+        var newView = Ext.create({
+        	xtype: record.get('viewType'),
+        	nodeId: record.get('id'),
+        	readFolderPrivilege: record.get('readFolderPrivilege'),
+        	uploadFolderPrivilege: record.get('uploadFolderPrivilege'),
+        	deleteFolderPrivilege: record.get('deleteFolderPrivilege'),
+        	rootFolder: record.get('rootFolder'),
+        	departmentId: record.get('departmentId')
+        });
+
+        mainCard.add(newView);
+        Ext.suspendLayouts();
+        mainCard.getLayout().setActiveItem(newView);
+        Ext.resumeLayouts(true);
+	},
+	
+	// 右键菜单
+	onItemcontextmenu: function(tree, record, item, index, e, eOpts) {
+		var me = this;
+		e.preventDefault();  
+        e.stopEvent();
+
+        var items = [];
+        if (record.get('createFolderPrivilege')) {
+        	items.push({
+        		text: '新建文件夹',
+				listeners: {
+					click: function() {
+						me.createFolder(record);
+					}
+				}
+        	});
+        	if (! record.get('rootFolder')) {
+        		items.push({
+            		text: '删除文件夹',
+    				listeners: {
+    					click: function() {
+    						me.deleteFolder(record);
+    					}
+    				}
+            	});
+            }
+        }
+        if (record.get('manageFolderPrivilege')) {
+        	items.push({
+        		text: '修改文件夹',
+				listeners: {
+					click: function() {
+						me.updateFolder(record);
+					}
+				}
+        	});
+        }
+        if (items.length > 0) {
+        	var menu = new Ext.menu.Menu({
+        		items: items
+        	});
+        	menu.showAt(e.getXY());
+        }
+ 	},
+	
+	// 新建文件夹
+	createFolder: function(record) {
+		var me = this;
+		Ext.create({
+    		xtype: 'createDeptFolder',
+    		parentId: record.get('id'),
+    		departmentId: record.get('departmentId'),
+    		parentCaller: me
+    	}).show();
+	},
+	
+	// 修改文件夹
+	updateFolder: function(record) {
+		var me = this;
+		Ext.create({
+    		xtype: 'modifyDeptFolder',
+    		folderId: record.get('id'),
+    		folderName: record.get('text'),
+    		parentId: record.get('parentId'),
+    		departmentId: record.get('departmentId'),
+    		parentCaller: me
+    	}).show();
+	},
+	
+	// 删除文件夹
+	deleteFolder: function(record) {
+		var me = this;
+		Ext.MessageBox.confirm('提示', '您确定要删除该文件夹吗?', function(btn) {
+    		// 提示信息点击【YES】则删除
+    		if (btn == 'yes') {
+    			me.view.mask('Please Waiting...');
+    	    	Ext.Ajax.request({
+    	    		url:'/pdms/dws/dept-document!deleteFolder.action',
+    	    		params: {
+    	    			folderId: record.get('id')
+    				},
+    				scope: me,
+    				success: function(response, opts) {
+    					me.view.unmask();
+    					var obj = Ext.decode(response.responseText);
+    					if (obj.success) {
+    						var tree = me.view.down('treepanel');
+    						var node = tree.getStore().getNodeById(record.get('parentId'));
+    	    		    	tree.getStore().getProxy().extraParams.departmentId = me.view.departmentId;
+    	    		        tree.getStore().load({node:node});
+    			        } else {
+    			        	ExtApp.util.Util.handleRequestFailure(response);
+    			        }
+    			    },
+    				failure: function(response, opts) {
+    					me.view.unmask();
+    			    	ExtApp.util.Util.handleRequestFailure(response);
+    			    }
+    	    	});
+    		}
+    	});
+	}
+});

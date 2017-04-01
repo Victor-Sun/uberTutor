@@ -1,0 +1,19 @@
+/**
+ * 对策决定-效果确认store
+ */
+Ext.define('ExtApp.store.qualityissuemanagement.EffectConfirmationStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.effectConfirmation',
+
+    fields: ['id', 'name'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/combo!getEffectConfirmation.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

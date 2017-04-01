@@ -1,0 +1,13 @@
+/**
+ * 质量问题管理-仪表盘-总体情况ViewModel
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.QMSDashboardGeneralViewModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.barStacked',
+   
+    stores: {
+    	barStacked: {
+            type: 'barStacked'
+        }
+    }
+});

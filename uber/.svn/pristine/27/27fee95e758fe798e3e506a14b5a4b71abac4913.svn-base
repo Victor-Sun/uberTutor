@@ -1,0 +1,12 @@
+/**
+ * 首页-质量图表
+ */
+Ext.define('ExtApp.view.dashboard.WidgetL', {
+    extend: 'ExtApp.view.dashboard.Widgets',
+    xtype: 'widgetl',
+
+    cls:'admin-widget info-card-item info-card-large-wrap shadow',
+
+    height:235
+    
+});

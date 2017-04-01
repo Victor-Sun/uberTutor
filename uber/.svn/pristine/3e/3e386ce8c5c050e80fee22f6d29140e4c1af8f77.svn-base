@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<report version="5.0">
+	<head>
+		<property name="type">0</property>
+		<name><![CDATA[partControlRpt]]></name>
+		<dataSets>
+			<dataSet name="contentds" type="DB_SQL" >
+				<property name="dataSource">PDMS_DS</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[SELECT T2.*, T1.TEXT FROM v_ext301_item_cp_list T2, V_EXT301_GRID_TITLE T1 WHERE T1.DATA_INDEX = T2.CODE AND T2.PROGRAM_VEHICLE_ID = ?
+order by item_id,T1.seq_no;
+]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+				<queryParam name="programVehicleId" />
+			</dataSet>
+		</dataSets>
+		<parameters>
+			<parameter name="programVehicleId" type="6">
+				<property name="dateFormat"></property>
+				<property name="default"></property>
+				<property name="desc">车型ID</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+		</parameters>
+		<variables/>
+	</head>
+	<body>
+		<sheet id="sheet1">
+			<page>
+				<property name="pageRowNum">30</property>
+				<property name="margin-left">15</property>
+				<property name="margin-right">15</property>
+				<property name="margin-top">20</property>
+				<property name="margin-bottom">20</property>
+			</page>
+			<grid row="6" col="8">
+				<properties>
+				</properties>
+				<rows>
+					<row id="1">
+						<property name="type">1</property>
+					</row>
+					<row id="2">
+						<property name="type">1</property>
+						<property name="height">79</property>
+					</row>
+					<row id="3">
+						<property name="type">2</property>
+						<property name="height">26</property>
+					</row>
+					<row id="4">
+						<property name="type">2</property>
+					</row>
+					<row id="5">
+					</row>
+					<row id="6">
+						<property name="type">4</property>
+					</row>
+				</rows>
+				<columns>
+					<column id="1">
+						<property name="width">122</property>
+					</column>
+					<column id="2">
+						<property name="width">138</property>
+					</column>
+					<column id="3">
+						<property name="width">89</property>
+					</column>
+					<column id="4">
+						<property name="width">109</property>
+					</column>
+					<column id="5">
+						<property name="width">110</property>
+					</column>
+					<column id="6">
+						<property name="width">79</property>
+					</column>
+					<column id="7">
+						<property name="width">94</property>
+					</column>
+					<column id="8">
+						<property name="width">90</property>
+					</column>
+				</columns>
+				<cells>
+					<cell id="1,1" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="1,2" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="1,3" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="1,4" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="1,5" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="1,6" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="1,7" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="1,8" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,1" type="3" colspan="2" >
+						<border type="1">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,3" type="0" colspan="6" >
+						<property name="value"><![CDATA[零件管控表]]></property>
+						<property name="font-size">18</property>
+						<property name="bold">0</property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,1" type="0" rowspan="2" >
+						<property name="value"><![CDATA[零件号]]></property>
+						<property name="background"><![CDATA[='192,192,192']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="3,2" type="0" rowspan="2" >
+						<property name="value"><![CDATA[零件名称]]></property>
+						<property name="font-size">11</property>
+						<property name="background"><![CDATA[='192,192,192']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="3,3" type="0" rowspan="2" >
+						<property name="value"><![CDATA[KCRP]]></property>
+						<property name="font-size">11</property>
+						<property name="background"><![CDATA[='192,192,192']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="3,4" type="0" rowspan="2" >
+						<property name="value"><![CDATA[负责主体]]></property>
+						<property name="background"><![CDATA[='192,192,192']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="3,5" type="0" rowspan="2" >
+						<property name="value"><![CDATA[责任工程师]]></property>
+						<property name="background"><![CDATA[='192,192,192']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="3,6" type="0" rowspan="2" >
+						<property name="value"><![CDATA[进度]]></property>
+						<property name="font-size">11</property>
+						<property name="background"><![CDATA[='192,192,192']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="3,7" type="0" colspan="2" >
+						<property name="value"><![CDATA[=contentds.GROUP(CODE,false,,SEQ_NO)]]></property>
+						<property name="view"><![CDATA[=contentds.group(TITLE)]]></property>
+						<property name="ext-direction">2</property>
+						<property name="font-size">11</property>
+						<property name="background"><![CDATA[='192,192,192']]></property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,7" type="0" >
+						<property name="value"><![CDATA[计划完成]]></property>
+						<property name="background"><![CDATA[='192,192,192']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,8" type="0" >
+						<property name="value"><![CDATA[实际完成]]></property>
+						<property name="background"><![CDATA[='192,192,192']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,1" type="0" >
+						<property name="value"><![CDATA[=contentds.GROUP(ITEM_NO)]]></property>
+						<property name="ext-direction">3</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'204,255,255','255,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,2" type="0" >
+						<property name="value"><![CDATA[=contentds.group(ITEM_NAME)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'204,255,255','255,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,3" type="0" >
+						<property name="value"><![CDATA[=contentds.group(IS_KCRP)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'204,255,255','255,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,4" type="0" >
+						<property name="value"><![CDATA[=contentds.group(OBS_NAME)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'204,255,255','255,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,5" type="0" >
+						<property name="value"><![CDATA[=contentds.group(ITEM_OWNER)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'204,255,255','255,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,6" type="0" >
+						<property name="value"><![CDATA[=contentds.group(PROGRESS)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'204,255,255','255,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,7" type="0" >
+						<property name="value"><![CDATA[=contentds.select(PLANNED_FINISH_DATE, CODE=G3)]]></property>
+						<property name="ext-left"><![CDATA[A5]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'204,255,255','255,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,8" type="0" >
+						<property name="value"><![CDATA[=contentds.select(ACTUAL_FINISH_DATE, CODE=G3)]]></property>
+						<property name="ext-left"><![CDATA[A5]]></property>
+						<property name="font-color"><![CDATA[=if(h5>g5, '255,0,0','0,0,0')]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'204,255,255','255,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,1" type="0" >
+						<property name="value"><![CDATA[统计时间]]></property>
+					</cell>
+					<cell id="6,2" type="0" >
+						<property name="value"><![CDATA[=now()]]></property>
+						<property name="view-format">4|yyyy-M-d</property>
+					</cell>
+					<cell id="6,3" type="0" >
+					</cell>
+					<cell id="6,4" type="0" >
+					</cell>
+					<cell id="6,5" type="0" >
+					</cell>
+					<cell id="6,6" type="0" >
+					</cell>
+					<cell id="6,7" type="0" >
+					</cell>
+					<cell id="6,8" type="0" >
+					</cell>
+				</cells>
+			</grid>
+		</sheet>
+	</body>
+</report>

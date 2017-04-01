@@ -1,0 +1,64 @@
+/**
+ * 专项管理-零件列表
+ */
+Ext.define('ExtApp.view.projectmanagement.extplan.ext202.Ext202PanelList',{
+	extend:'Ext.container.Container',
+	xtype:'ext202PanelList',
+	controller: 'ext202Panel',
+//	viewModel: 'projectList',
+	cls:'shadow',
+	layout:'fit',
+	initComponent: function() {
+		var me = this;
+		var store = Ext.create('ExtApp.store.projectmanagement.extplan.ext201.PartStore');
+	
+		this.items = [{
+			xtype: 'grid',
+			title:'列表',
+			reference: 'ext202PanelList',
+			store: store,
+			columns: [],
+            dockedItems: [{
+                xtype: 'pagingtoolbar',
+                dock: 'bottom',
+                displayInfo: true,
+                store: store
+            }],
+            listeners:{
+            	itemdblclick: 'itemdblclick'
+			}
+		}];
+		this.callParent(arguments);
+		this.reconfigureGrid();
+	},
+	reconfigureGrid:function(){
+		var me = this;
+		Ext.Ajax.request({
+	   	 	 url: '/pdms/pm/ext202item!getExt202List.action',
+	   	 	 params: {
+	   	 		extProjectId: me.record.get('idValue')
+	   	 	 },
+	   	 	 scope: me,
+		   	 	 success: function(response, opts) {
+		   	     	Ext.getBody().unmask();
+		   	    	var obj = Ext.decode(response.responseText);
+		   	        if (obj.success) {
+		   	        	var fields = obj.fields;
+		   	        	var columns = obj.columns;
+		   	        	var data = obj.data;
+		   	        	var store = Ext.create('Ext.data.Store', {
+		   	        		fields : fields,
+		   	        		data : data
+		   	        	});
+		   	        	me.down('grid').reconfigure(store,columns)
+		   	        } else {
+		   	        	ExtApp.util.Util.handleRequestFailure(response);
+		   	        }
+		   	    },
+			    failure: function(response, opts) {
+			        Ext.getBody().unmask();
+			        ExtApp.util.Util.handleRequestFailure(response);
+			    }
+	       });
+	}
+});

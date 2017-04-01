@@ -1,0 +1,58 @@
+Ext.define('ExtApp.view.myworkspace.task.PmTaskTimeReportLog',{
+	extend:'Ext.grid.Panel',
+	xtype:'pmTaskTimeReportLog',
+    
+    controller: 'pmTaskTimeReportLog',
+    
+    title:'汇报记录',
+
+    scrollable:true,
+ 
+    initComponent: function() {
+    	this.store = Ext.create('ExtApp.store.myworkspace.PmTaskTimeReportStore');
+    	this.store.getProxy().extraParams = {taskId: this.taskId};
+    	this.store.load();
+
+    	this.columns = [{
+    		text: '汇报时间',
+    		dataIndex:'time',
+    		formatter: 'date("Y/m/d H:i:s")',
+    		flex:1,
+    		filter: {
+	        	type: 'date'
+	        }
+    	},{
+    		text: '风险状态',
+    		filter: false,
+        	dataIndex:'taskProgressStatusCode',
+        	flex:1,
+        	align: 'center',
+			renderer: 'renderTaskProgress'
+    	},{
+    		text: '进度',
+        	dataIndex:'percentComplete',
+        	flex:1,
+        	renderer: 'renderPercentComplete'
+        },{
+        	text: '工时',
+        	dataIndex:'manHour',
+        	flex:1,
+        	filter: {
+	        	type: 'number'
+	        }
+        },{
+        	text: '备注',
+        	dataIndex:'remark',
+        	flex:1,
+        	renderer: 'renderRemark'
+        }];
+    	this.dockedItems = [{
+			xtype: 'pagingtoolbar',
+			dock: 'bottom',
+			displayInfo: true,
+			store: this.store
+		}];
+    	
+    	this.callParent();
+    }
+});

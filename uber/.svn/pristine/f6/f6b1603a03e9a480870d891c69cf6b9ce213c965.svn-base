@@ -1,0 +1,64 @@
+/**
+ * 项目管理-新建项目
+ */
+Ext.define('ExtApp.view.projectmanagement.list.CreateProjectController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.createProject',
+
+    // 确定
+    confirm: function(btn) {
+    	var me = this;
+        var form = me.view.down('form').getForm();
+        if (form.isValid()){
+        	me.view.mask('Please Waiting...');
+            form.submit({
+                clientValidation: true,
+                url: '/pdms/pm/project-list!createProject.action',
+                params: {
+                	model: Ext.encode(form.getFieldValues())
+                },
+                scope: me,
+                success: function(form, action) {
+                	me.view.unmask();
+                	me.view.parentCaller.refreshView();
+                    me.cancel();
+                },
+                failure: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.handleFormFailure(action);
+                }
+            });
+        }
+    },
+    
+    // 取消
+    cancel: function() {
+    	this.view.close();
+    },
+    
+    // 选择用户
+    selectUser: function(btn) {
+    	var me = this;
+    	me.selType = btn.selType;
+    	Ext.create({
+    		xtype: 'sysUserDepartment',
+    		parentCaller: me
+        }).show();
+    },
+    
+    // 选择用户确定
+    confirmUser: function(userData) {
+    	var me = this;
+    	var form = this.lookupReference('refCreateProjectForm').getForm();
+    	if (me.selType == 'PM') {
+    		form.findField('projectManagerName').setValue(userData.name);
+        	form.findField('projectManager').setValue(userData.id);
+//    	} else if (me.selType == 'DM') {
+//    		form.findField('dmName').setValue(userData.name);
+//        	form.findField('dm').setValue(userData.id);
+//    	} else if (me.selType == 'QM') {
+//    		form.findField('qmName').setValue(userData.name);
+//        	form.findField('qm').setValue(userData.id);
+    	}
+    }
+});

@@ -1,0 +1,45 @@
+/**
+ * 项目管理-项目计划-主节点
+ */
+Ext.define('ExtApp.view.projectmanagement.mainnode.MainNodeBaseController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.mainNodeBase',
+
+    obsEditFlg: true,
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	
+		// 计划编辑权限取得
+		var editPrivilege = ExtApp.util.Util.getPrivilege(
+				'P0902', me.view.projectPrivilege, me.view.programVehicleId);
+    	
+    	// 项目状态、计划状态取得
+    	var statusStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProjectPlanStatusStore');
+    	statusStore.getProxy().extraParams = {
+			programVehicleId: this.view.programVehicleId};
+		statusStore.load();
+		statusStore.on('load', function() {
+			var planStatus = this.data.getAt(0).get('planStatus');
+
+	    	// 编辑权限判定
+	    	editPrivilege = editPrivilege &&
+	    			me.view.record.get('planLevel') != '2' &&
+					planStatus == 'INACTIVE' &&
+					me.obsEditFlg &&
+					! (me.view.baselineId && me.view.baselineId != null);
+			
+	    	// 显示主节点
+	    	var newView = Ext.create({
+	    		xtype: 'projectPlanMainNode',
+	    		programId: me.view.programId,
+				programVehicleId: me.view.programVehicleId,
+				editPrivilege: editPrivilege,
+				baselineId: me.view.baselineId
+	        });
+	    	me.view.add(newView);
+		});
+    }
+});

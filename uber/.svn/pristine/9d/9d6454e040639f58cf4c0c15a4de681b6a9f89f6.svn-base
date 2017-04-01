@@ -1,0 +1,107 @@
+/**
+ * 项目管理-新建车型
+ */
+Ext.define('ExtApp.view.projectmanagement.base.CreateVehicleController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.createVehicle',
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	var form = this.view.down('form').getForm();
+    	
+    	// 项目经理、质量经理初始值
+    	form.findField('pm').setValue(me.view.pm);
+    	form.findField('pmName').setValue(me.view.pmName);
+    	form.findField('qm').setValue(me.view.qm);
+    	form.findField('qmName').setValue(me.view.qmName);
+    	
+    	// 如果不存在现有车型，则不能导入现有车型OBS以及计划
+		var vehicleStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProgramVehicleStore');
+		vehicleStore.getProxy().extraParams = {programId: me.view.programId};
+		vehicleStore.load();
+		vehicleStore.on('load', function() {
+			if (this.data.length == 0) {
+				form.findField('chkImportObs').setHidden(true);
+				form.findField('chkImportVeichlePlan').setHidden(true);
+				form.findField('cloneVehicleId').setHidden(true);
+			}
+		});
+    },
+    
+    // 导入现有车型组织选项变更
+    onChangeImportObs: function(checkBox, newValue, oldValue, eOpts) {
+    	var form = this.view.down('form').getForm();
+    	// 选中导入组织、则不能选中导入模板
+    	if (newValue) {
+    		form.findField('chkImportPlan').setValue(false);
+    		form.findField('cloneVehicleId').setDisabled(false);
+    	// 不选中导入组织、则不允许导入默认车型计划	
+    	} else {
+    		form.findField('chkImportVeichlePlan').setValue(false);
+    		form.findField('cloneVehicleId').setDisabled(true);
+    	}
+    },
+    
+    // 导入现有车型计划变更
+    onChangeImportVeichlePlan: function(checkBox, newValue, oldValue, eOpts) {
+    	var form = this.view.down('form').getForm();
+    	// 选中导入默认车型计划、则必须导入默认组织、并且不能导入模板
+    	if (newValue) {
+    		form.findField('chkImportObs').setValue(true);
+    		form.findField('chkImportPlan').setValue(false);
+    	}
+    },
+    
+    // 导入模板选项变更
+    onChangeImportPlan: function(checkBox, newValue, oldValue, eOpts) {
+    	var form = this.view.down('form').getForm();
+    	// 选中导入导入模板、则不能选中导入默认组织以及导入默认车型计划
+    	if (newValue) {
+    		form.findField('chkImportObs').setValue(false);
+    		form.findField('chkImportVeichlePlan').setValue(false);
+    		form.findField('programTempId').setDisabled(false);
+    	} else {
+    		form.findField('programTempId').setDisabled(true);
+    	}
+    },
+
+    // 新建车型
+    addVehicle: function() {
+    	var me = this;
+        var form = this.view.down('form').getForm();
+        if (form.isValid()){
+        	me.view.mask('Please Waiting...');
+            form.submit({
+                clientValidation: true,
+                url: '/pdms/pm/project-base-info!addVehicle.action',
+                params: {
+                	programId: me.view.programId,
+                	model: Ext.encode(form.getFieldValues())
+                },
+                scope: me,
+                success: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.showToast("车型创建成功！");
+                	me.view.up('projectBaseInfo02').down('grid').store.reload();
+    		    	// 刷新项目管理Tree
+    		    	var tree = me.view.up('projectWindow').down('projectTree');
+    		    	var node = tree.getStore().getNodeById(me.view.programId);
+    		    	tree.getStore().getProxy().extraParams.type = 'PROGRAM';
+    		        tree.getStore().load({node:node});
+                	me.cancel();
+                },
+                failure: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.handleFormFailure(action);
+                }
+            });
+        }
+    },
+
+    // 取消
+    cancel: function() {
+    	this.view.close();
+    }
+});

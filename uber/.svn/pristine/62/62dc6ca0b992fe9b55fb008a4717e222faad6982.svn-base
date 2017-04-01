@@ -1,0 +1,32 @@
+/**
+ * 首页-个人设置-常用项目Controller
+ */
+Ext.define('ExtApp.view.toolbarsettings.ProgramChangePwsController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.programChangePws',
+
+    // 用户密码更改
+    personalSettings: function(btn) {
+    	var me = this;
+        var form = this.lookupReference('refpersonalSettingsForm').getForm();
+    	if (form.isValid()){
+    		me.view.mask('Please Waiting...');
+            form.submit({
+                clientValidation: true,
+                url: '/pdms/ts/personal-settings!changePersonalSettingsPsw.action',
+                params: {
+                	model: Ext.encode(form.getFieldValues())
+                },
+                scope: me,
+                success: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.showToast("密码修改成功！");
+                },
+                failure: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.handleFormFailure(action);
+                }
+            });
+        }
+    }
+});

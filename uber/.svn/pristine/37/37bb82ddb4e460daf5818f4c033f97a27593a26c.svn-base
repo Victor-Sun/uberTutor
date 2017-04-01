@@ -1,0 +1,14 @@
+Ext.define('ExtApp.store.workorder.WorkOrderDocumentStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.workOrdersDocument',
+    fields:['id',  'author','date', 'time','paragraph','stepId','roleId'],
+    pageSize:ExtApp.common.Constants.pageSize,
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/workorder/workorder!getWorkOrderDocumentList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

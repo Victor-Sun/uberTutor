@@ -1,0 +1,71 @@
+Ext.define('ExtApp.view.projectManagement.issue.solveissue.ReturnNotesController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.returnNotes',
+    onButtonClickSubmit: function (button, e, options) {
+    	var appId = button.up('grid').appId;
+    	var grid = button.up('grid');
+    	Ext.create('AFC.view.application.da022.ca.Da022NotesWindow',{appId:appId,grid:grid}).show();
+    },
+    submitComment: function (button, e, options) {
+       var me = this;
+       var appId = button.up('window').appId;
+       var form = this.lookupReference('da022NotesForm');
+       if (form.isValid()){
+           me.getView().mask('认证中... 请稍等...');
+           form.submit({
+               clientValidation: true,
+               params:{appId:appId},
+               url: '/afc/da022/da022!saveDa022NotesForm.action',
+               scope: me,
+               success: 'onSubmitSuccess',
+               failure: 'onSubmitFailure'
+           });
+       }
+    },
+    onSubmitFailure: function(form, action) {
+
+        this.getView().unmask();
+
+        /*var result = Packt.util.Util.decodeJSON(action.response.responseText);
+
+        switch (action.failureType) {
+            case Ext.form.action.Action.CLIENT_INVALID:
+                Packt.util.Util.showErrorMsg('Form fields may not be submitted with invalid values');
+                break;
+            case Ext.form.action.Action.CONNECT_FAILURE:
+                Packt.util.Util.showErrorMsg(action.response.responseText);
+                break;
+            case Ext.form.action.Action.SERVER_INVALID:
+                Packt.util.Util.showErrorMsg(result.msg);
+        }*/
+
+        //alternative to code above - reuse code
+        AFC.util.Util.handleFormFailure(action);
+    },
+
+    onSubmitSuccess: function(form, action) {
+        var view = this.getView();
+        view.unmask();
+        var form = this.lookupReference('da022NotesForm');
+        var grid = form.up('window').grid;
+        var appId = grid.appId;
+        grid.getStore().load({params:{appId:appId}});
+        form.up('window').close();
+    },
+	
+	renderTitleColumn: function (value, metaData, record) {
+        var view = this.getView(),
+            plugin = view.getPlugin('rowexpander'),
+            tpl = view.titleTpl;
+
+        if (!tpl.isTemplate) {
+            view.titleTpl = tpl = new Ext.XTemplate(tpl);
+        }
+
+        var data = Ext.Object.chain(record.data);
+
+        // data.expanded = plugin.recordsExpanded[record.internalId] ? ' style="display: none"' : '';
+
+        return tpl.apply(data);
+    }
+});

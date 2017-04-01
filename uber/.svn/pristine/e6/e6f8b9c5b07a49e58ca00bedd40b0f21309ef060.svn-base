@@ -1,0 +1,28 @@
+Ext.define('ExtApp.view.myworkspace.Donelist',{
+	extend:'Ext.container.Container',
+	xtype:'donelist',
+	
+	layout:'fit',
+	margin: 20,
+	items:[{
+		xtype:'tabpanel',
+		cls:'shadow',
+		id:'doneList',
+		items:[{
+			title:'项目管理',
+			xtype:'doneListPM'
+//		},{
+//			title:'质量问题',
+//			xtype:'doneListQMS'
+//		},{				
+//			title:'工作联系单',
+//			xtype:'doneListConn'
+//	    },{				
+//			title:'部门任务',
+//			xtype:'doneListDept'
+//	    },{				
+//			title:'流程审批',
+//			xtype:'doneListFlow'
+	    }]
+	}]
+});

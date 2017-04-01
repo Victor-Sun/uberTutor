@@ -1,0 +1,16 @@
+Ext.define('ExtApp.store.qualityissuemanagement.QeNotifyStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.qeNotify',
+
+    fields: ['CurrentId', 'CurrentName'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/qe-notify!getNotifyList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+//    autoLoad: true
+});

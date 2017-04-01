@@ -1,0 +1,17 @@
+Ext.define('ExtApp.store.deptworkspace.ArchiveDeptIssueStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.archiveDeptIssue',
+    
+    fields: ['title','issueDescription','issueCause','issueResolution'],
+    
+    pageSize:ExtApp.common.Constants.pageSize,
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/dws/dept-issue!getArchiveDeptIssueList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

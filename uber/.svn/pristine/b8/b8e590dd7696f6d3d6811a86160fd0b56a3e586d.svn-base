@@ -1,0 +1,48 @@
+/**
+ * 项目计划-专业领域/专业组计划
+ */
+Ext.define('ExtApp.view.projectManagement.deptplan.DeptPlanBase',{
+	extend:'Ext.panel.Panel',
+	xtype:'deptPlanBase',
+
+	layout: 'fit',
+	
+	controller:'deptPlanBase',
+	
+	initComponent: function() {
+		var me = this;
+		
+		me.title = me.record.get('vehicleName') + ' <i class="x-fa fa-arrow-right" style="font-style: none;"></i>' + ' 项目主计划' + ' <i class="x-fa fa-arrow-right" style="font-style: none;"></i>' + ' 时程表设置';
+		if (me.record.get('planLevel') == '2') {
+			me.title = me.record.get('vehicleName') + ' <i class="x-fa fa-arrow-right" style="font-style: none;"></i>' + ' 项目二级计划' + ' <i class="x-fa fa-arrow-right" style="font-style: none;"></i> ' + me.record.get('fnGroupName') + ' <i class="x-fa fa-arrow-right" style="font-style: none;"></i>' +' 时程表设置';
+		}
+	
+		this.items = [{
+			xtype:'panel',
+			cls: 'shadow',
+			layout: 'border',
+			defaults: {
+				frame: false,
+				border: false
+			},
+			items:[{
+				xtype:'panel',
+				reference: 'refFunction',
+				title: '添加泳道',
+				region: 'west',
+				width: 220,
+				collapsible: true,
+				split: true,
+				cls:'shadow',
+				layout: 'fit'
+			},{
+				xtype: 'panel',
+				itemId: 'mainCardPanel',
+				region: 'center',
+				cls: 'shadow',
+				layout: 'card'
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

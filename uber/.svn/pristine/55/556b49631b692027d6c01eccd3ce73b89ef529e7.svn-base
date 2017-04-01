@@ -1,0 +1,58 @@
+/**
+ * 项目管理-主节点-主节点信息
+ */
+Ext.define('ExtApp.view.projectManagement.mainnode.MainNodeInfo',{
+	extend:'Ext.window.Window',
+	xtype:'mainNodeInfo',
+	
+	width:400,
+	height:200,
+	
+	closable: false,
+	modal: true,
+	
+	title:'主节点信息',
+	
+	controller: 'mainNodeInfo',
+	
+	layout: 'fit',
+	
+	initComponent: function() {
+		
+		this.items = [{
+			xtype: 'form',
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
+		    margin:10,
+		    items: [{
+		    	xtype: 'textfield',
+				fieldLabel: '节点名称',
+				name: 'taskName',
+				allowBlank: false,
+                maxLength: 255
+			},{
+				xtype: 'datefield',
+				format: 'Y/m/d',
+				name: 'plannedFinishDate',
+				fieldLabel: '时间',
+				allowBlank: false
+			}]
+		}];
+		
+		this.tools = [{
+			text:'确定',
+	        xtype: 'button',
+	        iconCls: 'x-fa fa-save',
+	        handler: 'confirm'
+	    },{
+			text:'关闭',
+	        xtype: 'button',
+	        iconCls: 'x-fa fa-close',
+	        handler: 'closeWindow'
+		}];
+		
+		this.callParent();
+	}
+});

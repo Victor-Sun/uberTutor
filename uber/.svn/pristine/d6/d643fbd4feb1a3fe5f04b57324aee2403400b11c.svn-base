@@ -1,0 +1,20 @@
+Ext.define('ExtApp.model.projectmanagement.ProjecTreeModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.projecTree',
+    
+    fields: [
+             {name: 'id'},
+             {name: 'text'},
+             {name: 'iconCls'},
+             {name: 'viewType'},
+             {name: 'parentId'},
+             {name: 'projectId'},
+             {name: 'vehicleId'},
+             {name: 'stageId'},
+             {name: 'type'},
+             {name: 'leaf', type: 'boolean'},
+             {name: 'expanded', type: 'boolean'},
+             {name: 'createEpPrivilege', type: 'boolean'}
+    ]
+
+});

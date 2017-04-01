@@ -1,0 +1,59 @@
+Ext.define('ExtApp.view.projectmanagement.extplan.ext301.PartPlannedControlList',{
+	extend: 'Ext.grid.Panel',
+	xtype: 'partPlannedControlList',
+	controller: 'partPlannedControlList',
+	columnLines: true,
+	columns: [{
+			text: '零件号',
+			dataIndex: 'partNo',
+			width:200,
+			locked:true
+		},{
+			text: '零件名称',
+			dataIndex: 'partName',
+			flex: 1
+		},{
+			text: 'KCRP',
+			dataIndex: 'kcrp',
+			flex: 1
+		}],
+	 viewConfig: {
+	        columnLines: true,
+	        trackOver: false
+	    },
+	initComponent: function() {
+		var me = this;
+		me.callParent(arguments);
+		me.reconfigureGrid();	
+	},
+	reconfigureGrid:function(){
+		var me = this;
+		Ext.Ajax.request({
+	   	 	 url: '/pdms/pm/ext301!getExt301List.action',
+	   	 	 params: {
+	   	 		programVehicleId:me.programVehicleId
+	   	 	 },
+	   	 	 scope: me,
+		   	 	 success: function(response, opts) {
+//		   	     	Ext.getBody().unmask();
+		   	    	var obj = Ext.decode(response.responseText);
+		   	        if (obj.success) {
+//		   	        	var fields = obj.fields;
+		   	        	var columns = obj.columns;
+		   	        	var data = obj.data;
+		   	        	var store = Ext.create('Ext.data.Store', {
+//		   	        		fields : fields,
+		   	        		data : data
+		   	        	});
+		   	        	me.reconfigure(store,columns)
+		   	        } else {
+		   	        	ExtApp.util.Util.handleRequestFailure(response);
+		   	        }
+		   	    },
+			    failure: function(response, opts) {
+//			        Ext.getBody().unmask();
+			        ExtApp.util.Util.handleRequestFailure(response);
+			    }
+	       });
+	}
+});

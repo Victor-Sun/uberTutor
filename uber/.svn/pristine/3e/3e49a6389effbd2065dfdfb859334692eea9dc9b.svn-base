@@ -1,0 +1,62 @@
+/**
+ * 项目管理-项目模板库(主计划)View
+ */
+Ext.define('ExtApp.view.projectmanagement.templatelibrary.TemplateLibraryOne',{
+	extend:'Ext.panel.Panel',
+	xtype:'templateLibraryOne',
+	
+	controller:'templateLibraryOne',
+	
+	cls:'shadow',
+//	margin:'20',
+	layout: 'fit',
+	
+	initComponent: function() {
+		var templateStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProjectTemplateLibraryStore');
+		templateStore.getProxy().extraParams = {programTypeId: this.programTypeId};
+		templateStore.load();
+
+		this.items = [{
+			xtype: 'panel',
+			layout:{
+				type:'hbox',
+				align:'stretch'
+			},
+			items:[{
+				flex:1,
+				xtype:'panel',
+				layout: 'fit',
+				items:[{
+					xtype:'treepanel',
+					scrollable: 'y',
+					rootVisible:false,
+					store:templateStore,
+					listeners:{
+						selectionchange: 'onSelectionchange',
+						itemcontextmenu: 'showMenu',
+						beforeitemexpand: 'onBeforeitemexpand'
+					}
+				}],
+				dockedItems: [{
+					xtype: 'toolbar',
+					cls: 'shadow',
+					dock: 'top',
+					items: [{
+						text:'导入',
+						handler: 'onClickAttachmentOne'
+					}]
+				}]
+			},{
+				flex:2,
+				xtype:'panel',
+				cls:'shadow',
+				reference: 'mainCardPanel',
+				layout: {
+					type: 'card'
+				}
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

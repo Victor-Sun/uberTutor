@@ -1,0 +1,112 @@
+/**
+ * 部门空间-工作联系单
+ */
+Ext.define('ExtApp.view.deptworkspace.workorder.DeptWorkOrderController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.deptWorkOrder',
+    
+    // 双击交付物列表
+    onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    	var me = this;
+    	var rec = grid.getStore().getAt(rowIndex);
+    	var programId = me.getView().programId;
+    	var grid = me.getView().down('grid');
+    	var win = Ext.create("ExtApp.view.workorder.inbound.WorkOrderInboundReaOnly",
+    			{grid:grid, workOrderId:rec.get('id'), record:rec, title:rec.get('title') + "-" + rec.get('status')}).show();
+    	win.down('form').getForm().load({
+    		params:{id:rec.get('id')},
+    		url:'/pdms/workorder/workorder!getWorkOrderForm.action'
+//    		success: function(form, action) {
+//    	        win.down('form').getForm().findField('isProjectType').setValue({isProjectType:action.result.data.isProjectType});
+//    	        win.down('form').getForm().findField('onlineMode').setValue({onlineMode:action.result.data.onlineMode});
+//    	    }
+    	});
+    	win.setReadOnly();
+    },
+
+    // 查询
+    search: function(btn, e) {
+    	var me = this;
+    	me.view.mask('Please Waiting...');
+    	var form = me.view.down('toolbar').down('form').getForm();
+    	var store = Ext.create(
+			'ExtApp.store.deptworkspace.DeptWorkOrderStore');
+    	store.getProxy().extraParams = {
+			searchModel: Ext.encode(form.getFieldValues())
+		};
+    	store.load();
+    	store.on('load', function() {
+    		me.view.down('grid').setStore(this);
+    		me.view.down('pagingtoolbar').setStore(this);
+    		me.view.unmask();
+    	});
+    },
+    
+    // 重置
+    reloadSearch: function() {
+    	var me = this;
+
+    	var form = this.view.down('toolbar').down('form').getForm();
+    	Ext.each(form.getFields().items, function(field) {
+    		if (field.xtype != 'displayfield') {
+    			if (field.xtype == 'checkbox') {
+        			field.setValue(true);
+        		} else {
+        			field.setValue('');
+        		}
+    		}
+		});
+    	this.search();
+    },
+    
+    // 导出
+    export2Excel:function(){
+    	var me = this;
+    	var url = 'rpt=pm/pm_dept_workorder_list.brt&emitter=toxls';
+    	// 查询条件
+    	var params = '';
+    	var form = me.view.down('toolbar').down('form').getForm();
+    	// 工作名称
+    	if (form.findField('searchTitle').value !='') {
+    		params += 'searchTitle=' + form.findField('searchTitle').value + ';';
+    	}
+    	// 状态
+    	var statusCode = "";
+    	if (form.findField('searchIn').checked) {
+    		statusCode += "'INBOUND'";
+    	}
+    	if (form.findField('searchOut').checked) {
+    		if (statusCode.length > 0) {
+    			statusCode += ",";
+    		}
+    		statusCode += "'OUTBOUND'";
+    	}
+    	if (statusCode.length > 0) {
+    		params += 'searchWoType=' + statusCode + ';';
+    	}
+    	// 计划完成时间From
+    	if (form.findField('searchDueDateFrom').value != '' && form.findField('searchDueDateFrom').value != null) {
+    		params += 'searchDueDateFrom=' + ExtApp.util.Util.formatDate(form.findField('searchDueDateFrom').value, '-') + ';';
+    	}
+    	// 计划完成时间To
+    	if (form.findField('searchDueDateTo').value != '' && form.findField('searchDueDateTo').value != null) {
+    		params += 'searchDueDateTo=' + ExtApp.util.Util.formatDate(form.findField('searchDueDateTo').value, '-') + ';';
+    	}
+    	// 所属项目
+    	if (form.findField('searchProgramName').value !='') {
+    		params += 'searchProgramName=' + form.findField('searchProgramName').value + ';';
+    	}
+    	// 发出单位
+    	if (form.findField('searchSourceDept').value !='') {
+    		params += 'searchSourceDept=' + form.findField('searchSourceDept').value + ';';
+    	}
+    	// 接收单位
+    	if (form.findField('searchTargetDept').value !='') {
+    		params += 'searchTargetDept=' + form.findField('searchTargetDept').value + ';';
+    	}
+    	if (params.length > 0) {
+    		url += '&params=' + params;
+    	}
+    	ExtApp.util.Util.openReport(url);
+    }
+});

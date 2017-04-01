@@ -1,0 +1,51 @@
+/**
+ * 项目管理-文档历史版本
+ */
+Ext.define('ExtApp.view.projectmanagement.document.HistoryRevision',{
+	extend:'Ext.panel.Panel',
+	xtype:'historyRevision',
+	layout: 'fit',
+	controller: 'historyRevision',
+	initComponent: function() {
+		var me = this;
+		var docStore = Ext.create('ExtApp.store.projectmanagement.HistoryRevisionStore');
+		docStore.load({params:{documentId:me.documentId}});
+		
+		
+		var hideAction = true;
+		if (me.writeFolderPrivilege) {
+			hideAction = false;
+		}
+	
+		this.items = [{
+			xtype: 'grid',
+			store: docStore,
+			columns: [{
+				xtype: 'rownumberer'
+			},{
+				text: '文档名称',
+				flex: 1,
+				dataIndex: 'documentName',
+				renderer: 'renderFileLink',
+				listeners: {
+					click: 'onFileClick'
+				}
+			},{
+				text: '上传人',
+				flex: 1,
+				dataIndex: 'createBy'
+			},{
+				text: '上传时间',
+				flex: 1,
+				dataIndex: 'createDate'
+			}],
+            dockedItems: [{
+                xtype: 'pagingtoolbar',
+                dock: 'bottom',
+                displayInfo: true,
+                store: docStore
+            }]
+		}];
+		this.callParent(arguments);
+	}
+});

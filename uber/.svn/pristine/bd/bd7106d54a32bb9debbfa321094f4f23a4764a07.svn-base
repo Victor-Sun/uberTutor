@@ -1,0 +1,19 @@
+/**
+ * 码表信息Store（质量问题管理）
+ */
+Ext.define('ExtApp.store.common.ImsCodeTableStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.imsCodeTable',
+
+    model: 'ExtApp.model.common.CodeTableModel',
+
+    proxy: {
+    	type: 'ajax',
+    	url: '/pdms/com/sys-code!getImsCodeList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+    
+});

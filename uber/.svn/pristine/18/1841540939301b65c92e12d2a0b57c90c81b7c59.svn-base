@@ -1,0 +1,138 @@
+/**
+ * 项目管理-项目列表View
+ */
+Ext.define('ExtApp.view.projectmanagement.list.ProjectList',{
+	extend:'Ext.container.Container',
+	xtype:'projectList',
+
+	controller: 'projectList',
+	
+	margin:20,
+	cls:'shadow',
+	layout: 'fit',
+	
+	initComponent: function() {
+		// 登录用户Store
+		this.loginUserStore = Ext.create(
+			'ExtApp.store.common.LoginUserInfoStore');
+		this.loginUserStore.load();
+
+		var store = Ext.create(
+			'ExtApp.store.projectmanagement.ProjectListStore');
+		store.getProxy().extraParams = {
+			usualProject: "1"
+		};
+		store.load();
+	
+		this.items = [{
+			xtype:'panel',
+			layout: 'fit',
+			title:'项目列表',
+			items:[{
+				xtype: 'grid',
+				store: store,
+				columns: [{
+					xtype: 'rownumberer'
+				},{
+  					text: '车型平台',
+  					flex: 1,
+  					dataIndex: 'vehiclePlatformName'
+  				},{
+  					text: '级别',
+  					width: 50,
+  					dataIndex: 'programLevel'
+  				},{
+  					text: '开发状态',
+  					flex: 1,
+  					dataIndex: 'devStatusName'
+  				},{
+  					text: '项目代号',
+  					flex: 1,
+  					dataIndex: 'code'
+  				},{
+  					text: '名称',
+  					flex: 1,
+  					dataIndex: 'programName'
+  				},{
+  					text: '产品定位',
+  					flex: 1,
+  					dataIndex: 'productPositioning'
+  				},{
+  					text: '开发类型',
+  					flex: 1,
+  					dataIndex: 'devTypeName'
+  				},{
+  					text: 'SOP时间',
+  					width: 200,
+  					dataIndex: 'SOP'
+  				},{
+  					text: '项目总监',
+  					flex: 1,
+  					dataIndex: 'director'
+  				},{
+  					text: '项目经理',
+  					flex: 1,
+  					dataIndex: 'pm'
+  				},{
+  					text: '车型类型',
+  					flex: 1,
+  					dataIndex: 'vehicleTypeName'
+  				}],
+	            tbar: [{
+					xtype: 'radiogroup',
+					itemId: 'searchUsualProject',
+					items:[
+						{ boxLabel:'所有项目', name:'usualProject', inputValue:'1', checked:true },
+						{ boxLabel:'常用项目', name:'usualProject', inputValue:'2' }
+					]
+//					listeners: {
+//						change: 'usualProjectChang'
+//					}
+	            },'-',{
+					xtype: 'textfield',
+					labelAlign: 'right',
+					labelWidth: 70,
+					itemId: 'searchProjectCode',
+					fieldLabel: '项目代号'
+				},{
+					text: '查询',
+					iconCls: 'x-fa fa-search',
+					handler: 'search'
+				},{
+					text: '重置',
+					iconCls: 'x-fa fa-rotate-left',
+					handler: 'reloadSearch'
+				},'->',{
+					itemId:'BTN800402',//用于权限控制
+					text:'新建项目',
+					hidden:true,
+					iconCls: 'x-fa fa-plus',
+					handler: 'newProject'
+				},{
+					itemId:'BTN800408',//用于权限控制
+					text:'项目排序',
+					hidden:true,
+					iconCls: 'x-fa fa-cog',
+					handler: 'projectSort'
+				},{
+//					itemId:'',//用于权限控制
+					text:'导出',
+//					hidden:true,
+					iconCls: 'x-fa fa-file-excel-o',
+					handler: 'exportProjectList'
+				}],
+	            dockedItems: [{
+                    xtype: 'pagingtoolbar',
+                    dock: 'bottom',
+                    displayInfo: true,
+                    store: store
+                }],
+	            listeners:{
+	            	cellcontextmenu: 'onCellcontext',
+	            	celldblclick: 'onCelldblclick'
+				}
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

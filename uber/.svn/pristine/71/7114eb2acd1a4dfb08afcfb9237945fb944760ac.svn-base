@@ -1,0 +1,99 @@
+/**
+ * 项目管理-泳道信息
+ */
+Ext.define('ExtApp.view.projectManagement.deptplan.CreateFunction',{
+	extend:'Ext.window.Window',
+	xtype:'createFunction',
+	
+	controller: 'createFunction',
+
+	modal: true,
+	closable: false,
+	
+	layout:{
+		type:'fit'
+	},
+	
+	width: 400,
+	height: 200,
+	
+	title: '泳道信息',
+	
+	initComponent: function() {
+		var me = this;
+		
+		var respDeptStore;
+		
+		if (me.obsId && me.obsId != null && me.obsId != '') {
+			respDeptStore = Ext.create('ExtApp.store.projectmanagement.RespDeptChildStore');
+			respDeptStore.getProxy().extraParams = {
+				programVehicleId: me.programVehicleId,
+				rootObsId: me.obsId};
+		} else {
+			respDeptStore = Ext.create('ExtApp.store.projectmanagement.RespDeptStore');
+			respDeptStore.getProxy().extraParams = {programVehicleId: me.programVehicleId};
+		}
+		respDeptStore.load();
+		
+		this.items = [{
+			xtype:'form',
+			margin:10,
+			layout:{
+				type:'vbox',
+	      		align:'stretch'
+	      	},
+	      	items: [{
+				xtype: 'panel',
+				layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				items: [{
+					xtype: 'textfield',
+					name: 'functionName',
+					flex: 1,
+					fieldLabel: '名称',
+					allowBlank:false,
+					maxLength:50
+				},{
+					xtype: 'numberfield',
+					name: 'seqNo',
+					flex: 1,
+					fieldLabel: '排序',
+					minValue:1,
+					maxValue:99999
+				},{
+					xtype:'checkbox',
+					labelWidth: 100,
+					labelSeparator: '',
+					flex: 1,
+					fieldLabel:'显示在时程表',
+					name:'chkIsVisible'
+				},{
+					xtype: 'combobox',
+					flex: 1,
+					fieldLabel: '负责主体',
+					store: respDeptStore,
+				    queryMode: 'local',
+				    displayField: 'obsName',
+				    valueField: 'id',
+				    name: 'respObsId',
+				    value: me.obsId,
+				    forceSelection: true
+				}]
+			}]
+		}];
+		this.tools = [{
+			text:'确定',
+			xtype: 'button',
+			iconCls: 'x-fa fa-circle-o',
+			handler: 'confirm'
+		},{
+			text:'取消',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'cancel'
+		}];
+		this.callParent();
+	}
+});

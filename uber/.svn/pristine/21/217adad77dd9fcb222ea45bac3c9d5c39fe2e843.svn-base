@@ -1,0 +1,22 @@
+Ext.define('ExtApp.store.projectmanagement.issue.ProjectOpenIssuePieStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectOpenIssuePieStore',
+    //                   IE    Firefox  Chrome   Safari
+    fields: ['status', 'data1' ],
+//    data: [
+//        { os: 'Android', data1: 68.3 },
+//        { os: 'BlackBerry', data1: 1.7 },
+//        { os: 'iOS', data1: 17.9 },
+//        { os: 'Windows Phone', data1: 10.2 },
+//        { os: 'Others', data1: 1.9 }
+//    ]
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-open-issue!getProjectOpenIssuePie.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+
+});

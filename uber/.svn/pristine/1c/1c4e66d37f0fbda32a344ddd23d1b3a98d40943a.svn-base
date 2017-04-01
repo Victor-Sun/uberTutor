@@ -1,0 +1,204 @@
+/**
+ * 
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.merge.MergeIssue',{
+	extend:'Ext.panel.Panel',
+	xtype:'mergeIssue',
+	controller: 'mergeIssue',
+	region: 'center',
+	layout:'border',
+	initComponent: function() {
+		var me = this;
+		var mergeIssueStore = Ext.create('ExtApp.store.qualityissuemanagement.MergeIssueStore');
+		mergeIssueStore.getProxy().extraParams = {
+			programId:me.programId
+		};
+		mergeIssueStore.load();
+	
+		me.items = [{
+			xtype: 'container',
+			cls: 'shadow',
+			flex: 1,
+			layout: {
+				type: 'border'
+			},
+			region: 'center',
+			defaults: {
+				cls: 'shadow'
+			},
+			items: [{
+				xtype:'grid',
+				cls: 'shadow',
+				region: 'center',
+				title: '问题列表',
+				layout:'fit',
+				store: mergeIssueStore,
+				columns:[{
+					text: '提出人',
+					dataIndex: 'mergeSubmitUserName'
+				},{
+					text: '提出日期',
+					width: 150,
+					dataIndex: 'mergeCreateDate'
+				},{
+					text: '标题',
+					dataIndex: 'mergeTitle',
+					flex: 1
+				}],
+				listeners:{
+		        	selectionchange:'onSelectionChange'
+				},
+				dockedItems: [{
+					xtype: 'toolbar',
+					cls: 'shadow',
+					dock: 'top',
+					items: [{
+						xtype: 'textfield',
+						width: 200,
+						labelWidth: 55,
+						itemId:'userName',
+						fieldLabel: '提出人'
+					},
+					{
+						xtype: 'textfield',
+						width: 200,
+						labelWidth: 45,
+						itemId:'title',
+						fieldLabel: '标题'
+					},{
+						xtype: 'button',
+						text: '搜索',
+						handler: 'search'
+					},{
+						xtype: 'button',
+						text: '重置',
+						handler: 'reset'
+					}]
+				},{
+					xtype: 'pagingtoolbar',
+					dock: 'bottom',
+					displayInfo: true,
+					store: mergeIssueStore
+				}]
+			},{
+				// 归档信息 窗口
+				xtype: 'form',
+				cls: 'shadow',
+				region: 'east',
+				width: '55%',
+				split: true,
+				scrollable: 'true',
+//				flex: 2,
+//				collapsible: true,
+				title: '问题信息',
+//				tools: [{
+//					xtype: 'button',
+//					text: '打印'
+//				}],
+				layout: {
+					type: 'vbox',
+					align: 'stretch'
+				},
+				defaults: {
+					margin: '10 10 5 10'
+				},
+				dockedItems: [{
+					xtype: 'toolbar',
+					dock: 'top',
+					items: [{
+						xtype: 'button',
+						width: 100,
+//						ui: 'normal',
+						text: '合并问题',
+						iconCls: 'x-fa fa-list-alt',
+						handler:'mergeIssue'
+					}]
+				}],
+				items: [{
+					xtype: 'container',
+					layout: {
+						type: 'hbox',
+						align: 'stretch'
+					},
+					items: [{
+						xtype: 'container',
+						layout: {
+							type: 'vbox',
+							align: 'stretch'
+						},
+						flex: 1,
+						defaults: {
+							labelWidth: 75,
+							margin: 2
+						},
+						items: [{
+					        xtype: 'hiddenfield',
+					        name: 'issueId'
+					    },{
+							xtype: 'textfield',
+							labelWidth: 75,
+							name:'mergeTitle',
+							fieldLabel: '标题'
+						},{
+							xtype: 'container',
+							layout: {
+								type: 'hbox'
+							},
+							defaults: {
+								flex: 1,
+								labelWidth: 75
+							},
+							items: [{
+								xtype: 'textfield',
+								margin: '0 5 0 0',
+								name:'mergeCreateDate',
+								fieldLabel: '提出日期'
+							},{
+								xtype: 'textfield',
+								name:'mergeSubmitUserName',
+								fieldLabel: '提出人'	
+							}]
+						}]
+					}]
+				},{
+					xtype: 'textarea',
+					labelWidth: 75,
+					height: 75,
+					name:'mergeDescription',
+					fieldLabel: '问题描述'
+				},{
+					xtype: 'textarea',
+					labelWidth: 75,
+					height: 75,
+					name:'mergeDisposalMeasures',
+					fieldLabel: '处理措施'
+				},{
+					xtype: 'textarea',
+					labelWidth: 75,
+					height: 75,
+					name:'mergeRootCause',
+					fieldLabel: '初步原因分析'
+				}]
+//				,
+//				dockedItems: [{
+//					xtype: 'toolbar',
+//					style: {
+//						'background-color': '#f2f2f2'
+//					},
+//					cls: 'shadow',
+//					dock: 'top',
+//					items: [{
+//						xtype: 'component',
+//						html: '归档信息',
+//					},
+//					'->',
+//					{
+//						xtype: 'button',
+//						text: '打印'
+//					}]
+//				}]
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

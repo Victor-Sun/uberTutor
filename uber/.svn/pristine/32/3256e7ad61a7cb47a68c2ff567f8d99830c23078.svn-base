@@ -1,0 +1,29 @@
+{
+  "name": "bryntum-scheduler-neptune",
+  "format": "1",
+  "version": "4.2.7",
+  "creator": "Bryntum",
+  "summary": "The Neptune theme for Ext Scheduler",
+  "detailedDescription": "The Neptune theme for Ext Scheduler",
+  "type": "code",
+  "signatures": [
+    {
+      "name": "Bryntum",
+      "uuid": "e7fd1d2f-e151-442d-a624-1c8bd50d9842",
+      "created": "2016-09-23T08:55:14Z",
+      "algorithm": "SHA1withRSA",
+      "nonce": "lrUOG7ftSqk\u003d",
+      "signature": "3E8x6Ym9jqGtJQwkXQCWJDHitK+jxiNeMOl0I/2uj6wTDJotVFKa4wxYHBWVuzcquXFyKgpEnVSzTiBg0OqjpNaZZnktwam1V7HKqnrHK2LL988YyBm22CDwsmtC2kiDIsZF2KPIL8s8krjkM3IYt7GfNlAMp1bPRHmLJA51CJ9VO7xgPElXEcOzMzuCoA7bbzKqPTecI8CbhBngsbTek2aNqBL9LfUeqxIBfB7SXPPX6VcKg2yN6/L7LArIrl0nMD9wy2ypy9K7VLdDY4MtX9WSGQfyzVgrCKrAdyozRZ/MQV++8hBAft8paY9qdQ4iYfWASn7osnxcyOdTi90XCQ\u003d\u003d"
+    }
+  ],
+  "css": [
+    {
+      "path": "resources/css/sch-neptune.css"
+    }
+  ],
+  "resources": [
+    "resources/images"
+  ],
+  "output": "${package.dir}/build",
+  "framework": "ext"
+}

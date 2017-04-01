@@ -1,0 +1,44 @@
+Ext.define('ExtApp.view.projectmanagement.templatelibrary.ProjectTemplate',{
+	extend:'Ext.form.Panel',
+	xtype:'projectTemplate',
+
+	initComponent: function() {
+		
+		this.items = [{
+			xtype: 'panel',
+			margin:'10',
+			layout:{
+				type:'hbox',
+				align:'stretch'
+			},
+			items:[{
+				xtype: 'textfield',
+				readOnly: true,
+				fieldLabel: '模板名称',
+				labelAlign: 'right',
+				name: 'name'
+			},{
+				xtype: 'textfield',
+				readOnly: true,
+				fieldLabel: '编号',
+				labelAlign: 'right',
+				name: 'code'
+			}]
+		},{
+			xtype: 'panel',
+			margin:'10',
+			layout:{
+				type:'hbox',
+				align:'stretch'
+			},
+			items:[{
+				xtype: 'textfield',
+				fieldLabel: '模板类型',
+				readOnly: true,
+				labelAlign: 'right',
+				name: 'programTypeName'
+			}]
+		}];
+		this.callParent(arguments);
+	}
+})

@@ -1,0 +1,99 @@
+Ext.define('ExtApp.view.projectManagement.issue.solveissue.Notes', {
+    extend: 'Ext.grid.Panel',
+    xtype: 'notes',
+    requires: [
+        'Ext.grid.Panel',
+        'Ext.toolbar.Paging',
+        'Ext.grid.column.Date',
+		'Ext.grid.plugin.RowExpander'
+    ],
+    controller: 'notes',
+    viewModel: {
+        type: 'notes'
+    },
+//    cls: 'shadow',
+//    margin: 10,
+//    title:'我的任务',
+    cls: 'allRecordsCls notes-grid',
+    scrollable: true,
+    border: false,
+//    bind: '{notes}',
+    viewConfig: {
+        preserveScrollOnRefresh: true,
+        stripeRows: false
+    },
+    appId:null,
+   /*  columns: [ //previous columns
+			{ xtype: 'rownumberer'},
+			{ text:'描述', flex: 1, dataIndex:'title'},
+			{ text:'节点', flex: 1, dataIndex:'stepId'},
+			{ text:'操作人', flex: 1, dataIndex:'author'},
+			{ text:'时间', flex: 1, dataIndex:'date'},
+			{ xtype:'actioncolumn',
+	            width:50,
+	            items: [{
+	            	iconCls:'x-fa fa-upload',
+	                tooltip: 'Detail',
+	                handler: function(grid, rowIndex, colIndex) {
+	                	 var rec = grid.getStore().getAt(rowIndex);
+//	                	 var creditLineChecklistId = rec.get('creditLineChecklistId');
+//	                	 Ext.create('AFC.view.application.da022.application.Da022DocumentWindow',{creditLineChecklistId:creditLineChecklistId}).show();
+	                }
+	            }]
+	        }
+		], */
+		
+		columns:[{
+			dataIndex:'title',
+			flex:1,
+			renderer:'renderTitleColumn'
+		}],  
+        viewConfig:{  
+            enableTextSelection:true  
+        },
+//		 stores:{
+//			 type:'notes'
+//		 },
+		
+		titleTpl:
+        '<div class="text-wrapper">'+
+			'<div class="notes-icon shadow forum">&nbsp;</div>'+
+            '<div class="notes-data">'+
+                '<div class="notes-content">'+
+					'<div class="notes-header">'+
+						'<span class="notes notes-author"><i class="fa fa-user"></i>{author}</span>'+
+						'<span class="notes notes-step"><i class="fa fa-map-marker"></i></span>'+
+					'</div>'+
+					'<div class="notes-header">'+
+						'<span class="notes notes-time"><i class="fa fa-calendar "></i>{date}&nbsp;</span>'+
+						//'<span class="notes notes-time"><i class="fa fa-clock"></i></span>'+
+					'</div>'+
+					'<div class="notes-paragraph" >'+
+						'<span>{paragraph}</span>'+
+					'</div>'+
+                '</div>'+
+            '</div>'+
+        '<div>',
+	/* <i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-user fa-stack-1x"></i> */	
+		
+//    dockedItems: [
+//    {
+//        xtype: 'pagingtoolbar',
+//        dock: 'bottom',
+//        displayInfo: true
+//    }
+//    ]
+        initComponent: function() {
+    		me = this;
+    		if (me.editPrivilege && me.issueId != null) {
+    			me.tbar = [{
+					xtype: 'button',
+					text: '汇报进度',
+					listeners: {
+						click: 'onButtonClickSubmit'
+					}
+				}];
+    		}
+    	    me.callParent(arguments);
+    	}
+});

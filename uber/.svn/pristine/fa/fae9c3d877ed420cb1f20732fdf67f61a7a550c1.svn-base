@@ -1,0 +1,24 @@
+/**
+ * 项目管理-性能目标
+ */
+Ext.define('ExtApp.view.projectManagement.objective.PerformanceObjective',{
+	extend:'Ext.panel.Panel',
+	xtype:'performanceObjective',
+	
+	items: [{
+		xtype:'panel',
+		bodyStyle: "background-color:#dfe8f6",
+		items:[{
+			xtype:'panel',
+			margin:'10 10 10 10',
+			height:400,
+			bodyStyle: "background-color:transparent;"
+		}]
+	}],
+	
+	tbar: [{
+		text: '导入'
+	},{
+		text: '导出'
+	}]
+});

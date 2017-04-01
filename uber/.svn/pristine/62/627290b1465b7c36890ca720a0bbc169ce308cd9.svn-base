@@ -1,0 +1,66 @@
+/**
+ * 质量问题管理-问题提交-问题来源选择窗口Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.SubmissWinController',{
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.submissWin',
+
+	confirm: function(btn) {
+    	var v_form = Ext.getCmp('idEmptyDashboard');
+    	var v_form2 = this.lookupReference('refsubmissWinForm').getForm();
+
+    	var v_form1 = Ext.create({
+    		xtype:'submission'
+    	});
+    	v_form.add(v_form1);
+    	var issueSourceValue = v_form2.findField('issueSourceId').getValue();
+    	v_form1.getForm().findField('submitUserName').setValue(Ext.ComponentQuery.query('#userNameItemId')[0].html);
+    	v_form1.getForm().findField('issueSourceId').setValue(issueSourceValue);
+    	var issueSourceStore = v_form1.getForm().findField('issueSourceId').getStore();
+    	issueSourceStore.getById(issueSourceValue);
+    	issueSourceStore.on('load',function() {
+    		var record = issueSourceStore.getById(issueSourceValue);   
+    		issueSourceCode = record.data.code;
+    		if(issueSourceCode == 'GEI'){//设计分析问题
+    			v_form1.getForm().findField('sampleNumber').setHidden(true);
+        		v_form1.getForm().findField('sampleNumber').allowBlank = true;
+        		v_form1.getForm().findField('occurrenceSite').setHidden(true);
+        		v_form1.getForm().findField('occurrenceSite').allowBlank = true;
+        		v_form1.getForm().findField('testTypeId').setHidden(true);
+        		v_form1.getForm().findField('testTypeId').allowBlank = true;
+        		v_form1.getForm().findField('testProgress').setHidden(true);
+        		v_form1.getForm().findField('testProgress').allowBlank = true;
+        		var percentSignsArray = Ext.ComponentQuery.query('#percentSigns');
+        		for(var i in percentSignsArray){
+        			percentSignsArray[i].setHidden(true);
+        		}
+        		v_form1.getForm().findField('troublePartMileage').setHidden(true);
+        		v_form1.getForm().findField('troublePartMileage').allowBlank = true;
+    		}else if(issueSourceCode == 'EEI' || issueSourceCode == 'FEI'){//整车试制问题
+        		v_form1.getForm().findField('testTypeId').setHidden(true);
+        		v_form1.getForm().findField('testTypeId').allowBlank = true;
+        		v_form1.getForm().findField('testProgress').setHidden(true);
+        		v_form1.getForm().findField('testProgress').allowBlank = true;
+        		var percentSignsArray = Ext.ComponentQuery.query('#percentSigns');
+        		for(var i in percentSignsArray){
+        			percentSignsArray[i].setHidden(true);
+        		}
+        		v_form1.getForm().findField('troublePartMileage').setHidden(true);
+        		v_form1.getForm().findField('troublePartMileage').allowBlank = true;
+    		}else if(issueSourceCode == 'HEI'){//售后市场问题 
+        		v_form1.getForm().findField('testTypeId').setHidden(true);
+        		v_form1.getForm().findField('testTypeId').allowBlank = true;
+        		v_form1.getForm().findField('testProgress').setHidden(true);
+        		var percentSignsArray = Ext.ComponentQuery.query('#percentSigns');
+        		for(var i in percentSignsArray){
+        			percentSignsArray[i].setHidden(true);
+        		}
+        		v_form1.getForm().findField('testProgress').allowBlank = true;
+    		}else{
+    			//全部显示 nothing todo;
+    		}
+    		
+		});
+		btn.up('submissWin').destroy();
+	}
+});

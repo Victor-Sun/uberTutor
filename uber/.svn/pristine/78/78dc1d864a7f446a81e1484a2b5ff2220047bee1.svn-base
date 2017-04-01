@@ -1,0 +1,110 @@
+/**
+ * 项目管理-时程表节点编辑
+ */
+Ext.define('ExtApp.view.projectmanagement.timeline.ProjectTimeLineEventController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.projectTimeLineEvent',
+    
+    // 初始化
+    init: function() {
+    	var form = this.view.down('form').getForm();
+    	// 主节点
+//    	if (this.view.model.get('TaskType') == 'TASK_TYPE_MAIN_NODE') {
+//    		form.findField('plannedStartDate').setHidden(true);
+//    		form.findField('plannedFinishDate').setHidden(true);
+//    		this.view.down('form').getComponent('panRelationTask').setHidden(true);
+//    		this.view.down('form').getComponent('panParentTask').setHidden(true);
+    	// 质量阀
+//    	} else if (this.view.model.get('TaskType') == 'TASK_TYPE_GATE') {
+    	if (this.view.model.get('TaskType') == 'TASK_TYPE_GATE') {
+//    		form.findField('plannedStartDate').setHidden(true);
+//    		form.findField('plannedFinishDate').setHidden(true);
+    		form.findField('titleDispLocation').setHidden(true);
+//    		this.view.down('form').getComponent('panRelationTask').setHidden(true);
+//    		this.view.down('form').getComponent('panParentTask').setHidden(true);
+//    	// 活动
+//    	} else if (this.view.model.get('TaskType') == 'TASK_TYPE_ACTIVITY') {
+//    		form.findField('date').setHidden(true);
+//    		form.findField('titleDispLocation').setHidden(true);
+//    		this.view.down('form').getComponent('panRelationTask').setHidden(true);
+//    		this.view.down('form').getComponent('panParentTask').setHidden(true);
+//    	// 节点任务
+//    	} else {
+//    		form.findField('plannedStartDate').setHidden(true);
+//    		form.findField('plannedFinishDate').setHidden(true);
+    	}
+    },
+    
+    // 保存
+    saveTask: function() {
+    	var me = this;
+        var form = this.view.down('form').getForm();
+        if (form.isValid()){
+        	me.view.mask('Please Waiting...');
+            form.submit({
+                clientValidation: true,
+                url: '/pdms/pm/project-time-line!editEvent.action',
+                params: {
+                	model: Ext.encode(form.getFieldValues())
+                },
+                scope: me,
+                success: function(form, action) {
+                	me.view.unmask();
+                	me.view.parentCaller.view.eventStore.reload();
+                	ExtApp.util.Util.showToast("修改成功！");
+                	me.closeWindow();
+                },
+                failure: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.handleFormFailure(action);
+                }
+            });
+        }
+    },
+    
+//    // 选择关联节点
+//    selectTaskNode: function() {
+//    	var me = this;
+//    	 Ext.create({
+//             xtype: 'deptPlanRefTask',
+//             programVehicleId: me.view.model.get('ProgramVehicleId'),
+//             relationFlag: true,
+//             parentCaller: me
+//         }).show();
+//    },
+//    
+//    // 选择关联节点-确定
+//    confirmRefTask: function(selModel) {
+//    	if (selModel.length == 0) {
+//    		return;
+//    	}
+//    	var form = this.view.down('form').getForm();
+//    	form.findField('relationTaskName').setValue(selModel[0].data.taskName);
+//    	form.findField('relationTaskId').setValue(selModel[0].data.id);
+//    },
+//    
+//    // 选择关联活动
+//    selectTaskActivity: function() {
+//    	var me = this;
+//        Ext.create({
+//            xtype: 'deptPlanRefActivity',
+//            obsId: me.view.model.get('ObsId'),
+//            parentCaller: me
+//        }).show();
+//    },
+//    
+//    // 选择关联活动-确定
+//    comfirmRefActivity: function(selModel) {
+//    	if (selModel.length == 0) {
+//    		return;
+//    	}
+//    	var form = this.view.down('form').getForm();
+//    	form.findField('parentTaskName').setValue(selModel[0].data.taskName);
+//    	form.findField('parentTaskId').setValue(selModel[0].data.id);
+//    },
+
+    // 关闭
+    closeWindow: function() {
+    	this.view.close();
+    }
+});

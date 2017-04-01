@@ -1,0 +1,45 @@
+Ext.define('ExtApp.view.workorder.WorkOrderWindow',{
+	extend:'Ext.window.Window',
+	xtype:'workOrderWindow',
+	width:Ext.getBody().getViewSize().width,
+	height:Ext.getBody().getViewSize().height,
+	// margin:'65 0 0 250',
+	title:'新建工联单',
+	scrollable:'y',
+	controller: 'workOrderForm',
+	layout:{
+		type:'border'
+	},	
+	appId:null,
+	record:null,
+	initComponent: function() {
+		var me = this;
+		var workOrderForm = Ext.create('ExtApp.view.workorder.WorkOrderForm',{region:'center'});
+    	me.items = [workOrderForm];
+		me.fbar=[
+	  				{ type:'button', text:'保存',
+	  					listeners: {
+	  						click: 'onButtonClickSave'
+	  					}},
+	  				{ type:'button', text:'提交',
+	  					listeners: {
+	  						click: 'onButtonClickSubmit'
+	  					}
+	  				}
+	  		];
+
+		me.fbar=[
+	  				{ type:'button', text:'保存',
+	  					listeners: {
+	  						click: 'onButtonClickSave'
+	  					}},
+	  				{ type:'button', text:'提交',
+	  					listeners: {
+	  						click: 'onButtonClickSubmit'
+	  					}
+	  				}
+	  		];
+    	me.callParent(arguments);
+ 		
+	}
+});

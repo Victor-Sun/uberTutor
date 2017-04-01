@@ -1,0 +1,7 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectObsUserModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.projectObsUser',
+
+    fields:['id', 'userId', 'userName', 'profileId', 'employeeNo', 'email', 'sysDepartmentName', 'mobile']
+
+});

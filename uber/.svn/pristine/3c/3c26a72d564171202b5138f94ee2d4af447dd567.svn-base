@@ -1,0 +1,61 @@
+/**
+ * 项目管理-项目列表View
+ */
+Ext.define('ExtApp.view.projectmanagement.extplan.ext201.StagePartProgressList',{
+	extend:'Ext.container.Container',
+	xtype:'stagePartProgressList',
+//	controller: 'projectList',
+//	viewModel: 'projectList',
+	margin:10,
+	cls:'shadow',
+	initComponent: function() {
+		var me = this;
+		var store = Ext.create('ExtApp.store.projectmanagement.extplan.ext201.StagePartProgressStore');
+		store.load({params:{stageId:me.stageId}});
+		this.items = [{
+			xtype:'panel',
+			title:'零件开发进度统计',
+			items:[{
+				xtype: 'grid',
+				reference: 'refProjectListGrid',
+				store: store,
+				columns: [{
+					xtype: 'rownumberer'
+				},{
+  					text: '部门',
+  					flex: 1,
+  					dataIndex: 'department'
+  				},{
+  					text: '完成比率%',
+  					flex: 1,
+  					format:'0.00',
+  					dataIndex: 'ratio'
+  				},{
+  					text: '总数量',
+  					flex: 1,
+  					dataIndex: 'total'
+  				},{
+  					text: '完成数量',
+  					flex: 1,
+  					dataIndex: 'completed'
+  				},{
+  					text: '最新更新日期',
+  					flex: 1,
+  					dataIndex: 'updateDates'
+  				}],
+	            dockedItems: [{
+                    xtype: 'pagingtoolbar',
+                    dock: 'bottom',
+                    displayInfo: true,
+                    store: store
+                }],
+                listeners: {
+                	itemclick:function (th,record,item,index,e,eOpts ) {
+                		me.partList.down('grid').getStore().load({params:{stageId:me.stageId,obsId:record.get('obsId')}});
+                	}
+                }
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

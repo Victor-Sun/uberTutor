@@ -1,0 +1,194 @@
+﻿/**
+ * 项目管理-基本信息-属性页面
+ */
+Ext.define('ExtApp.view.projectmanagement.base.BaseInfoCommon',{
+	extend:'Ext.form.Panel',
+	xtype:'baseInfoCommon',
+
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+
+	controller: 'baseInfoCommon',
+	viewModel: 'baseInfoCommon',
+	
+	initComponent: function() {
+		var me = this;
+		me.url = '/pdms/pm/project-base-info!getProjectBaseInfo.action';
+		if (me.baselineId && me.baselineId != '' && me.baselineId != null) {
+			me.url = '/pdms/pm/baseline!getProjectBaseInfo4Baseline.action';
+		}
+		
+		// 项目优先级
+		var priorityStore = Ext.create(
+			'ExtApp.store.common.CodeTableStore');
+		priorityStore.getProxy().extraParams = {type: 'PROGRAM_PRIORITY'};
+		priorityStore.load();
+		
+		// 开发状态
+		var devStore = Ext.create(
+			'ExtApp.store.common.CodeTableStore');
+		devStore.getProxy().extraParams = {type: 'DEV_STATUS'};
+		devStore.load();
+		
+		// 车型类型
+		var vtStore = Ext.create('ExtApp.store.projectmanagement.VehicleTypeStore');
+		vtStore.getProxy().extraParams = {programId: this.programId};
+		vtStore.load();
+		
+		// 车型平台
+		var vpStore = Ext.create('ExtApp.store.projectmanagement.VehiclePlatformStore');
+		vpStore.getProxy().extraParams = {programId: this.programId};
+		vpStore.load();
+		
+		// 根据项目类型决定字段名称
+		var fieldVTName = '车型类型';
+		var fieldVPName = '车型平台';
+		if (this.programType == 'DLZC') {
+			fieldVTName = '机型类型';
+			fieldVPName = '机型平台';
+		}
+		
+	    this.items = [{
+		    xtype: 'panel',
+		    margin:'0 10 10 0',
+		    layout: 'column',
+		    defaults: {
+		    	labelAlign: 'right',
+		    	margin:2
+		    },
+		    items: [{
+				xtype: 'textfield',
+				columnWidth:0.25,
+				fieldLabel: '项目编号',
+				name: 'code',
+				readOnly: true,
+				fieldCls: 'text-readonly'
+			},{
+				xtype: 'textfield',
+				columnWidth:0.25,
+				fieldLabel: '项目名称',
+				name: 'programName',
+				allowBlank: false,
+				maxLength: 100
+			},{
+				xtype: 'sysUserCombo',
+	        	columnWidth:0.25,
+				fieldLabel: '项目总监',
+			    name: 'directorName',
+			    idField: 'director',
+			    allowBlank: true
+			},{
+				xtype:'hiddenfield',
+				columnWidth:0,
+		        name: 'director'
+			},{
+				xtype: 'textfield',
+				columnWidth:0.25,
+				fieldLabel: '创建人',
+				name: 'createByName',
+				readOnly: true,
+				fieldCls: 'text-readonly'
+			},{
+				xtype: 'textfield',
+				columnWidth:0.25,
+				fieldLabel: '项目类型',
+				name: 'programTypeName',
+				readOnly: true,
+				fieldCls: 'text-readonly'
+			},{	
+				xtype: 'combobox',
+				columnWidth:0.25,
+				fieldLabel: fieldVTName,
+				store: vtStore,
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'id',
+			    name: 'vehicleType',
+			    editable: false
+			},{
+				xtype: 'combobox',
+				columnWidth:0.25,
+				fieldLabel: fieldVPName,
+				store: vpStore,
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'id',
+			    name: 'vehiclePlatform',
+			    editable: false
+			},{
+				xtype:'datefield',
+				columnWidth:0.25,
+				fieldLabel: '创建时间',
+				name: 'createDate',
+				format: 'Y/m/d',
+				readOnly: true,
+				fieldCls: 'text-readonly'
+			},{
+				xtype: 'combobox',
+				columnWidth:0.25,
+				fieldLabel: '开发状态',
+				store: devStore,
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'code',
+			    name: 'devStatusCode',
+			    editable: false
+			},{
+				xtype: 'combobox',
+				columnWidth:0.25,
+				fieldLabel: '开发类型',
+				bind: {
+		            store: '{devType}'
+		        },
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'id',
+			    name: 'devTypeId',
+			    editable: false
+			},{
+				xtype: 'textfield',
+				columnWidth:0.25,
+				fieldLabel: '级别',
+				name: 'programLevel',
+				maxLength: 50
+			},{
+				xtype: 'textfield',
+				columnWidth:0.25,
+				fieldLabel: '产品定位',
+				name: 'productPositioning',
+				maxLength: 1000
+			},{
+				xtype: 'combobox',
+				columnWidth:0.25,
+				fieldLabel: '生产单位',
+				bind: {
+		            store: '{manufactureComp}'
+		        },
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'id',
+			    name: 'ManufactureCompId',
+			    editable: false
+			},{
+				xtype:'checkbox',
+				columnWidth:0.75,
+				fieldLabel:'是否对外承接',
+				name:'isOutContract'
+			},{
+				xtype: 'textarea',
+				columnWidth:1,
+				fieldLabel: '备注',
+				name: 'programMemo',
+				maxLength: 2000
+			}]
+	    }];
+		this.callParent(arguments);
+		
+		this.load({
+			url: me.url,
+			params: {programId: me.programId, baselineId: me.baselineId}
+		});
+	}
+});

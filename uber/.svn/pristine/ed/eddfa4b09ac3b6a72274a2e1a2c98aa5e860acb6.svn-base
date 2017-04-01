@@ -1,0 +1,29 @@
+Ext.define('ExtApp.view.projectmanagement.extplan.ext201.ChecklistAllDocumets', {
+    extend: 'Ext.grid.Panel',
+    xtype: 'checklistAllDocumets',
+    requires: [
+        'Ext.selection.CellModel',
+        'Ext.grid.*',
+        'Ext.data.*',
+        'Ext.util.*',
+        'Ext.form.*'
+    ],
+//    controller: 'checklist',
+    appId:null,
+    title:'文档',
+    itemId:'checklistDocumentsItemId',
+    columns: [
+				{ xtype: 'rownumberer'},
+				{ text:'名称', flex: 1, dataIndex:'title'},
+				{ text:'上传人', flex: 1, dataIndex:'createBy'},
+				{ text:'上传时间', flex: 1, dataIndex:'createDate'}
+			],
+	    dockedItems: [
+	                  {
+	                      xtype: 'pagingtoolbar',
+	                      dock: 'bottom',
+	                      displayInfo: true
+	                  }
+	              ]
+
+});

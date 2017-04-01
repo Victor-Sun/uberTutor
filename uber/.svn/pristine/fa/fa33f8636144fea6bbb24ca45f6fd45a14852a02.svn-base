@@ -1,0 +1,83 @@
+/**
+ * 系统用户查询
+ */
+Ext.define('ExtApp.view.systemmanagement.User',{
+	extend:'Ext.panel.Panel',
+	xtype:'user',
+	
+	controller: 'user',
+	
+	layout:{
+		type: 'fit'
+	},
+	
+	initComponent: function() {
+		var me = this;
+		var useStore = Ext.create(
+			'ExtApp.store.common.SysUserStore');
+		useStore.getProxy().extraParams = {
+			departmentId: this.departmentId, includeSubDept: true
+		};
+		useStore.load();
+	
+		me.items = [{
+			xtype: 'grid',
+			store: useStore,
+	        selModel: {
+	        	type: 'spreadsheet',
+		        checkboxSelect: true,
+		        cellSelect: false,
+		        mode: 'SIMPLE'
+		    },
+			columns:[{
+				xtype: 'rownumberer'
+			},{
+				text:'员工编号',
+				flex: 1,
+				dataIndex:'code'
+			},{
+				text:'姓名',
+				flex: 1,
+				dataIndex:'name'
+			},{
+				text:'组织',
+				flex: 1,
+				dataIndex:'departmentName'
+			},{
+				text:'角色',
+				flex: 1,
+				dataIndex:'profileName'
+			}],
+			dockedItems: [
+		        {
+		            xtype: 'pagingtoolbar',
+		            dock: 'bottom',
+		            displayInfo: true,
+		            store: useStore
+		        }
+		    ],
+		    listeners:{
+            	itemdblclick: 'itemdblclick'
+			}
+		}];
+		me.tbar = ['->',{
+			xtype:'checkboxfield',
+			checked: true,
+			fieldLabel:'包含下级组织员工',
+			labelWidth: 120,
+			labelAlign: 'right',
+			labelSeparator: '',
+			listeners: {
+				change: 'onSelectionChange'
+			}
+		},{
+			text:'同步组织机构和用户',
+			iconCls: 'x-fa fa-download',
+			handler: 'syncOrgAndUserFromBim'
+		}];
+		if (! this.multiSelect) {
+			this.items[0].selModel = 'rowmodel';
+		}
+		this.callParent(arguments);
+	}
+});

@@ -1,0 +1,49 @@
+Ext.define('ExtApp.view.rolemanage.RoleMenus', {
+    extend: 'Ext.tree.Panel',
+    xtype: 'roleMenu',
+    // Checking propagates up and down
+    checkPropagation: 'both',
+    controller: 'roles',
+    rootVisible: false,
+    useArrows: true,
+//    frame: true,
+    height:'100%',
+    bufferedRenderer: false,
+    animate: true,
+    listeners: {
+        checkchange: function(node, checked) {
+        	node.expand();
+            // 对父节点处理
+        	this.setPnode(node, checked);
+             
+            // 如果父节点选中选中其子节点
+        	this.setCnode(node, checked);
+        }
+    },
+
+	setPnode:function (node, checked){
+		var me = this;
+	    if(node.parentNode){
+	        var flg = 0;
+	        node.parentNode.eachChild(function (child) {
+	            if(child.get('checked'))
+	                node.parentNode.set('checked', true);
+	            else
+	                flg++;
+	            if(flg == node.parentNode.childNodes.length)
+	                node.parentNode.set('checked', false);
+	        });
+	        me.setPnode(node.parentNode, checked);// 对父节点进行递归
+	    }
+	},
+ 
+// 处理子节点
+    setCnode:function (node, checked){
+    	var me = this;
+    	node.eachChild(function (child) {
+        child.set('checked', checked);
+        me.setCnode(child, checked);// 对子节点进行递归
+    });
+}
+   
+});

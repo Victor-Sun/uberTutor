@@ -1,0 +1,7 @@
+/**
+ * @class Sch.data.undoredo.Manager
+ * @deprecated This class is kept for backward compatibility and might be removed in future releases. Please use {@link Robo.Manager} instead.
+ */
+Ext.define('Sch.data.undoredo.Manager', {
+    extend : 'Robo.Manager'
+});

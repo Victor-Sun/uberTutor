@@ -1,0 +1,60 @@
+Ext.define('ExtApp.view.projectManagement.issue.raiseissue.AlertPanel', { //NOTE CREATE SCSS FILE FOR COMPONENT
+	extend:'Ext.panel.Panel', //container for notification
+	xtype:'alertpanel',
+	dock:'top',
+	height:100,
+	margin:20,
+	layout:{
+		type:'hbox',
+		align:'stretch'
+	},
+	border:true,
+	content:'',
+	initComponent: function() {
+		var me = this;
+    	me.items = [{
+    		xtype:'panel',
+    		layout:'fit',
+    		width:80,
+    		items:[{
+    			xtype:'panel',
+    			layout:'center',
+    			items:[{
+    				html:'<span class="alert-icon"><i style="font-style:initial; color:#FA9F1B;" class="fa fa-center fa-exclamation-triangle fa-3x"></i></span>'
+    			}] /*background-color:#e6fa1b;*/
+    		}]
+    		
+    	},{
+    		xtype:'panel',
+    		flex:1,
+    		layout:{
+    			type:'vbox',
+    			align:'stretch'
+    		},
+    		cls:'alert',
+    		defaults:{
+    			padding:'10 15'
+    		},
+    		items:[{
+    			xtype:'panel', // alert title
+    			height:50,
+    			html:'<div style="font-size:20px;" class="alert-title">提示:</div>' //style="background-color:#e6fa1b;
+    		},{
+    			xtype:'panel', // alert content
+    			flex:1,
+    			html:'<span class="alert-msg">'+me.content+'</span>' //style="background-color:#e6fa1b
+    		}]
+    		
+    		// html:'<div style="background-color:yellow">'+
+    		// 	''+
+    		// 	'<div style="display: inline-block;" class="alert-content">'+ // alert symbol container
+    		// 		''+ // alert title
+    		// 		''+ // alert message content
+    		// 	'</div>'+
+    		// '</div>',
+    	}];
+    	me.callParent(arguments);
+ 		
+	}
+	
+});

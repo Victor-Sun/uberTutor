@@ -1,0 +1,36 @@
+﻿/**
+ * 项目管理-项目模板-tree右键导入模板
+ */
+Ext.define('ExtApp.view.projectmanagement.templatelibrary.CreateProgramTemplate',{
+	extend:'Ext.window.Window',
+	xtype:'createProgramTemplate',
+
+	controller: 'createProgramTemplate',
+//	viewModel: 'createProgramTemplate',
+
+	closeAction:"hide",
+	width:400,
+	modal: true,
+	items:[{
+		xtype:'form',
+		reference: 'refProgramTemplateForm',
+		margin:'10',
+		items:[{
+			xtype: 'filefield',
+	        name: 'upload',
+			fieldLabel: '文件',
+			labelAlign: 'right',
+			msgTarget: 'side',
+		    allowBlank: false,
+			buttonText: '浏览'
+		}]
+	}],
+	buttons: [{
+		text: '上传',
+		handler: 'uploadFile'
+	},{
+		text: '取消',
+		handler: 'cancel'
+	}],
+	layout:"fit"
+});

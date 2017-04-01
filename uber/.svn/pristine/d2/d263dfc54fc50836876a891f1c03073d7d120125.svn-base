@@ -1,0 +1,239 @@
+/**
+ * 项目管理-项目计划-节点选择(车型所有节点)
+ */
+Ext.define('ExtApp.view.projectManagement.deptplan.DeptPlanRefTask',{
+	extend:'Ext.window.Window',
+	xtype:'deptPlanRefTask',
+	
+	controller: 'deptPlanRefTask',
+	
+    layout: 'fit',
+	
+    width: 900,
+    height: 600,
+    modal: true,
+    closable: false,
+    
+    title: '节点信息',
+    
+    initComponent: function() {
+    	var taskStore = Ext.create(
+			'ExtApp.store.projectmanagement.DeptPlanRefTaskStore');
+		taskStore.getProxy().extraParams = {
+			programVehicleId: this.programVehicleId,
+			obsId: this.obsId,
+			relationFlag: this.relationFlag
+		};
+		taskStore.load();
+		
+		// 负责主体
+		var respDeptStore = Ext.create('ExtApp.store.projectmanagement.RespDeptStore');
+		respDeptStore.getProxy().extraParams = {programVehicleId: this.programVehicleId};
+		respDeptStore.load();
+    	
+    	this.items = [{
+    		xtype:'grid',
+    		store: taskStore,
+    		selModel: {
+	        	type: 'spreadsheet',
+		        checkboxSelect: true,
+		        cellSelect: false,
+		        mode: 'SIMPLE'
+		    },
+	        columns: [{
+					xtype: 'rownumberer'  
+	        },{
+	            text: '节点名称',
+	            flex: 1,
+	            dataIndex: 'taskName'
+	        },{
+	            text: '截止时间',
+	            width: 100,
+	            dataIndex: 'plannedFinishDate',
+	            formatter: 'date("Y/m/d")'
+	        },{
+	        	text: '负责专业领域',
+	            flex: 1,
+	            dataIndex: 'functionGroupName'
+	        },{
+	        	text: '负责主体',
+	            flex: 1,
+	            dataIndex: 'obsName'
+	        },{
+	        	text: '所属阀门',
+	        	width: 100,
+	            dataIndex: 'respGateName'
+	        },{
+	        	text: '分类',
+	        	width: 100,
+	            dataIndex: 'planLevelName'
+	        }],
+	        listeners:{
+            	celldblclick: 'onCelldblclick'
+			},
+	        tbar: [{
+				xtype: 'form',
+		    	margin: 2,
+		    	layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				width: '100%',
+				items: [{
+					xtype: 'fieldset',
+					flex:1,
+			    	title: '<B>高级查询</B>',
+			    	titleAlign: 'right',
+			    	collapsible:true,
+			    	collapsed: true,
+			    	margin: 2,
+			    	layout: 'fit',
+			    	items: [{
+			    		xtype: 'panel',
+			    		layout: 'column',
+			    		defaults: {
+			    			defaults: {
+			    				labelAlign: 'right',
+				    			margin: 5
+			    			}
+			    		},
+			    		items: [{
+			    			xtype: 'panel',
+			    			columnWidth: 0.6,
+			    			layout:{
+								type:'hbox',
+								align:'stretch'
+							},
+							items: [{
+								xtype: 'displayfield',
+				    			value: '截止时间'
+							},{
+								xtype: 'datefield',
+								format: 'Y/m/d',
+								name: 'searchPFDateFrom'
+							},{
+								xtype: 'displayfield',
+				    			value: '~'
+							},{
+								xtype: 'datefield',
+								format: 'Y/m/d',
+								name: 'searchPFDateTo'
+							}]
+			    		},{
+			    			xtype: 'panel',
+			    			columnWidth: 0.4,
+			    			layout:{
+								type:'hbox',
+								align:'stretch'
+							},
+							items: [{
+								xtype: 'combobox',
+								flex: 1,
+								fieldLabel: '负责专业领域',
+								store: respDeptStore,
+							    queryMode: 'local',
+							    displayField: 'obsName',
+							    valueField: 'id',
+							    name: 'searchFnGroupId',
+							    value: me.obsId,
+							    forceSelection: true
+							}]
+			    		},{
+			    			xtype: 'panel',
+			    			columnWidth: 0.6,
+			    			layout:{
+								type:'hbox',
+								align:'stretch'
+							},
+							items: [{
+								xtype: 'displayfield',
+				    			value: '所属阀门'
+							},{
+								xtype: 'textfield',
+								name: 'searchGateName'
+							}]
+			    		},{
+			    			xtype: 'panel',
+			    			columnWidth: 0.4,
+			    			layout:{
+								type:'hbox',
+								align:'stretch'
+							},
+							items: [{
+								xtype: 'textfield',
+								flex: 1,
+								name: 'searchObsName',
+								fieldLabel: '负责主体'
+							}]
+			    		}]
+			    	}]
+				},{
+					xtype: 'panel',
+					margin: '10 2 2 2',
+		    		layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					defaults: {
+		    			labelAlign: 'right',
+		    			labelWidth: 80
+		    		},
+					items: [{
+						xtype: 'textfield',
+						name: 'searchTaskName',
+						fieldLabel: '节点名称'
+					},{
+						xtype:'checkbox',
+						name:'searchPlanLevel_1',
+						checked: true,
+						margin: '0 0 0 20',
+						labelWidth: 60,
+						labelSeparator: '',
+						fieldLabel:'主计划'
+					},{
+						xtype:'checkbox',
+						name:'searchPlanLevel_2',
+						checked: true,
+						margin: '0 0 0 10',
+						labelWidth: 60,
+						labelSeparator: '',
+						fieldLabel:'二级计划'
+					},{
+						xtype: 'button',
+						margin: '0 0 0 20',
+						text: '查询',
+						iconCls: 'x-fa fa-search',
+						handler: 'search'
+					},{
+						xtype: 'button',
+						margin: '0 0 0 5',
+						text: '重置',
+						iconCls: 'x-fa fa-rotate-left',
+						handler: 'reloadSearch'
+			    	}]
+				}]
+			}],
+			dockedItems: [{
+	  			xtype: 'pagingtoolbar',
+	  			dock: 'bottom',
+	  			displayInfo: true,
+	  			store: taskStore
+	  		}]
+    	}];
+    	this.tools = [{
+    		text:'确定',
+    		xtype: 'button',
+			iconCls: 'x-fa fa-circle-o',
+			handler: 'confirm'
+		},{
+			text:'关闭',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'cancel'
+    	}];
+    	if (! this.multiSelect) {
+			this.items[0].selModel = 'rowmodel';
+		}
+        this.callParent();
+    }
+});

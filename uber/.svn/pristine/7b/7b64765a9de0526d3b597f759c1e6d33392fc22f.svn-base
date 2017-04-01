@@ -1,0 +1,25 @@
+/**
+ * 个人管理-待办任务-工作联系单Controller
+ */
+Ext.define('ExtApp.view.myworkspace.TodoListConnController',{
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.todoListConn',
+
+    onClickCell: function(grid , td , cellIndex , record , tr , rowIndex , e , eOpts) {
+    	var rec = grid.getStore().getAt(cellIndex);
+    	var refPanel = Ext.getCmp('todoList');
+		for (var i = 0; i < refPanel.items.getCount(); i++) {
+			if (refPanel.items.get(i).title == rec.get('workName')) {
+				refPanel.setActiveTab(refPanel.items.get(i));
+				return;
+			}
+		}
+    	var newView = Ext.create({
+        	xtype: 'todoListConnMission'       	
+        });
+    	newView.setTitle(rec.get('workName'));
+    	refPanel.add(newView);
+    	refPanel.setActiveTab(newView);
+    }
+
+});

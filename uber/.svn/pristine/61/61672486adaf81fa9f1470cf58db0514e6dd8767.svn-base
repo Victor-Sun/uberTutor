@@ -1,0 +1,119 @@
+﻿/**
+ * 项目管理-基本信息-车型
+ */
+Ext.define('ExtApp.view.projectmanagement.base.ProjectBaseInfo02',{
+	extend:'Ext.panel.Panel',
+	xtype:'projectBaseInfo02',
+	
+	requires: [
+   		'ExtApp.view.projectmanagement.base.ProjectBaseInfo02Controller'
+   	],
+
+	controller: 'projectBaseInfo02',
+	
+	margin:20,
+	
+	initComponent: function() {
+		var vehicleStatusStore = Ext.create(
+			'ExtApp.store.common.CodeTableStore');
+		vehicleStatusStore.getProxy().extraParams = {type: 'VEHICLE_STATUS'};
+		vehicleStatusStore.load();
+		
+		var sopStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProgramVehicleStore');
+		sopStore.getProxy().extraParams = {
+			programId: this.programId,
+			judgePrivilege: true};
+		sopStore.load();
+		
+		// 根据项目类型决定字段名称
+		var fieldVCName = '车型编码';
+		var fieldVNName = '车型名称';
+		var fieldVQName = '质量经理';
+		if (this.programType == 'DLZC') {
+			fieldVCName = '整机编号';
+			fieldVNName = '配置状态';
+			fieldVQName = '专业经理';
+		}
+		
+	    this.items = [{
+	    	xtype:'fieldset',
+	    	title: '<B>车型</B>',
+	    	collapsible:true,
+	    	items:[{
+				xtype: 'panel',
+				minHeight: 180,
+				layout: 'fit',
+				items:[{
+					xtype: 'grid',
+					store: sopStore,
+					columns: [{
+				    	xtype: 'rownumberer'
+					},{
+				    	text: fieldVCName,
+				    	dataIndex: 'vehicleCode',
+				    	flex:2,
+				    	editor: {
+		                    allowBlank: false
+		                }
+				    },{
+				    	text: fieldVNName,
+				    	dataIndex: 'vehicleName',
+				    	flex:2,
+				    	editor: {
+		                    allowBlank: false
+		                }
+				    },{
+				    	text: '项目经理',
+				    	dataIndex: 'pmName',
+				    	flex:2
+				    },{
+				    	text: fieldVQName,
+				    	dataIndex: 'qmName',
+				    	flex:2
+				    },{
+				    	xtype: 'datecolumn',
+				    	text: 'SOP日期',
+				    	dataIndex: 'sopDate',
+				    	flex:1,
+				    	formatter: 'date("Y/m/d")'
+				    },{
+				    	xtype: 'datecolumn',
+				    	text: '整车SOP日期',
+				    	dataIndex: 'zcSopDate',
+				    	flex:1,
+				    	formatter: 'date("Y/m/d")',
+				    	hidden: this.programType != 'DLZC',
+				    	editor: {
+ 			                xtype: 'datefield',
+ 			                format: 'y/m/d'
+ 			            }
+				    },{
+				    	text: '计划状态',
+				    	dataIndex: 'planStatusName',
+				    	flex:1
+				    },{
+				    	xtype: 'actioncolumn',
+		                width: 30,
+		                sortable: false,
+		                menuDisabled: true,
+		                items: [{
+		                    iconCls: 'cell-editing-delete-row',
+		                    handler: 'deleteVehicle'
+		                }]
+					}],
+					tbar: [{
+		                text: 'Add',
+		                iconCls: 'icon-add',
+		                handler: 'addVehicle'
+		            }],
+		            listeners: {
+					    edit: 'onEdit',
+					    canceledit: 'onCanceledit'
+					}
+				}]
+	    	}]
+	    }];
+		this.callParent(arguments);
+	}
+});

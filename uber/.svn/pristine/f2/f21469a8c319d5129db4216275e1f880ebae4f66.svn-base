@@ -1,0 +1,70 @@
+/**
+ * 个人管理-已办任务-质量问题View
+ */
+Ext.define('ExtApp.view.myworkspace.DoneListQMS',{
+	extend:'Ext.panel.Panel',
+	xtype:'doneListQMS',
+	
+	controller: 'doneListQMS',
+	viewModel: 'doneListQMS',
+
+	margin:20,
+//	layout:'fit',
+	items:[{
+		xtype:'grid',
+		bind: '{doneListQMS}',
+		columns:[{
+			xtype: 'rownumberer'
+		},{
+			text:'任务名称',
+			dataIndex:'workName',
+			renderer: 'renderLink',
+			listeners: {
+				click: 'onClickCell'
+			}
+		},{
+			text:'任务类型',
+			dataIndex:'workType'
+		},{
+			text:'问题标题',
+			dataIndex:'title'
+		},{
+			text:'问题状态',
+			dataIndex:'state'
+		},{
+			text:'问题等级',
+			dataIndex:'grade'
+		},{
+			text:'所属项目',
+			dataIndex:'project'
+		},{
+			text:'等待时间(天)',
+			dataIndex:'waitTime',
+			filter: {
+				type: 'number'
+			}
+		},{
+			text:'截止日期',
+			dataIndex:'endDate',
+			filter: {
+				type: 'date'
+			}
+		},{
+			text:'办理时间',
+			dataIndex:'workDate',
+			filter: {
+				type: 'date'
+			}
+		}],
+		dockedItems: [
+		  	{
+		  		 xtype: 'pagingtoolbar',
+		  		 dock: 'bottom',
+		  		 displayInfo: true,
+		  		 bind: '{doneListQMS}'
+		  	}
+		 ]
+
+	}]
+
+});

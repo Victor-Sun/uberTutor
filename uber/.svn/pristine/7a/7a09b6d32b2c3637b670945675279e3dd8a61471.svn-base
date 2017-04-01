@@ -1,0 +1,12 @@
+Ext.define('ExtApp.model.dashboard.DashCommonProjectModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.dashCommonProject',
+    
+    fields: [
+             'id',
+             'code',
+             'programName',
+             'pmName'
+      ]
+
+});

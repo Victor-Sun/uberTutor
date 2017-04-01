@@ -1,0 +1,22 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectDocumentTreeStore', {
+    extend: 'Ext.data.TreeStore',
+    alias: 'store.projectDocumentTree',
+
+    fields: [
+             {name: 'id'},
+             {name: 'text'},
+             {name: 'type'},
+             {name: 'iconCls'},
+             {name: 'expanded', type: 'boolean'},
+             {name: 'leaf', type: 'boolean'}
+    ],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-document!getDocumentTree.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

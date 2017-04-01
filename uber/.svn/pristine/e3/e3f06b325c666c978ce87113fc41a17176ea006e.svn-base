@@ -1,0 +1,52 @@
+/**
+ * 质量问题管理-仪表盘-分类图-Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.QMSDashboardPolarController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.chartpolar',
+    
+    //初期加载
+    init: function() {
+    	// 项目管理一页纸报告中显示时，不重新加载Store
+    	if (this.view.isPmReport) {
+    		return;
+    	}
+        var chPolar = this.view;
+		
+		var store2 = Ext.create(
+				'ExtApp.store.qualityissuemanagement.QMSDashboardStore');
+		store2.load();
+
+		store2.on('load', function() {
+			chPolar.setStore(this);
+    		if (chPolar.legend != null) {
+                var storeLegend = chPolar.legend.getStore();
+    	        if (this.data.length != 0) {
+    	        	for (var i = 0; i < this.totalCount; i++) {
+    		        	if (this.getAt(i).get('data1') == '0') {
+    		        		if(storeLegend.getAt(i)){
+    		        			storeLegend.getAt(i).data.disabled = true;
+        		        		chPolar.series[0].setHiddenByIndex(i, true);
+    		        		}
+    		        	}
+    	        	}
+    	        }
+    	        chPolar.legend.refresh();
+    	        chPolar.redraw();
+    		}
+        });
+    },
+
+    onPreview: function () {
+        var chart = this.view;
+        chart.preview();
+    },
+
+    onDataRender: function (v) {
+        return v + '%';
+    },
+
+    onSeriesTooltipRender: function (tooltip, record, item) {
+        tooltip.setHtml(record.get('os') + ': ' + record.get('data1') + '%');
+    }
+});

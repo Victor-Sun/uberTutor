@@ -1,0 +1,29 @@
+Ext.define('ExtApp.view.systemmanagement.Qualityproblemsoriginmaintenance',{
+	extend:'Ext.container.Container',
+	xtype:'qualityproblemsoriginmaintenance',
+	
+	requires:[
+		'Ext.grid.Panel'
+	],
+	//layout:'responsivecolumn',	
+	margin:20,
+	items:[{
+		xtype:'panel',
+		layout:{
+			type:'vbox',
+			align:'stretch'
+		},
+		title:'质量问题来源维护',
+		items:[{
+			xtype:'panel',
+			bodyStyle: "background-color:#dfe8f6",
+			items:[{
+				xtype:'panel',
+				margin:'10 10 10 10',
+				height:400,
+				bodyStyle: "background-color:transparent;",
+				html:'<font size="4" color="#9d9d9d"><B>维护质量问题的来源。</B></font>'
+			}]
+		}]
+	}]
+});

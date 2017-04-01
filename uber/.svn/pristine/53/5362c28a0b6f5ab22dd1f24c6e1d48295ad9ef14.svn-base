@@ -1,0 +1,26 @@
+/**
+ * 质量问题管理-仪表盘-质量问题
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.QMSDashboardChart',{
+	extend:'Ext.panel.Panel',
+	xtype:'qmsdashboardchart',
+	
+	cls: 'shadow',
+	margin: 20,
+	height:500,
+    layout:{
+		type:'hbox',
+		align:'stretch'
+	},
+	
+	initComponent: function() {
+		this.items = [{
+        	xtype:'dashboardPolar',
+        	flex: 1
+	    },{    
+	    	xtype:'dashboardCartesian',
+	    	flex: 1
+	    }]
+		this.callParent(arguments);
+	}
+});

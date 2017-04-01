@@ -1,0 +1,241 @@
+﻿	/**
+ * 个人管理-待办任务-非质量问题关闭审核
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.step3.MyTaskInfo0301', {
+	extend:'Ext.form.Panel',
+	xtype:'myTaskInfo0301',
+
+	layout: {
+		type: 'border'
+	},
+	controller: 'myTaskInfo0301',
+	viewModel:'myTask',
+	header: false,
+	initComponent:function() {
+		var me = this;
+		// Copy to other forms
+		var issueMember = Ext.create('ExtApp.view.qualityissuemanagement.qedashboard.ForumMember',{sourceId:me.issueId});
+		var isMark = me.record.get('isMark')
+		var isHidden = true;
+		if(me.isMark == 'Y'){
+			isHidden = false;
+		}
+		this.items = [{
+			xtype:'tabpanel',
+			layout: 'fit',
+			region:'center',
+			defaults: {
+				scrollable: 'y'
+			},
+			margin:0,
+			items:[{// line1
+				xtype:'panel',
+				title:'问题信息',
+				layout:{
+					type:'vbox',
+					align: 'stretch'
+				},
+				items:[{
+					xtype:'issueBaseInfo02'
+				},{
+					xtype:'issueDetailInfo'
+				},{
+					xtype:'tabpanel',
+					layout: 'fit',
+					defaults: {
+						layout: {
+							type: 'vbox',
+							align: 'stretch'
+						},
+						scrollable: 'x'
+					},
+					activeTab: 1,
+					items:[{
+//						title:'问题描述',
+//						xtype:'issueDescription'
+//					},{
+						// 附件描述
+						xtype:'imsSubmitAttachment',
+						title:'描述附件',
+						margin: 0,
+						height:150,
+//						width:1000,
+						scrollable: 'y',
+						programId: null,
+			    		sourceType: 'SOURCE_TYPE_DES_ATTACHMENT',
+			    		sourceId: this.issueId,
+			    		editable:false
+					},{
+						xtype:'form',
+						title:'问题确认',
+						layout:{
+							type:'vbox',
+							align: 'stretch'
+						},
+						defaults: {
+							margin: 5,
+							layout:{
+								type:'vbox',
+								align: 'stretchmax'
+							},
+							defaults: {
+								margin: 5,
+								layout: {
+									type: 'hbox'
+								}
+							}
+						},
+						items:[{
+							xtype:'fieldset',
+							title: '<b>问题确认</b>',
+							items:[{
+								//line 2
+								xtype:'container',
+								layout:{
+									type:'hbox'
+								},
+								items:[{
+									xtype:'combo',
+//									labelAlign: 'top',
+									fieldLabel:'问题性质',
+									editable: false,
+									queryMode: 'local',
+								    displayField: 'name',
+								    valueField: 'id',
+									name:'issueNatureId',//Missing
+									readOnly:true,
+									allowBlank:false,
+									bind: {
+										store:'{issueNature}'
+									},
+									listeners: {
+										change: 'selcombo'
+									}
+								}]	
+							},{
+								// line1
+								xtype:'container',
+								layout:{
+									type:'hbox'
+								},
+								items:[{
+									xtype:'textareafield',
+//									labelAlign: 'top',
+									fieldLabel:'理由',
+									width: 845,
+									readOnly:true,
+									name:'isIssueReason'
+								},{
+									xtype:'datefield',
+									labelAlign: 'top',
+									editable: false,
+									fieldLabel:'再次确认时间',//问题性质是过程问题时显示，过程问题暂时不做
+									format:'Y/m/d',
+									hidden:true,
+									minValue: new Date(),
+									name:'reconfirmDate'
+								}]
+							},{
+								xtype: 'container',
+								items: [{
+									xtype: 'imsFileAttachment',
+									flex: 1,
+									margin: '5 5 5 0',
+									sourceType: 'SOURCE_TYPE_ISSUE_REASON_ATTACHMENT',
+						    		sourceId: me.issueId,
+						    		editable:false
+								}]
+								
+							}]
+						},{
+							xtype:'fieldset',
+							title: '<b>临时措施</b>',
+							items:[{
+								//line 2
+								xtype:'container',
+								layout:{
+									type:'hbox'
+								},
+								items:[{
+									xtype:'textareafield',
+									fieldLabel:'临时措施',
+									width: 845,
+									readOnly:true,
+									name:'tempAction'
+								}]	
+							}]
+						}]
+					}]
+				}]	
+			},{
+				//copy to other forms
+				xtype:'forum',
+				region:'center',
+				title:'协作',
+				sourceId:me.issueId,
+				source:'IMS-ISSUE',
+				forumMember:issueMember
+			},{
+				xtype:'mergedIssue',
+				title:'合并信息',
+				issueId: me.issueId
+//			},{
+//				xtype:'changeLog',
+//				title:'变更日志',
+//				issueId: me.issueId
+			},{
+				xtype:'historyForm',
+				title:'历史表单',
+				issueId: me.issueId
+			},{
+				xtype:'onePageReport',
+				title:'一页纸报告',
+				issueId:me.issueId,
+				height:this.height
+			}]
+		},{
+			xtype:'operationLog',
+			collapsible: true,
+			split: true,
+			region:'east',
+			width: '20%',
+			margin: 0,
+			title:'操作日志',
+			issueId: me.issueId
+		}];
+		me.dockedItems = [{
+			// 审核确认栏
+			xtype:'toolbar',
+			dock: 'bottom',
+			cls: 'shadow',
+			defaults: {
+				scale: 'medium'
+			},
+//			renderTo:document.body,
+			items:['->',{
+				text:'同意',
+				ui: 'blue',
+				itemId:'btnSubmit',
+				handler:'updSubmit'
+			},{
+				text:'不同意',
+				ui: 'blue',
+				itemId:'btnFallback',
+				handler:'fallback'
+			},{
+				text:'关注',
+				ui: 'blue',
+				itemId:'mark',
+				hidden:!isHidden,
+				handler:'mark'
+			},{
+				text:'取消关注',
+				ui: 'blue',
+				itemId:'cancelMark',
+				hidden:isHidden,
+				handler:'cancelMark'
+			}]
+		}];
+		this.callParent();
+	}
+});

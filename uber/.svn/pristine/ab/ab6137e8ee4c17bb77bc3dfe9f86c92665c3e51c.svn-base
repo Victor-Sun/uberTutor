@@ -1,0 +1,132 @@
+/**
+ * 项目管理-Window
+ */
+Ext.define('ExtApp.view.projectmanagement.ProjectWindow',{
+	extend:'Ext.window.Window',
+	xtype:'projectWindow',
+	
+	controller: 'projectWindow',
+	viewModel: 'projectWindow',
+	cls: 'project-window',
+	
+	closable: false,
+	maximized: true,
+	border: false,
+	
+	layout:{
+		type:'border'
+	},
+	
+	initComponent: function() {
+		var me = this;
+		// TreeStore
+		var useStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProjectTreeStore');
+		useStore.getProxy().extraParams = {programId: this.programId};
+		useStore.load();
+		
+		var menu = Ext.create({
+			xtype: 'menu',
+			maxHeight: 600
+		});
+		
+		var programStore = Ext.create('ExtApp.store.projectmanagement.ProjectListNoPagingStore');
+		programStore.load({
+		    scope: this,
+		    callback: function(records, operation, success) {
+			    	menu.add({
+		    			text: '<div>当前项目：<br>' + '<b>' + this.programCode + '</b></div>'
+		    		},
+		    		'-');
+		    	for(var i =0;i<records.length;i++){
+		    		menu.add(
+			    		{ 
+		                    text: records[i].get('code'),
+		                    iconCls: 'x-fa fa-file-o',
+		                    programId: records[i].get('id'),
+		        			programCode: records[i].get('code'),
+		        			programName: records[i].get('programName'),
+		                    listeners:{
+								click: 'onClickSubMenu'
+							}
+		                }
+		    		);
+		    	}  
+		    }
+		});
+		
+		me.items = [{
+//			margin:'2',
+			cls:'shadow',
+			region: 'west',
+		    width: 220,
+		    collapsible:'true',
+		    xtype: 'projectTree',
+		    cls: 'projectTree',
+		    store: useStore,
+		    listeners: {
+		    	itemclick: 'onItemClick',
+				beforeitemexpand:function(record,eOpts){  
+					useStore.getProxy().extraParams.type = record.data.type;
+					useStore.getProxy().extraParams.vehicleId = record.data.vehicleId;
+					useStore.getProxy().extraParams.idValue = record.data.idValue;
+					useStore.getProxy().extraParams.obsCanEdit = record.data.obsCanEdit;
+			    }  
+			}
+		},{
+//			margin:'2',
+			cls:'project-window-center shadow',
+			region: 'center',
+			xtype: 'panel',
+			reference: 'mainCardPanel',
+			layout: {
+				type: 'card'
+			}
+		}];
+
+		this.header = {
+			border: 0,
+			padding: 0,
+			height: 64,
+			cls: 'sencha-dash-dash-headerbar window-header',
+			items:[
+			{
+				xtype: 'component',
+				reference: 'senchaLogo',
+				cls: 'window-logo',
+				html: '<div class="main-logo" style="display: inline-block;"><img style="height:25px; margin: 0 2px 0 2px;" src="resources/images/company-logo2.png"><img style="width:150px; margin: 0 2px 0 2px; display:inline-block;" src="resources/images/company-text3.png"></div>',
+				width: 200
+			},
+			{
+				xtype: 'component',
+				cls: 'header-seperate',
+				html: '<div style="color: #fff; font-size: 20px;">|</div>'
+			},
+			{
+	            xtype:'button',
+	            arrowVisible: false,
+	            ui: 'window-header',
+//	            style: {
+//	            	'color': '#fff'
+//	            },
+	            iconCls: 'x-fa fa-arrow-circle-down',
+	            iconAlign: 'right',
+	            menuAlign: 'b',
+	            menu: menu,
+	            text:'<div><b><span style="font-size: 20px;">' + this.programCode + '</span></b>' +  '<span style="font-size: 17px;">' + ' &lt; ' + this.programName + ' &gt;' + '</span>' +'</div>'
+			}],
+			itemPosition: 0
+	    };
+	    
+	    this.tools = [{
+	    	text:'返回主页',
+			ui: 'window-header',
+//			padding: 5,
+	    	xtype: 'button',
+	    	iconCls: 'x-fa fa-home',
+	    	handler: 'closeWindow'
+	    }];
+		
+		this.callParent();
+	}
+});

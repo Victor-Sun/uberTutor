@@ -1,0 +1,62 @@
+/**
+ * 个人管理-待办任务-工作联系单
+ */
+Ext.define('ExtApp.view.myworkspace.TodoListWorkOrder',{
+	extend:'Ext.tab.Panel',
+	xtype:'todoListWorkOrder',
+	controller: 'todoListWorkOrder',
+	title:'工作联系单',
+	layout:'fit',
+	initComponent: function() {
+		var me = this;
+		// 进展状态List
+		var todoListWorkOrderStore = Ext.create('ExtApp.store.myworkspace.TodoListWorkOrderStore');
+		todoListWorkOrderStore.load();
+		todoListWorkOrderStore.on('load',function() {
+			me.setTitle('工作联系单<font color="red"><b>（' + todoListWorkOrderStore.getTotalCount() + '）</b></font>');   
+		});
+		
+		this.items = [{
+			title: '列表',
+			xtype: 'grid',
+			reference: 'refTodoListOpenIssueGrid',
+			selModel: 'checkboxmodel',
+			store: todoListWorkOrderStore,
+			columns:[{
+				xtype: 'rownumberer'
+			},{
+				text:'任务名称',
+				dataIndex:'title',
+				flex: 1
+			},{
+				text:'状态',
+				dataIndex:'processStatus',
+				flex: 1
+			},{
+				text:'当前节点',
+				dataIndex:'stepName',
+				flex: 1
+			},{
+				text:'任务负责人',
+				dataIndex:'taskOwnerName', 
+				flex: 1
+			}],
+			tbar:['->',{
+				text: '移交',
+				iconCls: 'fa fa-share',
+				handler: 'transferTask'
+			}],
+			dockedItems: [{
+			     xtype: 'pagingtoolbar',
+			     dock: 'bottom',
+			     displayInfo: true,
+			     store: todoListWorkOrderStore
+			}],
+			listeners:{
+				itemdblclick: 'itemdblclick'
+			}
+		}];
+		this.callParent();
+	}
+});
+

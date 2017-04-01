@@ -1,0 +1,74 @@
+/**
+ * 试验类型 Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.testtype.TestTypeController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.testType',
+    newTestType: function(button, e, options){
+    	var grid = button.up('grid');
+    	Ext.create("ExtApp.view.qualityissuemanagement.testtype.TestTypeWindow",{grid:grid}).show();
+    },
+    closeWindow:function(button, e, options){
+    	button.up('window').close();
+    },   
+    onButtonClickSubmit: function(button, e, options){
+        var me = this;
+        if (me.lookupReference('testTypeForm').isValid()){
+        	me.doSubmit();
+        }
+    },
+    doSubmit: function() {
+    	var me = this;
+        form = me.lookupReference('testTypeForm');
+		me.getView().mask('Saving... Please wait...');
+		form.submit({
+			clientValidation: true,
+		    url: '/pdms/testtype/test-type!save.action',
+		    scope: me,
+		    success: 'onSubmitSuccess',
+		    failure: 'onSubmitFailure'
+		});
+    },
+    onSubmitFailure: function(form, action) {
+        this.getView().unmask();
+        ExtApp.util.Util.handleFormFailure(action);
+    },
+    onSubmitSuccess: function(form, action) {
+    	var me = this;
+    	var view = this.getView();
+        view.unmask();    
+        var win = form.owner.up('window');
+        var grid = win.grid;
+        win.close();
+        grid.getStore().load();
+    },
+    // 行删除
+    deleteRow: function(grid, rowIndex) {
+    	var me = this;
+    	var record = grid.getStore().getAt(rowIndex);
+    	Ext.MessageBox.confirm('提示', '您确定要删除该条记录吗?', function(btn) {
+    		// 提示信息点击【YES】则删除
+    		if (btn == 'yes') {
+    	    	Ext.Ajax.request({
+    	    		url:'/pdms/testtype/test-type!delete.action',
+    	    		params: {
+    	    			id: record.data.id
+    				},
+    				scope: me,
+    				success: function(response, opts) {
+    					var obj = Ext.decode(response.responseText);
+    					if (obj.success) {
+    						grid.getStore().reload();
+        			    	ExtApp.util.Util.showToast("删除成功！");
+    			        } else {
+    			        	ExtApp.util.Util.handleRequestFailure(response);
+    			        }
+    			    },
+    				failure: function(response, opts) {
+    			    	ExtApp.util.Util.handleRequestFailure(response);
+    			    }
+    	    	})
+    		}
+    	});
+    }
+});

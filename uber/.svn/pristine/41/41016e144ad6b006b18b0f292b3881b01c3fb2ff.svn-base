@@ -1,0 +1,245 @@
+Ext.define('ExtApp.view.scheduler.PanelController', {
+    extend : 'Ext.app.ViewController',
+    alias : 'controller.scheduler-panel',
+    
+    // 双击专业领域/专业组名称
+    onDblclickName: function(treeView, td, rowIndex, cellIndex, e, record, tr, eOpts) {
+    	// 如果没有编辑权限，则退出
+    	if (! this.view.editPrivilege) {
+    		return;
+    	}
+    	// 质量阀以及专业领域不允许修改
+    	if (record.get('Type') == 'M' || record.get('Type') == 'G') {
+    		return;
+    	}
+    	// 二级计划中不允许修改主计划泳道信息
+    	if (this.view.planLevel == '2' && record.get('PlanLevel') == '1') {
+    		ExtApp.util.Util.showErrorMsg('不允许在二级计划中更改主计划泳道信息！');
+    		return;
+    	}
+        var me = this;
+        // 显示编辑页面
+        Ext.create({
+            xtype: 'projectTimeLineResource',
+            model: record,
+            title: record.get('Name'),
+            parentCaller: me
+        }).show();
+	},
+    
+    //Click handler on tasks. Add editor here. 
+    // 单击画面元素
+    onEventClick : function (scheduler, eventRecord, e, eOpts) {
+    	var me = this;
+    	// 如果没有编辑权限，则退出
+    	if (! this.view.editPrivilege) {
+    		return;
+    	}
+    	var model = eventRecord;
+        var milestone = Ext.fly(e.getTarget()).up('.task-milestone');
+        if (milestone) {
+            var id = milestone.getAttribute('data-id');
+            model = eventRecord.MileStones().getByInternalId(id);
+        }
+        // 主节点、质量阀、任务节点、活动以外的右键无效
+        if (! model.get('TaskType')) {
+        	return;
+        }
+        // 主节点、质量阀
+        if (model.get('TaskType') == 'TASK_TYPE_MAIN_NODE' ||
+				model.get('TaskType') == 'TASK_TYPE_GATE') {
+        	// 如果是二级计划中则不允许修改
+        	if (this.view.planLevel == '2') {
+        		ExtApp.util.Util.showErrorMsg('不允许在二级计划中更改主计划节点信息！');
+    			return;
+        	}
+            // 显示编辑页面
+            Ext.create({
+                xtype: 'projectTimeLineEvent',
+                model: model,
+                title: model.get('Name'),
+                parentCaller: me
+            }).show();
+        } else {
+        	var editPrivilege4Dept = me.view.editPrivilege &&
+        					! (me.view.planLevel == '2' && model.get('PlanLevel') != '2');
+        	Ext.create({
+        		xtype: 'deptPlanTaskDetail',
+        		programId: model.get("ProgramId"),
+        		programVehicleId: model.get("ProgramVehicleId"),
+        		obsId: me.view.fnGroupId,
+        		functionId: model.get('ResourceId'),
+        		taskId: model.get("TaskId"),
+        		taskTypeCode: model.get('TaskType'),
+        		editPrivilege: editPrivilege4Dept,
+        		actionType: 'update',
+        		parentCaller: me
+        	}).show();
+        }
+    },
+    
+    // 刷新
+    refreshView: function() {
+    	this.view.eventStore.reload();
+    },
+    
+    // 拖动画面元素
+    onEventdrop: function(scheduler, records, isCopy, eOpts) {
+    	var record = records[0];
+    	if (records.length > 1) {
+    		record = records[1];
+    	}
+    	var me = this;
+    	me.view.mask('Please Waiting...');
+    	// mileStonesModel做成
+    	var mileStonesModel = [];
+    	for (var i = 0; i < record._MileStones.data.length; i++) {
+    		mileStonesModel.push(record._MileStones.data.getAt(i).data);
+    	}
+    	Ext.Ajax.request({
+    		url: '/pdms/pm/project-time-line!dragDropEvent.action',
+    		params: {
+    			model: Ext.encode(record.data),
+    			mileStonesModel: Ext.encode(mileStonesModel)
+			},
+			scope: me,
+			success: function(response, opts) {
+				me.view.unmask();
+				var obj = Ext.decode(response.responseText);
+		        if (obj.success) {
+		        } else {
+		        	me.refreshView();
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+				me.view.unmask();
+				me.refreshView();
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	});
+    },
+
+    // 活动起始时间变更
+    onResizeEnd : function (scheduler, record) {
+        var milestones      = record.MileStones(),
+            start           = record.getStartDate(),
+            end             = record.getEndDate(),
+            invalidMileStones = [],
+        	me = this;
+        milestones.each(function (milestone) {
+            var date = milestone.get('Date');
+            if (!(start <= date && date <= end)) {
+                invalidMileStones.push(milestone);
+            }
+        }, this);
+        milestones.remove(invalidMileStones);
+        invalidMileStones.length > 0 && record.setMileStoneChange();
+        
+        if (invalidMileStones.length > 0) {
+        	ExtApp.util.Util.showErrorMsg('不允许超出所关联节点的时间范围！');
+        	me.refreshView();
+        	return;
+        }
+        
+        // DB提交处理
+        var me = this;
+    	me.view.mask('Please Waiting...');
+    	// mileStonesModel做成
+    	var mileStonesModel = [];
+    	for (var i = 0; i < milestones.data.items.length; i++) {
+    		mileStonesModel.push(milestones.data.items[i].data);
+    	}
+    	// mileStonesModel做成
+    	var invalidMileStonesModel = [];
+    	for (var i = 0; i < invalidMileStones.length; i++) {
+    		invalidMileStonesModel.push(invalidMileStones[i].data);
+    	}
+    	Ext.Ajax.request({
+    		url: '/pdms/pm/project-time-line!dragDropActivityEvent.action',
+    		params: {
+    			model: Ext.encode(record.data),
+    			mileStonesModel: Ext.encode(mileStonesModel),
+    			invalidMileStonesModel: Ext.encode(invalidMileStonesModel)
+			},
+			scope: me,
+			success: function(response, opts) {
+				me.view.unmask();
+				var obj = Ext.decode(response.responseText);
+		        if (obj.success) {
+		        } else {
+		        	me.refreshView();
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+				me.view.unmask();
+				me.refreshView();
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	});
+    },
+
+    // 单击空白处
+    onBlockRightClick : function (view, clickedDate, rowIndex, resource, e, eOpts) {
+        e.stopEvent();
+
+        this.getView().showContextMenu(e.getXY(), {
+            model       : resource,
+            blockClick  : true,
+            date        : clickedDate
+        });
+    },
+    
+    // 右键Menu点击AddItem
+    onAddItemClick : function (menuItem) {
+        var context = menuItem.up('menu').context;
+    },
+    
+    // 右键Menu点击DeleteItem
+    onDeleteItemClick: function(menuItem) {
+    	var context = menuItem.up('menu').context;
+    },
+    
+    //Right click handler on tasks.
+    // 右键点击画面元素
+    onEventRightClick : function (view, eventRecord, e, eOpts) {
+        e.stopEvent();
+
+        var model = eventRecord;
+        var milestone = Ext.fly(e.getTarget()).up('.task-milestone');
+        if (milestone) {
+            var id = milestone.getAttribute('data-id');
+            model = eventRecord.MileStones().getByInternalId(id);
+        }
+
+        this.getView().showContextMenu(e.getXY(), {
+        	model       : model,
+            eventClick  : true,
+            date        : view.getDateFromDomEvent(e)
+        });
+    },
+    
+    //Update tooltip. This is an override of the inner handling. 
+    // 显示Tooltip
+    onBeforeShowTooltip : function (tip) {
+        var id = tip.triggerElement.getAttribute('data-id');
+
+        if (!id)
+            return;
+
+        var record = this.getEventStore().getModelByInternalId(id),
+            dataForTip = this.getDataForTooltipTpl(record, tip.triggerElement),
+            tooltipString;
+
+        if (!dataForTip) return false;
+
+        tooltipString = this.tooltipTpl.apply(dataForTip);
+
+        if (!tooltipString) return false;
+
+        tip.update(tooltipString);
+
+        return true;
+    }
+});

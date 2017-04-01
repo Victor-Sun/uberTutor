@@ -1,0 +1,81 @@
+/**
+ * 项目管理-专项计划新增
+ */
+Ext.define('ExtApp.view.projectManagement.extplan.ext202.Ext202Form',{
+	extend:'Ext.window.Window',
+	xtype:'ext202Form',
+	overflowY :'auto',
+//	controller: 'extendedProject',
+    width: 600,
+    height: 400,
+    title: '专项计划表单',
+//    controller: 'extendedProject',
+	fbar:[
+			{ type:'button', text:'保存',
+				listeners: {
+					click: 'saveExtendedProject'
+				}
+			}
+	],
+    initComponent: function() {
+    	var me = this;
+    	var form = Ext.create('Ext.form.Panel', {
+    		reference: 'extendedProjectForm',
+    		layout:{
+    			type:'vbox',
+    			align:'stretch'
+    		},
+    		defaults: {
+    			labelAlign: 'top',
+    			margin:'1 20'
+    		}
+    	});
+    	Ext.Ajax.request({
+	   	 	 url: '/pdms/pm/ext202item!getExt202FormFields.action',
+	   	 	 params: {
+	   	 		extProjectId: me.projectId
+	   	 	 },
+	   	 	 scope: me,
+	   	 	 success: function(response, opts) {
+	   	     	Ext.getBody().unmask();
+	   	    	var obj = Ext.decode(response.responseText);
+	   	        if (obj.success) {
+	   	        	for(var i=0;i<obj.fields.length;i++){
+	   	        		if('datefield' == obj.fields[i].fieldType){
+	   	        			form.add({
+			   	 				xtype: obj.fields[i].fieldType,
+			   					name:  obj.fields[i].fieldName,
+			   					width: 220,
+			   					fieldLabel: obj.fields[i].displayName,
+			   					format:'Y-m-d h:i:s',
+			   					labelAlign: 'top',
+			   					margin:'1 20'
+			   				})
+	   	        		}else{
+	   	        			form.add({
+			   	 				xtype: obj.fields[i].fieldType,
+			   					name:  obj.fields[i].fieldName,
+			   					width: 220,
+			   					fieldLabel: obj.fields[i].displayName,
+			   					labelAlign: 'top',
+			   					margin:'1 20'
+			   				})
+	   	        		}
+	   	        		
+	   	        	}
+	   	        	form.loadRecord(me.record);
+	   	        } else {
+	   	        	ExtApp.util.Util.handleRequestFailure(response);
+	   	        }
+	   	    },
+		    failure: function(response, opts) {
+		        Ext.getBody().unmask();
+		        ExtApp.util.Util.handleRequestFailure(response);
+		    }
+	  });
+    	
+    	
+    	me.items = [form]; 
+        this.callParent();
+    }
+});

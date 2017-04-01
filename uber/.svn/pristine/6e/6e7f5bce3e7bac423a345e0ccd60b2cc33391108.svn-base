@@ -1,0 +1,16 @@
+/**
+ * 个人管理-待办任务-工作联系单Store
+ */
+Ext.define('ExtApp.store.myworkspace.TodoListConnStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.todoListConn',
+
+    fields: ['workName', 'endDate', 'sendName', 'projectId', 'department'],
+
+    data : [
+        {workName: '完成XX交付物',   endDate: '2016/2/3', sendName: '王三', projectId: 'XM2016001', department: 'G1'},
+        {workName: '分配任务责任人 ',   endDate: '2016/2/4', sendName: '王三', projectId: 'XM2016002', department: 'G2'},
+        {workName: '审批XX交付物 ',   endDate: '2016/2/9',  sendName: '王三', projectId: 'XM2016003', department: 'G3'}
+    ]
+
+});

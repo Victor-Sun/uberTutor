@@ -1,0 +1,40 @@
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.common.IssueDescription', {
+	extend:'Ext.form.Panel',
+	xtype:'issueDescription',
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+	defaults: {
+		margin: 5
+	},
+	initComponent:function() {
+		this.items = [{
+			xtype:'panel',
+			layout:{
+				type:'vbox'
+			},
+			items:[{// line6
+//				xtype:'textareafield',
+//				fieldLabel:'问题描述',
+//				margin:'0 0 10 0',
+//				width:845,
+//				readOnly:true,
+//				name:'description'
+			},{// line7
+				xtype:'textareafield',
+				fieldLabel:'处置措施',
+				width:845,
+				readOnly:true,
+				name:'disposalMeasures'
+			},{// line8
+				xtype:'textareafield',
+				fieldLabel:'初步原因分析',
+				width:845,
+				readOnly:true,
+				name:'firstCauseAnalysis'
+			}]
+		}]
+	this.callParent();
+	}
+});

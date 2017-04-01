@@ -1,0 +1,16 @@
+Ext.define('ExtApp.store.projectmanagement.ProgramTypeStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.programType',
+
+    fields: ['id', 'name'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-base-info!getProgramTypeList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

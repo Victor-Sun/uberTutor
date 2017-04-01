@@ -1,0 +1,11 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectTemplateMainNodeModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.projectTemplateMainNode',
+
+    fields: [
+        'id',
+	    'taskName',
+	    'finishDaysToSop'
+    ]
+
+});

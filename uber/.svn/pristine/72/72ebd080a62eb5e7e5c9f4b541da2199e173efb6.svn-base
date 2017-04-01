@@ -1,0 +1,58 @@
+Ext.define('ExtApp.view.deptworkspace.report.DeptOpenIssueBarChart',{
+	xtype:'deptOpenIssueBarChart',
+	extend:'Ext.Panel',
+	controller: 'deptOpenIssueBarChart',
+	title:'部门项目Open Issue完成情况',
+	width: '100%',
+	initComponent: function() {
+		var me = this;
+		var deptOpenIssueBarStore = Ext.create('ExtApp.store.deptworkspace.DeptOpenIssueBarStore');
+		deptOpenIssueBarStore.load();
+		me.items = [{
+	        xtype: 'cartesian',
+	        reference: 'chart',
+	        width: '100%',
+	        height: 250,
+	        legend: {
+	            docked: 'bottom'
+	        },
+	        store: deptOpenIssueBarStore,
+	        insetPadding: 40,
+	        flipXY: true,
+	        axes: [{
+	            type: 'numeric',
+	            position: 'bottom',
+	            adjustByMajorUnit: true,
+	            fields: 'data1',
+	            grid: true,
+	            renderer: 'onAxisLabelRender',
+	            minimum: 0
+	        }, {
+	            type: 'category',
+	            position: 'left',
+	            fields: 'program',
+	            grid: true
+	        }],
+	        series: [{
+	            type: 'bar',
+	            axis: 'bottom',
+	            title: [ '正在跟进','已经关闭'],
+//	            colors:['red','yellow','white','green'],
+	            xField: 'program',
+	            yField: [ 'data1','data2'],
+	            stacked: true,
+	            style: {
+	                opacity: 0.80
+	            },
+	//	            highlight: {
+	//	                fillStyle: 'yellow'
+	//	            },
+	            tooltip: {
+	                trackMouse: true,
+	                renderer: 'onSeriesTooltipRender'
+	            }
+	        }]
+	    }];
+		me.callParent(arguments);
+	}
+});

@@ -1,0 +1,42 @@
+/**
+ * 质量问题管理-我的待办-问题发布-合并查询条件窗口Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.MyTaskInfo01ListingWindowController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.myTaskInfo01ListingWindow',
+
+	// 点击【确认】
+    confirm: function(btn) {
+    	var me = this;
+    	var form = this.view.down('form').getForm();
+
+    	if (form.isValid()){
+        	me.view.mask('Please Waiting...');
+            form.submit({
+                clientValidation: true,
+                url: '/pdms/ims/listing-area!listIssue.action',
+                params: {
+                	issueId: me.view.issueId,
+                	model: Ext.encode(form.getFieldValues())
+                },
+                scope: me,
+                success: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.showToast("挂牌成功！");
+                	me.view.close();
+                	me.cancel();
+                },
+                failure: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.handleFormFailure(action);
+                }
+            });
+        }
+    },
+    
+	// 点击【取消】
+    cancel: function(btn) {
+    	this.view.close();
+    }
+
+});

@@ -1,0 +1,13 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectExtensionPlanColumnDefModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.projectExtensionPlanColumnDef',
+    
+    fields: [
+             {name: 'columnIdx', type: 'number', defaultValue: 1},
+             {name: 'columnTitle'},
+             {name: 'columnTypeCode'},
+             {name: 'columnWidth', type: 'number', defaultValue: 200},
+             {name: 'isDisplayOnList', type: 'boolean', defaultValue: true}
+     ]
+
+});

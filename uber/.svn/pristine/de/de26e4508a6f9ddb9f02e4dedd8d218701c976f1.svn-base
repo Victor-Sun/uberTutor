@@ -1,0 +1,76 @@
+/**
+ * 责任人查询
+ */
+Ext.define('ExtApp.view.common.obsuser.ObsDepartment',{
+	extend:'Ext.window.Window',
+	xtype:'obsDepartment',
+	
+	modal: true,
+	closable: false,
+	
+	layout:{
+		type:'fit'
+	},
+	
+	width: 800,
+	height: 500,
+	
+	title: '责任人查询',
+	
+	controller:'obsDepartment',
+	
+	initComponent: function() {
+		var obsStore = Ext.create('ExtApp.store.common.ObsDepartmentStore');
+		obsStore.getProxy().extraParams = {
+			programId: this.programId, vehicleId: this.vehicleId, rootObsId: this.rootObsId};
+		obsStore.load();
+	
+		this.items = [{
+			xtype:'panel',
+			margin:20,
+			layout:{
+				type:'hbox',
+				align:'stretch'
+			},
+			items:[{
+				xtype:'panel',
+				flex:1,
+				margin:5,
+				cls:'shadow',
+				layout:{
+					type: 'fit'
+				},
+				items:[{
+					xtype:'treepanel',
+					scrollable:'y',
+					rootVisible: false,
+                    store:obsStore,
+					listeners:{
+						selectionchange: 'onSelectionchange'
+					}
+				}]
+			},{
+				xtype:'panel',
+				margin:5,
+				cls:'shadow',
+				flex:2,
+				reference: 'mainCardPanel',
+				layout: {
+					type: 'card'
+				}
+			}]
+		}];
+		this.tools = [{
+			text:'确定',
+			xtype: 'button',
+			iconCls: 'x-fa fa-circle-o',
+			handler: 'confirm'
+		},{
+			text:'关闭',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'cancel'
+		}];
+		this.callParent(arguments);
+	}
+});

@@ -1,0 +1,16 @@
+Ext.define('ExtApp.store.common.ProgramProfileLevelOneStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.programProfileLevelOneStore',
+
+    fields: ['id', 'profileName'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/com/sys-program-profile!getProgramProfileLevelOneList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+
+});

@@ -1,0 +1,18 @@
+Ext.define('ExtApp.model.common.SysUserModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.sysUser',
+    
+    fields: [
+             'id',
+             'code',
+             'name',
+             'departmentId',
+             'departmentName',
+             'profileId',
+             'profileName',
+             'email',
+             'mobile',
+             'userid'
+     ]
+
+});

@@ -1,0 +1,27 @@
+Ext.define('ExtApp.store.qualityissuemanagement.DashboardIMSStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.dashboardIMS',
+
+    fields: [
+         'userId',
+         'menuId',
+         'displaySeq',
+         'id',
+         'title',
+         'text',
+         'iconCls',
+         'xType',
+         'widgetWidth',
+         'widgetType',
+         'permission'
+	],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/ims-dashboard!getDashboardIMS.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

@@ -1,0 +1,69 @@
+/**
+ * 首页-进展报表
+ */
+Ext.define('ExtApp.view.dashboard.DashProgressReportController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.dashProgressReport',
+    
+    init: function() {
+    	var me = this;
+		// Resource Store
+		var rs = Ext.create('ExtApp.store.projectmanagement.ProgressReportResourceStore');
+    	rs.load();
+		// Events Store
+    	var es = Ext.create('ExtApp.store.projectmanagement.ProgressReportEventStore');
+    	es.load();
+	
+		// Project Store
+		var ps = Ext.create('ExtApp.store.projectmanagement.ProgressReportProjectStore');
+		ps.load();
+		ps.on('load', function() {
+			if (this.getAt(0).data.start == null) {
+				return;
+			}
+			var stages = this.getAt(0).data.stages;
+			for (var i = 0; i < stages.length; i++) {
+				stages[i].start = new Date(Date.parse(stages[i].start.replace(/-/g,"/")));
+			}
+			var newView = Ext.create({
+	            xtype : 'timelinepanel',
+	            timeAxis : {
+	                xclass : 'ExtApp.data.TimeAxis',
+	                project: this.getAt(0).data
+	            },
+	            viewPreset: 'progress',
+	            startDate: this.getAt(0).data.start,
+	            endDate: this.getAt(0).data.end,
+	            resourceStore   : rs,
+	            eventStore      : es,
+	            showTodayLine: true,
+	            readOnly: true,
+                columns : [
+                    {
+                        xtype     : 'progressHeadercolumn',
+                        dataIndex : 'Name',
+                        tdCls     : 'rowbottomline',
+                        width     : 180,
+                        flex      : 1,
+                        height    : 30
+                    }
+                ],
+				listeners:{
+					scheduledblclick:function(scheduler, clickedDate, rowIndex, resource, e, eOpts ){
+						var win = Ext.create({
+							xtype: 'projectWindow',
+							programId: resource.get('programId'),
+							programCode: resource.get('programCode'),
+							programName:resource.get('programName')
+						});
+						win.show();
+					}
+				}
+	        });
+			if(me.view){
+				me.view.add(newView);
+			}
+		});
+    }
+
+});

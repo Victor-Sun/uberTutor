@@ -1,0 +1,23 @@
+/**
+ * 项目管理-造型工程可行性分析（根）View
+ */
+Ext.define('ExtApp.view.projectManagement.ProjectCASReview',{
+	extend:'Ext.panel.Panel',
+	xtype:'projectCASReview',
+	
+	items: [{
+		xtype:'panel',
+		items:[{
+			xtype:'panel',
+			margin:'10 10 10 10',
+			height:400,
+			bodyStyle: "background-color:transparent;",
+			html: '<font size="4" color="#9d9d9d"><B>'
+				+ '(1)造型部门发布CAS新版本，输入CAS数据文件在ServerP的保存路径和版本号，<BR>'
+				+ '   选择各相关部门，设置相关部门反馈的限定的时间、发起审批流程。<BR>'
+				+ '(2)有权限用户可以查看流程信息、以及反馈意见。<BR>'
+				+ '(3)有权限用户可以重新发起、关闭审批流程。<BR>'
+				+ '</B></font>'
+		}]
+	}]
+});

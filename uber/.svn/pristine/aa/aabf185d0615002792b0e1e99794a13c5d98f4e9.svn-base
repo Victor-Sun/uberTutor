@@ -1,0 +1,122 @@
+Ext.define('ExtApp.view.rolemanage.Roles',{
+	extend:'Ext.container.Container',
+	xtype:'roles',
+	requires:[
+		'Ext.toolbar.Paging',
+		'Ext.grid.column.Date'
+	],
+	controller:'roles',
+	viewModel:{
+		type:'roles'
+	},
+	margin:20,
+	layout:'fit',
+	items:[{
+		title:'角色管理',
+		xtype:'grid',
+		itemId:'roleItemId',
+		bind:'{roles}',
+		cls:'allRecordCls shadow',
+		tbar: [{
+			xtype: 'button',
+			width: 75,
+			text: 'Add',
+			handler: 'openAddRoleWindow'
+		}],
+		columns:[
+			{ xtype:'rownumberer', text:'序号'},
+			{ text:'名称', flex:1, dataIndex:'title'},
+			{ text:'英文名称', flex:1, dataIndex:'titleEn'},
+//			{ text:'是否内部用户', flex:1, dataIndex: 'internalUser'},
+			{ text:'是否系统角色', flex:1, dataIndex:'isSysRole'},
+			{
+	            xtype:'actioncolumn',
+	            width:50,
+	            items: [{
+	            	iconCls:'x-fa fa-trash',
+//	                tooltip: 'Delete',
+	                handler: function(grid, rowIndex, colIndex) {
+	                	 var rec = grid.getStore().getAt(rowIndex);
+	                	 var id = rec.get('roleId');
+	                	 
+	                	 Ext.Ajax.request({
+	                		 url: '/pdms/role/role!deletePre.action',
+	                		 params:{roleId:id},
+	                	     success: function(response, opts) {
+	                	    	 var result = ExtApp.util.Util.decodeJSON(response.responseText);
+	                	 		 if (!result){ //#4
+	            	    	 		 result = {};
+	            	    	 		 result.success = false;
+	            	    	 		 result.msg = response.responseText;
+	                	 		 }
+	                	 		 if(result.data == 'Y'){
+	                	 			Ext.Msg.show({
+	                	 			    title:'确认',
+	                	 			    message: '角色中已经存在成员或菜单，是否继续删除?',
+	                	 			    buttons: Ext.Msg.YESNO,
+	                	 			    icon: Ext.Msg.QUESTION,
+	                	 			    fn: function(btn) {
+	                	 			        if (btn === 'yes') {
+	                	 			        	Ext.Ajax.request({
+	                		                		 url: '/pdms/role/role!delete.action',
+	                		                		 params:{roleId:id},
+	                		                	     success: function(response, opts) {
+	                		                	    	 var result = ExtApp.util.Util.decodeJSON(response.responseText);
+	                		                	 		 if (!result){ //#4
+	                		            	    	 		 result = {};
+	                		            	    	 		 result.success = false;
+	                		            	    	 		 result.msg = response.responseText;
+	                		                	 		 }
+	                		                	 		 grid.getStore().load({params:{creditLineChecklistId:me.creditLineChecklistId,appId:me.appId}});
+	                		                	     },
+	                		                	     failure: function(response, opts) {
+	                		                	    	 var result = ExtApp.util.Util.decodeJSON(response.responseText);           	 		 
+	                		                	     }
+	                		                	 });
+	                	 			        }
+	                	 			    }
+	                	 			});
+	                	 		 }else{
+	                	 			grid.getStore().load();
+	                	 		 }
+	                	 		 
+	                	     },
+	                	     failure: function(response, opts) {
+	                	    	 var result = ExtApp.util.Util.decodeJSON(response.responseText);           	 		 
+	                	     }
+	                	 });
+	                	 
+	                	 
+	                	 
+	                	 
+	                },
+	                getClass: function(v, meta, rec) {
+	                	var isSysRole = rec.get('isSysRole');
+	                    if (isSysRole == 'N') {
+	                          return 'x-fa fa-trash';
+	                    }else{
+	                    	return 'x-hidden';
+	                    }
+	            	}
+	            },{
+	            	iconCls:'x-fa fa-user-plus',
+//	                tooltip: 'Delete',
+	                handler: 'openRoleUsers'
+	            },{
+	            	iconCls:'x-fa fa-tree',
+//	                tooltip: 'Delete',
+	                handler: 'openRoleMenus'
+	            }]
+	        }
+		],
+		dockedItems:[{
+			xtype:'pagingtoolbar',
+			dock:'bottom',
+			displayInfo:true,
+			bind:'{roles}'
+		}],
+		listeners:{
+			itemdblclick:'openRoleWindow'
+		}
+	}]
+});

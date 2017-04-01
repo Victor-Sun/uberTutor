@@ -1,0 +1,16 @@
+
+Ext.define('ExtApp.view.myworkspace.task.PmTaskForumAwController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.PmTaskForumAw',
+
+    uploadFile: function(btn) {
+    	var formDesc = this.view.down('form').getForm();
+    	var rec = this.view.up('PmTaskForum').down('grid').getStore().getAt(this.view.keyId-1);
+    	var Wdesc = formDesc.findField('answerQe').getValue();
+		var upTimeVal =Ext.util.Format.date(new Date,'Y/m/d');
+		rec.set('desc',Wdesc);
+		rec.set('lastChange',upTimeVal);
+		btn.ownerCt.ownerCt.destroy();
+    }
+
+});

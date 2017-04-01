@@ -1,0 +1,57 @@
+/**
+ * 专项管理-阶段零件列表
+ */
+Ext.define('ExtApp.view.projectmanagement.extplan.ext201.StagePartList',{
+	extend:'Ext.container.Container',
+	xtype:'stagePartList',
+	controller: 'stagePartList',
+//	viewModel: 'projectList',
+	margin:10,
+	cls:'shadow',
+	
+	initComponent: function() {
+		var me = this;	
+		var store = Ext.create('ExtApp.store.projectmanagement.extplan.ext201.StagePartStore');
+		store.load({params:{stageId:me.stageId}});
+	
+		this.items = [{
+			xtype:'panel',
+			title:'零件列表',
+			items:[{
+				xtype: 'grid',
+				reference: 'refProjectListGrid',
+				store: store,
+				columns: [{
+					xtype: 'rownumberer'
+				},{
+  					text: '零件编号',
+  					flex: 1,
+  					dataIndex: 'itemNo'
+  				},{
+  					text: '零件名称',
+  					flex: 1,
+  					dataIndex: 'itemName'
+  				},{
+  					text: '进度(%)',
+  					flex: 1,
+  					format:'0.00',
+  					dataIndex: 'progress'
+  				},{
+  					text: '负责人',
+  					flex: 1,
+  					dataIndex: 'userName'
+  				}],
+  				listeners:{
+  					itemdblclick: 'itemdblclick'
+  				},
+	            dockedItems: [{
+                    xtype: 'pagingtoolbar',
+                    dock: 'bottom',
+                    displayInfo: true,
+                    store: store
+                }]
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

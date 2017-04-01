@@ -1,0 +1,289 @@
+Ext.define('ExtApp.view.projectManagement.issue.common.IssueBaseInfoForm',{
+	xtype:'issueBaseInfoForm',
+	extend:'Ext.form.Panel',
+	reference: 'issueBaseInfoForm',
+	scrollable: true,
+	
+	controller: 'readonlyIssue',
+	
+	url: '/pdms/pm/project-open-issue!getIssueForm.action',
+	initComponent: function() {
+		var me = this;
+		me.raiseIssueDocuments = Ext.create('ExtApp.view.projectManagement.issue.raiseissue.RaiseIssueDocuments',{issueId:me.issueId});
+		me.raiseIssueDocuments.down('grid').getStore().load({params:{issueId:me.issueId}});
+		//me.raiseIssueDocuments.setReadOnly();
+		
+		var readonlyFlg = true;
+		var readonlyCls = 'text-readonly';
+		if (me.action && (me.action == 'solve' || me.action == 'confirm') ||
+				me.editPrivilege) {
+			readonlyFlg = false;
+			readonlyCls = '';
+		} else {
+			me.raiseIssueDocuments.setReadOnly();
+		}
+		
+		// OpenIssue优先级
+		var priorityStore = Ext.create('ExtApp.store.common.CodeTableStore');
+		priorityStore.getProxy().extraParams = {type: 'ISSUE_PRIORITY'};
+		priorityStore.load();
+		
+		// 问题来源
+		var issueSourceStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/pm/project-open-issue!getIssueSourceList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    },
+		    autoLoad: true
+		});
+		
+		// 问题类型
+		var issueTypeStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/pm/project-open-issue!getIssueTypeList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    },
+		    autoLoad: true
+		});
+		
+		// Create the combo box, attached to the states data store
+		var issueSource = Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '问题来源',
+		    flex: 1,
+		    store: issueSourceStore,
+		    name:'issueSourceId',
+		    queryMode: 'local',
+		    displayField: 'name',
+		    allowBlank:false,
+		    valueField: 'id'
+		});
+		
+		// 问题类型
+		var issueType = Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '问题类型',
+		    flex: 1,
+		    store: issueTypeStore,
+		    name:'issueTypeId',
+		    queryMode: 'local',
+		    displayField: 'name',
+		    allowBlank:false,
+		    valueField: 'id',
+		    readOnly: readonlyFlg,
+		    fieldCls: readonlyCls
+		});
+		
+		me.items = [{
+			xtype: 'fieldset',
+			title: '基本信息',
+			margin: 20,
+			items: [{
+				xtype:'panel',
+				layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				defaults: {
+					defaults: {
+						readOnly: true,
+						fieldCls: 'text-readonly',
+						labelAlign: 'right',
+						margin: 5,
+						labelWidth: 100
+					}
+				},
+				items:[{
+					xtype:'panel',
+					flex: 1,
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype: 'textfield',
+						flex: 2,
+						fieldLabel: '标题',
+						name: 'title'
+					},{
+						xtype: 'textfield',
+						flex: 1,
+						fieldLabel: '录入人',
+						name: 'createByName'
+					},{
+						xtype:'hiddenfield',
+				        name: 'createBy'
+					},{
+						xtype: 'textfield',
+						flex: 1,
+						fieldLabel: '提出人',
+						name: 'raiseByName'
+					},{
+						xtype:'hiddenfield',
+				        name: 'raiseBy'
+					}]
+				},{
+					xtype:'panel',
+					flex: 1,
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items:[{
+				        xtype:'hiddenfield', 
+				        name: 'id'
+					},{
+				        xtype:'hiddenfield', 
+				        name: 'programVehicleId'
+					},{
+				        xtype:'hiddenfield', 
+				        name: 'obsId'
+					},{
+				        xtype:'hiddenfield', 
+				        name: 'respUserId'
+					},{
+						xtype: 'textfield',
+						flex: 1,
+						fieldLabel: '项目',
+						name: 'programCode'
+					},{
+						xtype: 'textfield',
+						flex: 1,
+						fieldLabel: '车型',
+						name: 'vehicleCode'
+					},issueSource, issueType]
+				},{
+					xtype:'panel',
+					flex: 1,
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype:'counterTextArea',
+						flex: 1,
+						name:'issueDescription',
+						letterPadding:'2 0 0 105',
+						enforceMaxLength:true,
+						maxLength:500,
+						fieldLabel:'问题描述',
+						readOnly: readonlyFlg,
+					    fieldCls: readonlyCls
+					}]
+				},{
+					xtype:'panel',
+					flex: 1,
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype: 'textfield',
+						flex: 1,
+						fieldLabel: '责任组',
+						name: 'obsName'
+					},{
+						xtype: 'textfield',
+						flex: 1,
+						fieldLabel: '责任人',
+						name: 'respUserName'
+					},{
+						xtype: 'datefield',
+						flex: 1,
+						fieldLabel: '计划完成日期',
+						name: 'dueDate',
+						format: 'Y-m-d',
+						readOnly: readonlyFlg,
+					    fieldCls: readonlyCls
+                    },{
+                    	xtype: 'combobox',
+						flex: 1,
+						fieldLabel: '优先级',
+						store: priorityStore,
+					    queryMode: 'local',
+					    displayField: 'name',
+					    valueField: 'code',
+					    name: 'issuePriorityCode',
+					    forceSelection: true,
+					    readOnly: readonlyFlg,
+					    fieldCls: readonlyCls
+					}]
+				},{
+					xtype:'panel',
+					flex: 1,
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype: 'displayfield',
+						flex: 1,
+						fieldLabel: '进度状态',
+						labelSeparator: '',
+				        name: 'progressStatus',
+				        renderer: function(value) {
+				        	return '<div>' + me.controller.renderIssueProgress(value) + '</div>';
+				        },
+						fieldCls: ''
+					},{
+						xtype: 'datefield',
+						flex: 1,
+						fieldLabel: '实际完成日期',
+						name: 'actualFinishDate',
+						format: 'Y-m-d'
+			       },{
+			    	    xtype: 'numberfield',
+			    	    flex: 1,
+						fieldLabel: '偏离计划天数',
+						name: 'departedDays'
+			       },{
+			    	   xtype: 'panel',
+			    	   flex: 1 
+			       }]
+				}]
+			}]
+		},{
+			xtype:'tabpanel',
+			defaults:{
+				layout:{
+					type:'fit'
+				}
+			},
+			flex:1,
+			activeTab:0,
+			items:[{
+				title: '备注',
+				xtype: 'container',
+				margin: 20,
+				items: [{
+					xtype:'panel',
+					layout:{
+						type:'vbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype:'counterTextArea',
+						flex: 1,
+						name:'issueCause',
+						enforceMaxLength:true,
+						maxLength:500,
+						readOnly: readonlyFlg,
+					    fieldCls: readonlyCls
+					}]
+				}]
+			},me.raiseIssueDocuments]
+		}];
+		me.callParent(arguments);
+	},
+	setReadOnly:function(flag){
+		var me = this;
+	}
+});

@@ -1,0 +1,36 @@
+/**
+ * 项目管理-项目模板-tree右键导入模板
+ */
+Ext.define('ExtApp.view.projectmanagement.templatelibrary.CreateProgramTemplateController',{
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.createProgramTemplate',
+    
+    // 上传文件
+	uploadFile: function(btn) {
+		var me = this;
+		var form1 = this.lookupReference('refProgramTemplateForm');
+		form1.getForm().submit({
+			url: '/pdms/pm/project-temp!importProjectTemplateInfo.action',
+			params: {
+				programId: this.view.programId
+			},
+			success: function(form, action) {
+	        	ExtApp.util.Util.showToast("导入成功！");
+	        	var templateTree = me.view.up('templatelib').down('treepanel');
+	            templateTree.store.reload();
+	        	me.view.close();
+		     },
+		     failure: function(form, action) {
+	        	ExtApp.util.Util.handleFormFailure(action);
+	        	ExtApp.util.Util.showToast("导入失败！");
+	        	me.view.close();
+		     }
+		});
+	},
+
+	//取消
+	cancel: function(btn) {
+		btn.up('createProgramTemplate').destroy();
+	}
+
+});

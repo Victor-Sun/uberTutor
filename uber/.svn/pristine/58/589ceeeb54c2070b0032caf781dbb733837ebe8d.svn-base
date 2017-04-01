@@ -1,0 +1,14 @@
+Ext.define('ExtApp.store.qualityissuemanagement.ImsPartStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.imsPart',
+    fields: ['id', 'code', 'name', 'createBy', 'createDate', 'updateBy', 'updateDate', 'deleteBy', 'deleteDate', 'groupNo', 'systemNo', 'systemName', 'groupName'],
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/ims-part!getPartList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

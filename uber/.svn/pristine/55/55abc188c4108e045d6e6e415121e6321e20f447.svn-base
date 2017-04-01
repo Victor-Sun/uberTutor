@@ -1,0 +1,71 @@
+Ext.define('ExtApp.view.rolemanage.RoleUsers',{
+	extend:'Ext.container.Container',
+	xtype:'roleUsers',
+	requires:[
+		'Ext.toolbar.Paging',
+		'Ext.grid.column.Date'
+	],
+	controller:'roles',
+	layout:'fit',
+	roleId:null,
+	initComponent: function() {
+		me = this;
+		var roleUsersStore = Ext.create('ExtApp.store.rolemanage.RoleUsers');
+		roleUsersStore.load({params:{roleId:me.roleId}});
+    	me.items = [{
+    		xtype:'grid',
+    		itemId:'roleUsersItemId',
+    		cls:'allRecordCls shadow',
+    		tbar: [{
+    			xtype: 'button',
+    			width: 75,
+    			text: 'Add',
+    			handler: 'openAddUseWindow'
+    		}],
+    		store:roleUsersStore,
+    		columns:[
+    					{ xtype:'rownumberer', text:'序号'},
+    					{ text:'用户名称', flex:1, dataIndex:'userName'},
+    					{ text:'部门', flex:1, dataIndex:'name'},
+    					{ text:'角色名称', flex:1, dataIndex: 'roleTitle'},
+    					{
+    			            xtype:'actioncolumn',
+    			            width:50,
+    			            items: [{
+    			            	iconCls:'x-fa fa-trash',
+//        			                tooltip: 'Delete',
+    			                handler: function(grid, rowIndex, colIndex) {
+    			                	 var rec = grid.getStore().getAt(rowIndex);
+    			                	 var roleId = rec.get('roleId');
+    			                	 var userId = rec.get('userId');
+    			                	 Ext.Ajax.request({
+    			                		 url: '/pdms/role/role!deleteUserRole.action',
+    			                		 params:{roleId:roleId,userId:userId},
+    			                		 success: function(response, opts) {
+    			                	    	 var result = ExtApp.util.Util.decodeJSON(response.responseText);
+    			                	 		 if (!result){ //#4
+    			            	    	 		 result = {};
+    			            	    	 		 result.success = false;
+    			            	    	 		 result.msg = response.responseText;
+    			                	 		 }
+    			                	 		roleUsersStore.load({params:{roleId:me.roleId}});
+    			                	     },
+    			                	     failure: function(response, opts) {
+    			                	    	 var result = ExtApp.util.Util.decodeJSON(response.responseText);           	 		 
+    			                	     }
+    			                	 });
+    			                }
+    			            }]
+    			        }
+    				],
+    		dockedItems:[{
+    			xtype:'pagingtoolbar',
+    			dock:'bottom',
+    			displayInfo:true,
+    			store:roleUsersStore
+    		}]
+    	}];
+    	
+    	me.callParent(arguments);
+	}
+});

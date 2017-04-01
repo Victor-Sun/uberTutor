@@ -1,0 +1,30 @@
+/**
+ * 质量问题管理-待办任务-to问题确认Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.common.MyTaskInfoTo03Controller', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.myTaskInfoTo03',
+    
+    init: function() {
+    	var me = this;
+//    	var form = this.lookupReference('refVerificationSchemeTo03');
+//    	form.load({
+//            url:'/pdms/ims/my-task!getMyTaskTo03VImsIssue.action',
+//			params: {
+//				keyId: this.view.keyId,
+//	    		formKey: this.view.formKey,
+//	    		taskId: this.view.taskId
+//			}
+//        });
+    },
+	// 点击【问题性质】
+    selcombo: function(field,value) {
+    	var me = this.view;
+    	var v_form = me.getForm();
+    	var datefield = v_form.findField('reconfirmDate');
+    	var datefieldvalue = datefield.getValue();
+    	if(datefieldvalue != "过程问题"){
+    		datefield.setHidden(true);
+    	};
+    }
+});

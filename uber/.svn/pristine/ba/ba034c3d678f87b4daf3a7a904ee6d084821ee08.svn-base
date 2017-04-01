@@ -1,0 +1,68 @@
+/**
+ * 部门空间-部门自建任务-归档问题列表
+ */
+Ext.define('ExtApp.view.deptworkspace.deptissue.ArchiveDeptIssueController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.archiveDeptIssue',
+
+    // 双击列表
+    onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    	var me = this;
+    	var rec = grid.getStore().getAt(rowIndex);
+    	// 打开窗口
+    	var issueWin = Ext.create({
+    		xtype: 'viewDeptIssueWindow',
+    		issueId: rec.get('issueId'),
+    		issueUuid: rec.get('issueUuid'),
+    		actionType: 'archive',
+    		parentCaller: me
+    	});
+    	issueWin.down('deptIssueForm').load({
+    		params: {issueId:rec.get('issueId')}
+    	});
+    	issueWin.show();
+    },
+    
+    // 选中列表数据
+    onSelectionChange: function(grid, records, eOpts) {
+        if (records[0]) {
+        	this.view.query('#detailForm')[0].getForm().loadRecord(records[0]);
+        }
+    },
+    
+    // 查询
+    search: function(btn, e) {
+    	var me = this;
+    	me.view.mask('Please Waiting...');
+    	var form = me.view.down('toolbar').down('form').getForm();
+    	var store = Ext.create(
+			'ExtApp.store.deptworkspace.ArchiveDeptIssueStore');
+    	store.getProxy().extraParams = {
+			searchModel: Ext.encode(form.getFieldValues())
+		};
+    	store.load();
+    	store.on('load', function() {
+    		me.view.down('grid').setStore(this);
+    		me.view.down('pagingtoolbar').setStore(this);
+    		me.view.unmask();
+    	});
+    },
+    
+    // 重置
+    reloadSearch: function() {
+    	var me = this;
+
+    	var form = this.view.down('toolbar').down('form').getForm();
+    	Ext.each(form.getFields().items, function(field) {
+    		if (field.xtype != 'displayfield') {
+    			if (field.xtype == 'checkbox') {
+        			field.setValue(true);
+        		} else {
+        			field.setValue('');
+        		}
+    		}
+		});
+    	this.search();
+    }
+
+});

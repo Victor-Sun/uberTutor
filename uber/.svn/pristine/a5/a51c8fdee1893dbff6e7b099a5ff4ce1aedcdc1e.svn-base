@@ -1,0 +1,30 @@
+/**
+ * 报表中心-总体概况报表-Base
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.report.IssueReportBase',{
+	extend:'Ext.container.Container',
+	xtype:'issueReportBase',
+	
+	layout: 'fit',
+	margin:10,
+	cls:'shadow',
+	
+	items: [{
+		xtype: 'panel',
+		layout: {
+			type: 'vbox',
+			align: 'stretch'
+		},
+		items: [{
+			flex: 1,
+			xtype: 'tabpanel',
+			items:[{
+				title: '部门',
+				xtype: 'deptReport'
+			},{
+				title: '问题类型',
+				xtype: 'levelReport'
+			}]
+		}]
+	}]
+});

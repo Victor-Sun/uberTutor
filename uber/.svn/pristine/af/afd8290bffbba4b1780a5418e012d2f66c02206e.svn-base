@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectExtensionPlanColumnDefStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectExtensionPlanColumnDef',
+
+    model: 'ExtApp.model.projectmanagement.ProjectExtensionPlanColumnDefModel',
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-extension-plan!getExtensionPlanColumnDefList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

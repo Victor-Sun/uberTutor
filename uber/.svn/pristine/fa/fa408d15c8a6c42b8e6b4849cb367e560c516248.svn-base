@@ -1,0 +1,78 @@
+/**
+ * 项目管理-主节点-SOP节点编辑
+ */
+Ext.define('ExtApp.view.projectManagement.mainnode.EditSOP',{
+	extend:'Ext.window.Window',
+	xtype:'editSOP',
+	
+	controller: 'editSOP',
+
+	modal: true,
+	closable: false,
+	
+	layout:{
+		type:'fit'
+	},
+	
+	width: 400,
+	height: 200,
+	
+	title: '编辑SOP',
+	
+	initComponent: function() {
+		var me = this;
+
+		this.items = [{
+			xtype:'form',
+			url: '/pdms/pm/project-plan-major-node!getProjectPlanSOP.action',
+			margin:10,
+			layout:{
+				type:'vbox',
+	      		align:'stretch'
+	      	},
+	      	items: [{
+				xtype: 'panel',
+				layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				defaults: {
+					flex: 1,
+					labelWidth: 150
+				},
+				items: [{
+					xtype: 'textfield',
+					fieldLabel: '名称',
+					name: 'taskName',
+					allowBlank:false,
+					maxLength:200
+				},{
+					xtype: 'datefield',
+					fieldLabel: 'SOP时间',
+					format: 'Y/m/d',
+					name: 'plannedFinishDate',
+					allowBlank:false
+				},{
+					xtype:'checkbox',
+					labelSeparator: '',
+					fieldLabel:'自动调整项目计划',
+					name:'chkUpdatePlan',
+					checked: false,
+					disabled: true
+				}]
+			}]
+		}];
+		this.tools = [{
+			text:'确定',
+			xtype: 'button',
+			iconCls: 'x-fa fa-circle-o',
+			handler: 'confirm'
+		},{
+			text:'取消',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'cancel'
+		}];
+		this.callParent();
+	}
+});

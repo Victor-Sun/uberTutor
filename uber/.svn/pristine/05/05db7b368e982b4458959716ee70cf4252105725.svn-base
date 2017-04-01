@@ -1,0 +1,14 @@
+Ext.define('ExtApp.store.projectmanagement.issue.RaiseIssueDocumentStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.raiseIssueDocument',
+    fields:['id',  'author','date', 'time','paragraph','stepId','roleId'],
+    pageSize:ExtApp.common.Constants.pageSize,
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-open-issue!getRaiseIssueDocument.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

@@ -1,0 +1,50 @@
+/**
+ * 项目管理-Window Controller
+ */
+Ext.define('ExtApp.view.projectmanagement.issue.ProjectOpenIssueController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.projectOpenIssue',
+    raiseIssue:function(){
+    	var me = this;
+    	var programId = me.getView().programId;
+    	var grid = me.getView().down('grid');
+    	Ext.create("ExtApp.view.projectManagement.issue.raiseissue.RaiseIssueWindow",{programId:programId,grid:grid}).show();
+    },
+
+    // 双击交付物列表
+    onCelldblclick: function(grid , td , cellIndex , record , tr , rowIndex , e , eOpts) {
+    	var me = this;
+    	var rec = grid.getStore().getAt(rowIndex);
+    	var programId = me.getView().programId;
+    	var grid = me.getView().down('grid');
+//    	if(rec.get('vehicleStatusCode') == 'INACTIVE'){
+//    		var win = Ext.create("ExtApp.view.projectManagement.issue.readonlyissue.ReadOnlyIssueWindow",{programId:programId,grid:grid,issueId:rec.get('id'),record:rec}).show();
+//    		win.down('form').load({params:{issueId:rec.get('id')}});
+//    	}else{
+    		if(rec.get('status') == 'DRAFT'){
+        		var win = Ext.create("ExtApp.view.projectManagement.issue.raiseissue.RaiseOpenIssueWindow",{programId:programId,grid:grid,issueId:rec.get('id'),record:rec}).show();
+        		win.down('form').load({params:{issueId:rec.get('id')}});
+//        	}else if(rec.get('status') == 'COMPLETE'){
+//        		var win = Ext.create("ExtApp.view.projectManagement.issue.finishedissue.FinishedIssueWindow",{programId:programId,grid:grid,issueId:rec.get('id'),record:rec}).show();
+//        		win.down('form').load({params:{issueId:rec.get('id')}});
+        	}else{
+        		var editPrivilege = ExtApp.util.Util.getPrivilege(
+        				'P1403', this.view.projectPrivilege);
+        		var win = Ext.create("ExtApp.view.projectManagement.issue.readonlyissue.ReadOnlyIssueWindow",{
+        			programId:programId,
+        			grid:grid,
+        			issueId:rec.get('id'),
+        			status:rec.get('status'),
+        			record:rec,
+        			editPrivilege: editPrivilege}).show();
+        		win.down('form').load({params:{issueId:rec.get('id')}});
+        	}
+//    	}
+    },
+    exportExcel:function(){
+    	var me = this;
+    	var programId = me.getView().programId;
+    	ExtApp.util.Util.openReport("rpt=pm/programOpenIssue.brt&emitter=toxls&params=programId="+programId);
+    }
+    
+});

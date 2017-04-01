@@ -1,0 +1,19 @@
+/**
+ * 对策决定-问题类型store
+ */
+Ext.define('ExtApp.store.qualityissuemanagement.IssueTypeStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.issueType',
+
+    fields: ['id', 'name'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/combo!getIssueType.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

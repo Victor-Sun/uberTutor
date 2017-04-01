@@ -1,0 +1,19 @@
+/**
+ * 对策决定-故障零件状态store
+ */
+Ext.define('ExtApp.store.qualityissuemanagement.FaultStateStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.faultState',
+
+    fields: ['id','name'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/combo!getVImsPartStatus.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

@@ -1,0 +1,19 @@
+/**
+ * 项目管理-基本信息属性ViewModel
+ */
+Ext.define('ExtApp.view.projectManagement.base.BaseInfoCommonViewModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.baseInfoCommon',
+
+    stores: {
+    	programType: {
+            type: 'programType'
+        },
+        manufactureComp: {
+        	type: 'manufactureComp'
+        },
+        devType: {
+        	type: 'devType'
+        }
+    }
+});

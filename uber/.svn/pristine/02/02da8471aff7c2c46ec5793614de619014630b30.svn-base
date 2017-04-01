@@ -1,0 +1,28 @@
+Ext.define('ExtApp.store.projectmanagement.TaskDocumentStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.taskDocument',
+    
+    fields: ['docmentIndexId',
+             'documentRevisionId',
+             'programCode',
+             'vehicleCode',
+             'taskName',
+             'documentName',
+             'createBy',
+             'createDate',
+             'groupHeader'
+    ],
+    
+    groupField: 'groupHeader',
+    
+    pageSize:ExtApp.common.Constants.pageSize,
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-document!getTaskDocument.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

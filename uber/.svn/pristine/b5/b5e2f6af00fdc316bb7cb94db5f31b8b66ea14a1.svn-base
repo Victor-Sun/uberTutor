@@ -1,0 +1,44 @@
+/**
+ * 项目管理-发布计划
+ */
+Ext.define('ExtApp.view.projectmanagement.deploy.DeployPlanAttachmentController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.deployPlanAttachment',
+
+    // 发布计划-确定
+    confirmAttachment: function(btn) {
+    	var me = this;
+    	me.view.mask('Please Waiting...');
+    	Ext.Ajax.request({
+    	 	 url: '/pdms/pm/project-plan!deployPlan.action',
+    	 	 params: {
+    	 		 programId: me.view.programId,
+    	 		 programVehicleId: me.view.programVehicleId,
+    	 		 obsId: me.view.obsId,
+    	 		 planLevel: me.view.planLevel
+    	 	 },
+    	 	 scope: me,
+    	 	 success: function(response, opts) {
+    	 		me.view.unmask();
+    	    	var obj = Ext.decode(response.responseText);
+    	        if (obj.success) {
+    	        	ExtApp.util.Util.showToast("项目计划发布成功！");
+    	        	// 刷新页面
+    	        	me.view.parentCaller.refreshView();
+    	        	me.cancelAttachment();
+    	        } else {
+    	        	ExtApp.util.Util.handleRequestFailure(response);
+    	        }
+    	    },
+ 		    failure: function(response, opts) {
+ 		    	me.view.unmask();
+ 		        ExtApp.util.Util.handleRequestFailure(response);
+ 		    }
+        });
+    },
+    
+    //取消
+    cancelAttachment: function(btn) {
+    	this.view.close();
+    }
+});

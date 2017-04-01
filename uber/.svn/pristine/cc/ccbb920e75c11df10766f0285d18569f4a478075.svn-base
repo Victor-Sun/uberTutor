@@ -1,0 +1,9 @@
+Ext.define('ExtApp.model.systemsettings.ProjectrolemanagerPowerModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.projectrolemanagerPower',
+    
+    fields: [
+             'id','privilegeCode','privilegeName','privilegeDesc','allowFlag'         
+      ]
+
+});

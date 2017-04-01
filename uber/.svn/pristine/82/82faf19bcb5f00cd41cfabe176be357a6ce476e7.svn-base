@@ -1,0 +1,13 @@
+Ext.define('ExtApp.store.projectmanagement.extplan.ext301.PartExcutePoolStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.partExcutePool',
+    fields: ['id', 'stageId','itemNo','itemName','status','progress','userName'],
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/ext301!getPartExcutePoolList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

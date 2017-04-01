@@ -1,0 +1,14 @@
+Ext.define('ExtApp.view.toolbarsettings.NotfiyWindow',{
+	extend:'Ext.window.Window',
+	xtype:'nofityWindow',
+
+	modal: true,
+	width:800,
+	height:600,
+	layout:'fit',
+	
+	items:[{
+		xtype:'notifyList',
+		margin:0
+	}]
+})

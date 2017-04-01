@@ -1,0 +1,10 @@
+/**
+ *
+ */
+Ext.define('Ext.overrides.grid.column.Column', {
+    override: 'Ext.grid.column.Column',
+    
+    // 默认string、其他类型如date、number、boolean
+    filter: true
+
+});

@@ -1,0 +1,358 @@
+/**
+ * 部门空间-部门自建任务-问题表单
+ */
+Ext.define('ExtApp.view.deptworkspace.deptissue.deptIssueForm',{
+	extend:'Ext.form.Panel',
+	xtype:'deptIssueForm',
+	
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+	
+	url: '/pdms/dws/dept-issue!getDeptIssue.action',
+	controller: 'deptIssueForm',
+
+	initComponent: function() {
+		var me = this;
+
+		// 附件可编辑Flag
+		var faEditable = false;
+		if ((me.actionType == 'raise' && me.issueId && me.issueId != null && me.issueId != '') ||
+				me.actionType == 'process') {
+			faEditable = true;
+		}
+		
+		// 提出人
+		var raiseByStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/com/sys-user-department!getSysUserList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    }
+		});
+		var raiseBy = Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '提出人<span style="color: red;">*</span>',
+		    flex: 1,
+		    store: raiseByStore,
+		    name:'raiseBy',
+		    queryMode: 'local',
+		    displayField: 'name',
+		    valueField: 'id',
+		    allowBlank:false,
+		    readOnly: true,
+			fieldCls: 'text-readonly',
+			forceSelection: true
+		});
+		
+		// 科室
+		var subDeptStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/dws/dept-issue!getSubDeptList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    }
+		});
+		subDeptStore.load({params:{issueId: me.issueId}});
+		var subDept = Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '科室  <span style="color: red;">*</span>',
+		    flex: 1,
+		    store: subDeptStore,
+		    name:'subDeptId',
+		    queryMode: 'local',
+		    displayField: 'name',
+		    valueField: 'id',
+		    allowBlank:false,
+		    readOnly: true,
+			fieldCls: 'text-readonly',
+			forceSelection: true,
+		    listeners: {
+				change: function(combo, newValue, oldValue, eOpts) {
+					raiseByStore.load({params:{departmentId: newValue, includeSubDept: true}});
+				}
+		    }
+		});
+		
+		// 责任人
+		var respUserStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/dws/dept-issue!getRespUserList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    }
+		});
+		respUserStore.load({params:{issueId: me.issueId}});
+		var respUser = Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '责任人',
+		    flex: 1,
+		    store: respUserStore,
+		    name:'respUserId',
+		    queryMode: 'local',
+		    displayField: 'name',
+		    valueField: 'id',
+		    allowBlank:false,
+		    forceSelection: true
+		});
+		
+		// 问题来源
+		var issueSourceStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/dws/dept-issue!getDeptIssueSourceList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    },
+		    autoLoad: true
+		});
+		var issueSource = Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '问题来源',
+		    flex: 1,
+		    store: issueSourceStore,
+		    name:'issueSourceId',
+		    queryMode: 'local',
+		    displayField: 'title',
+		    valueField: 'id',
+		    allowBlank:false,
+		    forceSelection: true
+		});
+		
+		var title;
+		if (me.actionType == 'raise') {
+			// 标题自动POST信息（归档信息中查询）
+			var kbStore = Ext.create('Ext.data.Store', {
+				pageSize: 1,
+				fields: ['id', 'issueTitle','issueDescription','issueCause','issueResolution','userName','updateDate'],
+				proxy: {
+			    	type: 'ajax',
+			    	url: '/pdms/dws/dept-issue!getDeptIssueKB.action',
+			        reader: {
+			            type: 'json',
+			            rootProperty: 'data'
+			        }
+			    }
+			});
+			title = Ext.create('Ext.form.ComboBox', {
+				fieldLabel: '标题',
+				flex: 3,
+				allowBlank: false,
+				store: kbStore,
+				name: 'issueTitle',
+				typeAhead: true,
+			    hideTrigger: true,
+			    minChars: 2,
+			    pageSize: 0,
+			    listConfig: {
+	                getInnerTpl: function() {
+	                    return '<div class="search-item">' +
+			                       '<span class="results-left" style="min-width: 150px;"><h3>{issueTitle}</h3>{issueResolution}</span>' +
+			                       '<span class="results-right" style="min-width: 150px;">Date: {updateDate}<br/>by {userName}</span>' +
+			                   '</div>';
+	                }
+			    },
+			    listeners:{
+			         'select': function(combo, record, eOpts){
+			        	 combo.setValue(record.get('issueTitle'));
+			        	 me.getForm().findField('issueDescription').setValue(record.get('issueDescription'));
+			        	 me.getForm().findField('issueCause').setValue(record.get('issueCause'));
+			         }
+			    }
+			});
+		} else {
+			title = Ext.create('Ext.form.field.Text', {
+				fieldLabel: '标题',
+				flex: 3,
+				readOnly: true,
+				fieldCls: 'text-readonly',
+				name: 'issueTitle',
+				allowBlank:false
+			});
+		}
+		
+		me.items = [{
+			xtype: 'fieldset',
+			title: '基本信息',
+			margin: 20,
+			items: [{
+				xtype:'panel',
+				layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				defaults: {
+					defaults: {
+						labelAlign: 'right',
+						margin: 5,
+						labelWidth: 80
+					}
+				},
+				items:[{
+					xtype:'hiddenfield', 
+			        name: 'id'
+				},{
+					xtype:'hiddenfield',
+			        name: 'raiseDate'
+				},{
+					xtype:'panel',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items:[title, {
+						xtype: 'textfield',
+						flex: 1,
+						readOnly: true,
+						fieldCls: 'text-readonly',
+						fieldLabel: '录入人',
+						name: 'createByName',
+						allowBlank:false
+					},{
+						xtype:'hiddenfield',
+				        name: 'createBy'
+					}]
+				},{
+					xtype:'panel',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype: 'textfield',
+						flex: 1,
+						readOnly: true,
+						fieldCls: 'text-readonly',
+						fieldLabel: '部门',
+						name: 'deptName',
+						allowBlank:false
+					},{
+						 xtype:'hiddenfield', 
+					     name: 'deptId'
+					}, subDept, raiseBy, issueSource]
+				},{
+					xtype:'panel',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype:'counterTextArea',
+						flex: 1,
+						name:'issueDescription',
+						letterPadding:'2 0 0 85',
+						enforceMaxLength:true,
+						maxLength:500,
+						labelWidth: 80,
+						fieldLabel:'问题描述'
+					}]
+				},{
+					xtype:'panel',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype: 'textfield',
+						flex: 1,
+						readOnly: true,
+						fieldCls: 'text-readonly',
+						fieldLabel: '责任部门',
+						name: 'respDeptName',
+						allowBlank:false
+					},{
+						xtype:'hiddenfield',
+				        name: 'respDeptId'
+					},respUser,{
+						xtype: 'datefield',
+						fieldLabel: '计划完成日期',
+						flex: 1,
+						name: 'dueDate',
+						format: 'Y/m/d',
+						allowBlank:false
+//					},{
+//						xtype:'panel',
+//						flex: 1
+					}]
+				},{
+					xtype:'panel',
+					itemId: 'performPanel',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype: 'displayfield',
+						flex: 1,
+						fieldLabel: '进度状态',
+						labelSeparator: '',
+				        name: 'progressStatus',
+				        renderer: function(value) {
+				        	return '<div>' + me.controller.renderIssueProgress(value) + '</div>';
+				        }
+					},{
+						xtype: 'datefield',
+						flex: 1,
+						fieldLabel: '实际完成日期',
+						name: 'actualFinishDate',
+						format: 'Y/m/d',
+						readOnly: true,
+						fieldCls: 'text-readonly'
+			       },{
+			    	    xtype: 'numberfield',
+			    	    flex: 1,
+						fieldLabel: '偏离计划天数',
+						name: 'daysDelayed',
+						readOnly: true,
+						fieldCls: 'text-readonly'
+			       },{
+			    	   xtype: 'panel',
+			    	   flex: 1 
+			       }]
+				}]
+			}]
+		},{
+			xtype:'tabpanel',
+			flex:1,
+			activeTab:0,
+			items:[{
+				title: '备注',
+				xtype: 'container',
+				margin: 20,
+				items: [{
+					xtype:'panel',
+					layout:{
+						type:'vbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype:'counterTextArea',
+						flex: 1,
+						name:'issueCause',
+						enforceMaxLength:true,
+						maxLength:500
+					}]
+				}]
+			},{
+				xtype: 'fileAttachment',
+				title: '附件',
+	    		sourceType: 'SOURCE_TYPE_DEPT_ISSUE_ATTACHMENT',
+	    		sourceId: me.issueId,
+	    		editable: faEditable
+			}]
+		}];
+		me.callParent(arguments);
+	}
+});

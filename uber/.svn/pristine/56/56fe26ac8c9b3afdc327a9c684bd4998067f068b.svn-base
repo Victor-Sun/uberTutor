@@ -1,0 +1,16 @@
+Ext.define('ExtApp.model.common.ObsUserModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.obsUser',
+    
+    fields: [
+             'id',
+             'userId',
+             'employeeNo',
+             'userName',
+             'obsId',
+             'profileName',
+             'obsName',
+             'mobile'
+     ]
+
+});

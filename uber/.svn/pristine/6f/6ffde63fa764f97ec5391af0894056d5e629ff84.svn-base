@@ -1,0 +1,549 @@
+/*
+
+Ext Gantt Pro 4.2.7
+Copyright(c) 2009-2016 Bryntum AB
+http://bryntum.com/contact
+http://bryntum.com/license
+
+*/
+Ext.define('Gnt.locale.En', {
+    extend    : 'Sch.locale.Locale',
+    requires  : 'Sch.locale.En',
+    singleton : true,
+
+    l10n      : {
+        'Gnt.util.DurationParser' : {
+            unitsRegex : {
+                MILLI   : /^ms$|^mil/i,
+                SECOND  : /^s$|^sec/i,
+                MINUTE  : /^m$|^min/i,
+                HOUR    : /^h$|^hr$|^hour/i,
+                DAY     : /^d$|^day/i,
+                WEEK    : /^w$|^wk|^week/i,
+                MONTH   : /^mo|^mnt/i,
+                QUARTER : /^q$|^quar|^qrt/i,
+                YEAR    : /^y$|^yr|^year/i
+            }
+        },
+
+        'Gnt.util.DependencyParser' : {
+            typeText : {
+                SS : 'SS',
+                SF : 'SF',
+                FS : 'FS',
+                FF : 'FF'
+            }
+        },
+
+        'Gnt.panel.Timeline' : {
+            start : '开始',
+            end   : '结束',
+            format : 'm/d/Y'
+        },
+
+        'Gnt.field.ShowInTimeline' : {
+            yes   : '是',
+            no    : '否'
+        },
+
+        'Gnt.column.ShowInTimeline' : {
+            text  : '在时间表显示'
+        },
+
+        'Gnt.field.ConstraintType' : {
+            none : 'None',
+            invalidText : '无效的值'
+        },
+
+        'Gnt.field.Duration' : {
+            invalidText : '无效的值'
+        },
+
+        'Gnt.field.Effort' : {
+            invalidText : '无效的值'
+        },
+
+        'Gnt.field.Percent' : {
+            invalidText : '无效的值'
+        },
+
+        'Gnt.field.SchedulingMode' : {
+            Normal              : '普通',
+            FixedDuration       : '固定期',
+            EffortDriven        : '导向的',
+            DynamicAssignment   : '动态分配',
+            invalidText         : '无效值'
+        },
+
+        'Gnt.feature.DependencyDragDrop' : {
+            fromText  : '从',
+            toText    : '到',
+            startText : '开始',
+            endText   : '结束'
+        },
+
+        'Gnt.template.Deadline' : {
+            deadline : '截止日期'
+        },
+
+        'Gnt.column.DeadlineDate' : {
+            text : '截止日期'
+        },
+
+        'Gnt.Tooltip' : {
+            startText    : '开始: ',
+            endText      : '结束: ',
+            durationText : '期间: '
+        },
+
+        'Gnt.template.TaskTooltip' : {
+            startText    : '开始',
+            endText      : '结束',
+            percentText  : '完成',
+            format       : 'm/d/Y'
+        },
+
+        'Gnt.plugin.TaskContextMenu' : {
+            taskInformation    : '任务信息',
+            projectInformation : '项目信息',
+            newTaskText        : '新任务',
+            deleteTask         : '删除任务',
+            editLeftLabel      : '编辑左标签',
+            editRightLabel     : '编辑右标签',
+            add                : '新增',
+            deleteDependency   : '删除依赖关系',
+            addTaskAbove       : '新增任务之上',
+            addTaskBelow       : '新增任务之下',
+            addMilestone       : '新增里程碑',
+            addSubtask         : '新增子任务',
+            addSuccessor       : '新增后置任务',
+            addPredecessor     : '新增前置任务',
+            convertToMilestone : '转换成里程碑',
+            convertToRegular   : '转换成任务',
+            splitTask          : '拆分任务 '
+        },
+
+        'Gnt.plugin.DependencyEditor' : {
+            fromText         : '从',
+            toText           : '到',
+            typeText         : '类',
+            lagText          : '延迟',
+            endToStartText   : 'Finish-To-Start',
+            startToStartText : 'Start-To-Start',
+            endToEndText     : 'Finish-To-Finish',
+            startToEndText   : 'Start-To-Finish',
+            okButtonText     : '确定',
+            cancelButtonText : '取消',
+            deleteButtonText : '删除'
+        },
+
+        'Gnt.widget.calendar.Calendar' : {
+            dayOverrideNameHeaderText : 'Name',
+            overrideName              : 'Name',
+            startDate                 : 'Start Date开始日期',
+            endDate                   : 'End Date结束日期',
+            error                     : 'Error错误',
+            dateText                  : 'Date日期',
+            addText                   : 'Add添加',
+            editText                  : 'Edit编辑',
+            removeText                : 'Remove删除',
+            workingDayText            : 'Working day工作日',
+            weekendsText              : 'Weekends周末',
+            overriddenDayText         : 'Overridden day',
+            overriddenWeekText        : 'Overridden week',
+            workingTimeText           : 'Working time工作时间',
+            nonworkingTimeText        : 'Non-working time非工作时间',
+            dayOverridesText          : 'Day overrides',
+            weekOverridesText         : 'Week overrides',
+            okText                    : 'OK确定',
+            cancelText                : 'Cancel取消',
+            parentCalendarText        : 'Parent calendar一级日历',
+            noParentText              : 'No parent',
+            selectParentText          : 'Select parent选一级',
+            newDayName                : '[Without name]',
+            calendarNameText          : 'Calendar name日历名',
+            isProjectCalendarText     : 'Project calendar项目日历',
+            tplTexts                  : {
+                tplWorkingHours  : 'Working hours for工作时间',
+                tplIsNonWorking  : 'is non-working是非工作',
+                tplOverride      : 'override覆盖',
+                tplInCalendar    : 'in calendar',
+                tplDayInCalendar : 'standard day in calendar日立标准日',
+                tplBasedOn       : 'Based on按照'
+            },
+            overrideErrorText         : 'There is already an override for this day本日已经有覆盖',
+            overrideDateError         : 'There is already a week override on this date: {0}',
+            startAfterEndError        : 'Start date should be less than end date',
+            weeksIntersectError       : 'Week overrides should not intersect'
+        },
+
+        'Gnt.widget.calendar.AvailabilityGrid' : {
+            startText  : '开始',
+            endText    : '结束',
+            addText    : '添加',
+            removeText : '删除',
+            error      : '错误'
+        },
+
+        'Gnt.widget.calendar.DayEditor' : {
+            workingTimeText    : 'Working time工作时间',
+            nonworkingTimeText : 'Non-working time非工作时间'
+        },
+
+        'Gnt.widget.calendar.WeekEditor' : {
+            defaultTimeText    : 'Default time 默认时间',
+            workingTimeText    : 'Working time 工作时间',
+            nonworkingTimeText : 'Non-working time 非工作时间',
+            error              : 'Error 错误',
+            noOverrideError    : "Week override contains only 'default' days - can't save it "
+        },
+
+        'Gnt.widget.calendar.ResourceCalendarGrid' : {
+            name     : '名',
+            calendar : '日历'
+        },
+
+        'Gnt.widget.calendar.CalendarWindow' : {
+            title  : '日历',
+            ok     : '确定',
+            cancel : '取消'
+        },
+
+        'Gnt.widget.calendar.CalendarManager' : {
+            addText         : 'Add',
+            removeText      : 'Remove',
+            add_child       : 'Add child',
+            add_node        : 'Add calendar',
+            add_sibling     : 'Add sibling',
+            remove          : 'Remove',
+            calendarName    : 'Calendar',
+            confirm_action  : 'Confirm action',
+            confirm_message : 'Calendar has unsaved changes. Would you like to save your changes?'
+        },
+
+        'Gnt.widget.calendar.CalendarManagerWindow' : {
+            title           : 'Calendar manager',
+            ok              : 'Apply changes',
+            cancel          : 'Close',
+            confirm_action  : 'Confirm action',
+            confirm_message : 'Calendar has unsaved changes. Would you like to save your changes?'
+        },
+
+        'Gnt.field.Assignment' : {
+            cancelText : '取消',
+            closeText  : '保存和关闭'
+        },
+
+        'Gnt.column.AssignmentUnits' : {
+            text : '单位'
+        },
+
+        'Gnt.column.Duration' : {
+            text : '周期'
+        },
+
+        'Gnt.column.Effort' : {
+            text : 'Effort'
+        },
+
+        'Gnt.column.EndDate' : {
+            text : '计划结束日期 '
+        },
+
+        'Gnt.column.PercentDone' : {
+            text : '完成百分比%'
+        },
+
+        'Gnt.column.ResourceAssignment' : {
+            text : '分配资源'
+        },
+
+        'Gnt.column.ResourceName' : {
+            text : '资源名称'
+        },
+
+        'Gnt.column.Rollup' : {
+            text : 'Rollup task',
+            no   : '否',
+            yes  : '是'
+        },
+
+        'Gnt.field.ManuallyScheduled' : {
+            yes : '是',
+            no  : '否'
+        },
+
+        'Gnt.field.ReadOnly' : {
+            yes : '是',
+            no  : '否'
+        },
+
+        'Gnt.column.ManuallyScheduled' : {
+            text : '手动模式'
+        },
+
+        'Gnt.column.SchedulingMode' : {
+            text : '模式'
+        },
+
+        'Gnt.column.Predecessor' : {
+            text : '前置任务'
+        },
+
+        'Gnt.column.Successor' : {
+            text : 'Successors 后续者'
+        },
+
+        'Gnt.column.StartDate' : {
+            text : '计划开始日期'
+        },
+
+        'Gnt.column.WBS' : {
+            text : 'WBS'
+        },
+
+        'Gnt.column.Sequence' : {
+            text : '#'
+        },
+
+        'Gnt.column.Calendar' : {
+            text : '日历'
+        },
+
+        'Gnt.column.ReadOnly' : {
+            text : '只读'
+        },
+
+        'Gnt.widget.taskeditor.ProjectForm' : {
+            projectText             : '项目',
+            nameText                : '名',
+            datesText               : '日期',
+            startText               : '开始',
+            finishText              : '完成',
+            calendarText            : '日历',
+            readOnlyText            : '只读',
+            allowDependenciesText   : 'Allow cross-project dependencies'
+        },
+
+        'Gnt.widget.taskeditor.TaskForm' : {
+            taskNameText            : '名称',
+            durationText            : '周期',
+            datesText               : '日期',
+            baselineText            : 'Baseline',
+            startText               : '计划开始日期',
+            finishText              : '计划结束日期',
+            percentDoneText         : '完成百分率',
+            baselineStartText       : '开始',
+            baselineFinishText      : '完成',
+            baselinePercentDoneText : '完成率',
+            effortText              : '工期',
+            invalidEffortText       : 'Invalid effort value',
+            calendarText            : '日历',
+            manuallyScheduledText   : '手动计划',
+            schedulingModeText      : 'Scheduling Mode 计划模式',
+            rollupText              : 'Rollup',
+            wbsCodeText             : 'WBS code',
+            "Constraint Type"       : "Constraint Type",
+            "Constraint Date"       : "Constraint Date",
+            readOnlyText            : '只读'
+        },
+
+        'Gnt.widget.DependencyGrid' : {
+            idText                    : 'ID',
+            snText                    : 'SN',
+            taskText                  : '任务名称',
+            blankTaskText             : '请选择任务',
+            invalidDependencyText     : 'Invalid dependency 无效依赖',
+            parentChildDependencyText : 'Dependency between child and parent found 有父子之间的依赖',
+            duplicatingDependencyText : 'Duplicate dependency found 有重复的依赖',
+            transitiveDependencyText  : 'Transitive dependency',
+            cyclicDependencyText      : 'Cyclic dependency 循环依赖',
+            typeText                  : '类型',
+            lagText                   : '间隔时间',
+            clsText                   : 'CSS class CSS 类名',
+            endToStartText            : 'Finish-To-Start',
+            startToStartText          : 'Start-To-Start',
+            endToEndText              : 'Finish-To-Finish',
+            startToEndText            : 'Start-To-Finish',
+            predecessorsText          : '前置任务',
+            successorsText            : 'Successors'
+        },
+
+        'Gnt.widget.AssignmentEditGrid' : {
+            confirmAddResourceTitle : '确定',
+            confirmAddResourceText  : 'Resource &quot;{0}&quot; not found in list. Would you like to add it?',
+            noValueText             : 'Please select resource to assign',
+            noResourceText          : 'No resource &quot;{0}&quot; found in the list'
+        },
+        
+        'Gnt.widget.taskeditor.TaskEditor' : {
+            generalText        : '基本信息',
+            resourcesText      : '资源',
+            addDependencyText  : '新增',
+            dropDependencyText : '删除',
+            notesText          : '备注',
+            advancedText       : '高级',
+            addAssignmentText  : 'Add new 添加',
+            dropAssignmentText : 'Remove 移除'
+        },
+
+        'Gnt.widget.taskeditor.ProjectEditor' : {
+            generalText        : 'General 一般',
+            descriptionText    : 'Description 描述'
+        },
+
+        'Gnt.plugin.taskeditor.BaseEditor' : {
+            title        : 'Task Information',
+            alertCaption : 'Information 信息',
+            alertText    : 'Please correct marked errors to save changes 保存更改前请改标记的错误',
+            okText       : 'Ok 确定',
+            cancelText   : 'Cancel 取消'
+        },
+
+        'Gnt.plugin.taskeditor.ProjectEditor' : {
+            title        : 'Project Information 项目信息'
+        },
+
+        'Gnt.field.EndDate' : {
+            endBeforeStartText : 'End date is before start date'
+        },
+
+        'Gnt.column.Note' : {
+            text : 'Note'
+        },
+
+        'Gnt.column.AddNew' : {
+            text : '增加列'
+        },
+
+        'Gnt.column.EarlyStartDate' : {
+            text : 'Early Start 早开始'
+        },
+
+        'Gnt.column.EarlyEndDate' : {
+            text : 'Early Finish 早完成'
+        },
+
+        'Gnt.column.LateStartDate' : {
+            text : 'Late Start 晚开始'
+        },
+
+        'Gnt.column.LateEndDate' : {
+            text : 'Late Finish 晚完成'
+        },
+
+        'Gnt.field.Calendar' : {
+            calendarNotApplicable : 'Task calendar has no overlapping with assigned resources calendars',
+            invalidText : 'Invalid value 无效值'
+        },
+
+        'Gnt.column.Slack' : {
+            text : 'Slack'
+        },
+
+        'Gnt.column.Name' : {
+            text : '任务名称'
+        },
+
+        'Gnt.column.BaselineStartDate' : {
+            text : 'Baseline Start Date 基准开始日期'
+        },
+
+        'Gnt.column.BaselineEndDate' : {
+            text : 'Baseline End Date 基准结束日期'
+        },
+
+        'Gnt.column.Milestone' : {
+            text : 'Milestone 转折点'
+        },
+
+        'Gnt.field.Milestone' : {
+            yes : '是',
+            no  : '否'
+        },
+
+        'Gnt.field.Dependency' : {
+            invalidFormatText     : 'Invalid dependency format 无效的依赖格式',
+            invalidDependencyText : 'Invalid dependency found, please make sure you have no cyclic paths between your tasks 有无效的依赖项，请确定任务之间没有的循环路径',
+            invalidDependencyType : 'Invalid dependency type {0}. Allowed values are: {1}.{0} 类的无效依赖项。允许的值有：{1}.'
+        },
+
+        'Gnt.constraint.Base' : {
+            name                               : "A constraint 约束",
+            "Remove the constraint"            : "Remove the constraint 移除约束",
+            "Cancel the change and do nothing" : "Cancel the change and do nothing 取消改变并什么也不做"
+        },
+
+        'Gnt.constraint.FinishNoEarlierThan' : {
+            name                             : "Finish no earlier than 完成日期不得早于",
+            // {0} constraint date
+            "Move the task to finish on {0}" : "Move the task to finish on {0}"
+        },
+
+        "Gnt.constraint.FinishNoLaterThan" : {
+            name                             : "Finish no later than 完成日期不得晚于",
+            // {0} constraint date
+            "Move the task to finish on {0}" : "Move the task to finish on {0}"
+        },
+
+        "Gnt.constraint.MustFinishOn" : {
+            name                             : "Must finish on 必须完成于",
+            // {0} constraint date
+            "Move the task to finish on {0}" : "Move the task to finish on {0}"
+        },
+
+        "Gnt.constraint.MustStartOn" : {
+            name                            : "Must start on 必须开始于",
+            // {0} constraint date
+            "Move the task to start at {0}" : "Move the task to start at {0}"
+        },
+
+        "Gnt.constraint.StartNoEarlierThan" : {
+            name                            : "Start no earlier than 开始日期不得早于",
+            // {0} constraint date
+            "Move the task to start at {0}" : "Move the task to start at {0}"
+        },
+
+        "Gnt.constraint.StartNoLaterThan" : {
+            name                            : "Start no later than 开始日期不得晚于",
+            // {0} constraint date
+            "Move the task to start at {0}" : "Move the task to start at {0} "
+        },
+
+        "Gnt.column.ConstraintDate" : {
+            text : "Constraint date 约束日期"
+        },
+
+        "Gnt.column.ConstraintType" : {
+            text : "Constraint 约束"
+        },
+
+        "Gnt.widget.ConstraintResolutionForm" : {
+            dateFormat                             : "m/d/Y",
+            "OK"                                   : '确定',
+            "Cancel"                               : '取消',
+            "Resolution options"                   : "Resolution options分辨率设置",
+            "Don't ask again"                      : "Don't ask again不再次提问",
+            // {0} task name, {1} constraint name
+            "Task {0} violates constraint {1}"     : "Task \"{0}\" violates constraint {1}",
+            // {0} task name, {1} constraint name, {2} constraint date
+            "Task {0} violates constraint {1} {2}" : "Task \"{0}\" violates constraint {1} {2}"
+        },
+
+        "Gnt.widget.ConstraintResolutionWindow" : {
+            "Constraint violation" : "Constraint violation 违反约束"
+        },
+
+        "Gnt.panel.ResourceHistogram" : {
+            resourceText : 'Resource 资源'
+        }
+    },
+
+
+    apply : function (classNames) {
+        // apply corresponding scheduler locale first
+        Sch.locale.En.apply(classNames);
+        this.callParent(arguments);
+    }
+
+});

@@ -1,0 +1,61 @@
+Ext.define('ExtApp.view.projectManagement.issue.raiseissue.AutoComplete',{
+	extend: 'Ext.container.Container',
+	xtype: 'autocomplete',
+	
+	layout: {
+		type: 'hbox',
+		align: 'stretch'
+	},
+	
+//	store: 'autoCompleteStore',
+	initComponent: function() {
+		var me = this;
+		
+		var autoStore = Ext.create('Ext.data.Store', {
+			pageSize: 1,
+			fields: ['id', 'title','issueDescription','issueCause','issueResolution','userName','updateDate','vehicleName'],
+			proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/pm/project-open-issue!getIssueKB.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    }
+		});
+		
+		me.items = [{
+			xtype: 'combobox',
+			flex: 1,
+			fieldLabel: '标题',
+			labelAlign: 'top',
+//			itemId:'tipItemId',
+			padding:'10 25 10 30',
+//			xtype : 'displayfield',
+//			value : '',
+			store: autoStore,
+			name: 'title',
+			typeAhead: true,
+//		    hideLabel: true,
+		    hideTrigger: true,
+		    minChars:2,
+		    listConfig: {
+//		    	loadingText: 'Searching...',
+//		    	emptyText: 'No Match Found',
+		    	
+		    	// Custom rendering template for each item
+                getInnerTpl: function() {
+                    return '<div class="search-item">' +
+                    	'<span style="float: left; min-width: 150px;"><h3>{title}</h3><br/>{issueResolution}</span>' +
+                        '<span style="float: right; clear: none; min-width: 150px;">Date: {updateDate}<br />by {userName}</span>' +
+                    '</div>';
+                }
+		    },
+		    pageSize: 0
+		}];
+		me.callParent(arguments);
+	},
+	setReadOnly:function(flag){
+		var me = this;
+	}
+});

@@ -1,0 +1,11 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectDBStatusReport01Store', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectDBStatusReport01',
+
+    model: 'ExtApp.model.projectmanagement.ProjectDBStatusReport01Model',
+
+    data: [
+        {jieduan:'G7',tichu:'2016/02/01',tichuren:'lisi',fengxian:'计划风险',rpn:'320',zerenren:'王五',shijian:'2016/02/03',zhuangtai:'完成'},
+        {jieduan:'G6',tichu:'2016/02/02',tichuren:'lisi',fengxian:'质量风险',rpn:'330',zerenren:'王五',shijian:'2016/02/03',zhuangtai:'完成'}
+   	]
+});

@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectTemplateOrgNodeStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectTemplateOrgNode',
+    
+    model: 'ExtApp.model.projectmanagement.ProjectTemplateOrgNodeModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-temp!getTemplateOrgNodeDeliverable.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

@@ -1,0 +1,98 @@
+package com.gnomon.pdms.action.pm;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.convention.annotation.Namespace;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springside.modules.utils.web.struts2.Struts2Utils;
+
+import com.gnomon.common.system.service.PrivilegeService;
+import com.gnomon.common.utils.JsonResult;
+import com.gnomon.common.web.SessionData;
+import com.opensymphony.xwork2.ActionSupport;
+
+@Namespace("/pm")
+public class ProjectPrivilegeAction extends ActionSupport{
+	private static final long serialVersionUID = 2993831250981686861L;
+
+	@Autowired
+	private PrivilegeService privilegeService;
+
+	/**
+	 * 获得所有的项目权限
+	 */
+	public void getProgramPrivileges(){
+		JsonResult result = new JsonResult();
+		try{
+			Map<String, List<String>> projectPrivilege =
+				privilegeService.getProgramPrivileges(
+						SessionData.getLoginUserId(), programId);
+			result.buildSuccessResult(projectPrivilege);
+			Struts2Utils.renderJson(result);
+		}catch(Exception e){
+			result.buildErrorResult(e);
+		}
+	}
+	
+	/**
+	 * 获取OBS权限
+	 */
+	public void getProgramObsPrivileges() {
+		JsonResult result = new JsonResult();
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		try{
+			Map<String, Object> privilege =
+				privilegeService.getProgramObsPrivileges(obsId);
+			if (privilege.get("OBS_CAN_EDIT") == null) {
+				dataMap.put("obsCanEdit", false);
+			} else {
+				dataMap.put("obsCanEdit",
+						"1".equals(privilege.get("OBS_CAN_EDIT").toString()));
+			}
+			result.buildSuccessResult(dataMap);
+			Struts2Utils.renderJson(result);
+		}catch(Exception e){
+			result.buildErrorResult(e);
+		}
+	}
+
+	//Properties and getter,setter.
+	private String privilegeCode;
+	private String programId;
+	private String obsId;
+	
+
+	public String getPrivilegeCode() {
+		return privilegeCode;
+	}
+
+	public void setPrivilegeCode(String privilegeCode) {
+		this.privilegeCode = privilegeCode;
+	}
+
+	public String getProgramId() {
+		return programId;
+	}
+
+	public void setProgramId(String programId) {
+		this.programId = programId;
+	}
+
+	public String getObsId() {
+		return obsId;
+	}
+
+	public void setObsId(String obsId) {
+		this.obsId = obsId;
+	}
+
+	public PrivilegeService getPrivilegeService() {
+		return privilegeService;
+	}
+
+	public void setPrivilegeService(PrivilegeService privilegeService) {
+		this.privilegeService = privilegeService;
+	}
+}

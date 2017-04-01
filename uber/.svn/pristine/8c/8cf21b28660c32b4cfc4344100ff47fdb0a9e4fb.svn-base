@@ -1,0 +1,121 @@
+/**
+ * 项目管理-主计划-质量阀
+ */
+Ext.define('ExtApp.view.projectmanagement.valve.ProjectPlanQualityValveController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.projectPlanQualityValve',
+
+    // 初始化
+    init: function() {
+    	var grid = this.view.down('grid');
+    	if (! this.view.editPrivilege || this.view.planLevel == '2') {
+			grid.down('toolbar').setHidden(true);
+			// 隐藏操作栏
+			grid.down('actioncolumn').setHidden(true);
+    	} else {
+    		this.view.rowEditing = new Ext.grid.plugin.RowEditing({
+	            clicksToEdit: 2
+	        });
+    		grid.addPlugin(this.view.rowEditing);
+    	}
+    },
+    
+    // 显示交付物信息
+    onCellclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    	var rec = grid.getStore().getAt(rowIndex);
+    	var refPanel = this.lookupReference('refProjectPlanQualityValve');
+    	if (refPanel.items.getCount() > 0) {
+    		var p4remove = refPanel.items.get(0);
+    		refPanel.remove(p4remove);
+    	}
+    	var newView = Ext.create({
+        	xtype: 'projectPlanQualityValve01',
+        	programId: this.view.programId,
+        	taskId: rec.get('id'),
+        	planLevel: this.view.planLevel,
+        	programVehicleId: this.view.programVehicleId,
+        	editPrivilege: this.view.editPrivilege,
+        	baselineId: this.view.baselineId
+        });
+    	newView.items.get(0).setTitle('交付物-' + rec.get('taskName'));
+    	refPanel.add(newView);
+    },
+	
+    // 添加质量阀
+    addVavle: function(btnObj) {
+    	var me = this;
+    	Ext.create({
+    		xtype: 'gateInfo',
+    		programId: this.view.programId,
+			programVehicleId: this.view.programVehicleId,
+			parentCaller: me
+    	}).show();
+    },
+    
+    // 删除质量阀
+    deleteVavle: function(grid, rowIndex) {
+    	var me = this;
+    	var record = grid.getStore().getAt(rowIndex);
+    	Ext.MessageBox.confirm('提示', '您确定要删除该条记录吗?', function(btn) {
+    		// 提示信息点击【YES】则删除
+    		if (btn == 'yes') {
+    			me.view.mask('Please Waiting...');
+    	    	Ext.Ajax.request({
+    	    		url:'/pdms/pm/project-plan-quality-valve!deleteProjectPlanQualityValve.action',
+    	    		params: {
+    	    			programVehicleId: me.view.programVehicleId,
+    	    			taskId: record.data.id
+    				},
+    				scope: me,
+    				success: function(response, opts) {
+    					me.view.unmask();
+    					var obj = Ext.decode(response.responseText);
+    					if (obj.success) {
+    						me.refreshView();
+        			    	ExtApp.util.Util.showToast("删除成功！");
+    			        } else {
+    			        	ExtApp.util.Util.handleRequestFailure(response);
+    			        }
+    			    },
+    				failure: function(response, opts) {
+    					me.view.unmask();
+    			    	ExtApp.util.Util.handleRequestFailure(response);
+    			    }
+    	    	})
+    		}
+    	});
+    },
+    
+    // 更新质量阀信息
+    onEditValve: function(editor, context, eOpts) {
+    	var me = this;
+    	me.view.mask('Please Waiting...');
+    	Ext.Ajax.request({
+    		url: '/pdms/pm/project-plan-quality-valve!updateProjectPlanQualityValve.action',
+    		params: {
+    			programVehicleId: this.view.programVehicleId,
+    			model: Ext.encode(context.record.data)
+			},
+			scope: me,
+			success: function(response, opts) {
+				me.view.unmask();
+		    	var obj = Ext.decode(response.responseText);
+		        if (obj.success) {
+		        	me.refreshView();
+		        	ExtApp.util.Util.showToast("更新成功！");
+		        } else {
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+				me.view.unmask();
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	})
+    },
+
+    // 刷新页面
+    refreshView: function() {
+    	this.view.down('grid').store.reload();
+    }
+});

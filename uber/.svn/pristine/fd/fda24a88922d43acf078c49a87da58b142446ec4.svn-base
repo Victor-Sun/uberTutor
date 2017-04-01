@@ -1,0 +1,25 @@
+Ext.define('ExtApp.store.myworkspace.PmTaskCommentStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.pmtaskcomment',
+    
+    requires: [
+       'Ext.data.Store',
+       'Ext.data.proxy.Memory',
+       'Ext.data.field.Integer',
+       'Ext.data.field.String',
+       'Ext.data.field.Date',
+       'Ext.data.field.Boolean',
+       'Ext.data.reader.Json'
+   ],
+    
+    fields:['id', 'author', 'date', 'time', 'paragraph', 'stepId', 'roleId', 'returnFlg', 'resultIcon', 'resultMsg'],
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/mw/todo-list!getCommentInfo.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

@@ -1,0 +1,74 @@
+/**
+ * 系统用户查询
+ */
+Ext.define('ExtApp.view.systemmanagement.userController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.user',
+    
+    // 【包含下级部门员工】变更
+    onSelectionChange: function(checkBox, newValue, oldValue, eOpts) {
+    	var includeSubDept = false;
+    	if (newValue) {
+    		// 包含下级部门人员
+    		includeSubDept = true;
+    	}
+    	var useStore = Ext.create(
+			'ExtApp.store.common.SysUserStore');
+		useStore.getProxy().extraParams = {
+			departmentId: this.view.departmentId, includeSubDept: includeSubDept
+		};
+		useStore.load();
+		this.view.down('grid').setStore(useStore);
+    },
+    itemdblclick: function( th , record , item , index , e , eOpts) {
+    	var win = Ext.create("ExtApp.view.systemmanagement.UserWindow",{userId:record.get('id')});
+    	win.down('form').loadRecord(record);
+    	win.show();
+    },
+    resetPassword:function(){
+    	var me = this;
+    	Ext.Ajax.request({
+    		url:'/pdms/com/sys-user-department!resetPassword.action',
+			scope: me,
+			params:{userId:me.view.userId},
+			success: function(response, opts) {
+		    	var obj = Ext.decode(response.responseText);
+				if (obj.success) {
+					ExtApp.util.Util.showToast('重置密码成功！');
+				} else {
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	});
+    },
+    syncOrgAndUserFromBim:function(){
+    	var me = this;
+    	Ext.getBody().mask();
+    	Ext.Ajax.request({
+    		url:'/pdms/com/sys-user-department!syncOrgAndUserFromBim.action',
+			scope: me,
+			params:{userId:me.view.userId},
+			success: function(response, opts) {
+		    	var obj = Ext.decode(response.responseText);
+				if (obj.success) {
+					ExtApp.util.Util.showToast('同步组织机构和用户成功！');
+					Ext.getBody().unmask();
+				} else {
+					Ext.getBody().unmask();
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+				Ext.getBody().unmask();
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	});
+    },
+	cancel: function(btn) {
+		this.view.close();
+	}
+
+});

@@ -1,0 +1,11 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectDBPerformanceStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectDBPerformance',
+
+    model: 'ExtApp.model.projectmanagement.ProjectDBPerformanceModel',
+
+    data: [
+        { os: '合格数', data1: 10 },
+        { os: '未合格数', data1: 10 }
+    ]
+});

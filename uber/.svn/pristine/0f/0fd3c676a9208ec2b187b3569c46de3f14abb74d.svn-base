@@ -1,0 +1,46 @@
+/**
+ * 部门空间-部门自建任务-进度Notes（列表汇报）
+ */
+Ext.define('ExtApp.view.deptworkspace.deptissue.DeptIssueNotesWindow',{
+	extend:'Ext.window.Window',
+	xtype:'deptIssueNotesWindow',
+
+	modal: true,
+	closable: false,
+	
+	layout:{
+		type:'fit'
+	},
+	
+	controller: 'deptIssueNotesWindow',
+	
+	width: 400,
+	height: 600,
+	
+	title: '汇报进度',
+	
+	initComponent: function() {
+		var me = this;
+		// 进展状况
+		var notesStore = Ext.create('ExtApp.store.deptworkspace.DeptIssueNotesStore');
+		notesStore.load({params: {issueId: me.issueId}});
+		
+		this.items = [{
+			xtype: 'panel',
+			layout: 'fit',
+			items: [{
+				xtype: 'deptIssueNotes',
+				store: notesStore,
+				issueId: me.issueId
+			}]
+		}];
+
+		this.tools = [{
+			text:'关闭',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'closeWindow'
+		}];
+		this.callParent();
+	}
+});

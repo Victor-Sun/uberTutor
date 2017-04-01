@@ -1,0 +1,57 @@
+/**
+ * 附件列表
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.ImsFileAttachmentGrid',{
+	extend:'Ext.grid.Panel',
+	xtype:'imsFileAttachmentGrid',
+//	controller: 'imsFileAttachment',
+	
+	cls: 'ims-grid shadow',
+	padding: 5,
+	hideHeaders: true,
+	
+	initComponent: function() {
+		var me = this;
+		// 附件列表
+		me.store = Ext.create('ExtApp.store.common.DocumentIndexStore');
+		me.store.getProxy().extraParams = {
+			sourceType: me.sourceType, sourceId: me.sourceId};
+		me.store.load();
+		
+		
+		
+		// 可编辑标志
+		var hiddenFlg = false;
+		if (typeof(me.editable) != 'undefined' && me.editable != null) {
+			hiddenFlg = ! me.editable;
+		}
+		if(!me.editable){
+			me.store.on('load',function() {
+				var count = me.store.getCount();
+	        	if(count < 1){
+	        		me.up('imsFileAttachment').hide();
+	        	}
+			});
+		}
+		
+		
+		me.columns = [{
+			xtype: 'templatecolumn',
+			tpl: '<i class="{documentTypeIcons}"  style = "color:green"></i> &nbsp{documentName}', 
+			flex: 1,
+			listeners: {
+				click: 'onFileClick'
+			}
+		},{
+			xtype: 'actioncolumn',
+			width: 45,
+			items: [{
+				iconCls: 'x-fa fa-trash',
+	            handler: 'deleteFile'
+			}],
+	        hidden: hiddenFlg
+		}];
+		
+		me.callParent();
+	}
+});

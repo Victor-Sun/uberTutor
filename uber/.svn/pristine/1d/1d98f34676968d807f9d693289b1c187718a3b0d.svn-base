@@ -1,0 +1,104 @@
+/**
+ * 工作联系单View
+ */
+Ext.define('ExtApp.view.workorder.WorkOrderDraft',{
+	extend:'Ext.panel.Panel',
+	xtype:'workOrderDraft',
+	
+	controller: 'workOrderDraft',
+	
+	layout:'fit',
+	title:'工作联系单',
+	
+	initComponent: function() {
+		var workOrderStore = Ext.create('ExtApp.store.workorder.WorkOrderDraft');
+		workOrderStore.load();
+		this.items = [{
+			xtype:'grid',
+			store: workOrderStore,
+			columns:[{
+				xtype: 'rownumberer'
+			},{
+				text:'发文单位',
+				flex:1,
+				dataIndex:'sourceDept'
+			},{
+				text:'收文单位',
+				flex:1,
+				dataIndex:'targetDept'
+			},{
+				text:'所属项目',
+				flex:1,
+				dataIndex:'programName'
+			},{
+				text:'工作类别',
+				flex:1,
+				dataIndex:'workTypeName'
+			},{
+				text:'工作名称',
+				flex:1,
+				dataIndex:'title'
+			},{
+				text:'编制人',
+				flex:1,
+				dataIndex:'createBy'
+			},{
+				text:'编制日期',
+				flex:1,
+				dataIndex:'createDate'
+			},{
+				text:'工联单类型',
+				flex:1,
+				dataIndex:'woType'
+			},
+			{
+				xtype:'actioncolumn',
+				flex:1,
+	            items: [{
+	            	iconCls:'x-fa fa-trash',
+	                tooltip: 'Delete',
+	                handler: function(grid, rowIndex, colIndex) {
+	                	 var rec = grid.getStore().getAt(rowIndex);
+	                	 var id = rec.get('id');
+	                	 Ext.Ajax.request({
+	                		 url: '/pdms/workorder/workorder!delete.action',
+	                		 params:{id:id},
+	                	     success: function(response, opts) {
+	                	    	 var result = ExtApp.util.Util.decodeJSON(response.responseText);
+	                	 		 if (!result){ //#4
+	            	    	 		 result = {};
+	            	    	 		 result.success = false;
+	            	    	 		 result.msg = response.responseText;
+	                	 		 }
+	                	 		workOrderStore.load();
+	                	     },
+
+	                	     failure: function(response, opts) {
+	                	    	 var result = ExtApp.util.Util.decodeJSON(response.responseText);
+	                	 		 
+	                	     }
+	                	 });
+	                },
+	                getClass: function(v, meta, rec) {
+	                	var status = rec.get('status');
+	                    if (status == 'RESUBMIT' || status == 'DRAFT' || status == ''  || status == null) {
+	                          return 'x-fa fa-trash';
+	                    }else{
+	                    	return 'x-hidden';
+	                    }
+	            	}
+	            }]
+	        }],
+			listeners:{
+	        	celldblclick: 'onCelldblclick'
+			},
+			dockedItems: [{
+				xtype: 'pagingtoolbar',
+				dock: 'bottom',
+				displayInfo: true,
+				store: workOrderStore
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

@@ -1,0 +1,40 @@
+Ext.define('ExtApp.store.qualityissuemanagement.TotalReportStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.totalreport',
+
+    fields: [
+             {name: 'id',        type: 'int'},
+             {name: 'company',   type: 'string'},
+             {name: 'country',   type: 'string'},
+             {name: 'person',    type: 'string'},
+             {name: 'date',      type: 'date', dateFormat: 'c'},
+             {name: 'value',     type: 'float'},
+             {name: 'quantity',  type: 'float'},
+             {
+                 name: 'year',
+                 convert: function(v, record){
+                     return Ext.Date.format(record.get('date'), "Y");
+                 }
+             },{
+                 name: 'month',
+                 convert: function(v, record){
+                     return parseInt(Ext.Date.format(record.get('date'), "m"), 10) - 1;
+                 }
+             },{
+                 name: 'continent',
+                 convert: function(v, record){
+                     return regions[record.get('country')];
+                 }
+             }
+         ]
+
+//    proxy: {
+//    	type: 'ajax',
+//        url: '/pdms/ims/query!getQuery.action',
+//        reader: {
+//            type: 'json',
+//            rootProperty: 'data'
+//        }
+//    },
+//    autoLoad: true
+});

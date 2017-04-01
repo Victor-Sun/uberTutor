@@ -1,0 +1,58 @@
+/**
+ * 项目管理-Ext202Model View
+ */
+Ext.define('ExtApp.view.projectManagement.extplan.ext202.Ext202ModleList',{
+	extend:'Ext.container.Container',
+	xtype:'ext202ModleList',
+	controller: 'ext202Model',
+	margin:10,
+	cls:'shadow',
+	initComponent: function() {
+		var store = Ext.create('ExtApp.store.projectmanagement.extplan.ext202.Ext202Modle');
+		store.load();
+	
+		this.items = [{
+			xtype: 'grid',
+			reference: 'refProjectListGrid',
+			store: store,
+			columns: [{
+				xtype: 'rownumberer'
+			},{
+					text: '描述',
+					flex: 1,
+					dataIndex: 'description'
+				}],
+            tbar: [{
+				xtype:'radiogroup',
+				items:[
+					{ boxLabel:'所有项目', name:'usualProject', inputValue:'1', checked:true },
+					{ boxLabel:'常用项目', name:'usualProject', inputValue:'2' }
+				],
+				listeners: {
+					change: 'usualProjectChang'
+				}
+			},{
+				text: '查询',
+				iconCls: 'x-fa fa-search',
+				handler: 'search'
+			},'-',{
+				itemId:'BTN800402',//用于权限控制
+				text:'新建项目',
+				hidden:true,
+				iconCls: 'x-fa fa-plus',
+				handler: 'newProject'
+			}],
+            dockedItems: [{
+                xtype: 'pagingtoolbar',
+                dock: 'bottom',
+                displayInfo: true,
+                store: store
+            }],
+            listeners:{
+            	cellcontextmenu: 'onCellcontext',
+            	celldblclick: 'onCelldblclick'
+			}
+		}];
+		this.callParent(arguments);
+	}
+});

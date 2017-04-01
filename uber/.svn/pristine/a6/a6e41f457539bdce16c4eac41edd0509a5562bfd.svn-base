@@ -1,0 +1,16 @@
+
+Ext.define('ExtApp.store.toolbarsettings.MyWorkGroupMemberStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.myWorkGroupMember',
+
+    fields: ['id', 'userId', 'userName'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ts/personal-settings!getMyWorkGroupMemberList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

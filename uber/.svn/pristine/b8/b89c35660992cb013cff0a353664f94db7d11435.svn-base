@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.PreTaskStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.preTask',
+
+    model: 'ExtApp.model.projectmanagement.PreTaskModel',
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/dept-plan!getPreTask.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

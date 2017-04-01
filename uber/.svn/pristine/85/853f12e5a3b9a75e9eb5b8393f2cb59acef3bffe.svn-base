@@ -1,0 +1,365 @@
+/**
+ * 项目管理-主计划
+ */
+Ext.define('ExtApp.view.projectmanagement.timeline.TimeLineBaseController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.timeLineBase',
+    
+    initFlag: false,
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	var toolbar = this.view.down('toolbar');
+    	// 控制权限
+    	ExtApp.util.Util.setPrivilegeByItem(
+    			toolbar, this.view.projectPrivilege[this.view.programVehicleId]);
+    	// 计划编辑权限取得
+		var editPrivilege = false;
+    	var statusStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProjectPlanStatusStore');
+		if (this.view.record.get('planLevel') == '2') {
+			statusStore.getProxy().extraParams = {
+				programVehicleId: me.view.programVehicleId, obsId: me.view.obsId};
+			// 计划编辑权限取得
+			editPrivilege = ExtApp.util.Util.getPrivilege(
+					'P1002', me.view.projectPrivilege, me.view.programVehicleId);
+		} else {
+			statusStore.getProxy().extraParams = {
+				programVehicleId: this.view.programVehicleId};
+			editPrivilege = ExtApp.util.Util.getPrivilege(
+					'P0902', me.view.projectPrivilege, me.view.programVehicleId);
+		}
+		statusStore.load();
+		statusStore.on('load', function() {
+			var planStatus = this.data.getAt(0).get('planStatus');
+			var chkPlanned = null;
+			if (me.view.record.get('planLevel') == '2') {
+				// 计划发布
+		    	if (planStatus == 'ACTIVE') {
+		    		// 计划完成
+		    		me.setHidden(toolbar, 'CHKP1003');
+		    		// 发布计划
+		    		me.setHidden(toolbar, 'BTNP1007');
+		    		// 另存为
+		    		me.setHidden(toolbar, 'BTNP1005');
+		    	// 计划未完成
+		    	} else if (planStatus == 'INACTIVE') {
+		    		// 发布计划
+		    		me.setHidden(toolbar, 'BTNP1007');
+		    		// 计划变更
+		    		me.setHidden(toolbar, 'BTNP1008');
+		    	// 计划已完成
+		    	} else {
+		    	    // 计划变更
+		    		me.setHidden(toolbar, 'BTNP1008');
+		    		// 另存为
+		    		me.setHidden(toolbar, 'BTNP1005');
+		    	}
+		    	chkPlanned = toolbar.getComponent('CHKP1003');
+			} else {
+				// 计划发布
+		    	if (planStatus == 'ACTIVE') {
+		    		// 计划完成
+		    		me.setHidden(toolbar, 'CHKP0903');
+		    		// 发布计划
+		    		me.setHidden(toolbar, 'BTNP0907');
+		    		// 另存为
+		    		me.setHidden(toolbar, 'BTNP0905');
+		    	// 计划未完成
+		    	} else if (planStatus == 'INACTIVE') {
+		    		// 发布计划
+		    		me.setHidden(toolbar, 'BTNP0907');
+		    		// 计划变更
+		    		me.setHidden(toolbar, 'BTNP0908');
+		    	// 计划已完成
+		    	} else {
+		    	    // 计划变更
+		    		me.setHidden(toolbar, 'BTNP0908');
+		    		// 另存为
+		    		me.setHidden(toolbar, 'BTNP0905');
+		    	}
+		    	chkPlanned = toolbar.getComponent('CHKP0903');
+			}
+			if (chkPlanned) {
+	    		// 未完成状态以外
+	    		if (planStatus != 'INACTIVE') {
+	    			if (! chkPlanned.checked) {
+	    				me.initFlag = true;
+		    			chkPlanned.setValue(true);
+	    			}
+	    		} else {
+	    			if (chkPlanned.checked) {
+	    				me.initFlag = true;
+		    			chkPlanned.setValue(false);
+	    			}
+	    		}
+	    	}
+	    	// 基线查看页面
+	    	if (me.view.baselineId && me.view.baselineId != null) {
+	    		toolbar.setHidden(true);
+	    	}
+	    	// 编辑权限判定
+	    	editPrivilege = editPrivilege &&
+					planStatus == 'INACTIVE' &&
+					! (me.view.baselineId && me.view.baselineId != null);
+	    	// 显示时程表
+	    	if (me.view.record.get('planLevel') == '2') {
+	        	var editStore = Ext.create(
+	    			'ExtApp.store.projectmanagement.ObsPrivilegeStore');
+	    		editStore.getProxy().extraParams = {obsId: me.view.obsId};
+	    		editStore.load();
+	    		editStore.on('load', function() {
+	    			var obsEditFlg = this.data.getAt(0).get('obsCanEdit');
+	    			// 不具备可编辑权限的专业领域
+	    			if (! obsEditFlg) {
+	    	    		toolbar.setHidden(true);
+	    	    	}
+	    	    	// 编辑权限判定
+	    	    	editPrivilege = editPrivilege && obsEditFlg;
+	    			// 显示时程表
+	    			me.displayTimeLine('2', editPrivilege);
+	    		});
+	    	} else {
+				// 显示时程表
+				me.displayTimeLine('1', editPrivilege);
+	    	}
+		});
+    },
+    
+    // 隐藏项目
+    setHidden: function(target, itemId) {
+    	var component = target.getComponent(itemId);
+	    if (component) {
+	    	component.setHidden(true);
+	    }
+    },
+    
+    // 显示时程表
+    displayTimeLine: function(planLevel, editPrivilege) {
+    	var me = this;
+    	// 显示时程表
+    	var newView = Ext.create({
+    		xtype: 'projectTimeLine',
+    		title: '时程表',
+    		programId: me.view.programId,
+			programVehicleId: me.view.programVehicleId,
+			projectPrivilege: me.view.projectPrivilege,
+			planId: me.view.record.get('planId'),
+			planLevel: planLevel,
+			fnGroupId: me.view.obsId,
+			editPrivilege: editPrivilege,
+			baselineId: me.view.baselineId
+        });
+    	if (me.view.items.getCount() > 0) {
+    		me.view.remove(me.view.items.get(0));
+    	}
+    	me.view.add(newView);
+    },
+
+    // 计划完成
+    onChangePlanStatus: function(checkBox, newValue, oldValue, eOpts) {
+    	// 页面初始时CheckBox有动作，但是不执行后台操作
+    	if (this.initFlag) {
+    		this.initFlag = false;
+    		return;
+    	}
+    	var me = this;
+    	Ext.getBody().mask('Please Waiting...');
+    	Ext.Ajax.request({
+    	    url: '/pdms/pm/project-plan!changeProgramStatusCheck.action',
+    	 	params: {
+    	 		programVehicleId: me.view.programVehicleId,
+    	 		chkStatus: newValue
+    	 	},
+    	 	scope: me,
+    	 	success: function(response, opts) {
+    	        Ext.getBody().unmask();
+    	    	var obj = Ext.decode(response.responseText);
+    	        if (obj.success) {
+    	        	if (obj.data) {
+    	        		Ext.MessageBox.confirm('提示', obj.data, function(btn) {
+        	        		if (btn == 'yes') {
+        	        			me.doChangePlanStatus(checkBox, newValue);
+        	        		} else {
+        	        			me.initFlag = true;
+        	    	        	checkBox.reset();
+        	        		}
+        	        	});
+    	        	} else {
+    	        		me.doChangePlanStatus(checkBox, newValue);
+    	        	}
+    	        } else {
+    	        	me.initFlag = true;
+    	        	checkBox.reset();
+    	        	ExtApp.util.Util.handleRequestFailure(response);
+    	        }
+    	 	},
+ 		    failure: function(response, opts) {
+ 		    	Ext.getBody().unmask();
+ 		    	me.initFlag = true;
+ 		    	checkBox.reset();
+ 		    	ExtApp.util.Util.handleRequestFailure(response);
+ 		    }
+        });
+    },
+    
+    doChangePlanStatus: function(checkBox, chkStatus) {
+    	var me = this;
+    	var url = '/pdms/pm/project-plan!preDeployMainPlan.action';
+    	if (this.view.record.get('planLevel') == '2') {
+    		url = '/pdms/pm/project-plan!preDeployDeptPlan.action';
+    	}
+    	Ext.getBody().mask('Please Waiting...');
+    	Ext.Ajax.request({
+    	    url: url,
+    	 	params: {
+    	 		programId: me.view.programId,
+    	 		programVehicleId: me.view.programVehicleId,
+    	 		obsId: me.view.obsId,
+    	 		chkStatus: chkStatus
+    	 	},
+    	 	scope: me,
+    	 	success: function(response, opts) {
+    	        Ext.getBody().unmask();
+    	    	var obj = Ext.decode(response.responseText);
+    	        if (obj.success) {
+    	        	ExtApp.util.Util.showToast("计划状态更改成功！");
+    	        	// 刷新页面
+    	        	me.refreshView();
+    	        } else {
+    	        	me.initFlag = true;
+    	        	checkBox.reset();
+    	        	ExtApp.util.Util.handleRequestFailure(response);
+    	        }
+    	 	},
+ 		    failure: function(response, opts) {
+ 		    	Ext.getBody().unmask();
+ 		    	me.initFlag = true;
+ 		    	checkBox.reset();
+ 		    	ExtApp.util.Util.handleRequestFailure(response);
+ 		    }
+        });
+    },
+    
+    // 发布计划
+    deploy: function(btn) {
+    	var me = this;
+    	this.view.add({
+            xtype: 'deployPlanAttachment',
+            programId: me.view.programId,
+            programVehicleId: me.view.programVehicleId,
+            programVehicleName: me.view.record.get('vehicleName'),
+            obsId: me.view.obsId,
+            parentCaller: me
+        }).show();
+    },
+    
+    // 计划变更
+    onChangePlan: function(btn) {
+    	var me = this;
+    	Ext.getBody().mask('Please Waiting...');
+    	Ext.Ajax.request({
+    	    url: '/pdms/pm/project-plan!changePlan.action',
+    	 	params: {
+    	 		programId: me.view.programId,
+    	 		programVehicleId: me.view.programVehicleId,
+    	 		obsId: me.view.obsId
+    	 	},
+    	 	scope: me,
+    	 	success: function(response, opts) {
+    	        Ext.getBody().unmask();
+    	    	var obj = Ext.decode(response.responseText);
+    	        if (obj.success) {
+    	        	ExtApp.util.Util.showToast("计划变更成功！");
+    	        	// 刷新页面
+    	        	me.refreshView();
+    	        } else {
+    	        	ExtApp.util.Util.handleRequestFailure(response);
+    	        }
+    	 	},
+ 		    failure: function(response, opts) {
+ 		    	Ext.getBody().unmask();
+ 		    	ExtApp.util.Util.handleRequestFailure(response);
+ 		    }
+        });
+    },
+    
+    // 另存为
+    onCreateBaseline: function(btn) {
+    	var me = this;
+    	Ext.create({
+    		xtype: 'createBaseline',
+            programVehicleId: me.view.programVehicleId,
+            obsId: me.view.obsId
+        }).show();
+    },
+    
+    // 查看历史记录
+    displayBaseline: function(btn) {
+    	var me = this;
+    	Ext.create({
+            xtype: 'baselineList',
+            programId: me.view.programId,
+            programVehicleId: me.view.programVehicleId,
+            obsId: me.view.obsId,
+            projectPrivilege: me.view.projectPrivilege,
+            parentCaller: me
+        }).show();
+    },
+    
+    // 刷新页面
+    refreshView: function(action) {
+    	this.init();
+    },
+    
+    // 导出变更记录
+    displayChangeLog: function(btn) {
+    	var me = this;
+    	me.view.mask('Please Waiting...');
+    	Ext.Ajax.request({
+    	    url: '/pdms/pm/baseline!getBaselineTask.action',
+    	 	params: {
+    	 		programVehicleId: me.view.programVehicleId,
+    	 		obsId: me.view.obsId
+    	 	},
+    	 	scope: me,
+    	 	success: function(response, opts) {
+    	 		me.view.unmask();
+    	    	var obj = Ext.decode(response.responseText);
+    	        if (obj.success) {
+    	        	if (obj.data.id && obj.data.id != null && obj.data.id != '') {
+    	        		// 导出变更记录
+    	        		me.export2Excel(obj.data.id);
+    	        	} else {
+    	        		ExtApp.util.Util.showErrorMsg('由于不存在发布过的基线计划，所以不能做对比!');
+    	        	}
+    	        } else {
+    	        	ExtApp.util.Util.handleRequestFailure(response);
+    	        }
+    	 	},
+ 		    failure: function(response, opts) {
+ 		    	me.view.unmask();
+ 		    	ExtApp.util.Util.handleRequestFailure(response);
+ 		    }
+        });
+    },
+    
+    // 导出变更记录
+    export2Excel:function(baselineId) {
+    	var me = this;
+    	var url = 'rpt=pm/pm_task_change_log.brt&emitter=toxls';
+    	// 车型ID
+    	var params = 'programVehicleId=' + me.view.programVehicleId + ';';
+    	// 基线ID
+    	params += 'baselineId=' + baselineId + ';';
+    	// OBSID
+    	if (me.view.obsId && me.view.obsId != null && me.view.obsId != '') {
+    		params += 'obsId=' + me.view.obsId + ';';
+    	}
+    	if (params.length > 0) {
+    		url += '&params=' + params;
+    	}
+    	ExtApp.util.Util.openReport(url);
+    }
+});

@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.dashboard.DashTodoListStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.dashTodoList',
+
+    model: 'ExtApp.model.dashboard.DashTodoListModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/dashboard/dashboard-pms!getDashTodoList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

@@ -1,0 +1,4 @@
+Ext.define('ExtApp.view.projectmanagement.extplan.ext201.Ext201ContralListController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.ext201ContralList'
+});

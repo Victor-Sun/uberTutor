@@ -1,0 +1,41 @@
+/**
+ * 项目管理-项目文档-项目交付物类型文档
+ */
+Ext.define('ExtApp.view.projectmanagement.document.DeliverableDocumentController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.deliverableDocument',
+    
+    // 查询
+    search: function() {
+    	var toolbar = this.view.down('toolbar');
+    	var searchVehicleCode = toolbar.query('#searchVehicleCode')[0].value;
+    	var searchGateCode = toolbar.query('#searchGateCode')[0].value;
+    	var searchDeliverableName = toolbar.query('#searchDeliverableName')[0].value;
+    	var searchDocumentName = toolbar.query('#searchDocumentName')[0].value;
+    	this.view.down('grid').getStore().load({
+    		params:{
+    			programId: this.view.programId,
+    			searchVehicleCode: searchVehicleCode,
+    			searchGateCode: searchGateCode,
+    			searchDeliverableName: searchDeliverableName,
+    			searchDocumentName: searchDocumentName
+    	}});
+    },
+    
+    // 重置
+    reloadSearch: function() {
+    	var toolbar = this.view.down('toolbar');
+    	toolbar.query('#searchVehicleCode')[0].setValue('');
+    	toolbar.query('#searchGateCode')[0].setValue('');
+    	toolbar.query('#searchDeliverableName')[0].setValue('');
+    	toolbar.query('#searchDocumentName')[0].setValue('');
+    	this.search();
+    },
+    
+    // 文件下载
+    onFileClick: function(grid, td, rowIndex, cellIndex, e, record, tr) {
+    	window.location.href = "/pdms/com/document!downloadDocument.action?"
+    			+ "revisionId=" + record.data.documentRevisionId
+    			+ "&documentIdxId=" + record.data.docmentIndexId;
+    }
+});

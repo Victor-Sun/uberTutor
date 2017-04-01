@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectListNoPagingStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectListNoPaging',
+
+    model: 'ExtApp.model.projectmanagement.ProjectListModel',
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-list!getProjectListNoPaging.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

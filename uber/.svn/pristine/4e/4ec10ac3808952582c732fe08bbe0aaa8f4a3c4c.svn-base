@@ -1,0 +1,142 @@
+Ext.define('ExtApp.view.projectManagement.issue.confirmissue.ConfirmIssueWindow',{
+	xtype:'confirmIssueWindow',
+	extend:'Ext.window.Window',
+	border:true,
+	bodyStyle:'border:5px',
+	cls:'shadow',
+//	width:Ext.getBody().getViewSize().width,
+//	height:Ext.getBody().getViewSize().height,
+	
+	maximized: true,
+	
+	// margin:'65 0 0 250',
+//	title:'问题确认',
+	header: false,
+	controller: 'confirmIssue',
+	layout:{
+		type:'border'
+	},
+	appId:0,
+	record:null,
+	initComponent: function() {
+		var me = this;
+//		var alertPanel = Ext.create('ExtApp.view.projectManagement.issue.raiseissue.AlertPanel');
+		var issueBaseInfoForm = Ext.create('ExtApp.view.projectManagement.issue.common.IssueBaseInfoForm',
+				{programId:me.programId, programVehicleId: me.programVehicleId, region:'center',issueId:me.issueId,record:me.record, action: 'confirm'});
+//		var raiseIssueDocuments = Ext.create('ExtApp.view.projectManagement.issue.raiseissue.RaiseIssueDocuments');
+		
+    	var notes = Ext.create('ExtApp.view.projectManagement.issue.solveissue.Notes',{issueId:me.issueId, editPrivilege: true});
+		var notesStore = Ext.create('ExtApp.store.projectmanagement.issue.solveissue.Notes');
+		notes.setStore(notesStore);
+		notesStore.load({params:{issueId:me.issueId}});
+//		var alertPanel = Ext.create('AFC.view.application.da022.application.AlertPanel',{content:me.record.get('returnDescription')});
+//		if('RESUBMIT' == status){
+//			alertPanel.setHidden(false);
+//		}else{
+//			alertPanel.setHidden(true);
+//		}
+//		alertPanel.setHidden(true);
+		var issueMember = Ext.create('ExtApp.view.projectManagement.issue.IssueMember',{sourceId:me.issueId});
+    	me.items = [{
+			xtype:'tabpanel',
+			flex: 1,
+			layout: 'border',
+			region:'center',
+			defaults: {
+				scrollable: 'y'
+			},
+			margin:0,
+			items:[{
+				xtype:'panel',
+				title:'问题信息',
+				layout: 'border',
+				region:'center',
+				items:[issueBaseInfoForm, {
+					xtype: 'tabpanel',
+					region:'east',
+					width:'20%',
+					border:true,
+					items: [{
+						xytpe:'panel',
+						layout: 'fit',
+						title:'问题进展',
+						items:[notes]
+					},{
+						xtype: 'panel',
+						layout: 'fit',
+						title: '评审信息',
+						items: [{
+							xtype:'appraise',
+							issueId: me.issueId
+						}]
+					}]
+				}]
+			},{
+				region:'center',
+				xtype:'forum',
+				sourceId:me.record.get('issueUuid'),
+				source:'PM-ISSUE',
+				forumMember:issueMember,
+				title:'协作'
+			},{
+				region:'center',
+				xtype:'panel',
+				title:'评论',
+				layout: 'fit',
+				items: [{
+					xtype:'issueComment',
+					sourceId:me.record.get('issueUuid'),
+					source:'PM-ISSUE-COMMENT',
+					scrollable: 'y'
+				}]
+			}]
+		}];
+    	me.dockedItems = [{
+        	xtype: 'toolbar',
+        	padding: '0 6 0 2',
+        	cls: 'workorder shadow',
+        	docked: 'top',
+        	items: [{
+        		xtype: 'image',
+                height: 45,
+                src: 'resources/images/navigation/OpenIssueConfirm.png'
+        	},'->',
+        	{ 
+        		xtype: 'button',
+        		iconCls: 'x-fa fa-close',
+        		tooltip: '关闭',
+        		handler: function () {
+        			me.close();
+        		}
+        	}
+        	]
+        }];
+    	me.fbar=[
+    	  	        { xtype: 'tbfill' },
+      			{ type:'button', text:'保存',value:'SAVE',
+      				listeners: {
+      					click: 'onButtonClickSubmit'
+      				}
+    	  	    },
+      			{ type:'button', text:'打回',value:'RETURN',
+      				listeners: {
+      					click: 'onButtonClickSubmit'
+      				}
+    	  	    },
+      			{ type:'button', text:'提交',value:'NEXT',
+      				listeners: {
+      					click: 'onButtonClickSubmit'
+      				}
+//      			},
+//      			{ type:'button', text:'关闭',value:'CLOSE',
+//      				listeners: {
+//      					click: 'onButtonClickSubmit'
+//      				}
+      			}
+      	    ];
+    	
+    	
+    	me.callParent(arguments);
+ 		
+	}
+});

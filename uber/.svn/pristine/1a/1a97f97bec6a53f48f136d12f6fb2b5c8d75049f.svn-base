@@ -1,0 +1,21 @@
+/**
+ * 部门空间-部门自建任务-审批流程
+ */
+Ext.define('ExtApp.view.deptworkspace.deptissue.DeptIssueProcessRecordController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.deptIssueProcessRecord',
+   
+    renderTitleColumn: function (value, metaData, record) {
+        var view = this.getView(),
+            plugin = view.getPlugin('rowexpander'),
+            tpl = view.titleTpl;
+
+        if (!tpl.isTemplate) {
+            view.titleTpl = tpl = new Ext.XTemplate(tpl);
+        }
+
+        var data = Ext.Object.chain(record.data);
+
+        return tpl.apply(data);
+    }
+});

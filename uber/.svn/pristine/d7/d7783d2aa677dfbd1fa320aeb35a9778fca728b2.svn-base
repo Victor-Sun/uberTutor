@@ -1,0 +1,16 @@
+﻿Ext.define('ExtApp.store.qualityissuemanagement.MyTaskStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.myTask',
+
+    fields: ['taskName', 'taskType', 'qeTitle', 'qeStatus', 'qeLevel', 'beProject', 'waiTime', 'keyId','processInstanceId','taskId','formKey', 'mark', 'risk', 'steps'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/my-task!getImsIssue.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    pageSize:20
+});

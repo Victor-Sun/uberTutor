@@ -1,0 +1,5 @@
+Ext.define("ExtApp.common.Constants", {
+	statics:{
+		pageSize: 25    
+	}
+});

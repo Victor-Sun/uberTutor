@@ -1,0 +1,51 @@
+/**
+ * 项目管理-新建文件夹
+ */
+Ext.define('ExtApp.view.projectmanagement.document.CreateFolderController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.createFolder',
+	
+    // 确定
+    confirm: function(btn) {
+    	var me = this;
+
+    	var folderName = this.view.query('#folderName')[0].value;
+    	if (folderName == '') {
+    		ExtApp.util.Util.showErrorMsg('文件夹名称不允许为空！');
+    	}
+    	
+    	me.view.mask('Please Waiting...');
+    	Ext.Ajax.request({
+    		url: '/pdms/pm/project-document!createFolder.action',
+    		params: {
+    			parentId: me.view.parentId,
+    			folderId: me.view.folderId,
+    			folderName: folderName
+			},
+			scope: me,
+			success: function(response, opts) {
+				me.view.unmask();
+				var obj = Ext.decode(response.responseText);
+				if (obj.success) {
+					var tree = me.view.up('projectDocumentBase').down('treepanel');
+					var node = tree.getStore().getNodeById(me.view.parentId);
+					tree.getStore().getProxy().extraParams.sourceType = 'SOURCE_TYPE_CUSTOMIZATION';
+    		    	tree.getStore().getProxy().extraParams.programId = me.view.programId;
+    		        tree.getStore().load({node:node});
+                    me.cancel();
+		        } else {
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+				me.view.unmask();
+		    	ExtApp.util.Util.handleRequestFailure(response);	
+		    }
+    	});
+    },
+    
+    // 取消
+    cancel: function() {
+    	this.view.close();
+    }
+});

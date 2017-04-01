@@ -1,0 +1,193 @@
+Ext.define('ExtApp.view.projectmanagement.issue.contribution.SearchUser',{
+	extend: 'Ext.panel.Panel',
+	xtype: 'searchuser',
+	
+	title: 'Search User',
+
+	layout: {
+		type: 'hbox',
+		align: 'stretch'
+	},
+	initComponent: function () {
+		var contribute = Ext.create('ExtApp.store.projectmanagement.ContributionUserStore',{
+			sorters: [{
+				property: 'contributionCount',
+				direction: 'DESC' // or 'ASC'
+			}]
+		});
+		this.items = [{
+			xtype: 'panel',
+			border: true,
+			flex: 1,
+			layout: 'fit',
+			items: [{
+				xtype: 'grid',
+				store: contribute,
+				columns: [{
+					text: 'Rank',
+					xtype: 'rownumberer'
+				},{
+					text: 'Name',
+	//				width: 200,
+					locked: true,
+					sortable: false,
+					dataIndex: 'name'
+				},{
+					text: 'Total Contributions',
+					sortable: false,
+					flex: 1,
+					dataIndex: 'contributionCount'
+				},{
+					text: 'Reference Count',
+					sortable: false,
+					flex: 1,
+					dataIndex: 'referenceCount'
+				},{
+					text: 'View Count',
+					sortable: false,
+					flex: 1,
+					dataIndex: 'viewCount'
+				},{
+					text: 'Last Contribution',
+					sortable: false,
+					flex: 1,
+	//				formatter: 'date("m/d/Y")',
+			        dataIndex: 'lastContribution'
+				}],
+				dockedItems: [{
+					xtype: 'toolbar',
+					items: [{
+						xtype: 'combobox',
+						fieldLabel: 'Display',
+						labelWidth: 65,
+						displayField: 'name',
+						valueField: 'name',
+						queryMode: 'local',
+						store: {
+							fields: ['name'],
+							data: [
+							       {'name': 'Top 10'},
+							       {'name': 'Top 20'}
+					       ]
+						}
+					},
+					{
+						xtype: 'button',
+						text: 'Select'
+					},
+					{
+						xtype: 'button',
+						text: 'Filter Search',
+						menu: {
+							xtype: 'menu',
+							plain: true,
+							items: [{
+								xtype: 'buttongroup',
+								title: 'search user',
+								columns: 2,
+								items: [{
+									xtype: 'textfield'
+								},{
+									xtype: 'button',
+									text: 'Search'
+								}]
+							}]
+						}
+					}
+					]
+				}]
+			}]
+		},{
+			xtype: 'panel',
+			border: true,
+			title: 'User Info',
+			width: '35%',
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
+			items: [{
+				xtype: 'container',
+				margin: 5,
+				height: 200,
+				layout: {
+					type: 'hbox',
+					align: 'stretch'
+				},
+				items: [{
+					xtype: 'panel', //Avatar
+					margin: 5,
+					padding: 15,
+					width: 150,
+					cls: 'shadow',
+					layout: 'fit',
+					items: [{
+						xtype:'image',
+						cls: 'profile-image',
+						src:'resources/images/user-profile/avatar.jpg'
+					}]
+				},{
+					xtype: 'panel', //User Info
+					margin: 5,
+					padding: 10,
+					cls: 'shadow',
+					flex: 1,
+					layout: 'vbox',
+					items: [{
+						xtype: 'textfield',
+						fieldLabel: 'Username'
+					},{
+						xtype: 'textfield',
+						fieldLabel: 'Total Contributions:'
+					},{
+						xtype: 'textfield',
+						fieldLabel: 'Email'
+					},{
+						xtype: 'textfield',
+						fieldLabel: 'Phone Number'
+					}]
+				}]
+			},{
+				xtype: 'panel',
+				cls: 'shadow',
+				margin: 10,
+				flex: 1,
+				layout: {
+					type: 'vbox',
+					align: 'stretch'
+				},
+				items: [{
+					xtype: 'grid',
+					flex: 1,
+					margin: 10,
+					title: 'Recent Contributions',
+					store: {
+						fields:[{
+						    name: 'contribution'
+						},{
+							name: 'date'
+						}],
+						data: [
+					       {'contribution': 'Contribution 1', 'date': '1/1/1999'},
+					       {'contribution': 'Contribution 2', 'date': '2/2/1999'},
+					       {'contribution': 'Contribution 3', 'date': '3/3/1999'},
+					       {'contribution': 'Contribution 4', 'date': '4/4/1999'},
+					       {'contribution': 'Contribution 5', 'date': '5/5/1999'}
+					       
+				       ]
+					},
+					columns:[{
+						text:'Contribution',
+						flex: 1,
+						dataIndex: 'contribution'
+					},{
+						text: 'Date',
+						width: 150,
+						dataIndex: 'date'
+					}]
+				}]
+			}]
+		}];
+		this.callParent();
+	}
+});

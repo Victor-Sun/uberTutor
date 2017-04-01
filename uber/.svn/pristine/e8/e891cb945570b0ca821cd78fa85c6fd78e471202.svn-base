@@ -1,0 +1,42 @@
+/**
+ * 个人管理-待办任务-部门Open Issue
+ */
+Ext.define('ExtApp.store.myworkspace.TodoListDeptIssueStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.todoListDeptIssue',
+    remoteFilter:true,
+    remoteSort:true, 
+    fields: [
+         'id',
+         'uuid',
+         'isseuTitle',
+         'progressStatus',
+         {name:'raiseDate', type: 'date'},
+         {name:'daysDelayed', type: 'number'},
+         'issueSourceId',
+         'issueSourceTitle',
+         'raiseBy',
+         'raiseByName',
+         'respDeptId',
+         'respDeptName',
+         'respUserId',
+         'respUserName',
+         'taskOwner',
+         'statusCodeName',
+         {name: 'dueDate', type: 'date'},
+         {name: 'actualFinishaDate', type: 'date'},
+         'issueDescription',
+         'issueCause'
+    ],
+        
+    pageSize: ExtApp.common.Constants.pageSize,
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/mw/todo-list!getTodoListDeptIssue.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

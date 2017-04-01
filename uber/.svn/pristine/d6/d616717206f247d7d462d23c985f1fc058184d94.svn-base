@@ -1,0 +1,122 @@
+/**
+ * 质量问题管理-问题提交
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.Submission',{
+	extend:'Ext.form.Panel',
+	xtype:'submission',
+	controller: 'submission',
+	viewModel: 'submission',
+	keyId:null,
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+	
+//	margin:10,
+	
+	scrollable: 'y',
+	initComponent:function() {
+		// 隐藏标志
+		var hiddenFlg = true;
+
+		if (this.formKey == "000") {
+			hiddenFlg = false;
+		};
+		var issueMember = Ext.create('ExtApp.view.qualityissuemanagement.qedashboard.ForumMember',{sourceId:me.issueId});
+		this.items = [{
+			xtype:'tabpanel',
+			flex: 1,
+			layout: 'fit',
+			scrollable: 'y',
+			items:[{
+				xtype: 'panel',
+				title:'问题信息',
+				layout:{
+					type:'vbox',
+					align: 'stretch'
+				},
+				scrollable: true,
+				items:[{
+					xtype: 'questionInfo01',
+					record:me.record
+				},{
+					xtype:'tabpanel',
+					layout: 'fit',
+					items:[{
+						xtype: 'panel',
+						title:'描述附件',
+						layout:{
+							type:'vbox',
+							align:'stretch'
+						},
+						items:[{
+							xtype:'imsSubmitAttachment',
+							layout: 'fit',
+							height:120,
+//							width:1000,
+							scrollable: 'y',
+							programId: null,
+				    		sourceType: 'SOURCE_TYPE_DES_ATTACHMENT',
+				    		sourceId: this.keyId
+						}],
+						dockedItems: [{
+							xtype:'toolbar',
+							dock: 'bottom',
+							cls: 'shadow',
+							reference:'refBoAttToolbar',
+							renderTo: document.body,
+							defaults: {
+								scale: 'medium'
+							},
+							items:[
+					        '->',
+						    {
+								text: '提交',
+								ui: 'blue',
+								itemId:'btnSubmit',
+								handler:'saveSubmit'
+							},
+//							'-',
+							{
+//								iconCls: 'x-fa fa-save',
+								text: '保存草稿',
+								ui: 'blue',
+//								ui: 'y-toolbar',
+								itemId:'btnDraft',
+								handler:'saveDraft'
+							},
+							{
+//								iconCls: 'x-fa fa-save',
+								text: '取消',
+//								ui: 'y-toolbar',
+								ui: 'blue',
+								itemId:'btnCancel',
+								handler:'cancel'
+							},{
+//								iconCls: 'x-fa fa-trash',
+								text: '删除',
+								ui: 'blue',
+								hidden:hiddenFlg,
+								itemId:'btnDelete',
+								handler:'deleteSubmit'
+							},'->']
+						}]
+					}]
+				}]
+			},
+//			{
+//				xtype: 'panel',
+//				title: '知会',
+//				layout: {
+//					type: 'vbox',
+//					align: 'stretch'
+//				},	
+//				sourceId:me.issueId,
+//				items
+//			}
+			issueMember
+			]
+		}]
+		this.callParent();
+	}
+});

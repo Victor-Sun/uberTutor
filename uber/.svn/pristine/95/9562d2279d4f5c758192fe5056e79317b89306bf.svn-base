@@ -1,0 +1,40 @@
+/**
+ * 项目管理-时程表泳道编辑
+ */
+Ext.define('ExtApp.view.projectmanagement.timeline.ProjectTimeLineResourceController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.projectTimeLineResource',
+    
+    // 保存
+    saveResource: function() {
+    	var me = this;
+        var form = this.view.down('form').getForm();
+        if (form.isValid()){
+        	me.view.mask('Please Waiting...');
+            form.submit({
+                clientValidation: true,
+                url: '/pdms/pm/project-time-line!editResource.action',
+                params: {
+                	model: Ext.encode(form.getFieldValues())
+                },
+                scope: me,
+                success: function(form, action) {
+                	me.view.unmask();
+                	me.view.parentCaller.view.resourceStore.reload();
+                	me.view.parentCaller.view.eventStore.reload();
+                	ExtApp.util.Util.showToast("修改成功！");
+                	me.closeWindow();
+                },
+                failure: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.handleFormFailure(action);
+                }
+            });
+        }
+    },
+   
+    // 关闭
+    closeWindow: function() {
+    	this.view.close();
+    }
+});

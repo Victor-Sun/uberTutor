@@ -1,0 +1,7 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectDBQualityProblemModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.projectDBQualityProblem',
+
+    fields: ['os', 'data1' ]
+
+});

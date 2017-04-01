@@ -1,0 +1,646 @@
+{
+    "success"      : true,
+    "calendars"    : {
+        "metaData" : {
+            // this specifies identifier of the project calendar
+            "projectCalendar" : "General"
+        },
+        "rows"     : [
+            {
+                "Id"                  : "General",
+                "Name"                : "General",
+                "parentId"            : null,
+                "DaysPerWeek"         : 7,
+                "DaysPerMonth"        : 30,
+                "HoursPerDay"         : 24,
+                "WeekendFirstDay"     : 6,
+                "WeekendSecondDay"    : 0,
+                "WeekendsAreWorkdays" : false,
+                "DefaultAvailability" : [
+                    "00:00-24:00"
+                ],
+                "leaf"                : true,
+                "Days"                : {
+                    "rows" : [
+                        {
+                            "Id"   : 1,
+                            "Cls"  : "gnt-national-holiday",
+                            "Date" : "2010-01-14",
+                            "Name" : "Some big holiday"
+                        },
+                        {
+                            "Id"   : 2,
+                            "Cls"  : "gnt-chinese-holiday",
+                            "Date" : "2010-02-14",
+                            "Name" : "Chinese New Year"
+                        }
+                    ]
+                }
+            },
+            {
+                "Id"                  : "NightShift",
+                "Name"                : "Night Shift",
+                "parentId"            : null,
+                "DaysPerWeek"         : 5,
+                "DaysPerMonth"        : 20,
+                "HoursPerDay"         : 8,
+                "WeekendFirstDay"     : 6,
+                "WeekendSecondDay"    : 0,
+                "WeekendsAreWorkdays" : false,
+                "leaf"                : true,
+                "DefaultAvailability" : [
+                    "00:00-06:00",
+                    "22:00-24:00"
+                ]
+            }
+        ]
+    },
+    "dependencies" : {
+        "rows" : [
+            {
+                "Id"   : 1,
+                "From" : 11,
+                "To"   : 17
+            },
+            {
+                "Id"   : 2,
+                "From" : 12,
+                "To"   : 17
+            },
+            {
+                "Id"   : 3,
+                "From" : 13,
+                "To"   : 17
+            },
+            {
+                "Id"   : 4,
+                "From" : 17,
+                "To"   : 34
+            },
+            {
+                "Id"   : 10,
+                "From" : 21,
+                "To"   : 5
+            },
+            {
+                "Id"   : 12,
+                "From" : 17,
+                "To"   : 16
+            },
+            {
+                "Id"   : 13,
+                "From" : 16,
+                "To"   : 20
+            },
+            {
+                "Id"   : 14,
+                "From" : 16,
+                "To"   : 19
+            },
+            {
+                "Id"   : 15,
+                "From" : 16,
+                "To"   : 18
+            },
+            {
+                "Id"   : 16,
+                "From" : 18,
+                "To"   : 21
+            },
+            {
+                "Id"   : 21,
+                "From" : 130,
+                "To"   : 170
+            },
+            {
+                "Id"   : 22,
+                "From" : 120,
+                "To"   : 170
+            },
+            {
+                "Id"   : 23,
+                "From" : 110,
+                "To"   : 170
+            },
+            {
+                "Id"   : 24,
+                "From" : 170,
+                "To"   : 40
+            },
+            {
+                "Id"   : 25,
+                "From" : 40,
+                "To"   : 50
+            },
+            {
+                "Id"   : 26,
+                "From" : 50,
+                "To"   : 60
+            },
+            {
+                "Id"   : 27,
+                "From" : 60,
+                "To"   : 100
+            },
+            {
+                "Id"   : 28,
+                "From" : 5,
+                "To"   : 50,
+                "Cls"  : "crossPD"
+            }
+        ]
+    },
+    "assignments"  : {
+        "rows" : [
+            {
+                "Id"         : 1,
+                "TaskId"     : 11,
+                "ResourceId" : 1,
+                "Units"      : 100
+            },
+            {
+                "Id"         : 2,
+                "TaskId"     : 11,
+                "ResourceId" : 2,
+                "Units"      : 80
+            },
+            {
+                "Id"         : 3,
+                "TaskId"     : 12,
+                "ResourceId" : 5,
+                "Units"      : 50
+            },
+            {
+                "Id"         : 4,
+                "TaskId"     : 13,
+                "ResourceId" : 6,
+                "Units"      : 50
+            }
+        ]
+    },
+    "resources"    : {
+        "rows" : [
+            {
+                "Id"   : 1,
+                "Name" : "Mats"
+            },
+            {
+                "Id"   : 2,
+                "Name" : "Nickolay"
+            },
+            {
+                "Id"   : 3,
+                "Name" : "Goran"
+            },
+            {
+                "Id"   : 4,
+                "Name" : "Dan"
+            },
+            {
+                "Id"   : 5,
+                "Name" : "Jake"
+            },
+            {
+                "Id"   : 6,
+                "Name" : "Kim"
+            },
+            {
+                "Id"   : 7,
+                "Name" : "Bart"
+            }
+        ]
+    },
+    "tasks"        : {
+        "rows" : [
+            {
+                "Id"                : 1000,
+                "StartDate"         : "2010-01-13",
+                "EndDate"           : "2010-02-13",
+                "Name"              : "Project A",
+                "TaskType"          : "Gnt.examples.advanced.model.Project",
+                "Description"       : "Project A description",
+                "ManuallyScheduled" : true,
+                "AllowDependencies" : true,
+                "PercentDone"       : 48.627450980392155,
+                "iconCls"           : "projectIcon",
+                "expanded"          : true,
+                "children"          : [
+                    {
+                        "BaselineEndDate"   : "2010-02-01",
+                        "Id"                : 1,
+                        "Name"              : "Planning",
+                        "PercentDone"       : 50,
+                        "StartDate"         : "2010-01-18",
+                        "BaselineStartDate" : "2010-01-13",
+                        "Duration"          : 10,
+                        "expanded"          : true,
+                        "Rollup"            : true,
+                        "children"          : [
+                            {
+                                "BaselineEndDate"   : "2010-01-28",
+                                "Id"                : 11,
+                                "leaf"              : true,
+                                "Name"              : "Investigate",
+                                "PercentDone"       : 50,
+                                "Cls"               : "LowPrio",
+                                "StartDate"         : "2010-01-18",
+                                "BaselineStartDate" : "2010-01-20",
+                                "Duration"          : 10,
+                                "Segments"          : [
+                                    {
+                                        "Id"        : 1,
+                                        "StartDate" : "2010-01-18",
+                                        "Duration"  : 1
+                                    },
+                                    {
+                                        "Id"        : 2,
+                                        "StartDate" : "2010-01-20",
+                                        "Duration"  : 2
+                                    },
+                                    {
+                                        "Id"        : 3,
+                                        "StartDate" : "2010-01-25",
+                                        "Duration"  : 5
+                                    }
+                                ]
+                            },
+                            {
+                                "BaselineEndDate"   : "2010-02-01",
+                                "Id"                : 12,
+                                "leaf"              : true,
+                                "Name"              : "Assign resources",
+                                "PercentDone"       : 50,
+                                "StartDate"         : "2010-01-18",
+                                "BaselineStartDate" : "2010-01-25",
+                                "Duration"          : 10
+                            },
+                            {
+                                "BaselineEndDate"   : "2010-02-01",
+                                "Id"                : 13,
+                                "leaf"              : true,
+                                "Name"              : "Gather documents (not resizable)",
+                                "Resizable"         : false,
+                                "PercentDone"       : 50,
+                                "StartDate"         : "2010-01-18",
+                                "DeadlineDate"      : "2010-02-10",
+                                "BaselineStartDate" : "2010-01-25",
+                                "cls"               : "important",
+                                "Duration"          : 10
+                            },
+                            {
+                                "BaselineEndDate"   : "2010-02-04",
+                                "Id"                : 17,
+                                "leaf"              : true,
+                                "Name"              : "Report to management",
+                                "PercentDone"       : 0,
+                                "StartDate"         : "2010-01-30",
+                                "BaselineStartDate" : "2010-01-29",
+                                "Duration"          : 0
+                            }
+                        ]
+                    },
+                    {
+                        "BaselineEndDate"   : "2010-03-15",
+                        "Id"                : 4,
+                        "Cls"               : "LowPrio",
+                        "Name"              : "Implementation Phase",
+                        "PercentDone"       : 46.95652173913044,
+                        "StartDate"         : "2010-02-01",
+                        "BaselineStartDate" : "2010-01-23",
+                        "Duration"          : 10,
+                        "expanded"          : true,
+                        "Rollup"            : true,
+                        "children"          : [
+                            {
+                                "BaselineEndDate"   : "2010-01-25",
+                                "Id"                : 34,
+                                "leaf"              : true,
+                                "Name"              : "Preparation work",
+                                "PercentDone"       : 30,
+                                "StartDate"         : "2010-02-01",
+                                "BaselineStartDate" : "2010-01-20",
+                                "Duration"          : 5
+                            },
+                            {
+                                "BaselineEndDate"   : "2010-03-20",
+                                "Id"                : 16,
+                                "leaf"              : true,
+                                "Name"              : "Choose technology suite",
+                                "PercentDone"       : 30,
+                                "BaselineStartDate" : "2010-03-10",
+                                "StartDate"         : "2010-02-01",
+                                "Duration"          : 5,
+                                "Rollup"            : true
+                            },
+                            {
+                                "BaselineEndDate"   : "2010-03-06",
+                                "Id"                : 15,
+                                "Name"              : "Build prototype",
+                                "PercentDone"       : 60,
+                                "StartDate"         : "2010-02-08",
+                                "BaselineStartDate" : "2010-01-28",
+                                "Duration"          : 5,
+                                "expanded"          : false,
+                                "children"          : [
+                                    {
+                                        "BaselineEndDate"   : "2010-02-06",
+                                        "Id"                : 20,
+                                        "leaf"              : true,
+                                        "Name"              : "Step 1",
+                                        "PercentDone"       : 60,
+                                        "StartDate"         : "2010-02-08",
+                                        "BaselineStartDate" : "2010-01-27",
+                                        "Duration"          : 4
+                                    },
+                                    {
+                                        "BaselineEndDate"   : "2010-02-22",
+                                        "Id"                : 19,
+                                        "leaf"              : true,
+                                        "Name"              : "Step 2",
+                                        "PercentDone"       : 60,
+                                        "StartDate"         : "2010-02-08",
+                                        "BaselineStartDate" : "2010-02-17",
+                                        "Duration"          : 4
+                                    },
+                                    {
+                                        "BaselineEndDate"   : "2010-03-07",
+                                        "Id"                : 18,
+                                        "leaf"              : true,
+                                        "Name"              : "Step 3",
+                                        "PercentDone"       : 60,
+                                        "StartDate"         : "2010-02-08",
+                                        "BaselineStartDate" : "2010-02-25",
+                                        "Duration"          : 4
+                                    },
+                                    {
+                                        "BaselineEndDate"   : "2010-03-08",
+                                        "Id"                : 21,
+                                        "leaf"              : true,
+                                        "Name"              : "Follow up with customer",
+                                        "PercentDone"       : 60,
+                                        "StartDate"         : "2010-02-12",
+                                        "BaselineStartDate" : "2010-03-04",
+                                        "Duration"          : 1,
+                                        "Rollup"            : true
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "BaselineEndDate"   : "2010-03-08",
+                        "Id"                : 5,
+                        "leaf"              : true,
+                        "Name"              : "Customer approval",
+                        "PercentDone"       : 0,
+                        "BaselineStartDate" : "2010-03-01",
+                        "StartDate"         : "2010-02-13",
+                        "Duration"          : 0,
+                        "Cls"          : "CustomerApproval",
+                        "Rollup"            : true
+                    }
+                ]
+            },
+            {
+                "Id"                : 1001,
+                "StartDate"         : "2010-01-18",
+                "EndDate"           : "2010-02-25",
+                "Name"              : "Project B",
+                "TaskType"          : "Gnt.examples.advanced.model.Project",
+                "Description"       : "Project B description goes here",
+                "PercentDone"       : 37.4025974025974,
+                "ManuallyScheduled" : true,
+                "AllowDependencies" : true,
+                "expanded"          : true,
+                "iconCls"           : "projectIcon",
+                "children"          : [
+                    {
+                        "BaselineEndDate"   : "2010-02-01",
+                        "Id"                : 10,
+                        "Name"              : "Planning",
+                        "PercentDone"       : 50,
+                        "StartDate"         : "2010-01-18",
+                        "BaselineStartDate" : "2010-01-13",
+                        "ShowInTimeline"    : true,
+                        "Duration"          : 10,
+                        "expanded"          : true,
+                        "Rollup"            : true,
+                        "children"          : [
+                            {
+                                "BaselineEndDate"   : "2010-01-28",
+                                "Id"                : 110,
+                                "leaf"              : true,
+                                "Name"              : "Investigate",
+                                "PercentDone"       : 50,
+                                "Cls"          : "LowPrio",
+                                "StartDate"         : "2010-01-18",
+                                "Duration"          : 5,
+                                "BaselineStartDate" : "2010-01-20"
+                            },
+                            {
+                                "BaselineEndDate"   : "2010-02-01",
+                                "Id"                : 120,
+                                "leaf"              : true,
+                                "Name"              : "Assign resources",
+                                "PercentDone"       : 50,
+                                "StartDate"         : "2010-01-18",
+                                "BaselineStartDate" : "2010-01-25",
+                                "Duration"          : 10
+                            },
+                            {
+                                "BaselineEndDate"   : "2010-02-01",
+                                "Id"                : 130,
+                                "leaf"              : true,
+                                "Name"              : "Gather documents (not resizable)",
+                                "Resizable"         : false,
+                                "PercentDone"       : 50,
+                                "StartDate"         : "2010-01-18",
+                                "BaselineStartDate" : "2010-01-25",
+                                "Duration"          : 10
+                            },
+                            {
+                                "BaselineEndDate"   : "2010-02-04",
+                                "Id"                : 170,
+                                "leaf"              : true,
+                                "Name"              : "Report to management",
+                                "ShowInTimeline"    : true,
+                                "PercentDone"       : 0,
+                                "StartDate"         : "2010-01-30",
+                                "BaselineStartDate" : "2010-01-29",
+                                "Duration"          : 0
+                            }
+                        ]
+                    },
+                    {
+                        "BaselineEndDate"   : "2010-03-15",
+                        "Id"                : 40,
+                        "Cls"               : "LowPrio",
+                        "Name"              : "Implementation Phase 1",
+                        "PercentDone"       : 43.92857142857143,
+                        "StartDate"         : "2010-02-01",
+                        "BaselineStartDate" : "2010-01-23",
+                        "Duration"          : 10,
+                        "expanded"          : false,
+                        "Rollup"            : true,
+                        "children"          : [
+                            {
+                                "BaselineEndDate"   : "2010-01-25",
+                                "Id"                : 340,
+                                "leaf"              : true,
+                                "Name"              : "Preparation work",
+                                "PercentDone"       : 30,
+                                "StartDate"         : "2010-02-01",
+                                "BaselineStartDate" : "2010-01-20",
+                                "Duration"          : 5
+                            },
+                            {
+                                "BaselineEndDate"   : "2010-03-07",
+                                "Id"                : 140,
+                                "leaf"              : true,
+                                "Name"              : "Evaluate chipsets",
+                                "PercentDone"       : 30,
+                                "BaselineStartDate" : "2010-02-25",
+                                "StartDate"         : "2010-02-01",
+                                "Duration"          : 5
+                            },
+                            {
+                                "BaselineEndDate"   : "2010-03-20",
+                                "Id"                : 160,
+                                "leaf"              : true,
+                                "Name"              : "Choose technology suite",
+                                "ShowInTimeline"    : true,
+                                "PercentDone"       : 30,
+                                "BaselineStartDate" : "2010-03-10",
+                                "StartDate"         : "2010-02-01",
+                                "Duration"          : 5,
+                                "Rollup"            : true
+                            },
+                            {
+                                "BaselineEndDate"   : "2010-03-06",
+                                "Id"                : 150,
+                                "Name"              : "Build prototype",
+                                "PercentDone"       : 60,
+                                "StartDate"         : "2010-02-08",
+                                "BaselineStartDate" : "2010-01-28",
+                                "Duration"          : 5,
+                                "expanded"          : true,
+                                "children"          : [
+                                    {
+                                        "BaselineEndDate"   : "2010-02-06",
+                                        "Id"                : 200,
+                                        "leaf"              : true,
+                                        "Name"              : "Step 1",
+                                        "PercentDone"       : 60,
+                                        "StartDate"         : "2010-02-08",
+                                        "BaselineStartDate" : "2010-01-27",
+                                        "Duration"          : 4
+                                    },
+                                    {
+                                        "BaselineEndDate"   : "2010-02-22",
+                                        "Id"                : 190,
+                                        "leaf"              : true,
+                                        "Name"              : "Step 2",
+                                        "PercentDone"       : 60,
+                                        "StartDate"         : "2010-02-08",
+                                        "BaselineStartDate" : "2010-02-17",
+                                        "Duration"          : 4
+                                    },
+                                    {
+                                        "BaselineEndDate"   : "2010-03-07",
+                                        "Id"                : 180,
+                                        "leaf"              : true,
+                                        "Name"              : "Step 3",
+                                        "PercentDone"       : 60,
+                                        "StartDate"         : "2010-02-08",
+                                        "BaselineStartDate" : "2010-02-25",
+                                        "Duration"          : 4
+                                    },
+                                    {
+                                        "BaselineEndDate"   : "2010-03-08",
+                                        "Id"                : 210,
+                                        "leaf"              : true,
+                                        "Name"              : "Follow up with customer",
+                                        "PercentDone"       : 60,
+                                        "StartDate"         : "2010-02-12",
+                                        "BaselineStartDate" : "2010-03-04",
+                                        "Duration"          : 1,
+                                        "Rollup"            : true
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "BaselineEndDate"   : "2010-03-08",
+                        "Id"                : 50,
+                        "leaf"              : true,
+                        "Name"              : "Customer approval",
+                        "PercentDone"       : 0,
+                        "BaselineStartDate" : "2010-03-01",
+                        "StartDate"         : "2010-02-13",
+                        "Duration"          : 0,
+                        "ShowInTimeline"    : true,
+                        "Cls"          : "CustomerApproval",
+                        "Rollup"            : true
+                    },
+                    {
+                        "BaselineEndDate"   : "2010-03-18",
+                        "Id"                : 60,
+                        "Name"              : "Implementation Phase 2",
+                        "PercentDone"       : 16.666666666666668,
+                        "BaselineStartDate" : "2010-03-08",
+                        "StartDate"         : "2010-02-15",
+                        "Duration"          : 8,
+                        "expanded"          : false,
+                        "Cls"               : "Important",
+                        "children"          : [
+                            {
+                                "BaselineEndDate"   : "2010-03-18",
+                                "Id"                : 250,
+                                "leaf"              : true,
+                                "Name"              : "Task 1",
+                                "PercentDone"       : 10,
+                                "BaselineStartDate" : "2010-03-08",
+                                "StartDate"         : "2010-02-15",
+                                "Duration"          : 8
+                            },
+                            {
+                                "BaselineEndDate"   : "2010-03-18",
+                                "Id"                : 260,
+                                "leaf"              : true,
+                                "Name"              : "Task 2",
+                                "PercentDone"       : 20,
+                                "BaselineStartDate" : "2010-03-08",
+                                "StartDate"         : "2010-02-15",
+                                "Duration"          : 8
+                            },
+                            {
+                                "BaselineEndDate"   : "2010-03-18",
+                                "Id"                : 270,
+                                "leaf"              : true,
+                                "Name"              : "Task 3",
+                                "PercentDone"       : 20,
+                                "StartDate"         : "2010-02-15",
+                                "BaselineStartDate" : "2010-03-08",
+                                "Duration"          : 8,
+                                "Rollup"            : true
+                            }
+                        ]
+                    },
+                    {
+                        "BaselineEndDate"   : "2010-03-17",
+                        "Id"                : 100,
+                        "leaf"              : true,
+                        "Name"              : "Customer approval 2 (not draggable)",
+                        "Draggable"         : false,
+                        "PercentDone"       : 0,
+                        "StartDate"         : "2010-02-25",
+                        "BaselineStartDate" : "2010-03-17",
+                        "Rollup"            : true,
+                        "Duration"          : 0
+                    }
+                ]
+            }
+        ]
+    }
+}

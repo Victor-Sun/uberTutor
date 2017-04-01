@@ -1,0 +1,9 @@
+/**
+ * 项目管理-主页计划Tab
+ */
+Ext.define('ExtApp.view.projectManagement.base.ProjectBaseInfoHomePage',{
+	extend:'Ext.tab.Panel',
+	xtype:'projectBaseInfoHomePage',
+	controller: 'projectBaseInfoHomePage'
+
+});

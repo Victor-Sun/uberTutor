@@ -1,0 +1,47 @@
+/**
+ * 质量问题管理-管理员问题管理-风险等级
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qemanagement.RiskLevelWin',{
+	extend:'Ext.window.Window',
+	xtype:'riskLevelWin',
+	
+	controller: 'riskLevelWin',
+	closeAction:"hide",
+	modal: true,
+	width: 500,
+	keyId: null,
+
+	initComponent: function() {
+		
+		this.items = [{
+			xtype:'form',
+			margin:20,
+		    layout:{
+		    	type:'hbox',
+				align:'stretch'
+		    },
+		    items:[{
+		    	xtype:'radiogroup',
+		    	fieldLabel: '风险等级',
+		    	labelWidth: 70,
+		    	reference: 'refRadioGroup',
+				items:[
+			       	{ boxLabel:'无风险', name:'risk', inputValue:'RISK_LEVEL_4', width: 75,  margin: '0 5 0 5' },
+			       	{ boxLabel:'中', name:'risk', inputValue:'RISK_LEVEL_3', width: 75,  margin: '0 5 0 5' },
+					{ boxLabel:'中高', name:'risk', inputValue:'RISK_LEVEL_2', width: 75,  margin: '0 5 0 5' },
+					{ boxLabel:'高', name:'risk', inputValue:'RISK_LEVEL_1', width: 75,  margin: '0 5 0 5' }
+				]
+		    }]
+		}];
+		this.bbar = ['->',{
+			text:'确定',
+			iconCls:'x-fa fa-check',
+			handler:'confirm'
+		},{
+			text:'取消',
+			iconCls:'x-fa fa-close',
+			handler:'cancel'
+		}];
+	    this.callParent();
+	}
+});

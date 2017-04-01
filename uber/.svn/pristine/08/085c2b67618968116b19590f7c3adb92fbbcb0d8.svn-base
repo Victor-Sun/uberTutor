@@ -1,0 +1,19 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectTimeLineDeptEventStore', {
+    extend : 'Sch.data.EventStore',
+    
+    requires : [
+        'ExtApp.model.Event'
+    ],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-time-line!getTimelineEventsDept.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    
+    model : 'ExtApp.model.Event'
+
+});

@@ -1,0 +1,50 @@
+﻿/**
+ * 项目管理-基本信息
+ */
+Ext.define('ExtApp.view.projectmanagement.base.ProjectBaseInfo01',{
+	extend:'Ext.panel.Panel',
+	xtype:'projectBaseInfo01',
+
+	controller: 'projectBaseInfo01',
+
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+
+	margin:20,
+	
+	initComponent: function() {
+	    this.items = [{
+	    	xtype:'fieldset',
+	    	title: '<B>基本属性</B>',
+	    	collapsible:'true',
+	    	items: [{
+			    xtype: 'panel',
+			    layout: 'fit',
+			    items: [{
+			    	xtype: 'baseInfoCommon',
+			    	programId: this.programId,
+			    	programType: this.programType,
+			    	editPrivilege: this.editPrivilege || this.programStauts == 'draft'
+			    }],
+				tbar: [{
+					text:'保存',
+					margin:'0 5 20 0',
+					itemId: 'BTNP0202',
+					iconCls: 'x-fa fa-save',
+					handler: 'save',
+					hidden: true
+				},{
+					text: '查看历史记录',
+					margin:'0 5 20 0',
+			    	itemId: 'BTNP0206',
+		            iconCls: 'x-fa fa-th',
+				    handler: 'displayBaseline',
+				    hidden: true
+				}]
+	    	}]
+	    }];
+		this.callParent(arguments);
+	}
+});

@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.FolderPrivilegeStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.folderPrivilege',
+    
+    model: 'ExtApp.model.projectmanagement.FolderPrivilegeModel',
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-document!getFolderPrivilege.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

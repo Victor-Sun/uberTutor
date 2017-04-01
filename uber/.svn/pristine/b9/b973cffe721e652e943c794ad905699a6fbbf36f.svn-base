@@ -1,0 +1,14 @@
+/**
+ * 项目管理-项目树View
+ */
+Ext.define('ExtApp.view.projectmanagement.ProjectTree',{
+	extend: 'Ext.tree.Panel',
+	xtype: 'projectTree',
+	rootVisible: false,
+	controller: 'projectTree',
+	cls: 'project-tree',
+	scrollable: true,
+	listeners: {
+		itemcontextmenu:'itemcontextmenu'
+    }
+});

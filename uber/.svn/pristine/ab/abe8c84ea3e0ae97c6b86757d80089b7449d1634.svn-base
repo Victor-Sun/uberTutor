@@ -1,0 +1,215 @@
+/**
+ * 我的待办-对策方案To04
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.common.MyTaskInfoTo04', {
+	extend:'Ext.form.Panel',
+	xtype:'myTaskInfoTo04',
+
+	controller: 'myTaskInfoTo04',
+	
+	keyId:null,
+//	layout:{
+//		type:'vbox',
+//		align:'stretch'
+//	},
+	defaults: {
+		margin: 5,
+		layout:{
+			type:'vbox'
+		},
+		defaults: {
+			layout: {
+				type: 'hbox'
+			},
+			defaults: {
+				margin: 5
+			}
+		}
+	},
+	
+	initComponent: function() {
+		var me = this;
+		this.items = [{// line1
+			xtype: 'fieldset',
+			title: '<b>零件</b>',
+			layout: {
+				type: 'vbox'
+			},
+			items: [{
+				xtype:'form',
+				layout:{
+					type:'vbox'
+				},
+				reference: 'refVerificationSchemePartTo04'
+			}]
+		},{
+			xtype:'fieldset',
+			title: '<b>问题原因</b>',
+			items:[{
+				xtype:'container',
+				items:[{
+					xtype:'combo',
+					fieldLabel:'问题类型',
+					bind: {
+						store:'{issueType}'
+					},
+					queryMode: 'local',
+				    displayField: 'name',
+				    valueField: 'id',
+					readOnly:true,
+					name:'issueTypeId'
+				}]
+			},{
+				xtype:'container',
+				items:[{
+					xtype:'textareafield',
+					fieldLabel:'根本原因',
+					width: 845,
+					readOnly:true,
+					name:'rootCause'
+				}]
+			},{
+				xtype: 'container',
+				layout: 'hbox',
+				items: [{
+					xtype: 'imsFileAttachment',
+					margin: '5 5 5 0',
+					programId: null,
+		    		sourceType: 'SOURCE_TYPE_CAUSE_ATTACHMENT',
+		    		sourceId: this.keyId,
+		    		editable: false
+				}]
+			}]
+		},{
+			xtype:'fieldset',
+			title: '<b>对策</b>',
+//			layout:{
+//				type:'vbox'
+//			},
+//			defaults: {
+//				layout: {
+//					type: 'hbox'
+//				},
+//				defaults: {
+//					margin:'10 5 10 0'
+//				}
+//			},
+			items:[{
+				xtype:'container',
+				layout:{
+					type:'hbox'
+				},
+				items:[{
+					xtype: 'radiogroup',
+			        fieldLabel: '是否对策',
+			        vertical: true,
+			        name:'isAction',
+			        listeners: {
+						change: 'isAction'
+					},
+			        width: 250,
+			        items: [
+			            { boxLabel: '是', name: 'isAction', inputValue: 'Y',readOnly:true },
+			            { boxLabel: '否', name: 'isAction', inputValue: 'N',readOnly:true }
+			        ]
+				}]
+			},{
+				xtype: 'container',
+				items: [{
+					xtype:'textareafield',
+					fieldLabel:'理由',
+					width: 845,
+//					allowBlank:false,
+					readOnly:true,
+					hidden: true,
+					name:'noActionReason'
+				}]
+			},{
+				xtype: 'container',
+				items: [{
+					xtype:'imsFileAttachment',
+					margin: '5 5 5 0',
+					scrollable: 'y',
+					programId: null,
+		    		sourceType: 'SOURCE_TYPE_ACTION_ATTACHMENT',
+		    		sourceId: this.keyId,
+		    		editable: false
+				}]
+			},{
+				xtype:'container',
+				items:[{
+					xtype:'datefield',
+					fieldLabel:'计划对策时间',
+					format: 'Y/m/d',
+//					margin:'0 0 10 10',
+					readOnly:true,
+					name:'expectedDateStr'
+				},{
+					xtype:'datefield',
+					fieldLabel:'计划关闭时间',
+					format: 'Y/m/d',
+//					margin:'0 0 10 10',
+					readOnly:true,
+					name:'planClosedDateStr'
+				}]
+			}]
+		},{
+			xtype: 'fieldset',
+			title: '<b>恒久对策</b>',
+			items: [{
+				xtype:'container',
+//				layout:{
+//					type:'hbox'
+//				},
+				items:[{
+					xtype:'textareafield',
+					fieldLabel:'恒久对策',
+					width: 845,
+					readOnly:true,
+					name:'permAction'
+				}]
+			},{
+				xtype: 'container',
+				layout: 'hbox',
+				items: [{
+					xtype:'imsFileAttachment',
+					margin: '5 5 5 0',
+					scrollable: 'y',
+					programId: null,
+		    		sourceType: 'SOURCE_TYPE_PERMACTION_ATTACHMENT',
+		    		sourceId: this.keyId,
+		    		editable: false
+				}]
+			}]
+		},{
+			xtype: 'fieldset',
+			title: '<b>验证方案</b>',
+			items: [{
+				xtype:'form',
+				width: 845,
+				layout:{
+					type:'vbox',
+					align: 'stretch'
+				},
+				reference: 'refVerificationSchemeTo04'
+			}]
+		},{
+			xtype:'fieldset',
+			margin: 5,
+			title: '<b>线下审批附件</b>',
+			reference: 'refOfflineAttachment',
+			items:[{
+				xtype: 'container',
+				items: [{
+					xtype: 'imsFileAttachment',
+					margin: '5 5 5 0',
+					sourceType: 'SOURCE_TYPE_CAUSE_ANALYSIS_OFFLINE_ATTACHMENT',
+		    		sourceId: me.keyId,
+		    		editable:false
+				}]
+			}]
+		}]
+		
+		this.callParent();
+	}
+});

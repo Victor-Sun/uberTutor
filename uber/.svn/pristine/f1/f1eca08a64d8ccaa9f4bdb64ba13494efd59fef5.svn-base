@@ -1,0 +1,34 @@
+/**
+ * 项目管理-车型项目-开放问题
+ */
+Ext.define('ExtApp.view.projectmanagement.vehicle.OpenIssueChartController', {
+	extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.openIssueChart',
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	Ext.Ajax.request({
+    		url:'/pdms/pm/vehicle-dashboard!getOpenIssueReport.action',
+    		params: {
+    			programVehicleId: me.view.programVehicleId
+			},
+			scope: me,
+			success: function(response, opts) {
+		    	var obj = Ext.decode(response.responseText);
+    	        if (obj.success) {
+    	        	if(me.view && me.view.query('#totalCnt')){
+    	        		me.view.query('#totalCnt')[0].updateProgress(1, obj.data.total + '');
+        	        	me.view.query('#closedCnt')[0].updateProgress(obj.data.closedRate, obj.data.closed + '');
+        	        	me.view.query('#inProcessCnt')[0].updateProgress(obj.data.inProcessRate, obj.data.inProcess + '');
+    	        	}
+    	        } else {
+    	        	ExtApp.util.Util.handleRequestFailure(response);
+    	        }
+		    },
+			failure: function(response, opts) {
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	})
+    }
+});

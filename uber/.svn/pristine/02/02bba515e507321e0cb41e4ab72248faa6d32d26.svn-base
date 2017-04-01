@@ -1,0 +1,61 @@
+Ext.define('ExtApp.view.dashboard.DashTodoList',{
+	extend:'Ext.container.Container',
+	xtype:'dashTodoList',
+	
+	controller:'dashTodoList',
+	scrollable:'y',
+	margin:0,
+	initComponent: function() {
+		var todoListStore = Ext.create(
+			'ExtApp.store.dashboard.DashTodoListStore');
+		todoListStore.load();
+
+		this.items = [{
+			xtype:'grid',
+			viewConfig:{
+				stripeRows:true
+			},
+			margin:0,
+			height: 200,
+			store: todoListStore,
+			columns:[{
+				text: '进展状态',
+				width: 80,
+				dataIndex: 'progressStatus',
+				renderer: 'renderIssueProgress',
+				align: 'center',
+				filter: false
+			},{
+				text:'风险状态',
+				dataIndex:'taskProgressStatusCode',
+				renderer: 'renderTaskProgress',
+				align: 'center',
+				width: 80,
+				filter: false
+			},{
+				text:'任务名称',
+				dataIndex:'taskName',
+				flex: 1
+			},{
+				text:'任务类型',
+				dataIndex:'taskTypeName',
+				flex: 1
+			},{
+				text:'所属项目',
+				dataIndex:'programCode',
+				flex: 1
+			}],
+			listeners:{
+	        	celldblclick: 'onCelldblclick'
+			},
+	        dockedItems: [{
+                xtype: 'pagingtoolbar',
+                dock: 'bottom',
+                displayInfo: true,
+                store: todoListStore
+            }]
+		}];
+		this.callParent(arguments);
+	}
+
+});

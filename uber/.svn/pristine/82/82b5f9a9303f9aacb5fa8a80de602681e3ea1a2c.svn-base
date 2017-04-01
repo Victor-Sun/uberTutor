@@ -1,0 +1,58 @@
+Ext.define('ExtApp.view.projectManagement.issue.ProjectOpenIssueBarChart',{
+	xtype:'projectOpenIssueBarChart',
+	extend:'Ext.Panel',
+	controller: 'projectOpenIssueBarChart',
+	title:'项目各专业组问题解决情况',
+	width: 650,
+	initComponent: function() {
+		var me = this;
+		var projectOpenIssueBarStore = Ext.create('ExtApp.store.projectmanagement.issue.ProjectOpenIssueBarStore');
+		projectOpenIssueBarStore.load({params:{programId: me.programId}});
+		me.items = [{
+	        xtype: 'cartesian',
+	        reference: 'chart',
+	        width: '100%',
+	        height: 500,
+	        legend: {
+	            docked: 'right'
+	        },
+	        store: projectOpenIssueBarStore,
+	        insetPadding: 40,
+//	        flipXY: true,
+	        axes: [{
+	            type: 'numeric',
+	            position: 'left',
+	            adjustByMajorUnit: true,
+	            fields: 'data1',
+	            grid: true,
+	            renderer: 'onAxisLabelRender',
+	            minimum: 0
+	        }, {
+	            type: 'category',
+	            position: 'bottom',
+	            fields: 'dept',
+	            grid: true
+	        }],
+	        series: [{
+	            type: 'bar',
+	            axis: 'bottom',
+	            title: [ 'R', 'Y', 'W', 'G'],
+	            colors:['red','yellow','white','green'],
+	            xField: 'dept',
+	            yField: [ 'data1', 'data2', 'data3', 'data4'],
+	            stacked: true,
+	            style: {
+	                opacity: 0.80
+	            },
+	//	            highlight: {
+	//	                fillStyle: 'yellow'
+	//	            },
+	            tooltip: {
+	                trackMouse: true,
+	                renderer: 'onSeriesTooltipRender'
+	            }
+	        }]
+	    }];
+		me.callParent(arguments);
+	}
+});

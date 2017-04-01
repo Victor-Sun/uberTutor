@@ -1,0 +1,19 @@
+/**
+ * 对策决定-问题等级store
+ */
+Ext.define('ExtApp.store.qualityissuemanagement.IssueLevelStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.issueLevel',
+
+    fields: ['id', 'name'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/combo!getIssueLevel.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

@@ -1,0 +1,55 @@
+Ext.define('ExtApp.view.projectmanagement.extplan.ext301.BatchCompleteScheduleWindow',{
+	extend: 'Ext.window.Window',
+	xtype: 'batchCompleteScheduleWindow',
+	width: 300,
+	height: 150,
+	title:'批量设置',
+	controller: 'partExcutePanelControll',
+	dockedItems: [{
+		xtype: 'toolbar',
+		dock: 'bottom',
+		items: ['->',{
+			xtype: 'button',
+			text: '确定',
+			handler:'batchCompleteSchedule'
+		},{
+			xtype: 'button',
+			text: '取消',
+			handler: function() {
+				this.up('window').close();
+			}
+		}]
+	}],
+	initComponent: function() {
+		var me = this;
+		
+		me.items = [{
+			xtype:'form',
+			layout:{
+				type:'vbox',
+				align:'stretch'
+			},
+			defaults: {
+				labelAlign: 'top',
+		    	padding:'10 25 10 30',
+		    	labelWidth: 130
+			},
+			items:[{
+				xtype:'hiddenfield', 
+		        name: 'programVehicleId',
+		        value:me.programVehicleId
+			},{
+				xtype:'hiddenfield', 
+		        name: 'code',
+		        value:me.grid.code
+			},{
+				xtype: 'datefield',
+				name:'plannedFinishDate',
+				format:'Y/m/d',
+				fieldLabel: '日期'
+			}]
+		}],
+		this.callParent();
+	}
+	
+});

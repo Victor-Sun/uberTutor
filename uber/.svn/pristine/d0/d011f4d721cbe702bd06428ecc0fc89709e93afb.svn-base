@@ -1,0 +1,17 @@
+Ext.define('ExtApp.model.myworkspace.NotifyListModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.notifyList',
+    
+    fields: [
+        'id',
+		'title',
+		'createDate',
+		'noticeSourceCode',
+		'noticeSourceName',
+		'sourceId',
+		'isNew',
+		'taskProgressStatusCode',
+		'content',
+		'noticeTypeCode'
+     ]
+});

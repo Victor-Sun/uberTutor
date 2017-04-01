@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectObsUserLevelTwoStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectObsUserTwoStore',
+
+    model: 'ExtApp.model.projectmanagement.ProjectObsUserModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-organization!getProjectOrganizationUserLevelTwo.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

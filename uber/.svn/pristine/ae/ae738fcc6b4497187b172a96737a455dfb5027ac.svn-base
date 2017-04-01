@@ -1,0 +1,85 @@
+/**
+ * 个人管理-待办任务-工作联系单 Controller
+ */
+Ext.define('ExtApp.view.myworkspace.TodoListWorkOrderController',{
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.todoListWorkOrder',
+    itemdblclick: function(th , record , item , index , e , eOpts ) {
+    	var formClassId = record.get('formClassId');
+    	var workOrderId = record.get('workOrderId');
+    	var stepName = record.get('stepName');
+    	var woType = record.get('woType');
+    	var title = "接收工作联系单";
+    	if(woType == 'OUTBOUND'){
+    		title = "发送工作联系单-"+stepName;
+    	}else{
+    		title = "接收工作联系单-"+stepName;
+    	}
+    	Ext.Ajax.request({
+   	 		params:{id:workOrderId},  
+   	 		url: '/pdms/workorder/workorder!getWorkOrderForm.action',
+			success: function(response, opts) {
+				var result = ExtApp.util.Util.decodeJSON(response.responseText);
+				var formRecord = Ext.create('Ext.data.Model',result.data);
+				var win = Ext.create({xtype: formClassId,workOrderId:workOrderId,record:record,grid:th,title:title}).show();
+				win.down('form').loadRecord(formRecord);
+				if(win.down('form').getForm().findField('isProjectType') && win.down('form').getForm().findField('isProjectType').xtype == 'radiogroup'){
+					win.down('form').getForm().findField('isProjectType').setValue({isProjectType:result.data.isProjectType});
+				}
+				if(win.down('form').getForm().findField('onlineMode')  && win.down('form').getForm().findField('onlineMode').xtype == 'radiogroup'){
+					win.down('form').getForm().findField('onlineMode').setValue({onlineMode:result.data.onlineMode});
+				}
+    	        
+		    },
+		    failure: function(response, opts) {
+		    	var result = ExtApp.util.Util.decodeJSON(response.responseText); 
+		    	ExtApp.util.Util.showErrorMsg(result.data);
+		    }
+        });
+    },
+    transferTask:function(button){
+    	var me = this;
+    	var selections = me.view.down('grid').getSelection();
+    	var modelData = [];
+    	for(var i=0;i<selections.length;i++){
+    		modelData.push(selections[i].data.taskId);
+    	}
+    	
+    	var transferTaskWindow = Ext.create('ExtApp.view.common.TransferTaskWindow',{
+			callback:function(comment,userTo){
+        		if(userTo == null || userTo == ''){
+        			Ext.Msg.alert('提示', '必须填写接收人！');
+        			return;
+        		}
+        		transferTaskWindow.close();
+        		Ext.getBody().mask();
+        		Ext.Ajax.request({
+       	   	 	 url: '/pdms/mw/todo-list!transferTask.action',
+       	   	 	 params: {
+           			 model: Ext.encode(modelData),
+           			 remark:comment,
+           			 userTo:userTo
+       			 },
+       	   	 	 scope: me,
+       	   	 	 success: function(response, opts) {
+       	   	     	Ext.getBody().unmask();
+       	   	    	var obj = Ext.decode(response.responseText);
+       	   	        if (obj.success) {
+       	   	        	ExtApp.util.Util.showToast("提交成功！");
+       	   	        	me.view.down('grid').getStore().load();
+       	   	        } else {
+       	   	        	ExtApp.util.Util.handleRequestFailure(response);
+       	   	        }
+       	   	    },
+       		    failure: function(response, opts) {
+       		        Ext.getBody().unmask();
+       		        ExtApp.util.Util.handleRequestFailure(response);
+       		    }
+              });
+			}
+		});
+    	transferTaskWindow.show();
+		return;
+    }
+
+});

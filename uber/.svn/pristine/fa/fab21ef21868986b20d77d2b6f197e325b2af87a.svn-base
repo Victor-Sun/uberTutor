@@ -1,0 +1,19 @@
+Ext.define('ExtApp.model.dashboard.DashboardPMSModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.dashboardPMS',
+    
+    fields: [
+             'userId',
+             'menuId',
+             'displaySeq',
+             'id',
+             'title',
+             'text',
+             'iconCls',
+             'xType',
+             'widgetWidth',
+             'widgetType',
+             'permission'
+      ]
+
+});

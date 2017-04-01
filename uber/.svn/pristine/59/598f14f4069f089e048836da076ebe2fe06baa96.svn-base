@@ -1,0 +1,144 @@
+/**
+ * 部门空间-部门自建任务-处理问题
+ */
+Ext.define('ExtApp.view.deptworkspace.deptissue.ProcessDeptIssueWindow',{
+	extend:'Ext.window.Window',
+	xtype:'processDeptIssueWindow',
+	
+	controller: 'processDeptIssueWindow',
+	
+	maximized: true,
+	header: false,
+	scrollable: 'y',
+	layout: 'border',
+	
+	initComponent: function() {
+		var me = this;
+		
+		var img = 'OpenIssueRaise.png';
+		var btnName = '提交';
+		if (me.statusCode == 'PENDING') {
+			img = 'OpenIssueConfirm.png';
+			btnName = '提交';
+		} else if (me.statusCode == 'OPEN') {
+			img = 'OpenIssueResolve.png';
+			btnName = '申请关闭';
+		}
+		// 进展状况
+		var notesStore = Ext.create('ExtApp.store.deptworkspace.DeptIssueNotesStore');
+		notesStore.load({params: {issueId: me.issueId}});
+		// 讨论区成员列表
+    	var issueMember = Ext.create({
+    		xtype: 'deptIssueMember',
+    		issueId: me.issueId
+    	});
+    	
+    	me.items = [{
+			xtype:'tabpanel',
+			flex: 1,
+			layout: 'border',
+			region:'center',
+			defaults: {
+				scrollable: 'y'
+			},
+			margin:0,
+			items:[{
+				xtype:'panel',
+				title:'问题信息',
+				layout: 'border',
+				region:'center',
+				items:[{
+					xtype: 'deptIssueForm',
+		    		region: 'center',
+		    		issueId: me.issueId,
+		    		statusCode: me.statusCode,
+		    		actionType: 'process'
+				},{
+					xtype: 'tabpanel',
+					region:'east',
+					width:'20%',
+					border:true,
+					items:[{
+						xtype: 'panel',
+						layout:'fit',
+						title:'问题进展',
+						items: [{
+							xtype: 'deptIssueNotes',
+							store: notesStore,
+							issueId: me.issueId,
+							editPrivilege: true
+						}]
+					},{
+						xtype: 'panel',
+						layout:'fit',
+						title:'审批信息',
+						items: [{
+							xtype: 'deptIssueProcessRecord',
+							issueId: me.issueId
+						}]
+					}]
+				}]
+			},{
+				region: 'center',
+				xtype: 'forum',
+				sourceId: me.issueUuid,
+				source: 'PM-DEPT-ISSUE',
+				forumMember: issueMember,
+				title: '协作'
+			},{
+				region:'center',
+				xtype:'panel',
+				title:'评论',
+				layout: 'fit',
+				items: [{
+					xtype: 'issueComment',
+					sourceId: me.issueUuid,
+					source: 'PM-DEPT-ISSUE-COMMENT',
+					scrollable: 'y'
+				}]
+			}]
+		}];
+    	
+    	me.dockedItems = [{
+        	xtype: 'toolbar',
+        	padding: '0 6 0 2',
+        	cls: 'workorder shadow',
+        	docked: 'top',
+        	items: [{
+        		xtype: 'image',
+                height: 45,
+                src: 'resources/images/navigation/' + img
+        	},'->',{ 
+        		xtype: 'button',
+        		iconCls: 'x-fa fa-close',
+        		tooltip: '关闭',
+        		handler: 'closeWindow'
+        	}]
+        }];
+    	me.fbar = [{
+    		xtype: 'tbfill'
+    	},{
+    		type:'button',
+    		text:'保存',
+    		value:'SAVE',
+			listeners: {
+				click: 'onButtonClickSubmit'
+			}
+  	    },{
+  	    	type:'button',
+  	    	text:'打回',
+  	    	value:'RETURN',
+			listeners: {
+				click: 'onButtonClickSubmit'
+			}
+  	    },{
+  	    	type:'button',
+  	    	text: btnName,
+  	    	value:'NEXT',
+			listeners: {
+				click: 'onButtonClickSubmit'
+			}
+		}];
+    	me.callParent(arguments);
+	}
+});

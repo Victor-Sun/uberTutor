@@ -1,0 +1,51 @@
+/**
+ * 问题来源维护
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.issuesource.IssueSource',{
+	extend:'Ext.panel.Panel',
+	xtype:'issueSource',
+	controller: 'issueSource',
+	layout:'fit',
+	margin:10,
+	initComponent: function() {
+		var issueSourceStore = Ext.create('ExtApp.store.qualityissuemanagement.IssueSourceStore');
+		issueSourceStore.load();
+		this.items = [{
+			xtype:'grid',
+			title:'问题来源列表',
+			layout:'fit',
+			store: issueSourceStore,
+			columns:[{
+				xtype: 'rownumberer'
+			},{
+				text:'问题来源编号',
+				flex: 1,
+				dataIndex:'code'
+			},{
+				text:'问题来源名称',
+				flex: 1,
+				dataIndex:'name'
+			},{
+				xtype: 'actioncolumn',
+		        width: 30,
+		        sortable: false,
+		        menuDisabled: true,
+		        items: [{
+		            iconCls: 'x-fa fa-trash',
+		            handler: 'deleteRow'
+		        }]	
+			}],
+			tbar: [{
+	            text: '新建问题来源',
+	            handler: 'newIssueSource'
+	        }],
+			dockedItems: [{
+				xtype: 'pagingtoolbar',
+				dock: 'bottom',
+				displayInfo: true,
+				store: issueSourceStore
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

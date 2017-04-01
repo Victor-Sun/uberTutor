@@ -1,0 +1,69 @@
+/**
+ * 项目管理-项目模板库-主计划(泳道)
+ */
+Ext.define('ExtApp.view.projectmanagement.templatelibrary.projectTemplateMainDept',{
+	extend:'Ext.form.Panel',
+	xtype:'projectTemplateMainDept',
+
+	controller: 'projectTemplateMainDept',
+	
+	layout: {
+		type: 'vbox',
+		align: 'stretch'
+	},
+	
+	initComponent: function() {
+		
+		var mainDeptStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProjectTemplateMainDeptStore');
+		mainDeptStore.getProxy().extraParams = {programId: this.programId};
+		mainDeptStore.load();
+	
+		this.items = [{
+			flex: 1,
+			margin: 10,
+			xtype:'fieldset',
+			layout: 'fit',
+	    	title: '详细信息',
+	    	collapsible:true,
+	    	items:[{
+	    		xtype: 'grid',
+	    		store: mainDeptStore,
+				columns:[{
+					xtype: 'rownumberer'
+				},{
+					text:'节点名称',
+					flex: 1,
+					dataIndex:'taskName'
+				},{
+					text:'节点类型',
+					flex: 1,
+					dataIndex:'taskTypeName'
+				},{
+					text:'是否显示在时程表',
+					flex: 1,
+					dataIndex:'isShow'
+				},{
+					text:'完成周期(天)',
+					flex: 1,
+					dataIndex:'finishDaysToSop'
+				}],
+				dockedItems: [{
+		            xtype: 'pagingtoolbar',
+		            dock: 'bottom',
+		            displayInfo: true,
+		            store: mainDeptStore
+		        }],
+				listeners:{
+		        	celldblclick: 'onCelldblclick'
+				}
+	    	}]
+		},{
+			flex: 1,
+			xtype: 'panel',
+			layout: 'fit',
+			reference:'refDeptDeliverable'
+		}];
+		this.callParent(arguments);
+	}
+});

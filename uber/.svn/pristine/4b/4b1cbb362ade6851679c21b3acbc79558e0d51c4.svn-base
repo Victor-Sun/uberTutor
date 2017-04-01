@@ -1,0 +1,16 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectPlanQualityValveStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectPlanQualityValve',
+
+    model: 'ExtApp.model.projectmanagement.ProjectPlanQualityValveModel',
+
+	proxy: {
+		type: 'ajax',
+		url: '/pdms/pm/project-plan-quality-valve!getProjectPlanQualityValve.action',
+		reader: {
+			type: 'json',
+			rootProperty: 'data'
+		}
+	}
+
+});

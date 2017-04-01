@@ -1,0 +1,21 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectOpenIssueModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.projectOpenIssue',
+    
+    fields: [
+             'id',
+             'issueSourceTitle',
+             'raiseByName',
+             'raiseDate',
+             'issueDescription',
+             'issueCause',
+             'respObsName',
+             'respUserName',
+             'statusCode',
+             'statusCodeName',
+             'dueDate',
+             'actualFinishDate',
+             'departedDays'
+     ]
+
+});

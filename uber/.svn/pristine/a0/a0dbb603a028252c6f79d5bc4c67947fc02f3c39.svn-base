@@ -1,0 +1,155 @@
+/**
+ * 项目管理-修改文件夹
+ */
+Ext.define('ExtApp.view.projectmanagement.document.ModifyFolderController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.modifyFolder',
+
+    // 保存
+    saveFolderInfo: function() {
+    	var me = this;
+        var form = this.view.down('form').getForm();
+        if (form.isValid()) {
+        	me.view.mask('Please Waiting...');
+            form.submit({
+                clientValidation: true,
+                url: '/pdms/pm/project-document!updateFolderInfo.action',
+                params: {
+                	folderId: me.view.folderId,
+                	model: Ext.encode(form.getFieldValues())
+                },
+                scope: me,
+                success: function(form, action) {
+                	me.view.unmask();
+					var tree = me.view.up('projectDocumentBase').down('treepanel');
+					var node = tree.getStore().getNodeById(me.view.parentId);
+					tree.getStore().getProxy().extraParams.sourceType = 'SOURCE_TYPE_CUSTOMIZATION';
+    		    	tree.getStore().getProxy().extraParams.programId = me.view.programId;
+    		        tree.getStore().load({node:node});
+                	ExtApp.util.Util.showToast("保存成功！");
+                },
+                failure: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.handleFormFailure(action);
+                }
+            });
+        }
+    },
+    
+    // 选择人员
+    selUser:function(btn) {
+    	var me = this;
+    	me.view.add({
+            xtype: 'obsDepartment',
+            programId: me.view.programId,
+            multiSelect: true,
+            parentCaller: me
+        }).show();
+    },
+    
+    // 选择负责人确定
+    confirmUser: function(userData) {
+    	var grid = this.view.down('grid');
+    	var me = this;
+    	var modelData = [];
+    	for (var i = 0; i < userData.length; i++) {
+    		modelData.push(userData[i].data);
+    	}
+    	me.view.mask('Please Waiting...');
+    	Ext.Ajax.request({
+    		url: '/pdms/pm/project-document!addFolderAuthUser.action',
+    		params: {
+    			folderId: me.view.folderId,
+    			model: Ext.encode(modelData)
+			},
+			scope: me,
+			success: function(response, opts) {
+				me.view.unmask();
+		    	var obj = Ext.decode(response.responseText);
+		    	if (obj.success) {
+		    		grid.getStore().reload();
+		    		if (obj.data) {
+		    			ExtApp.util.Util.showInfoMsg(obj.data);
+		    		}
+		        } else {
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+				me.view.unmask();
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	})
+    },
+    
+    // 权限变更
+    onCheckchange: function(checkColumn, rowIndex, checked, eOpts) {
+    	var me = this;
+    	var record = checkColumn.up('grid').getStore().getAt(rowIndex);
+    	if (record.get('createByFlag')) {
+    		ExtApp.util.Util.showToast("不允许修改创建者权限！");
+    		record.reject();
+    		return;
+    	}
+    	var permissionCode = '';
+    	if (checkColumn.itemId == 'ccManage') {
+    		permissionCode = 'FOLDER_PERMISSION_OWNER';
+    	} else if (checkColumn.itemId == 'ccRead') {
+    		permissionCode = 'FOLDER_PERMISSION_READ';
+    	} else if (checkColumn.itemId == 'ccWrite') {
+    		permissionCode = 'FOLDER_PERMISSION_WRITE';
+    	}
+    	me.view.mask('Please Waiting...');
+    	Ext.Ajax.request({
+    		url: '/pdms/pm/project-document!updateFolderAuth.action',
+    		params: {
+    			folderId: me.view.folderId,
+    			userId: record.get('userId'),
+    			permissionCode: permissionCode,
+            	permission: checked
+			},
+			scope: me,
+			success: function(response, opts) {
+				me.view.unmask();
+		    	var obj = Ext.decode(response.responseText);
+		    	if (obj.success) {
+		    		record.commit();
+		        } else {
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+				me.view.unmask();
+		    	ExtApp.util.Util.handleRequestFailure(response);	
+		    }
+    	});
+    },
+    
+    // 关闭
+    close: function() {
+    	var me = this;
+    	
+    	me.view.mask('Please Waiting...');
+    	Ext.Ajax.request({
+    		url: '/pdms/pm/project-document!updateFolderConfirm.action',
+    		params: {
+    			folderId: me.view.folderId
+			},
+			scope: me,
+			success: function(response, opts) {
+				me.view.unmask();
+		    	var obj = Ext.decode(response.responseText);
+		    	if (obj.success) {
+		    		me.view.close();
+		        } else {
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+				me.view.unmask();
+		    	ExtApp.util.Util.handleRequestFailure(response);	
+		    }
+    	});
+    	
+    }
+});

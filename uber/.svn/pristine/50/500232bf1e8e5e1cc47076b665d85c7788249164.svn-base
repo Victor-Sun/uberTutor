@@ -1,0 +1,119 @@
+/**
+ * 项目管理-	xx项目-状态报告-项目编辑状态View
+ */
+Ext.define('ExtApp.view.projectmanagement.report.ProjectDBStatusReport01',{
+	extend:'Ext.window.Window',
+	xtype:'projectDBStatusReport01',
+
+	controller: 'projectDBStatusReport01',
+
+	modal: true,
+	width:300,
+	height:300,
+	closable: false,
+	
+	initComponent: function() {
+
+		// 进展状态
+		var progressStore = Ext.create(
+			'ExtApp.store.common.CodeTableStore');
+		progressStore.getProxy().extraParams = {type: 'PROGRAM_REPORT_STATUS'};
+		progressStore.load();
+
+		// 质量状态
+		var qualityStore = Ext.create(
+			'ExtApp.store.common.CodeTableStore');
+		qualityStore.getProxy().extraParams = {type: 'PROGRAM_REPORT_STATUS'};
+		qualityStore.load();
+		
+		// 性能指标
+		var propertyStore = Ext.create(
+			'ExtApp.store.common.CodeTableStore');
+		propertyStore.getProxy().extraParams = {type: 'PROGRAM_REPORT_STATUS'};
+		propertyStore.load();
+
+		// 整车成本
+		var costStore = Ext.create(
+			'ExtApp.store.common.CodeTableStore');
+		costStore.getProxy().extraParams = {type: 'PROGRAM_REPORT_STATUS'};
+		costStore.load();
+
+		// 投资预算
+		var budgetStore = Ext.create(
+			'ExtApp.store.common.CodeTableStore');
+		budgetStore.getProxy().extraParams = {type: 'PROGRAM_REPORT_STATUS'};
+		budgetStore.load();
+	
+		this.items = [{
+			xtype:'form',
+			items:[{
+				margin:'10 10 10 10',
+				xtype: 'combobox',
+				fieldLabel: '项目进展',
+				editable: false,
+				store: progressStore,
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'code',
+			    name: 'statusCodePs',
+			    value: this.statusReportData.statusCodePs
+			},{
+				margin:'10 10 10 10',
+				xtype: 'combobox',
+				fieldLabel: '质量问题',
+				editable: false,
+				store: qualityStore,
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'code',
+			    name: 'statusCodeQi',
+			    value: this.statusReportData.statusCodeQi
+			},{
+				margin:'10 10 10 10',
+				xtype: 'combobox',
+				fieldLabel: '性能指标',
+				editable: false,
+				store: propertyStore,
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'code',
+			    name: 'statusCodePi',
+			    value: this.statusReportData.statusCodePi
+			},{
+				margin:'10 10 10 10',
+				xtype: 'combobox',
+				fieldLabel: '整车成本',
+				editable: false,
+				store: costStore,
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'code',
+			    name: 'statusCodeVc',
+			    value: this.statusReportData.statusCodeVc
+			},{
+				margin:'10 10 10 10',
+				xtype: 'combobox',
+				fieldLabel: '投资预算',
+				editable: false,
+				store: budgetStore,
+			    queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'code',
+			    name: 'statusCodeIb',
+			    value: this.statusReportData.statusCodeIb
+			}]
+		}];
+		this.tools = [{
+			text:'确定',
+			xtype:'button',
+			iconCls: 'x-fa fa-circle-o',
+			handler: 'confirm'
+		},{
+			text:'关闭',
+		    xtype:'button',
+		    iconCls: 'x-fa fa-close',
+		    handler: 'cancel'
+		}];
+		this.callParent(arguments);
+	}
+});

@@ -1,0 +1,117 @@
+/**
+ * 质量管理-历史记录表单
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.HistoryFormInfo', {
+	extend:'Ext.form.Panel',
+	xtype:'historyFormInfo',
+
+	closable:true,
+	layout: {
+		type:'vbox',
+		align: 'stretch'
+	},
+	
+	controller: 'historyFormInfo',
+	viewModel: 'myTask',
+	
+	initComponent:function() {
+		var me = this;
+		
+		this.items = [{
+			xtype:'myTaskInfoOne'
+		},{
+			xtype:'myTaskInfoTwo'
+		},{
+			xtype:'myTaskInfo',
+			historyFlag: true
+		},{
+			xtype:'tabpanel',
+			layout: 'fit',
+			defaults: {
+				layout: {
+					type: 'vbox',
+					align: 'stretch'
+				},
+				scrollable: 'x'
+			},
+			reference: 'refVerificationTab07',
+			items:[{
+				xtype:'myTaskInfoTo03',
+				title:'问题确认'
+			},{
+				xtype:'myTaskInfoTo04',
+				title:'对策方案',
+				keyId: this.hstId,
+				historyFlag: true
+			},{
+				xtype:'myTaskInfoTo05',
+				title:'措施实施',
+				keyId: this.hstId,
+				historyFlag: true
+			},{
+				xtype:'form',
+				title:'效果验证',
+				layout: {
+			        type: 'accordion',
+			        animate: true,
+			        multi: true
+			    },
+				reference: 'refVerificationScheme07',
+				dockedItems: [{
+					xtype:'panel',
+				    dock: 'bottom',
+				    layout:{
+						type:'vbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype:'panel',
+						layout:{
+							type:'hbox'
+						},
+					    margin:'10 0 0 15',
+						items:[{
+							xtype:'combo',
+							fieldLabel:'效果确认',
+							editable: false,
+							bind: {
+								store: '{effectConfirmation}'
+					        },
+						    queryMode: 'local',
+						    displayField: 'name',
+						    valueField: 'id',
+						    allowBlank:false,
+						    listeners: {
+								change: 'selcombo'
+							},
+							name:'effectConfirmation',
+							readOnly: true
+						},{
+							xtype:'textareafield',
+							fieldLabel:'理由',
+						    margin:'0 0 0 10',
+							width:505,
+							name:'reason',
+							readOnly: true
+						}]
+					},{
+						xtype:'panel',
+						layout:{
+							type:'hbox'
+						},
+						margin:'0 0 10 15',
+						items:[{
+							xtype:'textfield',
+							fieldLabel:'设变通知单（ECO）编号',
+							width:790,
+							allowBlank:false,
+							name:'ecoNo',
+							readOnly: true
+						}]
+					}]
+				}]
+			}]
+		}];
+		this.callParent();
+	}
+});

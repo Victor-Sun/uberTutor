@@ -1,0 +1,16 @@
+﻿
+Ext.define('ExtApp.store.common.DocumentIndexStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.documentIndex',
+
+    model: 'ExtApp.model.common.DocumentIndexModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/com/document!getDocumentInfo.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

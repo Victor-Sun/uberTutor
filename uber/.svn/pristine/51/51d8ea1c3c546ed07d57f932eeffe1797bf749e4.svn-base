@@ -1,0 +1,30 @@
+/**
+ * 项目管理-项目模板库Controller
+ */
+Ext.define('ExtApp.view.projectmanagement.templatelibrary.TemplateLibraryController',{
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.templateLibrary',
+
+    init: function() {
+    	var me = this;
+    	this.view.typeStore.load(function(records) {
+			Ext.each(records, function (record) {
+				me.addListView(record);
+			});
+			var v_tab = me.lookupReference('refTemplateLibrary');
+			v_tab.setActiveTab(v_tab.items.items[0]);
+		});
+    },
+    
+    addListView: function (record) {
+    	var me = this;
+    	var newView = Ext.create({
+    		xtype: 'templateLibraryOne',
+        	title: record.get('name'),
+        	programTypeId: record.get('id')
+    	});
+    	this.lookupReference('refTemplateLibrary').add([{
+    		xtype: newView
+    	}]);
+    }
+});

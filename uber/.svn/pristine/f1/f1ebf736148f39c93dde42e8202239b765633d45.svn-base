@@ -1,0 +1,50 @@
+Ext.define('ExtApp.view.projectmanagement.issue.contribution.UserInfo',{
+	extend: 'Ext.panel.Panel',
+	xtype: 'userinfo',
+	layout: {
+		type: 'hbox',
+		align: 'stretch'
+	},
+	items:[{
+		xtype: 'container', //User Info
+		width: 250,
+		layout: {
+			type: 'vbox',
+			align: 'stretch'
+		},
+		items: [{
+			xtype: 'panel', //Avatar
+			height: 350,
+			margin: 10,
+			cls: 'shadow',
+			layout: 'fit',
+			items: [{
+				xtype: 'image',
+				padding: 10
+//				src: 'resources\images\user-profile.jpg'
+			}]
+		},{
+			xtype: 'panel', //User Info
+			margin: 10,
+			flex: 1,
+			cls: 'shadow',
+			items: [{
+				html: 'User Info'
+			}]
+		}]
+	},{
+		xtype: 'panel', //Contribution Info
+		flex: 1,
+		layout: {
+			type: 'fit'
+		},
+		margin: 10,
+		title: 'User Content',
+		items: [{
+//			xtype: 'grid',
+//			
+//			layout: 'fit',
+//			
+		}]
+	}]
+});

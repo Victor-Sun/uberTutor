@@ -1,0 +1,118 @@
+//提出 - 分配 - 项目经理分配处理工程师
+Ext.define('ExtApp.view.workorder.inbound.WorkOrderInboundStep2',{
+	extend:'Ext.window.Window',
+	xtype:'workorderinboundstep2',
+	maximized: true,
+	header: false,
+	scrollable:'y',
+	layout: {
+		type: 'border'
+	},
+	controller: 'workOrderInbound',
+	initComponent: function() {
+		var me = this;
+		if(me.record == null){
+			navImageName = 'WO001_P_OFF_STEP_1';
+		}else{
+			navImageName = me.record.get('navImageName');
+		}
+		this.items = [{
+			//west
+			xtype: 'form',
+			reference: 'workOrderInbandForm',
+			region: 'center',
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
+			items: [{
+				xtype: 'workorderbasicinfo'
+			},{
+				xtype: 'tabpanel',
+				flex: 1,
+				items:[{
+					title:'需求',
+					xtype: 'workorderengineerpanel'
+				}]
+			}],
+			dockedItems: [{
+				xtype: 'toolbar',
+				style:{
+					backgroundColor: '#3892d4'
+				},
+	        	cls: 'shadow',
+		        dock: 'top',
+		        items: [
+		        '->',
+		        {
+		            xtype: 'button',
+//		            iconCls: 'x-fa fa-print',
+		            text: '<b><i style="font-style: normal;" class="x-fa fa-search"></i>&nbsp;/&nbsp;<i style="font-style: normal;" class="x-fa fa-print"></i></b>',
+		            tooltip: '预览 / 打印',
+		            handler:function(){
+		            	ExtApp.util.Util.openReport('rpt=pm/inbound_work_order.brt&xlsbtn&params=work_order_id='+me.workOrderId);
+		            }
+		        }]
+			}]
+		},{
+			title: '审批信息',
+			region: 'east',
+			width: '30%',
+			workOrderId:me.workOrderId,
+			xtype: 'workOrderNotes'
+		}];
+		this.dockedItems = [{
+			xtype: 'panel',
+			cls: 'shadow',
+			dock: 'top',
+			items: [{
+				xtype: 'toolbar',
+				cls: 'workorder',
+	        	padding: '0 6 0 2',
+		        items: [{
+		            xtype: 'workflowStep',
+		            navImageName:navImageName
+		        },
+		        '->',
+		        {
+		        	xtype: 'button',
+		        	iconCls: 'x-fa fa-close',
+		        	tooltip: '关闭',
+		        	style: {
+		        		borderRadius: 20
+		        	},
+		        	handler: function() {
+		        		me.close();
+		        	}
+		        }
+		        ]
+//			},{
+//				xtype: 'toolbar',
+//				height: 30,
+//				cls: 'workorder',
+//				items: [{
+////					xtype: 'component',
+////					html: 'information toolbar'
+//				}]
+			}]
+        },{
+			xtype: 'toolbar',
+			cls: 'shadow',
+	        dock: 'bottom',
+	        items: ['->',{
+	        	type:'button', 
+	            text: '保存',
+	            listeners: {
+					click: 'inboundWorkOrderSave'
+				}
+	        },{
+	        	type:'button', 
+	            text: '办理',
+	            listeners: {
+					click: 'inboundWorkOrderNext'
+				}
+	        }]
+		}];   
+		this.callParent(arguments);
+    }
+});

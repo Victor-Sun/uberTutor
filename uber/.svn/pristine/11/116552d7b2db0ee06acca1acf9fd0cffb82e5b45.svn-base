@@ -1,0 +1,58 @@
+/**
+ * 项目管理-项目计划-质量阀-质量阀信息
+ */
+Ext.define('ExtApp.view.projectManagement.valve.GateInfo',{
+	extend:'Ext.window.Window',
+	xtype:'gateInfo',
+	
+	width:400,
+	height:200,
+	
+	closable: false,
+	modal: true,
+	
+	title:'质量阀信息',
+	
+	controller: 'gateInfo',
+	
+	layout: 'fit',
+	
+	initComponent: function() {
+		
+		this.items = [{
+			xtype: 'form',
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
+		    margin:10,
+		    items: [{
+		    	xtype: 'textfield',
+				fieldLabel: '阀门名称',
+				name: 'taskName',
+				allowBlank: false,
+                maxLength: 255
+			},{
+				xtype: 'datefield',
+				format: 'Y/m/d',
+				name: 'plannedFinishDate',
+				fieldLabel: '时间',
+				allowBlank: false
+			}]
+		}];
+		
+		this.tools = [{
+			text:'确定',
+	        xtype: 'button',
+	        iconCls: 'x-fa fa-save',
+	        handler: 'confirm'
+	    },{
+			text:'关闭',
+	        xtype: 'button',
+	        iconCls: 'x-fa fa-close',
+	        handler: 'closeWindow'
+		}];
+		
+		this.callParent();
+	}
+});

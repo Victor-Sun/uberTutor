@@ -1,0 +1,25 @@
+Ext.define('ExtApp.store.qualityissuemanagement.SearchChoiceStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.searchChoice',
+
+    fields: ['id', 'name'],
+    
+	data:
+	[
+		{id: 'code', name: '问题编号'},
+		{id: 'title', name: '问题标题'},
+		{id: 'issueStatus', name: '问题状态'},
+		{id: 'projectName', name: '所属项目'},
+		{id: 'description', name: '问题描述'},
+		{id: 'issueLevel', name: '问题等级'}
+	]
+//    proxy: {
+//    	type: 'ajax',
+//        url: '/pdms/ims/build-phase!getBuildPhase.action',
+//        reader: {
+//            type: 'json',
+//            rootProperty: 'data'
+//        }
+//    },
+//    autoLoad: true
+});

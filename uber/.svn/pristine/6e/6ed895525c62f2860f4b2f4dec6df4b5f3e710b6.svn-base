@@ -1,0 +1,30 @@
+Ext.define('ExtApp.view.projectmanagement.issue.contribution.ContributionReferenceGrid',{
+	extend: 'Ext.grid.Panel',
+	xtype: 'contributionreferencegrid',
+	layout: 'fit',
+	title: "Contributions referenced",
+	columnLines: true,
+	
+	store: 'contribution',
+	
+	initComponent: function () {
+		this.columns = [{
+			text: 'Rank',
+			xtype: 'rownumberer'
+		},{
+			text: 'Name',
+			width: 100,
+			locked: true,
+			sortable: false,
+			dataIndex: 'name'
+		},{
+			text: 'Times Referenced',
+			sortable: false,
+			flex: 1,
+			dataIndex: 'referenceCount'
+		}];
+		//Sorts the store
+//		Ext.getStore('').sort({property:'', direction: 'ASC'});
+		this.callParent();
+	}
+});

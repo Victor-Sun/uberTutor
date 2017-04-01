@@ -1,0 +1,19 @@
+/**
+ * 问题来源store
+ */
+Ext.define('ExtApp.store.qualityissuemanagement.IssueSourceStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.issueSourceStore',
+
+    fields: ['id', 'name','code'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/issuesource/issue-source!getIssueSource.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

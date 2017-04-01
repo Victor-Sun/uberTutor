@@ -1,0 +1,10 @@
+Ext.define('ExtApp.store.rolemanage.RoleMenus', {
+    extend: 'Ext.data.TreeStore',
+    alias: 'store.RoleMenus',
+
+    root: {
+        expanded: true,
+        text: "My Root"
+    }
+   
+});

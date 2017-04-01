@@ -1,0 +1,13 @@
+Ext.define('ExtApp.store.projectmanagement.ObsPrivilegeStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.obsPrivilege',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-privilege!getProgramObsPrivileges.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

@@ -1,0 +1,30 @@
+Ext.define('ExtApp.view.multiproject.Performancereport',{
+	extend:'Ext.container.Container',
+	xtype:'performancereport',
+	
+	requires:[
+		'Ext.grid.Panel'
+	],
+	//layout:'responsivecolumn',	
+	margin:20,
+	items:[{
+		xtype:'panel',
+		layout:{
+			type:'vbox',
+			align:'stretch'
+		},
+		title:'性能指标报表',
+		items:[{
+			xtype:'panel',
+			defaults:{
+				margin:'5 5 5 5'
+			},			
+			height:300,
+			bodyStyle: "background-color:transparent;",	
+			items:[{
+				xtype:'image',
+				src:'resources/images/ui-temp/multiproject-performancereport.png'
+			}]
+		}]
+	}]
+});

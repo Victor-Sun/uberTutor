@@ -1,0 +1,16 @@
+Ext.define('ExtApp.view.common.appinfo.AppInfoController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.appinfo',
+
+    listen: {
+        global: {
+            mousedown: 'dismissWindowCheck'
+        }
+    },
+
+    dismissWindowCheck: function(ev){
+        var view = this.getView();
+        if(!view.owns(ev.getTarget()))
+            view.close();
+    }
+});

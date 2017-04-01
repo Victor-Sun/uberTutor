@@ -1,0 +1,133 @@
+/**
+ * 质量管理-历史记录表单
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.HistoryFormInfoController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.historyFormInfo',
+
+    target: null,
+
+    //初期加载
+    init: function() {
+    	var me = this;
+    	var form = this.lookupReference('refVerificationScheme07');
+    	var tab = this.lookupReference('refVerificationTab07');
+    	tab.setActiveTab(form);
+    	form.load({
+            url:'/pdms/ims/my-task!getVerificationLine.action',
+			params: {
+				keyId: me.view.hstId,
+				historyFlag: true
+			},
+            success: function(form,result,data) {
+    			Ext.each(result.result.data, function (record) {
+    				me.addPanel(record);
+    			});
+            }
+        });
+    },
+    
+    //加载验证方案
+    addPanel: function (record) {
+    	var refPanel = this.lookupReference('refVerificationScheme07');
+		var fieldlabelIndex = refPanel.items.length + 1;
+
+		var configItem = [{
+			xtype:'panel',
+			title:'<B>验证方案'+ fieldlabelIndex +'</B>',
+			layout:{
+				type:'vbox'
+			},
+			scrollable: 'x',
+			cls:'shadow',
+			items:[{
+				xtype:'panel',
+				layout:{
+					type:'hbox'
+				},
+				items:[{
+					xtype:'combo',
+					fieldLabel:'验证方案' + fieldlabelIndex,
+					readOnly:true,
+					bind:{
+						store:'{verification}'
+					},
+					queryMode:'local',
+					displayField:'name',
+					valueField:'id',
+					margin:'0 0 10 10',
+					name:'verification',
+					value:record.verification
+				},{
+					xtype:'textareafield',
+					fieldLabel:'通过要求',
+					readOnly:true,
+					width:505,
+					margin:'0 0 10 10',
+					readOnly:true,
+					name:'passRequest',
+					value:record.passRequest
+				},{
+					xtype:'textfield',
+					fieldLabel:'实施信息',
+					margin:'0 0 10 10',
+					readOnly:true,
+					name:'implementVehicle',
+					value:record.implementVehicle
+				},{
+					xtype:'textfield',
+					hidden:true,
+					readOnly:true,
+					name:'uid',
+					value:record.uid
+				}]
+			},{
+				xtype:'panel',
+				layout:{
+					type:'hbox'
+				},
+				margin:'0 0 10 10',
+				items:[{
+					xtype:'textfield',
+					fieldLabel:'验证部门',
+					readOnly:true,
+					name:'deptName',
+					value:record.deptName
+				},{
+					xtype:'textfield',
+					fieldLabel:'验证工程师',
+					margin:'0 0 0 10',
+					readOnly:true,
+					name:'verificationEngineerName',
+					value:record.verificationEngineerName
+				},{
+					xtype:'textareafield',
+					fieldLabel:'验证效果',
+					margin:'0 0 0 10',
+					width: 220,
+					readOnly:true,
+					name:'verificationResult',
+					value:record.verificationResult
+				},{
+					xtype:'label',
+					html:'<div style="text-align:center;">相关附件</div>',
+					margin:'0 0 0 10'
+				},{
+					xtype: 'fieldset',
+					margin:'0 0 10 55',
+					items:[{
+						xtype:'imsFileAttachment',
+						height:60,
+						width:250,
+						scrollable: 'y',
+						programId: null,
+			    		sourceType: 'SOURCE_TYPE_RESULT_ATTACHMENT',
+			    		sourceId: record.uid,
+			    		editable: false
+					}]
+				}]
+			}]
+		}];
+		refPanel.add(configItem[0]);
+    }
+});

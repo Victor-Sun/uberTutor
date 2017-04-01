@@ -1,0 +1,56 @@
+Ext.define('ExtApp.view.common.appinfo.AppInfo', {
+	extend: 'Ext.window.Window',
+	xtype: 'appinfo',
+	
+	controller: 'appinfo',
+	
+	cls: 'shadow',
+	
+	frame: false,
+	border: false,
+	header: false,
+//	width: 400,
+//	height: 250,
+	
+	initComponent: function() {
+
+		this.items = [{
+			xtype: 'fieldset',
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
+			margin: 20,
+			items: [{
+				xtype: 'container',
+				layout: {
+					type: 'vbox',
+					align: 'center'
+				},
+				items: [{
+					xtype: 'component',
+					html:
+						'<div class="info-container" style="font-family: Arial, Helvetica, tahoma, verdana, 宋体, SimSun, 华文细黑, STXihei, sans-serif;">' + 
+							'<div class="image-container">' +
+								'<img src="resources/images/gnomontech.png" style="height: 100px;" >' +
+								'<div style="font-size: 35px; display: inline-block; vertical-align: top; ">' +
+									'<h1>PDMS</h1>' +
+								'</div>' +
+							'</div>' +
+							'<div class="contact-container" style="padding-bottom: 5px;">' +
+								'<div > ' + this.version + '</div>' +
+							'</div>' +
+							'<div class="version-container" style="padding-bottom: 5px;">' +
+								'<div> 联系信息：' + this.contact + '</div>' +
+							'</div>' +
+							'<div class="copyright-container">' +
+								'<span>' + this.copyright + '</span><br>' +
+							'</div>' +	
+						'</div>'
+				}]
+			}]
+		}];
+		this.callParent(arguments);
+	}
+
+});

@@ -1,0 +1,44 @@
+/**
+ * 系统管理-登录日志
+ */
+Ext.define('ExtApp.view.systemmanagement.log.SysLoginLog',{
+	extend:'Ext.panel.Panel',
+	xtype:'sysLoginLog',
+	
+	layout: 'fit',
+	title: '用户登录日志',
+ 
+    initComponent: function() {
+    	var logStore = Ext.create('ExtApp.store.systemsettings.SysLoginLogStore');
+    	logStore.load();
+    	
+    	this.items = [{
+			xtype: 'grid',
+			store: logStore,
+			columns: [{
+				text: '登录用户',
+	        	dataIndex:'userName',
+	        	flex:1
+			},{
+				text: '所在部门',
+	        	dataIndex:'deptName',
+	        	flex:1
+			},{
+	    		text: '登录时间',
+	    		dataIndex:'loginDate',
+	    		formatter: 'date("Y/m/d H:i:s")',
+	    		flex:1,
+	    		filter: {
+		        	type: 'date'
+		        }
+	        }],
+	    	dockedItems: [{
+				xtype: 'pagingtoolbar',
+				dock: 'bottom',
+				displayInfo: true,
+				store: logStore
+			}]
+    	}];
+    	this.callParent();
+    }
+});

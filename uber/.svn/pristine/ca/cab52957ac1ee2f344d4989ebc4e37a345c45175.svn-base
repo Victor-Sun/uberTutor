@@ -1,0 +1,11 @@
+Ext.define('ExtApp.model.projectmanagement.PreTaskModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.preTask',
+    
+    fields: [
+         'id',
+         'preTaskName',
+         'lag'
+    ]
+
+});

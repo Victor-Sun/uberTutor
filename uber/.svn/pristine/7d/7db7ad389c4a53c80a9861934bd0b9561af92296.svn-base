@@ -1,0 +1,16 @@
+Ext.define('ExtApp.store.systemmanagement.PmIssueTypeStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.pmIssueTypeStore',
+
+    fields: ['id', 'name'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/sys/pm-issue-type!getIssueTypeList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

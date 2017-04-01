@@ -1,0 +1,114 @@
+/**
+ * 项目管理-主计划
+ */
+Ext.define('ExtApp.view.projectManagement.timeline.TimeLineBase',{
+	extend:'Ext.panel.Panel',
+	xtype:'timeLineBase',
+	
+	controller: 'timeLineBase',
+	
+	layout: 'fit',
+
+	initComponent: function() {
+		var me = this;
+
+		if (me.record.get('planLevel') == '2') {
+			me.tbar = [{
+				xtype:'checkboxfield',
+		    	itemId: 'CHKP1003',
+				fieldLabel:'预发布',
+				labelAlign: 'right',
+				labelWidth: 60,
+				labelSeparator: '',
+				listeners: {
+					change: 'onChangePlanStatus'
+				},
+				hidden: true
+			},{
+				text: '发布计划',
+		    	xtype: 'button',
+		    	itemId: 'BTNP1007',
+	            iconCls: 'x-fa fa-rss',
+			    handler: 'deploy',
+			    hidden: true
+		    },{
+		    	text: '计划变更',
+		    	xtype: 'button',
+		    	itemId: 'BTNP1008',
+	            iconCls: 'x-fa fa-edit',
+			    handler: 'onChangePlan',
+			    hidden: true
+		    },{
+		    	text: '另存为',
+		    	xtype: 'button',
+		    	itemId: 'BTNP1005',
+	            iconCls: 'x-fa fa-save',
+			    handler: 'onCreateBaseline',
+			    hidden: true
+		    },{
+		    	text: '查看历史记录',
+		    	xtype: 'button',
+		    	itemId: 'BTNP1006',
+	            iconCls: 'x-fa fa-th',
+			    handler: 'displayBaseline',
+			    hidden: true
+		    },{
+		    	text: '导出变更记录',
+		    	xtype: 'button',
+		    	itemId: 'BTNP1010',
+	            iconCls: 'x-fa fa-th',
+			    handler: 'displayChangeLog',
+			    hidden: true
+			}];
+		} else {
+			me.tbar = [{
+				xtype:'checkboxfield',
+		    	itemId: 'CHKP0903',
+				fieldLabel:'预发布',
+				labelAlign: 'right',
+				labelWidth: 60,
+				labelSeparator: '',
+				listeners: {
+					change: 'onChangePlanStatus'
+				},
+				hidden: true
+			},{
+				text: '发布计划',
+		    	xtype: 'button',
+		    	itemId: 'BTNP0907',
+	            iconCls: 'x-fa fa-rss',
+			    handler: 'deploy',
+			    hidden: true
+		    },{
+		    	text: '计划变更',
+		    	xtype: 'button',
+		    	itemId: 'BTNP0908',
+	            iconCls: 'x-fa fa-edit',
+			    handler: 'onChangePlan',
+			    hidden: true
+		    },{
+		    	text: '另存为',
+		    	xtype: 'button',
+		    	itemId: 'BTNP0905',
+	            iconCls: 'x-fa fa-save',
+			    handler: 'onCreateBaseline',
+			    hidden: true
+		    },{
+		    	text: '查看历史记录',
+		    	xtype: 'button',
+		    	itemId: 'BTNP0906',
+	            iconCls: 'x-fa fa-th',
+			    handler: 'displayBaseline',
+			    hidden: true
+		    },{
+		    	text: '导出变更记录',
+		    	xtype: 'button',
+		    	itemId: 'BTNP0910',
+	            iconCls: 'x-fa fa-th',
+			    handler: 'displayChangeLog',
+			    hidden: true
+			}];
+		}
+		this.callParent(arguments);
+	}
+});

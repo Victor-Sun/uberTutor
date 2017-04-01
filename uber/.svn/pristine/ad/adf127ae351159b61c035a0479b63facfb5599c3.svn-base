@@ -1,0 +1,89 @@
+/**
+ * 项目管理-查看历史记录
+ */
+Ext.define('ExtApp.view.projectManagement.baseline.BaselineList',{
+	extend:'Ext.window.Window',
+	xtype:'baselineList',
+
+	controller: 'baselineList',
+	
+	layout: 'fit',
+	closable: false,
+	
+	title: '历史记录',
+	
+	width:800,
+	height:400,
+	modal :true,
+
+	initComponent: function() {
+		var me = this;
+		var store = Ext.create(
+			'ExtApp.store.projectmanagement.BaselineListStore');
+		store.getProxy().extraParams = {
+			programId: this.programId,
+			programVehicleId: this.programVehicleId,
+			obsId: this.obsId,
+			baselineType: 'TASK'};
+		store.load();
+		
+		this.items = [{
+			xtype: 'panel',
+			layout: 'fit',
+			items: [{
+				xtype: 'grid',
+				store: store,
+				selModel: 'checkboxmodel',
+				columns: [{
+					xtype : 'rownumberer'
+			    },{
+			    	text: '标题', 
+			    	dataIndex: 'title',
+			    	flex:1,
+			    	renderer: 'renderIsActive'
+			    },{
+			    	text: '描述', 
+			    	dataIndex: 'note',
+			    	flex:1,
+			    	renderer: 'renderIsActive'
+			    },{
+					text: '创建时间',
+					width: 150,
+					dataIndex: 'createDate',
+					formatter: 'date("Y/m/d H:i:s")',
+					renderer: 'renderIsActive'
+				},{
+			    	text: '当前版本', 
+			    	dataIndex: 'isDefault',
+			    	renderer: 'renderIsDefault',
+			    	width: 80
+			    }],
+			    dockedItems: [{
+		            xtype: 'pagingtoolbar',
+		            dock: 'bottom',
+		            displayInfo: true,
+		            store: store
+	            }],
+				listeners:{
+		        	celldblclick: 'onCelldblclick'
+				},
+				tbar: ['->', {
+					text: '与最新计划对比',
+					iconCls: 'fa fa-clipboard',
+					handler: 'compareWithLatest'
+				},{
+					text: '对比所选版本',
+					iconCls: 'fa fa-clone',
+					handler: 'compare'
+				}]
+			}]
+	    }];
+		this.tools = [{
+			text:'关闭',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'closeWindow'
+		}];
+		this.callParent();
+	}
+});

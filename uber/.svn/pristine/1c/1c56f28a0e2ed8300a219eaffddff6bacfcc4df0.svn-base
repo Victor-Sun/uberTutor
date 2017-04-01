@@ -1,0 +1,19 @@
+/**
+ * 登录用户信息Store
+ */
+Ext.define('ExtApp.store.common.LoginUserInfoStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.loginUserInfo',
+
+    fields: ['userId', 'userName'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/com/session-data!getLoginUserInfo.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+    
+});

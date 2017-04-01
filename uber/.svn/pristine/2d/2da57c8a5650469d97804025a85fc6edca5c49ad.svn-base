@@ -1,0 +1,136 @@
+Ext.define('ExtApp.view.projectmanagement.vehicle.VehicleDashboard',{
+	extend: 'Ext.container.Container',
+	xtype: 'vehicleDashboard',
+	
+	cls: 'vehicledashboard',
+	
+	requires: [
+        'Ext.ux.layout.ResponsiveColumn'
+    ],
+
+	layout: 'responsivecolumn',
+	scrollable: 'y',
+	
+	title: '项目看板',
+
+	initComponent: function() {
+		this.defaults = {
+			height: 250,
+	        cls: 'big-50 small-100 shadow'
+		};
+		this.items = [{
+			xtype: 'panel',
+			title: '基本信息',
+			collapsible: true,
+//			frame: true,
+//			height: 225,
+			layout: {
+				type:'vbox',
+	      		align:'stretch'
+			},
+			items: [{
+				xtype: 'fieldset',
+				flex: 1,
+				layout: 'fit',
+				margin:5,
+		        items: [{
+		        	xtype: 'vehicleBaseInfo',
+		        	layout: 'fit',
+		        	programId: this.programId,
+		        	programVehicleId: this.programVehicleId
+		        }]
+			},{
+				xtype: 'fieldset',
+//				height: 115,
+				layout: 'fit',
+				margin:5,
+				padding: '0 0 5 0',
+		        title: '项目总体状态',
+		        items: [{
+		        	xtype: 'vehicleReportStatus',
+		        	programVehicleId: this.programVehicleId,
+		        	projectPrivilege: this.projectPrivilege
+		        }]
+			}]
+		},{
+			title: '项目 Open Issue',
+			xtype: 'panel',
+//			height: 225,
+			collapsible: true,
+//			frame: true,
+			items: [{
+				xtype: 'openIssueChart',
+				programVehicleId: this.programVehicleId
+			}]
+		},{
+			title: '交付物看板',
+			xtype: 'panel',
+			height: 350,
+			collapsible: true,
+//			frame: true,
+			items: [{
+				xtype: 'deliverableStatusChart',
+				programVehicleId: this.programVehicleId
+			}]
+		},{
+			title: '节点进度趋势图',
+			xtype: 'panel',
+			height: 350,
+			collapsible: true,
+//			frame: true,
+			items: [{
+				xtype: 'taskProgressChart',
+				programVehicleId: this.programVehicleId
+			}],
+			tools: [{
+	    		type:'help',
+	    	    tooltip: '帮助',
+	    	    handler: function() {
+	    	    	Ext.create({
+	    	    		xtype: 'chartHelp',
+	    	    		chart: 'taskProgressChart'
+	    	    	}).show();
+	            }
+	    	}]
+		},{
+			title: '质量问题着陆道',
+			xtype: 'panel',
+			height: 350,
+			collapsible: true,
+			items: [{
+				xtype: 'openIssueTrendChart',
+				programVehicleId: this.programVehicleId
+			}],
+			tools: [{
+	    		type:'help',
+	    	    tooltip: '帮助',
+	    	    handler: function() {
+	    	    	Ext.create({
+	    	    		xtype: 'chartHelp',
+	    	    		chart: 'openIssueTrendChart'
+	    	    	}).show();
+	            }
+	    	}]
+		},{
+			title: '节点分布图',
+			xtype: 'panel',
+			height: 350,
+			collapsible: true,
+			items: [{
+				xtype: 'nodeTrendChart',
+				programVehicleId: this.programVehicleId
+			}],
+			tools: [{
+	    		type:'help',
+	    	    tooltip: '帮助',
+	    	    handler: function() {
+	    	    	Ext.create({
+	    	    		xtype: 'chartHelp',
+	    	    		chart: 'nodeTrendChart'
+	    	    	}).show();
+	            }
+	    	}]
+		}];
+		this.callParent();
+	}
+});

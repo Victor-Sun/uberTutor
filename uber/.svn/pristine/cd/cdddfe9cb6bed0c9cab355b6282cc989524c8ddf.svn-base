@@ -1,0 +1,54 @@
+Ext.define('ExtApp.view.projectmanagement.extplan.ext301.NodeInfo',{
+	extend: 'Ext.window.Window',
+	xtype: 'nodeinfo',
+	
+	height: 150,
+	width: 300,
+	items: [{
+		xtype: 'container',
+		margin: 5,
+		layout: {
+			type: 'vbox',
+			align: 'stretch'
+		},
+		defaults: {
+			margin: 5,
+			layout: {
+				type: 'hbox',
+				align: 'stretch'
+			}
+		},
+		items: [{
+			xtype: 'container',
+			items: [{
+				xtype: 'radiogroup',
+				flex: 1,
+				fieldLabel: '',
+		        items: [
+		            { boxLabel: '适用', name: 'rb', inputValue: '1' },
+		            { boxLabel: '不适用', name: 'rb', inputValue: '2'}
+		        ]
+			}]
+		},{
+			xtype: 'container',
+			items: [{
+				xtype: 'datefield',
+				fieldLabel: '计划完成时间'
+			}]
+		}]
+	}],
+	dockedItems: [{
+		xtype: 'toolbar',
+		dock: 'bottom',
+		items: ['->',{
+			xtype: 'button',
+			text: '保存'
+		},{
+			xtype: 'button',
+			text: '取消',
+			handler: function() {
+				this.close();
+			}
+		}]
+	}]
+});

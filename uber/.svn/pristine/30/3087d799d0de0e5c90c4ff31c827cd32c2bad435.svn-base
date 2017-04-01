@@ -1,0 +1,14 @@
+Ext.define('ExtApp.model.projectmanagement.DeployPlanModel', {
+	extend: 'ExtApp.model.Base',
+	alias: 'model.deployPlan',
+    
+	fields: [
+	         'id',
+	         'planLevelName',
+             'obsName',
+             'obsManager',
+             'planStatusName',
+             {name: 'publishDate', type: 'date'}
+	]
+
+});

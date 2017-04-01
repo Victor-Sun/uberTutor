@@ -1,0 +1,33 @@
+/**
+ * 项目管理-项目文档列表Controller
+ */
+Ext.define('ExtApp.view.projectmanagement.document.ProjectDocumentListController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.projectDocumentList',
+    
+    // 查询
+    search: function(btn, e) {
+    	var toolbar = this.view.down('toolbar');
+    	var searchDocumentName = toolbar.getComponent('searchDocumentName').value;
+    	this.view.down('grid').getStore().load({
+    		params:{
+    			programId: this.view.programId,
+    			sourceType: this.view.sourceType,
+    			searchDocumentName: searchDocumentName
+    	}});
+    },
+    
+    // 重置
+    reloadSearch: function() {
+    	var toolbar = this.view.down('toolbar');
+    	toolbar.getComponent('searchDocumentName').setValue('');
+    	this.search();
+    },
+    
+    // 文件下载
+    onFileClick: function(grid, td, rowIndex, cellIndex, e, record, tr) {
+    	window.location.href = "/pdms/com/document!downloadDocument.action?"
+    			+ "revisionId=" + record.data.documentRevisionId
+    			+ "&documentIdxId=" + record.data.docmentIndexId;
+    }
+});

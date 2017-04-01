@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectPlanStageStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectPlanStage',
+
+    model: 'ExtApp.model.projectmanagement.ProjectPlanStageModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-plan-stage!getProjectPlanStage.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

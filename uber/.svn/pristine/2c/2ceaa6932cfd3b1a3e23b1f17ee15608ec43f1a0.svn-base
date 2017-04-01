@@ -1,0 +1,47 @@
+Ext.define('ExtApp.model.Base', {
+    extend: 'Ext.data.Model',
+
+    schema: {
+        namespace: 'ExtApp.model'
+    },
+    
+    files: [{
+    	name: 'id'
+    }],
+    
+    alternateClassName: ['BlockTypes'],
+
+    getLabelPosition : function (model) {
+
+        var position = model.get('LabelPos') ? model.get('LabelPos')[0].toLowerCase(): 't';
+
+        switch (position) {
+
+            case 't' :
+                return 'top';
+            case 'b' :
+                return 'bottom';
+            case 'l' :
+                return 'left';
+            case 'r' :
+                return 'right';
+            default :
+                return 'top'
+        }
+    },
+
+    statics: {
+        
+        Major       : 'M',
+        Gate        : 'G',
+        Function    : 'F',
+        
+        fields : [
+            { name  : 'ShortName',      type: 'string' }, //Label
+            { name  : 'LabelPos',       type: 'string' },//;l,r,t,b
+            { name  : 'Name',           type: 'string' }, //Tooltip
+            { name  : 'Color',          type: 'string' }//rgb color
+        ]
+        
+    }
+});

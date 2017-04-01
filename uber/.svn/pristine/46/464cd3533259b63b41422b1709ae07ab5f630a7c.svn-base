@@ -1,0 +1,173 @@
+/**
+ * 项目管理-Open Issue详细信息View
+ */
+Ext.define('ExtApp.view.projectManagement.issue.ProjectOpenIssue01',{
+	extend:'Ext.form.Panel',
+	xtype:'projectOpenIssue01',
+
+	controller: 'projectOpenIssue01',
+	viewModel: 'projectOpenIssue01',
+
+	closable:true,
+	modal:true,
+	issueId:null,
+	
+	initComponent: function() {
+
+		// grid取得列表
+		var gridStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProjectOpenIssue01Store');
+		gridStore.getProxy().extraParams = {issueId: this.issueId};
+		gridStore.load();
+
+		this.items = [{
+			xtype:'form',
+			reference:'refProjectOpenIssue01',
+			items:[{
+				xtype:'fieldset',
+//				cls:'shadow',
+				margin:'10',
+				layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				items:[{
+					xtype:'panel',
+					margin:'10',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype: 'textfield',
+						fieldLabel: '问题来源',
+						name: 'issueSource',
+						labelAlign: 'right'
+					},{
+						xtype: 'textfield',
+						fieldLabel: '提出人',
+						labelWidth: 130,
+						readOnly: true,
+						name: 'proposedby',
+						labelAlign: 'right'
+					},{
+						xtype: 'datefield',
+						fieldLabel: '提出日期',
+						labelWidth: 130,
+						readOnly: true,
+						name: 'proposedDate',
+						format: 'Y/m/d',
+						labelAlign: 'right'
+					}]
+				},{
+					xtype:'panel',
+					margin:'10',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype: 'textfield',
+						fieldLabel: '任务/问题描述',
+						name: 'task',
+						labelAlign: 'right'
+					},{
+						xtype: 'textfield',
+						fieldLabel: '原因',
+						labelWidth: 130,
+						name: 'reason',
+						labelAlign: 'right'
+					},{
+						xtype: 'textfield',
+						fieldLabel: '责任组',
+						labelWidth: 130,
+						readOnly: true,
+						name: 'respDept',
+						labelAlign: 'right'
+					}]
+				},{
+					xtype:'panel',
+					margin:'10',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype: 'textfield',
+						fieldLabel: '责任人',
+						readOnly: true,
+						name: 'respPerson',
+						labelAlign: 'right'
+					},{
+						xtype: 'textfield',
+						fieldLabel: '完成状态',
+						labelWidth: 130,
+						name: 'status',
+						labelAlign: 'right'
+					},{
+						xtype: 'datefield',
+						fieldLabel: '计划完成日期',
+						labelWidth: 130,
+						name: 'dueDate',
+						format: 'Y/m/d',
+						labelAlign: 'right'
+					}]
+				},{
+					xtype:'panel',
+					margin:'10',
+					layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					items:[{
+						xtype: 'datefield',
+						fieldLabel: '实际完成日期',
+						name: 'finishDate',
+						format: 'Y/m/d',
+						labelAlign: 'right'
+					},{
+						xtype: 'textfield',
+						fieldLabel: '偏离计划完成天数',
+						labelWidth: 130,
+						name: 'departedDays',
+						labelAlign: 'right'
+					}]
+				}]
+			},{
+				title: '工作进展描述',
+				xtype:'fieldset',
+				margin:10,
+//				cls:'shadow',
+				items:[{
+					xtype:'grid',
+					store: gridStore,
+					columns:[{
+						xtype: 'rownumberer'
+					},{
+						text:'工作进展描述',
+						flex: 1,
+						dataIndex:'progressDesc',
+						renderer: function(value, meta, record) {
+                            meta.style = 'overflow:auto;padding: 3px 6px;text-overflow: ellipsis;white-space: nowrap;white-space:normal;line-height:20px;';   
+                            return value;   
+						}
+					}],
+					tbar: [{
+		                text: 'Add',
+		                iconCls: 'icon-add'
+		            },{
+		                text: 'save',
+		                iconCls: 'icon-save'
+		            }],
+					dockedItems: [{
+					     xtype: 'pagingtoolbar',
+					     dock: 'bottom',
+					     displayInfo: true,
+					     store: gridStore
+					}]
+				}]
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

@@ -1,0 +1,16 @@
+/**
+ * 质量问题管理-最近访问的问题-ViewModel
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qemanagement.LastAccessViewModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.lastaccess',
+
+    stores: {
+    	lastaccess: {
+            type: 'lastaccess'
+        },
+        searchChoice: {
+            type: 'searchChoice'
+        }
+    }
+});

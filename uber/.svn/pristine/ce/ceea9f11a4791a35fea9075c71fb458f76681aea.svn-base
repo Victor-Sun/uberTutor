@@ -1,0 +1,44 @@
+/**
+ * 质量问题管理-待办事项-Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.MyTaskInfoController',{
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.myTaskInfo',
+
+    //关注
+    licheck: function() {
+    	var me = this.view;
+    	var v_Flg = null;
+    	var check = this.lookupReference("refCheckbox").getValue();
+    	var me = this.view.ownerCt.ownerCt.ownerCt.up('qmsmain');
+    	if (check == true) {
+    		v_Flg = 'Y';
+    	} else if (check == false) {
+    		v_Flg = 'N';
+    	}
+	    Ext.Ajax.request({
+			url:'/pdms/ims/ims-issue-mark!saveImsIssueMark.action',
+			params: {
+				keyId: this.view.ownerCt.ownerCt.ownerCt.keyId,
+				isConcern: v_Flg
+			},
+			success: function(response, opts) {
+				if (check == true) {
+					var view = me;
+			    	this.dialog = view.add({
+						title:"添加关注成功",
+			        	xtype: 'licheckView'
+			        });
+			        this.dialog.show();
+		    	} else if (check == false) {
+		    		var view = me;
+			    	this.dialog = view.add({
+						title:"取消关注成功",
+			        	xtype: 'licheckView'
+			        });
+			        this.dialog.show();
+		    	}
+		    }
+	    });
+    }
+});

@@ -1,0 +1,16 @@
+Ext.define('ExtApp.store.qualityissuemanagement.MyTaskInfo01CombinedStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.myTaskInfo01Combined',
+
+    fields: ['qeTitle', 'qeStatus', 'qeLevel', 'beProject' ],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/my-task-info01-compared!getImsIssue.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

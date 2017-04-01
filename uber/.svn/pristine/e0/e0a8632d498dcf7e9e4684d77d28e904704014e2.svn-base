@@ -1,0 +1,218 @@
+/**
+ * 部门空间-部门自建任务-归档问题列表
+ */
+Ext.define('ExtApp.view.deptworkspace.deptissue.ArchiveDeptIssue',{
+	extend:'Ext.panel.Panel',
+	xtype:'archiveDeptIssue',
+	
+	layout: 'fit',
+	cls: 'shadow',
+//	margin: 10,
+	
+	title: '归档问题',
+	
+	controller: 'archiveDeptIssue',
+	
+	initComponent: function() {
+		// 列表Store
+		var issueStore = Ext.create('ExtApp.store.deptworkspace.ArchiveDeptIssueStore');
+		issueStore.load();
+		
+		this.items = [{
+			xtype: 'panel',
+			layout: 'border',
+			items: [{
+				xtype:'grid',
+				region: 'center',
+				title: '问题列表',
+				store: issueStore,
+				columns:[{
+					text: '贡献者',
+					width: 100,
+					dataIndex: 'userName'
+				},{
+					text: '贡献日期',
+					width: 100,
+					dataIndex: 'updateDate',
+					formatter: 'date("Y/m/d")'
+				},{
+					text: '标题',
+					dataIndex: 'title',
+					flex: 1
+				}],
+				listeners:{
+		        	selectionchange: 'onSelectionChange',
+		        	celldblclick: 'onCelldblclick'
+				},
+				dockedItems: [{
+					xtype: 'pagingtoolbar',
+					dock: 'bottom',
+					displayInfo: true,
+					store: issueStore
+				}]
+			},{
+				xtype: 'form',
+				itemId: 'detailForm',
+				collapsible: true,
+				region: 'east',
+				width: '33%',
+				split: true,
+				scrollable: true,
+				title: '归档信息',
+				layout: 'fit',
+				items: [{
+					xtype: 'panel',
+					layout:{
+						type:'vbox',
+						align:'stretch'
+					},
+					defaults: {
+						layout: 'column',
+						defaults: {
+							readOnly: true,
+							fieldCls: 'text-readonly',
+							labelAlign: 'top',
+							margin: 5,
+							labelWidth: 100,
+							columnWidth: 0.5
+						}
+					},
+					items:[{
+						xtype:'container',
+						items: [{
+							xtype: 'textfield',
+							fieldLabel: '标题',
+							name: 'title',
+							columnWidth: 1
+						}]
+					},{
+						xtype:'container',
+						items:[{
+							xtype: 'datefield',
+							fieldLabel: '贡献日期',
+							name: 'updateDate',
+							format: 'Y/m/d'
+	                    },{
+	                    	xtype: 'textfield',
+							fieldLabel: '贡献者',
+							name: 'userName'
+						}]
+					},{
+						xtype:'container',
+						items:[{
+							xtype:'counterTextArea',
+							columnWidth: 1,
+							name:'issueDescription',
+							letterPadding: 2,
+							enforceMaxLength:true,
+							maxLength:500,
+							fieldLabel:'问题描述'
+						}]
+					},{
+						xtype:'container',
+						items:[{
+							xtype:'counterTextArea',
+							columnWidth: 1,
+							name:'issueCause',
+							letterPadding: 2,
+							enforceMaxLength:true,
+							maxLength:500,
+							fieldLabel:'备注'
+						}]
+					},{
+						xtype:'container',
+						items:[{
+							xtype:'counterTextArea',
+							columnWidth: 1,
+							name:'issueResolution',
+							letterPadding: 2,
+							enforceMaxLength:true,
+							maxLength:500,
+							fieldLabel:'归档备注'
+						}]
+					}]
+				}]
+			}],
+			tbar: [{
+				xtype: 'form',
+		    	margin: 2,
+		    	layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				width: '100%',
+				items: [{
+					xtype: 'fieldset',
+					flex:1,
+			    	title: '<B>高级查询</B>',
+			    	titleAlign: 'right',
+			    	collapsible:true,
+			    	collapsed: true,
+			    	margin: 2,
+			    	layout: 'fit',
+			    	items: [{
+			    		xtype: 'toolbar',
+			    		defaults: {
+			    			margin: 5
+//			    			defaults: {
+//			    				labelAlign: 'right',
+//			    			}
+			    		},
+			    		items: [{
+			    			xtype: 'displayfield',
+			    			value: '贡献时间'
+						},{
+							xtype: 'datefield',
+							format: 'Y/m/d',
+							name: 'searchDateFrom'
+						},{
+							xtype: 'displayfield',
+			    			value: '~'
+						},{
+							xtype: 'datefield',
+							format: 'Y/m/d',
+							name: 'searchDateTo'
+			    		},
+			    		'-',{
+			    			xtype: 'textfield',
+							name: 'searchUser',
+							fieldLabel: '贡献者'
+//			    		},{
+//			    			xtype: 'panel',
+//			    			columnWidth: 0.3
+			    		}]
+			    	}]
+				},{
+					xtype: 'panel',
+					margin: '10 2 2 2',
+		    		layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					defaults: {
+		    			labelAlign: 'right',
+		    			labelWidth: 60
+		    		},
+					items: [{
+						xtype: 'textfield',
+						name: 'searchTitle',
+						fieldLabel: '标题'
+					},{
+						xtype: 'button',
+						margin: '0 0 0 20',
+						text: '查询',
+						iconCls: 'x-fa fa-search',
+						handler: 'search'
+					},{
+						xtype: 'button',
+						margin: '0 0 0 5',
+						text: '重置',
+						iconCls: 'x-fa fa-rotate-left',
+						handler: 'reloadSearch'
+			    	}]
+				}]
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

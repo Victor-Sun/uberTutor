@@ -1,0 +1,17 @@
+Ext.define('ExtApp.store.qualityissuemanagement.QMSDashboardHotStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.qmsdashboardhot',
+
+    fields: ['qeTitle', 'beProject', 'qeStatus', 'qeLevel', 'resDepartment', 'pubdate', 'formKey', 'risk' ],
+    
+    pageSize:ExtApp.common.Constants.pageSize,
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/risk-level!getRiskList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

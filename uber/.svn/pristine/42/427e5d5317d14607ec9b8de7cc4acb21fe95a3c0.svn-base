@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectOpenIssue01Store', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectOpenIssue01',
+
+    model: 'ExtApp.model.projectmanagement.ProjectOpenIssue01Model',
+ 
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-open-issue!getProjectOpenIssueGrid.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

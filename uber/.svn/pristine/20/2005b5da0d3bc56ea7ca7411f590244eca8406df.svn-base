@@ -1,0 +1,17 @@
+Ext.define('ExtApp.store.qualityissuemanagement.QueryStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.query',
+
+    fields: ['qeTitle', 'qeStatus', 'qeLevel', 'beProject', 'formKey', 'mark', 'id', 'riskLevelCode'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/query!getImsIssue.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    pageSize:15
+//    autoLoad: true
+});

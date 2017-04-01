@@ -1,0 +1,56 @@
+Ext.define('ExtApp.view.rolemanage.UserWindow',{
+	xtype:'userWindow',
+	extend:'Ext.window.Window',
+	controller:'roles',
+	width:500,
+	height:200,
+	// margin:'65 0 0 250',
+	title:'角色用户管理',
+	roleId:0,
+	fbar: [
+	       { type: 'button', text: 'Save', handler: 'saveUserRole' },
+	       { type: 'button', text: 'Close', handler: 'closeWindow' }
+	     ],
+	initComponent: function() {
+		me = this;
+		var userStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		        url: '/pdms/role/role!getUserList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    }
+		});
+		userStore.load();
+
+		var user = Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '用户',
+		    store: userStore,
+		    name:'userId',
+		    queryMode: 'local',
+		    displayField: 'name',
+		    allowBlank:false,
+		    valueField: 'id',
+		    labelAlign: 'top',
+		    padding:'10 25 10 30'
+		});
+
+    	me.items = [{
+			xtype:'form',
+			reference: 'userForm',
+			layout:{
+				type:'vbox',
+				align:'stretch'
+			},
+			items:[{
+		        xtype:'hiddenfield',
+		        name: 'roleId',
+		        value:me.roleId
+			},user]
+		}];
+    	me.callParent(arguments);
+	}
+});

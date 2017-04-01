@@ -1,0 +1,30 @@
+﻿Ext.define('ExtApp.view.qualityissuemanagement.reportcenter.EfficientReport',{
+	extend:'Ext.container.Container',
+	xtype:'efficientreport',
+	
+	//layout:'responsivecolumn',	
+	margin:20,
+	cls:'shadow',
+	items:[{
+		xtype:'panel',
+		layout:{
+			type:'vbox'
+//			align:'stretch'
+		},
+		title:'解决有效率报表',
+		items:[{
+			xtype:'panel',	
+			margin:'10 10 10 10',	
+			height:20
+//			html:'<font size="3" color="#9d9d9d"><B>知识目录维护，质量知识库浏览</B></font>'
+		},
+		{
+			xtype:'image',
+			height:241,
+			width:748,
+			src:'resources/images/management/EfficientReport.png',			
+			html:'内容待定'
+		}
+		]
+	}]
+});

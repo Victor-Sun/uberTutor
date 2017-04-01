@@ -1,0 +1,72 @@
+Ext.define('ExtApp.view.forum.ForumGrid',{
+	extend: 'Ext.grid.Panel',
+	xtype: 'forumgrid',
+
+	cls: 'timeline-items-wrap shadow-panel',	
+
+	hideHeaders: true,
+	scrollable: 'y',
+	controller: 'forumgrid',
+    listeners: {
+    	itemclick:'replyPost'
+    },
+    dockedItems: [{
+    	xtype: 'toolbar',
+    	cls: 'shadow toolbar-grey',
+    	dock: 'top',
+    	items: [{
+    		text: '添加留言',
+    		iconCls: 'x-fa fa-pencil',
+    		listeners: {
+    			click: 'createPost'
+    		}
+    	}]
+    }],
+    initComponent:function() {
+		var me = this;
+		var forumStore = Ext.create('ExtApp.store.forum.ForumStore');
+		forumStore.load({params:{sourceId:me.sourceId,source:me.source}});
+		me.store = forumStore;
+		this.columns = [{
+            xtype: 'gridcolumn',
+            dataIndex: 'name',
+            flex: 1,
+            renderer: function (value, metaData, record) {
+                if (record.data.parentId != null) {
+                    return "<div class='comments sub-comments'>"+
+                                "<img src='resources/images/user-profile/avatar.jpg' alt='Smiley face' class='profile-icon'>"+
+                                "<div class='content-wrap'>"+
+                                    "<div>"+
+                                        "<span class='from-now'><span class='x-fa fa-clock-o'></span>"+record.data.createDate+"</span>"+
+                                        "<h4>" + record.data.userName + "<span class='x-fa fa-mobile'></span></h4>"+
+                                    "</div>"+
+                                    "<div class='content'>" + record.data.content + "</div>"+
+                                    "<div class='like-comment-btn-wrap'>"+
+//		                                                "<button type='button' class='x-fa fa-thumbs-up' onclick=''></button>"+
+//		                                                "<button type='button' class='x-fa fa-thumbs-down' onclick=''></button>"+
+//		                                                "<button type='button' onclick='' class='x-fa fa-comments'></button>"+
+                                    "</div>"+
+                                "</div>"+
+                            "</div>";
+                }
+
+                return "<div class='comments'>"+
+                            "<img src='resources/images/user-profile/avatar.jpg' alt='Smiley face' class='profile-icon'>"+
+                            "<div class='content-wrap'>"+
+                                "<div>"+
+                                    "<span class='from-now'><span class='x-fa fa-clock-o'></span>"+record.data.createDate+"</span>"+
+                                    "<h4>" + record.data.userName + "<span class='x-fa fa-mobile'></span></h4>"+
+                                "</div>"+
+                                "<div class='content'>" + record.data.content + "</div>"+
+                                "<div class='like-comment-btn-wrap'>"+
+//		                                            "<button type='button' class='x-fa fa-thumbs-up' onclick=''></button>"+
+//		                                            "<button type='button' class='x-fa fa-thumbs-down' onclick=''></button>"+
+                                    "<button type='button'  class='x-fa fa-comments' value ='"+record.data.id+"'></button>"+
+                                "</div>"+
+                            "</div>"+
+                        "</div>";
+            }
+        }];
+		this.callParent();
+	}
+});

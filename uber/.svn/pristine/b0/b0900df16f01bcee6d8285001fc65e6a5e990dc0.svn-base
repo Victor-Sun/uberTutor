@@ -1,0 +1,166 @@
+/**
+ * 项目管理-新建车型
+ */
+Ext.define('ExtApp.view.projectManagement.base.CreateVehicle',{
+	extend:'Ext.window.Window',
+	xtype:'createVehicle',
+	
+	controller: 'createVehicle',
+
+	modal: true,
+	closable: false,
+	
+	layout:{
+		type:'fit'
+	},
+	
+	width: 500,
+	height: 400,
+	
+	title: '新建车型',
+	
+	initComponent: function() {
+		var me = this;
+		
+		// 项目类型Store
+		var programTempStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProgramTempStore');
+		programTempStore.getProxy().extraParams = {programId: this.programId};
+		programTempStore.load();
+		
+		// 系统用户Store
+		var sysUserStore = Ext.create('ExtApp.store.common.SysUserAllStore');
+		sysUserStore.load();
+		
+		// 车型列表
+		var vehicleStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProgramVehicleStore');
+		vehicleStore.getProxy().extraParams = {programId: this.programId};
+		vehicleStore.load();
+		
+		this.items = [{
+			xtype:'form',
+			margin:10,
+			layout:{
+				type:'vbox',
+	      		align:'stretch'
+	      	},
+	      	items: [{
+				xtype: 'panel',
+				layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				items: [{
+					xtype: 'textfield',
+					name: 'vehicleCode',
+					flex: 1,
+					fieldLabel: '车型编码',
+					allowBlank:false,
+					maxLength:50
+				},{
+					xtype: 'textfield',
+					name: 'vehicleName',
+					flex: 1,
+					fieldLabel: '车型名称',
+					allowBlank:false,
+					maxLength:50
+				},{
+					xtype:'checkbox',
+					labelWidth: 150,
+					labelSeparator: '',
+					flex: 1,
+					fieldLabel:'导入现有车型的项目组织',
+					name:'chkImportObs',
+					listeners: {
+						change: 'onChangeImportObs'
+					}
+				},{
+					xtype:'checkbox',
+					labelWidth: 150,
+					labelSeparator: '',
+					flex: 1,
+					fieldLabel:'导入现有车型的计划',
+					name:'chkImportVeichlePlan',
+					listeners: {
+						change: 'onChangeImportVeichlePlan'
+					}
+				},{
+					xtype: 'combobox',
+					flex: 1,
+					fieldLabel: '现有车型',
+				    queryMode: 'local',
+				    displayField: 'vehicleName',
+				    valueField: 'id',
+				    name: 'cloneVehicleId',
+				    store: vehicleStore,
+				    forceSelection: true,
+				    allowBlank:false,
+				    disabled: true
+				},{
+					xtype:'checkbox',
+					labelWidth: 150,
+					labelSeparator: '',
+					flex: 1,
+					fieldLabel:'导入模板计划',
+					name:'chkImportPlan',
+					listeners: {
+						change: 'onChangeImportPlan'
+					}
+				},{
+					xtype:'datefield',
+					fieldLabel: 'SOP时间',
+					flex: 1,
+					name: 'sopDate',
+					format: 'Y/m/d',
+					allowBlank:false
+				},{
+					xtype: 'combobox',
+					flex: 1,
+					fieldLabel: '项目模板',
+				    queryMode: 'local',
+				    displayField: 'name',
+				    valueField: 'id',
+				    name: 'programTempId',
+				    store: programTempStore,
+				    forceSelection: true,
+				    allowBlank:false,
+				    disabled: true
+				},{
+					xtype: 'sysUserCombo',
+					flex: 1,
+					fieldLabel: '项目经理',
+				    name: 'pmName',
+				    idField: 'pm',
+		            allowBlank:false
+				},{
+					xtype:'hiddenfield',
+			        name: 'pm'
+				},{
+					xtype: 'sysUserCombo',
+					margin: '5 0 0 0',
+					flex: 1,
+					fieldLabel: '质量经理',
+				    name: 'qmName',
+				    idField: 'qm',
+		            allowBlank:false
+				},{
+					xtype:'hiddenfield',
+			        name: 'qm'
+				}]
+			}]
+		}];
+		this.tools = [{
+			text:'确定',
+			xtype: 'button',
+			iconCls: 'x-fa fa-circle-o',
+			handler: 'addVehicle'
+		},{
+			text:'取消',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'cancel'
+		}];
+		this.callParent();
+	}
+});

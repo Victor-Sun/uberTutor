@@ -1,0 +1,35 @@
+/**
+ * 项目管理-项目模板库-主计划(质量阀)Controller
+ */
+Ext.define('ExtApp.view.projectmanagement.templatelibrary.ProjectTemplateGateNodeController',{
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.projectTemplateGateNode',
+    
+    // 删除交付物
+    deleteGateNode: function(grid, rowIndex) {
+    	grid.getStore().removeAt(rowIndex);
+    },
+    
+    // 显示交付物信息
+    onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    	var rec = grid.getStore().getAt(rowIndex);
+//    	var refPanel = this.view;
+//    	if (refPanel.items.getCount() > 1) {
+//    		var p4remove = refPanel.items.get(refPanel.items.getCount() - 1);
+//    		refPanel.remove(p4remove);
+//    	}
+    	var refPanel = this.lookupReference('refGateDeliverable');
+    	if (refPanel.items.getCount() > 0) {
+    		var p4remove = refPanel.items.get(0);
+    		refPanel.remove(p4remove);
+    	}
+    	var newView = Ext.create({
+        	xtype: 'projectTemplateGateNodeDeliverable',
+        	programId: this.view.programId,
+        	taskId: rec.get('id')
+        });
+    	newView.items.get(0).setTitle('交付物-' + rec.get('taskName'));
+    	refPanel.add(newView);
+    }
+
+});

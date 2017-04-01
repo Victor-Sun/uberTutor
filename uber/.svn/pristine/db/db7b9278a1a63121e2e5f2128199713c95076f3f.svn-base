@@ -1,0 +1,74 @@
+/**
+ * 项目管理-笔记管理
+ */
+Ext.define('ExtApp.view.projectManagement.note.ProjectNoteMain',{
+	extend:'Ext.panel.Panel',
+	xtype:'projectNoteMain',
+	layout: 'fit',
+	title: '项目笔记',
+	controller:'projectNoteMain',
+	
+	initComponent: function() {
+		var me = this;
+		var projectNoteFolderStore = Ext.create('ExtApp.store.projectmanagement.ProjectNoteFolderStore');
+		projectNoteFolderStore.getProxy().extraParams = {
+			programId: me.programId
+		};
+		projectNoteFolderStore.load();
+	
+		this.items = [{
+			xtype:'panel',
+			margin: 10,
+			layout:{
+				type:'hbox',
+				align:'stretch'
+			},
+			items:[{
+				xtype:'panel',
+				flex:1,
+				margin:5,
+				cls:'shadow',
+				layout:{
+					type: 'fit'
+				},
+				items:[{
+					xtype:'treepanel',
+					scrollable:'y',
+					rootVisible: false,
+                    store:projectNoteFolderStore,
+					listeners:{
+						itemclick: 'onItemclick',
+						itemcontextmenu: 'onItemcontextmenu',
+						beforeitemexpand: function(record, eOpts) {
+							projectNoteFolderStore.getProxy().extraParams.programId = 
+								me.programId;
+							projectNoteFolderStore.getProxy().extraParams.sourceType = 'SOURCE_TYPE_CUSTOMIZATION';
+					    }
+					}
+				}]
+			},{
+				xtype:'panel',
+				flex:1,
+				margin:5,
+				cls:'shadow',
+				layout:{
+					type: 'fit'
+				},
+				items:[{
+					reference: 'noteList',
+					xtype:'noteList'
+				}]
+			},{
+				xtype:'panel',
+				margin:5,
+				cls:'shadow',
+				flex:4,
+				reference: 'mainCardPanel',
+				layout: {
+					type: 'card'
+				}
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

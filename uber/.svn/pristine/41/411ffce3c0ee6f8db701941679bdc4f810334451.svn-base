@@ -1,0 +1,69 @@
+/**
+ * 质量问题管理-问题标记
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.QeMark',{
+	extend:'Ext.form.Panel',
+	xtype:'qeMark',
+	
+	controller: 'qeMark',
+	
+	keyId: null,
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+	margin:30,
+	initComponent: function() {
+		this.items = [{
+			xtype:'panel',
+		    layout:{
+		    	type:'hbox',
+				align:'middle'
+		    },
+		    items:[{
+		    	xtype:'label',
+				html:'风险等级',
+				width:100
+		    },{
+		    	xtype:'radiogroup',
+		    	reference: 'refRadioGroup',
+		    	listeners: {
+	        		change:'selectLevel'
+	        	},
+				margin:'0 0 20 0',
+				labelAlign:'right',
+				items:[
+				{boxLabel:'高',name:'risk',inputValue:'RISK_LEVEL_1'},
+				{boxLabel:'中',name:'risk',inputValue:'RISK_LEVEL_2',margin:'0 0 0 30'},
+				{boxLabel:'低',name:'risk',inputValue:'RISK_LEVEL_3',margin:'0 0 0 60'}
+				]
+		    }]
+		},{
+			xtype:'panel',
+			layout:{
+				type:'hbox',
+				align:'middle'
+			},
+			items:[{
+				xtype:'label',
+				html:'问题挂牌',
+				width:100
+			},{
+				xtype:'button',
+				text:'<div style="color:#000000;"><b>挂牌</b></div>',
+				width:100,
+				style:'background-color: #FFC000;border:#FFC000;',
+				name:'Listing',
+				handler:'listing'
+			},{
+				xtype:'button',
+				text:'<div style="color:#000000;"><b>取消挂牌</b></div>',
+				width:100,
+				margin:'0 0 0 20',
+				name:'cancelListing',
+				handler:'cancelListing'
+			}]	
+		}]
+    this.callParent();
+	}
+});

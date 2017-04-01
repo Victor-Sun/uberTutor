@@ -1,0 +1,82 @@
+Ext.define('ExtApp.view.main.SubTreeTest',{
+	extend:'Ext.tree.Panel',
+	xtype: 'subtreetest',
+	
+	reserveScrollbar: true,
+	
+	height: 300,
+	width: 500,
+	
+	useArrows: true,
+	rootVisible: false,
+	multiSelect: true,
+	singleExpand: true,
+	store: {
+		fields: ['text', 'duration', 'isLayover', 'yesno', 'data1'],
+        root: {
+            expanded: true,
+            children: [{
+                text: 'SFO  &nbsp;✈&nbsp; DFW',
+                duration: '6h 55m',
+                yesno: 'no',
+                data1: 'junk1, junk1, junk1, junk1, junk1, junk1, junk1, junk1, junk1,',
+                expanded: true,
+                children: [{
+                    text: 'SFO &nbsp;✈&nbsp; PHX',
+                    duration: '2h 04m',
+                    yesno: 'yes',
+                    data1: 'alpha',
+                    leaf: true
+                }, {
+                    text: 'PHX layover',
+                    duration: '2h 36m',
+                    isLayover: true,
+                    yesno: 'no',
+                    data1: 'beta',
+                    leaf: true
+                }, {
+                    text: 'PHX &nbsp;✈&nbsp; DFW',
+                    duration: '2h 15m',
+                    yesno: 'yes',
+                    data1: 'gamma',
+                    leaf: true
+                }]
+            }]
+        }
+	},
+	columns: [{
+		xtype: 'treecolumn',
+        text: 'Flight Endpoints',
+        dataIndex: 'text',
+        flex: 1,
+        renderer: function (val, meta, rec) {
+            if (rec.get('isLayover')) {
+                meta.tdStyle = 'color: gray; font-style: italic;';
+            }
+            return val;
+        }
+    }, {
+        text: 'Duration',
+        dataIndex: 'duration',
+        width: 100
+	},{
+		text: 'Yes/No',
+		dataIndex: 'yesno',
+		width: 100
+	}],
+	viewConfig: {
+	    plugins: {
+	         ptype: 'treeviewdragdrop',
+	         containerScroll: true
+	    }
+	},
+	plugins: [{
+		ptype: 'rowexpander',
+		rowBodyTpl: new Ext.XTemplate(
+			'<p><b>前置任务：</b>{data1}</p>',
+			'<p><b>后置任务：</b>{data1}</p>',
+			'		<p><b>关联任务：</b>{data1}</p>'
+        )
+	}]
+	
+});

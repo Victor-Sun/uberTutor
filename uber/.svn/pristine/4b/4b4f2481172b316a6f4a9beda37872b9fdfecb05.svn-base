@@ -1,0 +1,172 @@
+/*
+ * This file defines variables used throughout the application for modern and
+ * classic builds.
+ */
+
+// PROGRESS BAR
+$progress-background-color: #ececec;
+$progress-text-front-color: #fff;
+$progress-text-back-color: #000;
+
+/*viewport*/
+
+$panel-navigation-background-color: #32404e;
+$panel-navigation-item-line-height: 64px;
+$panel-navigation-item-text-color: #ADB3B8;
+
+$circle-border-radius:50%;
+$base-border-color: #ddd;
+$lightest-color:#fff;
+$font-weight: normal;
+
+$accordion-header-background-color: $lightest-color;
+$accordion-header-color: #333;
+
+/*$social-facebook-btn-background: #167abc;
+$social-twitter-btn-background: #03b4d5;
+$social-google-plus-btn-background: #e44959;
+$social-envelope-btn-background: #7754aa; */
+
+/*$button-toolbar-background-color: transparent;
+$button-toolbar-border-color: transparent;
+$button-toolbar-hover-background-color: #efefef;*/
+
+//Form and Toolbar Button UI colors
+
+//UserProfile \classic\sass\var\view\profile\UserProfile.scss:
+
+$like-comment-btn-background-color: #f4f4f4;
+$like-comment-btn-color: #979797;
+$article-comment-color: #eee;
+
+// PANEL
+
+$panel-navigation-background-color: #32404e;
+$panel-navigation-item-line-height: 60px;
+$panel-navigation-item-text-color: #ADB3B8;
+
+$progress-bar-background-color: #458fd2;
+
+// GENERAL APP STYLE
+
+$base-color: dynamic($exec-blue-color);
+$color: dynamic($exec-font-dark-color);
+$font-family: dynamic($exec-font-family);
+$body-background-color: dynamic($exec-light-background);
+
+// COLOR PALETTE
+$exec-dark-background: dynamic(#3e4752);
+$exec-light-background: dynamic(#ffffff);
+$exec-tile-background: dynamic(#ffffff);
+
+$exec-blue-color: dynamic(#3892d4);
+$exec-red-color: dynamic(#f1495b);
+$exec-green-color: dynamic(#11c897);
+$exec-light-blue-color: dynamic(saturate(lighten($exec-blue-color, 53%), 70%));
+
+$exec-font-light-color: dynamic(#a0a7b8);
+$exec-font-color: dynamic(#878ea2);
+$exec-font-dark-color: dynamic($exec-dark-background);
+
+/*Proxima Nova is preferred font, but it is not a free font.*/
+/*$exec-font-family: dynamic("Proxima Nova", "Helvetica Neue", Helvetica, Tahoma, Arial, "Microsoft YaHei New", "Microsoft Yahei", "微软雅黑", 宋体, SimSun, STXihei, "华文细黑", sans-serif);*/
+$exec-font-family: dynamic("Proxima Nova", "Helvetica Neue", Helvetica, "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", Tahoma, Arial, sans-serif);
+
+$exec-font-size-small-content: dynamic(10px);
+$exec-font-size-content: dynamic(12px);
+$exec-font-size-small-title: dynamic(14px);
+$exec-font-size-medium-title: dynamic(18px);
+$exec-font-size-large-title: dynamic(20px);
+$exec-font-size-xlarge-title: dynamic(28px);
+
+$exec-font-regular: dynamic(400);
+$exec-font-semibold: dynamic(500);
+$exec-font-bold: dynamic(800);
+
+//Form and Toolbar Button UI colors
+
+$color-blue: #167abc;
+$color-soft-cyan: #03b4d5;
+$color-soft-blue: #2eadf5;
+$color-soft-green: #9cc96b;
+$color-soft-orange: #ffc107;
+$color-soft-red: #e44959;
+$color-soft-purple: #925e8b;
+$color-gray: #949495;
+$color-green: #16b603;
+
+/*$chart-icon-background-color: #f1f1f1;
+
+$grid-item-edit-btn-color: #e9e9e9;
+$grid-item-close-btn-color: #fc8999;
+$grid-item-ban-btn-color: #ffc000;
+$legend-research: #6aa5db;
+$legend-marketing: #ee929c;
+
+$force-background-color: #56B750;*/
+
+// Wizards
+
+/*$wizard-primary-background-color: #579ddb;
+$wizard-button-background-color: #579ddb;
+
+$wizard-two-primary-background-color: #986291;
+$wizard-two-button-background-color: #925e8b;
+
+$wizard-three-primary-background-color: #9cc96b;
+$wizard-three-button-background-color: #9cc96b;
+
+$enable-font-awesome: dynamic(true);*/
+
+//------COMPONENTS------
+
+// PANEL
+
+/*$panel-body-color: dynamic($exec-font-dark-color);
+$panel-body-background-color: dynamic($exec-light-background);*/
+
+// GRID
+
+/*$grid-cell-inner-padding: dynamic(15px);
+$grid-header-padding: dynamic(15px);
+$grid-grouped-header-padding: dynamic(15px);
+
+$grid-column-header-font-weight: dynamic($exec-font-bold);
+$grid-row-cell-font-weight: dynamic($exec-font-semibold);
+
+$grid-row-cell-color: dynamic($exec-font-color);
+$grid-column-header-color: dynamic($exec-font-dark-color);
+
+$grid-grouped-header-border-width: dynamic(0);
+
+$grid-grouped-header-background-color: dynamic($exec-light-blue-color);*/
+
+// BUTTON
+// since only small (default) buttons are used, only small button styles are defined here
+
+/*$button-small-border-radius: dynamic(3px);
+$button-default-border-color: dynamic($exec-blue-color);
+$button-toolbar-border-color: dynamic($button-default-border-color);
+
+$button-default-background-color: dynamic($exec-blue-color);
+$button-toolbar-background-color: dynamic($button-default-background-color);
+
+$button-default-color: dynamic(white);
+$button-toolbar-color: dynamic($button-default-color);
+
+$button-toolbar-inner-border-color-focus: dynamic(mix($button-toolbar-background-color, $button-toolbar-color, 20%));
+
+$button-small-font-size: dynamic($exec-font-size-content);
+$button-small-font-weight: dynamic($exec-font-bold);*/
+
+// MENU
+
+/*$menu-text-color: dynamic($exec-font-dark-color);*/
+
+// BORDERS
+
+/*$light-grey-borders: dynamic($exec-font-color);*/
+
+// TOOLBAR
+
+/*$toolbar-background-color: dynamic($exec-light-background);*/

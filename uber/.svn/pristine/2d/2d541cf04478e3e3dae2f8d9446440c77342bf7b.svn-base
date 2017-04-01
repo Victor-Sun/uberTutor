@@ -1,0 +1,13 @@
+/**
+ * 项目管理-Window ViewModel
+ */
+Ext.define('ExtApp.view.projectManagement.ProjectWindowViewModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.projectWindow',
+
+    stores: {
+    	projectTree: {
+            type: 'projectTree'
+        }
+    }
+});

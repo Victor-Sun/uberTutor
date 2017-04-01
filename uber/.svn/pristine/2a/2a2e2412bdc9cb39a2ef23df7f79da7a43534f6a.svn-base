@@ -1,0 +1,242 @@
+/**
+ * 项目管理-组织-项目组织-成员列表View
+ */
+Ext.define('ExtApp.view.projectmanagement.org.ProjectOrganization02',{
+	extend:'Ext.form.Panel',
+	xtype:'projectOrganization02',
+	
+	controller: 'projectOrganization02',
+	
+	layout: 'fit',
+	
+	initComponent: function() {
+		var me = this;
+		// 项目角色信息
+		var profileStore = null;
+		
+		if(me.planLevel == 1){
+			profileStore = Ext.create('ExtApp.store.common.ProgramProfileLevelOneStore');
+		}else if(me.planLevel == 2){
+			profileStore = Ext.create('ExtApp.store.common.ProgramProfileLevelTwoStore');
+		}else{
+			profileStore = Ext.create('ExtApp.store.common.ProgramProfileStore');
+		}
+		profileStore.load();
+		// 组织人员列表
+		if(me.planLevel == 1){
+			var userStore = Ext.create('ExtApp.store.projectmanagement.ProjectObsUserLevelOneStore');
+		}else{
+			var userStore = Ext.create('ExtApp.store.projectmanagement.ProjectObsUserLevelTwoStore');
+		}
+		
+		userStore.getProxy().extraParams = {
+			programId: this.programId,
+			obsId: this.obsId,
+			baselineId: this.baselineId};
+		userStore.load();
+
+		this.items = [{
+			xtype: 'panel',
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
+			items: [{
+				xtype:'panel',
+				margin:10,
+				itemId: 'panelFunctionMgr', 
+				layout: {
+					type: 'hbox',
+					align: 'stretch'
+				},
+		    	items: [{
+		    		xtype:'panel',
+		    		flex: 1,
+		    		layout:{
+						type:'column'
+					},
+					items:[{
+						xtype: 'textfield',
+						columnWidth:0.8,
+						fieldLabel: '专业经理',
+						name:'fnGroupMgrName',
+						readOnly: true,
+						fieldCls: 'text-readonly'
+					},{
+				        xtype: 'hiddenfield',
+				        columnWidth:0,
+				        name: 'fnGroupMgrId'
+					},{
+						xtype: 'button',
+						itemId: 'BTNSelFnGroupMgr',
+						margin: '0 0 0 2',
+						columnWidth:0.2,
+						text:'选择',
+						handler: 'selectUser'
+					}]
+		    	},{
+		    		xtype:'panel',
+		    		flex: 2
+		    	}]
+			},{
+				height: 170,
+				xtype:'fieldset',
+				layout: 'fit',
+				margin:10,
+		    	title: '基本信息',
+		    	collapsible:'true',
+		    	items: [{
+		    		xtype: 'panel',
+		    		margin:10,
+				    layout: 'column',
+				    defaults: {
+				    	labelAlign: 'right',
+				    	margin:2
+				    },
+				    items: [{
+				    	xtype: 'textfield',
+						columnWidth:0.5,
+						fieldLabel: '组织编号',
+						name: 'obsCode',
+						allowBlank:false,
+						maxLength:50
+				    },{
+				    	xtype: 'textfield',
+						columnWidth:0.5,
+						fieldLabel: '组织名称',
+						name: 'obsName',
+						allowBlank:false,
+						maxLength:50
+//				    },{
+//				    	xtype:'panel',
+//				    	itemId: 'panelFunctionMgr', 
+//						columnWidth:0.4,
+//						layout:{
+//							type:'column'
+//						},
+//						items:[{
+//							xtype: 'textfield',
+//							columnWidth:0.8,
+//							labelAlign: 'right',
+//							fieldLabel: '专业经理',
+//							name:'fnGroupMgrName',
+//							readOnly: true,
+//							fieldCls: 'text-readonly',
+//							allowBlank: false
+//						},{
+//					        xtype: 'hiddenfield',
+//					        columnWidth:0,
+//					        name: 'fnGroupMgrId'
+//						},{
+//							xtype: 'button',
+//							itemId: 'BTNSelFnGroupMgr',
+//							margin: '0 0 0 2',
+//							columnWidth:0.2,
+//							text:'选择',
+//							handler: 'selectUser'
+//						}]
+				    },{
+				    	xtype: 'textarea',
+						columnWidth:1,
+						fieldLabel: '描述',
+						name: 'obsDesc',
+						maxLength:500
+				    },{
+				    	xtype: 'hiddenfield',
+				        columnWidth:0,
+				        name: 'isRespDept'
+				    }],
+				    tbar: ['->',{
+				    	xtype:'button',
+				    	itemId: 'BTNP0600',
+						text:'保存',
+						iconCls: 'x-fa fa-save',
+						handler: 'saveInfo'
+				    }]
+		    	}]
+			},{
+				flex: 2,
+				xtype:'fieldset',
+				layout: 'fit',
+				margin:10,
+		    	title: '人员信息',
+		    	collapsible:'true',
+		    	items: [{
+		    		xtype: 'panel',
+		    		layout: 'fit',
+		    		minHeight: 200,
+		    		items: [{
+			    		xtype: 'grid',
+						store: userStore,
+						selModel: {
+			                type: 'rowmodel'
+			            },
+						columns:[{
+							xtype: 'rownumberer'
+						},{
+							text:'姓名',
+							flex: 1,
+							dataIndex:'userName'
+						},{
+							text:'角色',
+							flex: 1,
+							dataIndex:'profileId',
+							renderer:function(value, metadata, record) {
+	 							var dataIdx = profileStore.find('id', value);
+	 							if(dataIdx == -1) {
+	 								return '';
+	 							} else {
+	 								return profileStore.getAt(dataIdx).get('profileName');
+	 							}
+	 						},
+	 						editor: new Ext.form.field.ComboBox({
+	 							store: profileStore,
+	 							queryMode: 'local',
+	 						    displayField: 'profileName',
+	 						    valueField: 'id',
+	 						    editable: false
+	 						})
+						},{
+							text:'行政组织',
+							flex: 1,
+							dataIndex:'sysDepartmentName'
+						},{
+							text:'邮箱',
+							flex: 1,
+							dataIndex:'email'
+						},{
+							text:'联系电话',
+							flex: 1,
+							dataIndex:'mobile'
+						},{
+				            xtype: 'actioncolumn',
+				            width: 30,
+				            sortable: false,
+				            menuDisabled: true,
+				            items: [{
+				                iconCls: 'cell-editing-delete-row',
+				                handler: 'deleteUser'
+				            }]
+				        }],
+				        tbar: [{
+				            text: 'Add',
+				            iconCls: 'x-fa fa-user-plus',
+				            handler: 'addUser'
+				        }],
+						dockedItems: [{
+				            xtype: 'pagingtoolbar',
+				            dock: 'bottom',
+				            displayInfo: true,
+				            store: userStore
+				        }],
+				        listeners: {
+						    edit: 'onEdit',
+						    canceledit: 'onCanceledit'
+						}
+			    	}]
+		    	}]
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

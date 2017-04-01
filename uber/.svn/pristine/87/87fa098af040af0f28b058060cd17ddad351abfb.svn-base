@@ -1,0 +1,45 @@
+/**
+ * 节点角色维护
+ */
+Ext.define('ExtApp.view.projectmanagement.extplan.ext301.Ext301CheckpointTmp',{
+	extend:'Ext.panel.Panel',
+	xtype:'ext301CheckpointTmp',
+	controller: 'ext301CheckpointTmp',
+	layout:'fit',
+	margin:10,
+	initComponent: function() {
+		var ext301CheckpointTmpStore = Ext.create('ExtApp.store.projectmanagement.extplan.ext301.Ext301CheckpointTmpStore');
+		ext301CheckpointTmpStore.load();
+		this.items = [{
+			xtype:'grid',
+			title:'节点角色维护',
+			layout:'fit',
+			store: ext301CheckpointTmpStore,
+			columns:[{
+				xtype: 'rownumberer'
+			},{
+				text:'节点编码',
+				flex: 1,
+				dataIndex:'code'
+			},{
+				text:'节点名称',
+				flex: 1,
+				dataIndex:'title'
+			},{
+				text:'角色名称',
+				flex: 1,
+				dataIndex:'roleName'
+			}],
+			dockedItems: [{
+				xtype: 'pagingtoolbar',
+				dock: 'bottom',
+				displayInfo: true,
+				store: ext301CheckpointTmpStore
+			}],
+            listeners:{
+            	celldblclick: 'onCelldblclick'
+			}
+		}];
+		this.callParent(arguments);
+	}
+});

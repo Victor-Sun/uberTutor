@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectPlanStatusStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectPlanStatus',
+
+    fields: [ 'planStatus' ],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-plan!getPlanStatus.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

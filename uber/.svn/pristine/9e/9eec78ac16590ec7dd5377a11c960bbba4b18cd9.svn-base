@@ -1,0 +1,12 @@
+
+Ext.define('ExtApp.view.projectManagement.cp.ProjectValveDocument03ViewModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.projectValveDocument03',
+    	
+	stores: {
+		projectValveDocument03: {
+			type: 'projectValveDocument03'
+	    }
+	}
+	
+});

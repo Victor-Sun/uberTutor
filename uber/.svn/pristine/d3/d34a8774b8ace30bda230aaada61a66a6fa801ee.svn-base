@@ -1,0 +1,7 @@
+Ext.define('ExtApp.store.qualityissuemanagement.QeNotifySelectedMemGridStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.qeNotifySelectedMemGrid',
+
+    fields: ['memId', 'memName', 'memPosition']
+    
+});

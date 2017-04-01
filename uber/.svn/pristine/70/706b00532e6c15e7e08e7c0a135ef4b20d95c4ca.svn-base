@@ -1,0 +1,13 @@
+Ext.define('ExtApp.model.projectmanagement.TimeLineFunctionModel', {
+	extend: 'ExtApp.model.Base',
+	alias: 'model.timeLineFunction',
+    
+	fields: [
+	         {name: 'id'},
+	         {name: 'displayName'},
+	         {name: 'seqNo', type: 'number'},
+	         {name: 'childObsId'},
+	         {name: 'childObsName'}
+	]
+
+});

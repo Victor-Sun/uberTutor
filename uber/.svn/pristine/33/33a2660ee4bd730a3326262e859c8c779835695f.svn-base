@@ -1,0 +1,21 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectListModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.projectList',
+    
+    fields: [
+             'id',
+             'vehiclePlatformName',
+             'programLevel',
+             'devStatusName',
+             'code',
+             'programName',
+             'productPositioning',
+             'devTypeName',
+             'SOP',
+             'director',
+             'pm',
+             'vehicleTypeName',
+             'seq'
+     ]
+
+});

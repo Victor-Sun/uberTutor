@@ -1,0 +1,64 @@
+/**
+ * 质量问题管理-提交问题-知会-人员选择窗口-人员列表
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.QeNotifySelectMemberGrid',{
+	extend:'Ext.panel.Panel',
+	xtype:'qeNotifySelectMemberGrid',
+
+	controller: 'qeNotifySelectMemberGrid',
+
+	cls: 'allRecordsCls',
+
+	scrollable:'y',
+
+	initComponent: function() {
+		var me = this;
+		var userStore = Ext.create(
+			'ExtApp.store.common.SysUserStore');
+		userStore.on('beforeload', function() {
+			this.getProxy().extraParams = {
+				departmentId: me.departmentId
+			};
+    	});
+		userStore.load();
+	
+		this.items = [{
+			xtype: 'grid',
+			selModel: {
+		        type: 'spreadsheet',
+		        rowNumbererHeaderWidth: 0,
+		        // Disables sorting by header click, though it will be still available via menu
+		        rowSelect: true,
+		        cellSelect: false
+		    },
+			hideHeaders: true,
+	        style: 'border: 1px solid; border-color:#cecece;',
+			viewConfig: {
+				preserveScrollOnRefresh: true,
+				stripeRows: false
+			},
+			columnLines: true,
+			flex: 1,
+			store: userStore,
+			columns: [
+				{ text: '名称', style:'text-align:center', dataIndex: 'name',
+					listeners: {
+						dblclick: 'onClickCell'
+					}
+				}
+			]
+		}];
+	    this.tbar = [{
+			xtype: 'searchfield',
+            emptyText: '--请输入姓名--',
+            autoComplete: true,
+            store: userStore
+		},{
+			xtype:'radiogroup',
+			items:[
+				{ boxLabel:'人员', name:'rg', inputValue:'1', checked:true }
+			]
+		}];
+		this.callParent(arguments);
+	}
+});

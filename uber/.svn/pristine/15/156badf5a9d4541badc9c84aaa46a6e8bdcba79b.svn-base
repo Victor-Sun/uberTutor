@@ -1,0 +1,17 @@
+/**
+ * 个人管理-待办任务-专项任务Store
+ */
+Ext.define('ExtApp.store.myworkspace.TodoListExtStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.todoListExt',
+    pageSize:ExtApp.common.Constants.pageSize,
+    fields: ['taskId', 'sourceName', 'taskName', 'taskOwner'],
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/mw/todo-list!getTodoListExt.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

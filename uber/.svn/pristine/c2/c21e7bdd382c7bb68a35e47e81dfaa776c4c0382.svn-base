@@ -1,0 +1,19 @@
+/**
+ * 个人管理-待办任务-基本信息Store
+ */
+Ext.define('ExtApp.store.myworkspace.TodoListPMStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.todoListPM',
+    pageSize:ExtApp.common.Constants.pageSize,
+    model: 'ExtApp.model.myworkspace.TodoListPMModel',
+    remoteFilter:true,
+    remoteSort:true, 
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/mw/todo-list!getTodoListPM.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

@@ -1,0 +1,87 @@
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.common.IssueBaseInfo01', {
+	extend:'Ext.form.Panel',
+	xtype:'issueBaseInfo01',
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+	defaults: {
+		margin: 5
+	},
+	initComponent:function() {
+		this.items = [{
+			xtype: 'fieldset',
+			title: '基本信息',
+			collapsible:true,
+			layout:{
+				type:'vbox'
+			},
+			defaults: {
+				layout:{
+					type:'hbox',
+					align:'stretch'
+				},
+				defaults: {
+					margin: 5
+				}
+			},
+			items: [{
+				xtype:'container',
+				items:[{
+					xtype:'hiddenfield', 
+			        name: 'id'
+				},{
+					xtype:'hiddenfield', 
+			        name: 'deptId'
+				},{
+					xtype:'hiddenfield', 
+			        name: 'issueLevelCode'
+				},{
+					xtype:'textfield',
+					fieldLabel:'问题标题',
+					width: 845,
+					readOnly: true,
+					name:'title',
+					xtype:'textfield'
+				}]
+			},{
+				xtype:'container',
+				items:[{
+					xtype:'textfield',
+					fieldLabel:'问题编号',
+					readOnly:true,
+					name:'code'
+				},{
+					xtype:'textfield',
+					fieldLabel:'问题状态',
+					readOnly:true,
+					name:'issueStatusName'
+				},{
+					xtype:'textfield',
+					fieldLabel:'责任部门',
+					readOnly:true,
+					name:'deptIdName'
+				}]
+			},{
+				xtype:'container',
+				items:[{
+					xtype:'textfield',
+					fieldLabel:'问题等级',
+					readOnly:true,
+//					margin:'0 0 0 10',
+					name:'issueLevelName'
+				}]
+			},{
+				xtype: 'container',
+				items: [{
+					xtype:'textareafield',
+					fieldLabel:'问题描述',
+					width:845,
+					readOnly:true,
+					name:'description'
+				}]
+			}]
+		}]
+	this.callParent();
+	}
+});

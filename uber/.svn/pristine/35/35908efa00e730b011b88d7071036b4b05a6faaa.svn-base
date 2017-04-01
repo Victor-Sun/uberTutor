@@ -1,0 +1,673 @@
+/**
+ * 质量问题管理-问题共通列表-Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.issuelist.IssueListController',{
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.issueList',
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	var grid = me.view.down('grid');
+    	var toolbar = me.view.down('toolbar');
+    	var form = toolbar.down('form').getForm();
+    	// 我的待办
+		if (me.view.listType == 'mytask' || me.view.listType == 'myprocesstask') {
+			grid.query('#ItemDepartment')[0].setHidden(true);
+			grid.query('#ItemRiskLevel')[0].setHidden(true);
+			grid.query('#ItemListingDate')[0].setHidden(true);
+			grid.query('#ItemDelistDate')[0].setHidden(true);
+			form.findField('searchListingDate').setHidden(true);
+			toolbar.query('#transferTask')[0].show();
+	    // 我的草稿
+    	} else if (me.view.listType == 'mydraft') {
+    		form.findField('searchProcessing').setHidden(true);
+    		form.findField('searchProcessing').setDisabled(true);
+    		form.findField('searchClosed').setHidden(true);
+    		form.findField('searchClosed').setDisabled(true);
+    		form.findField('searchIssueStatus').setHidden(true);
+    		form.findField('searchObsName').setHidden(true);
+    		form.findField('searchRiskLevelCode').setHidden(true);
+    		form.findField('searchTaskName').setHidden(true);
+    		form.findField('searchTaskOwner').setHidden(true);
+//    		form.findField('searchDaysElapsed').setHidden(true);
+    		form.findField('searchListingDate').setHidden(true);
+    		grid.query('#ItemDepartment')[0].setHidden(true);
+    		grid.query('#ItemStatus')[0].setHidden(true);
+    		grid.query('#ItemRiskLevel')[0].setHidden(true);
+    		grid.query('#ItemTaskName')[0].setHidden(true);
+    		grid.query('#ItemTaskOwner')[0].setHidden(true);
+    		grid.query('#ItemWaitDays')[0].setHidden(true);
+    		grid.query('#ItemListingDate')[0].setHidden(true);
+    		grid.query('#ItemDelistDate')[0].setHidden(true);
+    	// 我提交的问题
+    	} else if (me.view.listType == 'mysubmission') {
+    		form.findField('searchListingDate').setHidden(true);
+    		grid.query('#ItemDepartment')[0].setHidden(true);
+    		grid.query('#ItemRiskLevel')[0].setHidden(true);
+    		grid.query('#ItemWaitDays')[0].setHidden(true);
+    		grid.query('#ItemListingDate')[0].setHidden(true);
+    		grid.query('#ItemDelistDate')[0].setHidden(true);
+        // 管理员问题管理
+    	} else if (me.view.listType == 'administratorA') {
+    		form.findField('searchListingDate').setHidden(true);
+    		grid.query('#ItemDepartment')[0].setHidden(true);
+    		grid.query('#ItemWaitDays')[0].setHidden(true);
+    		grid.query('#ItemListingDate')[0].setHidden(true);
+    		grid.query('#ItemDelistDate')[0].setHidden(true);
+	  	    // 我参与的问题
+		} else if (me.view.listType == 'myparticipationA') {
+			form.findField('searchListingDate').setHidden(true);
+//			form.findField('searchDaysElapsed').setHidden(true);
+			grid.query('#ItemDepartment')[0].setHidden(true);
+    		grid.query('#ItemRiskLevel')[0].setHidden(true);
+    		grid.query('#ItemWaitDays')[0].setHidden(true);
+    		grid.query('#ItemListingDate')[0].setHidden(true);
+    		grid.query('#ItemDelistDate')[0].setHidden(true);
+    	// 知会给我的问题、我关注的问题
+		} else if (me.view.listType == 'myparticipationB' ||
+    			me.view.listType == 'myfocus') {
+			form.findField('searchListingDate').setHidden(true);
+			grid.query('#ItemDepartment')[0].setHidden(true);
+    		grid.query('#ItemRiskLevel')[0].setHidden(true);
+    		grid.query('#ItemWaitDays')[0].setHidden(true);
+    		grid.query('#ItemListingDate')[0].setHidden(true);
+    		grid.query('#ItemDelistDate')[0].setHidden(true);
+    	// 最近访问的问题
+    	} else if (me.view.listType == 'lastaccess') {
+			form.findField('searchListingDate').setHidden(true);
+			grid.query('#ItemDepartment')[0].setHidden(true);
+    		grid.query('#ItemRiskLevel')[0].setHidden(true);
+    		grid.query('#ItemWaitDays')[0].setHidden(true);
+    		grid.query('#ItemListingDate')[0].setHidden(true);
+    		grid.query('#ItemDelistDate')[0].setHidden(true);
+    		grid.query('#ItemLastAccessDate')[0].setHidden(false);
+    	// 我挂牌的问题
+    	} else if (me.view.listType == 'administratorB') {
+    		grid.query('#ItemDepartment')[0].setHidden(true);
+    		grid.query('#ItemRiskLevel')[0].setHidden(true);
+    		grid.query('#ItemWaitDays')[0].setHidden(true);
+    	// 挂牌区
+    	} else if (me.view.listType == 'listingarea') {
+    		grid.query('#ItemTaskName')[0].setHidden(true);
+    		grid.query('#ItemTaskOwner')[0].setHidden(true);
+    		grid.query('#ItemWaitDays')[0].setHidden(true);
+    		grid.query('#ItemDelistDate')[0].setHidden(true);
+        // 问题查询
+    	} else if (me.view.listType == 'query') {
+    		grid.query('#ItemRiskLevel')[0].setHidden(true);
+    		grid.query('#ItemTaskName')[0].setHidden(true);
+    		grid.query('#ItemTaskOwner')[0].setHidden(true);
+    		grid.query('#ItemWaitDays')[0].setHidden(true);
+    		grid.query('#ItemListingDate')[0].setHidden(true);
+    		grid.query('#ItemDelistDate')[0].setHidden(true);
+    	// 热点问题
+    	} else if (me.view.listType == 'qmsdashboardhot') {
+    		toolbar.setHidden(true);
+    		grid.query('#ItemTaskName')[0].setHidden(true);
+    		grid.query('#ItemTaskOwner')[0].setHidden(true);
+    		grid.query('#ItemWaitDays')[0].setHidden(true);
+    		grid.query('#ItemListingDate')[0].setHidden(true);
+    		grid.query('#ItemDelistDate')[0].setHidden(true);
+    	}
+    	
+    	// 如果不是管理员问题管理，则不显示风险等级、转移
+    	if (me.view.listType != 'administratorA') {
+    		toolbar.query('#btnSetRiskLevel')[0].setHidden(true);
+    		//toolbar.query('#btnTransform')[0].setHidden(true);
+    	}
+    	
+    	// 如果不是我的草稿，则不显示行删除
+    	if (me.view.listType != 'mydraft') {
+    		grid.down('actioncolumn').setHidden(true);
+    	}
+    },
+    
+    // 查询
+    search: function(btn, e) {
+    	var me = this;
+    	me.view.mask('Please Waiting...');
+    	var form = me.view.down('toolbar').down('form').getForm();
+    	var store = Ext.create(
+			'ExtApp.store.qualityissuemanagement.IssueListStore');
+    	store.getProxy().extraParams = {
+			listType: me.view.listType,
+			searchModel: Ext.encode(form.getFieldValues())
+		};
+    	store.load();
+    	store.on('load', function() {
+    		me.view.down('grid').setStore(this);
+    		me.view.down('pagingtoolbar').setStore(this);
+    		me.view.unmask();
+    	});
+    },
+    
+    // 重置
+    reloadSearch: function() {
+    	var me = this;
+
+    	var form = this.view.down('toolbar').down('form').getForm();
+    	Ext.each(form.getFields().items, function(field) {
+    		if (field.xtype == 'checkbox') {
+    			field.setValue(true);
+    		}else if (field.xtype == 'radiogroup') {
+    			field.reset(); 
+    		}else {
+    			field.setValue('');
+    		}
+		});
+    	this.search();
+    },
+
+    // 双击列表
+    onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    	var me = this;
+    	// 部门空间-质量问题管理 暂时不提供双击动作
+    	if (me.view.listType == 'department') {
+    		return;
+    	}
+//    	// 挂牌区无双击动作
+//    	if (me.view.listType == 'listingarea') {
+//    		return;
+//    	}
+//    	this.view.parentCaller.controller.onCelldblclick(
+//    			grid, td, cellIndex, record, tr, rowIndex, e, eOpts);
+    	var me = this;
+		var rec = grid.getStore().getAt(rowIndex);
+		var refPanel = me.view.up('tabpanel');
+		
+//		//表单重复控制
+//		for (var i = 0; i < refPanel.items.getCount(); i++) {
+//			if (refPanel.items.get(i).keyId == rec.get('id')) {
+//				refPanel.setActiveTab(refPanel.items.get(i));
+//				return;
+//			}
+//		}
+		// 草稿
+		if (rec.get('issueLifecycleCode') == 'ISSUE_LIFECYCLE_DRAFT') {
+			var newView = Ext.create({
+	    		xtype: 'submission',
+	    		keyId: rec.get('issueId'),
+	    		closable:true
+	        });
+	    	newView.getForm().load({
+				url: '/pdms/ims/ims-issue!getImsIssueForm.action',
+				params: {issueId: rec.get('issueId')},
+				success: function(form, action) {
+					
+				}
+			});
+	    	newView.setTitle(rec.get('title'));
+			refPanel.add(newView);
+			refPanel.setActiveTab(newView);
+		} else {
+			/*
+			 * TODO：
+			 * 1、我的待办：
+			 * 2、我提出的问题：
+			 * 3、我参与的问题：
+			 * 4、知会给我的问题：
+			 * 5、我关注的问题：
+			 * 6、管理员问题管理：
+			 * 7、我挂牌的问题：
+			 * 8、问题查询：
+			 * 9、挂牌区：
+			 * 10、最近访问的问题：
+			 */
+			var privilegeStore = Ext.create(
+				'ExtApp.store.qualityissuemanagement.ImsPrivilegeStore');
+			privilegeStore.getProxy().extraParams = {issueId: rec.get('issueId')};
+			privilegeStore.load();
+			privilegeStore.on('load', function() {
+				var formClassId = rec.get('formClassId');
+				if(formClassId == null){
+					formClassId = 'readOnlyTaskInfo'
+				}
+				
+				var newView = Ext.create({
+					title:rec.get('title')+'-'+rec.get('taskName'),
+		    		xtype: formClassId,
+		    		closable:true,
+		    		keyId: rec.get('issueId'),
+		    		issueId: rec.get('issueId'),
+		    		editFlg: true,
+		    		//ProcessInstanceId: rec.get('processInstanceId'),
+					taskId: rec.get('taskId'),
+		    		record:rec,
+//					scrollable: true,
+					grid: grid,
+					navImageName:rec.get('navImageName'),
+		    		listingPrivilege: this.data.getAt(0).get('listingPrivilege'),
+		    		delListingPrivilege: this.data.getAt(0).get('delListingPrivilege'),
+		    		undoListingPrivilege: this.data.getAt(0).get('undoListingPrivilege')
+		        });
+//				newView.show();
+				newView.getForm().load({
+					url: '/pdms/ims/ims-issue!getImsIssueForm.action',
+					params: {issueId: rec.get('issueId')},
+					success: function(form, action) {
+						if(newView.getForm().findField('isAction')){
+							newView.getForm().findField('isAction').setValue({isAction:action.result.data.isAction});
+						}
+						
+						if('myTaskInfo01' == formClassId){
+							if(1 != action.result.data.isQimsManager){
+								me.setReadOnly(newView.getForm());
+								if(newView.getDockedItems('toolbar[dock="bottom"]')[0]){
+									newView.getDockedItems('toolbar[dock="bottom"]')[0].hide();
+								}
+							}
+						}
+						
+						var issueSourceCode = action.result.data.issueSourceCode;
+						if(issueSourceCode == 'GEI'){//设计分析问题
+			    			newView.getForm().findField('sampleNumber').setHidden(true);
+			        		newView.getForm().findField('sampleNumber').allowBlank = true;
+			        		newView.getForm().findField('occurrenceSite').setHidden(true);
+			        		newView.getForm().findField('occurrenceSite').allowBlank = true;
+			        		newView.getForm().findField('testType').setHidden(true);
+			        		newView.getForm().findField('testType').allowBlank = true;
+			        		newView.getForm().findField('testProgress').setHidden(true);
+			        		newView.getForm().findField('testProgress').allowBlank = true;
+			        		var percentSignsArray = Ext.ComponentQuery.query('#percentSigns');
+			        		for(var i in percentSignsArray){
+			        			percentSignsArray[i].setHidden(true);
+			        		}
+			        		newView.getForm().findField('troublePartMileage').setHidden(true);
+			        		newView.getForm().findField('troublePartMileage').allowBlank = true;
+			    		}else if(issueSourceCode == 'EEI' || issueSourceCode == 'FEI'){//整车试制问题
+			        		newView.getForm().findField('testType').setHidden(true);
+			        		newView.getForm().findField('testType').allowBlank = true;
+			        		newView.getForm().findField('testProgress').setHidden(true);
+			        		newView.getForm().findField('testProgress').allowBlank = true;
+			        		var percentSignsArray = Ext.ComponentQuery.query('#percentSigns');
+			        		for(var i in percentSignsArray){
+			        			percentSignsArray[i].setHidden(true);
+			        		}
+			        		newView.getForm().findField('troublePartMileage').setHidden(true);
+			        		newView.getForm().findField('troublePartMileage').allowBlank = true;
+			    		}else if(issueSourceCode == 'HEI'){//售后市场问题 
+			        		newView.getForm().findField('testType').setHidden(true);
+			        		newView.getForm().findField('testType').allowBlank = true;
+			        		newView.getForm().findField('testProgress').setHidden(true);
+			        		newView.getForm().findField('testProgress').allowBlank = true;
+			        		var percentSignsArray = Ext.ComponentQuery.query('#percentSigns');
+			        		for(var i in percentSignsArray){
+			        			percentSignsArray[i].setHidden(true);
+			        		}
+			    		}else{
+			    			//全部显示 nothing todo;
+			    		}
+					}
+				});
+				newView.setTitle(rec.get('title'));
+				for (var i = 0; i < refPanel.items.getCount(); i++) {
+		    		if (refPanel.items.get(i).title == rec.get('title')) {
+		    			refPanel.setActiveTab(refPanel.items.get(i));
+		    			return;
+		    		}
+		    	}
+				refPanel.add(newView);
+				refPanel.setActiveTab(newView);
+				if(grid.up('issueList').listType != 'mytask' && grid.up('issueList').listType != 'myprocesstask' && grid.up('issueList').listType != 'newIssueList'){
+					me.setReadOnly(newView.getForm());
+					if(newView.getDockedItems('toolbar[dock="bottom"]')[0]){
+						newView.getDockedItems('toolbar[dock="bottom"]')[0].hide();
+					}
+				}
+				if(grid.up('issueList').listType == 'listingarea'){
+					newView.getDockedItems('toolbar[dock="bottom"]')[0].show();
+					var toolbar = newView.getDockedItems('toolbar[dock="bottom"]')[0];
+					toolbar.show();
+					var items = toolbar.items.items;
+					for(var i in items){
+						if(items[i].itemId != 'delListingItemId' && items[i].itemId != 'undoListingItemId' && items[i].xtype != 'tbfill'){
+							items[i].hide();
+						}
+					}
+					
+				}
+				
+				if(grid.up('issueList').listType == 'myfocus'){
+					if(newView.getDockedItems('toolbar[dock="bottom"]')[0]){
+						newView.getDockedItems('toolbar[dock="bottom"]')[0].show();
+						var toolbar = newView.getDockedItems('toolbar[dock="bottom"]')[0];
+						toolbar.show();
+						var items = toolbar.items.items;
+						for(var i in items){
+							if(items[i].itemId != 'cancelMark' && items[i].xtype != 'tbfill'){
+								items[i].hide();
+							}
+						}
+					}
+				}
+				
+			});
+		}
+    },
+	setReadOnly:function(v_form){
+		var fields = v_form.getFields(); 
+		for(var i=0;i<fields.length;i++){
+			fields.items[i].setReadOnly(true);
+		}
+	},
+	// 责任部门下拉列表
+	selResCombo: function(form, keyId) {
+		var deptResStore = Ext.create(
+				'ExtApp.store.qualityissuemanagement.ResDepartmentStore');
+		deptResStore.getProxy().extraParams = {keyId: keyId};
+		deptResStore.load();
+		var deptResCombo = form.findField('ReDepartment');
+
+		deptResStore.on('load', function() {
+			deptResCombo.setStore(this);
+		});
+	},
+	
+	// 加载验证方案
+    addPanel: function (m_form, v_form, record) {
+    	// 隐藏标志
+		var hiddenFlg = false;
+
+		if (record.steps == "001") {
+			hiddenFlg = true;
+		};
+    	var refPanel = v_form.owner;
+		var fieldlabelIndex = refPanel.items.length + 1;
+		var engineersStore = Ext.create(
+			'ExtApp.store.qualityissuemanagement.EngineersStore');
+		engineersStore.getProxy().extraParams = {
+			keyId: m_form.keyId,
+			programObsId: record.programObsId,
+			programId: m_form.programId
+			};
+		engineersStore.load();
+		var configItem=[{
+			xtype:'panel',
+			title:'<B>验证方案'+ fieldlabelIndex + '</B>',
+			layout:{
+				type:'vbox'
+			},
+			scrollable: 'x',
+			margin:10,
+			cls:'shadow',
+			items:[{
+				xtype:'panel',
+				layout:{
+					type:'hbox'
+				},
+				items:[{
+					xtype:'combo',
+					fieldLabel:'验证方案' + fieldlabelIndex,
+					readOnly:true,
+					editable:false,
+					bind:{
+						store:'{verification}'
+					},
+					queryMode:'local',
+					displayField:'name',
+					valueField:'id',
+					margin:'0 0 10 0',
+					name:'VerificationScheme',
+					value:record.VerificationScheme
+				},{
+					xtype:'textareafield',
+					fieldLabel:'通过要求',
+					readOnly:true,
+					width:505,
+					margin:'0 0 0 10',
+					name:'Request',
+					value:record.Request
+				},{
+					xtype:'textfield',
+					fieldLabel:'实施车辆',
+					margin:'0 0 0 10',
+					readOnly:true,
+					name:'ImplementVehicle',
+					value:record.ImplementVehicle
+				},{
+					xtype:'textfield',
+					hidden:true,
+					readOnly:true,
+					name:'UId',
+					value:record.UId
+				}]
+			},{
+				xtype:'panel',
+				layout:{
+					type:'hbox'
+				},
+				items:[{
+					xtype:'textfield',
+					fieldLabel:'验证部门',
+					readOnly:true,
+					margin:'10 0 10 0',
+					name:'deptId',
+					value:record.deptId
+				},{
+					xtype:'combo',
+					fieldLabel:'验证工程师',
+					editable:false,
+					readOnly:true,
+					store:engineersStore,
+					queryMode:'local',
+					displayField:'name',
+					valueField:'id',
+					margin:'10 0 10 10',
+					name:'VerificationEngineerName',
+					value:record.VerificationEngineerName
+				},{
+					xtype:'textareafield',
+					fieldLabel:'验证效果',
+					margin:'10 0 10 10',
+					width: 220,
+					readOnly:true,
+					hidden:hiddenFlg,
+					name:'VerificationResult',
+					value:record.VerificationResult
+				},{
+					xtype:'label',
+					html:'<div style="text-align:center;">相关附件</div>',
+					hidden:hiddenFlg,
+					margin:'0 0 0 10'
+				},{
+					xtype: 'fieldset',
+					hidden:hiddenFlg,
+					margin:'0 0 10 55',
+					items:[{
+						xtype:'imsFileAttachment',
+						height:60,
+						width:250,
+						scrollable: 'y',
+						programId: null,
+			    		sourceType: 'SOURCE_TYPE_RESULT_ATTACHMENT',
+			    		sourceId: record.UId,
+			    		editable: false
+					}]
+				}]
+			}]
+		}];
+		refPanel.add(configItem[0]);
+    },
+    
+    // 行删除
+    deleteRow: function(grid, rowIndex) {
+    	var me = this;
+    	var record = grid.getStore().getAt(rowIndex);
+    	Ext.MessageBox.confirm('提示', '您确定要删除该条记录吗?', function(btn) {
+    		// 提示信息点击【YES】则删除
+    		if (btn == 'yes') {
+    	    	Ext.Ajax.request({
+    	    		url:'/pdms/ims/my-draft!delMyDraft.action',
+    	    		params: {
+    	    			draftIdxId: record.data.issueId
+    				},
+    				scope: me,
+    				success: function(response, opts) {
+    					var obj = Ext.decode(response.responseText);
+    					if (obj.success) {
+    						grid.getStore().reload();
+        			    	ExtApp.util.Util.showToast("删除成功！");
+    			        } else {
+    			        	ExtApp.util.Util.handleRequestFailure(response);
+    			        }
+    			    },
+    				failure: function(response, opts) {
+    			    	ExtApp.util.Util.handleRequestFailure(response);
+    			    }
+    	    	})
+    		}
+    	});
+    },
+    
+    // 挂牌
+    listing: function() {
+    	//this.view.parentCaller.controller.listing();
+    	var me = this;
+    	var model = me.view.down('grid').selection;
+    	
+    	if (model == null) {
+    		ExtApp.util.Util.showErrorMsg('请选择一条问题!.......');
+    		return;
+    	}
+
+    	if (model.get('issueListStatus') != null) {
+    		ExtApp.util.Util.showErrorMsg('不可重复挂牌!');
+    		return;
+    	}
+    	
+//    	if (grid.selection.data.formKey != "020" &&
+//    			grid.selection.data.formKey != "030" &&
+//    			grid.selection.data.formKey != "040") {
+//    		ExtApp.util.Util.showToast(Ext.String.format('该问题不可挂牌!'));
+//    		return;
+//    	}
+    	Ext.create({
+    		xtype: 'myTaskInfo01ListingWindow',
+    		//formKey: grid.selection.data.formKey,
+    		//keyId: grid.selection.data.id
+    		issueId: model.get('id')
+    	}).show();
+    },
+    
+    // 设定风险等级
+    setRiskLevel: function() {
+    	//this.view.parentCaller.controller.setRiskLevel();
+    	var me = this;
+    	var model = me.view.down('grid').selection;
+    	
+    	if (model == null) {
+    		ExtApp.util.Util.showErrorMsg('请选择一条问题!.......');
+    		return;
+    	}
+    	if (model.get('issueProcessingStatus') != '1' && model.get('issueProcessingStatus') != '2') {
+    		ExtApp.util.Util.showErrorMsg('问题状态为1~2,才可设定风险等级!');
+    		return;
+    	}
+    	
+    	this.dialog = Ext.create({
+    		xtype: 'riskLevelWin',
+    		title: '[ ' + model.get('title') + ' ] : 风险等级设定',
+    		keyId: model.get('issueId'),
+    		parentCaller: me
+    	});
+		for (var i = 0; i < this.dialog.down('radiogroup').items.getCount(); i++) {
+			if (this.dialog.down('radiogroup').items.getAt(i).inputValue == model.get('riskLevelCode')) {
+				this.dialog.down('radiogroup').items.getAt(i).setValue(true);
+        		break;
+			}
+		}
+    	this.dialog.show();
+    },
+    
+    // 摘牌
+    delListing: function() {
+    	//this.view.parentCaller.controller.delist();
+    	var me = this;
+    	var model = me.view.down('grid').selection;
+    	
+    	if (model == null) {
+    		ExtApp.util.Util.showErrorMsg('请选择一条问题!.......');
+    		return;
+    	}
+
+    	Ext.MessageBox.confirm('Confirm', '确定要对该问题进行摘牌?', function(btn, text) {
+        	if (btn == 'yes') {
+    	    	Ext.Ajax.request({
+    	    		url:'/pdms/ims/listing-area!saveDelist.action',
+    	    		params: {
+    	    			issueId: model.get('id')
+    					//ProcessInstanceId: grid.selection.data.processInstanceId,
+    					//taskId: grid.selection.data.taskId
+    				},
+    				scope: me,
+    				success: function(response, opts) {
+    			    	ExtApp.util.Util.showToast(Ext.String.format('已摘牌'));
+    			    }
+    	    	});
+        	}
+        }, this);
+    },
+
+    // 导出Excel
+    exportIssueList: function() {
+    	var me = this;
+    	var form = me.view.down('grid').down('toolbar').down('form').getForm();
+    	document.location.href = '/pdms/ims/issue-list!exportExcel.action?listType='+me.view.listType+'&searchModel='+Ext.encode(form.getFieldValues());
+    },
+
+    // 时间格式化
+    FormatDate:function (strTime) {
+        var date = new Date(strTime);
+        return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+    },
+    
+    // 刷新列表
+    refreshView: function() {
+    	this.view.down('grid').store.reload();
+    },
+    transferTask:function(button){
+    	var me = this;
+    	var selections = me.view.down('grid').getSelection();
+    	var modelData = [];
+    	for(var i=0;i<selections.length;i++){
+    		modelData.push(selections[i].data.taskId);
+    	}
+    	
+    	var transferTaskWindow = Ext.create('ExtApp.view.common.TransferTaskWindow',{
+			callback:function(comment,userTo){
+        		if(userTo == null || userTo == ''){
+        			Ext.Msg.alert('提示', '必须填写接收人！');
+        			return;
+        		}
+        		transferTaskWindow.close();
+        		Ext.getBody().mask();
+        		Ext.Ajax.request({
+       	   	 	 url: '/pdms/mw/todo-list!transferTask.action',
+       	   	 	 params: {
+           			 model: Ext.encode(modelData),
+           			 remark:comment,
+           			 userTo:userTo
+       			 },
+       	   	 	 scope: me,
+       	   	 	 success: function(response, opts) {
+       	   	     	Ext.getBody().unmask();
+       	   	    	var obj = Ext.decode(response.responseText);
+       	   	        if (obj.success) {
+       	   	        	ExtApp.util.Util.showToast("提交成功！");
+       	   	        	me.view.down('grid').getStore().load();
+       	   	        } else {
+       	   	        	ExtApp.util.Util.handleRequestFailure(response);
+       	   	        }
+       	   	    },
+       		    failure: function(response, opts) {
+       		        Ext.getBody().unmask();
+       		        ExtApp.util.Util.handleRequestFailure(response);
+       		    }
+              });
+			}
+		});
+    	transferTaskWindow.show();
+		return;
+    }
+});

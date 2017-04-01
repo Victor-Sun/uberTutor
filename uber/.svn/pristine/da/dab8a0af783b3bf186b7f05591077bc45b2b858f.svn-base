@@ -1,0 +1,47 @@
+Ext.define('ExtApp.view.projectmanagement.templatelibrary.ProjectTemplateSwimLaneDeliverable',{
+	extend:'Ext.form.Panel',
+	xtype:'projectTemplateSwimLaneDeliverable',
+
+	layout: 'fit',
+	
+	initComponent: function() {
+		
+		var swimLaneStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProjectTemplateSwimLaneDeliverableStore');
+		swimLaneStore.getProxy().extraParams = {taskId: this.taskId};
+		swimLaneStore.load();
+	
+		this.items = [{
+			margin: 10,
+			xtype:'fieldset',
+			layout: 'fit',
+	    	collapsible:true,
+	    	items:[{
+				xtype: 'grid',
+				store: swimLaneStore,
+				columns: [{
+					xtype: 'rownumberer'
+				},{
+					text: '节点名称',
+					dataIndex: 'taskName',
+					flex: 1
+				},{
+					text: '计划开始周期(天)',
+					dataIndex: 'plannedStartDate',
+					flex: 1
+				},{
+					text: '计划结束周期(天)',
+					dataIndex: 'plannedFinishDate',
+					flex: 1
+				}],
+				dockedItems: [{
+		            xtype: 'pagingtoolbar',
+		            dock: 'bottom',
+		            displayInfo: true,
+		            store: swimLaneStore
+		        }]
+	    	}]
+		}];
+		this.callParent(arguments);
+	}
+});

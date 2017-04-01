@@ -1,0 +1,60 @@
+/**
+ * 项目管理-项目计划-前置/后置节点
+ */
+Ext.define('ExtApp.view.projectManagement.maindept.DeptPlanPreTask',{
+	extend:'Ext.panel.Panel',
+	xtype:'deptPlanPreTask',
+	
+	controller: 'deptPlanPreTask',
+	layout: 'fit',
+
+	initComponent: function() {
+		// 节点Store
+		var preTaskStore = Ext.create(
+			'ExtApp.store.projectmanagement.PreTaskStore');
+		preTaskStore.getProxy().extraParams = {
+			taskId: this.taskId,
+			baselineId: this.baselineId,
+			preType: this.preType};
+		preTaskStore.load();
+	
+		this.items = [{
+			xtype:'grid',
+			store: preTaskStore,
+			margin:10,
+			columns: [{
+				xtype: 'rownumberer'
+			},{
+				text: '节点名称',
+				dataIndex: 'preTaskName',
+				flex: 1
+			},{
+				text: '滞后天数',
+				dataIndex: 'lag',
+				flex: 1
+			},{
+                xtype: 'actioncolumn',
+                width: 30,
+                align: 'center',
+                sortable: false,
+                menuDisabled: true,
+                items: [{
+                    iconCls: 'cell-editing-delete-row',
+                    handler: 'deletePreTask'
+                }]
+            }],
+			tbar: [{
+                text: '添加节点',
+                iconCls: 'icon-add',
+                handler: 'addPreTask'
+			}],
+	        dockedItems: [{
+                xtype: 'pagingtoolbar',
+                dock: 'bottom',
+                displayInfo: true,
+                store: preTaskStore
+	        }]
+		}];
+		this.callParent(arguments);
+	}
+});

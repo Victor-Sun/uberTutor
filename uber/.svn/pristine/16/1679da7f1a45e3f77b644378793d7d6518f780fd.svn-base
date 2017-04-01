@@ -1,0 +1,14 @@
+Ext.define('ExtApp.store.rolemanage.RoleUsers', {
+    extend: 'Ext.data.Store',
+    alias: 'store.roleUsers',
+    fields: ['userId', 'userName','departmentId', 'name','roleTitle'],
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/role/role!getRoleUserList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

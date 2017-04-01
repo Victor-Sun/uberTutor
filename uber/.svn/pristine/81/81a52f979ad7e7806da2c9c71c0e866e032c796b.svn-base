@@ -1,0 +1,16 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectOrganization03Store', {
+    extend: 'Ext.data.TreeStore',
+    alias: 'store.projectOrganization03',
+
+    model: 'ExtApp.model.projectmanagement.ProjectOrganizationTreeModel',
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-organization!getProjectOrganizationLevelTwo.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+
+});

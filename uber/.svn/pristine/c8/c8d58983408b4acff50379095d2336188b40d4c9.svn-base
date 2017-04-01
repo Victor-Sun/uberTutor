@@ -1,0 +1,46 @@
+/**
+ * 项目管理-车型看板-项目总体状态
+ */
+Ext.define('ExtApp.view.projectmanagement.vehicle.VehicleReportStatus',{
+	extend:'Ext.panel.Panel',
+	xtype:'vehicleReportStatus',
+
+	layout: 'fit',
+	
+	controller: 'vehicleReportStatus',
+	
+	initComponent: function() {
+		this.items = [{
+			xtype:'panel',
+			layout: {
+				type:'hbox'
+			},
+			items: [{
+				xtype:'image',
+				margin: '0 10 10 10',
+				itemId: 'totalStatus',
+				width: 30
+			},{
+				xtype: 'hiddenfield',
+				itemId: 'hiddenTotalStatus'
+			},{
+				xtype:'textarea',
+				margin: '0 10 10 10',
+				text: '备注',
+				height: 40,
+				flex: 1,
+				itemId: 'memo',
+				readOnly: true,
+				fieldCls: 'text-readonly'
+			}]
+		}];
+		this.tbar = ['->',{
+			text:'编辑项目状态',
+			handler: 'changeReportStatus'
+		},{
+			text:'查看变更记录',
+			handler: 'viewChangeLog'
+		}];
+		this.callParent(arguments);
+	}
+});

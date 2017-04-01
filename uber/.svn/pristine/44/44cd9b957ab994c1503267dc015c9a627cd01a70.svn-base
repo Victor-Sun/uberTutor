@@ -1,0 +1,43 @@
+Ext.define('ExtApp.view.projectmanagement.etplan.ext301.PartsListDateEditWindow',{
+	extend: 'Ext.window.Window',
+	xtype: 'dateeditwindow',
+	
+	width: 300,
+	height: 100,
+	
+	items: [{
+		xtype: 'container',
+		margin: 10,
+		layout: {
+			type: 'vbox',
+			align: 'stretch'
+		},
+		margin: 5,
+		layout: {
+			type: 'hbox',
+			align: 'stretch'
+		},
+		items: [{
+			xtype: 'container',
+			items: [{
+				xtype: 'datefield',
+				fieldLabel: '日期'
+			}]
+		}]
+	}],
+	dockedItems: [{
+		xtype: 'toolbar',
+		dock: 'bottom',
+		items: ['->',{
+			xtype: 'button',
+			text: '确定'
+		},{
+			xtype: 'button',
+			text: '取消',
+			handler: function() {
+				this.close();
+			}
+		}]
+	}]
+	
+});

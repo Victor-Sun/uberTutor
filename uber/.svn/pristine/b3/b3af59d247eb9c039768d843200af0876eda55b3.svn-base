@@ -1,0 +1,55 @@
+/**
+ * 项目管理-组织(tab)Controller
+ */
+Ext.define('ExtApp.view.projectmanagement.org.CreateProgramObsController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.createProgramObs',
+	
+    // 新建组织-确定
+    confirm: function(btn) {
+    	var me = this;
+        var form = me.view.down('form').getForm();
+        if (form.isValid()){
+        	me.view.mask('Please Waiting...');
+            form.submit({
+                clientValidation: true,
+                url: '/pdms/pm/project-organization!createObsInfo.action',
+                params: {
+                	programId: me.view.programId,
+                	programVehicleId: me.view.programVehicleId,
+                	obsId: me.view.obsId,
+                	model: Ext.encode(form.getFieldValues())
+                },
+                scope: me,
+                success: function(form, action) {
+                	var orgPanel = me.view.up('projectOrganizationTab');
+                	if (this.view.planLevel == "1") {
+	                	orgPanel.down('projectOrganization01').down('treepanel').store.reload();
+    		    		// 修改一级组织架构时，需要刷新主Tree二级计划节点
+    					var projectTree = orgPanel.up('projectWindow').down('projectTree');
+    		            var node = projectTree.getStore().getNodeById('PROGRAM_DEPT_PLAN');
+    		            projectTree.getStore().getProxy().extraParams.type = 'DEPT_PLAN';
+    		            projectTree.getStore().load({node: node});
+    		            projectTree.getStore().on('load', function() {
+    		            	node.expand();
+    		            	node.collapse();
+    		            });
+                	}
+                	// 一级组织更改时，同时刷新二级组织Tree
+                	orgPanel.down('projectOrganization03').down('treepanel').store.reload();
+                	me.view.unmask();
+                    me.cancel();
+                },
+                failure: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.handleFormFailure(action);
+                }
+            });
+        }
+    },
+    
+    // 新建组织-取消
+    cancel: function() {
+    	this.view = Ext.destroy(this.view);
+    }
+});

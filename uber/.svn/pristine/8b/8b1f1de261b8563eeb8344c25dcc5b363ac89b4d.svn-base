@@ -1,0 +1,110 @@
+/**
+ * 项目管理-用户自定义文件夹下的文档
+ */
+Ext.define('ExtApp.view.projectmanagement.document.CustomizeDocument',{
+	extend:'Ext.panel.Panel',
+	xtype:'customizeDocument',
+	
+	controller: 'customizeDocument',
+
+	layout: 'fit',
+	
+	initComponent: function() {
+		var me = this;
+		var docStore = Ext.create('ExtApp.store.projectmanagement.CustomizeDocumentStore');
+		
+		var hideFolderFlag = true;
+		if (me.showAll) {
+			hideFolderFlag = false;
+			docStore.getProxy().extraParams = {
+				programId: me.programId
+			};
+		} else {
+			docStore.getProxy().extraParams = {
+				programId: me.programId,
+				sourceId: me.nodeId
+			};
+		}
+		docStore.load();
+		
+		var hideAction = true;
+		if (me.writeFolderPrivilege) {
+			hideAction = false;
+		}
+	
+		this.items = [{
+			xtype: 'grid',
+			store: docStore,
+			columns: [{
+				xtype: 'rownumberer'
+			},{
+				text: '文档名称',
+				flex: 1,
+				dataIndex: 'documentName',
+				renderer: 'renderFileLink',
+				listeners: {
+					click: 'onFileClick'
+				}
+			},{
+				text: '上传人',
+				flex: 1,
+				dataIndex: 'createBy'
+			},{
+				text: '上传时间',
+				flex: 1,
+				dataIndex: 'createDate'
+			},{
+				text: '所在文件夹',
+				flex: 1,
+				dataIndex: 'folderName',
+				hidden: hideFolderFlag
+			},{
+				xtype: 'actioncolumn',
+		        width: 60,
+		        sortable: false,
+		        menuDisabled: true,
+		        items: [{
+		            iconCls: 'x-fa fa-trash',
+		            tooltip: '删除文件',
+		            handler: 'deleteFile'
+		        },{
+		            iconCls: 'x-fa fa-upload',
+		            tooltip: '上传新版本',
+		            handler: 'newRevision'
+		        },{
+		            iconCls: 'x-fa fa-history',
+		            tooltip: '历史版本',
+		            handler: 'showHistoryRevision'
+		        }],
+		        hidden: hideAction
+			}],
+            tbar: [{
+				xtype: 'textfield',
+				labelAlign: 'right',
+				labelWidth: 70,
+				itemId: 'searchDocumentName',
+				fieldLabel: '文档名称'
+			},{
+				text: '查询',
+				iconCls: 'x-fa fa-search',
+				handler: 'search'
+			},{
+				text: '重置',
+				iconCls: 'x-fa fa-rotate-left',
+				handler: 'reloadSearch'
+			},'->',{
+				text: '上传文件',
+		        iconCls: 'x-fa fa-upload',
+		        handler: 'uploadFile',
+		        hidden: (me.showAll || hideAction)
+			}],
+            dockedItems: [{
+                xtype: 'pagingtoolbar',
+                dock: 'bottom',
+                displayInfo: true,
+                store: docStore
+            }]
+		}];
+		this.callParent(arguments);
+	}
+});

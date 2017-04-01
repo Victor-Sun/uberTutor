@@ -1,0 +1,24 @@
+
+Ext.define('ExtApp.view.myworkspace.task.PmTaskForumQeController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.pmTaskForumQe',
+
+	uploadFile: function(btn) {
+		var winChange = this.lookupReference('todoListPMTask02Form1');
+		var Wchange = winChange.getValue();
+		var winIndustry = this.lookupReference('todoListPMTask02Form2');
+		var Windustry = winIndustry.getValue();
+		var winName = 'Lisa';
+		var upTimeVal =Ext.util.Format.date(new Date,'Y/m/d');
+		var intId =this.view.up('pmTaskForum').down('grid').getStore().getCount();	
+		this.view.up('pmTaskForum').down('grid').getStore().insert(intId+1, {			
+			name  : winName,
+			price  : upTimeVal,
+			change  : Wchange,
+			industry : Windustry
+		});	
+		var rowEditing = this.view.up('pmTaskForum').down('grid').editingPlugin; 	
+		btn.ownerCt.ownerCt.destroy();
+	}
+
+});

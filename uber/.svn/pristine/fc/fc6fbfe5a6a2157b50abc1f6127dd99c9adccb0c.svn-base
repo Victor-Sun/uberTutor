@@ -1,0 +1,36 @@
+/**
+ * 专项管理-具体专项页面
+ */
+Ext.define('ExtApp.view.projectmanagement.extplan.ext201.Ext201ProjectPanel',{
+	extend:'Ext.tab.Panel',
+	xtype:'ext201ProjectPanel',
+	margin:10,
+	cls:'shadow',
+//	title:'ddd',  
+	frame:false,
+	border:0,
+	layout: 'fit',
+	initComponent: function() {
+		var me = this;
+		me.title = me.text;
+		var partList = Ext.create('ExtApp.view.projectmanagement.extplan.ext201.PartList',{projectId:me.nodeId});
+		var partProgressList = Ext.create('ExtApp.view.projectmanagement.extplan.ext201.PartProgressList',{projectId:me.nodeId});
+		var Ext201ContralList = Ext.create('ExtApp.view.projectmanagement.extplan.ext201.Ext201ContralList',{projectId:me.nodeId});
+		me.items = [{
+			title:'零件开发管控表',
+			layout: 'fit',
+			items:[Ext201ContralList]
+		},{
+			title:'零件列表',
+			layout: 'fit',
+			items:[partList]
+		},{
+			title:'统计',
+			layout: 'fit',
+			items:[partProgressList]
+		},{
+			title:'设置'
+		}];
+		me.callParent(arguments);
+	}
+});

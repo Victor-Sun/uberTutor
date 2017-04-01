@@ -1,0 +1,16 @@
+Ext.define('ExtApp.store.projectmanagement.ManufactureCompStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.manufactureComp',
+
+    fields: ['id', 'name'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-base-info!getManufactureComp.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

@@ -1,0 +1,45 @@
+/**
+ * 问题标记controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.QeMarkController',{
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.qeMark',
+    
+    //风险等级
+    selectLevel: function(me , newValue , oldValue , eOpts) {
+    	var me = this.view;
+	    Ext.Ajax.request({
+			url:'/pdms/ims/risk-level!saveRiskLevel.action',
+			params: {
+				keyId: this.view.keyId,
+				riskLevelCode: newValue
+			},
+			success: function(response, opts) {
+		    	var gridTask = me.up('mytask').down('grid');
+		    	gridTask.getStore().load();
+		    }
+	    });
+    },
+    //点击挂牌
+    listing: function(){
+    	var v_form = this.view.getForm();
+    	v_form.submit({
+    		url: '/pdms/ims/ims-issue-listing!Listing.action',
+    		params: {
+				keyId: this.view.keyId
+			},
+    	    method : "POST"
+    	});
+    },
+    //点击取消挂牌
+    cancelListing: function(){
+    	var v_form = this.view.getForm();
+    	v_form.submit({
+    		url: '/pdms/ims/ims-issue-listing!CancelListing.action',
+    		params: {
+				keyId: this.view.keyId
+			},
+    	    method : "POST"
+    	});
+    }
+});

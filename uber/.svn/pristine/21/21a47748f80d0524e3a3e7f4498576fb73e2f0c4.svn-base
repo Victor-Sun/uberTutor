@@ -1,0 +1,31 @@
+Ext.define('ExtApp.store.projectmanagement.PmDeliverableListStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.pmDeliverableList',
+
+    fields: [
+             'id',
+             'issueSource',
+             'proposedby',
+             {name:'proposedDate', type: 'date'},
+             'task',
+             'reason',
+             'progressDescription',
+             'respDept',
+             'respPerson',
+             'status',
+             {name: 'dueDate', type: 'date'},
+             {name: 'finishDate', type: 'date'},
+             {name: 'departedDays', type: 'number'}
+    ],
+    
+    pageSize:ExtApp.common.Constants.pageSize,
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-valve-document!getPmDeliverableList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

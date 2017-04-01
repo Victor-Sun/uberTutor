@@ -1,0 +1,44 @@
+/**
+ * 项目管理-创建基线
+ */
+Ext.define('ExtApp.view.projectmanagement.baseline.CreateBaselineController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.createBaseline',
+    
+    // 确定
+    confirmCreateBaseline: function(btn) {
+    	var me = this;
+    	var form = me.view.down('form').getForm();
+        if (form.isValid()) {
+            me.view.mask('Please Waiting...');
+            form.submit({
+                clientValidation: true,
+                url: '/pdms/pm/baseline!createBaseline.action',
+        	 	params: {
+        	 		programId: me.view.programId,
+        	 		programVehicleId: me.view.programVehicleId,
+        	 		obsId: me.view.obsId,
+        	 		title: form.findField('title').value,
+        	 		note: form.findField('note').value,
+        	 		baselineType: me.view.baselineType
+        	 	},
+                scope: me,
+                success: function(form, action) {
+                	me.view.unmask();
+    	        	ExtApp.util.Util.showToast("版本保存成功！");
+    	        	me.cancelCreateBaseline();
+                },
+                failure: function(form, action) {
+                    me.view.unmask();
+                 	ExtApp.util.Util.handleFormFailure(action);
+                }
+            });
+    	}
+    },
+    
+    //取消
+    cancelCreateBaseline: function(btn) {
+    	this.view.close();
+    }
+
+});

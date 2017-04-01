@@ -1,0 +1,99 @@
+/**
+ * 质量问题管理-待办任务-责任确认Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.step2.MyTaskInfo02Controller', {
+    extend: 'ExtApp.view.common.IssueStepViewController',
+    alias: 'controller.myTaskInfo02',
+    target: null,
+	// 点击【提交】
+    saveInfo: function(btn) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	if(v_form.isValid() == false){
+    		Ext.Msg.alert('提示', "请填写必填项！！！");
+    		return;
+    	}
+    	v_form.submit({
+    		url: '/pdms/ims/ims-issue!save.action',
+            params: {
+            	method:'updateIssue',
+            	action:'NEXT'
+            },
+    	    waitMsg : '正在提交数据',
+    	    waitTitle : '提示',
+    	    method : "POST",
+    	    success : function(form, action) {
+    	    	var gridTask = me.getView().grid.getStore().load();
+    	    	me.getView().close();
+    	    },
+    	    failure : function(form, action) {
+    	    	ExtApp.util.Util.handleFormFailure(action);
+    	    }
+	    });
+    },
+	// 点击【回退】
+    fallback : function(btn) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	
+    	var ownerName = v_form.findField('ownerName');
+    	ownerName.allowBlank = true;
+    	
+    	var returnReasonWindow = Ext.create('ExtApp.view.common.ReturnReasonWindow',{
+			callback:function(returnComment){
+        		if(returnComment == null || returnComment == ''){
+        			Ext.Msg.alert('提示', '必须添加备注！');
+        			return;
+        		}
+        		returnReasonWindow.close();
+				me.getView().mask('正在提交... 请耐心等待...');
+				v_form.submit({
+		    		url: '/pdms/ims/ims-issue!save.action',
+		            params: {
+		            	returnComment:returnComment,
+		            	method:'updateIssue',
+		            	action:'RETURN'
+		            },
+		    	    waitMsg : '正在提交数据',
+		    	    waitTitle : '提示',
+		    	    method : "POST",
+		    	    success : function(form, action) {
+		    	    	var gridTask = me.getView().grid.getStore().load();
+		    	    	me.getView().close();
+		    	    },
+		    	    failure : function(form, action) {
+		    	    	ExtApp.util.Util.handleFormFailure(action);
+		    	    }
+			    });
+			}
+		});
+    	returnReasonWindow.show();
+		return;
+    },
+    //审核&&批准
+    selectMember: function(v) {
+    	var me = this;
+    	this.target = v.getTarget().name;
+
+    	this.dialog = me.view.add({
+    		xtype: 'sysUserDepartment',
+    		parentCaller: this
+    	});
+        this.dialog.show();
+    },
+    // 添加用户/选择专业经理 - 确定
+    confirmUser: function(userData) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	var Target = this.target;
+    	//责任工程师
+    	var responEngineer = v_form.findField('ownerName');
+    	//责任工程师ID
+    	var responEngineerId = v_form.findField('owner');
+    	
+    	if(Target == "ownerName"){
+    		responEngineer.setValue(userData.name);
+    		responEngineerId.setValue(userData.id);
+		}
+    }
+});

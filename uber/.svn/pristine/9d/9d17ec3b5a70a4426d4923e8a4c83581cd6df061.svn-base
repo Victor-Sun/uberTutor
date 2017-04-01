@@ -1,0 +1,15 @@
+Ext.define('ExtApp.model.MileStone', {
+
+    extend      : 'Ext.data.Model',
+    
+    internalMilestone : true, 
+
+    mixins : [
+        'ExtApp.model.Base'
+    ],
+
+    fields      : [
+        { name  : 'Date',           type: 'date',   dateFormat  : 'c' }
+    ].concat(ExtApp.model.Base.fields)
+});
+

@@ -1,0 +1,50 @@
+/**
+ * 项目管理-项目排序Controller
+ */
+Ext.define('ExtApp.view.projectmanagement.list.ProjectSortController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.projectSort',
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	var grid = me.view.down('grid');
+    	me.view.rowEditing = new Ext.grid.plugin.RowEditing({
+            clicksToEdit: 1
+        });
+    	grid.addPlugin(me.view.rowEditing);
+    },
+    
+    // 关闭窗口
+    closeWindow: function() {
+    	this.view.parentCaller.refreshView();
+    	this.view.close();
+    },
+    
+    // 更新信息
+    onEdit: function(editor, context, eOpts) {
+    	var me = this;
+    	me.view.mask('Please Waiting...');
+    	Ext.Ajax.request({
+        	url: '/pdms/pm/project-list!updateProjectSort.action',
+    		params: {
+    			model: Ext.encode(context.record.data)
+			},
+			scope: me,
+			success: function(response, opts) {
+				me.view.unmask();
+				var obj = Ext.decode(response.responseText);
+		        if (obj.success) {
+		        	context.record.commit();
+		        } else {
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+				me.view.unmask();
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	});
+    }
+    
+});

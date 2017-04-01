@@ -1,0 +1,13 @@
+Ext.define('ExtApp.store.projectmanagement.extplan.ext201.PartStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.part',
+    fields: ['id', 'stageId','itemNo','itemName','status','progress','userName'],
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-extension-plan!getExtPartList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

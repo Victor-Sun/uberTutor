@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.issue.solveissue.Appraise', {
+    extend: 'Ext.data.Store',
+    alias: 'store.appraise',
+    
+    fields:['id', 'author', 'date', 'time', 'paragraph', 'stepId', 'roleId'],
+    
+	proxy: {
+    	type: 'ajax',
+    	url: '/pdms/pm/project-open-issue!getProcessRecord.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

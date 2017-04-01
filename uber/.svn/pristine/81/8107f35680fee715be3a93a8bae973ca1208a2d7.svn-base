@@ -1,0 +1,84 @@
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.MyTaskInfoCommonController', {
+
+    statics: {
+    	
+    	// 挂牌
+        listing: function(view, issueId) {
+        	var form = view.getForm();
+        	//责任部门是否为空
+        	if (form.findField('deptId') &&
+        			form.findField('deptId').getValue() == null) {
+    	    	ExtApp.util.Util.showErrorMsg('请选择责任部门！');
+    	    	return;
+        	}
+        	//问题等级是否为空
+        	if (form.findField('issueLevelCode') &&
+        			form.findField('issueLevelCode').getValue() == null) {
+    	    	ExtApp.util.Util.showErrorMsg('请选择问题等级！');
+    	    	return;
+        	}
+        	//form.findField('deptPm').allowBlank = true;
+        	Ext.create({
+        		xtype: 'myTaskInfo01ListingWindow',
+        		issueId: issueId,
+        		deptId: form.findField('deptId').getValue(),
+        		issueLevelCode: form.findField('issueLevelCode').getValue(),
+        		parentCaller: view.controller
+        	}).show();
+        },
+        
+        // 摘牌
+        delListing: function(view, issueId) {
+        	view.mask('Please Waiting...');
+	    	Ext.Ajax.request({
+	    		url:'/pdms/ims/listing-area!delListing.action',
+	    		params: {
+	    			issueId: issueId
+				},
+				scope: me,
+				success: function(response, opts) {
+					view.unmask();
+					var obj = Ext.decode(response.responseText);
+					if (obj.success) {
+						view.unmask();
+	                	ExtApp.util.Util.showToast("摘牌成功！");
+	                	view.controller.closeWindow();
+			        } else {
+			        	ExtApp.util.Util.handleRequestFailure(response);
+			        }
+			    },
+				failure: function(response, opts) {
+					view.unmask();
+			    	ExtApp.util.Util.handleRequestFailure(response);
+			    }
+	    	});
+        },
+        
+        // 取消挂牌
+        undoListing: function(view, issueId) {
+        	view.mask('Please Waiting...');
+	    	Ext.Ajax.request({
+	    		url:'/pdms/ims/listing-area!undoListing.action',
+	    		params: {
+	    			issueId: issueId
+				},
+				scope: me,
+				success: function(response, opts) {
+					view.unmask();
+					var obj = Ext.decode(response.responseText);
+					if (obj.success) {
+						view.unmask();
+	                	ExtApp.util.Util.showToast("挂牌取消成功！");
+	                	view.controller.closeWindow();
+			        } else {
+			        	ExtApp.util.Util.handleRequestFailure(response);
+			        }
+			    },
+				failure: function(response, opts) {
+					view.unmask();
+			    	ExtApp.util.Util.handleRequestFailure(response);
+			    }
+	    	});
+        }
+    }
+});

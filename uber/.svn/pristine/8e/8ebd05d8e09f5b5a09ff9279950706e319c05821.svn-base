@@ -1,0 +1,21 @@
+Ext.define('ExtApp.view.qualityissuemanagement.DevTable',{
+	extend:'Ext.container.Container',
+	xtype:'devTable',
+	
+	//layout:'responsivecolumn',	
+	margin:20,
+	cls:'shadow',
+	items:[{
+		xtype:'panel',
+		layout:{
+			type:'vbox',
+			align:'stretch'
+		},
+		title:'仪盘表',
+		items:[{
+			xtype:'image',
+			src:'resources/images/website-under-development3.png',			
+			html:'内容待定'
+		}]
+	}]
+});

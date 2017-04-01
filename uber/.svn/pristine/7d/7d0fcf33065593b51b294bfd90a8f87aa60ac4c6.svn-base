@@ -1,0 +1,118 @@
+/**
+ * 个人空间-代办任务-部门OpenIssue
+ */
+Ext.define('ExtApp.view.myworkspace.TodoListDeptIssueController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.todoListDeptIssue',
+
+    // 双击列表
+    onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    	var me = this;
+    	var rec = grid.getStore().getAt(rowIndex);
+    	// 打开窗口
+    	var issueWin = Ext.create({
+    		xtype: 'processDeptIssueWindow',
+    		issueId: rec.get('id'),
+    		issueUuid: rec.get('uuid'),
+    		statusCode: rec.get('statusCode'),
+    		parentCaller: me
+    	});
+    	issueWin.down('deptIssueForm').load({
+    		params: {issueId:rec.get('id')}
+    	});
+    	issueWin.show();
+    },
+    
+    // 选中列表数据
+    onSelectionChange: function(grid, records, eOpts) {
+        if (records[0]) {
+        	this.view.query('#detailForm')[0].getForm().loadRecord(records[0]);
+        }
+    },
+
+    // 刷新Grid
+    refreshView: function() {
+    	this.view.down('grid').store.reload();
+    },
+    
+    // 查询
+    search: function(btn, e) {
+    	var me = this;
+    	me.view.mask('Please Waiting...');
+    	var form = me.view.down('toolbar').down('form').getForm();
+    	var store = Ext.create(
+			'ExtApp.store.myworkspace.TodoListDeptIssueStore');
+    	store.getProxy().extraParams = {
+			searchModel: Ext.encode(form.getFieldValues())
+		};
+    	store.load();
+    	store.on('load', function() {
+    		me.view.down('grid').setStore(this);
+    		me.view.down('pagingtoolbar').setStore(this);
+    		me.view.unmask();
+    	});
+    },
+    
+    // 重置
+    reloadSearch: function() {
+    	var me = this;
+
+    	var form = this.view.down('toolbar').down('form').getForm();
+    	Ext.each(form.getFields().items, function(field) {
+    		if (field.xtype != 'displayfield') {
+    			if (field.xtype == 'checkbox') {
+        			field.setValue(true);
+        		} else {
+        			field.setValue('');
+        		}
+    		}
+		});
+    	form.findField('searchDaysVal').setValue(7);
+    	this.search();
+    },
+    transferTask:function(button){
+    	var me = this;
+    	var selections = me.view.down('grid').getSelection();
+    	var modelData = [];
+    	for(var i=0;i<selections.length;i++){
+    		modelData.push(selections[i].data.taskId);
+    	}
+    	
+    	var transferTaskWindow = Ext.create('ExtApp.view.common.TransferTaskWindow',{
+			callback:function(comment,userTo){
+        		if(userTo == null || userTo == ''){
+        			Ext.Msg.alert('提示', '必须填写接收人！');
+        			return;
+        		}
+        		transferTaskWindow.close();
+        		Ext.getBody().mask();
+        		Ext.Ajax.request({
+       	   	 	 url: '/pdms/mw/todo-list!transferTask.action',
+       	   	 	 params: {
+           			 model: Ext.encode(modelData),
+           			 remark:comment,
+           			 userTo:userTo
+       			 },
+       	   	 	 scope: me,
+       	   	 	 success: function(response, opts) {
+       	   	     	Ext.getBody().unmask();
+       	   	    	var obj = Ext.decode(response.responseText);
+       	   	        if (obj.success) {
+       	   	        	ExtApp.util.Util.showToast("提交成功！");
+       	   	        	me.view.down('grid').getStore().load();
+       	   	        } else {
+       	   	        	ExtApp.util.Util.handleRequestFailure(response);
+       	   	        }
+       	   	    },
+       		    failure: function(response, opts) {
+       		        Ext.getBody().unmask();
+       		        ExtApp.util.Util.handleRequestFailure(response);
+       		    }
+              });
+			}
+		});
+    	transferTaskWindow.show();
+		return;
+    }
+
+});

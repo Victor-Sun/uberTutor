@@ -1,0 +1,19 @@
+Ext.define('ExtApp.store.projectmanagement.DeptPlanRefTaskStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.deptPlanRefTask',
+
+    model: 'ExtApp.model.projectmanagement.DeptPlanRefTaskModel',
+    
+    //groupField: 'taskName',
+    pageSize:ExtApp.common.Constants.pageSize,
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/dept-plan!getTaskNodeList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+
+});

@@ -1,0 +1,207 @@
+Ext.define('ExtApp.view.deptworkspace.Deptworkspace',{
+	extend:'Ext.container.Container',
+	xtype:'deptworkspace',
+	
+	requires:[
+		'Ext.ux.layout.ResponsiveColumn'
+	],
+
+	layout:'responsivecolumn',
+	initComponent: function() {
+		
+		me = this;
+		var deptProjectTaskBarChart = Ext.create('ExtApp.view.deptworkspace.report.DeptProjectTaskBarChart');
+		var deptOpenIssueBarChart = Ext.create('ExtApp.view.deptworkspace.report.DeptOpenIssueBarChart');
+		
+	    me.items = [{
+			xtype:'panel',
+			bodyStyle: "background-color:#dfe8f6",
+			userCls:'big-50 small-100 shadow',
+//			height:220,
+			items:[deptProjectTaskBarChart]
+		},{
+			xtype:'panel',
+			bodyStyle: "background-color:#dfe8f6",
+			userCls:'big-50 small-100 shadow',
+//			height:220,
+			items:[deptOpenIssueBarChart]
+		}];
+	    this.callParent(arguments);
+	}
+	
+//	items:[
+//	// 部门项目级任务完成情况
+//	{
+//		xtype:'panel',
+//		bodyStyle: "background-color:#dfe8f6",
+//		userCls:'big-50 small-100 shadow',
+//		height:220,
+//		items:[{
+//			xtype:'panel',
+//			defaults:{
+//				margin:'0 0 0 0'
+//			},
+//			height:25,
+//			items:[{
+//				xtype:'image',
+//				src:'resources/images/ui-temp/dashboard-report1-tilte.png'
+//			}]
+//		},{
+//			xtype:'panel',
+//			defaults:{
+//				margin:'5 5 5 5'
+//			},			
+//			height:195,
+//			bodyStyle: "background-color:transparent;",	
+//			items:[{
+//				xtype:'image',
+//				src:'resources/images/ui-temp/dashboard-report1.png'
+//			}]
+//		}]
+//	}
+//	// 部门零部件级任务完成情况
+//	,{
+//		xtype:'panel',
+//		bodyStyle: "background-color:#dfe8f6",
+//		userCls:'big-50 small-100 shadow',
+//		height:220,
+//		items:[{
+//			xtype:'panel',
+//			defaults:{
+//				margin:'0 0 0 0'
+//			},
+//			height:25,
+//			items:[{
+//				xtype:'image',
+//				src:'resources/images/ui-temp/dashboard-report2-tilte.png'
+//			}]
+//		},{
+//			xtype:'panel',
+//			defaults:{
+//				margin:'5 5 5 5'
+//			},			
+//			height:195,		
+//			bodyStyle: "background-color:transparent;",			
+//			items:[{
+//				xtype:'image',
+//				src:'resources/images/ui-temp/dashboard-report2.png'
+//			}]
+//		}]
+//	}
+//	// 部门Open Issue完成情况
+//	,{
+//		xtype:'panel',
+//		bodyStyle: "background-color:#dfe8f6",
+//		userCls:'big-50 small-100 shadow',
+//		height:240,
+//		items:[{
+//			xtype:'panel',
+//			defaults:{
+//				margin:'0 0 0 0'
+//			},
+//			height:25,
+//			items:[{
+//				xtype:'image',
+//				src:'resources/images/ui-temp/dashboard-report3-tilte.png'
+//			}]
+//		},{
+//			xtype:'panel',
+//			defaults:{
+//				margin:'5 5 5 5'
+//			},			
+//			height:225,
+//			bodyStyle: "background-color:transparent;",	
+//			items:[{
+//				xtype:'image',
+//				src:'resources/images/ui-temp/dashboard-report3.png'
+//			}]
+//		}]
+//	}
+//	// 部门质量问题完成情况
+//	,{
+//		xtype:'panel',
+//		bodyStyle: "background-color:#dfe8f6",
+//		userCls:'big-50 small-100 shadow',
+//		height:240,
+//		items:[{
+//			xtype:'panel',
+//			defaults:{
+//				margin:'0 0 0 0'
+//			},
+//			height:25,
+//			items:[{
+//				xtype:'image',
+//				src:'resources/images/ui-temp/dashboard-report4-tilte.png'
+//			}]
+//		},{
+//			xtype:'panel',
+//			defaults:{
+//				margin:'5 5 5 5'
+//			},			
+//			height:225,		
+//			bodyStyle: "background-color:transparent;",			
+//			items:[{
+//				xtype:'image',
+//				src:'resources/images/ui-temp/dashboard-report4.png'
+//			}]
+//		}]
+//	}
+//	// 部门工作联系单完成情况
+//	,{
+//		xtype:'panel',
+//		bodyStyle: "background-color:#dfe8f6",
+//		userCls:'big-50 small-100 shadow',
+//		height:260,
+//		items:[{
+//			xtype:'panel',
+//			defaults:{
+//				margin:'0 0 0 0'
+//			},
+//			height:25,
+//			items:[{
+//				xtype:'image',
+//				src:'resources/images/ui-temp/dashboard-report5-tilte.png'
+//			}]
+//		},{
+//			xtype:'panel',
+//			defaults:{
+//				margin:'5 5 5 5'
+//			},			
+//			height:245,		
+//			bodyStyle: "background-color:transparent;",			
+//			items:[{
+//				xtype:'image',
+//				src:'resources/images/ui-temp/dashboard-report5.png'
+//			}]
+//		}]
+//	}
+//	// 部门内部过程问题管控
+//	,{
+//		xtype:'panel',
+//		bodyStyle: "background-color:#dfe8f6",
+//		userCls:'big-50 small-100 shadow',
+//		height:260,
+//		items:[{
+//			xtype:'panel',
+//			defaults:{
+//				margin:'0 0 0 0'
+//			},
+//			height:25,
+//			items:[{
+//				xtype:'image',
+//				src:'resources/images/ui-temp/dashboard-report6-tilte.png'
+//			}]
+//		},{
+//			xtype:'panel',
+//			defaults:{
+//				margin:'5 5 5 5'
+//			},			
+//			height:245,		
+//			bodyStyle: "background-color:transparent;",
+//			items:[{
+//				xtype:'image',
+//				src:'resources/images/ui-temp/dashboard-report6.png'
+//			}]
+//		}]
+//	}]
+});

@@ -1,0 +1,104 @@
+/**
+ * 项目管理-项目计划-计划节点/活动信息-节点新增
+ */
+Ext.define('ExtApp.view.projectmanagement.timeline.DeptPlanTaskAdd', {
+	extend:'Ext.window.Window',
+	xtype:'deptPlanTaskAdd',
+
+	controller:'deptPlanTaskAdd',
+
+	width:400,
+	height:250,
+	closable: false,
+	modal: true,
+
+	initComponent: function() {
+		var me = this;
+		var typeStore = Ext.create('Ext.data.Store', {
+			fields: [
+		         {name: 'code', type: 'string'},
+		         {name: 'name', type: 'string'}
+		     ],
+		     data: [
+		         {code: 'TASK_TYPE_NODE', name: 'Node(节点)'},
+		         {code: 'TASK_TYPE_ACTIVITY', name: 'Activity(活动)'}
+		     ]
+		 });
+		
+		var obsUserStore = Ext.create('ExtApp.store.common.ObsUserStore');
+		obsUserStore.getProxy().extraParams = {
+			programVehicleId: me.programVehicleId,
+			obsId: me.obsId,
+			includeSubDept: true};
+		obsUserStore.load();
+		
+		this.items = [{
+			xtype: 'form',
+			layout: 'column',
+		    margin:10,
+		    defaults: {
+		    	columnWidth:1,
+		    	margin:2
+		    },
+		    items: [{
+				xtype: 'textfield',
+				fieldLabel: '名称',
+				name: 'taskName',
+				allowBlank: false,
+                maxLength: 255
+		    },{
+		    	xtype: 'combo',
+				fieldLabel: '类型',
+				name: 'taskTypeCode',
+				store: typeStore,
+				queryMode: 'local',
+			    displayField: 'name',
+			    valueField: 'code',
+			    forceSelection: true,
+			    allowBlank: false,
+			    listeners: {
+			    	change: 'onChangeTaskType'
+			    }
+		    },{
+		    	xtype: 'combo',
+				fieldLabel: '负责人',
+				name: 'taskOwner',
+				store: obsUserStore,
+			    queryMode: 'local',
+			    valueField: 'userId',
+			    displayField: 'userName',
+			    forceSelection: true
+			},{
+				xtype: 'datefield',
+				format: 'Y/m/d',
+				name: 'plannedStartDate',
+				fieldLabel: '开始时间'
+			},{
+				xtype: 'datefield',
+				format: 'Y/m/d',
+				name: 'plannedFinishDate',
+				fieldLabel: '截止时间'
+			},{
+				xtype: 'numberfield',
+				fieldLabel: '周期（天）',
+				name: 'durationDays',
+				minValue: 0,
+                maxValue: 99999
+			}]
+		}];
+		
+		this.tools = [{
+			text:'保存',
+	        xtype: 'button',
+	        iconCls: 'x-fa fa-save',
+	        handler: 'saveTask'
+		},{
+			text:'关闭',
+	        xtype: 'button',
+	        iconCls: 'x-fa fa-close',
+	        handler: 'closeWindow'
+		}];
+		
+		this.callParent();
+	}
+});

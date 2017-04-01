@@ -1,0 +1,93 @@
+Ext.define('ExtApp.view.projectmanagement.temp.DashboardMixed',{
+	extend: 'Ext.panel.Panel',
+	xtype: 'dashboardMixed',
+	controller: 'dashboard',
+	layout: 'fit',
+	items: [{
+		xtype: 'cartesian',
+		   store: {
+		       type: 'dashboardtest'
+		   },
+		   legend: {
+			   docked: 'top'
+		   },
+		   axes: [{
+		       type: 'numeric',
+		       grid: true,
+		       position: 'left',
+		       adjustByMajorUnit: true,
+		       title: {
+		           text: 'Sample Values',
+		           fontSize: 15
+		       },
+		       fields: ['data1', 'data2', 'data3']
+		   }, {
+		       type: 'category',
+		       position: 'bottom',
+		       grid: true,
+		       title: {
+		           text: 'Sample Dates',
+		           fontSize: 15
+		       },
+		       label: {
+	                rotate: {
+	                    degrees: -45
+	                }
+	           },
+		       fields: 'month'
+		   }],
+		   series: [{
+		       type: 'bar',
+		       style: {
+               		width: 25    //<-- Specify you Column width here
+		       },
+		       xField: 'month',
+		       yField: ['data1','data2'],
+		       stacked: true,
+		       highlight: {
+		    	   fillStyle: 'yellow'
+		       },
+		       tooltip: {
+	        	   trackMouse: true,
+	        	   showDelay: 0,
+	        	   dismissDelay: 0,
+	        	   hideDelay: 0,
+	        	   renderer: 'onBarTipRender'
+	           }	
+		   },{
+			   type: 'line',
+			   title: 'data3',
+	           xField: 'month',
+	           yField: 'data3',
+	           style: {
+	               lineWidth: 2
+	           },
+	           marker: {
+	        	   type: 'square',
+	               fx: {
+	            	   duration: 200,
+	            	   easing: 'backOut'
+	               },
+	               radius: 4,
+	               lineWidth: 2
+	           },
+//	           label: {
+//	        	   field: 'data3',
+//	        	   display: 'over'
+//	           },
+	           highlight: {
+	        	   fillStyle: '#000',
+	        	   radius: 5,
+	        	   lineWidth: 2,
+	        	   strokeStyle: '#fff'
+	           },
+	           tooltip: {
+	        	   trackMouse: true,
+	        	   showDelay: 0,
+	        	   dismissDelay: 0,
+	        	   hideDelay: 0,
+	        	   renderer: 'onLineTooltipRender'
+	           }	
+		   }]
+	}]
+});

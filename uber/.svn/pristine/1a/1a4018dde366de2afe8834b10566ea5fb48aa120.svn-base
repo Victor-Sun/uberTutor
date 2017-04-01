@@ -1,0 +1,16 @@
+/**
+ * 项目管理-文档历史版本
+ */
+Ext.define('ExtApp.view.projectmanagement.document.HistoryRevisionController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.historyRevision',
+    
+   
+    // 文件下载
+    onFileClick: function(grid, td, rowIndex, cellIndex, e, record, tr) {
+    	window.location.href = "/pdms/com/document!downloadDocument.action?"
+    			+ "revisionId=" + record.data.documentRevisionId;
+    }
+    
+	
+});

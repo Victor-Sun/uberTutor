@@ -1,0 +1,35 @@
+/**
+ * 部门空间-部门自建任务-进度Notes-汇报进度
+ */
+Ext.define('ExtApp.view.deptworkspace.deptissue.NotesReportController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.notesReport',
+    
+    // 提交
+    submitComment: function (button, e, options) {
+        var me = this;
+        var form = this.view.down('form').getForm();
+        if (form.isValid()) {
+    	    me.view.mask('Please Waiting...');
+    	    form.submit({
+                clientValidation: true,
+                url: '/pdms/dws/dept-issue!reportDeptIssueProgress.action',
+                params: {
+                	issueId: me.view.issueId,
+                	model: Ext.encode(form.getFieldValues())
+                },
+                scope: me,
+                success: function(form, action) {
+	                me.view.unmask();
+	               	me.view.parentCaller.refreshView();
+	               	ExtApp.util.Util.showToast("提交成功！");
+	               	me.view.close();
+                },
+                failure: function(form, action) {
+	               	me.view.unmask();
+	               	ExtApp.util.Util.handleFormFailure(action);
+                }
+    	    });
+		}
+    }
+});

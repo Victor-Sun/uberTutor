@@ -1,0 +1,123 @@
+/**
+ * 部门空间-部门自建任务-提交问题
+ */
+Ext.define('ExtApp.view.deptworkspace.deptissue.RaiseDeptIssueWindowController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.raiseDeptIssueWindow',
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	// 如果IssueID存在，则显示讨论区
+    	if (me.view.issueId && me.view.issueId != null && me.view.issueId != '' &&
+    			! me.view.down('forum')) {
+    		// 讨论区成员列表
+        	var issueMember = Ext.create({
+        		xtype: 'deptIssueMember',
+        		issueId: me.view.issueId
+        	});
+        	// 讨论区
+        	var forum = Ext.create({
+				xtype: 'forum',
+				sourceId: me.view.issueUuid,
+				source: 'PM-DEPT-ISSUE',
+				forumMember: issueMember,
+				title: '协作'
+        	});
+        	me.view.query('#issueTab')[0].add(forum);
+    	}
+    },
+    
+    // 保存
+    onButtonClickSave: function(button, e, options){
+    	var me = this;
+    	var issuePanel = this.view.down('deptIssueForm');
+        var issueForm = issuePanel.getForm();
+//        if (issueForm.isValid()) {
+    	me.view.mask('Please Waiting...');
+    	issueForm.submit({
+            clientValidation: false,
+            url: '/pdms/dws/dept-issue!saveDraftDeptIssue.action',
+            params: {
+            	model: Ext.encode(issueForm.getFieldValues())
+            },
+            scope: me,
+            success: function(form, action) {
+            	var result = ExtApp.util.Util.decodeJSON(action.response.responseText);
+            	// Form刷新
+            	var iForm = Ext.create({
+            		xtype: 'deptIssueForm',
+            		region: 'center',
+            		issueId: result.data.issueId,
+            		actionType: 'raise'
+            	});
+            	iForm.load({
+        			url: '/pdms/dws/dept-issue!getDeptIssue.action',
+        			params: {
+        				issueId: result.data.issueId
+        			}
+        		});
+            	me.view.query('#issuePanel')[0].remove(issuePanel);
+            	me.view.query('#issuePanel')[0].insert(0, iForm);
+            	// 添加讨论区
+            	if (! me.view.down('forum')) {
+            		// 讨论区成员列表
+                	var issueMember = Ext.create({
+                		xtype: 'deptIssueMember',
+                		issueId: result.data.issueId
+                	});
+                	// 讨论区
+                	var forum = Ext.create({
+        				xtype: 'forum',
+        				sourceId: result.data.issueUuid,
+        				source: 'PM-DEPT-ISSUE',
+        				forumMember: issueMember,
+        				title: '协作'
+                	});
+                	me.view.query('#issueTab')[0].add(forum);
+            	}
+            	me.view.unmask();
+            	me.view.parentCaller.refreshView();
+            	ExtApp.util.Util.showToast("保存草稿成功！");
+            },
+            failure: function(form, action) {
+            	me.view.unmask();
+            	ExtApp.util.Util.handleFormFailure(action);
+            }
+        });
+//    	}
+    },
+    
+    // 提交
+    onButtonClickSubmit: function(button, e, options){
+        var me = this;
+        var form = this.view.down('deptIssueForm').getForm();
+        if (form.isValid()) {
+        	me.view.mask('Please Waiting...');
+        	form.submit({
+                clientValidation: true,
+                url: '/pdms/dws/dept-issue!saveDeptIssue.action',
+                params: {
+                	action: 'NEXT',
+                	model: Ext.encode(form.getFieldValues())
+                },
+                scope: me,
+                success: function(form, action) {
+                	me.view.unmask();
+                	me.view.parentCaller.refreshView();
+                	ExtApp.util.Util.showToast("提交成功！");
+                	me.closeWindow();
+                },
+                failure: function(form, action) {
+                	me.view.unmask();
+                	ExtApp.util.Util.handleFormFailure(action);
+                }
+            });
+    	}
+    },
+    
+    // 关闭
+    closeWindow: function() {
+    	this.view.close();
+    }
+});

@@ -1,0 +1,16 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectDBStatusReportModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.projectDBStatusReport',
+
+    fields:[
+            'id',
+            'statusCodePs',
+    		'statusCodeQi',
+    		'statusCodePi',
+    		'statusCodeVc',
+    		'statusCodeIb',
+    		'programVehicleId',
+    		'programId'
+    ]
+             
+});

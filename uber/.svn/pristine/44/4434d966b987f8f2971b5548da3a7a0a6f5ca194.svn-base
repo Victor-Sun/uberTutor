@@ -1,0 +1,19 @@
+/**
+ * 子项目Store
+ */
+Ext.define('ExtApp.store.qualityissuemanagement.ProgramVehicleStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.subProgramVehicle',
+
+    fields: ['id', 'name'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/combo!getProgramVehicle.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
+    autoLoad: true
+});

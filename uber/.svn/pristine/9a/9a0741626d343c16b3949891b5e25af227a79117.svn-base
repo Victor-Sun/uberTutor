@@ -1,0 +1,129 @@
+/**
+ * 质量问题管理-问题提交-描述附件Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.SubmissionController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.submission',
+
+    //初期加载
+    init: function() {
+    	var me = this;
+    	var submitUserName = me.getView().getForm().findField('submitUserName');
+    	submitUserName.setValue(Ext.ComponentQuery.query('#userNameItemId')[0].html);
+    },
+	// 点击【提交】
+    saveSubmit: function(btn) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	me.setAllowBlank(false);
+    	if(v_form.isValid() == false){
+    		Ext.Msg.alert('提示', "请填写必填项！！！");
+    		return;
+    	}
+    	v_form.submit({
+    		url: '/pdms/ims/ims-issue!save.action',
+            params: {
+            	method:'updateIssue',
+            	action:'NEXT'
+            },
+    	    waitMsg : '正在提交数据',
+    	    waitTitle : '提示',
+    	    method : "POST",
+    	    success : function(form, action) {
+                var result = ExtApp.util.Util.decodeJSON(action.response.responseText);
+    	    	ExtApp.util.Util.showToast(Ext.String.format('已提交!'));
+	    		btn.up('submission').destroy();
+	    		var newWin = Ext.create({
+        			title:"问题来源",
+                	xtype: 'submissWin'
+                });
+        		newWin.show();
+        		newWin.down('form').getForm().load({
+    				url: '/pdms/ims/ims-issue!getMyLastIssueForm.action',
+    				success: function(form, action) {
+    					
+    				}
+    			});
+    	    },
+    	    failure : function(form, action) {
+    	    	ExtApp.util.Util.handleFormFailure(action);
+    	    }
+	    });
+    },
+	// 点击【保存草稿】
+    saveDraft: function(btn) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	me.setAllowBlank(true);
+    	
+    	v_form.submit({
+//    		url: '/pdms/ims/submission!saveMyDraft.action',
+    		url: '/pdms/ims/ims-issue!save.action',
+            params: {
+            	model: Ext.encode(v_form.getFieldValues()),
+            	keyId: me.view.keyId,
+            	taskId: me.view.taskId,
+            	ProcessInstanceId: me.view.ProcessInstanceId,
+            	method:'updateIssue',
+            	action:'SAVE'
+            },
+            scope: this,
+    	    success : function(form, action) {
+    	    	v_form.findField('id').setValue(action.result.data);
+    	    	ExtApp.util.Util.showToast(Ext.String.format('已保存!'));
+    	    },
+    	    failure: function(form, action) {
+    	    	ExtApp.util.Util.handleFormFailure(action);
+    	    }
+    	});
+    },
+ //取消
+    cancel: function(btn) {
+    	var me = this;
+    	btn.up('qmsmain').controller.setCurrentView('todoListIMS');
+    },
+    // 点击【删除】
+    deleteSubmit: function(btn) {
+    	var me = this.view;
+    	var v_form = me.getForm();
+    	var view = this.getView().up('qmsmain');
+    	this.dialog = view.add({
+			title:"确定删除此问题吗？",
+        	xtype: 'submissionDeleteButton'
+        });
+        this.dialog.show();
+    	
+    },
+	// 点击【所属项目】
+    selcombo: function(combo, newValue, oldValue, eOpts) {
+    	var store = Ext.create('ExtApp.store.qualityissuemanagement.ProgramVehicleStore');
+    	store.getProxy().extraParams = {programId: newValue};
+    	store.load();
+    	var subCombo = this.getView().getForm().findField('subProjectId');
+    	var subComboValue = this.getView().getForm().findField('subProjectId').getValue();
+    	subCombo.reset();
+    	
+    	store.on('load', function() {
+    		subCombo.setStore(this);
+    		subCombo.setValue(subComboValue);
+    	});
+    },
+    setAllowBlank: function(flag) {
+    	var me = this.view;
+    	var v_form = me.getForm();
+    	me.getForm().findField('title').allowBlank = flag;
+    	me.getForm().findField('projectId').allowBlank = flag;
+    	me.getForm().findField('subProjectId').allowBlank = flag;
+    	me.getForm().findField('stageId').allowBlank = flag;
+    	me.getForm().findField('occurrenceDateStr').allowBlank = flag;
+    	me.getForm().findField('description').allowBlank = flag;
+    	me.getForm().findField('disposalMeasures').allowBlank = flag;
+    	if(flag){
+        	me.getForm().findField('occurrenceSite').allowBlank = flag;
+        	me.getForm().findField('testTypeId').allowBlank = flag;
+        	me.getForm().findField('sampleNumber').allowBlank = flag;
+        	me.getForm().findField('troublePartMileage').allowBlank = flag;
+        	me.getForm().findField('testProgress').allowBlank = flag;
+    	}
+    }
+});

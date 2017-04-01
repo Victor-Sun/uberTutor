@@ -1,0 +1,64 @@
+/**
+ * 项目管理-车型-项目总体状态变更记录
+ */
+Ext.define('ExtApp.view.projectmanagement.vehicle.VehicleRiskChangeLog',{
+	extend:'Ext.window.Window',
+	xtype:'vehicleRiskChangeLog',
+
+	modal: true,
+	closable: false,
+	
+	layout: 'fit',
+	
+	controller: 'vehicleRiskChangeLog',
+	
+	width: 700,
+	height: 350,
+	
+	title: '项目总体状态更改记录',
+	
+	initComponent: function() {
+		// Store
+		var logStore = Ext.create('ExtApp.store.projectmanagement.ProgramReportStatusStore');
+		logStore.getProxy().extraParams = {programVehicleId: this.programVehicleId};
+		logStore.load();
+		
+		this.items = [{
+			xtype:'grid',
+			store: logStore,
+			columns:[{
+				xtype: 'rownumberer'
+			},{ 
+				text: '变更日期',
+				dataIndex: 'createDate',
+				formatter: 'date("Y/m/d h:i:s")',
+				width: 150,
+				filter: {
+					type: 'date'
+				}
+			},{ 
+				text: '变更者',
+				width: 100,
+				dataIndex: 'createByName'
+			},{ 
+				text: '变更状态',
+				width: 100,
+				align: 'center',
+				dataIndex: 'statusCodeTotal',
+				renderer: 'renderReportStatus'
+			},{ 
+				text: '备注',
+				flex: 1,
+				dataIndex: 'memo',
+				renderer: 'renderRemark'
+			}]
+		}];
+		this.tools = [{
+			text:'关闭',
+			xtype: 'button',
+			iconCls: 'x-fa fa-close',
+			handler: 'cancel'
+		}];
+		this.callParent(arguments);
+	}
+});

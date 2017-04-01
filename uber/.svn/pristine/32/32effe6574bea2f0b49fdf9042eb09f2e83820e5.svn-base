@@ -1,0 +1,26 @@
+/**
+ * 系统管理-日志管理
+ */
+Ext.define('ExtApp.view.systemmanagement.log.logBase',{
+	extend:'Ext.panel.Panel',
+	xtype:'logBase',
+
+	layout: 'fit',
+	margin: 20,
+	cls:'shadow',
+	
+	items: [{
+		xtype: 'panel',
+		layout: {
+			type: 'vbox',
+			align: 'stretch'
+		},
+		items: [{
+			flex: 1,
+			xtype: 'tabpanel',
+			items:[{
+				xtype: 'sysLoginLog'
+			}]
+		}]
+	}]
+});

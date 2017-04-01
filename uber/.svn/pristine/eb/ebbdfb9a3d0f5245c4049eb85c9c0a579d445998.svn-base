@@ -1,0 +1,220 @@
+/**
+ * 个人管理-待办任务-分配责任工程师
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.step2.MyTaskInfo02',{
+	extend:'Ext.form.Panel',
+	xtype:'myTaskInfo02',
+	viewModel: 'myTask',
+	header: false,
+	
+	layout: {
+		type: 'border'
+	},
+	controller: 'myTaskInfo02',
+	initComponent: function() {
+		
+		
+		var me = this;
+		
+		var hiddenFlag = false;
+		if(me.record.get('issueStatusCode') =='ISSUE_STATUS_70'){
+			hiddenFlag = true;
+		}
+		var isMark = me.record.get('isMark')
+		var isHidden = true;
+		if(isMark == 'Y'){
+			isHidden = false;
+		}
+		
+		var issueMember = Ext.create('ExtApp.view.qualityissuemanagement.qedashboard.ForumMember',{sourceId:me.issueId});
+		this.items = [{
+			xtype:'tabpanel',
+			region:'center',
+			defaults: {
+				scrollable: 'y'
+			},
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
+			margin:0,
+			items:[{
+				xtype:'panel',
+				title:'问题信息',
+				layout:{
+					type: 'vbox',
+					align: 'stretch'
+				},
+				items:[{
+					xtype:'issueBaseInfo01'
+				},{
+					xtype:'issueDetailInfo'
+				},{
+					xtype:'tabpanel',
+					layout:'fit',
+					defaults: {
+						layout: {
+							type: 'vbox',
+							align: 'stretch'
+						},
+						scrollable: 'x'
+					},
+					activeTab: 1,
+					items:[{
+//						title:'问题描述',
+//						xtype:'issueDescription'
+//					},{
+						// 附件描述
+						xtype:'imsSubmitAttachment',
+						title:'描述附件',
+						margin: 0,
+						width:'100%',
+						scrollable: 'y',
+						programId: null,
+			    		sourceType: 'SOURCE_TYPE_DES_ATTACHMENT',
+			    		sourceId: this.issueId,
+			    		editable:false
+					},{
+						xtype:'panel',
+						title:'分配责任工程师',
+						readOnly:true,
+						layout:{
+							type:'vbox',
+							align: 'stretch'
+						},
+						items:[{
+							xtype: 'fieldset',
+							margin: 5,
+							title:'分配责任工程师',
+							layout: 'vbox',
+							defaults: {
+								layout: 'hbox'
+							},
+							items: [{
+								xtype:'container',
+								layout:{
+									type:'hbox',
+									align: 'stretch'
+								},
+								items:[{
+									xtype:'textfield',
+//									labelAlign: 'top',
+									fieldLabel:'责任工程师 &nbsp;<span style="color: red;">*</span>',
+									emptyText: '<单击选择人员>',
+									allowBlank:false,
+									editable:false,
+									margin: 10,
+									name:'ownerName',
+									listeners:{
+										click: {
+								            element: 'el',
+								            fn: 'selectMember'
+								        }
+									}
+								},{
+									xtype:'textfield',
+									hidden:true,
+									readOnly:true,
+									name:'owner'
+								}]	
+							}]
+						}]
+					}]
+				}]
+			},{
+				region:'center',
+				xtype:'forum',
+				sourceId:me.issueId,
+				source:'IMS-ISSUE',
+				forumMember:issueMember,
+				title:'协作'
+			},{
+				xtype:'mergedIssue',
+				title:'合并信息',
+				issueId: me.issueId
+//			},{
+//				xtype:'changeLog',
+//				margin: 0,
+//				title:'变更日志',
+//				issueId: me.issueId
+			},{
+				xtype:'historyForm',
+				margin: 0,
+				title:'历史表单',
+				issueId: me.issueId
+			},{
+				xtype:'onePageReport',
+				title:'一页纸报告',
+				issueId:me.issueId,
+				height:this.height
+			}]
+		},{
+			xtype:'operationLog',
+			collapsible: true,
+			split: true,
+			region:'east',
+			width: '20%',
+			margin: 0,
+			title:'操作日志',
+			issueId: me.issueId
+		}];
+		me.dockedItems = [{
+			// 审核确认栏
+			xtype:'toolbar',
+			dock: 'bottom',
+			cls: 'shadow',
+			defaults: {
+				scale: 'medium'
+			},
+//			renderTo:document.body,
+			items:['->',{
+					text: '提交',
+					ui: 'blue',
+					itemId:'btnSubmit',
+					handler:'saveInfo'
+				},{
+					text: '回退',
+					ui: 'blue',
+					itemId:'btnFallback',
+					handler:'fallback'
+//				},{
+//					text:'挂牌',
+//					ui: 'blue',
+//					hidden: ! me.listingPrivilege,
+//					handler: function() {
+//						ExtApp.view.qualityissuemanagement.qedashboard.MyTaskInfoCommonController.listing(me, me.issueId);
+//					}
+//				},{
+//					itemId:'delListingItemId',
+//					ui: 'blue',
+//					text:'摘牌',
+//					hidden: ! me.delListingPrivilege,
+//					handler: function() {
+//						ExtApp.view.qualityissuemanagement.qedashboard.MyTaskInfoCommonController.delListing(me, me.issueId);
+//					}
+//				},{
+//					itemId:'undoListingItemId',
+//					ui: 'blue',
+//					text:'取消挂牌',
+//					hidden: ! me.undoListingPrivilege,
+//					handler: function() {
+//						ExtApp.view.qualityissuemanagement.qedashboard.MyTaskInfoCommonController.undoListing(me, me.issueId);
+//					}
+				},{
+					text:'关注',
+					ui: 'blue',
+					itemId:'mark',
+					hidden:!isHidden,
+					handler:'mark'
+				},{
+					text:'取消关注',
+					ui: 'blue',
+					itemId:'cancelMark',
+					hidden:isHidden,
+					handler:'cancelMark'
+				}]
+		}]; 
+
+		this.callParent();
+	}
+});

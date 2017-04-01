@@ -1,0 +1,279 @@
+/**
+ * 项目管理-项目计划-节点计划
+ */
+Ext.define('ExtApp.view.projectmanagement.depttasklist.DeptPlanTaskListController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.deptPlanTaskList',
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	var grid = this.view.down('grid');
+    	if (! this.view.editPrivilege) {
+    		grid.down('toolbar').query('#btnAddNode')[0].setHidden(true);
+    		grid.down('toolbar').query('#btnBatchDeleteNode')[0].setHidden(true);
+    		grid.down('toolbar').query('#btnBatchImportNode')[0].setHidden(true);
+    		grid.down('toolbar').query('#btnSelResponsibleUser')[0].setHidden(true);
+			// 隐藏操作栏
+			if (grid.down('checkcolumn')) {
+				grid.down('checkcolumn').setHidden(true);
+			}
+			if (grid.down('actioncolumn')) {
+				grid.down('actioncolumn').setHidden(true);
+			}
+    	} else {
+    		this.view.cellEditing = new Ext.grid.plugin.CellEditing({
+                clicksToEdit: 1
+            });
+    		grid.addPlugin(this.view.cellEditing);
+    	}
+    	// 主计划不显示导入节点Button
+    	if (me.view.planLevel != '2') {
+    		grid.down('toolbar').query('#btnBatchImportNode')[0].setHidden(true);
+    	}
+    },
+	
+    // 双击列表
+    onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    	var me = this;
+    	var rec = grid.getStore().getAt(rowIndex);
+    	
+    	var editPrivilege4Dept = me.view.editPrivilege &&
+    								(me.view.planLevel == rec.get('taskPlanLevel'))	
+    	Ext.create({
+    		xtype: 'deptPlanTaskDetail',
+    		programId: me.view.programId,
+    		programVehicleId: me.view.programVehicleId,
+    		obsId: me.view.record.get('fnGroupId'),
+    		taskId: rec.get('id'),
+    		taskTypeCode: rec.get('taskTypeCode'),
+    		editPrivilege: editPrivilege4Dept,
+    		baselineId: me.view.baselineId,
+    		actionType: 'update',
+    		parentCaller: me
+    	}).show();
+    },
+
+    // 新建节点
+    onAddNode: function(btnObj) {
+    	var me = this;
+    	Ext.create({
+    		xtype: 'deptPlanTaskDetail',
+    		programId: me.view.programId,
+ 			programVehicleId: me.view.programVehicleId,
+    		obsId: me.view.record.get('fnGroupId'),
+    		editPrivilege: true,
+    		actionType: 'new',
+    		parentCaller: me
+    	}).show();
+    },
+    
+    // 删除节点
+    deleteNode: function(grid, rowIndex) {
+    	var me = this;
+    	var record = grid.getStore().getAt(rowIndex);
+
+    	Ext.MessageBox.confirm('提示', '确认要删除该任务节点？', function(btn) {
+    		// 提示信息点击【YES】则删除
+    		if (btn == 'yes') {
+    	    	Ext.Ajax.request({
+    	    		url:'/pdms/pm/dept-plan!deleteTask.action',
+    	    		params: {
+    	    			programVehicleId: me.view.programVehicleId,
+    	    			taskId: record.data.id
+    				},
+    				scope: me,
+    				success: function(response, opts) {
+    			    	var obj = Ext.decode(response.responseText);
+    					if (obj.success) {
+    						grid.getStore().reload();
+        			    	ExtApp.util.Util.showToast("删除成功！");
+    			        } else {
+    			        	ExtApp.util.Util.handleRequestFailure(response);
+    			        }
+    			    },
+    				failure: function(response, opts) {
+    			    	ExtApp.util.Util.handleRequestFailure(response);
+    			    }
+    	    	})
+    		}
+    	});
+    },
+    
+    // 批量删除节点
+    batchDeleteNode: function() {
+    	var me = this;
+    	if (me.view.down('grid').getSelection().length == 0) {
+    		ExtApp.util.Util.showErrorMsg('请选择要批量删除的节点！');
+    		return;
+    	}
+    	
+    	// 整理
+    	var grid = me.view.down('grid');
+    	var selection = grid.getSelection();
+    	var modelData = [];
+    	for (var i = 0; i < selection.length; i++) {
+    		modelData.push(selection[i].data);
+    	}
+    	
+    	// 删除节点提交
+    	Ext.MessageBox.confirm('提示', '确认要删除选中的任务节点?', function(btn) {
+    		// 提示信息点击【YES】则删除
+    		if (btn == 'yes') {
+    			me.view.mask('Please Waiting...');
+    	    	Ext.Ajax.request({
+    	    		url:'/pdms/pm/dept-plan!batchDeleteTask.action',
+    	    		params: {
+    	    			programVehicleId: me.view.programVehicleId,
+    	    			model: Ext.encode(modelData)
+    				},
+    				scope: me,
+    				success: function(response, opts) {
+    					me.view.unmask();
+    			    	var obj = Ext.decode(response.responseText);
+    					if (obj.success) {
+    						grid.getStore().reload();
+        			    	ExtApp.util.Util.showToast("删除成功！");
+    			        } else {
+    			        	ExtApp.util.Util.handleRequestFailure(response);
+    			        }
+    			    },
+    				failure: function(response, opts) {
+    					me.view.unmask();
+    			    	ExtApp.util.Util.handleRequestFailure(response);
+    			    }
+    	    	})
+    		}
+    	});
+    },
+
+    // 选择责任人（批量添加）
+    selResponsibleUser:function(btn) {
+    	var me = this;
+    	if (me.view.down('grid').getSelection().length == 0) {
+    		ExtApp.util.Util.showErrorMsg('请选择要批量设定负责人的任务！');
+    		return;
+    	}
+    	Ext.create({
+    		 xtype: 'obsDepartment',
+    		 programId: me.view.programId,
+             vehicleId: me.view.programVehicleId,
+             parentCaller: me
+        }).show();
+    },
+    
+    // 选择负责人确定
+    confirmUser: function(value) {
+		var me = this;
+		var grid = me.view.down('grid');
+    	var selection = grid.getSelection();
+    	var modelData = [];
+    	for (var i = 0; i < selection.length; i++) {
+    		modelData.push(selection[i].data);
+    	}
+		Ext.Ajax.request({
+			url:'/pdms/pm/dept-plan!updateTaskOwner.action',
+			params: {
+				taskOwner: value.userId,
+				model: Ext.encode(modelData)
+			},
+			scope: me,
+			success: function(response, opts) {
+		    	var obj = Ext.decode(response.responseText);
+		        if (obj.success) {
+		        	grid.getStore().reload();
+		        	ExtApp.util.Util.showToast("更新成功！");
+		        } else {
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+		})
+    },
+    
+    // 更新负责人
+    onEditTaskOwner: function(editor, context, eOpts) {
+    	var me = this;
+    	var modelData = [];
+    	modelData.push(context.record.data);
+    	Ext.Ajax.request({
+			url:'/pdms/pm/dept-plan!updateTaskOwner.action',
+			params: {
+				taskOwner: context.record.get('taskOwnerName'),
+				model: Ext.encode(modelData)
+			},
+			scope: me,
+			success: function(response, opts) {
+		    	var obj = Ext.decode(response.responseText);
+		        if (obj.success) {
+		        	me.refreshView();
+		        } else {
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+		})
+    },
+    
+    // 导入节点
+    batchImportNode: function() {
+    	var me = this;
+    	Ext.create({
+    		xtype: 'importTaskList',
+    		programVehicleId: me.view.programVehicleId,
+    		obsId: me.view.record.get('fnGroupId'),
+    		parentCaller: me
+    	}).show();
+    },
+    
+    // 查询
+    search: function(btn, e) {
+    	var me = this;
+    	me.view.mask('Please Waiting...');
+    	var form = me.view.down('toolbar').down('form').getForm();
+    	var store = Ext.create(
+			'ExtApp.store.projectmanagement.DeptPlanTaskStore');
+    	store.getProxy().extraParams = {
+    		programVehicleId: me.view.programVehicleId,
+			obsId: me.view.record.get('fnGroupId'),
+			baselineId: me.view.baselineId,
+			searchModel: Ext.encode(form.getFieldValues())
+		};
+    	store.load();
+    	store.on('load', function() {
+    		me.view.down('grid').setStore(this);
+    		me.view.down('pagingtoolbar').setStore(this);
+    		me.view.unmask();
+    	});
+    },
+    
+    // 重置
+    reloadSearch: function() {
+    	var me = this;
+
+    	var form = this.view.down('toolbar').down('form').getForm();
+    	Ext.each(form.getFields().items, function(field) {
+    		if (field.xtype != 'displayfield') {
+    			if (field.xtype == 'checkbox') {
+    				if (field.name == 'searchTaskOwnerNull') {
+    					field.setValue(false);
+    				} else {
+    					field.setValue(true);
+    				}
+        		} else {
+        			field.setValue('');
+        		}
+    		}
+		});
+    	this.search();
+    },
+    
+    // 刷新
+    refreshView: function() {
+    	this.view.down('grid').store.reload();
+    }
+});

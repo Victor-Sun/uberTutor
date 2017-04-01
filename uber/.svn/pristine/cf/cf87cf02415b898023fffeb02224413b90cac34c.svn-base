@@ -1,0 +1,27 @@
+/**
+ * 项目管理-查看基线
+ */
+Ext.define('ExtApp.view.projectmanagement.baseline.BiBaselineListController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.biBaselineList',
+    
+    // 双击列表
+    onCelldblclick: function(grid , td , cellIndex , record , tr , rowIndex , e , eOpts) {
+    	var rec = grid.getStore().getAt(rowIndex);
+    	// 查看基本信息基线详细
+		Ext.create({
+    		xtype: 'biBaselineWindow',
+    		programId: this.view.programId,
+    		baselineId: rec.get('id'),
+    		programType: this.view.programType,
+    		editPrivilege: this.view.editPrivilege,
+    		projectPrivilege: this.view.projectPrivilege,
+    		parentCaller: this
+    	}).show();
+    },
+    
+    // 关闭
+    closeWindow: function(btn) {
+    	this.view.close();
+    }
+});

@@ -1,0 +1,24 @@
+#hibernate
+hibernate.dialect=org.hibernate.dialect.Oracle10gDialect
+#hibernate.dialect=org.hibernate.dialect.SQLServerDialect
+hibernate.format_sql=false
+hibernate.show_sql=false
+
+#jcr
+jcr.repository.jndiName=jcr/repository
+
+#dms setting,  modify if necessary
+dms.rpc.serverName=168.168.1.132
+dms.rpc.port=8616
+dms.rpc.contentPath=dms
+#report server setting , modify if necessary
+reportserver.url=http://168.168.1.133:8090
+
+#BIM PROD 
+bim.server.url=http://168.168.1.126:8080
+bim.systemCode=PMS
+bim.restful.username=bbcservice
+bim.restful.password=password
+bim.restful.TargetOrganizationService.findBySystemCode=/bim-server/rest/TargetOrganizationService/findBySystemCode.json
+bim.restful.TargetAccountService.findXAttrBySystemCode=/bim-server/rest/TargetAccountService/findXAttrBySystemCode.json
+bim.restful.TargetAccountService.findBy=/bim-server/rest/TargetAccountService/findBy.json

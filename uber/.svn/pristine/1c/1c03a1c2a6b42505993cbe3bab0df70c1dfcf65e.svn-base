@@ -1,0 +1,323 @@
+/**
+ * 项目管理-项目计划-节点详细信息
+ */
+Ext.define('ExtApp.view.projectmanagement.maindept.DeptPlanTaskDetailController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.deptPlanTaskDetail',
+    
+    // 初始化
+    init: function() {
+    	var me = this;
+    	var form = me.view.down('form').getForm();
+    	var readOnlyStyle = 'background-color: #e2e2e2; color: #949495;';
+    	var inputStyle = 'background-color: #ffffff; color: #000000;';
+    	
+    	if (me.view.actionType != 'new') {
+    		// 节点类型不可编辑
+    		form.findField('taskTypeCode').setReadOnly(true);
+    		form.findField('taskTypeCode').setFieldStyle(readOnlyStyle);
+    		if (me.view.editPrivilege) {
+        		// 根据节点类型控制节点时间范围
+            	if (me.view.taskTypeCode == 'TASK_TYPE_NODE') {
+            		// 开始时间无需输入
+            		form.findField('plannedStartDate').setValue(null);
+            		form.findField('plannedStartDate').setReadOnly(true);
+            		form.findField('plannedStartDate').setFieldStyle(readOnlyStyle);
+            		// 周期无需输入、固定为1天
+            		form.findField('durationDays').setValue(0);
+            		form.findField('durationDays').setReadOnly(true);
+            		form.findField('durationDays').setFieldStyle(readOnlyStyle);
+            	}
+        	} else {
+        		Ext.each(form.getFields().items, function(field) {
+    				field.setReadOnly(true);
+    				field.fieldCls = 'text-readonly';
+    			});
+        		// 隐藏按钮
+        		var panel = this.view.down('form');
+        		panel.query('#btnSelectRefTask')[0].setHidden(true);
+        		panel.query('#btnClearRefTask')[0].setHidden(true);
+        		panel.query('#btnSelectRefActivity')[0].setHidden(true);
+        		panel.query('#btnClearRefActivity')[0].setHidden(true);
+    			// 保存按钮
+        		//panel.down('toolbar').setHidden(true);
+        		Ext.Array.removeAt(me.view.tools, 0);
+        	}
+        	me.view.down('form').load({
+    			url: '/pdms/pm/dept-plan!getTaskDetail.action',
+    			params: {
+    				taskId: me.view.taskId
+    			}
+    		});
+    	}
+    },
+    
+    // 保存
+    saveTaskDetail: function() {
+    	var me = this;
+        var form = this.view.down('form').getForm();
+
+        if (form.findField('taskTypeCode').value == 'TASK_TYPE_NODE') {
+        	// 必须输入截止时间
+        	if (form.findField('plannedFinishDate').value == '' ||
+        			form.findField('plannedFinishDate').value == null) {
+        		ExtApp.util.Util.showErrorMsg('必须输入截止时间!');
+        		return;
+        	}
+//        	// 交付物Check
+//        	if (form.findField('deliverableName').value != '' &&
+//        			form.findField('deliverableName').value != null) {
+//        		// 如果是一级交付物则必须指定所属阀门
+//        		if ((me.view.obsId == '' || me.view.obsId == null) &&
+//        				(form.findField('gateId').value == '' ||
+//            			 form.findField('gateId').value == null)) {
+//        			ExtApp.util.Util.showErrorMsg('一级交付物必须指定所属阀门!');
+//            		return;
+//        		}
+//        	}
+        } else {
+        	// 必须输入开始时间、截止时间、周期（天）中的任意两个
+        	if ((form.findField('plannedStartDate').value == null ||
+        				form.findField('plannedStartDate').value == '') &&
+        		(form.findField('plannedFinishDate').value == null ||
+        				form.findField('plannedFinishDate').value == '') ||
+        		(form.findField('plannedStartDate').value == null ||
+        				form.findField('plannedStartDate').value == '') &&
+        		(form.findField('durationDays').value == null ||
+        				form.findField('durationDays').value == '') ||
+        		(form.findField('plannedFinishDate').value == null ||
+        				form.findField('plannedFinishDate').value == '') &&
+        		(form.findField('durationDays').value == null ||
+        				form.findField('durationDays').value == '')) {
+        		ExtApp.util.Util.showErrorMsg('必须输入开始时间、截止时间、周期（天）中的任意二者!');
+        		return;
+        	}
+        }
+        if (form.isValid()){
+        	me.view.mask('Please Waiting...');
+        	if (me.view.actionType == 'new') {
+        		form.submit({
+                    clientValidation: true,
+                    url: '/pdms/pm/dept-plan!addTask.action',
+                    params: {
+                    	programId: me.view.programId,
+                    	programVehicleId: me.view.programVehicleId,
+                    	obsId: me.view.obsId,
+            			functionId: me.view.functionId,
+                    	model: Ext.encode(form.getFieldValues())
+                    },
+                    scope: me,
+                    success: function(form, action) {
+                    	me.view.unmask();
+                    	me.view.parentCaller.refreshView();
+                    	ExtApp.util.Util.showToast("新建成功！");
+                    	me.closeWindow();
+                    },
+                    failure: function(form, action) {
+                    	me.view.unmask();
+                    	ExtApp.util.Util.handleFormFailure(action);
+                    }
+                });
+        	} else {
+        		form.submit({
+                    clientValidation: true,
+                    url: '/pdms/pm/dept-plan!saveTaskDetail.action',
+                    params: {
+                    	taskId: me.view.taskId,
+                    	model: Ext.encode(form.getFieldValues())
+                    },
+                    scope: me,
+                    success: function(form, action) {
+                    	me.view.unmask();
+                    	me.view.parentCaller.refreshView();
+                    	me.view.down('form').load({
+                			url: '/pdms/pm/dept-plan!getTaskDetail.action',
+                			params: {
+                				taskId: me.view.taskId
+                			}
+                		});
+                    	ExtApp.util.Util.showToast("保存成功！");
+                    },
+                    failure: function(form, action) {
+                    	me.view.unmask();
+                    	ExtApp.util.Util.handleFormFailure(action);
+                    }
+                });
+        	}
+        }
+    },
+    
+    // 关闭
+    closeWindow: function() {
+    	this.view.close();
+    },
+    
+//    // 选择交付物
+//    selectDeliverable: function() {
+//    	var me = this;
+//        Ext.create({
+//            xtype: 'deptPlanDeliverable',
+//            programVehicleId: me.view.programVehicleId,
+//            parentCaller: me
+//        }).show();
+//    },
+//    
+//    // 选择交付物-确定
+//    confirmDeliverable: function(selModel) {
+//    	if (selModel.length == 0) {
+//    		return;
+//    	}
+//    	var form = this.view.down('form').getForm();
+//    	form.findField('deliverableName').setValue(selModel[0].get('attachmentName'));
+//    	form.findField('deliverableId').setValue(selModel[0].get('id'));
+//    	form.findField('respObsName').setValue(selModel[0].get('obsName'));
+//    	form.findField('gateName').setValue(selModel[0].get('taskName'));
+//    	form.findField('gateId').setValue(selModel[0].get('taskId'));
+//    },
+//    
+//    // 清除关联交付物
+//    clearDeliverable: function() {
+//    	var form = this.view.down('form').getForm();
+//    	form.findField('deliverableName').setValue('');
+//    	form.findField('deliverableId').setValue('');
+//    	form.findField('respObsName').setValue('');
+//    	form.findField('gateName').setValue('');
+//    	form.findField('gateId').setValue('');
+//    },
+    
+    // 选择关联节点
+    selectRefTask: function() {
+    	var me = this;
+    	var form = this.view.down('form').getForm();
+    	var taskEdDate = form.findField('plannedFinishDate').value;
+    	if (taskEdDate == null || taskEdDate == '') {
+    		ExtApp.util.Util.showErrorMsg('请先指定任务的截止时间！');
+    		return;
+    	}
+        Ext.create({
+            xtype: 'deptPlanRefTask',
+            programVehicleId: me.view.programVehicleId,
+            relationFlag: true,
+            parentCaller: me
+        }).show();
+    },
+    
+    // 选择关联节点-确定
+    confirmRefTask: function(selModel) {
+    	var me = this;
+    	if (selModel.length == 0) {
+    		return;
+    	}
+    	var form = this.view.down('form').getForm();
+    	var stDate = selModel[0].get('plannedFinishDate');
+    	var taskEdDate = form.findField('plannedFinishDate').value;
+    	if (taskEdDate > stDate) {
+    		ExtApp.util.Util.showErrorMsg('所选关联节点的开始时间必须晚于本任务的截止时间!' 
+    				+ '<br>任务节点截止时间：' + ExtApp.util.Util.formatDate(taskEdDate)
+    				+ '<br>关联节点开始时间：' + ExtApp.util.Util.formatDate(stDate));
+    		return;
+    	}
+    	if (me.view.taskId == selModel[0].get('id')) {
+    		ExtApp.util.Util.showErrorMsg('不允许选择节点本身作为关联节点！');
+    		return;
+    	}
+    	form.findField('relationTaskName').setValue(selModel[0].get('taskName'));
+    	form.findField('relationTaskId').setValue(selModel[0].get('id'));
+    },
+    
+    // 清除关联节点
+    clearRefTask: function() {
+    	var form = this.view.down('form').getForm();
+    	form.findField('relationTaskName').setValue('');
+    	form.findField('relationTaskId').setValue('');
+    },
+    
+    // 选择关联活动
+    selectRefActivity: function() {
+    	var me = this;
+    	var form = this.view.down('form').getForm();
+    	var taskEdDate = form.findField('plannedFinishDate').value;
+    	if (taskEdDate == null || taskEdDate == '') {
+    		ExtApp.util.Util.showErrorMsg('请先指定任务的截止时间！');
+    		return;
+    	}
+        Ext.create({
+            xtype: 'deptPlanRefActivity',
+            taskId: me.view.taskId,
+            functionId: me.view.functionId,
+            parentCaller: me
+        }).show();
+    },
+    
+    // 选择关联活动-确定
+    comfirmRefActivity: function(selModel) {
+    	if (selModel.length == 0) {
+    		return;
+    	}
+    	var form = this.view.down('form').getForm();
+    	var stDate = selModel[0].get('plannedStartDate');
+    	var edDate = selModel[0].get('plannedFinishDate');
+    	var taskEdDate = form.findField('plannedFinishDate').value;
+    	
+    	if (taskEdDate < stDate || taskEdDate > edDate) {
+    		ExtApp.util.Util.showErrorMsg('任务节点的截止时间超出所选活动的起始时间!' 
+    				+ '<br>任务节点截止时间：' + ExtApp.util.Util.formatDate(taskEdDate)
+    				+ '<br>活动开始时间：' + ExtApp.util.Util.formatDate(stDate)
+    				+ '<br>活动截止时间：' + ExtApp.util.Util.formatDate(edDate));
+    		return;
+    	}
+    	form.findField('parentTaskName').setValue(selModel[0].get('taskName'));
+    	form.findField('parentId').setValue(selModel[0].get('id'));
+    },
+    
+    // 清除关联活动
+    clearRefActivity: function() {
+    	var form = this.view.down('form').getForm();
+    	form.findField('parentTaskName').setValue('');
+    	form.findField('parentId').setValue('');
+    },
+    
+    // 类型变更
+    onChangeTaskType: function(combo, newValue, oldValue, eOpts) {
+    	if (this.view.actionType == 'update') {
+    		return;
+    	}
+    	var readOnlyStyle = 'background-color: #e2e2e2; color: #949495;';
+    	var inputStyle = 'background-color: #ffffff; color: #000000;';
+    	var panel = this.view.down('form');
+    	var form = panel.getForm();
+    	if (newValue == 'TASK_TYPE_NODE') {
+    		// 开始时间无需输入
+    		form.findField('plannedStartDate').setValue(null);
+    		form.findField('plannedStartDate').setReadOnly(true);
+    		form.findField('plannedStartDate').setFieldStyle(readOnlyStyle);
+    		// 周期无需输入、固定为1天
+    		form.findField('durationDays').setValue(0);
+    		form.findField('durationDays').setReadOnly(true);
+    		form.findField('durationDays').setFieldStyle(readOnlyStyle);
+    		// 标题显示位置
+    		form.findField('titleDispLocation').setHidden(false);
+    		panel.query('#dumyColumn')[0].setHidden(true);
+    		// 关联节点、关联活动
+    		panel.query('#rPanel')[0].setHidden(false);
+    		// 关联交付物
+    		panel.query('#dPanel')[0].setHidden(false);
+    	} else {
+    		// 开始时间输入放开
+    		form.findField('plannedStartDate').setValue(null);
+    		form.findField('plannedStartDate').setReadOnly(false);
+    		form.findField('plannedStartDate').setFieldStyle(inputStyle);
+    		// 周期输入放开
+    		form.findField('durationDays').setValue(null);
+    		form.findField('durationDays').setReadOnly(false);
+    		form.findField('durationDays').setFieldStyle(inputStyle);
+    		// 标题显示位置
+    		form.findField('titleDispLocation').setHidden(true);
+    		panel.query('#dumyColumn')[0].setHidden(false);
+    		// 关联节点、关联活动
+    		panel.query('#rPanel')[0].setHidden(true);
+    		// 关联交付物
+    		panel.query('#dPanel')[0].setHidden(true);
+    	}
+    }
+});

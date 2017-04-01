@@ -1,0 +1,20 @@
+/**
+ * 质量问题管理-提交问题-知会Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.QeNotifyWindowController',{
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.qeNotifyWindow',
+
+    selectMember: function() {
+    	var view = this.getView().up('qmsmain');
+    	this.dialog = view.add({
+			title:"请选择...",
+        	xtype: 'qeNotifySelectWindow'
+        });
+        this.dialog.show();
+    	this.view.destroy();
+    },
+	closeWin: function(btn) {
+    	btn.ownerCt.ownerCt.destroy();
+	}
+});

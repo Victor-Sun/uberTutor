@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.ProjectTemplateMainDeptDeliverableStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectTemplateMainDeptDeliverable',
+    
+    model: 'ExtApp.model.projectmanagement.ProjectTemplateMainDeptDeliverableModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-temp!getTemplateMainDeptDeliverable.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

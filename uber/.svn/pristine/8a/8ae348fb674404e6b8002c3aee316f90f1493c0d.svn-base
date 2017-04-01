@@ -1,0 +1,231 @@
+/**
+ * 项目管理-计划-主计划-时程表Controller
+ */
+Ext.define('ExtApp.view.projectmanagement.timeline.ProjectTimeLineController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.projectTimeLine',
+    
+    // 初始化
+    init: function() {
+    	// 控制权限
+    	ExtApp.util.Util.setPrivilegeByItem(
+    			this.view.down('toolbar'),
+    			this.view.projectPrivilege[this.view.programVehicleId]);
+    	
+    	// 按照权限控制按钮
+    	if (! this.view.editPrivilege) {
+    		// 二级计划【设定时程表泳道】
+    		var btnSetting = this.view.down('toolbar').getComponent('BTNP1006');
+    		if (btnSetting) {
+    			btnSetting.setHidden(true);
+    		}
+    		// 主计划【设定时程表泳道】
+    		var btnSetting = this.view.down('toolbar').getComponent('BTNP0906');
+    		if (btnSetting) {
+    			btnSetting.setHidden(true);
+    		}
+    	}
+    	// 默认选中时程表显示方式-月
+    	if (this.view.down('toolbar').getComponent('comDisplayMode')) {
+    		this.view.down('toolbar').getComponent('comDisplayMode').select('M');
+    	}
+    },
+    
+    // 时程表显示方式变更
+    onChangeDisplayMode: function(combo, newValue, oldValue, eOpts) {
+    	// 显示时程表
+    	this.displayTimeLine(this.view.programVehicleId, newValue);
+    },
+    
+    // 全屏
+    preview: function() {
+    	var displayMode = 'M';
+    	if (this.view.down('toolbar').getComponent('comDisplayMode')) {
+    		displayMode = this.view.down('toolbar').getComponent('comDisplayMode').value;
+    	}
+    	
+    	var title = '主计划时程表';
+    	if (this.view.planLevel == '2') {
+    		title = '专业领域计划时程表';
+    	}
+    	
+    	var win = Ext.create("Ext.window.Window",{
+    		title: title,
+    		closable: false,
+    		maximized: true,
+    		layout:{
+    			type:'border'
+    		},
+    		items: [{
+    			xtype: 'panel',
+    			region: 'center',
+    			layout: 'fit'
+    		}],
+    		tools: [{
+    			xtype: 'button',
+    			text: '关闭',
+    			handler: function() {
+    				win.close();
+    			}
+    		}]
+    	});
+    	
+    	this.displayTimeLine(this.view.programVehicleId, displayMode, win.down('panel'));
+    	win.show();
+    },
+    
+    // 显示时程表
+    displayTimeLine: function(vehicleId, displayMode, containerView) {
+    	var me = this;
+    	
+    	if (! containerView) {
+    		if (this.view.items.getCount() > 0) {
+        		var p4remove = this.view.items.get(0);
+        		this.view.remove(p4remove);
+        	}
+    	}
+    	
+    	var rs,
+    		es;
+    	if (this.view.planLevel == '2') {
+    		// Resource Store
+    		rs = Ext.create('ExtApp.store.projectmanagement.ProjectTimeLineDeptResourceStore');
+        	rs.getProxy().extraParams = {
+        		vehicleId: vehicleId,
+        		planId: this.view.planId,
+        		obsId: this.view.fnGroupId,
+        		baselineId: this.view.baselineId};
+        	rs.load();
+    		// Events Store
+        	es = Ext.create('ExtApp.store.projectmanagement.ProjectTimeLineDeptEventStore');
+        	es.getProxy().extraParams = {
+        		programId: this.view.programId,
+        		vehicleId: vehicleId,
+        		planId: this.view.planId,
+        		obsId: this.view.fnGroupId,
+        		baselineId: this.view.baselineId};
+        	es.load();
+    	} else {
+    		// Resource Store
+    		rs = Ext.create('ExtApp.store.projectmanagement.ProjectTimeLineMainResourceStore');
+        	rs.getProxy().extraParams = {
+        		vehicleId: vehicleId,
+        		planId: this.view.planId,
+        		baselineId: this.view.baselineId};
+        	rs.load();
+    		// Events Store
+        	es = Ext.create('ExtApp.store.projectmanagement.ProjectTimeLineMainEventStore');
+        	es.getProxy().extraParams = {
+        		programId: this.view.programId,
+        		vehicleId: vehicleId,
+        		planId: this.view.planId,
+        		baselineId: this.view.baselineId};
+        	es.load();
+    	}
+    	// Project Store
+    	var ps = Ext.create('ExtApp.store.projectmanagement.ProjectTimeLineProjectStore');
+    	ps.getProxy().extraParams = {
+    		programId: this.view.programId,
+    		vehicleId: vehicleId,
+    		baselineId: this.view.baselineId};
+    	ps.load();
+    	ps.on('load', function() {
+    		if (this.getAt(0).data.start == null) {
+    			return;
+    		}
+    		var stages = this.getAt(0).data.stages;
+    		for (var i = 0; i < stages.length; i++) {
+    			stages[i].start = new Date(Date.parse(stages[i].start.replace(/-/g,"/")));
+    		}
+    		var viewPreset = 'dispByMonth';
+    		if (displayMode == 'Q') {
+    			viewPreset = {
+    				name: 'year',
+    				displayDateFormat : 'Y-m-d',
+    		        timeResolution    : {
+    		            unit      : "DAY",
+    		            increment : 1
+    		        }
+    			};
+    		} else if (displayMode == 'W') {
+    			viewPreset = {
+    				name: 'weekDateAndMonth',
+    				displayDateFormat : 'Y-m-d',
+    		        timeResolution    : {
+    		            unit      : "DAY",
+    		            increment : 1
+    		        }
+    			};
+    		}
+    		var newView = Ext.create({
+                xtype : 'timelinepanel',
+                editPrivilege: me.view.editPrivilege,
+                planLevel: me.view.planLevel,
+                fnGroupId: me.view.fnGroupId,
+                timeAxis : {
+                    xclass : 'ExtApp.data.TimeAxis',
+                    project: this.getAt(0).data
+                },
+                viewPreset: viewPreset,
+                startDate: this.getAt(0).data.start,
+                endDate: this.getAt(0).data.end,
+                resourceStore   : rs,
+                eventStore      : es,
+                showTodayLine: true,
+                plugins: [
+                    Ext.create('Sch.plugin.Printable', {
+                        docType             : '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">',
+                        autoPrintAndClose   : true
+                    })
+//                    new Ext.grid.plugin.CellEditing({
+//                        clicksToEdit: 2
+//                    })
+                ]
+//                viewConfig: {
+//                    plugins: {
+//                        ptype: 'gridviewdragdrop',
+//                        dragText: 'Drag and drop to reorganize'
+//                    }
+//                }
+            });
+    		
+    		if (containerView) {
+    			containerView.add(newView);
+    		} else {
+    			me.view.add(newView);
+    		}
+    	});
+    },
+    
+    // 刷新
+    refreshTimeline: function() {
+    	var displayMode = 'M';
+    	if (this.view.down('toolbar').getComponent('comDisplayMode')) {
+    		displayMode = this.view.down('toolbar').getComponent('comDisplayMode').value;
+    	}
+    	this.displayTimeLine(this.view.programVehicleId, displayMode);
+    },
+    
+    // 打印
+    printTimeline: function(btn) {
+    	var timelinePanel = btn.up('projectTimeLine').down('timelinepanel');
+    	timelinePanel.print();
+    },
+
+    // 设定泳道信息
+    setTimeLine: function() {
+    	var me = this;
+    	var fnGroupId = '';
+    	if (this.view.fnGroupId) {
+    		fnGroupId = this.view.fnGroupId;
+    	}
+		Ext.create({
+            xtype: 'timeLineSetting',
+            programId: this.view.programId,
+            vehicleId: this.view.programVehicleId,
+            obsId: fnGroupId,
+            parentCaller: me
+        }).show();
+	}
+
+});

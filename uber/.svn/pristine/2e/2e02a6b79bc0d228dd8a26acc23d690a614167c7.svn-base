@@ -1,0 +1,30 @@
+﻿Ext.define('ExtApp.view.qualityissuemanagement.reportcenter.TimeOutReport',{
+	extend:'Ext.container.Container',
+	xtype:'timeoutreport',
+	
+	//layout:'responsivecolumn',	
+	margin:20,
+	cls:'shadow',
+	items:[{
+		xtype:'panel',
+		layout:{
+			type:'vbox'
+//			align:'stretch'
+		},
+		title:'超时报表',
+		items:[{
+			xtype:'panel',	
+			margin:'10 10 10 10',	
+			height:20
+//			html:'<font size="3" color="#9d9d9d"><B>知识目录维护，质量知识库浏览</B></font>'
+		},
+		{
+			xtype:'image',
+			height:248,
+			width:706,
+			src:'resources/images/management/TimeoutReport.png',			
+			html:'内容待定'
+		}
+		]
+	}]
+});

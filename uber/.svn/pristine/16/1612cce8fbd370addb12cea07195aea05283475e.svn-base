@@ -1,0 +1,195 @@
+﻿Ext.define('ExtApp.view.login.LoginPage', {
+	extend:'Ext.container.Viewport',
+	xtype:'loginpage',
+	
+	requires: [
+       'ExtApp.util.Util',
+       'ExtApp.view.login.LoginController'
+    ],
+	
+	layout:{
+		type:'hbox'
+	},
+	
+	controller:'login',
+
+	items:[{
+		xtype:'panel',
+		width:'10%'
+	},{
+		xtype:'panel',
+		flex:1,
+		height:'100%',
+		layout:{
+			type:'vbox',
+			align:'stretch'
+		},
+
+		items:[{
+			xtype:'panel',
+			height:74,
+			layout:{
+				type:'hbox',
+				align:'stretch'
+			},
+			items:[{
+				xtype:'panel',
+				margin: 5,
+				layout: 'fit',
+				items:[{
+					xtype:'image',
+					width: 90,
+					height: 60,
+					src:'resources/images/company-logo3.png'
+				}]
+			},{
+				xtype: 'panel',
+				margin: 5,
+				layout: 'fit',
+				items: [{
+					xtype: 'image',
+					width: 3,
+					height: 60,
+					src: 'resources/images/splitter.png'
+				}]
+			},{
+				xtype:'panel',
+				margin: 5,
+				layout: 'fit',
+				items:[{
+					xtype:'image',
+//					height:60,
+					width: 185,
+//					padding:15,
+//					html:'<h1>广汽研究院PMS</h1>'
+					src:'resources/images/company-text2.png'
+				}]
+			},{
+				xtype:'panel',
+				layout:{
+					type:'hbox',
+					align:'center'
+				},
+				flex:1,
+				items:[{
+					xtype:'container',
+					flex:1
+				},{
+					xtype:'toolbar',
+					items:[{
+						xtype:'tbfill'
+//					},{
+//						text:'Help Center',
+//						height:45,
+//						width:120,
+//						iconCls:'fa fa-question',
+//						listeners:{
+//							click:'help'
+//						}
+					}]
+				}]
+			}]
+		},{
+			xtype:'panel',
+			flex:1,
+			bodyCls:'loginSection',
+			html:
+				'<div class="slide-contbox">'+
+                	'<div class="num" style="display:none;">'+
+                    	'<a class="cur"></a>'+
+                    	'<a></a>'+
+                    '</div>'+
+                	'<div class="slide-div">'+
+	                	'<ul>'+
+	                		'<li style="display:block;"><img class="carousel" alt="image 1" src="resources/images/login1.952.jpg" /></li>'+
+	                    	'<li><img class="carousel" alt="image 2" src="resources/images/login2.952.jpg" /></li>'+
+							'<li><img class="carousel" alt="image 3" src="resources/images/login3.952.jpg" /></li>'+
+	                    '</ul>'+
+                	'</div>'+
+                '</div>',
+			layout:'absolute',
+			items:[{
+				xtype:'form',
+				reference: 'form',
+				width:400,
+				x:'63%',
+				y:'33%',
+				margin:'1',
+				bodyCls:'shadow loginClear loginWindow',
+				layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				items:[{
+
+				},{
+					xtype:'fieldset',
+					margin:'0',
+					defaults:{
+						margin:'15 10 5 15',
+						xtype:'textfield',
+						labelWidth:70,
+						allowBlank:false,
+						msgTarget:'side',
+						enableKeyEvents: true,
+			            listeners: {
+			                specialKey: 'onTextFieldSpecialKey'
+			            }
+					},
+					layout:'vbox',
+					items:[{
+						fieldLabel:'用户名',
+						maxLength:25,
+						width:325,
+						name:'loginUserId'
+					},{
+						inputType:'password',
+						name:'loginPassword',
+						fieldLabel:'密码',
+						id:'password',
+						maxLength:15,
+						width:325,
+						msgTarget:'side'
+					},{
+						xtype:'button',
+						bodyCls:'loginBtn',
+						text:'登录',
+						padding:'5 10',
+						listeners: {
+							click: 'onButtonClickSubmit'
+						}
+					}]
+				}]
+			}]
+		},{
+			xtype:'panel',
+			height:50,
+			layout:{
+				type:'vbox',
+				align:'stretch'
+			},
+			items:[{
+				xtype:'panel',
+				layout:'hbox',
+				height:30,
+				items:[{
+					xtype:'toolbar',
+					flex:1,
+					layout:'hbox',
+					cls:'footer',
+					defaults:{
+						xtype:'tbtext'
+					},
+					items:[{
+					}]
+				}]
+			},{
+				xtype:'panel'
+
+			}]
+		}]
+	},{
+		xtype:'panel',
+		width:'10%'
+	}]
+});

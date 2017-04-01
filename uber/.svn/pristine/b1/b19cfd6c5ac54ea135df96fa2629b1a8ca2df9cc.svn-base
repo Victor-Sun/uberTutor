@@ -1,0 +1,19 @@
+Ext.define('ExtApp.store.projectmanagement.ProgressReportProjectStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.progressReportProject',
+    
+    fields: [
+             {name: 'start', type: 'date'},
+             {name: 'end', type: 'date'},
+             {name: 'stages'}
+    ],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/mp/progress-report!getProjectData.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

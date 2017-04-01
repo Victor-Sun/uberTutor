@@ -1,0 +1,104 @@
+/**
+ * 部门空间-文档管理-文档列表
+ */
+Ext.define('ExtApp.view.deptworkspace.document.DeptDocumentList',{
+	extend:'Ext.panel.Panel',
+	xtype:'deptDocumentList',
+	
+	controller: 'deptDocumentList',
+
+	layout: 'fit',
+	
+	initComponent: function() {
+		var me = this;
+		var docStore = Ext.create('ExtApp.store.deptworkspace.DeptDocumentListStore');
+		if (me.rootFolder) {
+			docStore.getProxy().extraParams = {departmentId: me.departmentId};
+		} else {
+			docStore.getProxy().extraParams = {folderId: me.nodeId};
+		}
+		docStore.load();
+		
+		var hideAction = true;
+		if (me.deleteFolderPrivilege) {
+			hideAction = false;
+		}
+		
+		var hideUpload = true;
+		if (me.uploadFolderPrivilege) {
+			hideUpload = false;
+		}
+		
+		var rootFolder = false;
+		if (me.rootFolder) {
+			rootFolder = me.rootFolder;
+		}
+		
+		this.items = [{
+			xtype: 'grid',
+			store: docStore,
+			columns: [{
+				xtype: 'rownumberer'
+			},{
+				text: '文档名称',
+				flex: 1,
+				dataIndex: 'documentName',
+				renderer: 'renderFileLink',
+				listeners: {
+					click: 'onFileClick'
+				}
+			},{
+				text: '上传人',
+				flex: 1,
+				dataIndex: 'createBy'
+			},{
+				text: '上传时间',
+				flex: 1,
+				dataIndex: 'createDate',
+				formatter: 'date("Y/m/d")'
+			},{
+				text: '所在文件夹',
+				flex: 1,
+				dataIndex: 'folderName',
+				hidden: ! rootFolder
+			},{
+				xtype: 'actioncolumn',
+		        width: 30,
+		        sortable: false,
+		        menuDisabled: true,
+		        items: [{
+		            iconCls: 'cell-editing-delete-row',
+		            handler: 'deleteFile'
+		        }],
+		        hidden: hideAction
+			}],
+            tbar: [{
+				xtype: 'textfield',
+				labelAlign: 'right',
+				labelWidth: 70,
+				itemId: 'searchDocumentName',
+				fieldLabel: '文档名称'
+			},{
+				text: '查询',
+				iconCls: 'x-fa fa-search',
+				handler: 'search'
+			},{
+				text: '重置',
+				iconCls: 'x-fa fa-rotate-left',
+				handler: 'reloadSearch'
+			},'->',{
+				text: '上传文件',
+		        iconCls: 'x-fa fa-upload',
+		        handler: 'uploadFile',
+		        hidden: hideUpload
+			}],
+            dockedItems: [{
+                xtype: 'pagingtoolbar',
+                dock: 'bottom',
+                displayInfo: true,
+                store: docStore
+            }]
+		}];
+		this.callParent(arguments);
+	}
+});

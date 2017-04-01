@@ -1,0 +1,36 @@
+Ext.define('ExtApp.view.projectmanagement.issue.raiseissue.AssignWindow2',{
+	extend: 'Ext.window.Window',
+	
+	items: [{
+		xtype: 'fieldset',
+		margin: 10,
+		title: '项目类 - 审核、审批人员',
+		layout: {
+			type: 'hbox'
+		},
+		defaults: {
+			xtype: 'textfield',
+			labelAlign: 'top',
+			margin: '5 10'
+		},
+		items: [{
+			fieldLabel: '科长'
+		},{
+			fieldLabel: '部长'
+		},{
+			fieldLabel: '部门院领导'
+		}]
+	}],
+	dockedItems: [{
+		xtype: 'toolbar',
+		dock: 'bottom',
+		defaults: {
+			xtype: 'button'
+		},
+		items: [{
+			text: 'Submit'
+		},{
+			text: 'Cancel'
+		}]
+	}]
+});

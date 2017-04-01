@@ -1,0 +1,23 @@
+Ext.define('ExtApp.store.projectmanagement.CustomizeDocumentStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.customizeDocument',
+    
+    fields: ['docmentIndexId',
+             'documentRevisionId',
+             'programCode',
+             'documentName',
+             'createBy',
+             'createDate'
+    ],
+    
+    pageSize:ExtApp.common.Constants.pageSize,
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-document!getCustomizeDocument.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

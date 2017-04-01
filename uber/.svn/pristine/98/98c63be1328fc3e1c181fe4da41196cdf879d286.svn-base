@@ -1,0 +1,24 @@
+Ext.define('ExtApp.store.projectmanagement.VehicleDashboardDeliverableStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.vehicleDashboardDeliverable',
+    
+    fields: [
+		 {name: 'gateCode'},
+		 {name: 'total', type: 'number'},
+		 {name: 'notStart', type: 'number'},
+		 {name: 'green', type: 'number'},
+		 {name: 'greenYellow', type: 'number'},
+		 {name: 'yellow', type: 'number'},
+		 {name: 'red', type: 'number'},
+		 {name: 'blue', type: 'number'}
+	],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/vehicle-dashboard!getDeliverableStatusData.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

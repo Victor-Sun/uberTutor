@@ -1,0 +1,95 @@
+/**
+ * 项目管理-车型项目-质量问题着陆道
+ */
+Ext.define('ExtApp.view.projectmanagement.vehicle.OpenIssueTrendChart',{
+	extend: 'Ext.panel.Panel',
+	xtype: 'openIssueTrendChart',
+	
+	controller: 'openIssueTrendChart',
+	
+	layout: 'fit',
+	
+	initComponent: function() {
+		// Store
+		var store = Ext.create('ExtApp.store.projectmanagement.VehicleDashboardOpenIssueTrendStore');
+		store.getProxy().extraParams = {programVehicleId: this.programVehicleId};
+		store.load();
+		
+		this.items = [{
+			xtype: 'cartesian',
+			height: 310,
+			store: store,
+			legend: {
+				docked: 'top'
+			},
+			axes: [{
+				type: 'numeric',
+				grid: true,
+				position: 'left',
+				minimum: 0,
+				title: {
+					text: '问题数',
+					fontSize: 13
+				},
+				fields: ['pendingCount', 'openCount', 'plannedPendingCount']
+			},{
+				type: 'category',
+				position: 'bottom',
+				grid: true,
+				title: {
+					text: '日期',
+					fontSize: 13
+				},
+				label: {
+	            	rotate: {
+	                    degrees: -45
+	                }
+				},
+				fields: 'dateTo'
+			}],
+			series: [{
+				type: 'bar',
+				xField: 'dateTo',
+				yField: ['pendingCount','openCount'],
+				title: ['实际遗留预关闭问题数','实际遗留分析中问题数'],
+				colors: ['yellow', 'red'],
+				label: {
+	        		display: 'insideEnd',
+	        		field: ['pendingCount','openCount'],
+	        		orientation: 'horizontal',
+	        		font: '10px Helvetica'
+        		}
+			},{
+				type: 'line',
+				title: '计划遗留问题数',
+				xField: 'dateTo',
+				yField: 'plannedPendingCount',
+				colors: ['red'],
+				style: {
+					lineWidth: 1
+				},
+				label: {
+	                field: 'plannedPendingCount',
+	                display: 'over',
+	                font: '10px Helvetica'
+	            },
+	            highlight: {
+	                fillStyle: '#000',
+	                radius: 5,
+	                lineWidth: 2,
+	                strokeStyle: '#fff'
+	            },
+				marker: {
+					type: 'square',
+					fx: {
+						duration: 200,
+						easing: 'backOut'
+					},
+					radius: 4,
+					lineWidth: 2
+				}
+			}]
+		}];
+		this.callParent();
+	}
+});

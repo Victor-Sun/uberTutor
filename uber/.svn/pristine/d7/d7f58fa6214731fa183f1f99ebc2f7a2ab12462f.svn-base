@@ -1,0 +1,69 @@
+Ext.define('ExtApp.view.projectManagement.issue.archiveissue.ArchiveIssueFormController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.archiveIssueForm',
+    onButtonClickSubmit: function(button, e, options){
+        var me = this;
+        if (me.lookupReference('archiveIssueForm').isValid()){
+        	me.doSubmit(button.value);
+        }
+    },
+    doSubmit: function(flag) {
+    	var me = this;
+        var form = this.lookupReference('archiveIssueForm');
+        var win = form.up('window');
+    	me.getView().mask('正在提交... 请耐心等待...');
+        form.submit({
+        	params:{action:flag},
+            clientValidation: true,
+            url: '/pdms/pm/project-open-issue!saveArchiveIssue.action',
+            scope: me,
+            success: 'onSubmitSuccess',
+            failure: 'onSubmitFailure'
+        });
+        
+    
+    },
+
+    onSubmitFailure: function(form, action) {
+
+        this.getView().unmask();
+
+        /*var result = Packt.util.Util.decodeJSON(action.response.responseText);
+
+        switch (action.failureType) {
+            case Ext.form.action.Action.CLIENT_INVALID:
+                Packt.util.Util.showErrorMsg('Form fields may not be submitted with invalid values');
+                break;
+            case Ext.form.action.Action.CONNECT_FAILURE:
+                Packt.util.Util.showErrorMsg(action.response.responseText);
+                break;
+            case Ext.form.action.Action.SERVER_INVALID:
+                Packt.util.Util.showErrorMsg(result.msg);
+        }*/
+
+        //alternative to code above - reuse code
+        AFC.util.Util.handleFormFailure(action);
+    },
+
+    onSubmitSuccess: function(form, action) {
+    	var me = this;
+    	if(me.flag == 'SAVE'){
+    		 var view = this.getView();
+    	        view.unmask();
+    	}else{
+    		var view = this.getView();
+            view.unmask();
+            
+            var win = form.owner.up('window');
+            var grid = win.grid;
+            win.close();
+            grid.getStore().load();
+    	}
+        
+    },
+    
+    // 关闭窗口
+    closeWindow: function() {
+    	this.view.close();
+    }
+});

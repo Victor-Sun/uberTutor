@@ -1,0 +1,57 @@
+.timelinepanel {
+
+  .sch-event {
+
+    background: transparent;
+    border: none !important;
+    overflow: visible;
+
+    .sch-event-inner {
+      overflow: visible;
+      padding: 0px 0px 0px 0px;
+
+      .task {
+        position: absolute;
+        background: blue;
+        overflow: visible;
+        width: 100%;
+
+        .task-inner {
+          overflow: visible;
+          z-index:1000;
+          width: 100%;
+
+          .task-milestone {
+            .top {
+              top: -30px;
+            }
+
+            .right {
+              position: relative;
+              top: 12px;
+              left: 15px;
+            }
+
+            .left {
+              position: relative !important;
+              top: 12px;
+              float: right;
+              left: -35px;
+            }
+          }
+
+          .task-inner-body {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+@import 'MileStone';
+@import 'Gate';
+@import 'Major';
+@import 'Function';
+@import 'DragDrop';

@@ -1,0 +1,26 @@
+/**
+ * 操作日志Store
+ */
+Ext.define('ExtApp.store.qualityissuemanagement.OperationLogStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.operationLog',
+
+    fields: [
+        {name: 'createDate'},
+        {name: 'taskOwnerName'},
+        {name: 'stepName'},
+        {name: 'actionName'},
+        {name: 'taskComment'}
+    ],
+    
+    pageSize:ExtApp.common.Constants.pageSize,
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/ims-issue-operation-log!getOperationLog.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

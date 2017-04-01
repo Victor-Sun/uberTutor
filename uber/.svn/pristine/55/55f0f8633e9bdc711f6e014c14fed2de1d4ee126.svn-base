@@ -1,0 +1,27 @@
+/**
+ * 项目管理-项目模板库View
+ */
+Ext.define('ExtApp.view.projectmanagement.templatelibrary.TemplateLibrary',{
+	extend:'Ext.panel.Panel',
+	xtype:'templatelib',
+	
+	controller:'templateLibrary',
+	
+	layout: 'fit',
+	margin: 20,
+	cls:'shadow',
+	
+	initComponent: function() {
+
+		//类型查询
+		this.typeStore = Ext.create(
+			'ExtApp.store.projectmanagement.ProgramTypeStore');
+		this.typeStore.load();
+
+		this.items = [{
+			xtype:'tabpanel',
+			reference:'refTemplateLibrary'
+		}];
+		this.callParent(arguments);
+	}
+});

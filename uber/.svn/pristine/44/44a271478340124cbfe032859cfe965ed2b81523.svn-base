@@ -1,0 +1,18 @@
+###redis##config########
+#redis\u670d\u52a1\u5668ip # 
+redis.ip=192.168.1.153
+#redis\u670d\u52a1\u5668\u7aef\u53e3\u53f7#
+redis.port=6379
+redis.isUse=true
+
+###jedis##pool##config###
+#jedis\u7684\u6700\u5927\u5206\u914d\u5bf9\u8c61#
+jedis.pool.maxActive=1024
+#jedis\u6700\u5927\u4fdd\u5b58idel\u72b6\u6001\u5bf9\u8c61\u6570 #
+jedis.pool.maxIdle=200
+#jedis\u6c60\u6ca1\u6709\u5bf9\u8c61\u8fd4\u56de\u65f6\uff0c\u6700\u5927\u7b49\u5f85\u65f6\u95f4 #
+jedis.pool.maxWait=1000
+#jedis\u8c03\u7528borrowObject\u65b9\u6cd5\u65f6\uff0c\u662f\u5426\u8fdb\u884c\u6709\u6548\u68c0\u67e5#
+jedis.pool.testOnBorrow=true
+#jedis\u8c03\u7528returnObject\u65b9\u6cd5\u65f6\uff0c\u662f\u5426\u8fdb\u884c\u6709\u6548\u68c0\u67e5 #
+jedis.pool.testOnReturn=true

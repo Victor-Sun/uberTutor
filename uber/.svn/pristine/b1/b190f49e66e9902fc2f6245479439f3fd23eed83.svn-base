@@ -1,0 +1,23 @@
+{
+  "name": "bryntum-gantt-pro",
+  "format": "1",
+  "version": "4.2.7",
+  "creator": "Bryntum",
+  "summary": "Ext Gantt Pro",
+  "detailedDescription": "Ext Gantt Pro",
+  "type": "code",
+  "signatures": [
+    {
+      "name": "Bryntum",
+      "uuid": "e7fd1d2f-e151-442d-a624-1c8bd50d9842",
+      "created": "2016-09-23T10:58:26Z",
+      "algorithm": "SHA1withRSA",
+      "nonce": "RD/MQgXQh34\u003d",
+      "signature": "F1waGo/jk1atfTur1HD4J5p9+fc+kxVe0PqDsDsBxLc9zMOt4hmhycdh7axqBQymxSevmiX4ogsxP9Yk3dl2mEj39XIXg4ykNHoyFZn4S9MnaA15ax0A2Ka/F1zF7IHK33+iAg8J5jKK9tYJW7O2issjlL+3sPZMeDifTc+T8gxccMWKxxVTPWpjvz4a2V87dTBKfOh42F5TLUA3cfu4uOFZeJawL/QSYvblHCg/1L/3/L3Oqj7H7rfdrFiAkU9wIIS8AvF89+zJ0KUilbAM8+DfjLIDoljQ69ej8wmVtgCHX7QP9cgzUkEMAN58d5MUf3UBrqkbV9Izk2M4XcJhsw\u003d\u003d"
+    }
+  ],
+  "output": "${package.dir}/build",
+  "framework": "ext",
+  "toolkit": "classic",
+  "classpath": "${package.dir}/src"
+}

@@ -1,0 +1,31 @@
+package com.gnomon.pdms.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="PM_WORK_GROUP_MEMBER")
+public class PMWorkGroupMemberEntity {
+	
+	@Id
+	private Long id;
+	
+	@Column(name="WORK_GROUP_ID")
+	private Long workGroupId;
+	
+	@Column(name="USER_ID")
+	private String userId;
+	
+	@Column(name="IS_ACTIVE")
+	private String isActive;
+	
+	@Column(name="CREATE_DATE") 
+	private Date createDate;
+	
+	@Column(name="UPDATE_DATE") 
+	private Date updateDate;
+}

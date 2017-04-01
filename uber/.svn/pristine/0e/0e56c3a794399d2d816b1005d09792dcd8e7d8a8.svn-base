@@ -1,0 +1,49 @@
+Ext.define("ExtApp.view.projectManagement.gantt.view.MainViewport", {
+    extend: 'Ext.container.Container',
+    alias : 'widget.advanced-viewport',
+
+    requires: [
+        'ExtApp.view.projectManagement.gantt.view.MainViewportController',
+        'ExtApp.view.projectManagement.gantt.view.MainViewportModel',
+        'ExtApp.view.projectManagement.gantt.view.GanttSecondaryToolbar',
+        'ExtApp.view.projectManagement.gantt.view.ControlHeader',
+        // @cut-if-gantt->
+        'ExtApp.view.projectManagement.gantt.view.Timeline',
+        'ExtApp.view.projectManagement.gantt.locale.En',
+        // <-@
+        'ExtApp.view.projectManagement.gantt.view.Gantt'
+    ],
+
+    viewModel : 'advanced-viewport',
+    controller: 'advanced-viewport',
+
+    layout: 'fit',
+
+    initComponent: function () {
+        this.items = [
+                    // @cut-if-gantt->
+//                    {
+//                        xtype    : 'advanced-timeline',
+//                        height   : 180,
+//                        region   : 'north',
+//                        taskStore: this.crudManager.getTaskStore()
+//                    },
+                    // <-@
+                    {
+                        xtype      : 'advanced-gantt',
+//                        region     : 'center',
+                        reference  : 'gantt',
+                        crudManager: this.crudManager,
+                        startDate  : this.startDate,
+                        endDate    : this.endDate,
+                        header     : this.header,
+                        readOnly   : this.readOnly,
+                        bbar       : {
+                            xtype: 'gantt-secondary-toolbar'
+                        }
+                    }
+                ];
+
+        this.callParent(arguments);
+    }
+});

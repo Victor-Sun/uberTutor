@@ -1,0 +1,205 @@
+Ext.define('ExtApp.view.myworkspace.task.PmTaskController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.pmTask',
+    
+    // 初始化
+    init: function() {
+
+    	var toolbar = this.view.down('toolbar');
+        // 参照画面
+		if (this.view.viewFlag == 'view') {
+    		// 隐藏按钮
+			toolbar.getComponent('btnApply').setHidden(true);
+			toolbar.getComponent('btnReport').setHidden(true);
+			toolbar.getComponent('btnApprove').setHidden(true);
+			toolbar.getComponent('btnReject').setHidden(true);
+			// 隐藏更改交付物状态
+			toolbar.getComponent('comDeliverableStatus').setHidden(true);
+			// 如果没有交付物、则隐藏交付物状态灯
+			//if (! this.view.deliverableId || this.view.deliverableId == '') {
+				toolbar.getComponent('dispDeliverableStatus').setHidden(true);
+				toolbar.getComponent('deliverableStatus').setHidden(true);
+			//}
+		// 执行画面
+		} else if (this.view.viewFlag == 'performance') {
+			// 隐藏审批状况
+			toolbar.getComponent('btnApprove').setHidden(true);
+			toolbar.getComponent('btnReject').setHidden(true);
+			// 隐藏更改交付物状态
+			toolbar.getComponent('comDeliverableStatus').setHidden(true);
+			// 如果没有交付物、则隐藏交付物状态灯
+			//if (! this.view.deliverableId || this.view.deliverableId == '') {
+				toolbar.getComponent('dispDeliverableStatus').setHidden(true);
+				toolbar.getComponent('deliverableStatus').setHidden(true);
+			//}
+		// 审批画面
+		} else {
+			// 隐藏申请变更、汇报进度
+			toolbar.getComponent('btnApply').setHidden(true);
+			toolbar.getComponent('btnReport').setHidden(true);
+			if (this.view.processCode != 'RA001') {
+				toolbar.getComponent('comDeliverableStatus').setHidden(true);
+				toolbar.getComponent('dispDeliverableStatus').setHidden(true);
+				toolbar.getComponent('deliverableStatus').setHidden(true);
+			}
+//			// 如果没有交付物、则隐藏交付物状态灯
+//			if (! this.view.deliverableId || this.view.deliverableId == '') {
+//				toolbar.getComponent('comDeliverableStatus').setHidden(true);
+//				toolbar.getComponent('dispDeliverableStatus').setHidden(true);
+//				toolbar.getComponent('deliverableStatus').setHidden(true);
+//			}
+		}
+    },
+
+    // 延期变更
+    extensionTask: function() {
+    	var gForm = this.view.down('pmTaskGeneral').getForm();
+    	Ext.create({
+    		xtype: 'pmTaskExtension',
+    		taskId: this.view.taskId,
+    		programId: this.view.programId,
+    		processTaskId: this.view.processTaskId,
+    		plannedFinishDate: gForm.findField('plannedFinishDate').value,
+    		parentCaller: this
+    	}).show();
+    },
+    
+    // 审核-通过
+    approve: function(btn) {
+    	var toolbar = this.view.down('toolbar');
+    	var status = '';
+    	if (this.view.processCode == 'RA001' &&
+    			toolbar.getComponent('comDeliverableStatus')) {
+    		status = toolbar.getComponent('comDeliverableStatus').value;
+    	}
+    	Ext.create({
+    		xtype: 'pmTaskApproval',
+    		taskId: this.view.taskId,
+			processId: this.view.processId,
+			processStepId: this.view.processStepId,
+			progressStatus: status,
+			action: 'approve',
+			parentCaller: this
+    	}).show();
+    },
+    
+    // 审核-不通过
+    reject: function(btn) {
+    	var toolbar = this.view.down('toolbar');
+    	var status = '';
+    	if (this.view.processCode == 'RA001' &&
+    			toolbar.getComponent('comDeliverableStatus')) {
+    		status = toolbar.getComponent('comDeliverableStatus').value;
+    	}
+    	Ext.create({
+    		xtype: 'pmTaskApproval',
+    		taskId: this.view.taskId,
+			processId: this.view.processId,
+			processStepId: this.view.processStepId,
+			progressStatus: status,
+			action: 'reject',
+			parentCaller: this
+    	}).show();
+    },
+    
+    // 审核确认
+    confirmApproval: function() {
+    	this.closeTask();
+    },
+
+    // 汇报进度
+    reportProgress: function(btn) {
+    	var me = this;
+    	if (this.view.taskStatusCode == 'TASK_STATUS_NOT_START') {
+    		ExtApp.util.Util.showErrorMsg("请先开始任务、再汇报进度");
+//    		Ext.MessageBox.confirm('提示', '该任务还未开始执行，确定要汇报进度?', function(btn) {
+//        		if (btn == 'yes') {
+//        			me.showReportWindow();
+//        		}
+//        	});
+    	} else {
+    		me.showReportWindow();
+    	}
+    },
+    
+    // 显示汇报进度页面
+    showReportWindow: function() {
+//    	var timeReport = Ext.create(
+//			'ExtApp.view.myworkspace.task.PmTaskTimeReport',
+//			{taskId: this.view.taskId});
+    	var timeReport = Ext.create({
+    		xtype: 'pmTaskTimeReport',
+    		taskId: this.view.taskId,
+    		parentCaller: this
+    	});
+		timeReport.down('form').load({
+			url: '/pdms/mw/todo-list!getTimeReportInfo.action',
+			params: {
+				taskId: this.view.taskId
+			}
+		});
+		timeReport.show();
+    },
+    
+    // 汇报进度-确认
+    confirmReport: function(statusCode) {
+    	var me = this;
+    	// 更改进展状态灯
+    	me.view.down('toolbar').getComponent('progressStatus').setSrc(
+    		'resources/images/' + this.getProgressImage(statusCode));
+    	// 刷新任务执行页面
+    	me.view.down('pmTaskDetail').down('pmTaskPerformance').load({
+			url: '/pdms/mw/todo-list!getTodoTaskInfo.action',
+			params: {
+				processTaskId: me.view.processTaskId
+			}
+		});
+    	// 刷新汇报记录画面
+    	me.view.down('pmTaskDetail').down('pmTaskTimeReportLog').store.reload();
+    	ExtApp.util.Util.showToast("汇报完成！");
+    },
+    
+    // 关闭任务画面
+    closeTask: function() {
+    	if (this.view.up('todolist')) {
+    		this.view.up('todolist').down('todoListPM').controller.refreshView();
+    		this.view.close();
+    	} else if (this.view.up('notifyList')) {
+    		this.view.up('notifyList').controller.refreshView();
+    		this.view.close();
+    	} else if (this.view.up('dashTodoListTaskWindow')) {
+    		this.view.up('dashTodoListTaskWindow').controller.refreshView();
+    		this.view.up('dashTodoListTaskWindow').close();
+    	}
+    },
+    
+    // 更改交付物状态
+    changeDeliverableStatus:function(combo, newValue, oldValue, eOpts) {
+    	var me = this;
+    	me.view.mask('Please Waiting...');
+    	Ext.Ajax.request({
+    		url:'/pdms/mw/todo-list!changeDeliverableStatus.action',
+    		params: {
+    			processId: this.view.processId,
+    			deliverableStatus: newValue
+			},
+			scope: me,
+			success: function(response, opts) {
+				me.view.unmask();
+		    	var obj = Ext.decode(response.responseText);
+    	        if (obj.success) {
+    	        	// 更改交付物状态灯
+    	        	me.view.down('toolbar').getComponent('deliverableStatus').setSrc(
+    	        		'resources/images/' + this.getProgressImage(newValue));
+    		    	ExtApp.util.Util.showToast("更新成功！");
+    	        } else {
+    	        	ExtApp.util.Util.handleRequestFailure(response);
+    	        }
+		    },
+			failure: function(response, opts) {
+				me.view.unmask();
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	})
+    }
+});

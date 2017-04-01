@@ -1,0 +1,246 @@
+/**
+ * 个人管理-待办任务-关闭审核
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.step.MyTaskInfo15',{
+	extend:'Ext.form.Panel',
+	xtype:'myTaskInfo15',
+	viewModel: 'myTask',
+	header: false,
+	layout: {
+		type: 'border'
+	},
+	controller: 'myTaskInfo15',
+	initComponent:function() {
+		var me = this;
+		var issueMember = Ext.create('ExtApp.view.qualityissuemanagement.qedashboard.ForumMember',{sourceId:me.issueId});
+		var isMark = me.record.get('isMark')
+		var isHidden = true;
+		if(isMark == 'Y'){
+			isHidden = false;
+		}
+		this.items = [{
+			xtype:'tabpanel',
+			region: 'center',
+			defaults: {
+				scrollable: 'y'
+			},
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
+			margin:0,
+			items:[{
+				xtype:'panel',
+				title:'问题信息',
+				layout:{
+					type: 'vbox',
+					align: 'stretch'
+				},
+				items:[{
+					xtype:'issueBaseInfo02'
+				},{
+					xtype:'issueDetailInfo'
+				},{
+					xtype:'tabpanel',
+					layout:'fit',
+					defaults: {
+						layout: {
+							type: 'vbox',
+							align: 'stretch'
+						},
+						scrollable: 'x'
+					},
+					activeTab:4,
+					items:[{
+						// 附件描述
+						xtype:'imsSubmitAttachment',
+						title:'描述附件',
+						margin: 0,
+						width:'100%',
+						scrollable: 'y',
+						programId: null,
+			    		sourceType: 'SOURCE_TYPE_DES_ATTACHMENT',
+			    		sourceId: this.issueId,
+			    		editable:false
+					},{
+						xtype:'myTaskInfoTo03',
+						title:'问题确认',
+						keyId: me.issueId,
+						taskId: this.taskId
+					},{
+						xtype:'myTaskInfoTo04',
+						title:'对策方案',
+						keyId: me.issueId,
+						taskId: this.taskId
+					},{
+						xtype:'myTaskInfoTo05',
+						title:'措施实施',
+						keyId: me.issueId,
+						taskId: this.taskId
+					},{
+						xtype: 'panel',
+						title:'效果验证',
+						items: [{
+							xtype:'form',
+							defaults: {
+								margin: 5
+							},
+							reference: 'refVerificationScheme08'
+						},{
+							xtype:'fieldset',
+							title: '<b>效果确认</b>',
+							margin: 5,
+							layout:{
+								type:'vbox'
+							},
+							defaults: {
+								layout: 'hbox',
+								defaults: {
+									margin: 5
+								}
+							},
+							items:[{
+								xtype:'container',
+								layout:{
+									type:'hbox'
+								},
+								items:[{
+									xtype:'combo',
+									fieldLabel:'效果确认',
+									editable: false,
+									bind: {
+										store: '{effectConfirmation}'
+							        },
+								    queryMode: 'local',
+								    displayField: 'name',
+								    valueField: 'id',
+									readOnly:true,
+									name:'effectConfirmation'
+								}]
+							},{
+								xtype: 'container',
+								items: [{
+									xtype:'textareafield',
+									fieldLabel:'理由',
+									width: 845,
+									readOnly:true,
+									name:'reason'//Missing
+								}]
+							},{
+								xtype: 'container',
+								items: [{
+									xtype:'imsFileAttachment',
+									margin: '5 5 5 0',
+									scrollable: 'y',
+									programId: null,
+						    		sourceType: 'SOURCE_TYPE_REASON_ATTACHMENT',
+						    		sourceId:me.issueId,
+						    		editable: false
+								}]
+							},{
+								xtype:'container',
+								items:[{
+									xtype:'textfield',
+									fieldLabel:'设变通知单（ECO）编号',
+									name:'ecoNo',
+									width:400,
+									readOnly:true
+								}]
+							}]
+						}]
+					}]	
+				}]
+			},{
+				xtype:'forum',
+				title:'协作',
+				region:'center',
+				sourceId:me.issueId,
+				source:'IMS-ISSUE',
+				forumMember:issueMember
+			},{
+				xtype:'mergedIssue',
+				title:'合并信息',
+				issueId: me.issueId
+//			},{
+//				xtype:'changeLog',
+//				title:'变更日志',
+//				issueId: me.issueId
+			},{
+				xtype:'historyForm',
+				title:'历史表单',
+				issueId: me.issueId
+			},{
+				xtype:'onePageReport',
+				title:'一页纸报告',
+				issueId:me.issueId,
+				height:this.height
+			}]
+		},{
+			xtype:'operationLog',
+			collapsible: true,
+			split: true,
+			region:'east',
+			width: '20%',
+			margin: 0,
+			title:'操作日志',
+			issueId: me.issueId
+		}];
+		me.dockedItems = [{
+			// 审核确认栏
+			xtype:'toolbar',
+			dock: 'bottom',
+			cls: 'shadow',
+//			renderTo:document.body,
+			defaults: {
+				scale: 'medium'
+			},
+			items:['->',{
+				text:'同意关闭',
+				ui: 'blue',
+				itemId:'btnDistribution',
+				handler:'agreeClose'
+			},{
+				text:'不同意关闭',
+				ui: 'blue',
+				itemId:'btnDisAgreeClose',
+				handler:'disAgreeClose'
+			},{
+				text:'挂牌',
+				ui: 'blue',
+				hidden: ! me.listingPrivilege,
+				handler: function() {
+					ExtApp.view.qualityissuemanagement.qedashboard.MyTaskInfoCommonController.listing(me, me.issueId);
+				}
+			},{
+				itemId:'delListingItemId',
+				ui: 'blue',
+				text:'摘牌',
+				hidden: ! me.delListingPrivilege,
+				handler: function() {
+					ExtApp.view.qualityissuemanagement.qedashboard.MyTaskInfoCommonController.delListing(me, me.issueId);
+				}
+			},{
+				itemId:'undoListingItemId',
+				ui: 'blue',
+				text:'取消挂牌',
+				hidden: ! me.undoListingPrivilege,
+				handler: function() {
+					ExtApp.view.qualityissuemanagement.qedashboard.MyTaskInfoCommonController.undoListing(me, me.issueId);
+				}
+			},{
+				text:'关注',
+				ui: 'blue',
+				itemId:'mark',
+				hidden:!isHidden,
+				handler:'mark'
+			},{
+				text:'取消关注',
+				ui: 'blue',
+				itemId:'cancelMark',
+				hidden:isHidden,
+				handler:'cancelMark'
+			}]
+		}];   
+		this.callParent();
+	}
+});

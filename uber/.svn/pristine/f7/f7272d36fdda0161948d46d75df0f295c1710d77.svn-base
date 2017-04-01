@@ -1,0 +1,13 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectValveDocumentModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.projectValveDocument',
+    
+    fields: [
+             {name: 'id'},
+             {name: 'taskName'},
+             {name: 'gateStatusCode'},
+             {name: 'isGatePass', type: 'boolean'},
+             {name: 'plannedFinishDate'}
+    ]
+
+});

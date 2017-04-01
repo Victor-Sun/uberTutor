@@ -1,0 +1,21 @@
+The Neptune theme for Ext Gantt.
+
+How to use the package in a workspace:
+
+1) Install the package (extract `*.pkg` file into packages folder in your workspace or use `sencha package add *.pkg` if you have repository configured).
+
+2) Configure your app.json. The package is supposed to be used along with the `bryntum-gantt-pro` package. So you need to add both of them to the `requires` section:
+
+	{
+		"name" : "MyApp",
+
+		// the gantt and its theme
+		"requires" : [
+			"bryntum-gantt-pro",
+			"bryntum-gantt-pro-neptune"
+		],
+
+		...
+	}
+
+**Please note** that the package cannot be used in the `theme` config of `app.json`.

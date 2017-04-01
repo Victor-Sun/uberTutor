@@ -1,0 +1,119 @@
+/**
+ * 项目管理-项目文档
+ */
+Ext.define('ExtApp.view.projectManagement.note.ProjectNoteMainController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.projectNoteMain',
+
+    // 点击菜单动作
+    onItemclick: function(view, record, item, index, e, eOpts) {
+    	var me = this;
+		var refs = this.getReferences();
+        var noteList = refs.noteList;
+        noteList.folderId = record.get('id');
+        var nodeListStore = noteList.down('grid').getStore();
+        nodeListStore.getProxy().extraParams.folderId = record.get('id');
+        nodeListStore.load();
+	},
+	
+	// 右键菜单
+	onItemcontextmenu: function(tree, record, item, index, e, eOpts) {
+		var me = this;
+		e.preventDefault();  
+        e.stopEvent();
+        
+        var items = [];
+        if (record.get('createFolderPrivilege')) {
+        	items.push({
+        		text: '新建文件夹',
+				listeners: {
+					click: function() {
+						me.createFolder(record);
+					}
+				}
+        	});
+        	if (! record.get('customizeRoot')) {
+        		items.push({
+            		text: '删除文件夹',
+    				listeners: {
+    					click: function() {
+    						me.deleteFolder(record);
+    					}
+    				}
+            	});
+            }
+        }
+        if (record.get('manageFolderPrivilege')) {
+        	items.push({
+        		text: '修改文件夹',
+				listeners: {
+					click: function() {
+						me.updateFolder(record);
+					}
+				}
+        	});
+        }
+        if (items.length > 0) {
+        	var menu = new Ext.menu.Menu({
+        		items: items
+        	});
+        	menu.showAt(e.getXY());
+        }
+ 	},
+	
+	// 新建文件夹
+	createFolder: function(record) {
+		var me = this;
+		this.view.add({
+    		xtype: 'createNoteFolder',
+    		parentId: record.get('id'),
+    		programId: this.view.programId
+    	}).show();
+	},
+	
+	// 修改文件夹
+	updateFolder: function(record) {
+		this.view.add({
+    		xtype: 'modifyFolder',
+    		folderId: record.get('id'),
+    		folderName: record.get('text'),
+    		parentId: record.get('parentId'),
+    		programId: this.view.programId
+    	}).show();
+	},
+	
+	// 删除文件夹
+	deleteFolder: function(record) {
+		var me = this;
+		Ext.MessageBox.confirm('提示', '您确定要删除该文件夹吗?', function(btn) {
+    		// 提示信息点击【YES】则删除
+    		if (btn == 'yes') {
+    			me.view.mask('Please Waiting...');
+    	    	Ext.Ajax.request({
+    	    		url:'/pdms/pm/project-document!deleteFolder.action',
+    	    		params: {
+    	    			folderId: record.get('id')
+    				},
+    				scope: me,
+    				success: function(response, opts) {
+    					me.view.unmask();
+    					var obj = Ext.decode(response.responseText);
+    					if (obj.success) {
+    						var tree = me.view.down('treepanel');
+    						var node = tree.getStore().getNodeById(record.get('parentId'));
+    						tree.getStore().getProxy().extraParams.sourceType = 'SOURCE_TYPE_CUSTOMIZATION';
+    	    		    	tree.getStore().getProxy().extraParams.programId = me.view.programId;
+    	    		        tree.getStore().load({node:node});
+    			        } else {
+    			        	ExtApp.util.Util.handleRequestFailure(response);
+    			        }
+    			    },
+    				failure: function(response, opts) {
+    					me.view.unmask();
+    			    	ExtApp.util.Util.handleRequestFailure(response);
+    			    }
+    	    	});
+    		}
+    	});
+	}
+});

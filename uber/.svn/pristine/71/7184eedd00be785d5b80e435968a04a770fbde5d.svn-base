@@ -1,0 +1,42 @@
+/**
+ * 个人管理-已办任务-基本信息Store
+ */
+Ext.define('ExtApp.store.deptworkspace.DeptProjectTaskStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.deptProjectTaskStore',
+    pageSize:ExtApp.common.Constants.pageSize,
+    fields: [
+             'id',
+             'taskId',
+             'taskProgressStatusCode',
+             {name:'attCnt',type:'number'},
+             'taskName',
+             'taskTypeName',
+             'programCode',
+             'programId',
+             'taskPriorityName',
+             'taskStatusName',
+             {name:'delayDays', type:'number'},
+             'taskOwnerName',
+             'publishByName',
+             {name:'lastReportDate', type:'date'},
+             {name:'plannedFinishDate', type:'date'},
+             'programVehicleName',
+             'professionalFieldName',
+             {name: 'processStepId', type: 'number'},
+             {name: 'currentStepId', type: 'number'},
+             {name: 'processTaskOwner'},
+             {name: 'processId', type: 'number'},
+             {name: 'processCode'},
+             {name: 'actualFinishDate', type:'date'}
+      ],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/dws/deptworkspace!getDeptProjectTaskList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

@@ -1,0 +1,34 @@
+/**
+ * 项目计划上传Window
+ */
+Ext.define('ExtApp.view.projectmanagement.uploadplan.ProjectPlanUpload',{
+	extend:'Ext.window.Window',
+	xtype:'projectPlanUpload',
+	
+	controller: 'projectPlanUpload',
+
+	width:400,
+	height:200,
+	
+	title:'导入计划',
+	layout: 'fit',	
+	items:[{
+	    xtype:'form',
+	    width: 200,
+	    bodyPadding: 10,
+	    items: [{
+	        xtype: 'filefield',
+	        name: 'upload',
+	        fieldLabel: '文件',
+	        labelWidth: 50,
+	        msgTarget: 'side',
+	        allowBlank: false,
+	        anchor: '100%',
+	        buttonText: '浏览'
+	    }]
+	}],
+	tbar: [{
+		text: '导入',
+		handler: 'import'
+	}]
+});

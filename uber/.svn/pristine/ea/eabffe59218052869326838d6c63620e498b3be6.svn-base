@@ -1,0 +1,8 @@
+Ext.define('ExtApp.view.scheduler.PanelModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.scheduler-panel',
+    data: {
+        name: 'Timeline'
+    }
+
+});

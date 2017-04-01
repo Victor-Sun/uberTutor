@@ -1,0 +1,45 @@
+/**
+ * 质量问题管理-仪表盘
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.QMSDashboard',{
+	extend:'Ext.panel.Panel',
+	xtype:'qmsdashboard',
+
+    controller: 'qmsDashboard',
+    viewModel: 'qmsDashboard',
+	cls:'shadow',
+
+    title:'仪表盘',
+	
+	layout:{
+		type:'vbox',
+		align:'stretch'
+	},
+	scrollable: 'y',
+	dockedItems: [{
+		xtype: 'toolbar',
+		cls: 'shadow',
+		dock: 'top',
+		items: [{
+			xtype:'tagfield',
+			fieldLabel:'项目/Project',
+			emptyText:'所有项目',
+			bind:{
+				store:'{program}'
+			},
+			queryMode:'local',
+			displayField:'name',
+	        filterPickList: true,
+			valueField:'id',
+			margin:'0 0 10 10',
+	        publishes: 'value',
+			name:'partStatus',
+			listeners: {
+				change: 'selcombo'
+			}
+		},{
+			text:'默认设置',
+			handler:'defaultSet'
+		}]
+	}]
+});

@@ -1,0 +1,18 @@
+Ext.define('ExtApp.store.qualityissuemanagement.QMSGeneralStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.barStacked',
+
+    //                   IE    Firefox  Chrome
+    fields: ['total', 'data1', 'data2', 'data3', 'other'],
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/ims/ims-report!getGeneral.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+//    autoLoad: true
+
+});

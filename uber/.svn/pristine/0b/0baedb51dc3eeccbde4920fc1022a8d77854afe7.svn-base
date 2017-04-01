@@ -1,0 +1,26 @@
+Ext.define('ExtApp.store.projectManagement.ProjectTaskExtensionLogStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.projectTaskExtensionLog',
+
+    fields: [
+         'id',
+         'taskName',
+         'taskOwnerName',
+         'obsName',
+         {name: 'plannedFinishDate',type: 'date'},
+         {name: 'actualFinishDate',type: 'date'},
+         {name: 'delayDays',type: 'number'},
+         {name: 'createDate',type: 'date'}
+	],
+	
+    pageSize:ExtApp.common.Constants.pageSize,
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-task-list!getExtensionTaskList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

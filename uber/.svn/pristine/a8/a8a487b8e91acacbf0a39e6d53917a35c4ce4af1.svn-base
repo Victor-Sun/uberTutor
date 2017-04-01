@@ -1,0 +1,102 @@
+/**
+ * 
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.merge.MergeIssueController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.mergeIssue',
+    raiseIssue:function(){
+    	var me = this;
+    	var programId = me.getView().programId;
+    	var grid = me.getView().down('grid');
+    	Ext.create("ExtApp.view.projectManagement.issue.raiseissue.RaiseOpenIssueWindow",{grid:grid}).show();
+    },
+    renderProgress: function(v) {
+    	var img = 'White.png';
+    	if (v == 'G') {
+    		img = 'Green.png'
+    	} else if (v == 'Y') {
+    		img = 'Yellow.png'
+    	} else if (v == 'R') {
+    		img = 'Red.png'
+    	} else if (v == 'W') {
+    		img = 'White.png'
+    	}
+        return '<img src="resources/images/' + img + '" width="20px"/>';
+    },
+    
+    // 双击交付物列表
+    onCelldblclick: function(grid , td , cellIndex , record , tr , rowIndex , e , eOpts) {
+    	var me = this;
+    	var rec = grid.getStore().getAt(rowIndex);
+    	var programId = me.getView().programId;
+    	var grid = me.getView().down('grid');
+    	if(rec.get('status') == 'DRAFT'){
+    		var win = Ext.create("ExtApp.view.projectManagement.issue.raiseissue.RaiseOpenIssueWindow",{programId:programId,grid:grid,issueId:rec.get('id')}).show();
+    		win.down('form').load({params:{issueId:rec.get('id')}});
+    	}else if(rec.get('status') == 'COMPLETE'){
+    		var win = Ext.create("ExtApp.view.projectManagement.issue.finishedissue.FinishedIssueWindow",{programId:programId,grid:grid,issueId:rec.get('id')}).show();
+    		win.down('form').load({params:{issueId:rec.get('id')}});
+    	}else{
+    		var win = Ext.create("ExtApp.view.projectManagement.issue.confirmissue.ConfirmIssueWindow",{programId:programId,grid:grid,issueId:rec.get('id'),title:'问题信息'}).show();
+    		win.down('form').load({params:{issueId:rec.get('id')}});
+    	}
+    },
+    onSelectionChange: function (selModel, records) {
+        var rec = records[0];
+        if (rec) {
+            this.getView().down('form').getForm().loadRecord(rec);
+        }
+    },
+    showIssueForm:function(){
+    	var issueId = this.getView().down('form').getForm().findField('issueId').getValue();
+    	var win = Ext.create("ExtApp.view.projectManagement.issue.readonlyissue.ReadOnlyIssueWindow",{issueId:issueId}).show();
+		win.down('form').load({params:{issueId:issueId}});
+    },
+    // 查询
+    search: function(btn, e) {
+    	var toolbar = this.view.down('toolbar');
+    	var userName = toolbar.getComponent('userName').value;
+    	var title = toolbar.getComponent('title').value;
+    	this.view.down('grid').getStore().load({params:{userName:userName,title:title}});
+    },
+    
+    // 重置
+    reset: function() {
+    	var toolbar = this.view.down('toolbar');
+    	var userName = toolbar.getComponent('userName').setValue('');
+    	var title = toolbar.getComponent('title').setValue('');
+    },
+    mergeIssue:function(){
+    	var me = this;
+    	var commentWindow = Ext.create('ExtApp.view.common.CommentWindow',{
+			callback:function(comment){
+        		if(comment == null || comment == ''){
+        			Ext.Msg.alert('提示', '必须添加备注！');
+        			return;
+        		}
+        		commentWindow.close();
+//				me.getView().mask('正在提交... 请耐心等待...');
+				me.getView().down('form').submit({
+		    		url: '/pdms/ims/ims-issue!mergeIssue.action',
+		            params: {
+		            	fromIssueId:me.getView().issueId,
+		            	comment:comment
+		            },
+		    	    waitMsg : '正在提交数据',
+		    	    waitTitle : '提示',
+		    	    method : "POST",
+		    	    success : function(form, action) {
+		    	    	me.getView().up('window').window.grid.getStore().load();
+		    	    	me.getView().up('window').window.close();
+		    	    	me.getView().up('window').close();
+		    	    },
+		    	    failure : function(form, action) {
+		    	    	ExtApp.util.Util.handleFormFailure(action);
+		    	    }
+			    });
+			}
+		});
+    	commentWindow.show();
+		return;
+    }
+});

@@ -1,0 +1,243 @@
+/**
+ * 项目管理-计划-主计划-质量阀-交付物Controller
+ */
+Ext.define('ExtApp.view.projectmanagement.valve.ProjectPlanQualityValve01Controller', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.projectPlanQualityValve01',
+    
+    // 初始化
+    init: function() {
+    	var grid = this.view.down('grid');
+    	if (! this.view.editPrivilege || this.view.planLevel == '2') {
+//			grid.down('toolbar').setHidden(true);
+//			// 隐藏操作栏
+//			grid.down('actioncolumn').setHidden(true);
+			// 适用本项目
+    		grid.query('#ccIsFit')[0].setDisabled(true);
+			// 关键交付物
+			grid.query('#ccIsKey')[0].setDisabled(true);
+//    	} else {
+//    		this.view.rowEditing = new Ext.grid.plugin.RowEditing({
+//	            clicksToEdit: 2
+//	        });
+//    		grid.addPlugin(this.view.rowEditing);
+    	}
+    },
+    
+    // 根据类型显示内容
+    renderLinkObs: function(value, metaData, record) {
+		if (! this.view.editPrivilege || this.view.planLevel == '2') {
+			if (value) {
+				return value;
+			} else {
+				return '';
+			}
+		} else {
+			return this.superclass.renderLink(value);
+		}
+    },
+    
+//    // 添加交付物
+//    addAttachment: function(btnObj) {
+//    	var grid = btnObj.up('grid');
+//    	var gridStore = grid.getStore();
+//    	var model = Ext.create(
+//    			'ExtApp.model.projectmanagement.ProjectPlanQualityValve01Model');
+//    	gridStore.insert(0, model);
+//    	grid.getPlugin().startEdit(0);
+//    },
+
+//    // 删除交付物
+//    deleteAttachment: function(grid, rowIndex) {
+//    	var me = this;
+//    	var record = grid.getStore().getAt(rowIndex);
+//    	Ext.MessageBox.confirm('提示', '您确定要删除该条记录吗?', function(btn) {
+//    		// 提示信息点击【YES】则删除
+//    		if (btn == 'yes') {
+//    			me.view.mask('Please Waiting...');
+//    	    	Ext.Ajax.request({
+//    	    		url:'/pdms/pm/project-plan-quality-valve!deleteDeliverable.action',
+//    	    		params: {
+//    	    			deliverableId: record.data.id
+//    				},
+//    				scope: me,
+//    				success: function(response, opts) {
+//    					me.view.unmask();
+//    					var obj = Ext.decode(response.responseText);
+//    					if (obj.success) {
+//    						grid.getStore().reload();
+//        			    	ExtApp.util.Util.showToast("删除成功！");
+//    			        } else {
+//    			        	ExtApp.util.Util.handleRequestFailure(response);
+//    			        }
+//    			    },
+//    				failure: function(response, opts) {
+//    					me.view.unmask();
+//    			    	ExtApp.util.Util.handleRequestFailure(response);
+//    			    }
+//    	    	})
+//    		}
+//    	});
+//    },
+
+    // 选择负责主体
+    onClickObs: function(grid, td, rowIndex, cellIndex, e, record, tr, eOpts) {
+    	if (! this.view.editPrivilege || this.view.planLevel == '2') {
+    		return;
+    	}
+    	var me = this;
+    	this.selModel = grid.getStore().getAt(rowIndex);
+    	this.view.up('projectPlanQualityValve').add({
+            xtype: 'pmObs',
+            programId: me.view.programId,
+            vehicleId: me.view.programVehicleId,
+            parentCaller: me
+        }).show();
+    },
+    
+    // 选定负责主体
+    confirmObs: function(record) {
+    	var me = this;
+    	me.view.mask('Please Waiting...');
+    	Ext.Ajax.request({
+    		url:'/pdms/pm/project-plan-quality-valve!updateDeliverableObs.action',
+    		params: {
+    			deliverableId: this.selModel.data.id,
+    			obsId: record.data.id
+			},
+			scope: me,
+			success: function(response, opts) {
+				me.view.unmask();
+		    	var obj = Ext.decode(response.responseText);
+		        if (obj.success) {
+		        	me.selModel.store.reload();
+		        	ExtApp.util.Util.showToast("更新成功！");
+		        } else {
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+				me.view.unmask();
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	})
+    },
+    
+//    // 更新质量阀交付物
+//    onEditDeliverable: function(editor, context, eOpts) {
+//    	var url = '/pdms/pm/project-plan-quality-valve!updateDeliverable.action';
+//    	var id = context.record.data.id;
+//    	if (id.indexOf('projectmanagement') != -1) {
+//    		var url = '/pdms/pm/project-plan-quality-valve!addDeliverable.action';
+//    	}
+//    	var me = this;
+//    	me.view.mask('Please Waiting...');
+//    	Ext.Ajax.request({
+//    		url:url,
+//    		params: {
+//    			taskId:this.view.taskId,
+//    			model: Ext.encode(context.record.data)
+//			},
+//			scope: me,
+//			success: function(response, opts) {
+//				me.view.unmask();
+//		    	var obj = Ext.decode(response.responseText);
+//		        if (obj.success) {
+//		        	context.grid.getStore().reload();
+//		        	ExtApp.util.Util.showToast("更新成功！");
+//		        } else {
+//		        	ExtApp.util.Util.handleRequestFailure(response);
+//		        }
+//		    },
+//			failure: function(response, opts) {
+//				me.view.unmask();
+//		    	ExtApp.util.Util.handleRequestFailure(response);
+//		    }
+//    	})
+//    },
+//    
+//    // 取消更新
+//    onCanceledit: function(editor, context, eOpts) {
+//    	var id = context.record.data.id;
+//    	if (id.indexOf('projectmanagement') != -1) {
+//    		// 新增记录时，如果取消，则需要删除增加的空行
+//    		context.grid.getStore().removeAt(context.rowIdx);
+//    	}
+//    },
+    
+    // 更改【适用本项目】
+    onCheckchangeFit: function(checkColumn, rowIndex, checked, eOpts){
+    	var me = this;
+    	var record = checkColumn.up('grid').getStore().getAt(rowIndex);
+    	if (! checked) {
+    		// 输入不适用原因窗口
+    		me.view.up('window').add({
+    			xtype: 'deliverableNotFitReason',
+    			record: record,
+    			checked: checked,
+    			parentCaller: me
+    		}).show();
+    	} else {
+    		me.view.mask('Please Waiting...');
+        	Ext.Ajax.request({
+        		url:'/pdms/pm/project-plan-quality-valve!updateDeliverableFit.action',
+        		params: {
+        			deliverableId: record.get('id'),
+        			isFit: checked
+    			},
+    			scope: me,
+    			success: function(response, opts) {
+    				me.view.unmask();
+    		    	var obj = Ext.decode(response.responseText);
+    		        if (obj.success) {
+    		        	record.set('notFitReason', null);
+    		        	record.commit();
+    		        	ExtApp.util.Util.showToast("更新成功！");
+    		        } else {
+    		        	ExtApp.util.Util.handleRequestFailure(response);
+    		        }
+    		    },
+    			failure: function(response, opts) {
+    				me.view.unmask();
+    		    	ExtApp.util.Util.handleRequestFailure(response);
+    		    }
+        	});
+    	}
+    },
+    
+    // 更改【关键交付物】
+    onCheckchangeKey: function(checkColumn, rowIndex, checked, eOpts){
+    	var me = this;
+    	var record = checkColumn.up('grid').getStore().getAt(rowIndex);
+    	me.view.mask('Please Waiting...');
+    	Ext.Ajax.request({
+    		url:'/pdms/pm/project-plan-quality-valve!updateDeliverableKey.action',
+    		params: {
+    			deliverableId: record.get('id'),
+    			isKey: checked
+			},
+			scope: me,
+			success: function(response, opts) {
+				me.view.unmask();
+		    	var obj = Ext.decode(response.responseText);
+		        if (obj.success) {
+		        	record.commit();
+		        	ExtApp.util.Util.showToast("更新成功！");
+		        } else {
+		        	ExtApp.util.Util.handleRequestFailure(response);
+		        }
+		    },
+			failure: function(response, opts) {
+				me.view.unmask();
+		    	ExtApp.util.Util.handleRequestFailure(response);
+		    }
+    	})
+    },
+    
+    // 刷新
+    refreshView: function() {
+    	this.view.down('grid').store.reload();
+    }
+    
+    
+});

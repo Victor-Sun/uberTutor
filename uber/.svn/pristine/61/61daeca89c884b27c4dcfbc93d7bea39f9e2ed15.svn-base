@@ -1,0 +1,78 @@
+﻿/**
+ * 质量问题管理-待办事项
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.TodoListIMS',{
+	extend:'Ext.tab.Panel',
+	xtype:'todoListIMS',
+	layout: 'fit',
+	margin:10,
+    listeners: {
+    	tabchange:function(tabPanel , newCard , oldCard , eOpts ){
+    		if(newCard.xtype == 'issueList'){
+    			newCard.down('grid').getStore().load();
+    		}
+    	}
+    },
+	initComponent: function() {
+		var me = this;
+		var mytask = Ext.create({
+			title: '待办事项',
+			xtype: 'issueList',
+			listType: 'mytask',
+			parentCaller: me
+		});
+		var myProcessTask = Ext.create({
+			title: '过程问题跟踪',
+			xtype: 'issueList',
+			listType: 'myprocesstask',
+			parentCaller: me
+		});
+		var listingarea = Ext.create({
+			title: '挂牌区',
+			xtype: 'issueList',
+			listType: 'listingarea',
+			parentCaller: me
+		});
+		var myparticipationB = Ext.create({
+			title: '知会给我的问题',
+			xtype: 'issueList',
+			listType: 'myparticipationB',
+			parentCaller: me
+		});
+		
+		var newIssueList = Ext.create({
+			title: '新增问题',
+			xtype: 'issueList',
+			listType: 'newIssueList',
+			parentCaller: me
+		});
+		var taskStore = mytask.down('grid').getStore();
+		taskStore.on('load',function() {
+			mytask.setTitle('待办事项<font color="red"><b>（'+ taskStore.getTotalCount() + '）</b></font>');
+		});
+		var myProcessTaskStore = myProcessTask.down('grid').getStore();
+		myProcessTaskStore.on('load',function() {
+			myProcessTask.setTitle('过程问题跟踪<font color="red"><b>（'+ myProcessTaskStore.getTotalCount() + '）</b></font>');
+		});
+		var listingareaStore = listingarea.down('grid').getStore();
+		listingareaStore.on('load',function() {
+			listingarea.setTitle('挂牌区<font color="red"><b>（'+ listingareaStore.getTotalCount() + '）</b></font>');
+		});
+		var myparticipationBStore = myparticipationB.down('grid').getStore();
+		myparticipationBStore.on('load',function() {
+			myparticipationB.setTitle('知会给我的问题<font color="red"><b>（'+ myparticipationBStore.getTotalCount() + '）</b></font>');
+		});
+		
+		var newIssueStore = newIssueList.down('grid').getStore();
+		newIssueStore.on('load',function() {
+			newIssueList.setTitle('新增问题<font color="red"><b>（'+ newIssueStore.getTotalCount() + '）</b></font>');
+		});
+		
+		this.items = [{
+			title: '仪表盘',
+			xtype: 'qmsdashboard'
+		},mytask,myProcessTask,listingarea,myparticipationB,newIssueList];
+		this.callParent(arguments);
+	}
+	
+});

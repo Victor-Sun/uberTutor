@@ -1,0 +1,25 @@
+// Ext.define("ExtApp.model.projectmanagement.AutoComplete", {
+//    extend: 'Ext.data.Model',
+//    alias: 'model.autoCompleteModel',
+////    proxy: {
+////        type: 'jsonp',
+////        url : 'http://www.sencha.com/forum/topics-remote.php',
+////        reader: {
+////            type: 'json',
+////            root: 'topics',
+////            totalProperty: 'totalCount'
+////        }
+////    },
+//
+//    data: [
+//       { 'title': 'test', 'description': 'descption teset', 'reason': 'reason test', 'solution': 'solution test' }
+//   ],
+//
+//   fields: [
+//       {name: 'title', mapping: 'title'},
+//       {name: 'description', mapping: 'description'},
+//       {name: 'reason', mapping: 'reason'},
+//       {name: 'solution', mapping: 'solution'},
+//       
+//   ]
+//});

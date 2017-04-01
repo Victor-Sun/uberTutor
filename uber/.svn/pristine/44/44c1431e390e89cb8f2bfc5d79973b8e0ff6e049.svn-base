@@ -1,0 +1,13 @@
+Ext.define('ExtApp.model.toolbarsettings.PersonalSettingsModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.personalSettings',
+    
+    fields: [
+             'id',
+             'code',
+             'programName',
+             'pmName',
+             'commonProject'             
+      ]
+
+});

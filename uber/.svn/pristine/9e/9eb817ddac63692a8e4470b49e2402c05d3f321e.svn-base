@@ -1,0 +1,37 @@
+/**
+ * 个人管理-待办任务-Base
+ */
+Ext.define('ExtApp.view.myworkspace.Todolist',{
+	extend:'Ext.container.Container',
+	xtype:'todolist',
+	
+	viewModel: 'todoList',
+	layout: 'fit',
+	margin: 20,
+	cls:'shadow',
+	
+	items: [{
+		xtype: 'panel',
+		layout: {
+			type: 'vbox',
+			align: 'stretch'
+		},
+		items: [{
+			flex: 1,
+			xtype: 'tabpanel',
+			items:[{
+				xtype: 'todoListPM'
+//			},{
+//				xtype: 'todoListExt'
+			},{
+				xtype: 'todoListOpenIssue'
+			},{
+				xtype: 'todoListWorkOrder'
+			},{
+				xtype: 'todoListQMS'
+			},{
+				xtype: 'todoListDeptIssue'
+			}]
+		}]
+	}]
+});

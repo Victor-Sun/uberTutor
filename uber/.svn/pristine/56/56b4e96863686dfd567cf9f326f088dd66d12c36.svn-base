@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.RespDeptStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.respDept',
+
+    fields: ['id', 'obsName'],
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/project-organization!getRespDeptList.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

@@ -1,0 +1,16 @@
+Ext.define('ExtApp.store.myworkspace.PmTaskExtensionLogStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.pmTaskExtensionLog',
+    
+    fields:['id', 'documentName', 'delayDays', 'memo', 'time', 'documentRevisionId', 'docmentIndexId'],
+    
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/mw/todo-list!getPmTaskExtensionLog.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+
+});

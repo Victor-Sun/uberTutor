@@ -1,0 +1,150 @@
+Ext.define('ExtApp.scheduler.TimelineDragZone', {
+    
+    extend : 'Sch.feature.SchedulerDragZone',
+
+    mileStoneSelector : '.task-milestone',
+
+    startDrag : function () {
+       this.oldTipDelegate = this.schedulerView.tip.delegate;
+       this.schedulerView.tip.delegate = '.stoptracking';//hack normal tip is shown too early - disabling the tip is not working
+       this.callParent(arguments);
+    },
+
+    endDrag : function () {
+        this.callParent(arguments);
+        this.schedulerView.tip.delegate = this.oldTipDelegate;//hack repair normal tooltip after drag
+    },
+
+    //Retrieves the data for the drag operation. Returning null/false stops the drag action
+    getDragData : function (e) {
+        var s = this.schedulerView,
+            t = Ext.get(e.getTarget(s.eventSelector));
+
+        if (!t || e.event.touches && e.event.touches.length > 1) return;
+
+        var m = Ext.get(e.getTarget(this.mileStoneSelector)),//do we drag a milestone?
+            eventRecord      = s.resolveEventRecord(t),
+            resourceRecord   = s.resolveResource(t),
+            assignmentRecord = s.resolveAssignmentRecord(t);
+
+
+        // there will be no event record when trying to drag the drag creator proxy for example
+        if (!eventRecord || eventRecord.isDraggable() === false || s.fireEvent('beforeeventdrag', s, eventRecord, e) === false) {
+            return null;
+        }
+
+        var milestoneRecord  = m ? eventRecord.MileStones().getByInternalId(m.getAttribute('data-id')) : null;//retrieve the milestone record 
+
+        if (!m && resourceRecord.get('Type') === BlockTypes.Major) {
+            return;//disable dragging of the main major block
+        }
+
+        var xy          = e.getXY(),
+            eventEl     = m || t,//milestone or event
+            eventXY     = eventEl.getXY(),
+            offsets     = m ? [0, 0] : [xy[0] - eventXY[0], xy[1] - eventXY[1]],
+            eventRegion = eventEl.getRegion();
+
+        this.lastXY = null;
+
+        var isHorizontal = true,
+            dateConstraints = m ? {start : eventRecord.getStartDate(), end : eventRecord.getEndDate() } : s.getDateConstraints(s.constrainDragToResource ? resourceRecord : null, eventRecord),
+            mileStoneRegion = t.getRegion();
+
+        if (!!m) {
+            mileStoneRegion.bottom = mileStoneRegion.top + m.getHeight();
+            mileStoneRegion.right += m.getWidth() + 1;
+        }
+
+        this.setupConstraints(
+            m ? mileStoneRegion : s.getScheduleRegion(s.constrainDragToResource ? resourceRecord : null, eventRecord),
+            eventRegion,
+            offsets[0], offsets[1],
+            isHorizontal,
+            s.getSnapPixelAmount(),
+            Boolean(dateConstraints)
+        );
+
+        var origStart      = m ? milestoneRecord.get('Date') : eventRecord.getStartDate(),
+            origEnd        = m ? milestoneRecord.get('Date') : eventRecord.getEndDate(),
+            timeAxis       = s.timeAxis,
+            relatedRecords = m ? [milestoneRecord] : this.getRelatedRecords(assignmentRecord || eventRecord) || [],
+            eventBarEls    = m ? [m] : s.getElementsFromEventRecord(eventRecord, resourceRecord);
+
+        // Collecting additional elements to drag
+        if (!m) {
+            Ext.Array.each(relatedRecords, function (r) {
+                if (r instanceof Sch.model.Assignment) {
+                    eventBarEls = eventBarEls.concat(s.getElementsFromEventRecord(r.getEvent(), r.getResource()));
+                }
+                else {
+                    eventBarEls = eventBarEls.concat(s.getElementsFromEventRecord(r));
+                }
+            });
+            eventBarEls = Ext.Array.unique(eventBarEls); // I'm not sure if it's required, but this way it seems safer
+        }
+
+
+        var dragData = {
+            offsets  : offsets,
+            repairXY : eventXY,
+            milestoneDrag  : !!m,
+
+            prevScroll : s.getScroll(),
+
+            dateConstraints : dateConstraints,
+
+            eventBarEls : eventBarEls,
+            
+            getEventBarElements : function () {
+                return dragData.eventBarEls = Ext.Array.map(dragData.eventBarEls, function (el) {
+                    return el.dom && el || Ext.get(el.id);
+                });
+            },
+
+            draggedRecords : [assignmentRecord || eventRecord].concat(relatedRecords),
+
+            resourceRecord : resourceRecord,
+
+            sourceDate : s.getDateFromCoordinate(this.getCoordinate(xy)),
+            origStart  : origStart,
+            origEnd    : origEnd,
+            startDate  : origStart,
+            endDate    : origEnd,
+            timeDiff   : 0,
+
+            startsOutsideView : origStart < timeAxis.getStart(),
+            endsOutsideView   : origEnd > timeAxis.getEnd(),
+
+            duration : origEnd - origStart,
+
+            bodyScroll : Ext.getBody().getScroll(),
+            eventObj   : e // So we can know if SHIFT/CTRL was pressed
+        };
+
+        dragData.ddel = this.getDragElement(eventEl, dragData);
+
+        return dragData;
+    },
+
+    //Update milestone drag else callParent
+    updateRecords : function (context) {
+
+        if (context.milestoneDrag) {
+            // Tell the world there was a successful drop
+            var me                    = this,
+                schedulerView         = me.schedulerView,
+                event                 = context.draggedRecords[0],
+                milestone             = context.draggedRecords[1],
+                startDate             = context.startDate;
+
+            milestone.set('Date', startDate);
+            event.setMileStoneChange();
+            schedulerView.fireEvent('eventdrop', schedulerView, context.draggedRecords, false);
+        }
+        else {
+            this.callParent(arguments);
+        }
+    }
+    
+});

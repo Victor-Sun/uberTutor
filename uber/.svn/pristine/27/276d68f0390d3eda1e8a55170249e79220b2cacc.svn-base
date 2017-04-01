@@ -1,0 +1,85 @@
+Ext.define('ExtApp.view.projectManagement.issue.raiseissue.CounterForm',{
+	extend: 'Ext.container.Container',
+	xtype: 'counterform',
+
+	viewModel: {
+		data: {
+			value: '',
+			value2:''
+		},
+		formulas: {
+			count: {
+				bind: '{value}',
+				get: function(value){
+					var counter = 500 - value.length;
+					return "还有 " + counter + " 字符";
+				}
+			},
+			count2: {
+				bind: '{value2}',
+				get: function(value2){
+					var counter = 500 - value2.length;
+					return "还有 " + counter + " 字符";
+				}
+			}
+		}
+	},
+	
+	
+	initComponent: function() {
+		var me = this;
+		
+		me.items = [{
+			xtype: 'fieldset',
+			title: '问题描述与原因分析',
+			margin: 20,
+				items: [{
+					xtype:'panel',
+				layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				items:[{
+					xtype:'textarea',
+					name:'issueDescription',
+					padding:'10 25 0 30',
+					labelAlign:'top', 
+					minWidth:650,
+					enforceMaxLength:true,
+					maxLength:500,
+					bind: '{value}',
+					fieldLabel:'任务/问题描述（最多500个字符）'
+				},{
+					xtype:'box',
+					padding:'0 25 10 30',
+					bind: '{count}'
+				}]
+			},{
+				xtype:'panel',
+				layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				items:[{
+					xtype:'textarea',
+					name:'issueCause',
+					padding:'10 25 0 30',
+					labelAlign:'top', 
+					minWidth:650,
+					enforceMaxLength:true,
+					maxLength:500,
+					bind: '{value2}',
+					fieldLabel:'原因（最多500个字符）'
+				},{
+					xtype:'box',
+					padding:'0 25 10 30',
+					bind: '{count2}'
+				}]
+			}]
+		}];
+		me.callParent(arguments);
+	},
+	setReadOnly:function(flag){
+		var me = this;
+	}
+});

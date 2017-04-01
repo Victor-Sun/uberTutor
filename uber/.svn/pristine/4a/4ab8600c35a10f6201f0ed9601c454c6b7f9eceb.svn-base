@@ -1,0 +1,90 @@
+/**
+ * 部门空间-文档管理-文档列表
+ */
+Ext.define('ExtApp.view.deptworkspace.document.DeptDocumentListController', {
+    extend: 'ExtApp.view.common.BaseViewController',
+    alias: 'controller.deptDocumentList',
+    
+    // 查询
+    search: function(btn, e) {
+    	var me= this;
+    	var toolbar = this.view.down('toolbar');
+    	var searchDocumentName = toolbar.getComponent('searchDocumentName').value;
+    	if (me.view.rootFolder) {
+    		this.view.down('grid').getStore().load({
+        		params:{
+        			departmentId: me.view.departmentId,
+        			searchDocumentName: searchDocumentName
+        	}});
+		} else {
+			this.view.down('grid').getStore().load({
+	    		params:{
+	    			folderId: me.view.nodeId,
+	    			searchDocumentName: searchDocumentName
+	    	}});
+		}
+    	
+    },
+    
+    // 重置
+    reloadSearch: function() {
+    	var toolbar = this.view.down('toolbar');
+    	toolbar.getComponent('searchDocumentName').setValue('');
+    	this.search();
+    },
+    
+    // 文件下载
+    onFileClick: function(grid, td, rowIndex, cellIndex, e, record, tr) {
+    	window.location.href = "/pdms/com/document!downloadDocument.action?"
+    			+ "revisionId=" + record.data.documentRevisionId
+    			+ "&documentIdxId=" + record.data.docmentIndexId;
+    },
+    
+	// 上传文件
+    uploadFile: function() {
+    	var me = this;
+    	Ext.create({
+    		xtype: 'fileUpload',
+    		sourceType: 'SOURCE_TYPE_DEPARTMENT',
+    		sourceId: me.view.nodeId,
+    		folderId: me.view.nodeId,
+    		departmentId: me.view.departmentId,
+    		parentCaller: me
+    	}).show();
+    },
+    
+    // 上传文件-确定
+    confirmUpload: function() {
+    	this.view.down('grid').store.reload();
+    },
+    
+    // 删除文件
+    deleteFile: function(grid, rowIndex) {
+    	var me = this;
+    	var record = grid.getStore().getAt(rowIndex);
+    	Ext.MessageBox.confirm('提示', '您确定要删除该条记录吗?', function(btn) {
+    		// 提示信息点击【YES】则删除
+    		if (btn == 'yes') {
+    	    	Ext.Ajax.request({
+    	    		url:'/pdms/com/document!deleteDocument.action',
+    	    		params: {
+    	    			documentIdxId: record.data.docmentIndexId
+    				},
+    				scope: me,
+    				success: function(response, opts) {
+    					var obj = Ext.decode(response.responseText);
+    					if (obj.success) {
+    						grid.getStore().reload();
+        			    	ExtApp.util.Util.showToast("删除成功！");
+    			        } else {
+    			        	ExtApp.util.Util.handleRequestFailure(response);
+    			        }
+    			    },
+    				failure: function(response, opts) {
+    			    	ExtApp.util.Util.handleRequestFailure(response);
+    			    }
+    	    	})
+    		}
+    	});
+    }
+});

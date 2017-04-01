@@ -1,0 +1,134 @@
+/**
+ * 项目管理-Open Issue（根）View
+ */
+Ext.define('ExtApp.view.projectManagement.issue.draft.DraftOpenIssue',{
+	extend:'Ext.panel.Panel',
+	xtype:'draftOpenIssue',
+	
+	controller: 'draftOpenIssue',
+	
+	layout:'fit',
+	title:'项目 Open Issue',
+	
+	initComponent: function() {
+		var openIssueStore = Ext.create('ExtApp.store.projectmanagement.issue.DraftOpenIssueStore');
+		openIssueStore.load();
+	
+		this.items = [{
+			xtype:'grid',
+			store: openIssueStore,
+			columns:[{
+				xtype: 'rownumberer'
+			},{
+				text:'问题标题',
+				flex: 1,
+				dataIndex:'issueTitle'
+			},{
+				text:'问题来源',
+				flex: 1,
+				dataIndex:'issueSourceTitle'
+			},{
+				text:'提出人',
+				flex: 1,
+				dataIndex:'raiseByName'
+			},{
+				text:'提出日期',
+				flex: 1,
+				dataIndex:'raiseDate',
+				formatter: 'date("Y/m/d")'
+			},{
+				text:'责任组',
+				flex: 1,
+				dataIndex:'respObsName'
+			},{
+				text:'责任人',
+				flex: 1,
+				dataIndex:'respUserName'
+//			},{
+//				text:'完成状态',
+//				flex: 1,
+//				dataIndex:'status'
+//			},{
+//				text:'进度状态',
+//				flex: 1,
+//				dataIndex:'progressStatus',
+//				renderer: 'renderProgress',
+//				align: 'center'
+			},{
+				text:'计划完成日期',
+				flex: 1,
+				dataIndex:'dueDate',
+				formatter: 'date("Y/m/d")'
+			},{
+				text:'实际完成日期',
+				flex: 1,
+				dataIndex:'finishDate',
+				formatter: 'date("Y/m/d")'
+			},{
+				text:'计划偏离天数',
+				flex: 1,
+				dataIndex:'departedDays',
+				width:150
+			},{
+				text:'优先级',
+				dataIndex:'issuePriorityName', 
+				flex: 1
+			},
+			{
+				xtype:'actioncolumn',
+	            width:50,
+	            items: [{
+	            	iconCls:'x-fa fa-trash',
+	                tooltip: 'Delete',
+	                handler: function(grid, rowIndex, colIndex) {
+	                	 var rec = grid.getStore().getAt(rowIndex);
+	                	 var id = rec.get('id');
+	                	 Ext.Ajax.request({
+	                		 url: '/pdms/pm/project-open-issue!deleteOpenIssue.action',
+	                		 params:{id:id},
+	                	     success: function(response, opts) {
+	                	    	 var result = ExtApp.util.Util.decodeJSON(response.responseText);
+	                	 		 if (!result){ //#4
+	            	    	 		 result = {};
+	            	    	 		 result.success = false;
+	            	    	 		 result.msg = response.responseText;
+	                	 		 }
+	                	 		 openIssueStore.load();
+	                	     },
+
+	                	     failure: function(response, opts) {
+	                	    	 var result = ExtApp.util.Util.decodeJSON(response.responseText);
+	                	 		 
+	                	     }
+	                	 });
+	                },
+	                getClass: function(v, meta, rec) {
+	                	var status = rec.get('status');
+	                    if (status == 'RESUBMIT' || status == 'DRAFT' || status == ''  || status == null) {
+	                          return 'x-fa fa-trash';
+	                    }else{
+	                    	return 'x-hidden';
+	                    }
+	            	}
+	            }]
+	        }],
+			listeners:{
+	        	celldblclick: 'onCelldblclick'
+			},
+			tbar: [{
+	            text: '新建',
+	            handler: 'raiseIssue'
+	        },{
+	            text: '导出Excel',
+	            handler: 'exportExcel'
+	        }],
+			dockedItems: [{
+				xtype: 'pagingtoolbar',
+				dock: 'bottom',
+				displayInfo: true,
+				store: openIssueStore
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

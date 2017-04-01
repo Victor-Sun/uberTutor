@@ -1,0 +1,161 @@
+/**
+ * 质量问题管理-我的待办-再发防止Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.step17.MyTaskInfo17Controller', {
+    extend: 'ExtApp.view.common.IssueStepViewController',
+    alias: 'controller.myTaskInfo17',
+    //点击【提交】
+    submit: function(btn) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	me.setAllowBlank(v_form,false);
+    	if(v_form.isValid() == false){
+    		Ext.Msg.alert('提示', "请填写必填项！！！");
+    		return;
+    	}
+    	
+    	v_form.submit({
+    		url: '/pdms/ims/ims-issue!save.action',
+            params: {
+            	model: Ext.encode(v_form.getFieldValues()),
+//            	keyId: me.view.keyId,
+//            	formKey: me.view.formKey,
+//            	taskId: me.view.taskId,
+//            	ProcessInstanceId: me.view.ProcessInstanceId,
+            	method:'updateIssue',
+            	action:'NEXT'
+            },
+    	    waitMsg : '正在提交数据',
+    	    waitTitle : '提示',
+    	    method : "POST",
+    	    success : function(form, action) {
+    	    	var gridTask = me.getView().grid.getStore().load();
+    	    	me.getView().close();
+    	    },
+    	    failure : function(form, action) {
+    	    	ExtApp.util.Util.handleFormFailure(action);
+    	    }
+	    });
+    },
+	setAllowBlank:function(v_form,flag){
+		v_form.findField('isUpdatedDfmea').allowBlank = flag;
+    	v_form.findField('dfmeaNo').allowBlank = flag;
+    	v_form.findField('isUpdatedTc').allowBlank = flag;
+    	v_form.findField('technicalStandardNo').allowBlank = flag;
+    	v_form.findField('otherMeasures').allowBlank = flag;
+    	if(!flag){
+    		if(v_form.findField('isUpdatedDfmea').getValue() == 'Y'){
+    			v_form.findField('dfmeaNo').allowBlank = false;
+    		}else{
+    			v_form.findField('dfmeaNo').allowBlank = true;
+    		}
+    		if(v_form.findField('isUpdatedTc').getValue() == 'Y'){
+    			v_form.findField('technicalStandardNo').allowBlank = false;
+    		}else{
+    			v_form.findField('technicalStandardNo').allowBlank = true;
+    		}
+    	}
+	},
+    // 点击【通过】
+    save: function(btn) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	me.setAllowBlank(v_form,true);
+    	if(v_form.isValid() == false){
+    		Ext.Msg.alert('提示', "请填写必填项！！！");
+    		return;
+    	}
+    	
+    	v_form.submit({
+    		url: '/pdms/ims/ims-issue!save.action',
+            params: {
+            	model: Ext.encode(v_form.getFieldValues()),
+//            	keyId: me.view.keyId,
+//            	formKey: me.view.formKey,
+//            	taskId: me.view.taskId,
+//            	ProcessInstanceId: me.view.ProcessInstanceId,
+            	method:'updateIssue',
+            	action:'SAVE'
+            },
+    	    waitMsg : '正在提交数据',
+    	    waitTitle : '提示',
+    	    method : "POST",
+    	    success : function(form, action) {
+    	    	var gridTask = me.getView().grid.getStore().load();
+    	    	me.getView().close();
+    	    },
+    	    failure : function(form, action) {
+    	    	ExtApp.util.Util.handleFormFailure(action);
+    	    }
+	    });
+    },
+    // 点击【回退】
+    fallback : function(btn) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	var returnReasonWindow = Ext.create('ExtApp.view.common.ReturnReasonWindow',{
+			callback:function(returnComment){
+        		if(returnComment == null || returnComment == ''){
+        			Ext.Msg.alert('提示', '必须添加备注！');
+        			return;
+        		}
+        		returnReasonWindow.close();
+				me.getView().mask('正在提交... 请耐心等待...');
+				v_form.submit({
+		    		url: '/pdms/ims/ims-issue!save.action',
+		            params: {
+		            	returnComment:returnComment,
+		            	method:'updateIssue',
+		            	action:'RETURN'
+		            },
+		    	    waitMsg : '正在提交数据',
+		    	    waitTitle : '提示',
+		    	    method : "POST",
+		    	    success : function(form, action) {
+		    	    	var gridTask = me.getView().grid.getStore().load();
+		    	    	me.getView().close();
+		    	    },
+		    	    failure : function(form, action) {
+		    	    	ExtApp.util.Util.handleFormFailure(action);
+		    	    }
+			    });
+			}
+		});
+    	returnReasonWindow.show();
+		return;
+    },
+	// 点击【是否更新DFMEA】
+    selIsUpdatedDfmea: function(combo, newValue, oldValue, eOpts) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	var isUpdatedDfmeafield = v_form.findField('isUpdatedDfmea');
+    	var dfmeaNofield = v_form.findField('dfmeaNo');
+    	if(newValue == "Y"||newValue == "是"){
+    		isUpdatedDfmeafield.setValue("Y");
+    		dfmeaNofield.setHidden(false);
+    		dfmeaNofield.allowBlank = false;
+    	}else{
+    		isUpdatedDfmeafield.setValue("N");
+    		dfmeaNofield.setHidden(true);
+    		dfmeaNofield.allowBlank = true;
+    		dfmeaNofield.setValue("");
+    	};
+    },
+	// 点击【是否更新技术条件】
+    selIsUpdatedTc: function(combo, newValue, oldValue, eOpts) {
+    	var me = this;
+    	var v_form = me.view.getForm();
+    	var isUpdatedTcfield = v_form.findField('isUpdatedTc');
+    	var technicalStandardNofield = v_form.findField('technicalStandardNo');
+    	if(newValue == "Y"||newValue == "是"){
+    		isUpdatedTcfield.setValue("Y");
+    		technicalStandardNofield.setHidden(false);
+    		technicalStandardNofield.allowBlank = false;
+    	}else{
+    		isUpdatedTcfield.setValue("N");
+    		technicalStandardNofield.setHidden(true);
+    		technicalStandardNofield.allowBlank = true;
+    		technicalStandardNofield.setValue("");
+    	};
+    }
+});

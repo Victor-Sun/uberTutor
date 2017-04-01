@@ -1,0 +1,19 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectTaskListModel', {
+	extend: 'ExtApp.model.Base',
+	alias: 'model.projectTaskList',
+    
+	fields: [
+	         'id',
+	         'taskProgressStatusCode',
+	         'taskName',
+	         'taskOwnerName',
+             'obsName',
+             {name: 'plannedFinishDate',type: 'date'},
+             {name: 'actualFinishDate',type: 'date'},
+             {name: 'lastReportDate', type: 'date'},
+             'rtName',
+             'rtFunctionObsName',
+             'rtObsName'
+	]
+
+});

@@ -1,0 +1,15 @@
+Ext.define('ExtApp.store.projectmanagement.TimeLineFunctionStore', {
+    extend: 'Ext.data.Store',
+    alias: 'store.timeLineFunction',
+    
+    model: 'ExtApp.model.projectmanagement.TimeLineFunctionModel',
+
+    proxy: {
+    	type: 'ajax',
+        url: '/pdms/pm/time-line-setting!getTimelineFunction.action',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
+});

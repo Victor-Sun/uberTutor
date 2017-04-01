@@ -1,0 +1,77 @@
+/**
+ * 质量问题管理-提交问题-知会
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.QeNotify',{
+	extend:'Ext.panel.Panel',
+	xtype:'qeNotify',
+	
+	controller: 'qeNotify',
+	viewModel: 'qeNotify',
+	margin:'10 10 10 10',
+	initComponent:function() {
+
+		var me = this;
+		var qeNotifyStore = Ext.create(
+			'ExtApp.store.qualityissuemanagement.QeNotifyStore');
+		qeNotifyStore.load();
+
+//		qeNotifyStore.on('beforeload', function() {
+//    		if (me.findParentByType('form').keyId){
+//	    		this.getProxy().extraParams = {
+//	    			keyId: me.findParentByType('form').keyId
+//	    		};
+//    		}
+//    	});
+
+		this.items = [{
+			xtype:'fieldset',
+	    	title: '<B>知会</B>',
+			margin: '5 10 10 10',
+			layout: 'fit',
+	    	items:[{
+	    		xtype:'grid',
+				cls: 'allRecordsCls',
+//				width:200,
+//				height:600,
+//				hideHeaders: true,
+				viewConfig: {
+					preserveScrollOnRefresh: true,
+					stripeRows: false
+				},
+				columnLines: true,
+				flex: 1,
+				store: qeNotifyStore,
+//				bind:'{qeNotify}',
+				columns: [
+//					{ text: '当前', dataIndex: 'CurrentName'},
+					{ text: '用户', flex: 2, dataIndex: 'CurrentName'},
+					{ text: 'Last Joined', flex: 1 }
+				],
+//			    tbar: [{
+//			        text: '增加',
+//			        iconCls: 'icon-add',
+//			        handler: 'addMember'
+//			    },{
+//					xtype:'button',
+//					iconCls:'x-fa fa-refresh',
+//			        style: '-webkit-border-radius:20px;padding: 0px;',
+//		            scale: 'small',
+//		            handler: 'onResetClick'
+//			    }]
+				dockedItems: [{
+					xtype: 'toolbar',
+					dock: 'top',
+					items: [{
+						text: '增加',
+						iconCls: 'x-fa fa-plus-circle',
+						handler: 'addMember'
+					},{
+						iconCls: 'x-fa fa-refresh',
+						handler: 'onResetClick'
+					}]
+				}]
+	    	}]
+		}];
+		this.callParent();
+	}
+});

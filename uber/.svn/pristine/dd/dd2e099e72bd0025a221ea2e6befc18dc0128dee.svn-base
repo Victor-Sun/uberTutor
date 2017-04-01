@@ -1,0 +1,22 @@
+Ext.define('ExtApp.store.qualityissuemanagement.CombinedSearchChoice', {
+    extend: 'Ext.data.Store',
+    alias: 'store.combinedSearchChoice',
+
+    fields: ['id', 'name'],
+    
+	data:
+	[
+		{id: 'title', name: '问题标题'},
+		{id: 'code', name: '问题编号'},
+		{id: 'description', name: '问题描述'}
+	]
+//    proxy: {
+//    	type: 'ajax',
+//        url: '/pdms/ims/build-phase!getBuildPhase.action',
+//        reader: {
+//            type: 'json',
+//            rootProperty: 'data'
+//        }
+//    },
+//    autoLoad: true
+});

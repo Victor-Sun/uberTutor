@@ -1,0 +1,310 @@
+/**
+ * 部门空间-部门自建任务-草稿列表
+ */
+Ext.define('ExtApp.view.deptworkspace.deptissue.DraftDeptIssue',{
+	extend:'Ext.panel.Panel',
+	xtype:'draftDeptIssue',
+	
+	layout: 'fit',
+	cls: 'shadow',
+//	margin: 10,
+	
+	title: '部门 Open Issue',
+	
+	controller: 'draftDeptIssue',
+	
+	initComponent: function() {
+		// 列表Store
+		var issueStore = Ext.create('ExtApp.store.deptworkspace.DraftDeptIssueStore');
+		issueStore.load();
+		
+		// 问题来源
+		var issueSourceStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/dws/dept-issue!getDeptIssueSourceList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    },
+		    autoLoad: true
+		});
+		
+		// 责任人
+		var respUserStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/com/sys-user-department!getSysUserList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    }
+		});
+		var respUser = Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '责任人',
+		    store: respUserStore,
+		    name:'respUserId',
+		    queryMode: 'local',
+		    displayField: 'name',
+		    allowBlank:false,
+		    valueField: 'id'
+		});
+		
+		// 责任部门
+		var respDeptStore = Ext.create('Ext.data.Store', {
+		    fields: ['id', 'name'],
+		    proxy: {
+		    	type: 'ajax',
+		    	url: '/pdms/com/sys-user-department!getSysDepartmentList.action',
+		        reader: {
+		            type: 'json',
+		            rootProperty: 'data'
+		        }
+		    },
+		    autoLoad: true
+		});
+		var respDept = Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '责任部门',
+		    store: respDeptStore,
+		    name:'respDeptId',
+		    queryMode: 'local',
+		    displayField: 'name',
+		    allowBlank:false,
+		    valueField: 'id',
+			listeners: {
+				change: function(combo, newValue, oldValue, eOpts){
+					respUserStore.load({params:{departmentId: newValue, includeSubDept: true}});
+				}
+		    }
+		});
+		
+		this.items = [{
+			xtype: 'panel',
+			layout: 'border',
+			items: [{
+				xtype:'grid',
+				region: 'center',
+				title: '问题列表',
+				store: issueStore,
+				columns:[{
+					text: '进度状态',
+					width: 100,
+					dataIndex: 'progressStatus',
+					renderer: 'renderIssueProgress',
+					align: 'center'
+				},{
+					text: '问题标题',
+					flex: 1,
+					dataIndex: 'issueTitle'
+				},{
+					text: '提出日期',
+					width: 100,
+					dataIndex: 'raiseDate',
+					formatter: 'date("Y/m/d")'
+				},{
+					text: '计划偏离天数',
+					width: 120,
+					dataIndex: 'daysDelayed'
+				},{
+					xtype:'actioncolumn',
+		            width:50,
+		            items: [{
+		            	iconCls:'x-fa fa-trash',
+		                tooltip: 'Delete',
+		                handler: 'delDraftIssue'
+		            }]
+				}],
+				listeners:{
+		        	selectionchange: 'onSelectionChange',
+		        	celldblclick: 'onCelldblclick'
+				},
+				dockedItems: [{
+					xtype: 'pagingtoolbar',
+					dock: 'bottom',
+					displayInfo: true,
+					store: issueStore
+				}]
+			},{
+				xtype: 'form',
+				itemId: 'detailForm',
+				collapsible: true,
+				region: 'east',
+				width: '33%',
+				split: true,
+				scrollable: 'y',
+				title: '问题信息',
+//				layout: 'fit',
+				items: [{
+					xtype: 'container',
+					layout:{
+						type:'vbox',
+						align:'stretch'
+					},
+					defaults: {
+						layout: 'column',
+						defaults: {
+							readOnly: true,
+							labelAlign: 'top',
+							fieldCls: 'text-readonly',
+							margin: 5,
+							labelWidth: 100,
+							columnWidth: 0.5
+						}
+					},
+					items:[{
+						xtype:'container',
+						items:[{
+							xtype: 'textfield',
+							fieldLabel: '提出人',
+							name: 'raiseByName'
+						},{
+							xtype: 'combo',
+							fieldLabel: '问题来源',
+						    store: issueSourceStore,
+						    name: 'issueSourceId',
+						    queryMode: 'local',
+						    displayField: 'title',
+						    valueField: 'id',
+						    allowBlank: false
+						}]
+					},{
+						xtype:'container',
+						items:[respDept, respUser]
+					},{
+						xtype:'container',
+						items:[{
+							xtype: 'textfield',
+							fieldLabel: '当前任务责任人',
+							name: 'taskOwner'
+						},{
+							xtype: 'textfield',
+							fieldLabel: '完成状态',
+							name: 'statusCodeName'
+						}]
+					},{
+						xtype:'container',
+						items:[{
+							xtype: 'datefield',
+							fieldLabel: '计划完成日期',
+							name: 'dueDate',
+							format: 'Y-m-d'
+	                    },{
+	                    	xtype: 'datefield',
+							fieldLabel: '实际完成日期',
+							name: 'actualFinishaDate',
+							format: 'Y-m-d'
+						}]
+					},{
+						xtype:'container',
+						items:[{
+							xtype:'counterTextArea',
+							columnWidth: 1,
+							name:'issueDescription',
+							letterPadding: 2,
+							enforceMaxLength:true,
+							maxLength:500,
+							fieldLabel:'问题描述'
+						}]
+					},{
+						xtype:'panel',
+						items:[{
+							xtype:'counterTextArea',
+							columnWidth: 1,
+							name:'issueCause',
+							letterPadding: 2,
+							enforceMaxLength:true,
+							maxLength:500,
+							fieldLabel:'备注'
+						}]
+					}]
+				}]
+			}],
+			tbar: [{
+				xtype: 'form',
+		    	margin: 2,
+		    	layout:{
+					type:'vbox',
+					align:'stretch'
+				},
+				width: '100%',
+				items: [{
+					xtype: 'fieldset',
+					flex:1,
+			    	title: '<B>高级查询</B>',
+			    	titleAlign: 'right',
+			    	collapsible:true,
+			    	collapsed: true,
+			    	margin: 2,
+			    	layout: 'fit',
+			    	items: [{
+			    		xtype: 'panel',
+			    		layout: 'column',
+			    		defaults: {
+			    			defaults: {
+			    				labelAlign: 'right',
+				    			margin: 5
+			    			}
+			    		},
+			    		items: [{
+			    			xtype: 'panel',
+			    			columnWidth: 0.5,
+			    			layout:{
+								type:'hbox',
+								align:'stretch'
+							},
+							items: [{
+								xtype: 'displayfield',
+				    			value: '计划完成时间'
+							},{
+								xtype: 'datefield',
+								format: 'Y/m/d',
+								name: 'searchDueDateFrom'
+							},{
+								xtype: 'displayfield',
+				    			value: '~'
+							},{
+								xtype: 'datefield',
+								format: 'Y/m/d',
+								name: 'searchDueDateTo'
+							}]
+			    		}]
+			    	}]
+				},{
+					xtype: 'container',
+					margin: 5,
+					padding: 1,
+		    		layout:{
+						type:'hbox',
+						align:'stretch'
+					},
+					defaults: {
+		    			labelAlign: 'right',
+		    			labelWidth: 60
+		    		},
+					items: [{
+						xtype: 'textfield',
+						name: 'searchIssueTitle',
+						fieldLabel: '问题标题'
+					},{
+						xtype: 'button',
+						margin: '0 0 0 20',
+						text: '查询',
+						iconCls: 'x-fa fa-search',
+						handler: 'search'
+					},{
+						xtype: 'button',
+						margin: '0 0 0 5',
+						text: '重置',
+						iconCls: 'x-fa fa-rotate-left',
+						handler: 'reloadSearch'
+			    	}]
+				}]
+			}]
+		}];
+		this.callParent(arguments);
+	}
+});

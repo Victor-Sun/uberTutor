@@ -1,0 +1,9 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectPlanStageModel', {
+	extend: 'ExtApp.model.Base',
+    
+    fields: [{name:'stageName'},
+             {name:'stDate', type: 'date'},
+             {name:'edDate', type: 'date'},
+             {name:'hours', type: 'number'}
+    ]
+});

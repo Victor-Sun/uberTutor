@@ -1,0 +1,12 @@
+/**
+ * 质量问题管理-提交问题-知会-人员选择窗口-已选人员列表Controller
+ */
+Ext.define('ExtApp.view.qualityissuemanagement.qesubmission.QeNotifySelectedMemGridController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.qeNotifySelectedMemGrid',
+
+    //双击删除
+    onClickCell: function(grid , td , cellIndex , record , tr , rowIndex , e , eOpts) {
+    	grid.getStore().remove(grid.getSelection());
+	}
+});

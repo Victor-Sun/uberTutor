@@ -1,0 +1,13 @@
+Ext.define('ExtApp.model.projectmanagement.ProjectTemplateMainDeptModel', {
+	extend: 'ExtApp.model.Base',
+    alias: 'model.projectTemplateMainDept',
+    
+    fields: [
+        'id',
+		'taskTypeName',
+		'taskName',
+		'isShow',
+		'finishDaysToSop'
+	]
+
+});

@@ -1,0 +1,25 @@
+Ext.define('ExtApp.model.projectmanagement.DeptPlanTaskModel', {
+    extend: 'ExtApp.model.Base',
+    alias: 'model.deptPlanTask',
+    
+    fields: [
+             'id',
+             'taskName',
+             'taskOwner',
+             'taskOwnerName',
+             'taskTypeCode',
+             'taskTypeName',
+             'parentId',
+             'obsId',
+             'parentTaskName',
+             {name: 'plannedStartDate', type: 'date'},
+             {name: 'plannedFinishDate', type: 'date'},
+             'taskProgressStatusCode',
+             'programId',
+             'relationTaskId',
+             'relationTaskName',
+             'taskPlanLevel',
+             {name: 'durationDays', type: 'number'}
+     ]
+
+});

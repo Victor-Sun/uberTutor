@@ -1,0 +1,50 @@
+//提出问题
+Ext.define('ExtApp.view.qualityissuemanagement.qedashboard.step0.IssueStep0Window',{
+	extend:'Ext.window.Window',
+	xtype:'issueStep0Window',
+	maximized: true,
+	layout: {
+		type: 'border'
+	},
+	controller: 'myTaskInfo00',
+	initComponent: function() {
+		var me = this;
+		this.items = [{
+			region:'center',
+			layout:'border',
+    		xtype: 'myTaskInfo00',
+    		closable:true,
+    		issueId: me.issueId,
+    		record:me.record,
+			grid: me.grid
+        },{
+			xtype:'operationLog',
+			flex: 1,
+			region:'east',
+			width: '20%',
+			margin: 0,
+			title:'操作日志',
+			issueId: me.issueId
+		}];
+		me.dockedItems = [{
+			xtype: 'issueMark',
+			issueId:me.issueId,
+			isMark:me.record.get('isMark')
+		},{
+			// 审核确认栏
+			xtype:'toolbar',
+			dock: 'bottom',
+			cls: 'shadow',
+			items:['->',{
+				text: '提交',
+				itemId:'btnSubmit',
+				handler:'saveSubmit'
+			},{
+				text: '保存草稿',
+				itemId:'btnDraft',
+				handler:'saveDraft'
+			}]
+		}];   
+		this.callParent(arguments);
+    }
+});

@@ -1,0 +1,12 @@
+/**
+ * 首页-进展报表
+ */
+Ext.define('ExtApp.view.dashboard.DashProgressReport',{
+    extend:'Ext.panel.Panel',
+    xtype:'dashProgressReport',
+    
+    controller:'dashProgressReport',
+    
+    layout: 'fit'
+    
+});
