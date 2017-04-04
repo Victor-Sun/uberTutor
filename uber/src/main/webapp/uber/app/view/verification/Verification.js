@@ -21,7 +21,7 @@ Ext.define('uber.view.verification.Verification', {
 				flex: 1
 			},{
 				xtype: 'component',
-				html: '<p>An email has been sent to'+ ' <b> ' + 'EMAIL@DOMAIN.COM' + ' </b> ' + 'with a verification code. Please input the code in the field below </p>'
+				html: '<p>An email has been sent to'+ ' <b> ' + 'EMAIL@DOMAIN.COM' + ' </b> ' + 'with a verification code. Please input the code in the field below <br> *<b>note</b>* <b>verification code is 123456</b></p>'
 			},{
 				xtype: 'component',
 				flex: 1
@@ -31,6 +31,7 @@ Ext.define('uber.view.verification.Verification', {
 			items: [{
 				xtype: 'textfield',
 				name: 'verifycode',
+//				value: '123456'
 				placeHolder: '000000'
 
 			}]

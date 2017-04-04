@@ -1,30 +1,23 @@
-//Ext.define('uber.model.User',{
-//	extend: 'Ext.data.Model',
-////	config: {
-////		
-////			
-////	},
-//	
-//	fields: [
-////	{
-////		name: 'username', type: 'string'
-////	},
-////	{
-////		name: 'password'
-////	}
-//     'username', 'password'
-//	         ],
-//	validations:
-//		[
-//	             {type: 'presence',field: 'username',  message: 'a username is required'},
-//	             {type: 'presence', field: 'password', message: 'please input a password'}
-//     ]
-//	
-//	validate: function (options) {
-//        var me = this,
-//        errors = me.callParent(arguments);
-//       
-//        return errors;
-//    }
-//
-//})
+Ext.define('uber.model.User',{
+	extend: 'Ext.data.Model',
+//        	config: {
+//        	},
+	fields: [
+//			'username', 'password'
+		{ name: 'username', type: 'string' },
+		{ name: 'password'}
+	],
+//			validations:
+//			[
+//			    {type: 'presence',field: 'username',  message: 'please input valid username'},
+//			    {type: 'presence', field: 'password', message: 'please input valid password'}
+//			],
+	validators: {
+		username: [
+           { type: 'presence', message: 'please input valid username' }
+		],
+		password: [
+           { type: 'presence', message: 'please input valid password' }
+       ]
+	}
+})

@@ -8,7 +8,8 @@ Ext.define('uber.view.login.SignUp', {
 	],
 	
 	items: [{
-		xtype: 'panel',
+		xtype: 'formpanel',
+		reference: 'formpanel',
 		margin: 10,
 		items: [{
 			xtype: 'fieldset',
@@ -33,15 +34,19 @@ Ext.define('uber.view.login.SignUp', {
 				}]
 			},{
 				xtype: 'textfield',
+				name: 'firstname',
 				label: 'Full Name'
 			},{
 				xtype: 'textfield',
+				name: 'username',
 				label: 'Username'
 			},{
 				xtype: 'textfield',
+				name: 'email',
 				label: 'Email'
 			},{
 				xtype: 'passwordfield',
+				name: 'password',
 				label: 'Password'
 			},{
                 xtype: 'toolbar',
