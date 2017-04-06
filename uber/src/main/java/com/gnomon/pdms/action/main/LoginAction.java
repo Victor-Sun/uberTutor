@@ -55,12 +55,14 @@ public class LoginAction extends ActionSupport {
 			
 			// 用户ID存在验证
 			if (! loginService.verifyUserId(loginUserId)) {
-				throw new Exception("用户名不存在！");
+//				throw new Exception("用户名不存在！");
+				throw new Exception("User does not exist！");
 			}
 			// 用户密码验证
 			if (! loginService.verifyUserPassword(
 					loginUserId, EncryptUtil.encrypt(loginPassword))) {
-				throw new Exception("用户密码错误！");
+//				throw new Exception("用户密码错误！");
+				throw new Exception("Password is incorrect！");
 			}
 			
 			// 用户信息取得
@@ -68,8 +70,10 @@ public class LoginAction extends ActionSupport {
 			
 			//禁用的用户不允许登录
 			if("Y".equals(loginUser.getIsDisabled())){
-				throw new Exception("用户已被禁用，不允许登录！");
+//				throw new Exception("用户已被禁用，不允许登录！");
+				throw new Exception("This user has been disabled！");
 			}
+			
 			// Session-用户信息
 			Struts2Utils.getSession().setAttribute(
 					SessionData.KEY_LOGIN_USER, loginUser);
