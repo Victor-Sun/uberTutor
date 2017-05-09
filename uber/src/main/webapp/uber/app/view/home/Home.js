@@ -1,22 +1,12 @@
 Ext.define('uber.view.home.Home',{
-	extend: 'Ext.Panel',
+	extend: 'Ext.panel.Panel',
+	xtype: 'home',
 	layout: {
         type: 'vbox',
         align: 'stretch'
     },
-	xtype: 'home',
 	items: [{
-        xtype: 'panel',
-        flex: 1,
-        items: [{
-            xtype: 'fieldset',
-            title: 'Nearby Tutors',
-            items: [{
-
-            }]
-        }]
-    },{
-        xtype: 'panel',
+        xtype: 'container',
         flex: 1,
          items: [{
             xtype: 'fieldset',
@@ -25,12 +15,12 @@ Ext.define('uber.view.home.Home',{
             	
             }]
         }]
-    // },{
-    // 	xtype: 'panel',
-    //     flex: 1,
-    //      items: [{
-    //         xtype: 'fieldset',
-    //         title: 'Calendar'
-    //     }]
+// },{
+// 	xtype: 'panel',
+//     flex: 1,
+//      items: [{
+//         xtype: 'fieldset',
+//         title: 'Calendar'
+//     }]
     }]
 });

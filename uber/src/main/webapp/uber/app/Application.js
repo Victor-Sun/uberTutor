@@ -21,31 +21,35 @@ Ext.define('uber.Application', {
     launch: function () {
         // TODO - Launch the application
         var me = this;
-//        Ext.Viewport.add(Ext.create('uber.view.login.SignUp'));
-        Ext.Viewport.add(Ext.create('uber.view.profile.Profile'));
-        Ext.define('uber.model.User',{
-        	extend: 'Ext.data.Model',
-//        	config: {
-//        	},
-        	fields: [
-//			'username', 'password'
-				{ name: 'username', type: 'string' },
-				{ name: 'password'}
-			],
-//			validations:
-//			[
-//			    {type: 'presence',field: 'username',  message: 'please input valid username'},
-//			    {type: 'presence', field: 'password', message: 'please input valid password'}
+        Ext.Viewport.add(Ext.create('uber.view.login.SignUp'));
+        var admin = Ext.create('uber.model.User',{
+        	username: 'admin',
+        	password: '123456'
+        });
+//        Ext.Viewport.add(Ext.create('uber.view.main.Main'));
+//        Ext.define('uber.model.User',{
+//        	extend: 'Ext.data.Model',
+////        	config: {
+////        	},
+//        	fields: [
+////			'username', 'password'
+//				{ name: 'username', type: 'string' },
+//				{ name: 'password'}
 //			],
-			validators: {
-				username: [
-		           { type: 'presence', message: 'please input valid username' }
-				],
-				password: [
-		           { type: 'presence', message: 'please input valid password' }
-	           ]
-			}
-        })
+////			validations:
+////			[
+////			    {type: 'presence',field: 'username',  message: 'please input valid username'},
+////			    {type: 'presence', field: 'password', message: 'please input valid password'}
+////			],
+//			validators: {
+//				username: [
+//		           { type: 'presence', message: 'please input valid username' }
+//				],
+//				password: [
+//		           { type: 'presence', message: 'please input valid password' }
+//	           ]
+//			}
+//        })
         
     }
     // ,

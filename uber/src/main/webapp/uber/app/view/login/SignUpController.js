@@ -3,7 +3,6 @@ Ext.define('uber.view.login.SignUpController', {
     alias: 'controller.signup',
 
     register: function () {
-//    	debugger;
     	var form = this.lookupReference('formpanel');
     	var signup = form.getValues();
     	Ext.Msg.alert('test','form submitted', function () {

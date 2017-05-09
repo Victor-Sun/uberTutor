@@ -16,7 +16,7 @@ import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.support.JdbcUtils;
 
 /**
- * DBユーティリティクラス。
+ * DBユーティリティクラス。
  * <p>
  * <a href="FLDBUtil.java.html"><i>View Source</i></a>
  * </p>
@@ -25,35 +25,35 @@ import org.springframework.jdbc.support.JdbcUtils;
 public class GTDBUtil
 {
   /**
-   * デフォルトコンストラクタ。
+   * デフォルトコンストラクタ。
    * <p>
    * <dl>
-   * <dt>実装機能：
-   * <dd>何もしません。
-   * <dt>利用方法：
-   * <dd>利用しません。
+   * <dt>実装機能：
+   * <dd>何もしません。
+   * <dt>利用方法：
+   * <dd>利用しません。
    * </dl>
    */
   public GTDBUtil() {
   }
   
   /**
-   * 結果セットオブジェクトから行データは列名をキーとするHashMapに格納する。
+   * 結果セットオブジェクトから行データは列名をキーとするHashMapに格納する。
    * <p>
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>結果セットのメタデータを取得します。
-   * <li>結果セットのメタデータから結果セットのコラム名を取得し、これを利用して、マップにデータを格納します。
-   * <li>作成したマップを返す。
+   * <li>結果セットのメタデータを取得します。
+   * <li>結果セットのメタデータから結果セットのコラム名を取得し、これを利用して、マップにデータを格納します。
+   * <li>作成したマップを返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでこのメソッドを呼出し、結果セットからマップまで変換します。
+   * <dt>利用方法：
+   * <dd>業務DAOでこのメソッドを呼出し、結果セットからマップまで変換します。
    * </dl>
    * 
-   * @param resultSet 結果セットオブジェクト
-   * @return 結果セットオブジェクトより作成したマップオブジェクト
+   * @param resultSet 結果セットオブジェクト
+   * @return 結果セットオブジェクトより作成したマップオブジェクト
    */
   public static HashMap resultExtractor(ResultSet resultSet)
     throws java.sql.SQLException {
@@ -67,17 +67,17 @@ public class GTDBUtil
   }
 
   /**
-   * Objectへのマッピングクラスを取得します。
+   * Objectへのマッピングクラスを取得します。
    * <p>
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>指定クラスを利用して、Objectへのマッピングクラスオブジェクトを作成します。
-   * <li>Objectへのマッピングクラスオブジェクトを返す。
+   * <li>指定クラスを利用して、Objectへのマッピングクラスオブジェクトを作成します。
+   * <li>Objectへのマッピングクラスオブジェクトを返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでこのメソッドを呼出し、Objectへのマッピングクラスオブジェクトを取得します。
+   * <dt>利用方法：
+   * <dd>業務DAOでこのメソッドを呼出し、Objectへのマッピングクラスオブジェクトを取得します。
    * </dl>
    * 
    * @param requiredType Objectのクラス
@@ -102,19 +102,19 @@ public class GTDBUtil
   }
 
   /**
-   * Objectのプロパティ値をコピーします。
+   * Objectのプロパティ値をコピーします。
    * <p>
    * <dl>
-   * <dt>実装機能：
-   * <dd>マップオブジェクトから値取得して、指定クラスオブジェクトに格納します。
+   * <dt>実装機能：
+   * <dd>マップオブジェクトから値取得して、指定クラスオブジェクトに格納します。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでこのメソッドを呼出し、指定クラスオブジェクトにマップからの値を設定します。
+   * <dt>利用方法：
+   * <dd>業務DAOでこのメソッドを呼出し、指定クラスオブジェクトにマップからの値を設定します。
    * </dl>
    * 
    * @param dest コピー先のObject
    * @param orig コピー元のObject
-   * @throws Exception bjectのプロパティ値をコピーする処理中にエラーが発生した場合
+   * @throws Exception bjectのプロパティ値をコピーする処理中にエラーが発生した場合
    */
   @SuppressWarnings("unchecked")
   private static void beanCopy(Object dest, Map orig) throws Exception {

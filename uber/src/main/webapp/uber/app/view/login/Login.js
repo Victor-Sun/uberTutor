@@ -10,6 +10,7 @@ Ext.define('uber.view.login.Login', {
 	items: [{
 		xtype: 'formpanel',
 		reference: 'formpanel',
+		standardSubmit: true,
 		margin: 50,
 		items: [{
 			xtype: 'fieldset',
@@ -41,8 +42,7 @@ Ext.define('uber.view.login.Login', {
 				xtype: 'passwordfield',
 				required: true,
 				name: 'password',
-				label: 'Password',
-				
+				label: 'Password'
 			},{
 				xtype: 'toolbar',
 				items: [{

@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.JdbcUtils;
 
 /**
- * ページング検索結果セットオブジェクト用モデルクラス。
+ * ページング検索結果セットオブジェクト用モデルクラス。
  * <p>
  * <a href="FLResultSetExtractor.java.html"><i>View Source</i></a>
  * </p>
@@ -35,18 +35,18 @@ public class GTResultSetExtractor implements ResultSetExtractor {
 	private final RowMapper rowMapper;
 
 	/**
-	 * 指定ページ番号とサイズにより、FLResultSetExtractorを構築します。
+	 * 指定ページ番号とサイズにより、FLResultSetExtractorを構築します。
 	 * <p><dl>
-	 * <dt>実装機能：
+	 * <dt>実装機能：
 	 * <dd>
 	 * <ul>
-	 * <li>{@link #setPageNo(int)}を呼出し、ページ番号を設定します。
-	 * <li>{@link #setPageSize(int)}を呼出し、ページサイズを設定します。
-	 * <li>マッピングクラスオブジェクトはNullを設定します。
+	 * <li>{@link #setPageNo(int)}を呼出し、ページ番号を設定します。
+	 * <li>{@link #setPageSize(int)}を呼出し、ページサイズを設定します。
+	 * <li>マッピングクラスオブジェクトはNullを設定します。
 	 * </ul>
-	 * <dt>利用方法：
-	 * <dd>ページ番号とページサイズを指定する場合、
-	 *     このコンストラクターが呼出し、FLResultSetExtractor オブジェクトを作成します。
+	 * <dt>利用方法：
+	 * <dd>ページ番号とページサイズを指定する場合、
+	 *     このコンストラクターが呼出し、FLResultSetExtractor オブジェクトを作成します。
 	 * </dl>
 	 * 
 	 * @param pageNo ページ番号
@@ -59,23 +59,23 @@ public class GTResultSetExtractor implements ResultSetExtractor {
 	}
 
 	/**
-	 * 指定ページ番号、サイズとマッピングクラスオブジェクトにより、FLResultSetExtractorを構築します。
+	 * 指定ページ番号、サイズとマッピングクラスオブジェクトにより、FLResultSetExtractorを構築します。
 	 * <p><dl>
-	 * <dt>実装機能：
+	 * <dt>実装機能：
 	 * <dd>
 	 * <ul>
-	 * <li>{@link #setPageNo(int)}を呼出し、ページ番号を設定します。
-	 * <li>{@link #setPageSize(int)}を呼出し、ページサイズを設定します。
-	 * <li>マッピングクラスオブジェクトはrowMapperを設定します。
+	 * <li>{@link #setPageNo(int)}を呼出し、ページ番号を設定します。
+	 * <li>{@link #setPageSize(int)}を呼出し、ページサイズを設定します。
+	 * <li>マッピングクラスオブジェクトはrowMapperを設定します。
 	 * </ul>
-	 * <dt>利用方法：
-	 * <dd>ページ番号、ページサイズとマッピングクラスオブジェクト指定する場合、
-	 *     このコンストラクターが呼出し、FLResultSetExtractor オブジェクトを作成します。
+	 * <dt>利用方法：
+	 * <dd>ページ番号、ページサイズとマッピングクラスオブジェクト指定する場合、
+	 *     このコンストラクターが呼出し、FLResultSetExtractor オブジェクトを作成します。
 	 * </dl>
 	 * 
 	 * @param pageNo ージ番号
 	 * @param pageSize ページサイズ
-	 * @param rowMapper マッピングクラスオブジェクト
+	 * @param rowMapper マッピングクラスオブジェクト
 	 */
 	public GTResultSetExtractor(int pageNo, int pageSize, RowMapper rowMapper){
 		  setPageNo(pageNo);
@@ -84,43 +84,43 @@ public class GTResultSetExtractor implements ResultSetExtractor {
 	}
 
 	/**
-	 * ページング検索する結果セットオブジェクトリストを設定します。
+	 * ページング検索する結果セットオブジェクトリストを設定します。
 	 * <dl>
-	 * <dt>実装機能：
-	 * <dd>ページング検索する結果セットオブジェクトリストを設定します。
-	 * <dt>利用方法：
-	 * <dd>このメソッドを呼出し、取得する結果セットオブジェクトリストを設定します。
+	 * <dt>実装機能：
+	 * <dd>ページング検索する結果セットオブジェクトリストを設定します。
+	 * <dt>利用方法：
+	 * <dd>このメソッドを呼出し、取得する結果セットオブジェクトリストを設定します。
 	 * </dl>
 	 *
-	 * @param items ページング検索する結果セットオブジェクトリスト
+	 * @param items ページング検索する結果セットオブジェクトリスト
 	*/
 	public void setItems(List items) {
 		this.items = items;
 	}
 
 	/**
-	 * ページング検索する結果セットオブジェクトリストを取得します。
+	 * ページング検索する結果セットオブジェクトリストを取得します。
 	 * <dl>
-	 * <dt>実装機能：
-	 * <dd>ページング検索する結果セットオブジェクトリストを返す。
-	 * <dt>利用方法：
-	 * <dd>このメソッドを呼出し、取得する結果セットオブジェクトリストを取得します。
+	 * <dt>実装機能：
+	 * <dd>ページング検索する結果セットオブジェクトリストを返す。
+	 * <dt>利用方法：
+	 * <dd>このメソッドを呼出し、取得する結果セットオブジェクトリストを取得します。
 	 * </dl>
 	 * 
-	 * @return ページング検索する結果セットオブジェクトリスト
+	 * @return ページング検索する結果セットオブジェクトリスト
 	*/
 	public List getItems() {
 		return items;
 	}
 
 	/**
-	 * 当ページ番号を設定します。
+	 * 当ページ番号を設定します。
 	 * <dl>
-	 * <dt>実装機能：
-	 * <dd>このインスタンスのページ番号を設定します。
-	 * <dt>利用方法：
-	 * <dd>ページング検索取得するページ番号を利用して、
-	 *     このメソッドを呼出し、FLResultSetExtractor オブジェクトのページ番号を設定します。
+	 * <dt>実装機能：
+	 * <dd>このインスタンスのページ番号を設定します。
+	 * <dt>利用方法：
+	 * <dd>ページング検索取得するページ番号を利用して、
+	 *     このメソッドを呼出し、FLResultSetExtractor オブジェクトのページ番号を設定します。
 	 * </dl>
 	 * 
 	 * @param pageNo ページ番号
@@ -130,14 +130,14 @@ public class GTResultSetExtractor implements ResultSetExtractor {
 	}
 
 	/**
-	 * ページサイズを設定します。
+	 * ページサイズを設定します。
 	 * <dl>
-	 * <dt>実装機能：
-	 * <dd>このインスタンスのページサイズを設定します。
-	 * <dt>利用方法：
-	 * <dd>ページング検索取得するページサイズを利用して、
-	 *     このメソッドを呼出し、
-	 *     FLResultSetExtractor オブジェクトのページサイズを設定します。
+	 * <dt>実装機能：
+	 * <dd>このインスタンスのページサイズを設定します。
+	 * <dt>利用方法：
+	 * <dd>ページング検索取得するページサイズを利用して、
+	 *     このメソッドを呼出し、
+	 *     FLResultSetExtractor オブジェクトのページサイズを設定します。
 	 * </dl>
 	 * 
 	 * @param pageSize ページサイズ
@@ -147,27 +147,27 @@ public class GTResultSetExtractor implements ResultSetExtractor {
 	}
 	
 	/**
-	 * 結果セットオブジェクトからリストを作成する。
+	 * 結果セットオブジェクトからリストを作成する。
 	 * <p>
 	 * <dl>
-	 * <dt>実装機能：
+	 * <dt>実装機能：
 	 * <dd>
 	 * <ul>
-	 * <li>結果セットのメタデータを取得します。
-	 * <li>マッピングクラスオブジェクトがnull場合、
-	 * 　　結果セットのメタデータから結果セットのコラム名を取得し、
-	 *     これを利用して、マップにデータを格納します。
-	 *     マップをリストを格納します
-	 * <li>上記以外場合、rowMapperを利用して、マップにデータを格納します。
-	 * 　　マップをリストを格納します
-	 * <li>作成したリストを返す。
+	 * <li>結果セットのメタデータを取得します。
+	 * <li>マッピングクラスオブジェクトがnull場合、
+	 * 　　結果セットのメタデータから結果セットのコラム名を取得し、
+	 *     これを利用して、マップにデータを格納します。
+	 *     マップをリストを格納します
+	 * <li>上記以外場合、rowMapperを利用して、マップにデータを格納します。
+	 * 　　マップをリストを格納します
+	 * <li>作成したリストを返す。
 	 * </ul>
-	 * <dt>利用方法：
-	 * <dd>spring内部で該当メソッドを呼出し、結果セットから対象データを取り出します。
+	 * <dt>利用方法：
+	 * <dd>spring内部で該当メソッドを呼出し、結果セットから対象データを取り出します。
 	 * </dl>
 	 * 
-	 * @param rs 結果セットオブジェクト
-	 * @return ページング検索する結果セットオブジェクトリスト
+	 * @param rs 結果セットオブジェクト
+	 * @return ページング検索する結果セットオブジェクトリスト
 	 */
 	@SuppressWarnings("unchecked")
 	public Object extractData(ResultSet rs) throws SQLException,

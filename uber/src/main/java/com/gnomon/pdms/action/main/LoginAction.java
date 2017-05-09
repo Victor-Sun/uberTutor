@@ -34,17 +34,36 @@ public class LoginAction extends ActionSupport {
 	@Autowired
 	private SysUserDepartmentService sysUserDepartmentService;
 	
-	private String loginUserId;
+//	private String loginUserId;
+	private String username;
+	private String password;
+	
+//	public void setLoginUserId(String loginUserId) {
+//		this.loginUserId = loginUserId;
+//	}
+	
+	public String getUsername() {
+		return username;
+	}
 
-	public void setLoginUserId(String loginUserId) {
-		this.loginUserId = loginUserId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
-	private String loginPassword;
-
-	public void setLoginPassword(String loginPassword) {
-		this.loginPassword = loginPassword;
+	
+	public String getPassword() {
+		return password;
 	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+//	private String loginPassword;
+//
+//	public void setLoginPassword(String loginPassword) {
+//		this.loginPassword = loginPassword;
+//	}
 
 	/*
 	 * Login处理
@@ -52,49 +71,46 @@ public class LoginAction extends ActionSupport {
 	public void login() throws Exception {
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
-			
+			String userNoExistMsg = "用户名不存在！";
+			String passIncorrectMsg = "用户密码错误！";
+			String userDisabledMsg = "用户已被禁用，不允许登录！";
+					
 			// 用户ID存在验证
-			if (! loginService.verifyUserId(loginUserId)) {
-//				throw new Exception("用户名不存在！");
-				throw new Exception("User does not exist！");
+			if (!loginService.verifyUserId(username)) {
+				throw new Exception(userNoExistMsg);
 			}
 			// 用户密码验证
-			if (! loginService.verifyUserPassword(
-					loginUserId, EncryptUtil.encrypt(loginPassword))) {
-//				throw new Exception("用户密码错误！");
-				throw new Exception("Password is incorrect！");
+			if (!loginService.verifyUserPassword(username, EncryptUtil.encrypt(password))) {
+				throw new Exception(passIncorrectMsg);
 			}
 			
 			// 用户信息取得
-			UserEntity loginUser = this.loginService.getUser(loginUserId);
+			UserEntity loginUser = this.loginService.getUser(username);
 			
 			//禁用的用户不允许登录
+			//TODO Change code to make it better
 			if("Y".equals(loginUser.getIsDisabled())){
-//				throw new Exception("用户已被禁用，不允许登录！");
-				throw new Exception("This user has been disabled！");
+				throw new Exception(userDisabledMsg);
 			}
 			
 			// Session-用户信息
-			Struts2Utils.getSession().setAttribute(
-					SessionData.KEY_LOGIN_USER, loginUser);
+			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_USER, loginUser);
 			if(OnlineUtils.isUseRedis()){
-				if(OnlineUtils.isOnline(loginUserId)){
-					OnlineUtils.logout(loginUserId);
+				if(OnlineUtils.isOnline(username)){
+					OnlineUtils.logout(username);
 				}
 				OnlineUtils.login(Struts2Utils.getSession().getId(), loginUser);
 			}
 			
-			
 			// Session-用户部门信息
 			// 系统用户信息取得
-			Map<String, Object> deptUserInfo =
-					this.sysUserDepartmentService.getDeptUserInfo(loginUser.getId());
-			Struts2Utils.getSession().setAttribute(
-					SessionData.KEY_LOGIN_DEPT, deptUserInfo);
+			Map<String, Object> deptUserInfo = this.sysUserDepartmentService.getDeptUserInfo(loginUser.getId());
+			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_DEPT, deptUserInfo);
 			
 			loginService.saveLoginLog(loginUser.getId());
 			
 			resultMap.put("userName", loginUser.getUsername());
+			//TODO Ask why don't use "this" here
 			writeSuccessResult(resultMap);
 		} catch (Exception e) {
 			e.printStackTrace();

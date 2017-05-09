@@ -13,7 +13,7 @@ Ext.define('uber.view.main.Main', {
         'Ext.MessageBox',
 
         'uber.view.main.MainController',
-        'uber.view.main.MainModel',
+        'uber.view.main.MainModel'
     ],
 
     controller: 'main',
@@ -30,7 +30,8 @@ Ext.define('uber.view.main.Main', {
         tab: {
             iconAlign: 'top'
         },
-        styleHtmlContent: true
+        styleHtmlContent: true,
+        layout: 'fit'
     },
     tabBarPosition: 'bottom',
     items: [{
@@ -41,11 +42,11 @@ Ext.define('uber.view.main.Main', {
     	xtype: 'profile',
         title: 'Profile',
         iconCls: 'x-fa fa-user'
-    // },{
-    //     title: 'Search',
-    //     xtype: 'search',
-    //     iconCls: 'x-fa fa-search',
-    //     layout: 'vbox'
+	},{     
+		title: 'Search',
+		xtype: 'search',
+		iconCls: 'x-fa fa-search',
+		layout: 'vbox'
     // },{
     //     title: 'User<br>Request',
     //     iconCls: 'x-fa fa-bullhorn',

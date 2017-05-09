@@ -18,57 +18,41 @@ Ext.define('uber.view.login.LoginController', {
 //	},
 	
     login: function () {
-//    	debugger;
     	//fetches data from forms
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
     	var model = Ext.create('uber.model.User', formPanel.getValues());
     	var errors = model.validate();
+    	var errors2 = model.isValid();
     	var check = errors.isValid();
 //    	console.log(model);
 //    	console.log(errors);
 //    	console.log(check);
     	
-    	if(errors.isValid()){
+    	if(model.isValid()){
     		formPanel.submit({ 
     			url: '/uber/main/login!login.action',
-    			method: 'post', 
-    			success: function(response, opts) {
-    		         var obj = Ext.decode(response.responseText);
-    		         console.dir(obj);
-    		     },
+    			method: 'POST', 
+    			success: function() {
+//    		         var obj = Ext.decode(response.responseText);
+//    		         console.dir(obj);
+//    		         console.log('sucess');
+//    				 Ext.Msg.alert('','', )
+    		         this.up('panel').destroy();
+    		         Ext.Viewport.add(Ext.create('uber.view.main.Main'));
+    		    },
 
-    		     failure: function(response, opts) {
+    		    failure: function(response, opts) {
     		         console.log('server-side failure with status code ' + response.status);
-    		     }
-//    			success: function() { 
-//    				Ext.Msg.alert("success"); }, 
-//    			failure: function() { 
-//    				Ext.Msg.alert("error"); 
-//    			}
+    		         Ext.Msg.alert('', 'Error', Ext.emptyFn);
+    		    }
     		});
-    	}
-//    		formPanel.submit({
-//                clientValidation: true,
-//                url: '/uber/main/login!login.action',
-//                scope: me,
-//                success: function(){
-//                	Ext.Msg.alert('Submit sucess!')
-//                },
-//                failure: function(form,result){
-//                	var message = "";
-//                	Ext.each(result.erros,function(rec, i) {
-//                		message += rec.message+"<br>";
-//                	});
-//                	Ext.Msg.alert(" Submit failed ", message);
-//                }
-//            });
-    	else {
+    	} else {
     		var message = "";
     		Ext.each(errors.items,function(rec){
     			message +=rec.getMessage()+"<br>";
     		});
-    		Ext.Msg.alert("Validation failed", message);
+    		Ext.Msg.alert("Validation failed", message, Ext.emptyFn);
     	}
     	
     	
@@ -84,7 +68,6 @@ Ext.define('uber.view.login.LoginController', {
 //      	console.log(form)
 //      }
 //                    else alert('Invalid form');
-    	
     }, 	 
 
     signup: function () {

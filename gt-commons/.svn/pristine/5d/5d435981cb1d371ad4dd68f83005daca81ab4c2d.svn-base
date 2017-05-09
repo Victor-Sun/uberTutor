@@ -17,8 +17,8 @@ import com.gnomon.common.GTConstants;
 
 /**
  * 共通JDBCテンプレート基底クラス。<br />
- * このクラスでは、ステートメントの生成、 実行のようなコアJDBCのワークフローを実行し、
- * アプリケーションコードからSQLの受け渡しと結果の抽出を分離する。
+ * このクラスでは、ステートメントの生成、 実行のようなコアJDBCのワークフローを実行し、
+ * アプリケーションコードからSQLの受け渡しと結果の抽出を分離する。
  * <p>
  * <a href="FLJdbcTemplate.java.html"><i>View Source</i></a>
  * </p>
@@ -41,13 +41,13 @@ public class GTJdbcTemplate extends JdbcTemplate
    */
   private boolean useOrderByFlg = false;
   /**
-   * デフォルトコンストラクタ。
+   * デフォルトコンストラクタ。
    * <p>
    * <dl>
-   * <dt>実装機能：
-   * <dd>何もしません。
-   * <dt>利用方法：
-   * <dd>業務サービスでパラメータ指定しないの場合、このメソッドが呼出し、JDBCテンプレートオブジェクトを作成します。
+   * <dt>実装機能：
+   * <dd>何もしません。
+   * <dt>利用方法：
+   * <dd>業務サービスでパラメータ指定しないの場合、このメソッドが呼出し、JDBCテンプレートオブジェクトを作成します。
    * </dl>
    */
   public GTJdbcTemplate() {
@@ -55,13 +55,13 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 指定されたデータベースより、FLJdbcTemplateを構築します。
+   * 指定されたデータベースより、FLJdbcTemplateを構築します。
    * <p>
    * <dl>
-   * <dt>実装機能：
-   * <dd>指定されたデータベースを利用して、スーパークラスのコンストラクタを呼び出す。
-   * <dt>利用方法：
-   * <dd>{@link jp.co.nec.flowlites.core.dao.impl.FLJdbcBaseDAOImpl#createFLJdbcTemplate(DataSource)}内部で指定されたデータベースを利用して、このメソッドが呼出し、JDBCテンプレートオブジェクトを作成します。
+   * <dt>実装機能：
+   * <dd>指定されたデータベースを利用して、スーパークラスのコンストラクタを呼び出す。
+   * <dt>利用方法：
+   * <dd>{@link jp.co.nec.flowlites.core.dao.impl.FLJdbcBaseDAOImpl#createFLJdbcTemplate(DataSource)}内部で指定されたデータベースを利用して、このメソッドが呼出し、JDBCテンプレートオブジェクトを作成します。
    * </dl>
    * 
    * @param dataSource データソース
@@ -71,12 +71,12 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * データベースの種類名の対応定数を取得します。
+   * データベースの種類名の対応定数を取得します。
    * <dl>
-   * <dt>実装機能：
-   * <dd>このインスタンス設定したデータベースの種類名の対応定数({@link jp.co.nec.flowlites.core.common.GTConstants#DATABASE_ORACLE}または{@link jp.co.nec.flowlites.core.common.GTConstants#DATABASE_MSSQL})を返す。
-   * <dt>利用方法：
-   * <dd>結果件数制限検索とページング検索時にこのメッソドを呼出された取得した戻り値よりSQL文を作成します。
+   * <dt>実装機能：
+   * <dd>このインスタンス設定したデータベースの種類名の対応定数({@link jp.co.nec.flowlites.core.common.GTConstants#DATABASE_ORACLE}または{@link jp.co.nec.flowlites.core.common.GTConstants#DATABASE_MSSQL})を返す。
+   * <dt>利用方法：
+   * <dd>結果件数制限検索とページング検索時にこのメッソドを呼出された取得した戻り値よりSQL文を作成します。
    * </dl>
    * 
    * @return このインスタンス設定したデータベースの種類名の対応定数({@link jp.co.nec.flowlites.core.common.GTConstants#DATABASE_ORACLE}または{@link jp.co.nec.flowlites.core.common.GTConstants#DATABASE_MSSQL})
@@ -86,12 +86,12 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * データベースの種類名の対応定数を設定します。
+   * データベースの種類名の対応定数を設定します。
    * <dl>
-   * <dt>実装機能：
-   * <dd>このインスタンスのデータベースの種類名の対応定数を設定します。
-   * <dt>利用方法：
-   * <dd>{@link jp.co.nec.flowlites.core.dao.impl.FLJdbcBaseDAOImpl#setDatabaseProductName(String)}内部で指定されたデータベースの種類名の対応定数を利用して、このメソッドが呼出し、データベースの種類名の対応定数を設定します。
+   * <dt>実装機能：
+   * <dd>このインスタンスのデータベースの種類名の対応定数を設定します。
+   * <dt>利用方法：
+   * <dd>{@link jp.co.nec.flowlites.core.dao.impl.FLJdbcBaseDAOImpl#setDatabaseProductName(String)}内部で指定されたデータベースの種類名の対応定数を利用して、このメソッドが呼出し、データベースの種類名の対応定数を設定します。
    * </dl>
    * 
    * @param dbProductName アプリケーションコンテキストのXMLファイルにて設定したデータベースの種類名の対応定数({@link jp.co.nec.flowlites.core.common.GTConstants#DATABASE_ORACLE}または{@link jp.co.nec.flowlites.core.common.GTConstants#DATABASE_MSSQL})
@@ -101,12 +101,12 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 検索結果制限件数を取得します。
+   * 検索結果制限件数を取得します。
    * <dl>
-   * <dt>実装機能：
-   * <dd>内部の検索結果制限件数を返す。
-   * <dt>利用方法：
-   * <dd>データを検索する場合、検索結果件数制限必要時に、このメッソドを呼出された取得した検索結果制限件数より、処理を行う。
+   * <dt>実装機能：
+   * <dd>内部の検索結果制限件数を返す。
+   * <dt>利用方法：
+   * <dd>データを検索する場合、検索結果件数制限必要時に、このメッソドを呼出された取得した検索結果制限件数より、処理を行う。
    * </dl>
    * 
    * @return 設定した検索結果制限件数
@@ -116,12 +116,12 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 検索結果制限件数を設定します。
+   * 検索結果制限件数を設定します。
    * <dl>
-   * <dt>実装機能：
-   * <dd>このインスタンスの検索結果制限件数を設定します。
-   * <dt>利用方法：
-   * <dd>{@link jp.co.nec.flowlites.core.dao.impl.FLJdbcBaseDAOImpl#setSearchLimit(int)}内部で指定された検索結果制限件数を利用して、このメソッドが呼出し、検索結果制限件数を設定します。
+   * <dt>実装機能：
+   * <dd>このインスタンスの検索結果制限件数を設定します。
+   * <dt>利用方法：
+   * <dd>{@link jp.co.nec.flowlites.core.dao.impl.FLJdbcBaseDAOImpl#setSearchLimit(int)}内部で指定された検索結果制限件数を利用して、このメソッドが呼出し、検索結果制限件数を設定します。
    * </dl>
    * 
    * @param searchLimit 検索結果制限件数
@@ -141,38 +141,38 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 検索用結果制限数までのSQL文を生成する。
+   * 検索用結果制限数までのSQL文を生成する。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>検索結果制限件数が「0」の場合、SQL文を返す。
-   * <li>検索結果制限件数が「0」でないの場合、{@link SqlBuilder#generateLimitSql(String, int, String)}を呼出され、処理後のSQL文を返す。
+   * <li>検索結果制限件数が「0」の場合、SQL文を返す。
+   * <li>検索結果制限件数が「0」でないの場合、{@link SqlBuilder#generateLimitSql(String, int, String)}を呼出され、処理後のSQL文を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>検索結果件数制限ことがある場合、このメソッドを呼出し、検索件数制限SQL文を作成する。
+   * <dt>利用方法：
+   * <dd>検索結果件数制限ことがある場合、このメソッドを呼出し、検索件数制限SQL文を作成する。
    * </dl>
    * 
-   * @param sql 処理前のSQL文
-   * @return 処理後のSQL文
+   * @param sql 処理前のSQL文
+   * @return 処理後のSQL文
    */
   private String getLimitSql(String sql) {
 	  return sql;
   }
 
   /**
-   * ページングのSQL文を生成する。
+   * ページングのSQL文を生成する。
    * <dl>
-   * <dt>実装機能：
-   * <dd>{@link jp.co.nec.flowlites.core.jdbc.util.SqlBuilder#getPaginationSql(String, int, int, String)}を呼出し、ページング用のSQL文を作成します。
-   * <dt>利用方法：
-   * <dd>検索結果件数制限ことがある場合、このメソッドを呼出し、検索件数制限SQL文を作成する。
+   * <dt>実装機能：
+   * <dd>{@link jp.co.nec.flowlites.core.jdbc.util.SqlBuilder#getPaginationSql(String, int, int, String)}を呼出し、ページング用のSQL文を作成します。
+   * <dt>利用方法：
+   * <dd>検索結果件数制限ことがある場合、このメソッドを呼出し、検索件数制限SQL文を作成する。
    * </dl>
    * 
-   * @param sql 処理前のSQL文
+   * @param sql 処理前のSQL文
    * @param pageNo ページ番号
    * @param pageSize 毎ページに項目数
-   * @return 処理後のSQL文
+   * @return 処理後のSQL文
    */
   private String getPageSearchSql(String sql, int pageNo, int pageSize) {
     return SqlBuilder.getPaginationSql(sql, pageNo, pageSize,
@@ -182,17 +182,17 @@ public class GTJdbcTemplate extends JdbcTemplate
   /**
    * 検索結果の総ページ数を取得する。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>ページング検索用のSQL文を取得して、それを利用して、検索結果のレコード数を取得します。
-   * <li>取得したレコード数より、検索結果の総ページ数を取得します。
+   * <li>ページング検索用のSQL文を取得して、それを利用して、検索結果のレコード数を取得します。
+   * <li>取得したレコード数より、検索結果の総ページ数を取得します。
    * </ul>
-   * <dt>利用方法：
-   * <dd>検索結果件数制限ことがある場合、このメソッドを呼出し、検索件数制限SQL文を作成する。
+   * <dt>利用方法：
+   * <dd>検索結果件数制限ことがある場合、このメソッドを呼出し、検索件数制限SQL文を作成する。
    * </dl>
    * 
-   * @param sql SQL文
+   * @param sql SQL文
    * @param pageSize 毎ページに項目数
    * @return 総ページ数
    */
@@ -220,17 +220,17 @@ public class GTJdbcTemplate extends JdbcTemplate
   /**
    * 検索結果の総ページ数を取得する。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>ページング検索用のSQL文を取得して、それを利用して、検索結果のレコード数を取得します。
-   * <li>取得したレコード数より、検索結果の総ページ数を取得します。
+   * <li>ページング検索用のSQL文を取得して、それを利用して、検索結果のレコード数を取得します。
+   * <li>取得したレコード数より、検索結果の総ページ数を取得します。
    * </ul>
-   * <dt>利用方法：
-   * <dd>検索結果件数制限ことがある場合、このメソッドを呼出し、検索件数制限SQL文を作成する。
+   * <dt>利用方法：
+   * <dd>検索結果件数制限ことがある場合、このメソッドを呼出し、検索件数制限SQL文を作成する。
    * </dl>
    * 
-   * @param sql SQL文
+   * @param sql SQL文
    * @param args パラメータ
    * @param pageSize 毎ページに項目数
    * @return 総ページ数
@@ -260,18 +260,18 @@ public class GTJdbcTemplate extends JdbcTemplate
   /**
    * 検索結果の総ページ数を取得する。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>ページング検索用のSQL文を取得して、それを利用して、検索結果のレコード数を取得します。
-   * <li>取得したレコード数より、検索結果の総ページ数を取得します。
+   * <li>ページング検索用のSQL文を取得して、それを利用して、検索結果のレコード数を取得します。
+   * <li>取得したレコード数より、検索結果の総ページ数を取得します。
    * </ul>
-   * <dt>利用方法：
-   * <dd>検索結果件数制限ことがある場合、このメソッドを呼出し、検索件数制限SQL文を作成する。
+   * <dt>利用方法：
+   * <dd>検索結果件数制限ことがある場合、このメソッドを呼出し、検索件数制限SQL文を作成する。
    * </dl>
    * 
-   * @param sql SQL文
-   * @param paraMap パラメータマップ
+   * @param sql SQL文
+   * @param paraMap パラメータマップ
    * @param pageSize 毎ページに項目数
    * @return 総ページ数
    */
@@ -298,12 +298,12 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 検索結果の総ページ数を取得する。
+   * 検索結果の総ページ数を取得する。
    * <dl>
-   * <dt>実装機能：
-   * <dd>取得したレコード数より、検索結果の総ページ数を取得します。
-   * <dt>利用方法：
-   * <dd>検索結果件数制限ことがある場合、このメソッドを呼出し、検索件数制限SQL文を作成する。
+   * <dt>実装機能：
+   * <dd>取得したレコード数より、検索結果の総ページ数を取得します。
+   * <dt>利用方法：
+   * <dd>検索結果件数制限ことがある場合、このメソッドを呼出し、検索件数制限SQL文を作成する。
    * </dl>
    * 
    * @param count 検索結果の総件数
@@ -321,16 +321,16 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * パラメータ行オブジェクトを取得します。
+   * パラメータ行オブジェクトを取得します。
    * <dl>
-   * <dt>実装機能：
-   * <dd>{@link jp.GTDBUtil.nec.flowlites.core.jdbc.util.FLDBUtil#initParameterizedRowMapper(Class)}を呼出し、結果を返す。
-   * <dt>利用方法：
-   * <dd>このメソッドは内部のみでの利用。
+   * <dt>実装機能：
+   * <dd>{@link jp.GTDBUtil.nec.flowlites.core.jdbc.util.FLDBUtil#initParameterizedRowMapper(Class)}を呼出し、結果を返す。
+   * <dt>利用方法：
+   * <dd>このメソッドは内部のみでの利用。
    * </dl>
    * 
-   * @param requiredType テイプ
-   * @return パラメータ行オブジェクト
+   * @param requiredType テイプ
+   * @return パラメータ行オブジェクト
    */
   private <T> ParameterizedRowMapper<T> getParameterizedRowMapper(
     Class<T> requiredType) {
@@ -338,23 +338,23 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * データを一括更新します。
+   * データを一括更新します。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>更新用の値が存在するチェックします。
-   * <li>存在する場合、<code>org.springframework.jdbc.core.BatchPreparedStatementSetter</code>オブジェクトを作成し、
-   * <code>org.springframework.jdbc.core.JdbcTemplate</code>の<code>batchUpdate(java.lang.String, org.springframework.jdbc.core.BatchPreparedStatementSetter)</code>を呼出す。
-   * <li>存在しない場合、<code>org.springframework.jdbc.core.JdbcTemplate</code>の<code>batchUpdate(java.lang.String[])</code>を呼出す。
-   * <li> 更新結果を返す。
+   * <li>更新用の値が存在するチェックします。
+   * <li>存在する場合、<code>org.springframework.jdbc.core.BatchPreparedStatementSetter</code>オブジェクトを作成し、
+   * <code>org.springframework.jdbc.core.JdbcTemplate</code>の<code>batchUpdate(java.lang.String, org.springframework.jdbc.core.BatchPreparedStatementSetter)</code>を呼出す。
+   * <li>存在しない場合、<code>org.springframework.jdbc.core.JdbcTemplate</code>の<code>batchUpdate(java.lang.String[])</code>を呼出す。
+   * <li> 更新結果を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでデータを一括更新する時にこのメソッドを呼出す。
+   * <dt>利用方法：
+   * <dd>業務DAOでデータを一括更新する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql SQL文
-   * @param types テイプ
+   * @param sql SQL文
+   * @param types テイプ
    * @param values 値
    * @return 処理結果({0,1,0}:{失敗,成功,失敗})
    */
@@ -385,22 +385,22 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 結果Objectへのマッピングと無制限パラメーターで検索し、リスト中にマッピングの型結果を持ちます。
+   * 結果Objectへのマッピングと無制限パラメーターで検索し、リスト中にマッピングの型結果を持ちます。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>検索結果制限件数より検索用のSQL文を生成します。
-   * <li><code>org.springframework.jdbc.core.simple.SimpleJdbcTemplate</code>の<code>query(java.lang.String, org.springframework.jdbc.core.simple.ParameterizedRowMapper, java.lang.Object[])</code>を呼出し、検索結果を返す。
+   * <li>検索結果制限件数より検索用のSQL文を生成します。
+   * <li><code>org.springframework.jdbc.core.simple.SimpleJdbcTemplate</code>の<code>query(java.lang.String, org.springframework.jdbc.core.simple.ParameterizedRowMapper, java.lang.Object[])</code>を呼出し、検索結果を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでデータリストを検索する時にこのメソッドを呼出す。
+   * <dt>利用方法：
+   * <dd>業務DAOでデータリストを検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
+   * @param sql 検索用のSQL文
    * @param rm 結果Objectへのマッピング
    * @param args 無制限パラメーター
-   * @return マッピングの型結果を持つリスト
+   * @return マッピングの型結果を持つリスト
    */
   @SuppressWarnings("unchecked")
   public <T> List<T> query(String sql, ParameterizedRowMapper<T> rm,
@@ -410,43 +410,43 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 結果Objectへのマッピングと無制限パラメーターで検索し、リスト中に指定Object型結果を持ちます。
+   * 結果Objectへのマッピングと無制限パラメーターで検索し、リスト中に指定Object型結果を持ちます。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>検索結果制限件数より検索用のSQL文を生成します。
-   * <li>{@link #query(String, org.springframework.jdbc.core.simple.ParameterizedRowMapper, Object[])}を呼出し、検索結果を返す。
+   * <li>検索結果制限件数より検索用のSQL文を生成します。
+   * <li>{@link #query(String, org.springframework.jdbc.core.simple.ParameterizedRowMapper, Object[])}を呼出し、検索結果を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでデータリストを検索する時にこのメソッドを呼出す。
+   * <dt>利用方法：
+   * <dd>業務DAOでデータリストを検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
+   * @param sql 検索用のSQL文
    * @param requiredType 結果Objectのクラス
    * @param args 無制限パラメーター
-   * @return マッピングの型結果を持つリスト
+   * @return マッピングの型結果を持つリスト
    */
 //  public <T> List<T> query(String sql, Class<T> requiredType, Object... args) {
 //    return query(sql, getParameterizedRowMapper(requiredType), args);
 //  }
 
   /**
-   * パラメーターで検索し、リスト中にマップ結果を持ちます。
+   * パラメーターで検索し、リスト中にマップ結果を持ちます。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>無制限パラメーターがある場合、スーパークラスの<code>queryForInt(String, Object)</code>を呼出し、検索結果を返す。
-   * <li>無制限パラメーターがない場合、スーパークラスの<code>queryForInt(String)</code>を呼出し、検索結果を返す。
+   * <li>無制限パラメーターがある場合、スーパークラスの<code>queryForInt(String, Object)</code>を呼出し、検索結果を返す。
+   * <li>無制限パラメーターがない場合、スーパークラスの<code>queryForInt(String)</code>を呼出し、検索結果を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでデータリストを検索する時にこのメソッドを呼出す。
+   * <dt>利用方法：
+   * <dd>業務DAOでデータリストを検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
+   * @param sql 検索用のSQL文
    * @param arg パラメーター
-   * @return マップ結果を持つリスト
+   * @return マップ結果を持つリスト
    */
   public int queryForInt(String sql, Object arg) {
     if (arg == null) {
@@ -457,16 +457,16 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * マップ型結果を単件検索します。
+   * マップ型結果を単件検索します。
    * <dl>
-   * <dt>実装機能：
-   * <dd><code>org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate</code>の<code>queryForInt(java.lang.String, java.util.Map)</code>を呼出し、検索結果を返す。
-   * <dt>利用方法：
-   * <dd>業務DAOでマップ結果を検索する時にこのメソッドを呼出す。
+   * <dt>実装機能：
+   * <dd><code>org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate</code>の<code>queryForInt(java.lang.String, java.util.Map)</code>を呼出し、検索結果を返す。
+   * <dt>利用方法：
+   * <dd>業務DAOでマップ結果を検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
-   * @param paraMap パラメーターマップ
+   * @param sql 検索用のSQL文
+   * @param paraMap パラメーターマップ
    * @return マップ結果
    */
   public int queryForInt(String sql, Map paraMap) {
@@ -474,15 +474,15 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 結果Objectへのマッピングを無制限パラメーターで単件を検索します。
+   * 結果Objectへのマッピングを無制限パラメーターで単件を検索します。
    * <dl>
-   * <dt>実装機能：
-   * <dd><code>org.springframework.jdbc.core.simple.SimpleJdbcTemplate</code>の<code>queryForObject(java.lang.String, org.springframework.jdbc.core.simple.ParameterizedRowMapper, java.lang.Object[])</code>を呼出し、検索結果を返す。
-   * <dt>利用方法：
-   * <dd>業務DAOで結果Objectへのマッピングを検索する時にこのメソッドを呼出す。
+   * <dt>実装機能：
+   * <dd><code>org.springframework.jdbc.core.simple.SimpleJdbcTemplate</code>の<code>queryForObject(java.lang.String, org.springframework.jdbc.core.simple.ParameterizedRowMapper, java.lang.Object[])</code>を呼出し、検索結果を返す。
+   * <dt>利用方法：
+   * <dd>業務DAOで結果Objectへのマッピングを検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
+   * @param sql 検索用のSQL文
    * @param rm 結果Objectへのマッピング
    * @param args 無制限パラメーター
    * @return マッピングのObject
@@ -494,39 +494,39 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 指定結果クラスと無制限パラメーターで単件データを検索します。
+   * 指定結果クラスと無制限パラメーターで単件データを検索します。
    * <dl>
-   * <dt>実装機能：
-   * <dd>{@link #queryForObject(String, org.springframework.jdbc.core.simple.ParameterizedRowMapper, Object[])}を呼出し、検索結果を返す。
-   * <dt>利用方法：
-   * <dd>業務DAOで指定結果クラスを検索する時にこのメソッドを呼出す。
+   * <dt>実装機能：
+   * <dd>{@link #queryForObject(String, org.springframework.jdbc.core.simple.ParameterizedRowMapper, Object[])}を呼出し、検索結果を返す。
+   * <dt>利用方法：
+   * <dd>業務DAOで指定結果クラスを検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
+   * @param sql 検索用のSQL文
    * @param requiredType 指定Objectクラス
    * @param args 無制限パラメーター
-   * @return 指定結果クラスオブジェクト
+   * @return 指定結果クラスオブジェクト
    */
 //  public <T> T queryForObject(String sql, Class<T> requiredType, Object... args) {
 //    return queryForObject(sql, getParameterizedRowMapper(requiredType), args);
 //  }
 
   /**
-   * パラメーターで検索し、リスト中にマップ結果を持ちます。
+   * パラメーターで検索し、リスト中にマップ結果を持ちます。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>検索結果制限件数より検索用のSQL文を生成します。
-   * <li><code>org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate</code>の<code>queryForList(java.lang.String, java.util.Map)</code>を呼出し、検索結果を返す。
+   * <li>検索結果制限件数より検索用のSQL文を生成します。
+   * <li><code>org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate</code>の<code>queryForList(java.lang.String, java.util.Map)</code>を呼出し、検索結果を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでデータリストを検索する時にこのメソッドを呼出す。
+   * <dt>利用方法：
+   * <dd>業務DAOでデータリストを検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
-   * @param paramMap パラメーターマップ
-   * @return マップ結果を持つリスト
+   * @param sql 検索用のSQL文
+   * @param paramMap パラメーターマップ
+   * @return マップ結果を持つリスト
    */
   @SuppressWarnings("unchecked")
   public List<Map<String, Object>> queryForList(String sql,
@@ -536,22 +536,22 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 結果Objectへのマッピングとパラメーターで検索し、リスト中に指定クラスのオブジェクトを持ちます。
+   * 結果Objectへのマッピングとパラメーターで検索し、リスト中に指定クラスのオブジェクトを持ちます。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>検索結果制限件数より検索用のSQL文を生成します。
-   * <li><code>org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate</code>の<code>query(java.lang.String, java.util.Map, org.springframework.jdbc.core.RowMapper)</code>を呼出し、検索結果を返す。
+   * <li>検索結果制限件数より検索用のSQL文を生成します。
+   * <li><code>org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate</code>の<code>query(java.lang.String, java.util.Map, org.springframework.jdbc.core.RowMapper)</code>を呼出し、検索結果を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでデータリストを検索する時にこのメソッドを呼出す。
+   * <dt>利用方法：
+   * <dd>業務DAOでデータリストを検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
-   * @param paramMap パラメーターマップ
+   * @param sql 検索用のSQL文
+   * @param paramMap パラメーターマップ
    * @param rm 結果Objectへのマッピング
-   * @return 指定結果クラスを持つリスト
+   * @return 指定結果クラスを持つリスト
    */
   @SuppressWarnings("unchecked")
   public <T> List<T> queryForList(String sql, Map<String, Object> paramMap,
@@ -560,18 +560,18 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 結果Objectのクラスとパラメーターで検索し、リスト中に指定クラスのオブジェクトを持ちます。
+   * 結果Objectのクラスとパラメーターで検索し、リスト中に指定クラスのオブジェクトを持ちます。
    * <dl>
-   * <dt>実装機能：
-   * <dd>{@link #queryForList(String, java.util.Map, org.springframework.jdbc.core.simple.ParameterizedRowMapper)}を呼出し、検索結果を返す。
-   * <dt>利用方法：
-   * <dd>業務DAOでデータリストを検索する時にこのメソッドを呼出す。
+   * <dt>実装機能：
+   * <dd>{@link #queryForList(String, java.util.Map, org.springframework.jdbc.core.simple.ParameterizedRowMapper)}を呼出し、検索結果を返す。
+   * <dt>利用方法：
+   * <dd>業務DAOでデータリストを検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
-   * @param paramMap パラメーターマップ
+   * @param sql 検索用のSQL文
+   * @param paramMap パラメーターマップ
    * @param requiredType 結果Objectのクラス
-   * @return 指定結果クラスを持つリスト
+   * @return 指定結果クラスを持つリスト
    */
 //  public <T> List<T> queryForList(String sql, Map<String, Object> paramMap,
 //    Class<T> requiredType) {
@@ -579,20 +579,20 @@ public class GTJdbcTemplate extends JdbcTemplate
 //  }
 
   /**
-   * 結果Objectへのマッピングをパラメーターで単件を検索します。
+   * 結果Objectへのマッピングをパラメーターで単件を検索します。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>検索結果制限件数より検索用のSQL文を生成します。
-   * <li><code>org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate</code>の<code>queryForObject(java.lang.String, java.util.Map, org.springframework.jdbc.core.RowMapper)</code>を呼出し、検索結果を返す。
+   * <li>検索結果制限件数より検索用のSQL文を生成します。
+   * <li><code>org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate</code>の<code>queryForObject(java.lang.String, java.util.Map, org.springframework.jdbc.core.RowMapper)</code>を呼出し、検索結果を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOで結果Objectへのマッピングを検索する時にこのメソッドを呼出す。
+   * <dt>利用方法：
+   * <dd>業務DAOで結果Objectへのマッピングを検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
-   * @param paramMap パラメーターマップ
+   * @param sql 検索用のSQL文
+   * @param paramMap パラメーターマップ
    * @param rm 結果Objectへのマッピング
    * @return 指定クラスのObject
    */
@@ -604,16 +604,16 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 結果Objectへのマッピングをパラメーターで単件を検索します。
+   * 結果Objectへのマッピングをパラメーターで単件を検索します。
    * <dl>
-   * <dt>実装機能：
-   * <dd>{@link #queryForObject(String, Map, org.springframework.jdbc.core.simple.ParameterizedRowMapper)}を呼出し、検索結果を返す。
-   * <dt>利用方法：
-   * <dd>業務DAOで結果Objectへのマッピングを検索する時にこのメソッドを呼出す。
+   * <dt>実装機能：
+   * <dd>{@link #queryForObject(String, Map, org.springframework.jdbc.core.simple.ParameterizedRowMapper)}を呼出し、検索結果を返す。
+   * <dt>利用方法：
+   * <dd>業務DAOで結果Objectへのマッピングを検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
-   * @param paramMap パラメーターマップ
+   * @param sql 検索用のSQL文
+   * @param paramMap パラメーターマップ
    * @param requiredType 結果Objectのクラス
    * @return 指定クラスのObject
    */
@@ -624,26 +624,26 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 結果Objectへのマッピングと無制限パラメーターでページング検索します。
+   * 結果Objectへのマッピングと無制限パラメーターでページング検索します。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>{@link #getPageTotalCount(String, int)}を呼出し、検索結果の総ページ数を取得します。
-   * <li>{@link #getPageSearchSql(String, int, int)}を呼出し、ページング検索用のSQL文を生成します。
-   * <li>{@link #query(String, ParameterizedRowMapper, Object...)}を呼出し、検索結果を取得します。
-   * <li>{@link jp.co.nec.flowlites.core.jdbc.object.GTPage}オブジェクトを作成し、結果を返す。
+   * <li>{@link #getPageTotalCount(String, int)}を呼出し、検索結果の総ページ数を取得します。
+   * <li>{@link #getPageSearchSql(String, int, int)}を呼出し、ページング検索用のSQL文を生成します。
+   * <li>{@link #query(String, ParameterizedRowMapper, Object...)}を呼出し、検索結果を取得します。
+   * <li>{@link jp.co.nec.flowlites.core.jdbc.object.GTPage}オブジェクトを作成し、結果を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでページング検索する時にこのメソッドを呼出す。
+   * <dt>利用方法：
+   * <dd>業務DAOでページング検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
+   * @param sql 検索用のSQL文
    * @param pageNo ページ番号
    * @param pageSize 毎ページのレコード数
    * @param rm 結果Objectへのマッピング
    * @param args 無制限パラメーター
-   * @return ページングオブジェクト
+   * @return ページングオブジェクト
    */
   @SuppressWarnings("unchecked")
   public <T> GTPage<T> queryPagination(String sql, int pageNo, int pageSize,
@@ -663,20 +663,20 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 結果Objectへのマッピングと無制限パラメーターでページング検索します。
+   * 結果Objectへのマッピングと無制限パラメーターでページング検索します。
    * <dl>
-   * <dt>実装機能：
-   * <dd>{@link #queryPagination(String, int, int, ParameterizedRowMapper, Object[])}を呼出し、検索結果を返す。
-   * <dt>利用方法：
-   * <dd>業務DAOでページング検索する時にこのメソッドを呼出す。
+   * <dt>実装機能：
+   * <dd>{@link #queryPagination(String, int, int, ParameterizedRowMapper, Object[])}を呼出し、検索結果を返す。
+   * <dt>利用方法：
+   * <dd>業務DAOでページング検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
+   * @param sql 検索用のSQL文
    * @param pageNo ページ番号
    * @param pageSize 毎ページのレコード数
    * @param requiredType 結果Objectクラス
    * @param args 無制限パラメーター
-   * @return ページングオブジェクト
+   * @return ページングオブジェクト
    */
   public <T> GTPage<T> queryPagination(String sql, int pageNo, int pageSize,
     Class<T> requiredType, Object... args) {
@@ -685,26 +685,26 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 結果Objectへのマッピングと無制限パラメーターでページング検索します。
+   * 結果Objectへのマッピングと無制限パラメーターでページング検索します。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>{@link #getPageTotalCount(String, int)}を呼出し、検索結果の総ページ数を取得します。
-   * <li>{@link #getPageSearchSql(String, int, int)}を呼出し、ページング検索用のSQL文を生成します。
-   * <li>{@link #queryForList(String, Map, ParameterizedRowMapper)}を呼出し、検索結果を取得します。
-   * <li>{@link jp.co.nec.flowlites.core.jdbc.object.GTPage}オブジェクトを作成し、結果を返す。
+   * <li>{@link #getPageTotalCount(String, int)}を呼出し、検索結果の総ページ数を取得します。
+   * <li>{@link #getPageSearchSql(String, int, int)}を呼出し、ページング検索用のSQL文を生成します。
+   * <li>{@link #queryForList(String, Map, ParameterizedRowMapper)}を呼出し、検索結果を取得します。
+   * <li>{@link jp.co.nec.flowlites.core.jdbc.object.GTPage}オブジェクトを作成し、結果を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでページング検索する時にこのメソッドを呼出す。
+   * <dt>利用方法：
+   * <dd>業務DAOでページング検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
+   * @param sql 検索用のSQL文
    * @param pageNo ページ番号
    * @param pageSize 毎ページのレコード数
    * @param rm 結果Objectへのマッピング
    * @param paramMap パラメーター
-   * @return ページングオブジェクト
+   * @return ページングオブジェクト
    */
   @SuppressWarnings("unchecked")
   public <T> GTPage<T> queryPagination(String sql, int pageNo, int pageSize,
@@ -722,20 +722,20 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * 結果Objectへのマッピングと無制限パラメーターでページング検索します。
+   * 結果Objectへのマッピングと無制限パラメーターでページング検索します。
    * <dl>
-   * <dt>実装機能：
-   * <dd>{@link #queryPagination(String, int, int, ParameterizedRowMapper, Map)}を呼出し、検索結果を返す。
-   * <dt>利用方法：
-   * <dd>業務DAOでページング検索する時にこのメソッドを呼出す。
+   * <dt>実装機能：
+   * <dd>{@link #queryPagination(String, int, int, ParameterizedRowMapper, Map)}を呼出し、検索結果を返す。
+   * <dt>利用方法：
+   * <dd>業務DAOでページング検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
+   * @param sql 検索用のSQL文
    * @param pageNo ページ番号
    * @param pageSize 毎ページのレコード数
    * @param requiredType 結果Objectクラス
    * @param paramMap パラメーター
-   * @return ページングオブジェクト
+   * @return ページングオブジェクト
    */
   public <T> GTPage<T> queryPagination(String sql, int pageNo, int pageSize,
     Class<T> requiredType, Map<String, Object> paramMap) {
@@ -744,24 +744,24 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * ページング検索します。
+   * ページング検索します。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>{@link #getPageTotalCount(String, int)}を呼出し、検索結果の総ページ数を取得します。
-   * <li>{@link #getPageSearchSql(String, int, int)}を呼出し、ページング検索用のSQL文を生成します。
-   * <li><code>org.springframework.jdbc.core.simple.SimpleJdbcTemplate</code>の<code>queryForList(java.lang.String, java.lang.Object[])</code>を呼出し、検索結果を取得します。
-   * <li>{@link jp.co.nec.flowlites.core.jdbc.object.GTPage}オブジェクトを作成し、結果を返す。
+   * <li>{@link #getPageTotalCount(String, int)}を呼出し、検索結果の総ページ数を取得します。
+   * <li>{@link #getPageSearchSql(String, int, int)}を呼出し、ページング検索用のSQL文を生成します。
+   * <li><code>org.springframework.jdbc.core.simple.SimpleJdbcTemplate</code>の<code>queryForList(java.lang.String, java.lang.Object[])</code>を呼出し、検索結果を取得します。
+   * <li>{@link jp.co.nec.flowlites.core.jdbc.object.GTPage}オブジェクトを作成し、結果を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでページング検索する時にこのメソッドを呼出す。
+   * <dt>利用方法：
+   * <dd>業務DAOでページング検索する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 検索用のSQL文
+   * @param sql 検索用のSQL文
    * @param pageNo ページ番号
    * @param pageSize 毎ページのレコード数
-   * @return ページングオブジェクト
+   * @return ページングオブジェクト
    */
   @SuppressWarnings("unchecked")
   public <T> GTPage<Map<String, Object>> queryPagination(String sql,
@@ -795,21 +795,21 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * データを更新処理します。
+   * データを更新処理します。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>パラメーターの有無がチェックします。
-   * <li>無しの場合、スーパークラスの<code>update(String)</code>を呼出し、データを更新処理します。
-   * <li>有りの場合、<code>org.springframework.jdbc.core.simple.SimpleJdbcTemplate</code>の<code>update(java.lang.String, java.lang.Object)</code>を呼出し、データを更新処理します。
-   * <li>更新結果件数を返す。
+   * <li>パラメーターの有無がチェックします。
+   * <li>無しの場合、スーパークラスの<code>update(String)</code>を呼出し、データを更新処理します。
+   * <li>有りの場合、<code>org.springframework.jdbc.core.simple.SimpleJdbcTemplate</code>の<code>update(java.lang.String, java.lang.Object)</code>を呼出し、データを更新処理します。
+   * <li>更新結果件数を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでデータを更新する時にこのメソッドを呼出す。
+   * <dt>利用方法：
+   * <dd>業務DAOでデータを更新する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 更新用のSQL文
+   * @param sql 更新用のSQL文
    * @param arg パラメーター
    * @return 更新件数
    */
@@ -822,20 +822,20 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * データを更新処理します。
+   * データを更新処理します。
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li><code>org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate</code>の<code>update(java.lang.String, java.util.Map)</code>を呼出し、データを更新処理します。
-   * <li>更新結果件数を返す。
+   * <li><code>org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate</code>の<code>update(java.lang.String, java.util.Map)</code>を呼出し、データを更新処理します。
+   * <li>更新結果件数を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでデータを更新する時にこのメソッドを呼出す。
+   * <dt>利用方法：
+   * <dd>業務DAOでデータを更新する時にこのメソッドを呼出す。
    * </dl>
    * 
-   * @param sql 更新用のSQL文
-   * @param paraMap パラメーターマップ
+   * @param sql 更新用のSQL文
+   * @param paraMap パラメーターマップ
    * @return 更新件数
    */
   public int update(String sql, Map paraMap) {
@@ -843,20 +843,20 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * このインスタンス内部の命名JDBCテンプレートオブジェクトを取得します。
+   * このインスタンス内部の命名JDBCテンプレートオブジェクトを取得します。
    * <dl>
-   * <dt>実装機能：
-   * <dd>内部の命名JDBCテンプレートオブジェクトを返す。
+   * <dt>実装機能：
+   * <dd>内部の命名JDBCテンプレートオブジェクトを返す。
    * <ul>
-   * <li>内部の命名JDBCテンプレートオブジェクトがNull場合、検索結果件数制限つきのクラシックJDBCテンプレートオブジェクトを作成します。
-   * <li>生成されたクラシックJDBCテンプレートを利用して作成された命名テンプレートオブジェクトを返す。
-   * <li>内部の命名JDBCテンプレートオブジェクトがNullでない場合、内部の命名JDBCテンプレートオブジェクトを返す。
+   * <li>内部の命名JDBCテンプレートオブジェクトがNull場合、検索結果件数制限つきのクラシックJDBCテンプレートオブジェクトを作成します。
+   * <li>生成されたクラシックJDBCテンプレートを利用して作成された命名テンプレートオブジェクトを返す。
+   * <li>内部の命名JDBCテンプレートオブジェクトがNullでない場合、内部の命名JDBCテンプレートオブジェクトを返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>データベースのデータを検索処理する時、 このメッソドが呼出された取得した命名JDBCテンプレートオブジェクトを利用して、データを検索します。
+   * <dt>利用方法：
+   * <dd>データベースのデータを検索処理する時、 このメッソドが呼出された取得した命名JDBCテンプレートオブジェクトを利用して、データを検索します。
    * </dl>
    * 
-   * @return 有効な命名JDBCテンプレートオブジェクト
+   * @return 有効な命名JDBCテンプレートオブジェクト
    */
   protected NamedParameterJdbcTemplate getNamedJdbcTempleate() {
     if (namedJdbcTempleate == null) {
@@ -868,15 +868,15 @@ public class GTJdbcTemplate extends JdbcTemplate
   }
 
   /**
-   * このインスタンス内部の命名JDBCテンプレートオブジェクトを設定します。
+   * このインスタンス内部の命名JDBCテンプレートオブジェクトを設定します。
    * <dl>
-   * <dt>実装機能：
-   * <dd>内部の命名JDBCテンプレートオブジェクトを設定します。
-   * <dt>利用方法：
-   * <dd>業務サービスで既存の命名JDBCテンプレートオブジェクトを利用する場合、このメソッドを呼出す。
+   * <dt>実装機能：
+   * <dd>内部の命名JDBCテンプレートオブジェクトを設定します。
+   * <dt>利用方法：
+   * <dd>業務サービスで既存の命名JDBCテンプレートオブジェクトを利用する場合、このメソッドを呼出す。
    * </dl>
    * 
-   * @param namedJdbcTempleate 有効な命名JDBCテンプレートオブジェクト
+   * @param namedJdbcTempleate 有効な命名JDBCテンプレートオブジェクト
    */
   protected void setNamedJdbcTempleate(
     NamedParameterJdbcTemplate namedJdbcTempleate) {
@@ -894,29 +894,29 @@ public class GTJdbcTemplate extends JdbcTemplate
 		  , int pageSize
   ) {
 	  //-----------------------------------------------------------------------
-	  // 件数取得SQLの発行
+	  // 件数取得SQLの発行
 	  //-----------------------------------------------------------------------
 	  int totalCount = getTotalCountByCountSql( countSql, countArgs );
 	  //-----------------------------------------------------------------------
-	  // 最大件数を設定
+	  // 最大件数を設定
 	  // 　最大件数がsearchLimitよりも大きな値の場合、searchLimitを最大件数
-	  // 　とする。
+	  // 　とする。
 	  //-----------------------------------------------------------------------
 	  int limitCount = totalCount;
 	  if (this.searchLimit > 0 && this.searchLimit < totalCount) {
 		  limitCount = this.searchLimit;
 	  }
 	  //-----------------------------------------------------------------------
-	  // ページ数取得
+	  // ページ数取得
 	  //-----------------------------------------------------------------------
 	  int pageTotalCount = getPageTotalCount(limitCount, pageSize);
 	  //-----------------------------------------------------------------------
-	  // ページ数取得
+	  // ページ数取得
 	  //-----------------------------------------------------------------------
 	  GTResultSetExtractor rse =  new GTResultSetExtractor(pageNo,pageSize,rm);
 	  super.query(sql, args.toArray(),  rse);
 	  //-----------------------------------------------------------------------
-	  // 結果取り出し
+	  // 結果取り出し
 	  //-----------------------------------------------------------------------
 	  List<T> items = rse.getItems();
 	  GTPage<T> ps = new GTPage<T>(items, totalCount, limitCount, pageTotalCount, pageNo, pageSize);

@@ -9,7 +9,8 @@
 		{ name: 'email', type: 'string' },
 		{ name: 'school', type: 'string' },
 		{ name: 'email', type: '' }
-	],
+	]
+// ,
 //	validators: {
 //		username: [
 //           { type: 'presence', message: 'please input valid username' }

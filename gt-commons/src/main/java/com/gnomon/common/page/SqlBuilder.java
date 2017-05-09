@@ -12,7 +12,7 @@ import com.gnomon.common.GTConstants;
 import com.gnomon.common.utils.CommonUtils;
 
 /**
- * SQL文生成ユーティリティクラス。
+ * SQL文生成ユーティリティクラス。
  * <p>
  * <a href="FLSqlBuilder.java.html"><i>View Source</i></a>
  * </p>
@@ -21,25 +21,25 @@ import com.gnomon.common.utils.CommonUtils;
 public final class SqlBuilder
 {
   /**
-   * 検索の結果の総数を限定されたSQL文を組み立てます。
+   * 検索の結果の総数を限定されたSQL文を組み立てます。
    * <p>
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>データベースの種類名が{@link Constants#DATABASE_ORACLE}場合、Oracleデータベースで検索用SQL文を作成します。
+   * <li>データベースの種類名が{@link Constants#DATABASE_ORACLE}場合、Oracleデータベースで検索用SQL文を作成します。
    * <li>データベースの種類名が{@link Constants#DATABASE_SQL_SERVER}場合、SQL
-   * Serverデータベースで検索用SQL文を作成します。
-   * <li>作成したSQL文を返す。
+   * Serverデータベースで検索用SQL文を作成します。
+   * <li>作成したSQL文を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでこのメソッドを呼出し、検索の結果の総数を限定されたSQL文を組み立てます。
+   * <dt>利用方法：
+   * <dd>業務DAOでこのメソッドを呼出し、検索の結果の総数を限定されたSQL文を組み立てます。
    * </dl>
    *
-   * @param sql 普通SQL文
+   * @param sql 普通SQL文
    * @param searchLimit 限定された総数
    * @param dbname データベース情報
-   * @return 限定されたSQL文
+   * @return 限定されたSQL文
    */
   public static String getLimitSql(String sql, int searchLimit, String dbname) {
     String dbinfo = filterDBInfo(dbname);
@@ -79,26 +79,26 @@ public final class SqlBuilder
   }
 
   /**
-   * 検索ページ化の場合、項目総数のSQL文を作成します。
+   * 検索ページ化の場合、項目総数のSQL文を作成します。
    * <p>
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>データベースの種類名が{@link Constants#DATABASE_ORACLE}場合、Oracleデータベースのレコード数を取得する用SQL文を作成します。
+   * <li>データベースの種類名が{@link Constants#DATABASE_ORACLE}場合、Oracleデータベースのレコード数を取得する用SQL文を作成します。
    * <li>データベースの種類名が{@link Constants#DATABASE_SQL_SERVER}場合、SQL
-   * Serverデータベースのレコード数を取得する用SQL文を作成します。
-   * <li>作成したSQL文を返す。
+   * Serverデータベースのレコード数を取得する用SQL文を作成します。
+   * <li>作成したSQL文を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでこのメソッドを呼出し、検索の結果の総数を限定されたSQL文を組み立てます。
+   * <dt>利用方法：
+   * <dd>業務DAOでこのメソッドを呼出し、検索の結果の総数を限定されたSQL文を組み立てます。
    * </dl>
    *
-   * @param sql 一覧検索用SQL文
+   * @param sql 一覧検索用SQL文
    * @param dbname データベース情報 del by dhc 2011/10/21 DB2対応
    * @param useOrderByFlg OrderBy使用フラグ（true ： OrderByを残す　false ： OrderByを残さない） add by dhc 2011/10/21 DB2対応
    *
-   * @return 件数取得SQL文
+   * @return 件数取得SQL文
    */
   //public static String getCountSql(String sql, String dbname) {
   public static String getCountSql(String sql, boolean useOrderByFlg) {
@@ -123,9 +123,9 @@ public final class SqlBuilder
       */
      Pattern pattern = Pattern
                     .compile(
-                            // upd by dhc 2010/03/30 障害単票_岩永_20100323_01 order by に「[、]」が含む場合の対応
+                            // upd by dhc 2010/03/30 障害単票_岩永_20100323_01 order by に「[、]」が含む場合の対応
                             //"\\s+order\\s+by\\s+(\\w*[^\\x00-\\xff]*)*+\\.?(\\w*[^\\x00-\\xff]*)*\\s*(asc|desc)*(\\s*,\\s*(\\w*[^\\x00-\\xff]*)*+\\.?(\\w*[^\\x00-\\xff]*)*\\s*(asc|desc)*)*",
-                            // upd by dhc 2010/03/30 障害単票_大坪_20100406_01 order by のテーブル名に「[、]」が含む場合の対応
+                            // upd by dhc 2010/03/30 障害単票_大坪_20100406_01 order by のテーブル名に「[、]」が含む場合の対応
                             //"\\s+order\\s+by\\s+(\\w*[^\\x00-\\xff]*)*+\\.?(\\w*[^\\x00-\\xff]*(\\x5b|\\x5d)?)*\\s*(asc|desc)*(\\s*,\\s*(\\w*[^\\x00-\\xff]*)*+\\.?(\\w*[^\\x00-\\xff]*(\\x5b|\\x5d)?)*\\s*(asc|desc)*)*",
                             "\\s+order\\s+by\\s+(\\w*[^\\x00-\\xff]*(\\x5b|\\x5d)?)*+\\.?(\\w*[^\\x00-\\xff]*(\\x5b|\\x5d)?)*\\s*(asc|desc)*(\\s*,\\s*(\\w*[^\\x00-\\xff]*(\\x5b|\\x5d)?)*+\\.?(\\w*[^\\x00-\\xff]*(\\x5b|\\x5d)?)*\\s*(asc|desc)*)*",
                             Pattern.CASE_INSENSITIVE);
@@ -139,26 +139,26 @@ public final class SqlBuilder
   }
 
   /**
-   * 検索ページ化の場合、検索SQL文を作成します。
+   * 検索ページ化の場合、検索SQL文を作成します。
    * <p>
    * <dl>
-   * <dt>実装機能：
+   * <dt>実装機能：
    * <dd>
    * <ul>
-   * <li>データベースの種類名が{@link Constants#DATABASE_ORACLE}場合、Oracleデータベースのページング検索用SQL文を作成します。
+   * <li>データベースの種類名が{@link Constants#DATABASE_ORACLE}場合、Oracleデータベースのページング検索用SQL文を作成します。
    * <li>データベースの種類名が{@link Constants#DATABASE_SQL_SERVER}場合、SQL
-   * Serverデータベースのページング検索用SQL文を作成します。
-   * <li>作成したSQL文を返す。
+   * Serverデータベースのページング検索用SQL文を作成します。
+   * <li>作成したSQL文を返す。
    * </ul>
-   * <dt>利用方法：
-   * <dd>業務DAOでこのメソッドを呼出し、ページング検索用SQL文を組み立てます。
+   * <dt>利用方法：
+   * <dd>業務DAOでこのメソッドを呼出し、ページング検索用SQL文を組み立てます。
    * </dl>
    *
-   * @param sql 普通SQL文
+   * @param sql 普通SQL文
    * @param pageNo 開始インデックス
    * @param pageSize 毎ページに項目数
    * @param dbname データベース情報
-   * @return ページ化の検索SQL文
+   * @return ページ化の検索SQL文
    */
   public static String getPaginationSql(String sql, int pageNo, int pageSize,
     String dbname) {
