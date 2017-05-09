@@ -10,7 +10,7 @@ Ext.define('uber.view.login.Login', {
 	items: [{
 		xtype: 'formpanel',
 		reference: 'formpanel',
-		standardSubmit: true,
+//		standardSubmit: true,
 		margin: 50,
 		items: [{
 			xtype: 'fieldset',
