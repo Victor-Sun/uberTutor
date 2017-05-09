@@ -35,8 +35,7 @@ public class LoginAction extends ActionSupport {
 	private SysUserDepartmentService sysUserDepartmentService;
 	
 //	private String loginUserId;
-	private String username;
-	private String password;
+	private String username, password;
 	
 //	public void setLoginUserId(String loginUserId) {
 //		this.loginUserId = loginUserId;

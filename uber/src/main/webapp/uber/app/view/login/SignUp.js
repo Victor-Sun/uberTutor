@@ -34,7 +34,7 @@ Ext.define('uber.view.login.SignUp', {
 				}]
 			},{
 				xtype: 'textfield',
-				name: 'firstname',
+				name: 'fullName',
 				label: 'Full Name'
 			},{
 				xtype: 'textfield',
