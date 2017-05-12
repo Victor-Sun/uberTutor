@@ -27,11 +27,82 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="src" path="/gt-commons"/>
+	<classpathentry kind="lib" path="Z:/Resource/m2_repository/org/apache/cxf/cxf-bundle/2.2.10/cxf-bundle-2.2.10.jar" sourcepath="Z:/Resource/m2_repository/org/apache/cxf/cxf-bundle/2.2.10/cxf-bundle-2.2.10-sources.jar">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.apache.cxf"/>
+			<attribute name="maven.artifactId" value="cxf-bundle"/>
+			<attribute name="maven.version" value="2.2.10"/>
+			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="/gt-commons"/>
+	<classpathentry kind="lib" path="Z:/Resource/m2_repository/org/apache/cxf/cxf-rt-core/2.2.10/cxf-rt-core-2.2.10.jar" sourcepath="Z:/Resource/m2_repository/org/apache/cxf/cxf-rt-core/2.2.10/cxf-rt-core-2.2.10-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.apache.cxf"/>
+			<attribute name="maven.artifactId" value="cxf-rt-core"/>
+			<attribute name="maven.version" value="2.2.10"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="Z:/Resource/m2_repository/com/h2database/h2/1.2.142/h2-1.2.142.jar" sourcepath="Z:/Resource/m2_repository/com/h2database/h2/1.2.142/h2-1.2.142-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="com.h2database"/>
+			<attribute name="maven.artifactId" value="h2"/>
+			<attribute name="maven.version" value="1.2.142"/>
+			<attribute name="maven.scope" value="test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="Z:/Resource/m2_repository/org/hibernate/hibernate-core/3.5.5-Final/hibernate-core-3.5.5-Final.jar" sourcepath="Z:/Resource/m2_repository/org/hibernate/hibernate-core/3.5.5-Final/hibernate-core-3.5.5-Final-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.hibernate"/>
+			<attribute name="maven.artifactId" value="hibernate-core"/>
+			<attribute name="maven.version" value="3.5.5-Final"/>
+			<attribute name="maven.scope" value="compile"/>
+			<attribute name="maven.optionaldependency" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="Z:/Resource/m2_repository/commons-lang/commons-lang/2.5/commons-lang-2.5.jar" sourcepath="Z:/Resource/m2_repository/commons-lang/commons-lang/2.5/commons-lang-2.5-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="commons-lang"/>
+			<attribute name="maven.artifactId" value="commons-lang"/>
+			<attribute name="maven.version" value="2.5"/>
+			<attribute name="maven.scope" value="compile"/>
+			<attribute name="maven.optionaldependency" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="Z:/Resource/m2_repository/org/springframework/spring-core/3.0.4.RELEASE/spring-core-3.0.4.RELEASE.jar" sourcepath="Z:/Resource/m2_repository/org/springframework/spring-core/3.0.4.RELEASE/spring-core-3.0.4.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework"/>
+			<attribute name="maven.artifactId" value="spring-core"/>
+			<attribute name="maven.version" value="3.0.4.RELEASE"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="Z:/Resource/m2_repository/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar" sourcepath="Z:/Resource/m2_repository/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.slf4j"/>
+			<attribute name="maven.artifactId" value="slf4j-api"/>
+			<attribute name="maven.version" value="1.6.1"/>
+			<attribute name="maven.scope" value="compile"/>
+			<attribute name="maven.optionaldependency" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="Z:/Resource/m2_repository/org/springframework/spring-beans/3.0.4.RELEASE/spring-beans-3.0.4.RELEASE.jar" sourcepath="Z:/Resource/m2_repository/org/springframework/spring-beans/3.0.4.RELEASE/spring-beans-3.0.4.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework"/>
+			<attribute name="maven.artifactId" value="spring-beans"/>
+			<attribute name="maven.version" value="3.0.4.RELEASE"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
