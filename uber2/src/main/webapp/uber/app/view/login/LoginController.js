@@ -31,7 +31,7 @@ Ext.define('uber.view.login.LoginController', {
     	
     	if(model.isValid()){
     		formPanel.submit({ 
-    			url: '/uber/main/login!login.action',
+    			url: '/uber2/main/login!login.action',
     			method: 'POST', 
     			success: function() {
 //    		         var obj = Ext.decode(response.responseText);
