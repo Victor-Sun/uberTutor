@@ -49,6 +49,10 @@ Ext.define('uber.view.login.SignUp', {
 				name: 'password',
 				label: 'Password'
 			},{
+				xtype: 'passwordfield',
+				name: 'passwordrepeat',
+				label: 'Reenter Password'
+			},{
                 xtype: 'toolbar',
                 items: [{
                     xtype: 'button',
