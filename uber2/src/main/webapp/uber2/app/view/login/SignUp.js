@@ -1,58 +1,79 @@
-Ext.define('uber.view.login.SignUp',{
-	extend: 'Ext.container.Viewport',
+Ext.define('uber.view.login.SignUp', {
+	extend: 'Ext.Panel',
 	xtype: 'signup',
-	
+	controller: 'signup',
+
 	requires: [
-       'Ext.container.Viewport',
+		'uber.view.login.SignUpController'
 	],
-	    	
-	layout: 'fit',
+	
 	items: [{
-		xtype: 'form',
+		xtype: 'formpanel',
+		reference: 'formpanel',
+		margin: 10,
 		items: [{
 			xtype: 'fieldset',
-			margin: 250,
-			title: 'signup',
+			margin: 30,
+			padding: 10,
 			items: [{
-				xtype: 'textfield',
-				name: 'firstname',
-				fieldLabel: 'First name'
+				xtype: 'container',
+				margin: 2,
+				layout: {
+					type: 'hbox',
+					align: 'stretch'
+				},
+				items: [{
+					xtype: 'container',
+					flex: 1
+				},{
+					xtype: 'component',
+					html: '<p><b>Registration</b></p>'
+				},{
+					xtype: 'container',
+					flex: 1
+				}]
 			},{
 				xtype: 'textfield',
-				name: 'lastname',
-				fieldLabel: 'Last name'
+				name: 'fullName',
+				label: 'Full Name'
 			},{
 				xtype: 'textfield',
 				name: 'username',
-				fieldLabel: 'Username'
+				label: 'Username'
 			},{
 				xtype: 'textfield',
 				name: 'email',
-				fieldLabel: 'Email'
+				label: 'Email'
 			},{
-				xtype: 'textfield',
+				xtype: 'passwordfield',
 				name: 'password',
-				fieldLabel: 'Password'
+				label: 'Password'
 			},{
-				xtype: 'toolbar',
-				items: [{
-					xtype: 'button',
-					text: 'Sign Up',
-					handler: function() {
-	    				this.up('signup').destroy();
-	    				Ext.create('uber.view.verification.Verification');
-	    			}
-				},
-//				'->',
-				{
-					xtype: 'button',
-					text: 'Login',
-					handler: function() {
-	    				this.up('signup').destroy();
-	    				Ext.create('uber.view.login.Login');
-	    			}
-				}]
-			}]
+				xtype: 'passwordfield',
+				name: 'passwordrepeat',
+				label: 'Reenter Password'
+			},{
+                xtype: 'toolbar',
+                items: [{
+                    xtype: 'button',
+                    text: 'Submit',
+                    handler: 'register' 
+        //             function () {
+        //             	var me = this;
+				    // 	this.getView().destroy();
+				    // 	Ext.Viewport.add(Ext.create('uber.view.main.Main'));
+				    // }
+                },{
+                    xtype: 'button',
+                    text: 'Reset'
+                },{
+                	xtype: 'spacer'
+                },{
+                	xtype: 'button',
+                	text: 'Existing User?',
+                	handler: 'login'
+                }]
+            }]
 		}]
 	}]
 });
