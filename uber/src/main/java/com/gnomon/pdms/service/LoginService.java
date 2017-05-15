@@ -61,7 +61,7 @@ public class LoginService {
 	 * 用户Id取得
 	 */
 	public String getUserId(String loginUserId) {
-		return this.getUser(loginUserId).getUserid();
+		return this.getUser(loginUserId).getUsername();
     }
 }
 

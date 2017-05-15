@@ -10,90 +10,74 @@ import javax.persistence.Table;
 import com.gnomon.common.base.StringIdEntity;
 
 @Entity
-@Table(name="SYS_USER")
+@Table(name="USERS")
 public class UserEntity extends StringIdEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
 
-	//用户标识
-	@Column(name="USERID") 
-	private String userid;
-	
-	//姓名
+	// User's Profile Name
 	@Column(name="USERNAME") 
 	private String username;
+
+	// User's Full Name
+	@Column(name="FULLNAME") 
+	private String fullname;
 	
-	//密码(加密存储)
+	// Password(Encrypted)
 	@Column(name="PASSWORD") 
 	private String password;
 	
-	// 邮箱
+	// Email
 	@Column(name="EMAIL") 
 	private String email;
 	
-	// 手机号
+	// Mobile Phone Number
 	@Column(name="MOBILE") 
 	private String mobile;
 	
-	// 员工编号
-	@Column(name="EMPLOYEE_NO") 
-	private String employeeNo;
-	
-	// 语言
-	@Column(name="LANGUAGE") 
-	private String language;
-	
-	//创建人
 	@Column(name="CREATE_BY") 
 	private String createBy;
 
-	//创建时间
+	// Date and time the account was created
 	@Column(name="CREATE_DATE") 
 	private Date createDate;	
 
-	//修改人
 	@Column(name="UPDATE_BY") 
 	private String updateBy;
 	
-	//修改时间
+	// When the account was updated
 	@Column(name="UPDATE_DATE") 
 	private Date updateDate;
 	
-	// 删除人
 	@Column(name="DELETE_BY") 
 	private String deleteBy;
 	
-	// 删除时间
+	// When the account was deleted
 	@Column(name="DELETE_DATE") 
 	private Date deleteDate;
-	
-	@Column(name="DEPARTMENT_ID") 
-	private String departmentId;
 	
 	@Column(name="IS_DISABLED") 
 	private String isDisabled;
 
-	public String getUserid() {
-		return userid;
-	}
-
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
+	@Column(name="IS_TUTOR") 
+	private String isTutor;
+	
+	@Column(name="IS_VERIFIED") 
+	private String isVerified;
 
 	public String getUsername() {
 		return username;
 	}
 
-	public String getDepartmentId() {
-		return departmentId;
-	}
-
-	public void setDepartmentId(String departmentId) {
-		this.departmentId = departmentId;
-	}
-
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 
 	public String getPassword() {
@@ -118,22 +102,6 @@ public class UserEntity extends StringIdEntity implements Serializable{
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
-	}
-
-	public String getEmployeeNo() {
-		return employeeNo;
-	}
-
-	public void setEmployeeNo(String employeeNo) {
-		this.employeeNo = employeeNo;
-	}
-
-	public String getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(String language) {
-		this.language = language;
 	}
 
 	public String getCreateBy() {
@@ -192,5 +160,20 @@ public class UserEntity extends StringIdEntity implements Serializable{
 		this.isDisabled = isDisabled;
 	}
 
+	public String getIsTutor() {
+		return isTutor;
+	}
+
+	public void setIsTutor(String isTutor) {
+		this.isTutor = isTutor;
+	}
+
+	public String getIsVerified() {
+		return isVerified;
+	}
+
+	public void setIsVerified(String isVerified) {
+		this.isVerified = isVerified;
+	}
 
 }

@@ -47,13 +47,13 @@ public class SessionData {
 	
 	// User ID取得, 是User Id, 不是UUID
 	public static String getUserId() {
-		return getLoginUser().getUserid();
+		return getLoginUser().getUsername();
 	}
 	
-	// Login用户所属科室ID取得(默认科室)
-	public static String getUserDeptId() {
-		return getLoginUser().getDepartmentId();
-	}
+//	// Login用户所属科室ID取得(默认科室)
+//	public static String getUserDeptId() {
+//		return getLoginUser().getDepartmentId();
+//	}
 	
 	// Login用户部门信息取得（所有）
 	public static Map<String, Object> getUserDeptInfo() {
