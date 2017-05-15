@@ -127,38 +127,38 @@ public class DeptIssueAction extends PDMSCrudActionSupport<Object> {
 	/**
 	 * 提交/保存问题
 	 */
-	public void saveDeptIssue() {
-		try {
-			Map<String, String> model = this.convertJson(this.model);
-			Long issueId = this.deptIssueService.saveDeptIssue(action, model);
-			// 通知
-			this.sysNoticeService.openIssueNotify(
-					PDMSConstants.NOTICE_TYPE_DEPT_ISSUE, issueId);
-			this.writeSuccessResult(null);
-		} catch (Exception e) {
-			this.writeErrorResult(e.getMessage());
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * 保存草稿
-	 */
-	public void saveDraftDeptIssue() {
-		try {
-			Map<String, String> model = this.convertJson(this.model);
-			Long issueId = this.deptIssueService.saveDraftDeptIssue(model);
-			Map<String, Object> dataMap = new HashMap<String, Object>();
-			dataMap.put("issueId", issueId);
-			// 返回UUID
-			Map<String, Object> issueMap = this.deptIssueService.getDeptIssue(PDMSCommon.nvl(issueId));
-			dataMap.put("issueUuid", issueMap.get("ISSUE_UUID"));
-			this.writeSuccessResult(dataMap);
-		} catch (Exception e) {
-			this.writeErrorResult(e.getMessage());
-			e.printStackTrace();
-		}
-	}
+//	public void saveDeptIssue() {
+//		try {
+//			Map<String, String> model = this.convertJson(this.model);
+//			Long issueId = this.deptIssueService.saveDeptIssue(action, model);
+//			// 通知
+//			this.sysNoticeService.openIssueNotify(
+//					PDMSConstants.NOTICE_TYPE_DEPT_ISSUE, issueId);
+//			this.writeSuccessResult(null);
+//		} catch (Exception e) {
+//			this.writeErrorResult(e.getMessage());
+//			e.printStackTrace();
+//		}
+//	}
+//	
+//	/**
+//	 * 保存草稿
+//	 */
+//	public void saveDraftDeptIssue() {
+//		try {
+//			Map<String, String> model = this.convertJson(this.model);
+//			Long issueId = this.deptIssueService.saveDraftDeptIssue(model);
+//			Map<String, Object> dataMap = new HashMap<String, Object>();
+//			dataMap.put("issueId", issueId);
+//			// 返回UUID
+//			Map<String, Object> issueMap = this.deptIssueService.getDeptIssue(PDMSCommon.nvl(issueId));
+//			dataMap.put("issueUuid", issueMap.get("ISSUE_UUID"));
+//			this.writeSuccessResult(dataMap);
+//		} catch (Exception e) {
+//			this.writeErrorResult(e.getMessage());
+//			e.printStackTrace();
+//		}
+//	}
 	
 	/**
 	 * 归档问题查询

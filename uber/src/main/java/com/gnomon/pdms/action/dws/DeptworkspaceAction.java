@@ -153,26 +153,27 @@ public class DeptworkspaceAction extends PDMSCrudActionSupport<VIssueSourceEntit
 		}
 	}
 	
-	public void getDeptProjectTaskBarChart() {
-		try {
-			JsonResult result = new JsonResult();
-			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-			String departmentId = SessionData.getLoginUser().getDepartmentId();
-			List<Map<String, Object>> list =	this.deptworkspaceService.getDeptProjectTaskService(departmentId);
-			for(Map<String, Object> map : list){
-				Map<String, Object> dataMap = new HashMap<String, Object>();
-				dataMap.put("program", map.get("PROGRAM_CODE"));
-				dataMap.put("data1", map.get("COMPLETE_PERCENT"));
-				
-				data.add(dataMap);
-			}
-			// 结果返回
-			result.buildSuccessResultForList(data, 1);
-			Struts2Utils.renderJson(result);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
+	//TODO UNCOMMENT LATER
+//	public void getDeptProjectTaskBarChart() {
+//		try {
+//			JsonResult result = new JsonResult();
+//			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+//			String departmentId = SessionData.getLoginUser().getDepartmentId();
+//			List<Map<String, Object>> list =	this.deptworkspaceService.getDeptProjectTaskService(departmentId);
+//			for(Map<String, Object> map : list){
+//				Map<String, Object> dataMap = new HashMap<String, Object>();
+//				dataMap.put("program", map.get("PROGRAM_CODE"));
+//				dataMap.put("data1", map.get("COMPLETE_PERCENT"));
+//				
+//				data.add(dataMap);
+//			}
+//			// 结果返回
+//			result.buildSuccessResultForList(data, 1);
+//			Struts2Utils.renderJson(result);
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//		}
+//	}
 	
 	public void getDeptOpenIssueBarChart() {
 		try {

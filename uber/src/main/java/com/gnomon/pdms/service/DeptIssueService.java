@@ -186,45 +186,45 @@ public class DeptIssueService {
 	/**
 	 * 提交/保存问题信息
 	 */
-	public Long saveDeptIssue(String action, Map<String, String> model) {
-		// 批示
-		String ownerComment = model.get("issueCause");
-		String returnComment = null;
-		if ("RETURN".equals(action)) {
-			ownerComment = null;
-			returnComment = model.get("issueCause");
-		}
-		// 取得录入人科室
-		String subDeptId = SessionData.getUserDeptId();
-		// 保存信息
-		Map<String, Object> result = this.pkgPmDeptIssueDBProcedureServcie.updateIssue(
-				PDMSCommon.toLong(model.get("id")), model.get("createBy"), model.get("deptId"), subDeptId,
-				PDMSCommon.toLong(PDMSCommon.nvl(model.get("issueSourceId"), "0")), model.get("issueSourceDescription"),
-				model.get("issueTitle"), model.get("issueDescription"), model.get("issueCause"),
-				DateUtils.strToDate(model.get("dueDate")), model.get("raiseBy"),
-				DateUtils.strToDate(model.get("raiseDate")), model.get("respDeptId"), model.get("respUserId"),
-				model.get("issuePriorityCode"), action, ownerComment, returnComment);
-		// 返回IssueId
-		return Long.valueOf(PDMSCommon.nvl(result.get(PkgPmDeptIssueDBProcedureServcie.KEY_ISSUE_ID)));		
-	}
-	
-	/**
-	 * 保存草稿
-	 */
-	public Long saveDraftDeptIssue(Map<String, String> model) {
-		// 取得录入人科室
-		String subDeptId = SessionData.getUserDeptId();
-		// 保存信息
-		Map<String, Object> result = this.pkgPmDeptIssueDBProcedureServcie.updateDraftIssue(
-				PDMSCommon.toLong(model.get("id")), model.get("createBy"), model.get("deptId"), subDeptId,
-				PDMSCommon.toLong(PDMSCommon.nvl(model.get("issueSourceId"), "0")), model.get("issueSourceDescription"),
-				model.get("issueTitle"), model.get("issueDescription"), model.get("issueCause"),
-				DateUtils.strToDate(model.get("dueDate")), model.get("raiseBy"),
-				DateUtils.strToDate(model.get("raiseDate")), model.get("respDeptId"), model.get("respUserId"),
-				model.get("issuePriorityCode"));
-		// 返回IssueId
-		return Long.valueOf(PDMSCommon.nvl(result.get(PkgPmDeptIssueDBProcedureServcie.KEY_ISSUE_ID)));	
-	}
+//	public Long saveDeptIssue(String action, Map<String, String> model) {
+//		// 批示
+//		String ownerComment = model.get("issueCause");
+//		String returnComment = null;
+//		if ("RETURN".equals(action)) {
+//			ownerComment = null;
+//			returnComment = model.get("issueCause");
+//		}
+//		// 取得录入人科室
+//		String subDeptId = SessionData.getUserDeptId();
+//		// 保存信息
+//		Map<String, Object> result = this.pkgPmDeptIssueDBProcedureServcie.updateIssue(
+//				PDMSCommon.toLong(model.get("id")), model.get("createBy"), model.get("deptId"), subDeptId,
+//				PDMSCommon.toLong(PDMSCommon.nvl(model.get("issueSourceId"), "0")), model.get("issueSourceDescription"),
+//				model.get("issueTitle"), model.get("issueDescription"), model.get("issueCause"),
+//				DateUtils.strToDate(model.get("dueDate")), model.get("raiseBy"),
+//				DateUtils.strToDate(model.get("raiseDate")), model.get("respDeptId"), model.get("respUserId"),
+//				model.get("issuePriorityCode"), action, ownerComment, returnComment);
+//		// 返回IssueId
+//		return Long.valueOf(PDMSCommon.nvl(result.get(PkgPmDeptIssueDBProcedureServcie.KEY_ISSUE_ID)));		
+//	}
+//	
+//	/**
+//	 * 保存草稿
+//	 */
+//	public Long saveDraftDeptIssue(Map<String, String> model) {
+//		// 取得录入人科室
+//		String subDeptId = SessionData.getUserDeptId();
+//		// 保存信息
+//		Map<String, Object> result = this.pkgPmDeptIssueDBProcedureServcie.updateDraftIssue(
+//				PDMSCommon.toLong(model.get("id")), model.get("createBy"), model.get("deptId"), subDeptId,
+//				PDMSCommon.toLong(PDMSCommon.nvl(model.get("issueSourceId"), "0")), model.get("issueSourceDescription"),
+//				model.get("issueTitle"), model.get("issueDescription"), model.get("issueCause"),
+//				DateUtils.strToDate(model.get("dueDate")), model.get("raiseBy"),
+//				DateUtils.strToDate(model.get("raiseDate")), model.get("respDeptId"), model.get("respUserId"),
+//				model.get("issuePriorityCode"));
+//		// 返回IssueId
+//		return Long.valueOf(PDMSCommon.nvl(result.get(PkgPmDeptIssueDBProcedureServcie.KEY_ISSUE_ID)));	
+//	}
 	
 	/**
 	 * 取得问题来源
