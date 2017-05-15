@@ -6,9 +6,23 @@ Ext.define('uber.view.login.LoginController', {
     	//if login info is correct
     },
 
-    onLoginFailure: function () {
-		//if login info is incorrect
-	},
+    onLoginFailure: function(form, action) {
+
+        this.getView().unmask();
+
+        var result = ExtApp.util.Util.decodeJSON(action.response.responseText);
+
+        switch (action.failureType) {
+            case Ext.form.action.Action.CLIENT_INVALID:
+            	ExtApp.util.Util.showErrorMsg('Form fields may not be submitted with invalid values');
+                break;
+            case Ext.form.action.Action.CONNECT_FAILURE:
+            	ExtApp.util.Util.showErrorMsg(action.response.responseText);
+                break;
+            case Ext.form.action.Action.SERVER_INVALID:
+            	ExtApp.util.Util.showErrorMsg(result.data);
+        }
+    },
     
 //	test: function () {
 //		var model = Ext.create('User',{
@@ -25,9 +39,6 @@ Ext.define('uber.view.login.LoginController', {
     	var errors = model.validate();
     	var errors2 = model.isValid();
     	var check = errors.isValid();
-//    	console.log(model);
-//    	console.log(errors);
-//    	console.log(check);
     	
     	if(model.isValid()){
     		formPanel.submit({ 
@@ -41,11 +52,11 @@ Ext.define('uber.view.login.LoginController', {
     		         this.up('panel').destroy();
     		         Ext.Viewport.add(Ext.create('uber.view.main.Main'));
     		    },
-
-    		    failure: function(response, opts) {
-    		         console.log('server-side failure with status code ' + response.status);
-    		         Ext.Msg.alert('', 'Error', Ext.emptyFn);
-    		    }
+    		    failure: 'onLoginFailure'
+//    		    failure: function(response, opts) {
+//    		         console.log('server-side failure with status code ' + response.status);
+//    		         Ext.Msg.alert('', 'Error', Ext.emptyFn);
+//    		    }
     		});
     	} else {
     		var message = "";

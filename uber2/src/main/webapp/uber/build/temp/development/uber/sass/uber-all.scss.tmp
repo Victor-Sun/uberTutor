@@ -1,5 +1,5 @@
 $app-name:  dynamic( 'uber' );
-$image-search-path: 'D:/Workspaces/Github/uberTutor/uber/src/main/webapp/uber/build/development/uber/resources';
+$image-search-path: 'D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/build/development/uber/resources';
 $theme-name:  dynamic( 'theme-triton' );
 $include-ext-abstractcomponent: dynamic(true);;
 $include-ext-abstractmanager: dynamic(true);;

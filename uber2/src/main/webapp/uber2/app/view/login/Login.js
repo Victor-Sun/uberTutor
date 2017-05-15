@@ -6,9 +6,12 @@ Ext.define('uber.view.login.Login', {
        'Ext.container.Viewport',
 	],
 	
+	controller: 'login',
+	
 	layout: 'fit',
 	items: [{
 		xtype: 'form',
+		reference: 'formpanel',
 		items: [{
 			xtype: 'fieldset',
 			margin: 250,
@@ -20,6 +23,7 @@ Ext.define('uber.view.login.Login', {
 				label: 'Username'
 			},{
 				xtype: 'textfield',
+				inputType: 'password',
 				required: true,
 				name: 'password',
 				label: 'Password'
@@ -41,10 +45,7 @@ Ext.define('uber.view.login.Login', {
                 items: [{
                 	xtype: 'button',
                     text: 'Login',
-                    handler: function() {
-	    				this.up('login').destroy();
-	    				Ext.create('uber.view.main.Main');
-	    			}
+                    handler: 'login',
                 },{
                 	xtype: 'tbspacer'
                 },{

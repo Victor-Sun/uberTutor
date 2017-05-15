@@ -24,8 +24,8 @@ Ext.define('uber.view.main.Main', {
     items: [{
     	xtype: 'tabpanel',
     	rotation: 0,
-    	reference: 'uberTab',
-    	id: 'uberTab',
+    	reference: 'uberTabPanel',
+    	id: 'uberTabPanel',
     	items: [{
             title: 'Home',
 //          xtype: 'home',
