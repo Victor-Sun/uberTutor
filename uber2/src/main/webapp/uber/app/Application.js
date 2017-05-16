@@ -11,22 +11,56 @@ Ext.define('uber.Application', {
     stores: [
         // TODO: add global / shared stores here
     ],
-    
+
+    requires: [
+        'uber.view.login.SignUp',
+        'uber.view.login.Login',
+        'uber.view.main.Main'
+    ],
+
     launch: function () {
         // TODO - Launch the application
-//    	Ext.create('ExtApp.view.main.Main');
-    	Ext.create('uber.view.login.Login');
-//    	Ext.widget('login');
-//    	Ext.Viewport.add(Ext.create('uber.view.login.Login'));
-    },
+        var me = this;
+        Ext.Viewport.add(Ext.create('uber.view.login.SignUp'));
+        var admin = Ext.create('uber.model.User',{
+        	username: 'admin',
+        	password: '123456'
+        });
+//        Ext.Viewport.add(Ext.create('uber.view.main.Main'));
+//        Ext.define('uber.model.User',{
+//        	extend: 'Ext.data.Model',
+////        	config: {
+////        	},
+//        	fields: [
+////			'username', 'password'
+//				{ name: 'username', type: 'string' },
+//				{ name: 'password'}
+//			],
+////			validations:
+////			[
+////			    {type: 'presence',field: 'username',  message: 'please input valid username'},
+////			    {type: 'presence', field: 'password', message: 'please input valid password'}
+////			],
+//			validators: {
+//				username: [
+//		           { type: 'presence', message: 'please input valid username' }
+//				],
+//				password: [
+//		           { type: 'presence', message: 'please input valid password' }
+//	           ]
+//			}
+//        })
+        
+    }
+    // ,
 
-//    onAppUpdate: function () {
-//        Ext.Msg.confirm('Application Update', 'This application has an update, reload?',
-//            function (choice) {
-//                if (choice === 'yes') {
-//                    window.location.reload();
-//                }
-//            }
-//        );
-//    }
+    // onAppUpdate: function () {
+    //     Ext.Msg.confirm('Application Update', 'This application has an update, reload?',
+    //         function (choice) {
+    //             if (choice === 'yes') {
+    //                 window.location.reload();
+    //             }
+    //         }
+    //     );
+    // }
 });

@@ -75,6 +75,8 @@ public class SignupAction extends ActionSupport {
 				throw new Exception(msg);
 			}
 			
+			
+			
 			loginAction.writeSuccessResult(resultMap);
 		} catch (Exception e){
 			

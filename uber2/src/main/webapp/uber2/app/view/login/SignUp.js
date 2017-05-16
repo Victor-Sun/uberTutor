@@ -1,79 +1,58 @@
-Ext.define('uber.view.login.SignUp', {
-	extend: 'Ext.Panel',
+Ext.define('uber.view.login.SignUp',{
+	extend: 'Ext.container.Viewport',
 	xtype: 'signup',
-	controller: 'signup',
-
-	requires: [
-		'uber.view.login.SignUpController'
-	],
 	
+	requires: [
+       'Ext.container.Viewport',
+	],
+	    	
+	layout: 'fit',
 	items: [{
-		xtype: 'formpanel',
-		reference: 'formpanel',
-		margin: 10,
+		xtype: 'form',
 		items: [{
 			xtype: 'fieldset',
-			margin: 30,
-			padding: 10,
+			margin: 250,
+			title: 'signup',
 			items: [{
-				xtype: 'container',
-				margin: 2,
-				layout: {
-					type: 'hbox',
-					align: 'stretch'
-				},
-				items: [{
-					xtype: 'container',
-					flex: 1
-				},{
-					xtype: 'component',
-					html: '<p><b>Registration</b></p>'
-				},{
-					xtype: 'container',
-					flex: 1
-				}]
+				xtype: 'textfield',
+				name: 'firstname',
+				fieldLabel: 'First name'
 			},{
 				xtype: 'textfield',
-				name: 'fullName',
-				label: 'Full Name'
+				name: 'lastname',
+				fieldLabel: 'Last name'
 			},{
 				xtype: 'textfield',
 				name: 'username',
-				label: 'Username'
+				fieldLabel: 'Username'
 			},{
 				xtype: 'textfield',
 				name: 'email',
-				label: 'Email'
+				fieldLabel: 'Email'
 			},{
-				xtype: 'passwordfield',
+				xtype: 'textfield',
 				name: 'password',
-				label: 'Password'
+				fieldLabel: 'Password'
 			},{
-				xtype: 'passwordfield',
-				name: 'passwordrepeat',
-				label: 'Reenter Password'
-			},{
-                xtype: 'toolbar',
-                items: [{
-                    xtype: 'button',
-                    text: 'Submit',
-                    handler: 'register' 
-        //             function () {
-        //             	var me = this;
-				    // 	this.getView().destroy();
-				    // 	Ext.Viewport.add(Ext.create('uber.view.main.Main'));
-				    // }
-                },{
-                    xtype: 'button',
-                    text: 'Reset'
-                },{
-                	xtype: 'spacer'
-                },{
-                	xtype: 'button',
-                	text: 'Existing User?',
-                	handler: 'login'
-                }]
-            }]
+				xtype: 'toolbar',
+				items: [{
+					xtype: 'button',
+					text: 'Sign Up',
+					handler: function() {
+	    				this.up('signup').destroy();
+	    				Ext.create('uber.view.verification.Verification');
+	    			}
+				},
+//				'->',
+				{
+					xtype: 'button',
+					text: 'Login',
+					handler: function() {
+	    				this.up('signup').destroy();
+	    				Ext.create('uber.view.login.Login');
+	    			}
+				}]
+			}]
 		}]
 	}]
 });

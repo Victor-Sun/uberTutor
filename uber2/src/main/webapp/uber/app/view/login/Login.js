@@ -1,29 +1,44 @@
 Ext.define('uber.view.login.Login', {
-	extend:'Ext.container.Viewport',
+	extend: 'Ext.Panel',
 	xtype: 'login',
-	
+	controller: 'login',
+
 	requires: [
-       'Ext.container.Viewport',
+		'uber.view.login.LoginController'
 	],
 	
-	controller: 'login',
-	
-	layout: 'fit',
 	items: [{
-		xtype: 'form',
+		xtype: 'formpanel',
 		reference: 'formpanel',
+		margin: 50,
 		items: [{
 			xtype: 'fieldset',
-			margin: 250,
-			title: 'login',
+			margin: 0,
+			padding: 10,
 			items: [{
+				xtype: 'container',
+				margin: 2,
+				layout: {
+					type: 'hbox',
+					align: 'stretch'
+				},
+				items: [{
+					xtype: 'container',
+					flex: 1
+				},{
+					xtype: 'component',
+					html: '<p><b>Login</b></p>'
+				},{
+					xtype: 'container',
+					flex: 1
+				}]
+			},{
 				xtype: 'textfield',
 				required: true,
 				name: 'username',
 				label: 'Username'
 			},{
-				xtype: 'textfield',
-				inputType: 'password',
+				xtype: 'passwordfield',
 				required: true,
 				name: 'password',
 				label: 'Password'
@@ -35,7 +50,7 @@ Ext.define('uber.view.login.Login', {
 		            name : 'remember',
 		            label: 'Remember'
 				},{
-					xtype: 'tbspacer'
+					xtype: 'spacer'
 				},{
 					xtype: 'component',
 					html: '<a>Forgot Password?</a>'
@@ -45,18 +60,20 @@ Ext.define('uber.view.login.Login', {
                 items: [{
                 	xtype: 'button',
                     text: 'Login',
-                    handler: 'login',
+                    handler: 'login'
                 },{
-                	xtype: 'tbspacer'
+                	xtype: 'spacer'
                 },{
                 	xtype: 'button',
                 	text: 'Sign up',
-                	handler: function() {
-	    				this.up('login').destroy();
-	    				Ext.create('uber.view.login.SignUp');
-	    			}
-				}]
-			}]
+                	handler: 'signup'
+        //         	handler: function () {
+        //         		var me = this;
+				    // 	Ext.getView().destroy();
+				    // 	Ext.Viewport.add(Ext.create('uber.view.login.SignUp'));
+				    // }
+                }]
+            }]
 		}]
-	}]
+    }]
 });
