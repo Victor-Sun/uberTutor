@@ -57,17 +57,17 @@ public class LoginAction extends ActionSupport {
 	public void login() throws Exception {
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
-			String userNoExistMsg = "用户名不存在！";
-			String passIncorrectMsg = "用户密码错误！";
-			String userDisabledMsg = "用户已被禁用，不允许登录！";
+			String msg; 
 					
 			// 用户ID存在验证
 			if (!loginService.verifyUserId(username)) {
-				throw new Exception(userNoExistMsg);
+				msg = "用户名不存在！";
+				throw new Exception(msg);
 			}
 			// 用户密码验证
 			if (!loginService.verifyUserPassword(username, EncryptUtil.encrypt(password))) {
-				throw new Exception(passIncorrectMsg);
+				msg = "用户密码错误！";
+				throw new Exception(msg);
 			}
 			
 			// 用户信息取得
@@ -76,7 +76,8 @@ public class LoginAction extends ActionSupport {
 			//禁用的用户不允许登录
 			//TODO Change code to make it better
 			if("Y".equals(loginUser.getIsDisabled())){
-				throw new Exception(userDisabledMsg);
+				msg = "用户已被禁用，不允许登录！";
+				throw new Exception(msg);
 			}
 			
 			// Session-用户信息
@@ -119,7 +120,7 @@ public class LoginAction extends ActionSupport {
 		}
 	}
 
-	private void writeSuccessResult(Object data) {
+	public void writeSuccessResult(Object data) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("success", true);
 		if (null != data) {
