@@ -83,7 +83,7 @@ Ext.define('uber.view.login.LoginController', {
 
     signup: function () {
     	this.getView().destroy();
-    	Ext.Viewport.add(Ext.create('uber.view.login.SignUp'));
+    	Ext.Viewport.add(Ext.create('uber.view.login.Signup'));
     }
     
 });

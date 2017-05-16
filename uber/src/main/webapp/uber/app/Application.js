@@ -13,7 +13,7 @@ Ext.define('uber.Application', {
     ],
 
     requires: [
-        'uber.view.login.SignUp',
+        'uber.view.login.Signup',
         'uber.view.login.Login',
         'uber.view.main.Main'
     ],
@@ -21,7 +21,7 @@ Ext.define('uber.Application', {
     launch: function () {
         // TODO - Launch the application
         var me = this;
-        Ext.Viewport.add(Ext.create('uber.view.login.SignUp'));
+        Ext.Viewport.add(Ext.create('uber.view.login.Signup'));
         var admin = Ext.create('uber.model.User',{
         	username: 'admin',
         	password: '123456'

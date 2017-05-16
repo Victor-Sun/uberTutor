@@ -1,10 +1,10 @@
-Ext.define('uber.view.login.SignUp', {
+Ext.define('uber.view.login.Signup', {
 	extend: 'Ext.Panel',
 	xtype: 'signup',
 	controller: 'signup',
 
 	requires: [
-		'uber.view.login.SignUpController'
+		'uber.view.login.SignupController'
 	],
 	
 	items: [{

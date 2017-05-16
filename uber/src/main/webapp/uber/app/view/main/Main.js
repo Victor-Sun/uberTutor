@@ -47,55 +47,5 @@ Ext.define('uber.view.main.Main', {
 		xtype: 'search',
 		iconCls: 'x-fa fa-search',
 		layout: 'vbox'
-    // },{
-    //     title: 'User<br>Request',
-    //     iconCls: 'x-fa fa-bullhorn',
-    //     xtype: 'userrequest'
-   	// },{
-    // 	title: 'Tutor<br>Response',
-    // 	iconCls: 'x-fa fa-comment-o',
-    // 	xtype: 'tutorresponse'
-    // },{
-    // 	title: 'Feedback',
-    // 	iconCls: 'x-fa fa-pencil-square-o',
-    // 	xtype: 'feedback'
-    // },{
-    //     title: 'Verification',
-    //     xtype: 'verification'
-    // },{
-    // 	title: 'Login/<br>Signup',
-    //     layout: 'vbox',
-    // 	items: [{
-    //         xtype: 'toolbar',
-    //         items: [{
-    //             xtype: 'button',
-    //             text: 'Login',
-    //             handler: function() {
-    //                 Ext.getCmp("sULPanel").setActiveItem(0);
-    //             }
-    //         },{
-    //             xtype: 'button',
-    //             text: 'Sign Up',
-    //             handler: function() {
-    //                 Ext.getCmp("sULPanel").setActiveItem(1);
-    //             }
-    //         }]
-    //     },{
-    // 		xtype: 'panel',
-    //         flex: 1,
-    //         reference: 'sULPanel',
-    //         id: 'sULPanel',
-    // 		layout: {
-    // 			type: 'card',
-    //             align: 'stretch'
-    // 		},
-    // 		items: [{
-    // 			title: 'Login',
-    // 			xtype: 'login'
-    // 		},{
-    // 			title: 'Signup',
-    // 			xtype: 'signup'
-    // 		}]
-    // 	}]
     }]
 });

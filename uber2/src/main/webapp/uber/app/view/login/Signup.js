@@ -1,4 +1,4 @@
-Ext.define('uber.view.login.SignUp',{
+Ext.define('uber.view.login.Signup',{
 	extend: 'Ext.container.Viewport',
 	xtype: 'signup',
 	

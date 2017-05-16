@@ -1,4 +1,4 @@
-Ext.define('uber.view.login.SignUpController', {
+Ext.define('uber.view.login.SignupController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.signup',
 
