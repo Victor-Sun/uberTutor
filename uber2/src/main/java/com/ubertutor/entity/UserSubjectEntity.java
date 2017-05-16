@@ -12,10 +12,6 @@ import com.gnomon.common.base.StringIdEntity;
 @Table(name="USER_SUBJECT")
 public class UserSubjectEntity extends StringIdEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
-
-	// ID
-	@Column(name="ID") 
-	private String id;
 	
 	// User's ID
 	@Column(name="USER_ID") 
@@ -24,20 +20,6 @@ public class UserSubjectEntity extends StringIdEntity implements Serializable{
 	// Subject's ID
 	@Column(name="SUBJECT_ID") 
 	private String subjectid;
-
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the userid

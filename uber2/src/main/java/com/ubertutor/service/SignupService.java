@@ -40,4 +40,7 @@ public class SignupService {
 		userDAO.save(entity);;
 	}
 	
+	public UserEntity get(String id){
+		return userDAO.get(id);
+	}
 }

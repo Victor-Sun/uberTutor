@@ -12,26 +12,8 @@ import com.gnomon.common.base.StringIdEntity;
 public class CategoryEntity extends StringIdEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
 
-	// Category ID
-	@Column(name="ID") 
-	private String id;
-
 	@Column(name="TITLE")
 	private String title;
-
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the title
