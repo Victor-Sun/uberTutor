@@ -36,8 +36,6 @@ Ext.define('uber.view.login.LoginController', {
     	var formPanel = this.lookupReference('formpanel');
     	var model = Ext.create('uber.model.User', formPanel.getValues());
     	var errors = model.validate();
-    	var errors2 = model.isValid();
-    	var check = errors.isValid();
     	
     	if(model.isValid()){
     		formPanel.submit({ 
