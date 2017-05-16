@@ -24,7 +24,7 @@ public class SignupAction extends ActionSupport {
 	private SignupService signupService;
 	
 	@Autowired
-	private UserEntity loginUser = new UserEntity();
+	private UserEntity newUser = new UserEntity();
 	
 	public String getFullName() {
 		return fullName;
@@ -69,17 +69,17 @@ public class SignupAction extends ActionSupport {
 				throw new Exception(msg);
 			}
 			
-			// 
+			// Checks if the email already exists in the database
 			if(!signupService.emailExists(email)){
 				msg = "Email already exists!";
 				throw new Exception(msg);
 			}
 			
-			
-			
+			signupService.registerAccount(newUser);
 			loginAction.writeSuccessResult(resultMap);
 		} catch (Exception e){
-			
+			e.printStackTrace();
+			loginAction.writeErrorResult(e.getMessage());
 		}
 	}
 }

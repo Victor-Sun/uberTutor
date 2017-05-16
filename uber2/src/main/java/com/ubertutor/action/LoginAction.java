@@ -134,7 +134,7 @@ public class LoginAction extends ActionSupport {
 		}
 	}
 
-	private void writeErrorResult(Object data) {
+	public void writeErrorResult(Object data) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("success", false);
 		if (null != data) {
