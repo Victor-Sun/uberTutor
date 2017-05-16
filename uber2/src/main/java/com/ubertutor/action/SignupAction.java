@@ -43,5 +43,7 @@ public class SignupAction extends ActionSupport {
 		this.password = password;
 	}
 	
-	
+	public void register(){
+		
+	}
 }

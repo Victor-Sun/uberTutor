@@ -15,6 +15,7 @@ public class SignupService {
 	@Autowired
 	private UserDAO userDAO;
 	private LoginService loginService; 
+
 	
 	/*
 	 * Checks if the username has already been used
@@ -34,8 +35,11 @@ public class SignupService {
 	/*
 	 * Registers account into the DB
 	 */
-	public void registerAccount(String fullname, String username, String email, String password){
+	public void registerAccount(UserEntity entity){
 		//TODO Registration
 		//Use insert statement to write information into db? Is there a better solution?
+		userDAO.save(entity);;
 	}
+	
+	
 }
