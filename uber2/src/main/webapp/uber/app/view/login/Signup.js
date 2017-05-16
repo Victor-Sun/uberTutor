@@ -4,6 +4,7 @@ Ext.define('uber.view.login.Signup',{
 	
 	requires: [
        'Ext.container.Viewport',
+       'uber.view.login.SignupController'
 	],
 	    	
 	controller: 'signup',
@@ -12,6 +13,10 @@ Ext.define('uber.view.login.Signup',{
 	items: [{
 		xtype: 'form',
 		reference: 'formpanel',
+		fieldDefaults: {
+			msgTarget: 'none',
+	        invalidCls: ''
+		},
 		items: [{
 			xtype: 'fieldset',
 			margin: 250,
