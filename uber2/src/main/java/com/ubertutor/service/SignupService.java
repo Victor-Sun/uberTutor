@@ -37,7 +37,6 @@ public class SignupService {
 	 */
 	public void registerAccount(UserEntity entity){
 		//TODO Registration
-		//Use insert statement to write information into database? Is there a better solution?
 		userDAO.save(entity);;
 	}
 	

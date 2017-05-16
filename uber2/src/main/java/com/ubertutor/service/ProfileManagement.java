@@ -17,7 +17,15 @@ public class ProfileManagement {
 	@Autowired
 	private LoginService loginService;
 	
+	@Autowired
+	private UserEntity user;
+	
 	public void update(UserEntity entity){
 		//TODO update a user's profile
+	}
+	
+	public UserEntity retrieveUser(String username){
+		user = loginService.getUser(username);
+		return user;
 	}
 }
