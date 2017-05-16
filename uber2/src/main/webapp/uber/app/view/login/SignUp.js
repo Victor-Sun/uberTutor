@@ -6,42 +6,64 @@ Ext.define('uber.view.login.SignUp',{
        'Ext.container.Viewport',
 	],
 	    	
+	controller: 'signup',
+	
 	layout: 'fit',
 	items: [{
 		xtype: 'form',
+		reference: 'formpanel',
 		items: [{
 			xtype: 'fieldset',
 			margin: 250,
-			title: 'signup',
+			title: 'Signup',
 			items: [{
 				xtype: 'textfield',
-				name: 'firstname',
-				fieldLabel: 'First name'
+				name: 'fullname',
+				fieldLabel: 'Full Name'
 			},{
 				xtype: 'textfield',
-				name: 'lastname',
-				fieldLabel: 'Last name'
-			},{
-				xtype: 'textfield',
+				allowBlank: false,
 				name: 'username',
 				fieldLabel: 'Username'
 			},{
 				xtype: 'textfield',
+				allowBlank: false,
 				name: 'email',
 				fieldLabel: 'Email'
 			},{
 				xtype: 'textfield',
+				allowBlank: false,
 				name: 'password',
+				reference: 'password',
+				inputType: 'password',
 				fieldLabel: 'Password'
+			},{
+				xtype: 'textfield',
+				allowBlank: false,
+				name: 'password2',
+				reference: 'passwordtwo',
+				inputType: 'password',
+				fieldLabel: 'Confirm Password',
+				validator: function(value) {
+		            var password = this.previousSibling('[name=password]');
+		            return (value === password.getValue()) ? true : 'Passwords do not match.'
+		        }
 			},{
 				xtype: 'toolbar',
 				items: [{
 					xtype: 'button',
+					text: 'Reset',
+//					handler: function() {
+//						debugger;
+//						var form = this.up('form');
+//						var fields = form.getForm();
+//						var fields2 = fields.getFields();
+//						fields2.reset;
+//	    			}
+				},{
+					xtype: 'button',
 					text: 'Sign Up',
-					handler: function() {
-	    				this.up('signup').destroy();
-	    				Ext.create('uber.view.verification.Verification');
-	    			}
+					handler: 'signup'
 				},
 //				'->',
 				{

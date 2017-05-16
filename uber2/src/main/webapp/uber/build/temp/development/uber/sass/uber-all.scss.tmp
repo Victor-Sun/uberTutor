@@ -915,6 +915,7 @@ $include-uber-util-util: dynamic(true);;
 $include-uber-view-login-login: dynamic(true);;
 $include-uber-view-login-logincontroller: dynamic(true);;
 $include-uber-view-login-signup: dynamic(true);;
+$include-uber-view-login-signupcontroller: dynamic(true);;
 $include-uber-view-main-list: dynamic(true);;
 $include-uber-view-main-main: dynamic(true);;
 $include-uber-view-main-maincontroller: dynamic(true);;

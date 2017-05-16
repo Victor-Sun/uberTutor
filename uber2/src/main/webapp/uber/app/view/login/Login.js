@@ -20,20 +20,20 @@ Ext.define('uber.view.login.Login', {
 				xtype: 'textfield',
 				required: true,
 				name: 'username',
-				label: 'Username'
+				fieldLabel: 'Username'
 			},{
 				xtype: 'textfield',
 				inputType: 'password',
 				required: true,
 				name: 'password',
-				label: 'Password'
+				fieldLabel: 'Password'
 			},{
 				xtype: 'toolbar',
 				items: [{
 					xtype: 'checkboxfield',
 					labelWidth: 85,
 		            name : 'remember',
-		            label: 'Remember'
+		            fieldLabel: 'Remember'
 				},{
 					xtype: 'tbspacer'
 				},{
