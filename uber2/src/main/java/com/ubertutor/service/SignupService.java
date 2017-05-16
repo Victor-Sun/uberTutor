@@ -25,7 +25,7 @@ public class SignupService {
     }
 	
 	/*
-	 * Checks if the email is already registered in the db
+	 * Checks if the email is already registered in the database
 	 */
 	public boolean verifyEmailExists(String email){
 		List<UserEntity> result = this.userDAO.findBy("email", email);
@@ -37,9 +37,8 @@ public class SignupService {
 	 */
 	public void registerAccount(UserEntity entity){
 		//TODO Registration
-		//Use insert statement to write information into db? Is there a better solution?
+		//Use insert statement to write information into database? Is there a better solution?
 		userDAO.save(entity);;
 	}
-	
 	
 }

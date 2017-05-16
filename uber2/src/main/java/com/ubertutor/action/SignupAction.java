@@ -2,6 +2,7 @@ package com.ubertutor.action;
 
 import org.apache.struts2.convention.annotation.Namespace;
 
+import com.gnomon.common.system.entity.UserEntity;
 import com.opensymphony.xwork2.ActionSupport;
 
 @Namespace("/main")
@@ -10,7 +11,9 @@ public class SignupAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	
 	private String fullName, username, email, password;
-
+	
+	private UserEntity loginUser = new UserEntity();
+	
 	public String getFullName() {
 		return fullName;
 	}
@@ -44,6 +47,10 @@ public class SignupAction extends ActionSupport {
 	}
 	
 	public void register(){
-		
+		try {
+			
+		} catch (Exception e){
+			
+		}
 	}
 }
