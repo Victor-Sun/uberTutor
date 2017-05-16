@@ -74,7 +74,6 @@ public class SignupAction extends ActionSupport {
 				msg = "Email already exists!";
 				throw new Exception(msg);
 			}
-			
 			signupService.registerAccount(newUser);
 			loginAction.writeSuccessResult(resultMap);
 		} catch (Exception e){

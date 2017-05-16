@@ -14,6 +14,10 @@ import com.gnomon.common.base.StringIdEntity;
 public class UserEntity extends StringIdEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
 
+	// User's ID
+	@Column(name="ID") 
+	private String id;
+	
 	// User's Profile Name
 	@Column(name="USERNAME") 
 	private String username;
@@ -64,6 +68,14 @@ public class UserEntity extends StringIdEntity implements Serializable{
 	@Column(name="IS_VERIFIED") 
 	private String isVerified;
 
+	public String getID(){
+		return id;
+	}
+	
+	public void setID(String id){
+		this.id = id;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
