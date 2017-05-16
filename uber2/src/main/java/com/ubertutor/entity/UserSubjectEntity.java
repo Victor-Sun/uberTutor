@@ -9,8 +9,8 @@ import javax.persistence.Table;
 import com.gnomon.common.base.StringIdEntity;
 
 @Entity
-@Table(name="TUTOR_SUBJECT")
-public class TutorSubjectEntity extends StringIdEntity implements Serializable{
+@Table(name="USER_SUBJECT")
+public class UserSubjectEntity extends StringIdEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
 
 	// ID

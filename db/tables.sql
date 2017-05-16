@@ -54,12 +54,13 @@ CREATE TABLE SUBJECT(
 	PRIMARY KEY (ID)	
 );
 
-CREATE TABLE TUTOR_SUBJECT(
+CREATE TABLE USER_SUBJECT(
 	ID INT NOT NULL,
 	USER_ID INT references USERS(ID),
-	SUBJECT_ID INT references SUBJECT(ID),
+	SUBJECT_ID INT references SUBJECT(ID),	
 	PRIMARY KEY (ID)
 );
+
 
 url="jdbc:oracle:thin:@demo.gnomontech.com:1521:orcl"
 url="jdbc:oracle:thin:@ubertutor.cxbqqbwmdfap.us-west-2.rds.amazonaws.com:1521:orcl"
