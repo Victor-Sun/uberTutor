@@ -53,7 +53,7 @@ Ext.define('uber.view.login.Login', {
                 	text: 'Sign up',
                 	handler: function() {
 	    				this.up('login').destroy();
-	    				Ext.create('uber.view.login.SignUp');
+	    				Ext.create('uber.view.login.Signup');
 	    			}
 				}]
 			}]
