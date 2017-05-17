@@ -15,7 +15,6 @@ public class SignupService {
 	@Autowired
 	private UserDAO userDAO;
 	private LoginService loginService; 
-
 	
 	/*
 	 * Checks if the username has already been used
