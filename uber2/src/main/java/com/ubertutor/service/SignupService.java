@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.gnomon.common.system.entity.UserEntity;
 import com.ubertutor.dao.UserDAO;
 
@@ -14,15 +15,7 @@ public class SignupService {
 
 	@Autowired
 	private UserDAO userDAO;
-	private LoginService loginService; 
-	
-	/*
-	 * Checks if the username has already been used
-	 */
-	public boolean userExists(String loginUsername) {
-		return loginService.verifyUserId(loginUsername);
-    }
-	
+
 	/*
 	 * Checks if the email is already registered in the database
 	 */
