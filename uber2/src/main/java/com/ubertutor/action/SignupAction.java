@@ -58,7 +58,7 @@ public class SignupAction extends ActionSupport {
 		this.password = password;
 	}
 	
-	public void signup() throws Exception{
+	public void save() throws Exception{
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			String msg;
