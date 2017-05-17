@@ -5,10 +5,11 @@ import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.gnomon.common.system.entity.UserEntity;
+import com.gnomon.pdms.common.EncryptUtil;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
+import com.ubertutor.service.LoginService;
 import com.ubertutor.service.SignupService;
 
 @Namespace("/main")
@@ -19,12 +20,11 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	private String fullName, username, email, password;
 
 	@Autowired
-	private LoginAction loginAction;
-
-	@Autowired
 	private SignupService signupService;
-
+	
 	@Autowired
+	private LoginService loginService; 
+	
 	private UserEntity entity;
 
 	private String id;
@@ -84,23 +84,22 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 			// String username = Struts2Utils.getRequest().getPara	meter("username");
 			// entity.setUsername(username);
 			
-			
 			// Checks if the user already exists in the database
-			if(!signupService.userExists(username)){
+			if(loginService.verifyUserId(username)){
 				msg = "Username already exists!";
 				throw new Exception(msg);
 			}
-
 			// Checks if the email already exists in the database
-			if(!signupService.emailExists(email)){
+			if(signupService.emailExists(email)){
 				msg = "Email already exists!";
 				throw new Exception(msg);
 			}
+			entity.setPassword(EncryptUtil.encrypt(entity.getPassword()));
 			signupService.registerAccount(entity);
-			loginAction.writeSuccessResult(resultMap);
+			this.writeSuccessResult(resultMap);
 		} catch (Exception e){
 			e.printStackTrace();
-			loginAction.writeErrorResult(e.getMessage());
+			this.writeErrorResult(e.getMessage());
 		}
 		return null;
 	}
@@ -118,7 +117,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	@Override
 	public UserEntity getModel() {
 		// TODO Auto-generated method stub
-		return null;
+		return entity;
 	}
 
 	@Override

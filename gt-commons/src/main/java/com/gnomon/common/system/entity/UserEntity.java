@@ -5,15 +5,31 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import com.gnomon.common.base.StringIdEntity;
 
 @Entity
 @Table(name="USERS")
-public class UserEntity extends StringIdEntity implements Serializable{
+public class UserEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
 
+	private Long id;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO,generator="USERS_SEQ")     
+	@SequenceGenerator(name="USERS_SEQ", sequenceName="USERS_SEQ")  
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	// User's Profile Name
 	@Column(name="USERNAME") 
 	private String username;
