@@ -19,7 +19,7 @@ Ext.define('uber.view.login.SignupController',{
             
 			form.submit({
 			//submit form for user signup
-				url: '/uber2/main/signup!signup.action',
+				url: '/uber2/main/signup!save.action',
 				method: 'POST',
 				success: function() {
 					Ext.Msg.alert( '', 'registration success', Ext.emptyFn )
