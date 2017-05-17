@@ -5,27 +5,30 @@ import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.gnomon.common.system.entity.UserEntity;
-import com.opensymphony.xwork2.ActionSupport;
+import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.service.SignupService;
 
 @Namespace("/main")
-public class SignupAction extends ActionSupport {
-	
+public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private String fullName, username, email, password;
-	
+
 	@Autowired
 	private LoginAction loginAction;
-	
+
 	@Autowired
 	private SignupService signupService;
-	
+
 	@Autowired
-	private UserEntity newUser = new UserEntity();
-	
+	private UserEntity entity;
+
+	private String id;
+
 	public String getFullName() {
 		return fullName;
 	}
@@ -54,31 +57,91 @@ public class SignupAction extends ActionSupport {
 		return password;
 	}
 
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public void save() throws Exception{
+	@Override
+	public String save() throws Exception{
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			String msg;
 
+			// Different way to write data from fields to database 
+			// String username = Struts2Utils.getRequest().getPara	meter("username");
+			// entity.setUsername(username);
+			
+			
 			// Checks if the user already exists in the database
 			if(!signupService.userExists(username)){
 				msg = "Username already exists!";
 				throw new Exception(msg);
 			}
-			
+
 			// Checks if the email already exists in the database
 			if(!signupService.emailExists(email)){
 				msg = "Email already exists!";
 				throw new Exception(msg);
 			}
-			signupService.registerAccount(newUser);
+			signupService.registerAccount(entity);
 			loginAction.writeSuccessResult(resultMap);
 		} catch (Exception e){
 			e.printStackTrace();
 			loginAction.writeErrorResult(e.getMessage());
 		}
+		return null;
+	}
+	
+	@Override
+	protected void prepareModel() throws Exception {
+		if(id == null){
+			entity = new UserEntity();
+
+		}else{
+			entity = signupService.get(id);
+		}
+	}
+
+	@Override
+	public UserEntity getModel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String list() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String input() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String delete() throws Exception {
+		try {
+			signupService.delete(id);
+			this.writeSuccessResult(null);
+		} catch (Exception e) {
+			this.writeErrorResult(e.getMessage());
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
