@@ -5,7 +5,9 @@ Ext.define('uber.model.UserInfo',{
 	fields: [
 //			'username', 'password'
 		{ name: 'fullname', type: 'string' },
-		{ name: 'fullname', type: 'string' },
+		{ name: 'username', type: 'string' },
+		{ name: 'email', type: 'string' },
+		{ name: 'password', type: 'string' },
 		
 	],
 //			validations:

@@ -49,10 +49,10 @@ Ext.define('uber.view.login.Signup',{
 				reference: 'passwordtwo',
 				inputType: 'password',
 				fieldLabel: 'Confirm Password',
-				validator: function(value) {
-		            var password = this.previousSibling('[name=password]');
-		            return (value === password.getValue()) ? true : 'Passwords do not match.'
-		        }
+//				validator: function(value) {
+//		            var password = this.previousSibling('[name=password]');
+//		            return (value === password.getValue()) ? true : 'Passwords do not match.'
+//		        }
 			},{
 				xtype: 'toolbar',
 				items: [{

@@ -3,27 +3,29 @@ Ext.define('uber.view.profile.Profile', {
     xtype: 'profile',
 
     requires: [
+       'uber.view.profile.ProfileController'
     ],
 
-//    controller: 'main',
+    controller: 'profile',
 //    viewModel: 'main',
 //    title: '',
 
     items: [{
     	xtype: 'form',
+    	reference: 'formpanel',
     	items: [{
     		xtype: 'fieldset',
     		items: [{
     			xtype: 'textfield',
-    			fieldLabel: 'First name',
+    			name: 'fullname',
+    			fieldLabel: 'Full name'
     		},{
     			xtype: 'textfield',
-    			fieldLabel: 'Last name'
-    		},{
-    			xtype: 'textfield',
+    			name: 'username',
     			fieldLabel: 'Username'
     		},{
     			xtype: 'textfield',
+    			name: 'email',
     			fieldLabel: 'Email'
     		}]
     	},{
@@ -31,6 +33,7 @@ Ext.define('uber.view.profile.Profile', {
     		items: [{
     			xtype: 'button',
     			text: 'Save',
+    			handler:'update'
     		}]
     	}]
     }]

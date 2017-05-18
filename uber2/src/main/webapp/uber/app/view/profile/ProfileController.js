@@ -1,30 +1,28 @@
-Ext.define('uber.view.login.SignupController',{
+Ext.define('uber.view.profile.ProfileController',{
 	extend: 'Ext.app.ViewController',
-    alias: 'controller.signup',
+    alias: 'controller.profile',
     
-    signup: function () {
+    update: function () {
     	debugger;
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
     	var model = Ext.create('uber.model.User', formPanel.getValues());
     	var errors = model.validate();
-//    	var form = formPanel.getForm();
+    	var form = formPanel.getForm();
     	
     	if (model.isValid()){
     		formPanel.submit({
     			//submit form for user signup
-    			url: '/uber2/main/signup!save.action',
+    			url: '/uber2/main/profile!update.action',
     			method: 'POST',
     			success: function() {
-//    				Ext.Msg.alert( '', 'registration success', Ext.emptyFn )
-    				me.lookupReference('formpanel').up('signup').destroy();
-    				Ext.create('uber.view.verification.Verification');
+    				// change to exception output
+    				Ext.Msg.alert( '', 'update success', Ext.emptyFn )
     			},
 
-    			failure: function(form, action) {
-    				var result = uber.util.Util.decodeJSON(action.response.responseText);
-    				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
-//    				Ext.Msg.alert('', 'registration failure', Ext.emptyFn )
+    			failure: function() {
+    				// similar to above
+    				Ext.Msg.alert('', 'update failure', Ext.emptyFn )
     			},
     		})
     	} else {

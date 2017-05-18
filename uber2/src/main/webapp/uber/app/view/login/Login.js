@@ -52,8 +52,8 @@ Ext.define('uber.view.login.Login', {
                 	xtype: 'button',
                 	text: 'Sign up',
                 	handler: function() {
-	    				this.up('login').destroy();
-	    				Ext.create('uber.view.login.Signup');
+	    				this.up('login').onDestroy(Ext.create('uber.view.login.Signup'));
+	    				
 	    			}
 				}]
 			}]
