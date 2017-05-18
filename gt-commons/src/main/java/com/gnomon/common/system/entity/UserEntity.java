@@ -29,7 +29,23 @@ public class UserEntity implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
+	// User's UUID
+	@Column(name="UUID") 
+	private String uuid;
 	
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 	// User's Profile Name
 	@Column(name="USERNAME") 
 	private String username;

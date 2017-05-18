@@ -42,7 +42,7 @@ public class SessionData {
 	
 	// 用户ID取得(UUID)
 	public static String getLoginUserId() {
-		return getLoginUser().getId();
+		return getLoginUser().getId().toString();
 	}
 	
 	// User ID取得, 是User Id, 不是UUID

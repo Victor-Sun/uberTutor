@@ -6,7 +6,9 @@ import java.util.Map;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.gnomon.common.base.StringIdEntity;
 import com.gnomon.common.system.entity.UserEntity;
+import com.gnomon.common.utils.CommonUtils;
 import com.gnomon.pdms.common.EncryptUtil;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.service.LoginService;
@@ -17,7 +19,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 
 	private static final long serialVersionUID = 1L;
 
-	private String fullName, username, email, password;
+	private String fullName, username, email, password, id;
 
 	@Autowired
 	private SignupService signupService;
@@ -26,8 +28,6 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	private LoginService loginService; 
 	
 	private UserEntity entity;
-
-	private String id;
 
 	public String getFullName() {
 		return fullName;
@@ -57,20 +57,14 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 		return password;
 	}
 
-	/**
-	 * @return the id
-	 */
 	public String getId() {
 		return id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(String id) {
 		this.id = id;
 	}
-
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -108,7 +102,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	protected void prepareModel() throws Exception {
 		if(id == null){
 			entity = new UserEntity();
-
+			entity.setUuid(CommonUtils.getUUID());
 		}else{
 			entity = signupService.get(id);
 		}

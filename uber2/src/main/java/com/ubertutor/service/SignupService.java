@@ -16,6 +16,7 @@ public class SignupService {
 	@Autowired
 	private UserDAO userDAO;
 
+	
 	/*
 	 * Checks if the email is already registered in the database
 	 */
@@ -28,7 +29,6 @@ public class SignupService {
 	 * Registers account into the DB
 	 */
 	public void registerAccount(UserEntity entity){
-		//TODO Registration
 		userDAO.save(entity);;
 	}
 	

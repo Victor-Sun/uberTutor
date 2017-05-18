@@ -95,7 +95,7 @@ public class LoginAction extends ActionSupport {
 			
 //			Map<String, Object> deptUserInfo = this.sysUserDepartmentService.getDeptUserInfo(loginUser.getId());
 //			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_DEPT, deptUserInfo);
-			
+//			
 //			loginService.saveLoginLog(loginUser.getId());
 			
 			resultMap.put("userName", loginUser.getUsername());
