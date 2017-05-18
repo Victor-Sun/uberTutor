@@ -29,6 +29,7 @@ public class UserEntity implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	// User's UUID
 	@Column(name="UUID") 
 	private String uuid;
@@ -46,6 +47,7 @@ public class UserEntity implements Serializable{
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
+
 	// User's Profile Name
 	@Column(name="USERNAME") 
 	private String username;

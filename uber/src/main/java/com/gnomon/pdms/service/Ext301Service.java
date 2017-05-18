@@ -32,7 +32,6 @@ import bios.report.api.model.ReportTemplet;
 import bios.report.core.model.docket.Parameter;
 import bios.report.core.model.docket.Variable;
 
-import com.gnomon.common.system.entity.UserEntity;
 import com.gnomon.common.utils.DateUtils;
 import com.gnomon.common.utils.FileUtils;
 import com.gnomon.common.utils.ObjectConverter;
@@ -41,6 +40,7 @@ import com.gnomon.pdms.dao.Ext301ItemDAO;
 import com.gnomon.pdms.dao.Ext301TaskDAO;
 import com.gnomon.pdms.entity.Ext301ItemEntity;
 import com.gnomon.pdms.entity.Ext301TaskEntity;
+import com.ubertutor.entity.UserEntity;
 
 @Service
 @Transactional

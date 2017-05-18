@@ -35,7 +35,7 @@ public class ProfileManagementService {
 	}
 
 	public UserEntity retrieveUser(String username){
-		user = loginService.getUser(username);
+		this.user = loginService.getUser(username);
 		return user;
 	}
 }
