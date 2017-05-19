@@ -24,7 +24,7 @@ public class SubjectEntity extends StringIdEntity implements Serializable{
 	// Category ID that the subject belongs to
 	@Column(name="CATEGORY_ID") 
 	private String categoryid;
-
+	
 	/**
 	 * @return the title
 	 */

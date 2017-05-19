@@ -4,15 +4,21 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import com.gnomon.common.system.entity.UserEntity;
 
 @Entity
 @Table(name="USER_SUBJECT")
-public class UserSubjectEntity extends UserEntity implements Serializable{
+public class UserSubjectEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO,generator="USER_SUBJECT_SEQ")     
+	@SequenceGenerator(name="USER_SUBJECT_SEQ", sequenceName="USER_SUBJECT_SEQ") 
+	private Long id; 
+	
 	// User's ID
 	@Column(name="USER_ID") 
 	private String userid;
@@ -21,6 +27,14 @@ public class UserSubjectEntity extends UserEntity implements Serializable{
 	@Column(name="SUBJECT_ID") 
 	private String subjectid;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	/**
 	 * @return the userid
 	 */

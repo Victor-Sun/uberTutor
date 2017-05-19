@@ -17,7 +17,8 @@ import com.ubertutor.service.SignupService;
 @Namespace("/main")
 public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	private static final long serialVersionUID = 1L;
-	private String fullName, username, email, password, id;
+	private String fullName, username, email, password;
+	private Long id;
 	@Autowired
 	private SignupService signupService;
 	@Autowired
@@ -52,11 +53,11 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 		return password;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
@@ -74,14 +75,14 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 				msg = "Username already exists!";
 				throw new Exception(msg);
 			}
-			if(!signupService.passwordConfirmation(p1, p2)){
-				msg = "Passwords do not match, please check your passwords then submit again!";
-				throw new Exception(msg);
-			}
-			if(!signupService.validEmail(email)){
-				msg = "Email is invalid, enter a valid email!";
-				throw new Exception(msg);
-			}
+//			if(!signupService.passwordConfirmation(p1, p2)){
+//				msg = "Passwords do not match, please check your passwords then submit again!";
+//				throw new Exception(msg);
+//			}
+//			if(!signupService.validEmail(email)){
+//				msg = "Email is invalid, enter a valid email!";
+//				throw new Exception(msg);
+//			}
 			if(signupService.emailExists(email)){
 				msg = "Email has already been used!";
 				throw new Exception(msg);
@@ -100,7 +101,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	protected void prepareModel() throws Exception {
 		if(id == null){
 			entity = new UserEntity();
-			entity.setUuid(CommonUtils.getUUID());
+//			entity.setUuid(CommonUtils.getUUID());
 		}else{
 			entity = signupService.get(id);
 		}

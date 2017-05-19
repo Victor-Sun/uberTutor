@@ -3,9 +3,9 @@ package com.ubertutor.dao;
 import org.springframework.stereotype.Repository;
 import org.springside.modules.orm.hibernate.HibernateDao;
 
-import com.gnomon.common.system.entity.UserEntity;
+import com.ubertutor.entity.UserSubjectEntity;
 
 @Repository
-public class UserDAO extends HibernateDao<UserEntity, Long> {
+public class UserSubjectDAO extends HibernateDao<UserSubjectEntity, String> {
 
 }

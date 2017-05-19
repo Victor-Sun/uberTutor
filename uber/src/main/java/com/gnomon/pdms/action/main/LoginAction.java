@@ -3,7 +3,6 @@ package com.gnomon.pdms.action.main;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
@@ -15,13 +14,13 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
+import com.gnomon.common.system.entity.UserEntity;
 import com.gnomon.common.system.service.SysUserDepartmentService;
 import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.EncryptUtil;
 import com.gnomon.pdms.service.LoginService;
 import com.gnomontech.pdms.redis.OnlineUtils;
 import com.opensymphony.xwork2.ActionSupport;
-import com.ubertutor.entity.UserEntity;
 
 @Namespace("/main")
 public class LoginAction extends ActionSupport {
