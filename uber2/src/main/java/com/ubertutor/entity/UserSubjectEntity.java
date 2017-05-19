@@ -6,11 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.gnomon.common.base.StringIdEntity;
+import com.gnomon.common.system.entity.UserEntity;
 
 @Entity
 @Table(name="USER_SUBJECT")
-public class UserSubjectEntity extends StringIdEntity implements Serializable{
+public class UserSubjectEntity extends UserEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
 
 	// User's ID

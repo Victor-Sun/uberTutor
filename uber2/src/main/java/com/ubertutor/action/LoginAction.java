@@ -24,7 +24,6 @@ import com.ubertutor.service.LoginService;
 
 @Namespace("/main")
 public class LoginAction extends ActionSupport {
-
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired

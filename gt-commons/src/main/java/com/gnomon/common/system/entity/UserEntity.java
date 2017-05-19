@@ -21,32 +21,10 @@ public class UserEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO,generator="USERS_SEQ")     
 	@SequenceGenerator(name="USERS_SEQ", sequenceName="USERS_SEQ")  
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	
 	// User's UUID
 	@Column(name="UUID") 
 	private String uuid;
-	
-	/**
-	 * @return the uuid
-	 */
-	public String getUuid() {
-		return uuid;
-	}
-
-	/**
-	 * @param uuid the uuid to set
-	 */
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
 
 	// User's Profile Name
 	@Column(name="USERNAME") 
@@ -98,7 +76,21 @@ public class UserEntity implements Serializable{
 	@Column(name="IS_VERIFIED") 
 	private String isVerified;
 
+	public Long getId() {
+		return id;
+	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 	
 	public String getUsername() {
 		return username;

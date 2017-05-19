@@ -16,26 +16,24 @@ public class ProfileManagementService {
 	private UserDAO userDAO;
 
 	@Autowired
-	private LoginService loginService;
-
-	@Autowired
 	private UserEntity user;
+	
 	@Autowired
 	private UserSubjectEntity userSubject;
-
-	public void updateProfile(){
-		try{
-			// TODO update a user's profile, what checks are needed
-			
-			userDAO.save(user);	
-		} catch (Exception e){
-			e.printStackTrace();
-		}
-
+	
+	public UserEntity get(String id){
+		return userDAO.get(id);
 	}
-
-	public UserEntity retrieveUser(String username){
-		this.user = loginService.getUser(username);
-		return user;
+	
+	public void update(){
+		userDAO.save(user);
+	}
+	
+	public void updateSubjects(){
+		userDAO.save(userSubject);
+	}
+	
+	public String getSubject(){
+		return userSubject.getSubjectid();
 	}
 }

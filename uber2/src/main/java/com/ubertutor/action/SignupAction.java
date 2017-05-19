@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import com.gnomon.common.base.StringIdEntity;
 import com.gnomon.common.system.entity.UserEntity;
 import com.gnomon.common.utils.CommonUtils;
 import com.gnomon.pdms.common.EncryptUtil;
@@ -16,17 +16,12 @@ import com.ubertutor.service.SignupService;
 
 @Namespace("/main")
 public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
-
 	private static final long serialVersionUID = 1L;
-
 	private String fullName, username, email, password, id;
-
 	@Autowired
 	private SignupService signupService;
-	
 	@Autowired
 	private LoginService loginService; 
-	
 	private UserEntity entity;
 
 	public String getFullName() {
@@ -72,20 +67,23 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	public String save() throws Exception{
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
-			String msg;
-
-			// Different way to write data from fields to database 
-			// String username = Struts2Utils.getRequest().getPara	meter("username");
-			// entity.setUsername(username);
-			
-			// Checks if the user already exists in the database
+			String msg, p1 = "", p2 = "";
+			p1 = Struts2Utils.getRequest().getParameter("password");
+			p2 = Struts2Utils.getRequest().getParameter("password2");
 			if(loginService.verifyUserId(username)){
 				msg = "Username already exists!";
 				throw new Exception(msg);
 			}
-			// Checks if the email already exists in the database
+			if(!signupService.passwordConfirmation(p1, p2)){
+				msg = "Passwords do not match, please check your passwords then submit again!";
+				throw new Exception(msg);
+			}
+			if(!signupService.validEmail(email)){
+				msg = "Email is invalid, enter a valid email!";
+				throw new Exception(msg);
+			}
 			if(signupService.emailExists(email)){
-				msg = "Email already exists!";
+				msg = "Email has already been used!";
 				throw new Exception(msg);
 			}
 			entity.setPassword(EncryptUtil.encrypt(entity.getPassword()));
