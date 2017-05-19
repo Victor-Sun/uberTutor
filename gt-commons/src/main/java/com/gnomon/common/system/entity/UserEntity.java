@@ -1,5 +1,6 @@
 package com.gnomon.common.system.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="USERS")
-public class UserEntity {
+public class UserEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO,generator="USERS_SEQ")     

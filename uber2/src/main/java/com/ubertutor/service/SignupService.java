@@ -40,14 +40,14 @@ public class SignupService {
 //			return false;
 //		}
 //		return true;
+		boolean result = true;
 		try {
 			InternetAddress emailCheck = new InternetAddress(email);
 			emailCheck.validate();
 		} catch (AddressException e) {
-			e.printStackTrace();
-			return false;
+			result = false;
 		}
-		return true;
+		return result;
 	}
 	
 	/**

@@ -75,14 +75,14 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 				msg = "Username already exists!";
 				throw new Exception(msg);
 			}
-//			if(!signupService.passwordConfirmation(p1, p2)){
-//				msg = "Passwords do not match, please check your passwords then submit again!";
-//				throw new Exception(msg);
-//			}
-//			if(!signupService.validEmail(email)){
-//				msg = "Email is invalid, enter a valid email!";
-//				throw new Exception(msg);
-//			}
+			if(!signupService.passwordConfirmation(p1, p2)){
+				msg = "Passwords do not match, please check your passwords then submit again!";
+				throw new Exception(msg);
+			}
+			if(!signupService.validEmail(email)){
+				msg = "Email is invalid, enter a valid email!";
+				throw new Exception(msg);
+			}
 			if(signupService.emailExists(email)){
 				msg = "Email has already been used!";
 				throw new Exception(msg);
