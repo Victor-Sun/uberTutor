@@ -1,14 +1,12 @@
 package com.ubertutor.service;
 
 import java.util.List;
-
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.gnomon.common.system.entity.UserEntity;
+//import org.apache.commons.validator.routines.EmailValidator;
+
 import com.ubertutor.dao.UserDAO;
 
 @Service
@@ -17,6 +15,7 @@ public class SignupService {
 	@Autowired
 	private UserDAO userDAO;
 	
+//	private EmailValidator emailValidator;
 	/**
 	 * Check for if the email already exists
 	 * @param email
@@ -40,14 +39,8 @@ public class SignupService {
 //			return false;
 //		}
 //		return true;
-		boolean result = true;
-		try {
-			InternetAddress emailCheck = new InternetAddress(email);
-			emailCheck.validate();
-		} catch (AddressException e) {
-			result = false;
-		}
-		return result;
+//		return emailValidator.isValid(email);
+		return true;
 	}
 	
 	/**
