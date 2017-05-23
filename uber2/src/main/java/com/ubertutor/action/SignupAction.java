@@ -2,16 +2,10 @@ package com.ubertutor.action;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
-
 import com.gnomon.common.system.entity.UserEntity;
-import com.gnomon.common.utils.CommonUtils;
 import com.gnomon.pdms.common.EncryptUtil;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.service.LoginService;
@@ -67,6 +61,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 	@Override
 	public String save() throws Exception{
 		try {
@@ -86,7 +81,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 				msg = "Email is invalid, enter a valid email!";
 				throw new Exception(msg);
 			}
-			if(signupService.emailExists(email)){
+			if(signupService.usedEmail(email)){
 				msg = "Email has already been used!";
 				throw new Exception(msg);
 			}

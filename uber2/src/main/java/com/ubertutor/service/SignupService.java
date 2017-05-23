@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.gnomon.common.system.entity.UserEntity;
-//import org.apache.commons.validator.routines.EmailValidator;
+import org.apache.commons.validator.routines.EmailValidator;
 
 import com.ubertutor.dao.UserDAO;
 
@@ -15,13 +15,13 @@ public class SignupService {
 	@Autowired
 	private UserDAO userDAO;
 	
-//	private EmailValidator emailValidator;
+	private EmailValidator emailValidator;
 	/**
 	 * Check for if the email already exists
 	 * @param email
 	 * @return true if the email exists in the database
 	 */
-	public boolean emailExists(String email){
+	public boolean usedEmail(String email){
 		List<UserEntity> result = this.userDAO.findBy("email", email);
         return result.size() > 0;
 	}
@@ -39,8 +39,7 @@ public class SignupService {
 //			return false;
 //		}
 //		return true;
-//		return emailValidator.isValid(email);
-		return true;
+		return emailValidator.isValid(email);
 	}
 	
 	/**
