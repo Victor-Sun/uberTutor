@@ -3,38 +3,77 @@ Ext.define('uber.view.profile.Profile', {
     xtype: 'profile',
 
     requires: [
-       'uber.view.profile.ProfileController'
+       // 'uber.view.profile.ProfileController'
     ],
 
     controller: 'profile',
-//    viewModel: 'main',
-//    title: '',
-
+    border: true,
+    layout: 'center',
     items: [{
-    	xtype: 'form',
-    	reference: 'formpanel',
+    	xtype: 'panel',
+    	border: true,
+    	cls: 'profile-panel',
+    	layout: {
+    		type: 'vbox',
+    		align: 'stretch'
+    	},
     	items: [{
-    		xtype: 'fieldset',
-    		items: [{
-    			xtype: 'textfield',
-    			name: 'fullname',
-    			fieldLabel: 'Full name'
-    		},{
-    			xtype: 'textfield',
-    			name: 'username',
-    			fieldLabel: 'Username'
-    		},{
-    			xtype: 'textfield',
-    			name: 'email',
-    			fieldLabel: 'Email'
-    		}]
-    	},{
-    		xtype: 'toolbar',
-    		items: [{
-    			xtype: 'button',
-    			text: 'Save',
-    			handler:'update'
-    		}]
+    		xtype: 'container',
+            cls: 'profile-wrap',
+            items: [{
+
+                xtype: 'container',
+            layout: 'hbox',
+            items: [{
+                margin: 5,
+                html: '<h2>Personal Information</h2>'
+            },{
+                xtype: 'button',
+                margin: 5,
+                text: 'edit'
+            }]
+        },{
+            xtype: 'container',
+            layout: 'hbox',
+            items: [{
+                xtype: 'image',
+                border: true,
+                width: 80,
+                height: 80,
+                style: {
+                    borderRadius: '5px'
+                }
+            },{
+                xtype: 'component',
+                html: '<h3>User Avatar</h3>'
+            }]
+        },{
+            xtype: 'form',
+            margin: 5,
+            reference: 'formpanel',
+            layout: {
+                type: 'vbox',
+                align: 'stretch'
+            },
+            defaults: {
+                labelAlign: 'top',
+                anchor: '100%'
+            },
+            items: [{
+                xtype: 'textfield',
+                name: 'fullname',
+                fieldLabel: 'Name'
+            },{
+                xtype: 'textfield',
+                name: 'email',
+                fieldLabel: 'Email'
+            },{
+                xtype: 'textfield',
+                name: 'modile',
+                fieldLabel: 'Mobile'
+            }]
+
+            }]
     	}]
     }]
 });

@@ -43,7 +43,7 @@ Ext.define('uber.view.login.LoginController', {
     			method: 'POST', 
     			success: function() {
     		         me.lookupReference('formpanel').up('login').destroy();
-    		         Ext.create('uber.view.main.Main')
+    		         Ext.create('uber.view.main.Main');
     		    },
     		    failure: function(form, action) {
     		    	 var result = uber.util.Util.decodeJSON(action.response.responseText);

@@ -14,6 +14,7 @@ Ext.define('uber.view.login.Login', {
 		reference: 'formpanel',
 		items: [{
 			xtype: 'fieldset',
+			width: 450,
 			margin: 250,
 			title: 'login',
 			items: [{
@@ -58,5 +59,16 @@ Ext.define('uber.view.login.Login', {
 				}]
 			}]
 		}]
+//	,
+//		dockedItems: [{
+//			xtype: 'toolbar',
+//			dock: 'top',
+//			items: [{
+//				xtype: 'component',
+//			},'->',{
+//				xtype: 'button',
+//				text: 'Sign Up'
+//			}]
+//		}]
 	}]
 });

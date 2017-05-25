@@ -20,20 +20,72 @@ Ext.define('uber.view.main.Main', {
 
     controller: 'main',
     viewModel: 'main',
-    
+    layout: 'border',
     items: [{
-    	xtype: 'tabpanel',
-    	rotation: 0,
-    	reference: 'uberTabPanel',
-    	id: 'uberTabPanel',
-    	items: [{
-            title: 'Home',
-//          xtype: 'home',
-            iconCls: 'x-fa fa-home',
-        },{
-            title: 'Profile',
-            xtype: 'profile',
-            iconCls: 'x-fa fa-user',
-        }]
+    	xtype: 'toolbar',
+    	cls: 'shadow nav-bar',
+    	region: 'north',
+		items: [{
+			xtype: 'component',
+			html: '<h1>UberTutor</h1>'
+		},'->',{
+			xtype: 'button',
+			iconCls: 'x-fa fa-user',
+			text: 'username',
+			menu: {
+				items: [{
+					text: 'Search for Tutors',
+					handler: 'search'
+				},{
+					html: '<hr>'
+				},{
+					text: 'Profile',
+					handler: 'profile'
+				},{
+					text: 'Logout',
+					handler: 'logout'
+				}],
+			}
+		}]
+	},{
+		xtype: 'container',
+		region: 'center',
+		reference: 'mainContainerWrap',
+		cls: 'main-container-wrap',
+		layout: {
+	        type: 'border',
+//	        animate: true,
+//	        animatePolicy: {
+//	            x: true,
+//	            width: true
+//	        }
+	    },
+		items: [{
+			xtype: 'panel',
+			region: 'center',
+			layout:{
+				type:'vbox',
+				align:'stretch'
+			},
+			items: [{
+				xtype: 'container',
+				flex: 1,
+				reference: 'mainCardPanel',
+				cls: 'main-container',
+//				scrollable: 'y',
+				layout: {
+					type: 'card',
+					anchor: '100%'
+				},
+				items: [{
+					xtype: 'profile',
+					itemId: 'profile'
+				},{
+					xtype: 'search',
+					itemId: 'search'
+				}]
+			}]
+			
+		}]
     }]
 });

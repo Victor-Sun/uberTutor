@@ -17,5 +17,25 @@ Ext.define('uber.view.main.MainController', {
         if (choice === 'yes') {
             //
         }
+    },
+    
+    search: function() {
+		var me = this;
+		var mainCard = me.lookupReference('mainCardPanel')
+        var mainLayout = mainCard.getLayout();
+        var card = mainCard.setActiveItem('search');
+    },
+    
+    profile: function() {
+		var me = this;
+		var mainCard = me.lookupReference('mainCardPanel')
+        var mainLayout = mainCard.getLayout();
+        var card = mainCard.setActiveItem('profile');
+    },
+    
+    logout: function() {
+		var me = this;
+		this.getView().destroy();
+		Ext.create('uber.view.login.Loginpage');
     }
 });
