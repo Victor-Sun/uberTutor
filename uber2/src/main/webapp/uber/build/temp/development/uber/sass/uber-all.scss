@@ -1401,4 +1401,12 @@ $uber-resource-path: 'images' !default;
 $current-package: false;
 $current-resource-root: $uber-resource-root;
 $relative-image-path-for-uis: $uber-resource-path;
+@import '../../../../../sass/src/all';
+
+/* including package uber */
+$uber-resource-root: '' !default;
+$uber-resource-path: 'images' !default;
+$current-package: false;
+$current-resource-root: $uber-resource-root;
+$relative-image-path-for-uis: $uber-resource-path;
 @import '../../../../../sass/src/view/main/Main';

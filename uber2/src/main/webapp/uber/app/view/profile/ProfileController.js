@@ -12,6 +12,16 @@ Ext.define('uber.view.profile.ProfileController',{
         var card = mainCard.setActiveItem('profilemanagement');
     },
     
+    backprofile: function () {
+    	var me = this;
+    	var main = me.view.up('app-main');
+//    	var main = this.setView('app-main');
+//    	mainCard.destroy();
+    	var mainCard = main.lookupReference('mainCardPanel')
+    	var mainLayout = mainCard.getLayout();
+        var card = mainCard.setActiveItem('profile');
+    },
+    
     update: function () {
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');

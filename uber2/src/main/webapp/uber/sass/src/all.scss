@@ -18,40 +18,59 @@
 .title-component{
 	background-color: transparent !important;
 }
-
-.search-panel {
-	background-color: #f1f2f4;
+.panel-margin {
+	margin: 0 20% !important;
 }
 
+//main
+
+.main-container {
+	background-color: #f1f2f4;
+}
+.main-container-wrap {
+	background-color: #f4f4f4 !important;
+}
+
+//profile page
+
+.profile-panel-outer {
+	background: #f4f4f4 !important;
+}
+.profile-container {
+	padding-left: 20% !important;
+	padding-right: 20% !important;
+	// background-color: transparent !important;
+}
+.profile-panel {
+	
+	// background-color: transparent !important;
+}
 .profile-wrap {
 	padding: 40px !important;
     // width: 960px;
 }
-
 .profile-manager-wrap {
 	padding: 40px 40px 80px;
 }
-
-.main-container-wrap {
+//search page
+.search-panel {
 	background-color: #f1f2f4;
 }
 
-.profile-panel {
-	padding: 10px;
-	background-color: transparent !important;
-}
-.profile-panel-outer {
-	background-color: #f4f4f4 !important;
-}
-.main-container {
-	background-color: #f1f2f4;
-}
-
+//tutor page
 .tutor-panel {
 	background-color: #f1f2f4;
 	padding-left: 15%;
     padding-right: 15%;
 }
-.main-container-wrap {
-	background-color: #f4f4f4 !important;
-}
+
+
+
+
+
+
+
+
+
+
+

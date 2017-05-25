@@ -9,7 +9,6 @@ Ext.define('uber.view.tutor.TutorProfile',{
 		cls: 'tutor-panel',
 		items: [{
 			xtype: 'container',
-			padding: '15% 0 0 0',
 			items: [{
 				xtype: 'container',
 				layout: {

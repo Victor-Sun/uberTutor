@@ -58,9 +58,11 @@ Ext.define('uber.view.login.Loginpage',{
 
 				                switch (parseInt(newValue['ab'])) {
 				                    case 1:
+//				                    	debugger;
 				                    	text.update('<h2>Sign Up</h2>');
 				                    	button.setText('Sign Up');
-				                    	field.setHidden('false');
+//				                    	field.setHidden('false');
+				                    	field.show();
 				                        break;
 				                    case 2:
 				                    	text.update('<h2>Sign In</h2>');

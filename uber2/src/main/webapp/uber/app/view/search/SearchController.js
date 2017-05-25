@@ -17,5 +17,11 @@ Ext.define('uber.view.profile.SearchController',{
     	var me = this;
     	var rec = grid.getStore().getAt(rowIndex);
     	console.log(rec.data);
+    	var main = me.view.up('app-main');
+//    	var main = this.setView('app-main');
+//    	mainCard.destroy();
+    	var mainCard = main.lookupReference('mainCardPanel')
+    	var mainLayout = mainCard.getLayout();
+        var card = mainCard.setActiveItem('tutorprofile');
     }
 })

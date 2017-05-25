@@ -3,7 +3,6 @@ Ext.define('uber.view.login.LoginpageController', {
     alias: 'controller.loginpage',
    
     loginPageStatus: function (){
-    	debugger;
     	var status = me.lookupReference('pageradio');
     	var radio = status.getValue();
 //    	if (radio = '1') {

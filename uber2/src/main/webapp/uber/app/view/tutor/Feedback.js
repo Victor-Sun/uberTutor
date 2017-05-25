@@ -1,5 +1,6 @@
 Ext.define('uber.view.tutor.Feedback',{
 	extend: 'Ext.panel.Panel',
+	xtype: 'feedback',
 	
 	items: [{
 		//panel for padding
@@ -12,8 +13,8 @@ Ext.define('uber.view.tutor.Feedback',{
 				type: 'vbox',
 				align: 'stretch'
 			},
-			items; [{
-				xtype; 'container',
+			items: [{
+				xtype: 'container',
 				items: [{
 				}]
 			},{

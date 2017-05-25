@@ -5,12 +5,16 @@ Ext.define('uber.view.profile.Profile', {
     requires: [
        // 'uber.view.profile.ProfileController'
     ],
-    cls: 'profile-panel-outer',
+    
     controller: 'profile',
-    layout: 'center',
+    layout: {
+		type: 'vbox',
+		align: 'stretch'
+	},
+	cls: 'profile-container',
     items: [{
     	xtype: 'panel',
-    	border: true,
+		flex: 1,
     	cls: 'profile-panel',
     	layout: {
     		type: 'vbox',
@@ -18,7 +22,6 @@ Ext.define('uber.view.profile.Profile', {
     	},
     	items: [{
     		xtype: 'container',
-            cls: 'profile-wrap',
             layout: 'hbox',
             items: [{
                 margin: 5,
@@ -32,14 +35,14 @@ Ext.define('uber.view.profile.Profile', {
         },{
             xtype: 'container',
             layout: 'hbox',
+            style: {
+                borderRadius: '5px'
+            },
             items: [{
                 xtype: 'image',
-                border: true,
                 width: 80,
                 height: 80,
-                style: {
-                    borderRadius: '5px'
-                }
+                
             },{
                 xtype: 'component',
                 html: '<h3>User Avatar</h3>'

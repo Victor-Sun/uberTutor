@@ -42,6 +42,9 @@ Ext.define('uber.view.main.Main', {
 					text: 'Profile',
 					handler: 'profile'
 				},{
+					text: 'Requests',
+					handler: 'request'
+				},{
 					text: 'Logout',
 					handler: 'logout'
 				}],
@@ -92,6 +95,18 @@ Ext.define('uber.view.main.Main', {
 				},{
 					xtype: 'searchresults',
 					itemId: 'searchresults'
+				},{
+					xtype: 'tutorprofile',
+					itemId: 'tutorprofile'
+				},{
+					xtype: 'tutorrequest',
+					itemId: 'tutorrequest'
+				},{
+					xtype: 'feedback',
+					itemId: 'feedback'
+				},{
+					xtype: 'tutorrequest',
+					itemId: 'tutorrequest'
 				}]
 			}]
 			

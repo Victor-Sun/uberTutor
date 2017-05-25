@@ -2,14 +2,20 @@ Ext.define('uber.view.profile.Profilemanagement',{
 	extend: 'Ext.panel.Panel',
 	xtype: 'profilemanagement',
 	
+	requires: [
+       // 'uber.view.profile.ProfileController'
+    ],
+	
 	controller: 'profile',
-//  viewModel: 'main',
-	cls: 'profile-panel',
-	layout: 'center',
+	layout: {
+		type: 'vbox',
+		align: 'stretch'
+	},
+	cls: 'profile-container',
 	items: [{
 		xtype: 'panel',
-		border: true,
-		cls: 'profile-manager-wrap',
+		flex: 1,
+		cls: 'profile-panel',
 		layout: {
     		type: 'vbox',
     		align: 'stretch'
@@ -23,14 +29,14 @@ Ext.define('uber.view.profile.Profilemanagement',{
     		},{
     			xtype: 'button',
     			margin: 5,
-    			text: 'edit'
+    			text: 'Save',
+    			handler: 'backprofile'
     		}]
     	},{
     		xtype: 'container',
     		layout: 'hbox',
     		items: [{
     			xtype: 'image',
-    			border: true,
     			width: 80,
     			height: 80,
     			style: {
@@ -41,7 +47,7 @@ Ext.define('uber.view.profile.Profilemanagement',{
     			html: '<h3>User Avatar</h3>'
     		}]
 		},{
-			xtype: 'container',
+			xtype: 'panel',
 			padding: 10,
 			layout: {
 		        // layout-specific configs go here
@@ -57,24 +63,47 @@ Ext.define('uber.view.profile.Profilemanagement',{
 		    		labelAlign: 'top'
 		    	}
 		    },
-			reference: 'formpanel',
 			items: [{
 				title: 'Name',
 				items: [{
 					xtype: 'textfield',
 					fieldLabel: 'Name'
+				}],
+				dockedItems:[{
+					xtype: 'toolbar',
+					dock: 'bottom',
+					items: [{
+						xtype: 'button',
+						text: 'Save'
+					}]
 				}]
 			},{
 				title: 'Email',
 				items: [{
 					xtype: 'textfield',
 					fieldLabel: 'Email'
+				}],
+				dockedItems:[{
+					xtype: 'toolbar',
+					dock: 'bottom',
+					items: [{
+						xtype: 'button',
+						text: 'Save'
+					}]
 				}]
 			},{
 				title: 'Mobile',
 				items: [{
 					xtype: 'textfield',
 					fieldLabel: 'Mobile'
+				}],
+				dockedItems:[{
+					xtype: 'toolbar',
+					dock: 'bottom',
+					items: [{
+						xtype: 'button',
+						text: 'Save'
+					}]
 				}]
 			},{
 				title: 'Password',
@@ -87,8 +116,17 @@ Ext.define('uber.view.profile.Profilemanagement',{
 				},{
 					xtype: 'textfield',
 					fieldLabel: 'Report New Password'
+				}],
+				dockedItems:[{
+					xtype: 'toolbar',
+					dock: 'bottom',
+					items: [{
+						xtype: 'button',
+						text: 'Save'
+					}]
 				}]
-			}]
+			}],
+			
 		}]
 	}]
 });
