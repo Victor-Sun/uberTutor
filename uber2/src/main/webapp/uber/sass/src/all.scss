@@ -40,7 +40,9 @@
 	padding: 10px;
 	background-color: transparent !important;
 }
-
+.profile-panel-outer {
+	background-color: #f4f4f4 !important;
+}
 .main-container {
 	background-color: #f1f2f4;
 }
@@ -49,4 +51,7 @@
 	background-color: #f1f2f4;
 	padding-left: 15%;
     padding-right: 15%;
+}
+.main-container-wrap {
+	background-color: #f4f4f4 !important;
 }

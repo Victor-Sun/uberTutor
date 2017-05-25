@@ -5,6 +5,7 @@ Ext.define('uber.view.login.Loginpage',{
 		'background-color': '#f4f4f4',
 	},
 	layout: 'fit',
+	controller: 'loginpage',
 	items: [{
 		xtype: 'container',
 		layout: 'center',
@@ -26,6 +27,7 @@ Ext.define('uber.view.login.Loginpage',{
 				layout: 'fit',
 				items: [{
 					xtype: 'form',
+					reference: 'formpanel',
 					padding: 30,
 					items: [{
 						//Login/SignUp title
@@ -39,6 +41,7 @@ Ext.define('uber.view.login.Loginpage',{
 					},{
 						//radio fields
 						xtype: 'radiogroup',
+						reference: 'pageradio',
 				        // Arrange radio buttons into two columns, distributed vertically
 				        columns: 2,
 				        items: [
@@ -55,18 +58,15 @@ Ext.define('uber.view.login.Loginpage',{
 
 				                switch (parseInt(newValue['ab'])) {
 				                    case 1:
-//				                    	console.log('test 1');
 				                    	text.update('<h2>Sign Up</h2>');
 				                    	button.setText('Sign Up');
 				                    	field.setHidden('false');
 				                        break;
 				                    case 2:
-//				                    	console.log('test 2');
 				                    	text.update('<h2>Sign In</h2>');
 				                    	button.setText('Sign In');
 				                    	field.setHidden('true');
 				                        break;
-				                    
 				                }
 				            }
 				        }

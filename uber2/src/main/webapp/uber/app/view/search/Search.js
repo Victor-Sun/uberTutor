@@ -1,6 +1,9 @@
 Ext.define('uber.view.search.Search',{
 	extend: 'Ext.panel.Panel',
 	xtype: 'search',
+	
+	controller: 'search',
+	
 	layout: 'center',
 	cls: 'search-panel',
 	items: [{
@@ -52,7 +55,8 @@ Ext.define('uber.view.search.Search',{
 					dock: 'bottom',
 					items: [{
 						xtype: 'button',
-						text: 'search'
+						text: 'search',
+						handler: 'searchresults'
 					}]
 				}]
 			}]

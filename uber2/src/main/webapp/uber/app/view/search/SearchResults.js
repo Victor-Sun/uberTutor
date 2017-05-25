@@ -3,6 +3,9 @@ Ext.define('uber.view.search.SearchResults',{
 	xtype: 'searchresults',
 	layout: 'border',
 	cls: 'search-panel',
+	
+	controller: 'search',
+		
 	items: [{
 		xtype: 'panel',
 		region: 'north',
@@ -52,6 +55,7 @@ Ext.define('uber.view.search.SearchResults',{
 			layout: 'fit',
 			columns: [{
 				text: 'Name',
+				dataIndex: 'name',
 				flex: 1
 			},{
 				text: 'column2',
@@ -59,7 +63,17 @@ Ext.define('uber.view.search.SearchResults',{
 			},{
 				text: 'column3',
 				flex: 1
-			}]
+			}],
+			store: {
+				fields: [ 'name'],
+				data: [
+				     { name: 'Charles'},
+				     { name: 'Phillip'}
+		       ]
+			},
+			listeners: {
+				celldblclick: 'onCelldblclick'
+			}	
 		}]
 	}]
 })

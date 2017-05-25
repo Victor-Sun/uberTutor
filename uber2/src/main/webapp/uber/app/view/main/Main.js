@@ -67,6 +67,9 @@ Ext.define('uber.view.main.Main', {
 				type:'vbox',
 				align:'stretch'
 			},
+			style: {
+				'background-color': 'transparent',
+			},
 			items: [{
 				xtype: 'container',
 				flex: 1,
@@ -81,8 +84,14 @@ Ext.define('uber.view.main.Main', {
 					xtype: 'profile',
 					itemId: 'profile'
 				},{
+					xtype: 'profilemanagement',
+					itemId: 'profilemanagement'
+				},{
 					xtype: 'search',
 					itemId: 'search'
+				},{
+					xtype: 'searchresults',
+					itemId: 'searchresults'
 				}]
 			}]
 			

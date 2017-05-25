@@ -2,8 +2,17 @@ Ext.define('uber.view.profile.ProfileController',{
 	extend: 'Ext.app.ViewController',
     alias: 'controller.profile',
     
+    profilemanage: function () {
+    	var me = this;
+    	var main = me.view.up('app-main');
+//    	var main = this.setView('app-main');
+//    	mainCard.destroy();
+    	var mainCard = main.lookupReference('mainCardPanel')
+    	var mainLayout = mainCard.getLayout();
+        var card = mainCard.setActiveItem('profilemanagement');
+    },
+    
     update: function () {
-    	debugger;
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
     	var model = Ext.create('uber.model.User', formPanel.getValues());

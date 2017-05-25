@@ -5,9 +5,8 @@ Ext.define('uber.view.profile.Profile', {
     requires: [
        // 'uber.view.profile.ProfileController'
     ],
-
+    cls: 'profile-panel-outer',
     controller: 'profile',
-    border: true,
     layout: 'center',
     items: [{
     	xtype: 'panel',
@@ -20,9 +19,6 @@ Ext.define('uber.view.profile.Profile', {
     	items: [{
     		xtype: 'container',
             cls: 'profile-wrap',
-            items: [{
-
-                xtype: 'container',
             layout: 'hbox',
             items: [{
                 margin: 5,
@@ -30,7 +26,8 @@ Ext.define('uber.view.profile.Profile', {
             },{
                 xtype: 'button',
                 margin: 5,
-                text: 'edit'
+                text: 'edit',
+                handler: 'profilemanage'
             }]
         },{
             xtype: 'container',
@@ -71,8 +68,6 @@ Ext.define('uber.view.profile.Profile', {
                 xtype: 'textfield',
                 name: 'modile',
                 fieldLabel: 'Mobile'
-            }]
-
             }]
     	}]
     }]

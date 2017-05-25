@@ -1,5 +1,5 @@
 Ext.define('uber.view.profile.Profilemanagement',{
-	extend: 'Ext.container.Viewport',
+	extend: 'Ext.panel.Panel',
 	xtype: 'profilemanagement',
 	
 	controller: 'profile',
