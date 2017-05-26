@@ -48,15 +48,18 @@ Ext.define('uber.view.profile.Profilemanagement',{
     		}]
 		},{
 			xtype: 'panel',
+			scrollable: 'y',
+			flex: 1,
 			padding: 10,
 			layout: {
-		        // layout-specific configs go here
 		        type: 'accordion',
-		        animate: true,
-//		        multi: true,
+		        multi: true,
+		        activeOnTop: false,
+		        fill: false
 		    },
 		    defaults: {
 		    	xtype: 'panel',
+		    	collapsed: true,
 		    	layout: 'vbox',
 		    	defaults: {
 		    		xtype: 'textfield',
@@ -64,6 +67,11 @@ Ext.define('uber.view.profile.Profilemanagement',{
 		    	}
 		    },
 			items: [{
+				collapsed: false,
+                border: 0,
+                height: 0,
+                minHeight: 0
+			},{
 				title: 'Name',
 				items: [{
 					xtype: 'textfield',
@@ -125,8 +133,7 @@ Ext.define('uber.view.profile.Profilemanagement',{
 						text: 'Save'
 					}]
 				}]
-			}],
-			
+			}]
 		}]
 	}]
 });

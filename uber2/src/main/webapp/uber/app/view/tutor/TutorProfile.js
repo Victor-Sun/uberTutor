@@ -2,18 +2,30 @@ Ext.define('uber.view.tutor.TutorProfile',{
 	extend: 'Ext.panel.Panel',
 	xtype: 'tutorprofile',
 	
-	layout: 'fit',
+	layout: {
+		type: 'vbox',
+		align: 'stretch'
+	},
+	cls: 'profile-container',
 	items: [{
 		xtype: 'panel',
-		border: true,
-		cls: 'tutor-panel',
+		flex: 1,
+		cls: 'profile-panel',
+		layout: {
+			type: 'vbox',
+			align: 'stretch'
+		},
 		items: [{
 			xtype: 'container',
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
 			items: [{
 				xtype: 'container',
 				layout: {
 					type: 'hbox',
-					align: 'stretch'
+					algin: 'stretch'
 				},
 				items: [{
 					xtype: 'container',
@@ -25,7 +37,6 @@ Ext.define('uber.view.tutor.TutorProfile',{
 					}]
 				},{
 					xtype: 'container',
-					layout: 'vbox',
 					items: [{
 						html: 'Joe Smoe'
 					},{
@@ -34,9 +45,20 @@ Ext.define('uber.view.tutor.TutorProfile',{
 				}]
 			},{
 				xtype: 'container',
+				type: 'vbox',
 				items: [{
-					
+					xtype: 'htmleditor'
+				},{
+					xtype: 'textarea'
 				}]
+			}]
+		}],
+		dockedItems: [{
+			xtype: 'toolbar',
+			dock: 'bottom',
+			items: [{
+				xtype: 'button',
+				text: 'Connect'
 			}]
 		}]
 	}]

@@ -20,8 +20,8 @@ Ext.define('uber.Application', {
 //    	Ext.create('uber.view.homepage.Homepage');
 //    	Ext.widget('login');
 //    	Ext.Viewport.add(Ext.create('uber.view.login.Login'));
-    },
-
+    }
+//,
 //    onAppUpdate: function () {
 //        Ext.Msg.confirm('Application Update', 'This application has an update, reload?',
 //            function (choice) {

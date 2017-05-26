@@ -27,7 +27,7 @@ Ext.define('uber.view.main.Main', {
     	region: 'north',
 		items: [{
 			xtype: 'component',
-			html: '<h1>UberTutor</h1>'
+			html: '<h1 style="color: #fff;">UberTutor</h1>'
 		},'->',{
 			xtype: 'button',
 			iconCls: 'x-fa fa-user',
@@ -43,7 +43,7 @@ Ext.define('uber.view.main.Main', {
 					handler: 'profile'
 				},{
 					text: 'Requests',
-					handler: 'request'
+					handler: 'requests'
 				},{
 					text: 'Logout',
 					handler: 'logout'

@@ -4,13 +4,15 @@ Ext.define('uber.view.search.Search',{
 	
 	controller: 'search',
 	
-	layout: 'center',
+	
+	layout: {
+		type: 'vbox',
+		align: 'stretch'
+	},
 	cls: 'search-panel',
 	items: [{
 		xtype: 'panel',
 		cls: 'search-panel-inner',
-		width: 440,
-		border: true,
 		layout: {
 			type: 'vbox',
 			align: 'stretch'
@@ -32,7 +34,8 @@ Ext.define('uber.view.search.Search',{
 					html: '<h2>Search for a Tutor</h2>'
 				},{
 					html: '<ul>' +
-					'<li>Description here</li>' +
+					'<li>Select Category and Subject</li>' +
+					'<li>Press search to begin tutor search</li>' +
 					'</ul>',
 				}]
 			},{

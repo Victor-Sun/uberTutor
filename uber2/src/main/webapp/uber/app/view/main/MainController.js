@@ -33,11 +33,11 @@ Ext.define('uber.view.main.MainController', {
         var card = mainCard.setActiveItem('profile');
     },
     
-    request: function () {
+    requests: function () {
     	var me = this;
 		var mainCard = me.lookupReference('mainCardPanel')
         var mainLayout = mainCard.getLayout();
-        var card = mainCard.setActiveItem('request');
+        var card = mainCard.setActiveItem('tutorrequest');
     },
     
     logout: function() {

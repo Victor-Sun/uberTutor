@@ -8202,9 +8202,10 @@
 }
 /* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:56 */
 .search-panel {
-    background-color: #f1f2f4;
+    padding-left: 20% !important;
+    padding-right: 20% !important;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:61 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:62 */
 .tutor-panel {
     background-color: #f1f2f4;
     padding-left: 15%;
