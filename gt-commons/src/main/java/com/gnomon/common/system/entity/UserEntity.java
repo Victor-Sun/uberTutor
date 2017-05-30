@@ -17,51 +17,42 @@ public class UserEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO,generator="USERS_SEQ")     
-	@SequenceGenerator(name="USERS_SEQ", sequenceName="USERS_SEQ")  
+	@SequenceGenerator(name="USERS_SEQ", sequenceName="USERS_SEQ")
 	private Long id; 
 	
-	// User's UUID
 	@Column(name="UUID") 
 	private String uuid;
 
-	// User's Profile Name
 	@Column(name="USERNAME") 
 	private String username;
 
-	// User's Full Name
 	@Column(name="FULLNAME") 
 	private String fullname;
 	
-	// Password(Encrypted)
 	@Column(name="PASSWORD") 
 	private String password;
 	
-	// Email
 	@Column(name="EMAIL") 
 	private String email;
 	
-	// Mobile Phone Number
 	@Column(name="MOBILE") 
 	private String mobile;
 	
 	@Column(name="CREATE_BY") 
 	private String createBy;
 
-	// Date and time the account was created
 	@Column(name="CREATE_DATE") 
 	private Date createDate;	
 
 	@Column(name="UPDATE_BY") 
 	private String updateBy;
 	
-	// When the account was updated
 	@Column(name="UPDATE_DATE") 
 	private Date updateDate;
 	
 	@Column(name="DELETE_BY") 
 	private String deleteBy;
 	
-	// When the account was deleted
 	@Column(name="DELETE_DATE") 
 	private Date deleteDate;
 	
