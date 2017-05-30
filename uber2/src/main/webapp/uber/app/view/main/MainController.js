@@ -19,11 +19,32 @@ Ext.define('uber.view.main.MainController', {
         }
     },
     
+    registration: function () {
+    	var me = this;
+		var mainCard = me.lookupReference('mainCardPanel')
+        var mainLayout = mainCard.getLayout();
+        var card = mainCard.setActiveItem('tutorregistration');
+    },
+    
+    mainpage: function () {
+    	var me = this;
+		var mainCard = me.lookupReference('mainCardPanel')
+        var mainLayout = mainCard.getLayout();
+        var card = mainCard.setActiveItem('mainpage');
+    },
+    
     search: function() {
 		var me = this;
 		var mainCard = me.lookupReference('mainCardPanel')
         var mainLayout = mainCard.getLayout();
         var card = mainCard.setActiveItem('search');
+    },
+    
+    changepassword: function() {
+    	var me = this;
+		var mainCard = me.lookupReference('mainCardPanel')
+        var mainLayout = mainCard.getLayout();
+        var card = mainCard.setActiveItem('changepassword');
     },
     
     profile: function() {
@@ -33,16 +54,16 @@ Ext.define('uber.view.main.MainController', {
         var card = mainCard.setActiveItem('profile');
     },
     
-    requests: function () {
+    sessions: function () {
     	var me = this;
 		var mainCard = me.lookupReference('mainCardPanel')
         var mainLayout = mainCard.getLayout();
-        var card = mainCard.setActiveItem('tutorrequest');
+        var card = mainCard.setActiveItem('sessions');
     },
     
     logout: function() {
 		var me = this;
 		this.getView().destroy();
-		Ext.create('uber.view.login.Loginpage');
+		Ext.create('uber.view.login.Login');
     }
 });

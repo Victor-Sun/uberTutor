@@ -5,7 +5,7 @@ Ext.define('uber.view.verification.VerificationController', {
     verify: function () {
     	this.up('verification').destroy();
 		Ext.create('uber.view.main.Main');
-		Ext.getCmp('uberTab').setActiveTab(1);
+//		Ext.getCmp('uberTab').setActiveTab('profile');
     }
     
 });

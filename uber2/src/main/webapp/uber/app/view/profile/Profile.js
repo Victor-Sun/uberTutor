@@ -11,11 +11,11 @@ Ext.define('uber.view.profile.Profile', {
 		type: 'vbox',
 		align: 'stretch'
 	},
-	cls: 'profile-container',
+	cls: 'uber-panel',
     items: [{
     	xtype: 'panel',
 		flex: 1,
-    	cls: 'profile-panel',
+    	cls: 'uber-panel-inner',
     	layout: {
     		type: 'vbox',
     		align: 'stretch'
@@ -36,12 +36,16 @@ Ext.define('uber.view.profile.Profile', {
             xtype: 'container',
             layout: 'hbox',
             style: {
-                borderRadius: '5px'
             },
             items: [{
-                xtype: 'image',
-                width: 80,
-                height: 80,
+                xtype: 'container',
+                margin: 5,
+                cls: 'shadow image-container',
+                items: [{
+                	xtype: 'image',
+	                width: 80,
+	                height: 80,
+                }]
                 
             },{
                 xtype: 'component',
@@ -53,24 +57,29 @@ Ext.define('uber.view.profile.Profile', {
             reference: 'formpanel',
             layout: {
                 type: 'vbox',
-                align: 'stretch'
+                align: 'stretchmax'
             },
             defaults: {
                 labelAlign: 'top',
-                anchor: '100%'
+                readOnly: true,
+                width: 200
+//                anchor: '100%'
             },
             items: [{
                 xtype: 'textfield',
                 name: 'fullname',
-                fieldLabel: 'Name'
+                fieldLabel: 'Name',
+                value: 'Joe Smoe'
             },{
                 xtype: 'textfield',
                 name: 'email',
-                fieldLabel: 'Email'
+                fieldLabel: 'Email',
+                value: 'Test@Domain.com'
             },{
                 xtype: 'textfield',
                 name: 'modile',
-                fieldLabel: 'Mobile'
+                fieldLabel: 'Mobile',
+                value: '12345678'
             }]
     	}]
     }]

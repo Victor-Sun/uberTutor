@@ -16,8 +16,8 @@ Ext.define('uber.Application', {
         // TODO - Launch the application
 //    	Ext.create('uber.view.main.Main');
 //    	Ext.create('uber.view.login.Login');
-    	Ext.create('uber.view.login.Loginpage');
-//    	Ext.create('uber.view.homepage.Homepage');
+//    	Ext.create('uber.view.login.Loginpage');
+    	Ext.create('uber.view.homepage.Homepage');
 //    	Ext.widget('login');
 //    	Ext.Viewport.add(Ext.create('uber.view.login.Login'));
     }

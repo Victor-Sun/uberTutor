@@ -34,16 +34,25 @@ Ext.define('uber.view.main.Main', {
 			text: 'username',
 			menu: {
 				items: [{
+					text: 'Main Page',
+					handler: 'mainpage'
+				},{
 					text: 'Search for Tutors',
 					handler: 'search'
+//				},{
+//					html: '<hr>'
 				},{
-					html: '<hr>'
+					text: 'Change Password',
+					handler: 'changepassword'
 				},{
 					text: 'Profile',
 					handler: 'profile'
 				},{
-					text: 'Requests',
-					handler: 'requests'
+					text: 'Sessions',
+					handler: 'sessions'
+				},{
+					text: 'Tutor Registration',
+					handler: 'registration'
 				},{
 					text: 'Logout',
 					handler: 'logout'
@@ -84,11 +93,17 @@ Ext.define('uber.view.main.Main', {
 					anchor: '100%'
 				},
 				items: [{
+					xtype: 'mainpage',
+					itemId: 'mainpage'
+				},{
 					xtype: 'profile',
 					itemId: 'profile'
 				},{
-					xtype: 'profilemanagement',
-					itemId: 'profilemanagement'
+					xtype: 'changeprofile',
+					itemId: 'changeprofile'
+				},{
+					xtype: 'changepassword',
+					itemId: 'changepassword'
 				},{
 					xtype: 'search',
 					itemId: 'search'
@@ -99,14 +114,32 @@ Ext.define('uber.view.main.Main', {
 					xtype: 'tutorprofile',
 					itemId: 'tutorprofile'
 				},{
-					xtype: 'tutorrequest',
-					itemId: 'tutorrequest'
+					xtype: 'makerequest',
+					itemId: 'makerequest'
 				},{
 					xtype: 'feedback',
 					itemId: 'feedback'
 				},{
-					xtype: 'tutorrequest',
-					itemId: 'tutorrequest'
+					xtype: 'sessions',
+					itemId: 'sessions'
+				},{
+					xtype: 'mysession',
+					itemId: 'mysession'
+				},{
+					xtype: 'mysessionstudent',
+					itemId: 'mysessionstudent'
+				},{
+					xtype: 'mysessiontutor',
+					itemId: 'mysessiontutor'
+				},{
+					xtype: 'mysessionadmin',
+					itemId: 'mysessionadmin'
+				},{
+					xtype: 'sessioninfo',
+					itemId: 'sessioninfo'
+				},{
+					xtype: 'tutorregistration',
+					itemId: 'tutorregistration'
 				}]
 			}]
 			

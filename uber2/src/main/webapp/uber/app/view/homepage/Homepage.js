@@ -1,25 +1,73 @@
 Ext.define('uber.view.homepage.Homepage',{
 	extend: 'Ext.container.Viewport',
 	xtype: 'homepage',
+	itemId: 'homepage',
 	
+	layout: {
+		type: 'vbox',
+		align: 'stretch'
+	},
+	controller: 'homepage',
 	items: [{
-		xtype: 'container',
+		xtype: 'panel',
+		flex: 1,
 		layout: {
-			type: 'vbox',
-			align: 'stretch'
+			type: 'border',
+//			align: 'stretch'
 		},
 		items: [{
 			xtype: 'toolbar',
+			cls: 'shadow nav-bar',
+	    	region: 'north',
 			items: [{
 				xtype: 'component',
-				html: '<h1>UberTutor</h1>'
+				html: '<h1 style="color: #fff;">UberTutor</h1>'
 			},'->',{
 				xtype: 'button',
+				text: 'Sign Up',
+				handler: 'signup'
+			},{
+				xtype: 'button',
 				text: 'Sign In',
-				handler: function() {
-    				this.up('homepage').destroy();
-    				Ext.create('uber.view.login.LoginPage');
-    			}
+				handler: 'signin'
+			}]
+		},{
+			xtype: 'panel',
+			region: 'center',
+			flex: 1,
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
+			cls: 'uber-panel',
+			items: [{
+				xtype: 'panel',
+				flex: 1,
+		    	cls: 'uber-panel-inner',
+		    	layout: {
+		    		type: 'vbox',
+		    		align: 'stretch'
+		    	},
+		    	items: [{
+		    		xtype: 'container',
+		            layout: 'hbox',
+		            items: [{
+		            	xtype: 'component',
+		                margin: 5,
+		                html: '<h2>UberTutor</h2>'
+		            }]
+		    	},{
+		    		xtype: 'panel',
+		    		flex: 1,
+		    		layout: {
+		    			type: 'vbox',
+		    			align: 'stretch'
+		    		},
+		    		items: [{
+		    			flex: 1,
+		    			html: '<h4>Homepage content here</h4>'
+		    		}]
+		    	}]
 			}]
 		}]
 	}]

@@ -1,12 +1,13 @@
 package com.ubertutor.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.gnomon.common.system.entity.UserEntity;
-import org.apache.commons.validator.routines.EmailValidator;
 
+import com.gnomon.common.system.entity.UserEntity;
+import com.opensymphony.xwork2.validator.validators.EmailValidator;
 import com.ubertutor.dao.UserDAO;
 
 @Service

@@ -9,10 +9,10 @@ Ext.define('uber.view.search.Search',{
 		type: 'vbox',
 		align: 'stretch'
 	},
-	cls: 'search-panel',
+	cls: 'uber-panel',
 	items: [{
 		xtype: 'panel',
-		cls: 'search-panel-inner',
+		cls: 'uber-panel-inner',
 		layout: {
 			type: 'vbox',
 			align: 'stretch'

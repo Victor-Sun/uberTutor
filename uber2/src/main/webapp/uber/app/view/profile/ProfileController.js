@@ -9,7 +9,7 @@ Ext.define('uber.view.profile.ProfileController',{
 //    	mainCard.destroy();
     	var mainCard = main.lookupReference('mainCardPanel')
     	var mainLayout = mainCard.getLayout();
-        var card = mainCard.setActiveItem('profilemanagement');
+        var card = mainCard.setActiveItem('changeprofile');
     },
     
     backprofile: function () {
