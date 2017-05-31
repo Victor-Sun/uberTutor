@@ -103,7 +103,7 @@ public class LoginAction extends ActionSupport {
 			this.writeErrorResult(e.getMessage());
 		}
 	}
-
+	
 	/*
 	 * Logout处理
 	 */

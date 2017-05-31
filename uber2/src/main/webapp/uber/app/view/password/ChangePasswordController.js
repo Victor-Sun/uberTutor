@@ -12,7 +12,7 @@ Ext.define('uber.view.password.ChangePasswordController',{
     	if (model.isValid()){
     		formPanel.submit({
     			//submit form for user signup
-    			url: '/uber2/main/changepassword!changepassword.action',
+    			url: '/uber2/main/signup!changePassword.action',
     			method: 'POST',
     			success: function() {
     				// change to exception output

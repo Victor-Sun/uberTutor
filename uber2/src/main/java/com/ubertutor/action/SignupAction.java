@@ -2,10 +2,13 @@ package com.ubertutor.action;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
+
 import com.gnomon.common.system.entity.UserEntity;
+import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.EncryptUtil;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.service.LoginService;
@@ -89,6 +92,16 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 			this.writeErrorResult(e.getMessage());
 		}
 		return null;
+	}
+	
+	public void changePassword() throws Exception{
+		try{
+		String user = SessionData.getUserId();
+		System.out.println(user);
+		} catch (Exception e){
+			e.printStackTrace();
+			this.writeErrorResult(e.getMessage());
+		}
 	}
 	
 	@Override
