@@ -87,7 +87,6 @@ public class LoginAction extends ActionSupport {
 				}
 				OnlineUtils.login(Struts2Utils.getSession().getId(), loginUser);
 			}
-			
 			// Session-用户部门信息
 			// 系统用户信息取得
 			//TODO Figure out how to incorporate this code into uber2, is this code needed?
@@ -98,7 +97,6 @@ public class LoginAction extends ActionSupport {
 //			loginService.saveLoginLog(loginUser.getId());
 			
 			resultMap.put("userName", loginUser.getUsername());
-			//TODO Ask why don't use "this" here
 			writeSuccessResult(resultMap);
 		} catch (Exception e) {
 			e.printStackTrace();
