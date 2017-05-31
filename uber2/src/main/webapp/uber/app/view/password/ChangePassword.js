@@ -41,7 +41,6 @@ Ext.define('uber.view.password.ChangePassword',{
                 	xtype: 'textfield',
                 	margin: 5,
                 	labelAlign: 'top',
-                    readOnly: true,
                     width: 200
 //                    anchor: '100%'
                 }
@@ -50,14 +49,21 @@ Ext.define('uber.view.password.ChangePassword',{
                 items: [{
 	                name: 'password',
 	                fieldLabel: 'Current password',
+	                name: 'currentpassword'
                 }]
             },{
                 items: [{
                     name: 'newpassword',
                     fieldLabel: 'New password',
+                    name: 'newpassword'
                 },{
                     name: 'newpasswordagain',
                     fieldLabel: 'Repeat new password',
+                    name: 'newpassword2',
+                	validator: function(value) {
+                        var password1 = this.previousSibling('[name=newpassword]');
+                        return (value === password1.getValue()) ? true : 'Passwords do not match.'
+                    }
                 }]
             }],
             dockedItems: [{

@@ -52,6 +52,7 @@ Ext.define('uber.view.profile.ChangeProfile',{
             }]
 		},{
 			xtype: 'form',
+			reference: 'formpanel',
 			flex: 1,
 			margin: 5,
 			layout: {
@@ -65,13 +66,16 @@ Ext.define('uber.view.profile.ChangeProfile',{
 		    },
 			items: [{
                 name: 'fullname',
-                fieldLabel: 'Name',
+                fieldLabel: 'Username',
+                name: 'username'
             },{
                 name: 'email',
                 fieldLabel: 'Email',
+                name: 'email'
             },{
                 name: 'modile',
                 fieldLabel: 'Mobile',
+                name: 'mobile'
 			}]
 		}]
 	}]

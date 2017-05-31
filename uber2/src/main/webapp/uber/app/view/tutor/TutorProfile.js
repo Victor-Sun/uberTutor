@@ -112,10 +112,10 @@ Ext.define('uber.view.tutor.TutorProfile',{
 					flex: 1
 				}]
 			},{
-//				xtype: 'tutorreviewgrid',
-				height: 250,
-				border: true,
-				html: 'Student Reviews and ratings'
+				xtype: 'tutorreviewgrid',
+				height: 300,
+//				border: true,
+//				html: 'Student Reviews and ratings'
 			}]
 		}],
 //		dockedItems: [{

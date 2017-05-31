@@ -33,10 +33,10 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/projects/uberTutor/jars/commons-validator.jar" sourcepath="D:/projects/uberTutor/jars/commons-validator-sources.jar"/>
-	<classpathentry kind="lib" path="D:/projects/uberTutor/jars/commons-validator-javadoc.jar"/>
-	<classpathentry kind="lib" path="D:/projects/uberTutor/jars/commons-validator-sources.jar"/>
-	<classpathentry kind="lib" path="D:/projects/uberTutor/jars/commons-validator-tests.jar"/>
-	<classpathentry kind="lib" path="D:/projects/uberTutor/jars/commons-validator-test-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Workspaces/Github/uberTutor/jars/commons-validator.jar" sourcepath="D:/projects/uberTutor/jars/commons-validator-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Workspaces/Github/uberTutor/jars/commons-validator-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Workspaces/Github/uberTutor/jars/commons-validator-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Workspaces/Github/uberTutor/jars/commons-validator-tests.jar"/>
+	<classpathentry kind="lib" path="D:/Workspaces/Github/uberTutor/jars/commons-validator-test-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

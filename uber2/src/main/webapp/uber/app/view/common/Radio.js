@@ -14,6 +14,7 @@ Ext.define('uber.view.common.Radio',{
         	var text = this.up('form').down('component');
         	var button = this.up('form').down('button');
         	var field = this.up('form').getForm().findField('email');
+        	var field2 = this.up('form').getForm().findField('password2');
         	//var value = Ext.ComponentQuery.query('radiofield[name=cstgrp]');
             //console.log(newValue['cstgrp']);
 
@@ -24,11 +25,13 @@ Ext.define('uber.view.common.Radio',{
                 	button.setText('Sign Up');
 //                	field.setHidden('false');
                 	field.show();
+                	field2.show();
                     break;
                 case 2:
                 	text.update('<h2>Sign In</h2>');
                 	button.setText('Sign In');
                 	field.setHidden('true');
+                	field2.setHidden('true');
                     break;
             }
         }
