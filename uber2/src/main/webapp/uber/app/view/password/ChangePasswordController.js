@@ -1,4 +1,4 @@
-Ext.define('uber.view.password.PasswordController',{
+Ext.define('uber.view.password.ChangePasswordController',{
 	extend: 'Ext.app.ViewController',
     alias: 'controller.changepassword',
     

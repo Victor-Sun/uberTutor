@@ -3,9 +3,9 @@ Ext.define('uber.view.tutor.TutorReviewGrid',{
 	xtype: 'tutorreviewgrid',
 	layout: 'fit',
 	
-	viewModel: {
-		type: 'tutorreviewgrid'
-	},
+//	viewModel: {
+//		type: 'tutorreviewgrid'
+//	},
 	store:{
 		
 		
