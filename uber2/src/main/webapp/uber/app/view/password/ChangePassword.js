@@ -49,16 +49,19 @@ Ext.define('uber.view.password.ChangePassword',{
                 items: [{
 	                name: 'password',
 	                fieldLabel: 'Current password',
+	                inputType: 'password',
 	                name: 'currentpassword'
                 }]
             },{
                 items: [{
                     name: 'newpassword',
                     fieldLabel: 'New password',
+                    inputType: 'password',
                     name: 'newpassword'
                 },{
                     name: 'newpasswordagain',
                     fieldLabel: 'Repeat new password',
+                    inputType: 'password',
                     name: 'newpassword2',
                 	validator: function(value) {
                         var password1 = this.previousSibling('[name=newpassword]');
