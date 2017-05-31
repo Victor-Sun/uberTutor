@@ -2,10 +2,10 @@ package com.ubertutor.service;
 
 import java.util.List;
 
-import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.gnomon.common.system.entity.UserEntity;
 import com.ubertutor.dao.UserDAO;
 
@@ -15,7 +15,7 @@ public class SignupService {
 	@Autowired
 	private UserDAO userDAO;
 	
-	private EmailValidator emailValidator;
+//	private EmailValidator emailValidator = new EmailValidator();
 	/**
 	 * Check for if the email already exists
 	 * @param email
@@ -24,22 +24,6 @@ public class SignupService {
 	public boolean usedEmail(String email){
 		List<UserEntity> result = this.userDAO.findBy("email", email);
         return result.size() > 0;
-	}
-	
-	/**
-	 * Check for if an email is valid
-	 * @param email
-	 * @return false if email is invalid
-	 */
-	public boolean validEmail(String email){
-//		String r = "";
-//		Pattern p = Pattern.compile(r);
-//		Matcher m = p.matcher(email);
-//		if(!m.find()){
-//			return false;
-//		}
-//		return true;
-		return emailValidator.isValid(email);
 	}
 	
 	/**

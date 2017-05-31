@@ -160,7 +160,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	 */
 	public List<T> findBy(final String propertyName, final Object value) {
 		Assert.hasText(propertyName, "propertyName不能为空");
-		Criterion criterion = Restrictions.eq(propertyName, value);
+		Criterion criterion = Restrictions.ilike(propertyName, value); 
 		return find(criterion);
 	}
 

@@ -102,7 +102,7 @@ CREATE TABLE FEEDBACK(
 
 -- Table initialization
 INSERT INTO USERS(ID, USERNAME, FULLNAME, PASSWORD, EMAIL, IS_ADMIN) 
-VALUES('1', 'ADMIN', 'FULLNAME', 'oqGiG3w2C/s4l945xI++My4Wpv2cCyLi', 'email@domain.com', 'Y');
+VALUES('1', 'admin', 'FULLNAME', 'oqGiG3w2C/s4l945xI++My4Wpv2cCyLi', 'email@domain.com', 'Y');
 
 
 -- Comments

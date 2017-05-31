@@ -21,7 +21,7 @@ public class LoginService {
 	 */
 	public boolean verifyUserId(String loginusername) {
 		List<UserEntity> result = this.userDAO.findBy("username", loginusername);
-        return result.size() > 0;
+        return result.size() > 0;    
     }
 	
 	/*
