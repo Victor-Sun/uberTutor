@@ -15,7 +15,6 @@ public class SignupService {
 	@Autowired
 	private UserDAO userDAO;
 	
-//	private EmailValidator emailValidator = new EmailValidator();
 	/**
 	 * Check for if the email already exists
 	 * @param email
