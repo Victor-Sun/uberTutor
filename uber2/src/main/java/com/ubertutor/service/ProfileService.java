@@ -9,8 +9,8 @@ import com.ubertutor.dao.UserDAO;
 @Service
 @Transactional
 public class ProfileService {
-
 	@Autowired
 	private UserDAO userDAO;
+	
 	
 }

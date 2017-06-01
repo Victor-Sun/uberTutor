@@ -47,6 +47,10 @@ public class SignupService {
 		userDAO.save(entity);
 	}
 	
+	public void delete(UserEntity entity){
+		userDAO.delete(entity);
+	}
+	
 	public UserEntity get(Long id){
 		return userDAO.get(id);
 	}
