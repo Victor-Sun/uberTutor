@@ -26,19 +26,6 @@ public class SignupService {
 	}
 	
 	/**
-	 * Checks if both passwords are the same
-	 * @param password
-	 * @param password2
-	 * @return true if both passwords are the same
-	 */
-	public boolean passwordConfirmation(String password, String password2){
-		if(!password.equals(password2)){
-			return false;
-		}
-		return true;
-	}
-	
-	/**
 	 * Checks if the password is valid
 	 * @param password
 	 * @return true if the password is valid 
@@ -51,7 +38,7 @@ public class SignupService {
 //		}
 		return true;
 	}
-
+	
 	/**
 	 * Saves the data to the entity
 	 * @param entity

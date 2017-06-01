@@ -11,6 +11,7 @@ import com.gnomon.common.system.entity.UserEntity;
 import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.EncryptUtil;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
+import com.ubertutor.dao.UserDAO;
 import com.ubertutor.service.LoginService;
 import com.ubertutor.service.SignupService;
 
@@ -60,11 +61,11 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	@Override
 	public String save() throws Exception{
 		try {
@@ -76,7 +77,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 				msg = "Username already exists!";
 				throw new Exception(msg);
 			}
-			if(!signupService.passwordConfirmation(p1, p2)){
+			if(!p1.equals(p2)){
 				msg = "Passwords do not match, please check your passwords then submit again!";
 				throw new Exception(msg);
 			}
@@ -94,21 +95,38 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 		return null;
 	}
 	
-	public void changePassword() throws Exception{
+	public String changePassword() throws Exception{
 		try{
-		String user = SessionData.getUserId();
-		System.out.println(user);
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			String msg, p1 = "", p2 = "", currentPassword = "";
+			currentPassword = Struts2Utils.getRequest().getParameter("currentpassword");
+			p1 = Struts2Utils.getRequest().getParameter("newpassword");
+			p2 = Struts2Utils.getRequest().getParameter("newpassword2");
+			String user = SessionData.getUserId();
+			entity = SessionData.getLoginUser();
+			if(!loginService.verifyUserPassword(user, EncryptUtil.encrypt(currentPassword))){
+				msg = "Password is incorrect! Please confirm your password and try again.";
+				throw new Exception(msg);
+			}
+			if(!p1.equals(p2)){
+				msg = "Passwords do not match, please check your passwords then submit again!";
+				throw new Exception(msg);
+			}
+			entity.setPassword(EncryptUtil.encrypt(entity.getPassword()));
+			signupService.registerAccount(entity);
+			this.writeSuccessResult(resultMap);
 		} catch (Exception e){
 			e.printStackTrace();
 			this.writeErrorResult(e.getMessage());
 		}
+		return null;
 	}
-	
+
 	@Override
 	protected void prepareModel() throws Exception {
 		if(id == null){
 			entity = new UserEntity();
-//			entity.setUuid(CommonUtils.getUUID());
+			//			entity.setUuid(CommonUtils.getUUID());
 		}else{
 			entity = signupService.get(id);
 		}
