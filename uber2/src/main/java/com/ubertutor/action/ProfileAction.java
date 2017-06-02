@@ -26,14 +26,27 @@ public class ProfileAction extends ActionSupport{
 		try{
 			UserEntity user = SessionData.getLoginUser();
 			JsonResult result = new JsonResult();
+			List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 			Map<String, String> profileResult = new HashMap<String,String>();
+			List<Map<String, String>> list = new ArrayList();
+			
 			profileResult.put("fullname",user.getFullname());
 			profileResult.put("email",user.getEmail());
 			profileResult.put("mobile",user.getMobile());
 			profileResult.put("bio",user.getBio());
 			profileResult.put("school",profileService.getSchool((long)2).getName());
+			list.add(profileResult);
+			for (Map<String, String> map : list) {
+				Map<String, String> dataMap = new HashMap<String, String>();
+				dataMap.put("id", map.get("ID"));
+				dataMap.put("userId", map.get("USER_ID"));
+				dataMap.put("userName", map.get("USERNAME"));
+				data.add(dataMap);
+			}
+			data.add(profileResult);
 			System.out.println(profileResult.toString());
-			Struts2Utils.renderJson(profileResult);
+			System.out.println(data);
+//			Struts2Utils.renderJson(profileResult);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
