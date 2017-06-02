@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ubertutor.dao.SchoolDAO;
 import com.ubertutor.dao.UserDAO;
+import com.ubertutor.entity.SchoolEntity;
 import com.ubertutor.entity.UserEntity;
 
 @Service
@@ -18,21 +19,30 @@ public class ProfileService {
 	@Autowired
 	private SchoolDAO schoolDAO;
 	
-	public UserEntity getUser(String loginusername) {
+	public UserEntity getUser(String username) {
 		String hql = "FROM UserEntity WHERE username = ?";
-		List<UserEntity> result = this.userDAO.find(hql, loginusername);
+		List<UserEntity> result = this.userDAO.find(hql, username);
 		if (result.size() > 0) {
 			return result.get(0);
 		}
 		return new UserEntity();
     }
 	
+	public SchoolEntity getSchool(long schoolId){
+		String hql = "FROM SchoolEntity WHERE id = ?";
+		List<SchoolEntity> result = this.schoolDAO.find(hql, schoolId);
+		if (result.size() > 0) {
+			return result.get(0);
+		}
+		return new SchoolEntity();
+	}
+	
 	/**
 	 * 
-	 * @param loginUsername
+	 * @param username
 	 * @return User's Username
 	 */
-	public String getUserId(String loginUsername) {
-		return this.getUser(loginUsername).getUsername();
+	public String getUserId(String username) {
+		return this.getUser(username).getUsername();
     }
 }

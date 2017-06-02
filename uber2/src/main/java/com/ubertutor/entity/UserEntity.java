@@ -19,27 +19,36 @@ public class UserEntity implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO,generator="USERS_SEQ")     
 	@SequenceGenerator(name="USERS_SEQ", sequenceName="USERS_SEQ")
 	private Long id; 
-	
+
 	@Column(name="UUID") 
 	private String uuid;
 
 	@Column(name="USERNAME") 
 	private String username;
+	
 
 	@Column(name="FULLNAME") 
 	private String fullname;
 	
+	
 	@Column(name="PASSWORD") 
 	private String password;
+	
+	@Column(name="SCHOOL_ID")
+	private String schools;
+	
 	
 	@Column(name="EMAIL") 
 	private String email;
 	
+	
 	@Column(name="MOBILE") 
 	private String mobile;
 	
+	
 	@Column(name="CREATE_BY") 
 	private String createBy;
+	
 
 	@Column(name="CREATE_DATE") 
 	private Date createDate;	
@@ -53,8 +62,12 @@ public class UserEntity implements Serializable{
 	@Column(name="DELETE_BY") 
 	private String deleteBy;
 	
+	
 	@Column(name="DELETE_DATE") 
 	private Date deleteDate;
+	
+	@Column(name="BIO")
+	private String bio;
 	
 	@Column(name="IS_DISABLED") 
 	private String isDisabled;
@@ -62,8 +75,36 @@ public class UserEntity implements Serializable{
 	@Column(name="IS_TUTOR") 
 	private String isTutor;
 	
+	@Column(name="IS_ADMIN")
+	private String isAdmin;
+	
+	
 	@Column(name="IS_VERIFIED") 
 	private String isVerified;
+
+	public String getSchools() {
+		return schools;
+	}
+
+	public void setSchools(String schools) {
+		this.schools = schools;
+	}
+
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
+
+	public String getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(String isAdmin) {
+		this.isAdmin = isAdmin;
+	}
 
 	public Long getId() {
 		return id;
