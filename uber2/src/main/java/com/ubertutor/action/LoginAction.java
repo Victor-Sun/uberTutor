@@ -14,12 +14,12 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import com.gnomon.common.system.entity.UserEntity;
 import com.gnomon.common.system.service.SysUserDepartmentService;
 import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.EncryptUtil;
 import com.gnomontech.pdms.redis.OnlineUtils;
 import com.opensymphony.xwork2.ActionSupport;
+import com.ubertutor.entity.UserEntity;
 import com.ubertutor.service.LoginService;
 
 @Namespace("/main")
@@ -78,7 +78,7 @@ public class LoginAction extends ActionSupport {
 				msg = "用户已被禁用，不允许登录！";
 				throw new Exception(msg);
 			}
-			
+
 			// Session-用户信息
 			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_USER, loginUser);
 			if(OnlineUtils.isUseRedis()){
@@ -94,7 +94,6 @@ public class LoginAction extends ActionSupport {
 //			Map<String, Object> deptUserInfo = this.sysUserDepartmentService.getDeptUserInfo(loginUser.getId());
 //			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_DEPT, deptUserInfo);
 //			loginService.saveLoginLog(loginUser.getId());
-			
 			resultMap.put("userName", loginUser.getUsername());
 			writeSuccessResult(resultMap);
 		} catch (Exception e) {

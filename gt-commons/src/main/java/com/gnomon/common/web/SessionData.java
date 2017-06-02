@@ -8,8 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.gnomon.common.system.entity.UserEntity;
 import com.opensymphony.xwork2.ActionContext;
+import com.ubertutor.entity.UserEntity;
 
 public class SessionData {
 	

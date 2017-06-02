@@ -1,4 +1,4 @@
-package com.gnomon.common.system.entity;
+package com.ubertutor.entity;
 
 import java.io.Serializable;
 import java.util.Date;

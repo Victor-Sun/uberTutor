@@ -17,7 +17,7 @@ import org.springside.modules.utils.PropertiesUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
 
-import com.gnomon.common.system.entity.UserEntity;
+import com.ubertutor.entity.UserEntity;
 
 /**
  * 

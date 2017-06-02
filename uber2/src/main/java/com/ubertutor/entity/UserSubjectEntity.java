@@ -19,13 +19,11 @@ public class UserSubjectEntity implements Serializable{
 	@SequenceGenerator(name="USER_SUBJECT_SEQ", sequenceName="USER_SUBJECT_SEQ") 
 	private Long id; 
 	
-	// User's ID
 	@Column(name="USER_ID") 
-	private String userid;
+	private Long userid;
 	
-	// Subject's ID
 	@Column(name="SUBJECT_ID") 
-	private String subjectid;
+	private Long subjectid;
 
 	public Long getId() {
 		return id;
@@ -35,31 +33,19 @@ public class UserSubjectEntity implements Serializable{
 		this.id = id;
 	}
 	
-	/**
-	 * @return the userid
-	 */
-	public String getUserid() {
+	public Long getUserid() {
 		return userid;
 	}
 
-	/**
-	 * @param userid the userid to set
-	 */
-	public void setUserid(String userid) {
+	public void setUserid(Long userid) {
 		this.userid = userid;
 	}
 
-	/**
-	 * @return the subjectid
-	 */
-	public String getSubjectid() {
+	public Long getSubjectid() {
 		return subjectid;
 	}
 
-	/**
-	 * @param subjectid the subjectid to set
-	 */
-	public void setSubjectid(String subjectid) {
+	public void setSubjectid(Long subjectid) {
 		this.subjectid = subjectid;
 	}
 }

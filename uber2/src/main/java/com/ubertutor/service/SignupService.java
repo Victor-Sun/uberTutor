@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gnomon.common.system.entity.UserEntity;
 import com.ubertutor.dao.UserDAO;
+import com.ubertutor.entity.UserEntity;
 
 @Service
 @Transactional

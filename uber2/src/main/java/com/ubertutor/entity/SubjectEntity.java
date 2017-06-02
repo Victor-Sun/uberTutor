@@ -4,66 +4,61 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.gnomon.common.base.StringIdEntity;
 
 @Entity
 @Table(name="SUBJECT")
-public class SubjectEntity extends StringIdEntity implements Serializable{
+public class SubjectEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
-
-	// Subject's Title
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO,generator="SUBJECT_SEQ")     
+	@SequenceGenerator(name="SUBJECT_SEQ", sequenceName="SUBJECT_SEQ") 
+	private Long id; 
+	
 	@Column(name="TITLE") 
 	private String title;
 	
-	// Description about the subject
 	@Column(name="DESCRIPTION") 
 	private String description;
 	
-	// Category ID that the subject belongs to
 	@Column(name="CATEGORY_ID") 
-	private String categoryid;
+	private Long categoryid;
 	
-	/**
-	 * @return the title
-	 */
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long subjectID) {
+		this.id = subjectID;
+	}
+
 	public String getTitle() {
 		return title;
 	}
 
-	/**
-	 * @param title the title to set
-	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	/**
-	 * @return the description
-	 */
 	public String getDescription() {
 		return description;
 	}
 
-	/**
-	 * @param description the description to set
-	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	/**
-	 * @return the categoryid
-	 */
-	public String getCategoryid() {
+	public Long getCategoryid() {
 		return categoryid;
 	}
 
-	/**
-	 * @param categoryid the categoryid to set
-	 */
-	public void setCategoryid(String categoryid) {
+	public void setCategoryid(Long categoryid) {
 		this.categoryid = categoryid;
 	}
 }

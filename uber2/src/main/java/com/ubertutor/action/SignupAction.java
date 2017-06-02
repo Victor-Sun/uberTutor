@@ -11,11 +11,11 @@ import org.hibernate.cfg.AnnotationConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import com.gnomon.common.system.entity.UserEntity;
 import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.EncryptUtil;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.dao.UserDAO;
+import com.ubertutor.entity.UserEntity;
 import com.ubertutor.service.ChangePasswordService;
 import com.ubertutor.service.LoginService;
 import com.ubertutor.service.SignupService;
