@@ -1,7 +1,8 @@
 Ext.define('uber.view.main.MainPage', {
     extend: 'Ext.panel.Panel',
     xtype: 'mainpage',
-
+    itemId: 'mainpage',
+    	
     requires: [
     ],
     
