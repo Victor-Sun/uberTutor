@@ -28,7 +28,7 @@ public class ProfileAction extends ActionSupport{
 			JsonResult result = new JsonResult();
 			List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 			Map<String, String> profileResult = new HashMap<String,String>();
-			List<Map<String, String>> list = new ArrayList();
+			List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 			
 			profileResult.put("fullname",user.getFullname());
 			profileResult.put("email",user.getEmail());
@@ -38,15 +38,15 @@ public class ProfileAction extends ActionSupport{
 			list.add(profileResult);
 			for (Map<String, String> map : list) {
 				Map<String, String> dataMap = new HashMap<String, String>();
-				dataMap.put("id", map.get("ID"));
-				dataMap.put("userId", map.get("USER_ID"));
-				dataMap.put("userName", map.get("USERNAME"));
+				dataMap.put("fullname", map.get("fullname"));
+				dataMap.put("email", map.get("email"));
+				dataMap.put("mobile", map.get("mobile"));
+				dataMap.put("bio", map.get("bio"));
+				dataMap.put("school", map.get("school"));
 				data.add(dataMap);
 			}
-			data.add(profileResult);
-			System.out.println(profileResult.toString());
-			System.out.println(data);
-			Struts2Utils.renderJson(profileResult);
+			result.buildSuccessResultForList(data, null);
+			Struts2Utils.renderJson(result);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
