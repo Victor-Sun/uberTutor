@@ -59,8 +59,7 @@ Ext.define('uber.view.profile.Profile', {
 	                xtype: 'component',
 	                html: '<h3>User Avatar</h3>'
 	            }]
-	    	},
-	    	{
+	    	},{
 	    		xtype: 'form',
 	    		reference: 'formpanel',
 	    	    layout: {
@@ -109,9 +108,7 @@ Ext.define('uber.view.profile.Profile', {
     	        		handler: 'getProfile'
     	        	}]
     	        }]
-	    	}
-//	    	profileForm
-	    	]
+	    	}]
 		}];
 		this.callParent(arguments);
 	}

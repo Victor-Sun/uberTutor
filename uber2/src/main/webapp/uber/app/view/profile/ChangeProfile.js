@@ -66,8 +66,8 @@ Ext.define('uber.view.profile.ChangeProfile',{
 		    },
 			items: [{
                 name: 'fullname',
-                fieldLabel: 'Username',
-                name: 'username'
+                fieldLabel: 'Name',
+                name: 'fullname'
             },{
                 name: 'email',
                 fieldLabel: 'Email',
@@ -76,6 +76,10 @@ Ext.define('uber.view.profile.ChangeProfile',{
                 name: 'modile',
                 fieldLabel: 'Mobile',
                 name: 'mobile'
+            },{
+            	name: 'school',
+            	fieldLabel: 'School',
+            	name: 'school'
 			}]
 		}]
 	}]

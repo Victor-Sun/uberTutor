@@ -35,7 +35,7 @@ Ext.define('uber.view.profile.ProfileController',{
 			url: '/uber2/main/profile!profile.action',
 			method: 'POST',
 //			params: {
-//				userName: username
+//				username: username
 //			},
 			success: function() {
 				// change to exception output
