@@ -31,7 +31,8 @@ Ext.define('uber.view.main.Main', {
 		},'->',{
 			xtype: 'button',
 			iconCls: 'x-fa fa-user',
-			text: 'username',
+			itemId:'userNameItemId',
+			text: '',
 			menu: {
 				items: [{
 					text: 'Main Page',

@@ -74,6 +74,7 @@ Ext.define('uber.view.password.ChangePassword',{
             	dock: 'bottom',
             	items: [{
             		xtype: 'button',
+            		bindForm: true,
             		text: 'Save',
             		handler: 'changePassword'
             	}]

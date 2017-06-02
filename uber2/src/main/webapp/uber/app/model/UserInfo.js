@@ -8,6 +8,8 @@ Ext.define('uber.model.UserInfo',{
 		{ name: 'username', type: 'string' },
 		{ name: 'email', type: 'string' },
 		{ name: 'password', type: 'string' },
+		{ name: 'currentpassword', type: 'string' },
+		{ name: 'newpassword', type: 'string' },
 	],
 //			validations:
 //			[
@@ -23,6 +25,12 @@ Ext.define('uber.model.UserInfo',{
             ],
             password: [
                        { type: 'presence', message: 'please input valid password' }
+            ],
+            currentpassword: [
+                       { type: 'presence', message: 'please input valid password' }
+            ],
+            newpassword: [
+                       { type: 'presence', message: 'new password must be atleast 6 characters long' }
             ],
 			email: [
 			        {type: 'format',   name: 'email', matcher: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, message:"Wrong Email Format"}

@@ -12,75 +12,108 @@ Ext.define('uber.view.profile.Profile', {
 		align: 'stretch'
 	},
 	cls: 'uber-panel',
-    items: [{
-    	xtype: 'panel',
-		flex: 1,
-    	cls: 'uber-panel-inner',
-    	layout: {
-    		type: 'vbox',
-    		align: 'stretch'
-    	},
-    	items: [{
-    		xtype: 'container',
-            layout: 'hbox',
-            items: [{
-                margin: 5,
-                html: '<h2>Personal Information</h2>'
-            },{
-                xtype: 'button',
-                margin: 5,
-                text: 'edit',
-                handler: 'profilemanage'
-            }]
-        },{
-            xtype: 'container',
-            layout: 'hbox',
-            style: {
-            },
-            items: [{
-                xtype: 'container',
-                margin: 5,
-                cls: 'shadow image-container',
-                items: [{
-                	xtype: 'image',
-	                width: 80,
-	                height: 80,
-                }]
-                
-            },{
-                xtype: 'component',
-                html: '<h3>User Avatar</h3>'
-            }]
-        },{
-            xtype: 'form',
-            margin: 5,
-            reference: 'formpanel',
-            layout: {
-                type: 'vbox',
-                align: 'stretchmax'
-            },
-            defaults: {
-                labelAlign: 'top',
-                readOnly: true,
-                width: 200
-//                anchor: '100%'
-            },
-            items: [{
-                xtype: 'textfield',
-                name: 'fullname',
-                fieldLabel: 'Name',
-                value: 'Joe Smoe'
-            },{
-                xtype: 'textfield',
-                name: 'email',
-                fieldLabel: 'Email',
-                value: 'Test@Domain.com'
-            },{
-                xtype: 'textfield',
-                name: 'modile',
-                fieldLabel: 'Mobile',
-                value: '12345678'
-            }]
-    	}]
-    }]
+	initComponent: function () {
+//		var profileForm = Ext.create('uber.view.profile.ProfileForm');
+//		profileForm.load({
+//			url: '/uber2/profile/profile!display.action',
+//			params: {
+//				username: this.username
+//			}
+//		});
+		this.items = [{
+			xtype: 'panel',
+			flex: 1,
+	    	cls: 'uber-panel-inner',
+	    	layout: {
+	    		type: 'vbox',
+	    		align: 'stretch'
+	    	},
+	    	items: [{
+	    		xtype: 'container',
+	            layout: 'hbox',
+	            items: [{
+	                margin: 5,
+	                html: '<h2>Personal Information</h2>'
+	            },{
+	                xtype: 'button',
+	                margin: 5,
+	                text: 'edit',
+	                handler: 'profilemanage'
+	            }]
+	        },{
+	            xtype: 'container',
+	            layout: 'hbox',
+	            style: {
+	            },
+	            items: [{
+	                xtype: 'container',
+	                margin: 5,
+	                cls: 'shadow image-container',
+	                items: [{
+	                	xtype: 'image',
+		                width: 80,
+		                height: 80,
+	                }]
+	                
+	            },{
+	                xtype: 'component',
+	                html: '<h3>User Avatar</h3>'
+	            }]
+	    	},
+	    	{
+	    		xtype: 'form',
+	    		reference: 'formpanel',
+	    	    layout: {
+	    	        type: 'vbox',
+	    	        align: 'stretchmax'
+	    	    },
+	    	    defaults: {
+	    	        labelAlign: 'top',
+	    	        readOnly: true,
+	    	        width: 200
+//	    	        anchor: '100%'
+	    	    },
+	    	    items: [{
+	    	    	xtype: 'textfield',
+    	            name: 'fullname',
+    	            fieldLabel: 'Name',
+    	            itemId: 'fullname'
+    	        },{
+    	            xtype: 'textfield',
+    	            name: 'email',
+    	            fieldLabel: 'Email',
+    	            itemId: 'email'
+    	        },{
+    	            xtype: 'textfield',
+    	            name: 'mobile',
+    	            fieldLabel: 'Mobile',
+    	            itemId: 'mobile'
+    	        },{
+    	        	xtype: 'textfield',
+    	            name: 'school',
+    	            fieldLabel: 'School',
+    	            itemId: 'school'
+    	        },{
+    	        	xtype: 'textarea',
+    	        	name: 'bio',
+    	        	fieldLabel: 'Bio',
+    	        	itemId: 'bio'
+	    	    	
+	    	    }],
+	    	    dockedItems: [{
+    	        	xtype: 'toolbar',
+    	        	dock: 'bottom',
+    	        	items: [{
+    	        		xtype: 'button',
+    	        		text: 'load profile',
+    	        		handler: 'getProfile'
+    	        	}]
+    	        }]
+	    	}
+//	    	profileForm
+	    	]
+		}];
+		this.callParent(arguments);
+	}
+	
 });

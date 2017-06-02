@@ -22,6 +22,33 @@ Ext.define('uber.view.profile.ProfileController',{
         var card = mainCard.setActiveItem('profile');
     },
     
+    getProfile: function () {
+    	debugger;
+    	var me = this;
+    	var formPanel = this.lookupReference('formpanel');
+    	var model = Ext.create('uber.model.User', formPanel.getValues());
+    	var errors = model.validate();
+    	var form = formPanel.getForm();
+    	
+    	formPanel.submit({
+			//submit form for user signup
+			url: '/uber2/main/profile!update.action',
+			method: 'POST',
+//			params: {
+//				userName: username
+//			},
+			success: function() {
+				// change to exception output
+				Ext.Msg.alert( '', 'update success', Ext.emptyFn )
+			},
+
+			failure: function() {
+				// similar to above
+				Ext.Msg.alert('', 'update failure', Ext.emptyFn )
+			},
+		})	
+    },
+    
     update: function () {
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
@@ -30,7 +57,7 @@ Ext.define('uber.view.profile.ProfileController',{
     	var form = formPanel.getForm();
     	
     	if (model.isValid()){
-    		formPanel.submit({
+    		formPanel.updateRecord({
     			//submit form for user signup
     			url: '/uber2/main/profile!update.action',
     			method: 'POST',

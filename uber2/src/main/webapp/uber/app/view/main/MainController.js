@@ -48,10 +48,26 @@ Ext.define('uber.view.main.MainController', {
     },
     
     profile: function() {
+//    	debugger;
 		var me = this;
+		
 		var mainCard = me.lookupReference('mainCardPanel')
         var mainLayout = mainCard.getLayout();
         var card = mainCard.setActiveItem('profile');
+//        var result = uber.util.Util.decodeJSON(action.response.responseText);
+//		var fullname = result.data.fullname;
+//		var email = result.data.email;
+//		var mobile = result.data.mobile;
+		
+//		var profileStore = Ext.create('uber.store.Profile');
+		
+//        var fullnameText = Ext.ComponentQuery.query('#fullnameItemId')[0];
+//        var emailText = Ext.ComponentQuery.query('#emailItemId')[0];
+//        var mobileText = Ext.ComponentQuery.query('#mobileId')[0];
+//        fullnameText.setValue(fullname);
+//        emailText.setValue(email);
+//        mobileText.setValue(mobile);
+        
     },
     
     sessions: function () {

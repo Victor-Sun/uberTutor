@@ -4,6 +4,7 @@ Ext.define('uber.model.Password',{
 //        	},
 	fields: [
 //			'username', 'password'
+		{ name: 'currentpassword', type: 'string' },
 		{ name: 'newpassword', type: 'string' },
 	],
 //			validations:
@@ -12,6 +13,7 @@ Ext.define('uber.model.Password',{
 //			    {type: 'presence', field: 'password', message: 'please input valid password'}
 //			],
 	validators: {
+		
        newpassword: [{
     	   type: 'presence', message: 'new password must be atleast 6 characters long'
        }]

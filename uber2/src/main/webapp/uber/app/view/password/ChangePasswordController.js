@@ -12,7 +12,7 @@ Ext.define('uber.view.password.ChangePasswordController',{
     	if (model.isValid()){
     		formPanel.submit({
     			//submit form for user signup
-    			url: '/uber2/main/signup!changePassword.action',
+    			url: '/uber2/main/changepassword!changePassword.action',
     			method: 'POST',
     			success: function() {
     				// change to exception output
@@ -20,8 +20,8 @@ Ext.define('uber.view.password.ChangePasswordController',{
     			},
 
     			failure: function() {
-    				// similar to above
-    				Ext.Msg.alert('', 'An error has occured', Ext.emptyFn )
+    				var result = uber.util.Util.decodeJSON(action.response.responseText);
+    		        Ext.Msg.alert('Error', result.data, Ext.emptyFn);
     			},
     		})
     	} else {
