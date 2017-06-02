@@ -79,6 +79,9 @@ Ext.define('uber.view.profile.ChangeProfile',{
             },{
             	name: 'bio',
             	fieldLabel: 'Bio',
+			}],
+			dockedItems: [{
+				
 			}]
 		}]
 	}]

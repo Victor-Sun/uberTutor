@@ -44,24 +44,41 @@ Ext.define('uber.view.profile.ProfileController',{
     	var model = Ext.create('uber.model.User', formPanel.getValues());
     	var errors = model.validate();
     	var form = formPanel.getForm();
+    	var rec = Ext.create('uber.store.Profile');
     	
-    	formPanel.submit({
-			//submit form for user signup
+    	
+    	Ext.Ajax.request({
 			url: '/uber2/main/profile!display.action',
-			method: 'POST',
-//			params: {
-//				username: username
+			params: {
+				processTaskId: 'fullname'
+			},
+    	    scope: me,
+    	    success: function(response, opts) {
+    	    	var obj = Ext.decode(response.responseText);
+    	    	Ext.Msg.alert('Error', obj, Ext.emptyFn);
+    	    },
+    	    failure: function(response, opts) {
+    	    	ExtApp.util.Util.handleRequestFailure(response);
+    	    }
+        });
+    	
+//    	formPanel.load({
+//			//submit form for user signup
+//			url: '/uber2/main/profile!display.action',
+//			method: 'GET',
+////			params: {
+////				username: username
+////			},
+//			success: function() {
+//				// change to exception output
+//				Ext.Msg.alert( '', 'update success', Ext.emptyFn )
 //			},
-			success: function() {
-				// change to exception output
-				Ext.Msg.alert( '', 'update success', Ext.emptyFn )
-			},
-
-			failure: function() {
-				// similar to above
-				Ext.Msg.alert('', 'update failure', Ext.emptyFn )
-			},
-		})	
+//
+//			failure: function() {
+//				// similar to above
+//				Ext.Msg.alert('', 'update failure', Ext.emptyFn )
+//			},
+//		})	
     },
     
     update: function () {

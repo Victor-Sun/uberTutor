@@ -33,7 +33,7 @@ public class ProfileAction extends ActionSupport{
 			profileResult.put("bio",user.getBio());
 			profileResult.put("school",profileService.getSchool((long)2).getName());
 			System.out.println(profileResult.toString());
-//			Struts2Utils.renderJson(profileResult);
+			Struts2Utils.renderJson(profileResult);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

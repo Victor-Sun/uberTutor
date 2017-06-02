@@ -20,7 +20,7 @@ Ext.define('uber.view.tutor.TutorReviewGrid',{
 		var me = this;
 		
 		this.columns = [{
-			xtype: 'gridcolumn',
+			xtype: 'templatecolumn',
 //			dataIndex: 'data',
 			flex: 1,
 			tpl: [
