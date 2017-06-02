@@ -46,7 +46,7 @@ public class ProfileAction extends ActionSupport{
 			data.add(profileResult);
 			System.out.println(profileResult.toString());
 			System.out.println(data);
-//			Struts2Utils.renderJson(profileResult);
+			Struts2Utils.renderJson(profileResult);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

@@ -55,7 +55,7 @@ Ext.define('uber.view.profile.ProfileController',{
     	    scope: me,
     	    success: function(response, opts) {
     	    	var obj = Ext.decode(response.responseText);
-    	    	Ext.Msg.alert('Error', obj, Ext.emptyFn);
+    	    	Ext.Msg.alert('Error', obj , Ext.emptyFn);
     	    },
     	    failure: function(response, opts) {
     	    	ExtApp.util.Util.handleRequestFailure(response);
