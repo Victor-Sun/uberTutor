@@ -27,8 +27,8 @@ public class ProfileAction extends ActionSupport{
 			UserEntity user = SessionData.getLoginUser();
 			JsonResult result = new JsonResult();
 			List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-			Map<String, String> profileResult = new HashMap<String,String>();
 			List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+			Map<String, String> profileResult = new HashMap<String,String>();
 			
 			profileResult.put("fullname",user.getFullname());
 			profileResult.put("email",user.getEmail());

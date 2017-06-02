@@ -4,19 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Namespace;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.EncryptUtil;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
-import com.ubertutor.dao.UserDAO;
 import com.ubertutor.entity.UserEntity;
-import com.ubertutor.service.ChangePasswordService;
 import com.ubertutor.service.LoginService;
 import com.ubertutor.service.SignupService;
 
@@ -29,8 +22,6 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	private SignupService signupService;
 	@Autowired
 	private LoginService loginService; 
-	@Autowired
-	private ChangePasswordService passwordService;
 	private UserEntity entity;
 
 	public String getFullName() {
@@ -94,37 +85,6 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 			}
 			entity.setPassword(EncryptUtil.encrypt(entity.getPassword()));
 			signupService.registerAccount(entity);
-			this.writeSuccessResult(resultMap);
-		} catch (Exception e){
-			e.printStackTrace();
-			this.writeErrorResult(e.getMessage());
-		}
-		return null;
-	}
-	
-	public String changePassword() throws Exception{
-		try{
-			Map<String, Object> resultMap = new HashMap<String, Object>();
-			String msg, p1 = "", p2 = "", currentPassword = "";
-			currentPassword = Struts2Utils.getRequest().getParameter("currentpassword");
-			p1 = Struts2Utils.getRequest().getParameter("newpassword");
-			p2 = Struts2Utils.getRequest().getParameter("newpassword2");
-			String user = SessionData.getUserId();
-			String userid = SessionData.getLoginUserId();
-
-			if(!loginService.verifyUserPassword(user, EncryptUtil.encrypt(currentPassword))){
-				msg = "Password is incorrect! Please confirm your password and try again.";
-				throw new Exception(msg);
-			}
-			if(!p1.equals(p2)){
-				msg = "Passwords do not match, please check your passwords then submit again!";
-				throw new Exception(msg);
-			}
-			System.out.println(user + " " + userid);
-			//TODO Think of a better way to update the password
-//			entity.setPassword(EncryptUtil.encrypt(entity.getPassword()));
-//			signupService.registerAccount(entity);
-			passwordService.updatePassword(userid, p1);
 			this.writeSuccessResult(resultMap);
 		} catch (Exception e){
 			e.printStackTrace();

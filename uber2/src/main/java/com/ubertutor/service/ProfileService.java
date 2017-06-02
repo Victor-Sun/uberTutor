@@ -1,8 +1,10 @@
 package com.ubertutor.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +20,9 @@ public class ProfileService {
 	private UserDAO userDAO;
 	@Autowired
 	private SchoolDAO schoolDAO;
-	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
 	public UserEntity getUser(String username) {
 		String hql = "FROM UserEntity WHERE username = ?";
 		List<UserEntity> result = this.userDAO.find(hql, username);
@@ -26,8 +30,8 @@ public class ProfileService {
 			return result.get(0);
 		}
 		return new UserEntity();
-    }
-	
+	}
+
 	public SchoolEntity getSchool(long schoolId){
 		String hql = "FROM SchoolEntity WHERE id = ?";
 		List<SchoolEntity> result = this.schoolDAO.find(hql, schoolId);
@@ -36,13 +40,30 @@ public class ProfileService {
 		}
 		return new SchoolEntity();
 	}
-	
-	/**
-	 * 
-	 * @param username
-	 * @return User's Username
-	 */
+
 	public String getUserId(String username) {
 		return this.getUser(username).getUsername();
-    }
+	}
+
+	public void updateProfile(String fullname, String email, String mobile, String bio){
+		StringBuffer sql = null;
+		List<Object> params = null;
+		//TODO Find a way to update the school as well
+		sql = new StringBuffer();
+		sql.append(" UPDATE USERS SET");
+		sql.append(" FULLNAME = ?");
+		sql.append(" EMAIL = ?");
+		sql.append(" MOBILE = ?");
+		sql.append(" BIO = ?");
+		sql.append(",UPDATE_BY = ?");
+		sql.append(",UPDATE_DATE = SYSDATE");
+		sql.append(" WHERE");
+		sql.append(" ID = ?");
+		params = new ArrayList<Object>();
+		params.add(fullname);
+		params.add(email);
+		params.add(mobile);
+		params.add(bio);
+		this.jdbcTemplate.update(sql.toString(), params.toArray());
+	}
 }
