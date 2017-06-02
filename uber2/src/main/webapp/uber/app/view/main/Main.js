@@ -87,6 +87,7 @@ Ext.define('uber.view.main.Main', {
 				xtype: 'container',
 				flex: 1,
 				reference: 'mainCardPanel',
+				itemId: 'mainCardPanel',
 				cls: 'main-container',
 //				scrollable: 'y',
 				layout: {
@@ -94,53 +95,53 @@ Ext.define('uber.view.main.Main', {
 					anchor: '100%'
 				},
 				items: [{
-					xtype: 'mainpage',
-					itemId: 'mainpage'
-				},{
-					xtype: 'profile',
-					itemId: 'profile'
-				},{
-					xtype: 'changeprofile',
-					itemId: 'changeprofile'
-				},{
-					xtype: 'changepassword',
-					itemId: 'changepassword'
-				},{
-					xtype: 'search',
-					itemId: 'search'
-				},{
-					xtype: 'searchresults',
-					itemId: 'searchresults'
-				},{
-					xtype: 'tutorprofile',
-					itemId: 'tutorprofile'
-				},{
-					xtype: 'makerequest',
-					itemId: 'makerequest'
-				},{
-					xtype: 'feedback',
-					itemId: 'feedback'
-				},{
-					xtype: 'sessions',
-					itemId: 'sessions'
-				},{
-					xtype: 'mysession',
-					itemId: 'mysession'
-				},{
-					xtype: 'mysessionstudent',
-					itemId: 'mysessionstudent'
-				},{
-					xtype: 'mysessiontutor',
-					itemId: 'mysessiontutor'
-				},{
-					xtype: 'mysessionadmin',
-					itemId: 'mysessionadmin'
-				},{
-					xtype: 'sessioninfo',
-					itemId: 'sessioninfo'
-				},{
-					xtype: 'tutorregistration',
-					itemId: 'tutorregistration'
+//					xtype: 'mainpage',
+//					itemId: 'mainpage'
+//				},{
+//					xtype: 'profile',
+//					itemId: 'profile'
+//				},{
+//					xtype: 'changeprofile',
+//					itemId: 'changeprofile'
+//				},{
+//					xtype: 'changepassword',
+//					itemId: 'changepassword'
+//				},{
+//					xtype: 'search',
+//					itemId: 'search'
+//				},{
+//					xtype: 'searchresults',
+//					itemId: 'searchresults'
+//				},{
+//					xtype: 'tutorprofile',
+//					itemId: 'tutorprofile'
+//				},{
+//					xtype: 'makerequest',
+//					itemId: 'makerequest'
+//				},{
+//					xtype: 'feedback',
+//					itemId: 'feedback'
+//				},{
+//					xtype: 'sessions',
+//					itemId: 'sessions'
+//				},{
+//					xtype: 'mysession',
+//					itemId: 'mysession'
+//				},{
+//					xtype: 'mysessionstudent',
+//					itemId: 'mysessionstudent'
+//				},{
+//					xtype: 'mysessiontutor',
+//					itemId: 'mysessiontutor'
+//				},{
+//					xtype: 'mysessionadmin',
+//					itemId: 'mysessionadmin'
+//				},{
+//					xtype: 'sessioninfo',
+//					itemId: 'sessioninfo'
+//				},{
+//					xtype: 'tutorregistration',
+//					itemId: 'tutorregistration'
 				}]
 			}]
 			

@@ -21,39 +21,28 @@ Ext.define('uber.view.main.MainController', {
     
     registration: function () {
     	var me = this;
-		var mainCard = me.lookupReference('mainCardPanel')
-        var mainLayout = mainCard.getLayout();
-        var card = mainCard.setActiveItem('tutorregistration');
+    	var me = this;
+        var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+        var remove = mainCard.removeAll();
+		var card2 = mainCard.add(Ext.create('uber.view.tutor.TutorRegistration'));
     },
     
     mainpage: function () {
+//    	debugger;
     	var me = this;
-		var mainCard = me.lookupReference('mainCardPanel')
-        var mainLayout = mainCard.getLayout();
-        var card = mainCard.setActiveItem('mainpage');
-    },
-    
-    search: function() {
-		var me = this;
-		var mainCard = me.lookupReference('mainCardPanel')
-        var mainLayout = mainCard.getLayout();
-        var card = mainCard.setActiveItem('search');
-    },
-    
-    changepassword: function() {
-    	var me = this;
-		var mainCard = me.lookupReference('mainCardPanel')
-        var mainLayout = mainCard.getLayout();
-        var card = mainCard.setActiveItem('changepassword');
+        var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+        var remove = mainCard.removeAll();
+		var card2 = mainCard.add(Ext.create('uber.view.main.MainPage'));
     },
     
     profile: function() {
-//    	debugger;
+//   	    debugger;
 		var me = this;
-		
-		var mainCard = me.lookupReference('mainCardPanel')
-        var mainLayout = mainCard.getLayout();
-        var card = mainCard.setActiveItem('profile');
+		var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+		var remove = mainCard.removeAll();
+		var card2 = mainCard.add(Ext.create('uber.view.profile.Profile'));
+        
+        
 //        var result = uber.util.Util.decodeJSON(action.response.responseText);
 //		var fullname = result.data.fullname;
 //		var email = result.data.email;
@@ -70,11 +59,27 @@ Ext.define('uber.view.main.MainController', {
         
     },
     
+    search: function() {
+    	var me = this;
+		var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+		var remove = mainCard.removeAll();
+		var card2 = mainCard.add(Ext.create('uber.view.search.Search'));
+    },
+    
+    changepassword: function() {
+    	var me = this;
+    	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+		var remove = mainCard.removeAll();
+		var card2 = mainCard.add(Ext.create('uber.view.password.ChangePassword'));
+    },
+    
+   
+    
     sessions: function () {
     	var me = this;
-		var mainCard = me.lookupReference('mainCardPanel')
-        var mainLayout = mainCard.getLayout();
-        var card = mainCard.setActiveItem('sessions');
+    	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+		var remove = mainCard.removeAll();
+		var card2 = mainCard.add(Ext.create('uber.view.session.Sessions'));
     },
     
     logout: function() {
