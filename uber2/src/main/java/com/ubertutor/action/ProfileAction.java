@@ -20,18 +20,22 @@ public class ProfileAction extends ActionSupport{
     @Autowired
     private ProfileService profileService;
     
+    private UserEntity user = SessionData.getLoginUser();
+    private String fullname = user.getFullname(), 
+    		email = user.getEmail(),
+    		mobile = user.getMobile(),
+    		bio = user.getBio(),
+    		school = profileService.getSchool((long)2).getName();
+    
     public void display() throws Exception{
         try{
-            UserEntity user = SessionData.getLoginUser();
             JsonResult result = new JsonResult();
             Map<String, String> profileResult = new HashMap<String,String>();
-            
-            profileResult.put("fullname",user.getFullname());
-            profileResult.put("email",user.getEmail());
-            profileResult.put("mobile",user.getMobile());
-            profileResult.put("bio",user.getBio());
-            profileResult.put("school",profileService.getSchool((long)2).getName());
-            
+            profileResult.put("fullname",fullname);
+            profileResult.put("email",email);
+            profileResult.put("mobile",mobile);
+            profileResult.put("bio",bio);
+            profileResult.put("school",school);
             result.buildSuccessResult(profileResult);
             Struts2Utils.renderJson(result);
         }catch(Exception e){
@@ -39,4 +43,12 @@ public class ProfileAction extends ActionSupport{
         }
     }
     
+    public void update() throws Exception{
+    	try{
+    		//TODO Checks + Verification
+    		profileService.updateProfile(fullname, email, mobile, bio);
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    }
 }
