@@ -13,11 +13,16 @@ Ext.define('uber.view.profile.Profile', {
 	},
 	cls: 'uber-panel',
 	initComponent: function () {
-//		var profileForm = Ext.create('uber.view.profile.ProfileForm');
+		var profileForm = Ext.create('uber.view.profile.ProfileForm');
+		profileForm.load();
 //		profileForm.load({
-//			url: '/uber2/profile/profile!display.action',
+//			url: '/uber2/main/profile!display.action',
 //			params: {
-//				username: this.username
+//				fullname: 'fullname'
+//			},
+//			reader: {
+//				type: 'json',
+//				rootProperty: 'data'
 //			}
 //		});
 		this.items = [{
@@ -59,58 +64,59 @@ Ext.define('uber.view.profile.Profile', {
 	                xtype: 'component',
 	                html: '<h3>User Avatar</h3>'
 	            }]
-	    	},{
-	    		xtype: 'form',
-	    		//url: '/uber2/main/profile!display.action',
-	    		reference: 'formpanel',
-	    	    layout: {
-	    	        type: 'vbox',
-	    	        align: 'stretchmax'
-	    	    },
-	    	    defaults: {
-	    	        labelAlign: 'top',
-	    	        readOnly: true,
-	    	        width: 200
-//	    	        anchor: '100%'
-	    	    },
-	    	    items: [{
-	    	    	xtype: 'textfield',
-    	            name: 'fullname',
-    	            fieldLabel: 'Name',
-    	            itemId: 'fullname'
-    	        },{
-    	            xtype: 'textfield',
-    	            name: 'email',
-    	            fieldLabel: 'Email',
-    	            itemId: 'email'
-    	        },{
-    	            xtype: 'textfield',
-    	            name: 'mobile',
-    	            fieldLabel: 'Mobile',
-    	            itemId: 'mobile'
-    	        },{
-    	        	xtype: 'textfield',
-    	            name: 'school',
-    	            fieldLabel: 'School',
-    	            itemId: 'school'
-    	        },{
-    	        	xtype: 'textarea',
-    	        	name: 'bio',
-    	        	fieldLabel: 'Bio',
-    	        	itemId: 'bio'
-	    	    	
-	    	    }],
-	    	    dockedItems: [{
-    	        	xtype: 'toolbar',
-    	        	dock: 'bottom',
-    	        	items: [{
-    	        		xtype: 'button',
-    	        		text: 'load profile',
-    	        		handler: 'getProfile'
-    	        	}]
-    	        }]
+	    	},profileForm,
+//	    	{
+//	    		xtype: 'form',
+//	    		reference: 'formpanel',
+//	    	    layout: {
+//	    	        type: 'vbox',
+//	    	        align: 'stretchmax'
+//	    	    },
+//	    	    defaults: {
+//	    	        labelAlign: 'top',
+//	    	        readOnly: true,
+//	    	        width: 200
+////	    	        anchor: '100%'
+//	    	    },
+//	    	    items: [{
+//	    	    	xtype: 'textfield',
+//    	            name: 'fullname',
+//    	            fieldLabel: 'Name',
+//    	            itemId: 'fullname'
+//    	        },{
+//    	            xtype: 'textfield',
+//    	            name: 'email',
+//    	            fieldLabel: 'Email',
+//    	            itemId: 'email'
+//    	        },{
+//    	            xtype: 'textfield',
+//    	            name: 'mobile',
+//    	            fieldLabel: 'Mobile',
+//    	            itemId: 'mobile'
+//    	        },{
+//    	        	xtype: 'textfield',
+//    	            name: 'school',
+//    	            fieldLabel: 'School',
+//    	            itemId: 'school'
+//    	        },{
+//    	        	xtype: 'textarea',
+//    	        	name: 'bio',
+//    	        	fieldLabel: 'Bio',
+//    	        	itemId: 'bio'
+//	    	    	
+//	    	    }],
+//	    	    dockedItems: [{
+//    	        	xtype: 'toolbar',
+//    	        	dock: 'bottom',
+//    	        	items: [{
+//    	        		xtype: 'button',
+//    	        		text: 'load profile',
+//    	        		handler: 'getProfile'
+//    	        	}]
+//    	        }]
 //	    		xtype: 'profileform',
-	    	}]
+//	    	}
+		]
 		}];
 		this.callParent(arguments);
 	}

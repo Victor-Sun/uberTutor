@@ -31,5 +31,7 @@ Ext.define('uber.view.password.ChangePasswordController',{
     		});
     		Ext.Msg.alert("Error", message, Ext.emptyFn);
     	}
-    }
+    },
+    
+    
 });

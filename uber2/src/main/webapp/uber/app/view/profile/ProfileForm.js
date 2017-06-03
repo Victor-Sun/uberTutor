@@ -2,6 +2,7 @@ Ext.define('uber.view.profile.ProfileForm',{
 	extend: 'Ext.form.Panel',
 	xtype: 'profileform',
 	
+//	model: 'profile',
 	margin: 5,
 	controller: 'profile',
     reference: 'formpanel',
@@ -15,7 +16,7 @@ Ext.define('uber.view.profile.ProfileForm',{
         width: 200
 //        anchor: '100%'
     },
-   // url: 'uber2/main/profile!display.action',
+    url: '/uber2/main/profile!display.action',
     items: [{
 		xtype: 'textfield',
         name: 'fullname',
@@ -39,16 +40,8 @@ Ext.define('uber.view.profile.ProfileForm',{
     },{
     	xtype: 'textarea',
     	name: 'bio',
+    	maxLength: 250,
     	fieldLabel: 'Bio',
     	itemId: 'bio'
-    }],
-    dockedItems: [{
-    	xtype: 'toolbar',
-    	dock: 'bottom',
-    	items: [{
-    		xtype: 'button',
-    		text: 'load profile',
-    		handler: 'getProfile'
-    	}]
     }]
 });

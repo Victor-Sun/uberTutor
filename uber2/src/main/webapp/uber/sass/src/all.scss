@@ -87,6 +87,42 @@
     padding-right: 20%;
 }
 
+//tutor profile
+.tutor-review-grid {
+	.x-grid-cell-inner {
+		white-space: normal !important;
+
+		.review {
+			text-align: left;
+			.information-panel {
+
+				.review-row-one {
+					
+					span {
+						margin: 5px;
+						i {
+							margin: 5px;
+							font-style: normal !important;
+						}
+					}
+					.user-panel {
+						display: inline-block;
+
+					}
+					.date-panel {
+						display: inline-block;
+					}
+					.rating-panel {
+						display: inline-block;
+					}
+				}
+			}
+			.comment-panel {
+			}
+		}
+	}
+}
+
 //chat
 .chat-panel {
 	padding-left: 20%;

@@ -1,39 +1,24 @@
 Ext.define('uber.model.UserInfo',{
 	extend: 'Ext.data.Model',
-//        	config: {
-//        	},
 	fields: [
-//			'username', 'password'
 		{ name: 'fullname', type: 'string' },
-		{ name: 'username', type: 'string' },
+//		{ name: 'username', type: 'string' },
 		{ name: 'email', type: 'string' },
-		{ name: 'password', type: 'string' },
-		{ name: 'currentpassword', type: 'string' },
-		{ name: 'newpassword', type: 'string' },
+		{ name: 'mobile', type: 'string' }
 	],
-//			validations:
-//			[
-//			    {type: 'presence',field: 'username',  message: 'please input valid username'},
-//			    {type: 'presence', field: 'password', message: 'please input valid password'}
-//			],
 	validators: {
 			fullname: [
-			           { type: 'presence', name: 'name',message:"Enter Name"},
+			           { type: 'presence', name: 'fullname',message:"Enter Name"},
 			],
-		    username: [
-		               { type: 'presence', message: 'please input valid username' }
-            ],
-            password: [
-                       { type: 'presence', message: 'please input valid password' }
-            ],
-            currentpassword: [
-                       { type: 'presence', message: 'please input valid password' }
-            ],
-            newpassword: [
-                       { type: 'presence', message: 'new password must be atleast 6 characters long' }
-            ],
+//		    username: [
+//		               { type: 'presence', message: 'please input valid username' }
+//            ],
 			email: [
-			        {type: 'format',   name: 'email', matcher: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, message:"Wrong Email Format"}
-	        ]
+			           { type: 'format',   name: 'emailId', matcher: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, message:"Wrong Email Format"},
+			],
+			mobile: [
+			           { type: 'presence', name: 'mobile',message:"Enter mobile"},
+			],
+			
 	}
 })

@@ -14,27 +14,17 @@ Ext.define('uber.view.profile.ProfileController',{
     profilemanage: function () {
     	var me = this;
     	var main = me.view.up('app-main');
-//    	var main = this.setView('app-main');
-//    	mainCard.destroy();
     	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
 		var card2 = mainCard.add(Ext.create('uber.view.profile.ChangeProfile'));
-//    	var mainCard = main.lookupReference('mainCardPanel');
-//    	var mainLayout = mainCard.getLayout();
-//        var card = mainCard.setActiveItem('changeprofile');
     },
     
     backprofile: function () {
     	var me = this;
     	var main = me.view.up('app-main');
-//    	var main = this.setView('app-main');
-//    	mainCard.destroy();
     	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
 		var card2 = mainCard.add(Ext.create('uber.view.profile.Profile'));
-//    	var mainCard = main.lookupReference('mainCardPanel');
-//    	var mainLayout = mainCard.getLayout();
-//        var card = mainCard.setActiveItem('profile');
     },
     
     getProfile: function () {
@@ -46,52 +36,55 @@ Ext.define('uber.view.profile.ProfileController',{
     	var form = formPanel.getForm();
     	var rec = Ext.create('uber.store.Profile');
     	
-    	
-    	Ext.Ajax.request({
+    	formPanel.load({
+			//submit form for user signup
 			url: '/uber2/main/profile!display.action',
+			method: 'GET',
 			params: {
-				processTaskId: 'fullname'
+				fullname: 'fullname'
 			},
-    	    scope: me,
+			scope: me,
     	    success: function(response, opts) {
-    	    	var obj = Ext.decode(response.responseText);
+    	    	var result = uber.util.Util.decodeJSON(response.responseText);
+    	    	var obj = Ext.JSON.decode(response.responseText);
+    	        console.log(obj);
     	    	Ext.Msg.alert('Error', obj , Ext.emptyFn);
     	    },
+
     	    failure: function(response, opts) {
     	    	ExtApp.util.Util.handleRequestFailure(response);
     	    }
-        });
-    	
-//    	formPanel.load({
-//			//submit form for user signup
+		})
+//    	Ext.Ajax.request({
 //			url: '/uber2/main/profile!display.action',
-//			method: 'GET',
-////			params: {
-////				username: username
-////			},
-//			success: function() {
-//				// change to exception output
-//				Ext.Msg.alert( '', 'update success', Ext.emptyFn )
+//			params: {
+//				processTaskId: 'fullname'
 //			},
-//
-//			failure: function() {
-//				// similar to above
-//				Ext.Msg.alert('', 'update failure', Ext.emptyFn )
-//			},
-//		})	
+//    	    scope: me,
+//    	    success: function(response, opts) {
+//    	    	var result = uber.util.Util.decodeJSON(response.responseText);
+//    	    	var obj = Ext.JSON.decode(response.responseText);
+//    	         console.log(obj.data);
+//    	    	Ext.Msg.alert('Error', obj.data , Ext.emptyFn);
+//    	    },
+//    	    failure: function(response, opts) {
+//    	    	ExtApp.util.Util.handleRequestFailure(response);
+//    	    }
+//        });
+    	
     },
     
     update: function () {
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
-    	var model = Ext.create('uber.model.User', formPanel.getValues());
+    	var model = Ext.create('uber.model.UserInfo', formPanel.getValues());
     	var errors = model.validate();
     	var form = formPanel.getForm();
     	
     	if (model.isValid()){
-    		formPanel.updateRecord({
+    		formPanel.submit({
     			//submit form for user signup
-    			url: '/uber2/main/profile!update.action',
+    			url: '/uber2/main/profile!updateProfile.action',
     			method: 'POST',
     			success: function() {
     				// change to exception output
@@ -100,7 +93,8 @@ Ext.define('uber.view.profile.ProfileController',{
 
     			failure: function() {
     				// similar to above
-    				Ext.Msg.alert('', 'update failure', Ext.emptyFn )
+    				var result = uber.util.Util.decodeJSON(action.response.responseText);
+    				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
     			},
     		})
     	} else {

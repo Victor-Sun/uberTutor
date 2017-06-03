@@ -1,14 +1,13 @@
 Ext.define('uber.view.tutor.TutorReviewGrid',{
 	extend: 'Ext.grid.Panel',
 	xtype: 'tutorreviewgrid',
+	cls: 'tutor-review-grid',
 	layout: 'fit',
 	
 //	viewModel: {
 //		type: 'tutorreviewgrid'
 //	},
 	store:{
-		
-		
 		data: [{
 			name: "Nora Watson",
 			date: "2015/08/23 19:15:00",
@@ -24,23 +23,23 @@ Ext.define('uber.view.tutor.TutorReviewGrid',{
 //			dataIndex: 'data',
 			flex: 1,
 			tpl: [
-				//'<div class="line-wrap">' +
-				//'<div class="contents-wrap">' +
-				//    '<div class="shared-by"></div>' +
-					
-				//    '<div>{content}</div>' +
-				//'</div>' +
-				//'</div>' ,
-				//"<span class='from-now'>" + record.data.createDate + "</span>" +
-				//
 				"<div class='review'>" +
-				"<div class='content-wrap'>" + //ENTIRE CONTAINER
-				    "<div class='information-panel'>" +
-				        "<div><div class='user-panel'><span class='x-fa fa-user'></span>{username}</div><div class='date-panel'><span class='x-fa fa-clock-o'></span>{date}</div></div>" +
-				        "<div class='rating-panel'>{rating}/5 </div>" +
-				    "</div>" +
-				    "<div class='comment-panel'>{comment}</div>" +
-				"</div>" +
+					"<div class='content-wrap'>" + //ENTIRE CONTAINER
+					    "<div class='information-panel'>" +
+					        "<div class='review-row-one'>" +
+					        	"<div class='user-panel'>" +
+					        		"<span><i class='x-fa fa-user'></i>{name}</span>" +
+				        		"</div>" +
+				        		"<div class='date-panel'>" +
+				        			"<span><i class='x-fa fa-clock-o'></i>{date}</span>" +
+					        	"</div>" +
+					        	"<div class='rating-panel'>" +
+					        		"<span><i class='x-fa fa-star'></i>{rating}/5 </span>" +
+				        		"</div>" +
+				        	"</div>" +
+					    "</div>" +
+					    "<div class='comment-panel'>{content}</div>" +
+					"</div>" +
 				"</div>",
 			]
 		}]

@@ -4,12 +4,19 @@ Ext.define('uber.store.Profile',{
 	
 	field: ['id','fullname', 'username', 'email', 'mobile', 'bio'],
 	
-	proxy: {
-		type: 'ajax',
-		url: '',
-		reader: {
-			type: 'json',
-			rootProperty: 'data'
-		}
-	}
+//	proxy: {
+//		type: 'ajax',
+//		url: '/uber2/main/profile!display.action',
+//		reader: {
+//			type: 'json',
+//			rootProperty: 'data'
+//		}
+//	},
+//	autoLoad: true,
+//	listeners: {
+//        load: function(store, records) {
+//            var record = store.getAt(0);
+//            formPanel.getForm().loadRecord(record);
+//        }
+//    }
 });

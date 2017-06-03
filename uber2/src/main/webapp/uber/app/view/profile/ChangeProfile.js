@@ -29,7 +29,7 @@ Ext.define('uber.view.profile.ChangeProfile',{
     		},{
     			xtype: 'button',
     			margin: 5,
-    			text: 'Save',
+    			text: 'Finish Edit',
     			handler: 'backprofile'
     		}]
     	},{
@@ -66,21 +66,30 @@ Ext.define('uber.view.profile.ChangeProfile',{
 		    },
 			items: [{
                 name: 'fullname',
-                fieldLabel: 'Name',
+                fieldLabel: 'Name&nbsp;*',
             },{
                 name: 'email',
-                fieldLabel: 'Email',
+                fieldLabel: 'Email&nbsp;*',
             },{
-                name: 'modile',
-                fieldLabel: 'Mobile',
+                name: 'mobile',
+                fieldLabel: 'Mobile&nbsp;*',
             },{
             	name: 'school',
             	fieldLabel: 'School',
             },{
+            	xtype: 'textarea',
             	name: 'bio',
+            	maxLength: 250,
             	fieldLabel: 'Bio',
 			}],
 			dockedItems: [{
+				xtype:'toolbar',
+				dock: 'bottom',
+				items: [{
+					xtype: 'button',
+					text: 'Update',
+					handler: 'update'
+				}]
 				
 			}]
 		}]
