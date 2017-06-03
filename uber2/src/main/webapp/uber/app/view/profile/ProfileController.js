@@ -84,7 +84,7 @@ Ext.define('uber.view.profile.ProfileController',{
     	if (model.isValid()){
     		formPanel.submit({
     			//submit form for user signup
-    			url: '/uber2/main/profile!updateProfile.action',
+    			url: '/uber2/main/profile!update.action',
     			method: 'POST',
     			success: function() {
     				// change to exception output

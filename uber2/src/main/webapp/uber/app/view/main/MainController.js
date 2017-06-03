@@ -85,6 +85,7 @@ Ext.define('uber.view.main.MainController', {
     logout: function() {
 		var me = this;
 		this.getView().destroy();
-		Ext.create('uber.view.login.Login');
+		var login = Ext.create('uber.view.login.Login');
+		var radio = login.down('pageradio').setValue({ab: 2});
     }
 });

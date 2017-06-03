@@ -62,9 +62,9 @@ Ext.define('uber.view.session.Sessions',{
 				     { name: 'Phillip'}
 		       ]
 			},
-//			listeners: {
-//				celldblclick: 'onCelldblclick'
-//			}
+			listeners: {
+				celldblclick: 'onCelldblclick'
+			}
 		}]
 	}]
 })

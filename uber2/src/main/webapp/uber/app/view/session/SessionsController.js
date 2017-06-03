@@ -23,7 +23,7 @@ Ext.define('uber.view.session.SessionsController',{
         
         var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
-		var card2 = mainCard.add(Ext.create('uber.view.session.MySessionTutor'));
+		var card2 = mainCard.add(Ext.create('uber.view.session.MySession'));
     },
     
     feedback: function () {
