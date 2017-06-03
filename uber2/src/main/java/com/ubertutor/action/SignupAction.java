@@ -97,7 +97,6 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	protected void prepareModel() throws Exception {
 		if(id == null){
 			entity = new UserEntity();
-			//			entity.setUuid(CommonUtils.getUUID());
 		}else{
 			entity = signupService.get(id);
 		}

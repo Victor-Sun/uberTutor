@@ -40,9 +40,6 @@ public class ChangePasswordAction extends ActionSupport{
 				throw new Exception(msg);
 			}
 			System.out.println(user + " " + userid);
-			//TODO Think of a better way to update the password
-//			entity.setPassword(EncryptUtil.encrypt(entity.getPassword()));
-//			signupService.registerAccount(entity);
 			passwordService.updatePassword(userid, p1);
 			this.writeSuccessResult(resultMap);
 		} catch (Exception e){

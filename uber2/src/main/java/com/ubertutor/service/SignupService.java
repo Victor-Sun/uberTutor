@@ -30,14 +30,14 @@ public class SignupService {
 	 * @param password
 	 * @return true if the password is valid 
 	 */
-	public boolean validPassword(String password){
+//	public boolean validPassword(String password){
 		//TODO Password validation: Check if the password is specific number of characters, 
 //		if the password has any illegal characters
 //		if(){
 //			return false;
 //		}
-		return true;
-	}
+//		return true;
+//	}
 	
 	/**
 	 * Saves the data to the entity
