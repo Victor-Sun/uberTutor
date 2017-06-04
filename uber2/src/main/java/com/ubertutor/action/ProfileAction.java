@@ -42,7 +42,7 @@ public class ProfileAction extends ActionSupport{
     public void update() throws Exception{
     	try{
     		//TODO Checks + Verification
-    		String fullname, email, mobile, bio, school;
+    		String fullname, email, mobile, bio, school, schoolid;
 			SchoolEntity schoolEntity;
     		fullname = Struts2Utils.getRequest().getParameter("fullname");
     		email = Struts2Utils.getRequest().getParameter("email");
@@ -50,7 +50,8 @@ public class ProfileAction extends ActionSupport{
     		bio = Struts2Utils.getRequest().getParameter("bio");
     		school = Struts2Utils.getRequest().getParameter("school");
     		schoolEntity = profileService.getSchoolFromName(school);
-    		profileService.updateProfile(user.getId().toString(), fullname, email, mobile, bio, schoolEntity.getId());
+    		schoolid = schoolEntity.getId().toString();
+    		profileService.updateProfile(user.getId().toString(), fullname, email, mobile, bio, schoolid);
     	}catch(Exception e){
     		e.printStackTrace();
     	}

@@ -61,7 +61,7 @@ public class ProfileService {
 		return this.getUser(username).getUsername();
 	}
 
-	public void updateProfile(String id, String fullname, String email, String mobile, String bio, Long schoolId){
+	public void updateProfile(String id, String fullname, String email, String mobile, String bio, String schoolId){
 		StringBuffer sql = null;
 		List<Object> params = null;
 		//TODO Find a way to update the school as well
