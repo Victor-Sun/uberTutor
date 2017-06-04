@@ -28,7 +28,6 @@ Ext.define('uber.view.profile.ProfileController',{
     },
     
     getProfile: function () {
-    	debugger;
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
     	var model = Ext.create('uber.model.User', formPanel.getValues());
@@ -71,11 +70,9 @@ Ext.define('uber.view.profile.ProfileController',{
 //    	    	ExtApp.util.Util.handleRequestFailure(response);
 //    	    }
 //        });
-    	
     },
     
     update: function () {
-    	debugger;
     	var me = this;
 //    	var formPanel = this.lookupReference('formpanel');
     	var formPanel = this.view;
