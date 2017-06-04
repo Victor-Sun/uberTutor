@@ -35,7 +35,7 @@ public class UserEntity implements Serializable{
 	private String password;
 	
 	@Column(name="SCHOOL_ID")
-	private String schools;
+	private String schoolId;
 	
 	
 	@Column(name="EMAIL") 
@@ -82,12 +82,12 @@ public class UserEntity implements Serializable{
 	@Column(name="IS_VERIFIED") 
 	private String isVerified;
 
-	public String getSchools() {
-		return schools;
+	public String getSchoolId() {
+		return schoolId;
 	}
 
-	public void setSchools(String schools) {
-		this.schools = schools;
+	public void setSchoolId(String schoolId) {
+		this.schoolId = schoolId;
 	}
 
 	public String getBio() {

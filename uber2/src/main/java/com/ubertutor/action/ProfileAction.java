@@ -20,18 +20,19 @@ public class ProfileAction extends ActionSupport{
 
     @Autowired
     private ProfileService profileService;
-    
+    private SchoolEntity schoolEntity;
     private UserEntity user = SessionData.getLoginUser();
     
     public void display() throws Exception{
         try{
             JsonResult result = new JsonResult();
             Map<String, String> profileResult = new HashMap<String,String>();
+            SchoolEntity school = profileService.getSchool(Long.parseLong(user.getSchoolId()));
             profileResult.put("fullname",user.getFullname());
             profileResult.put("email",user.getEmail());
             profileResult.put("mobile",user.getMobile());
             profileResult.put("bio",user.getBio());
-            profileResult.put("school",profileService.getSchool((long)2).getName());
+            profileResult.put("school",school.getName());
             result.buildSuccessResult(profileResult);
             Struts2Utils.renderJson(result);
         }catch(Exception e){
@@ -43,7 +44,6 @@ public class ProfileAction extends ActionSupport{
     	try{
     		//TODO Checks + Verification
     		String fullname, email, mobile, bio, school, schoolid;
-			SchoolEntity schoolEntity;
     		fullname = Struts2Utils.getRequest().getParameter("fullname");
     		email = Struts2Utils.getRequest().getParameter("email");
     		mobile = Struts2Utils.getRequest().getParameter("mobile");
