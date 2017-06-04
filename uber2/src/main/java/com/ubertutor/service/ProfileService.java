@@ -45,16 +45,16 @@ public class ProfileService {
 		return this.getUser(username).getUsername();
 	}
 
-	public void updateProfile(String fullname, String email, String mobile, String bio){
+	public void updateProfile(String id, String fullname, String email, String mobile, String bio){
 		StringBuffer sql = null;
 		List<Object> params = null;
 		//TODO Find a way to update the school as well
 		sql = new StringBuffer();
 		sql.append(" UPDATE USERS SET");
 		sql.append(" FULLNAME = ?");
-		sql.append(" EMAIL = ?");
-		sql.append(" MOBILE = ?");
-		sql.append(" BIO = ?");
+		sql.append(",EMAIL = ?");
+		sql.append(",MOBILE = ?");
+		sql.append(",BIO = ?");
 		sql.append(",UPDATE_BY = ?");
 		sql.append(",UPDATE_DATE = SYSDATE");
 		sql.append(" WHERE");
@@ -64,6 +64,8 @@ public class ProfileService {
 		params.add(email);
 		params.add(mobile);
 		params.add(bio);
+		params.add(id);
+		params.add(id);
 		this.jdbcTemplate.update(sql.toString(), params.toArray());
 	}
 }

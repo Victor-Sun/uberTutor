@@ -107,15 +107,15 @@ CREATE TABLE FEEDBACK(
 );
 
 -- Table initialization
-INSERT INTO USERS(ID, USERNAME, FULLNAME, PASSWORD, SCHOOLS, EMAIL, IS_ADMIN) 
-VALUES('1', 'admin', 'admin', 'oqGiG3w2C/s4l945xI++My4Wpv2cCyLi', '1', 'email@domain.com', 'Y');
-INSERT INTO USERS(ID, USERNAME, FULLNAME, PASSWORD, SCHOOLS, EMAIL, BIO, IS_TUTOR,IS_ADMIN) 
-VALUES('2', 'tutor', 'tutor', 'oqGiG3w2C/s4l945xI++My4Wpv2cCyLi', '2', 'email@domain.com', 'This is a tutors bio. Read about all the stuff this guy can do!' , 'Y','N');
-
 INSERT ALL
 	INTO SCHOOLS (ID, NAME, CITY, STATE) VALUES ('1', 'GRAND VALLEY STATE UNIVERSITY', 'ALLENDALE', 'MI')
 	INTO SCHOOLS (ID, NAME, CITY, STATE) VALUES ('2', 'UNIVERSITY OF MICHIGAN', 'ANN ARBOR', 'MI')
 SELECT * FROM DUAL;
+
+INSERT INTO USERS(ID, USERNAME, FULLNAME, PASSWORD, SCHOOL_ID, EMAIL, IS_ADMIN) 
+VALUES('1', 'admin', 'admin', 'oqGiG3w2C/s4l945xI++My4Wpv2cCyLi', '1', 'email@domain.com', 'Y');
+INSERT INTO USERS(ID, USERNAME, FULLNAME, PASSWORD, SCHOOL_ID, EMAIL, BIO, IS_TUTOR,IS_ADMIN) 
+VALUES('2', 'tutor', 'tutor', 'oqGiG3w2C/s4l945xI++My4Wpv2cCyLi', '2', 'email@domain.com', 'This is a tutors bio. Read about all the stuff this guy can do!' , 'Y','N');
 
 INSERT ALL
 	INTO SUBJECT_CATEGORY(ID, TITLE) VALUES('1', 'Math')

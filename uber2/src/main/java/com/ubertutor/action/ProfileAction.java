@@ -41,7 +41,12 @@ public class ProfileAction extends ActionSupport{
     public void update() throws Exception{
     	try{
     		//TODO Checks + Verification
-    		profileService.updateProfile(user.getFullname(), user.getEmail(), user.getMobile(), user.getBio());
+    		String fullname, email, mobile, bio, school;
+    		fullname = Struts2Utils.getRequest().getParameter("fullname");
+    		email = Struts2Utils.getRequest().getParameter("email");
+    		mobile = Struts2Utils.getRequest().getParameter("mobile");
+    		bio = Struts2Utils.getRequest().getParameter("bio");
+    		profileService.updateProfile(user.getId().toString(), fullname, email, mobile, bio);
     	}catch(Exception e){
     		e.printStackTrace();
     	}
