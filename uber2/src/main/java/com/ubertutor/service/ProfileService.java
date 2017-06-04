@@ -42,6 +42,15 @@ public class ProfileService {
 		return new SchoolEntity();
 	}
 
+	public SchoolEntity getSchoolFromName(String name){
+		String hql = "FROM SchoolEntity WHERE name = ?";
+		List<SchoolEntity> result = this.schoolDAO.find(hql, name);
+		if (result.size() > 0) {
+			return result.get(0);
+		}
+		return new SchoolEntity();
+	}
+	
 	public List<Map<String,Object>> getSchoolList(){
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT ID, NAME FROM SCHOOLS");
@@ -52,7 +61,7 @@ public class ProfileService {
 		return this.getUser(username).getUsername();
 	}
 
-	public void updateProfile(String id, String fullname, String email, String mobile, String bio){
+	public void updateProfile(String id, String fullname, String email, String mobile, String bio, Long schoolId){
 		StringBuffer sql = null;
 		List<Object> params = null;
 		//TODO Find a way to update the school as well
@@ -62,6 +71,7 @@ public class ProfileService {
 		sql.append(",EMAIL = ?");
 		sql.append(",MOBILE = ?");
 		sql.append(",BIO = ?");
+		sql.append(",SCHOOL_ID = ?");
 		sql.append(",UPDATE_BY = ?");
 		sql.append(",UPDATE_DATE = SYSDATE");
 		sql.append(" WHERE");
@@ -71,6 +81,7 @@ public class ProfileService {
 		params.add(email);
 		params.add(mobile);
 		params.add(bio);
+		params.add(schoolId);
 		params.add(id);
 		params.add(id);
 		this.jdbcTemplate.update(sql.toString(), params.toArray());

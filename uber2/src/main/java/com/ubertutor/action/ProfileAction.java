@@ -10,6 +10,7 @@ import org.springside.modules.utils.web.struts2.Struts2Utils;
 import com.gnomon.common.utils.JsonResult;
 import com.gnomon.common.web.SessionData;
 import com.opensymphony.xwork2.ActionSupport;
+import com.ubertutor.entity.SchoolEntity;
 import com.ubertutor.entity.UserEntity;
 import com.ubertutor.service.ProfileService;
 
@@ -42,11 +43,14 @@ public class ProfileAction extends ActionSupport{
     	try{
     		//TODO Checks + Verification
     		String fullname, email, mobile, bio, school;
+			SchoolEntity schoolEntity;
     		fullname = Struts2Utils.getRequest().getParameter("fullname");
     		email = Struts2Utils.getRequest().getParameter("email");
     		mobile = Struts2Utils.getRequest().getParameter("mobile");
     		bio = Struts2Utils.getRequest().getParameter("bio");
-    		profileService.updateProfile(user.getId().toString(), fullname, email, mobile, bio);
+    		school = Struts2Utils.getRequest().getParameter("school");
+    		schoolEntity = profileService.getSchoolFromName(school);
+    		profileService.updateProfile(user.getId().toString(), fullname, email, mobile, bio, schoolEntity.getId());
     	}catch(Exception e){
     		e.printStackTrace();
     	}
