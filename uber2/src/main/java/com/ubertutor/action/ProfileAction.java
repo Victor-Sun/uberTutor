@@ -51,4 +51,14 @@ public class ProfileAction extends ActionSupport{
     		e.printStackTrace();
     	}
     }
+    
+    public void displaySchool(){
+    	try{
+    		JsonResult result = new JsonResult();
+    		result.buildSuccessResult(profileService.getSchoolList());
+    		Struts2Utils.renderJson(result);
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    }
 }

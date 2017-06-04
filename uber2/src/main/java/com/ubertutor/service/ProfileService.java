@@ -2,6 +2,7 @@ package com.ubertutor.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,6 +42,12 @@ public class ProfileService {
 		return new SchoolEntity();
 	}
 
+	public List<Map<String,Object>> getSchoolList(){
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT ID, NAME FROM SCHOOLS");
+		return this.jdbcTemplate.queryForList(sql.toString());
+	}
+	
 	public String getUserId(String username) {
 		return this.getUser(username).getUsername();
 	}
