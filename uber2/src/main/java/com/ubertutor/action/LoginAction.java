@@ -90,7 +90,7 @@ public class LoginAction extends ActionSupport {
 			// Session-用户部门信息
 			// 系统用户信息取得
 			//TODO Figure out how to incorporate this code into uber2, is this code needed?
-			loginService.saveLoginLog(loginUser.getId().toString());
+//			loginService.saveLoginLog(loginUser.getId().toString());
 			resultMap.put("userName", loginUser.getUsername());
 			writeSuccessResult(resultMap);
 		} catch (Exception e) {
