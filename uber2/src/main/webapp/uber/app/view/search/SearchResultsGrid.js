@@ -1,6 +1,6 @@
 Ext.define('uber.view.search.SearchResultsGrid',{
 	extend: 'Ext.grid.Panel',
-	xtype: 'searchresultgrid',
+	xtype: 'searchresultsgrid',
 	
 	flex: 1,
 //	layout: 'fit',
@@ -88,10 +88,71 @@ Ext.define('uber.view.search.SearchResultsGrid',{
 					}]
 				}).show();
 			}
+		},{
+			iconCls: 'x-fa fa-adjust',
+			margin: 5,
+			tooltip: 'Tutor Profile Test',
+			handler: function () {
+				var me = this;
+				var tabpanel = me.up('tabpanel');
+		    	var profile = Ext.create({
+		    		xtype: 'tutorprofile',
+		    		scrollable: 'y',
+		    		closable: true,
+		    		title: 'Tutor Profile',
+		    		dockedItems: [{
+		    			xtype: 'toolbar',
+		    			dock: 'top',
+		    			items: [{
+		    				xtype: 'button',
+		    				text: 'Request',
+		    				handler: function () {
+		    					Ext.create('Ext.window.Window',{
+		    						header: false,
+		    						width: 900,
+		    						height: 700,
+		    						layout: 'fit',
+		    						items: [{
+		    							xtype: 'makerequest',
+		    							title: 'Tutor Request'
+		    						}],
+		    						dockedItems: [{
+		    							xtype: 'toolbar',
+		    							dock: 'bottom',
+		    							items: [{
+		    								xtype: 'button',
+		    								text: 'Submit',
+		    								handler: function () {
+		    									var window = this.up('window');
+		    									window.close();
+		    								}
+		    							},'->',{
+		    								xtype: 'button',
+		    								text: 'Close',
+		    								handler: function () {
+		    									var window = this.up('window');
+		    									window.close();
+		    								}
+		    							}]
+		    						}]
+		    					}).show();
+		    				}
+		    			},'->',{
+		    				xtype: 'button',
+		    				text: 'Close',
+		    				handler: function () {
+		    					var tab = this.up('tutorprofile');
+		    					tab.close();
+		    				}
+		    			}]
+		    		}]
+		    	});
+		    	tabpanel.add(profile);
+		    	tabpanel.setActiveTab(profile);
+			}
 		}]
 	}],
-	
-//	listeners: {
-//		celldblclick: 'onCelldblclick'
-//	}
+	listeners: {
+		celldblclick: 'onCelldblclick'
+	}
 });

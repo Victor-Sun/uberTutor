@@ -27,8 +27,10 @@ Ext.define('uber.view.search.SearchResults',{
 		},{
 			xtype: 'tabpanel',
 			flex: 1,
+			layout: 'fit',
 			items: [{
-				xtype: 'searchresultsgrid'
+				xtype: 'searchresultsgrid',
+				title: 'Search Results Grid'
 			}]
 		}]
 	}]

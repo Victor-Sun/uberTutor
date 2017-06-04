@@ -55,7 +55,6 @@ Ext.define('uber.view.login.LoginController', {
 	},
 
 	onLoginSuccess: function (form, action) {
-//		debugger;
 		var me = this;
 		this.getView().unmask();
   	//if login info is correct
@@ -131,7 +130,6 @@ Ext.define('uber.view.login.LoginController', {
 	},
 
 	onSignUpSuccess: function (form, action) {
-		debugger;
 		var me = this;
 		this.getView().unmask();
 		me.lookupReference('formpanel').up('login').destroy();

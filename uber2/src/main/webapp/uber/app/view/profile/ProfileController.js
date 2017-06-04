@@ -75,8 +75,10 @@ Ext.define('uber.view.profile.ProfileController',{
     },
     
     update: function () {
+    	debugger;
     	var me = this;
-    	var formPanel = this.lookupReference('formpanel');
+//    	var formPanel = this.lookupReference('formpanel');
+    	var formPanel = this.view;
     	var model = Ext.create('uber.model.UserInfo', formPanel.getValues());
     	var errors = model.validate();
     	var form = formPanel.getForm();
@@ -86,6 +88,9 @@ Ext.define('uber.view.profile.ProfileController',{
     			//submit form for user signup
     			url: '/uber2/main/profile!update.action',
     			method: 'POST',
+    			params: {
+    				fullname: 'fullname'
+    			},
     			success: function() {
     				// change to exception output
     				Ext.Msg.alert( '', 'update success', Ext.emptyFn )

@@ -14,17 +14,16 @@ Ext.define('uber.view.profile.Profile', {
 	cls: 'uber-panel',
 	initComponent: function () {
 		var profileForm = Ext.create('uber.view.profile.ProfileForm');
-		profileForm.load();
-//		profileForm.load({
-//			url: '/uber2/main/profile!display.action',
-//			params: {
-//				fullname: 'fullname'
-//			},
-//			reader: {
-//				type: 'json',
-//				rootProperty: 'data'
-//			}
-//		});
+		profileForm.load({
+			url: '/uber2/main/profile!display.action',
+			params: {
+				fullname: 'fullname'
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
 		this.items = [{
 			xtype: 'panel',
 			flex: 1,
@@ -120,5 +119,4 @@ Ext.define('uber.view.profile.Profile', {
 		}];
 		this.callParent(arguments);
 	}
-	
 });
