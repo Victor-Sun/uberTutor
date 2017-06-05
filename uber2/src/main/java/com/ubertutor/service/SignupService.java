@@ -39,10 +39,8 @@ public class SignupService {
 //		return true;
 //	}
 	
-	/**
-	 * Saves the data to the entity
-	 * @param entity
-	 */
+	
+	
 	public void registerAccount(UserEntity entity){
 		userDAO.save(entity);
 	}

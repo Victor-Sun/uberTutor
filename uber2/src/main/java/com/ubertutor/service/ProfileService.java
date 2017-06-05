@@ -61,11 +61,17 @@ public class ProfileService {
 		return this.getUser(username).getUsername();
 	}
 
+	public List<Map<String,Object>> getCategorySubjectList(){
+		StringBuffer sql = new StringBuffer();
+		List<Object> params = new ArrayList<Object>();
+		 
+		return null;
+	}
+	
 	public void updateProfile(String id, String fullname, String email, String mobile, String bio, String schoolId){
-		StringBuffer sql = null;
-		List<Object> params = null;
+		StringBuffer sql = new StringBuffer();
+		List<Object> params = new ArrayList<Object>();
 		//TODO Find a way to update the school as well
-		sql = new StringBuffer();
 		sql.append(" UPDATE USERS SET");
 		sql.append(" FULLNAME = ?");
 		sql.append(",EMAIL = ?");
@@ -76,13 +82,26 @@ public class ProfileService {
 		sql.append(",UPDATE_DATE = SYSDATE");
 		sql.append(" WHERE");
 		sql.append(" ID = ?");
-		params = new ArrayList<Object>();
 		params.add(fullname);
 		params.add(email);
 		params.add(mobile);
 		params.add(bio);
 		params.add(schoolId);
 		params.add(id);
+		params.add(id);
+		this.jdbcTemplate.update(sql.toString(), params.toArray());
+	}
+	
+	public void registerAsTutor(Long id){
+		StringBuffer sql = new StringBuffer();
+		List<Object> params = new ArrayList<Object>();
+		UserEntity user = userDAO.get(id);
+		sql.append(" UPDATE USERS SET IS_TUTOR = ? WHERE ID = ?");
+		if(!user.getIsTutor().equals("Y")){
+			params.add("Y");
+		} else {
+			params.add("N");
+		}
 		params.add(id);
 		this.jdbcTemplate.update(sql.toString(), params.toArray());
 	}

@@ -28,7 +28,6 @@ public class LoginAction extends ActionSupport {
 	
 	@Autowired
 	private LoginService loginService;
-	
 	@Autowired
 	private SysUserDepartmentService sysUserDepartmentService;
 	

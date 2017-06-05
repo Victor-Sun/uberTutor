@@ -66,4 +66,9 @@ public class ProfileAction extends ActionSupport{
     		e.printStackTrace();
     	}
     }
+    
+    public void registerAsTutor(){
+    	profileService.registerAsTutor(user.getId());
+    }
+    
 }
