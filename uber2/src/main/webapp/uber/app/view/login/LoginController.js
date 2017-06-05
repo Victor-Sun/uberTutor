@@ -82,10 +82,16 @@ Ext.define('uber.view.login.LoginController', {
 	},
 
 	onSignUpSuccess: function (form, action) {
+		debugger;
 		var me = this;
 		this.getView().unmask();
 		me.lookupReference('formpanel').up('login').destroy();
 		Ext.create('uber.view.main.Main');
+		var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+		var card2 = mainCard.add(Ext.create('uber.view.main.MainPage'));
+        var mainLayout = mainCard.getLayout();
+        var card = mainCard.setActiveItem('mainpage');
+
 		var result = uber.util.Util.decodeJSON(action.response.responseText);
 		var userName = result.data.userName;
 		var userNameText = Ext.ComponentQuery.query('#userNameItemId')[0];
@@ -93,6 +99,7 @@ Ext.define('uber.view.login.LoginController', {
 	},
     
     signup: function () {
+    	debugger;
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
 //    	var model = Ext.create('uber.model.NewUser', formPanel.getValues());
@@ -104,15 +111,17 @@ Ext.define('uber.view.login.LoginController', {
     			method: 'POST',
     			clientValidation: true,
     			scope: me,
-    			success: function() {
-    				me.lookupReference('formpanel').up('signup').destroy();
-    				Ext.create('uber.view.main.Main');
-    			},
+    			success: 'onSignUpSuccess',
+//				function() {
+//    				me.lookupReference('formpanel').up('signup').destroy();
+//    				Ext.create('uber.view.main.Main');
+//    			},
 
-    			failure: function(form, action) {
-    				var result = uber.util.Util.decodeJSON(action.response.responseText);
-    				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
-    			},
+    			failure: 'onSignUpFailure' 
+//    			function(form, action) {
+//    				var result = uber.util.Util.decodeJSON(action.response.responseText);
+//    				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
+//    			},
     		})
     	} else {
     		var message = "";
