@@ -5,9 +5,6 @@ Ext.define('uber.view.password.ChangePasswordController',{
     changePassword: function () {
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
-//    	var model = Ext.create('uber.model.Password', formPanel.getValues());
-//    	var errors = model.validate();
-//    	var form = formPanel.getForm();
     	
     	if(formPanel.getForm().isValid()){
     		formPanel.submit({
