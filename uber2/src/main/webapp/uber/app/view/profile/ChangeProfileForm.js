@@ -26,11 +26,6 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
     	             rootProperty: 'data'
     	         }
     	    },
-//    		data: [
-//    		       { "school": "Grand Valley State University"},
-//    		       { "school": "Michigan State University"},
-//    		       { "school": "University of Michigan"}
-//    		       ]
     	});
     	this.items = [{
     		name: 'fullname',

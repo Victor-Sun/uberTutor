@@ -36,10 +36,23 @@ Ext.define('uber.view.profile.ProfileForm',{
         fieldLabel: 'School',
         itemId: 'school'
     },{
+    	xtype: 'checkbox',
+    	name: 'isTutor',
+//    	handler: function () {
+//    		var checkbox = this.getValue();
+//    		if (checkbox = 1) {
+//    			
+//    		}
+//    	}
+    },{
     	xtype: 'textarea',
     	name: 'bio',
     	maxLength: 1000,
     	fieldLabel: 'Bio',
     	itemId: 'bio'
+//    },{
+//    	xtype: 'component',
+//    	name: ''
+//    	html: ''
     }]
 });

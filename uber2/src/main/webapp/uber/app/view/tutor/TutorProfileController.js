@@ -5,8 +5,6 @@ Ext.define('uber.view.tutor.TutorProfileController',{
     request: function () {
     	var me = this;
     	var main = me.view.up('app-main');
-//    	var main = this.setView('app-main');
-//    	mainCard.destroy();
     	var mainCard = main.lookupReference('mainCardPanel')
     	var mainLayout = mainCard.getLayout();
         var card = mainCard.setActiveItem('makerequest');
@@ -18,8 +16,6 @@ Ext.define('uber.view.tutor.TutorProfileController',{
     	var rec = grid.getStore().getAt(rowIndex);
     	console.log(rec.data);
     	var main = me.view.up('app-main');
-//    	var main = this.setView('app-main');
-//    	mainCard.destroy();
     	var mainCard = main.lookupReference('mainCardPanel')
     	var mainLayout = mainCard.getLayout();
         var card = mainCard.setActiveItem('chat');

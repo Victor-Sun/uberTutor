@@ -12,6 +12,10 @@ Ext.define('uber.Application', {
         // TODO: add global / shared stores here
     ],
     
+    requires: [
+          'uber.view.homepage.Homepage',
+          'uber.util.Util'
+    ],
     launch: function () {
         // TODO - Launch the application
 //    	Ext.create('uber.view.main.Main');

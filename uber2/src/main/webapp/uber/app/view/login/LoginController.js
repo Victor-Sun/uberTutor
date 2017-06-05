@@ -15,25 +15,10 @@ Ext.define('uber.view.login.LoginController', {
     	var status = me.lookupReference('pageradio');
     	var radio = status.getValue();
     	
-//    	switch (radio.ab) {
-//	        case 1:
-////    		this.up('loginpage').destroy();
-//	   //  		this.view.destroy();
-//				// Ext.create('uber.view.main.Main');
-//                signup
-//	            break;
-//	        case 2:
-////    		this.up('loginpage').destroy();
-//	   //  		this.view.destroy();
-//				// Ext.create('uber.view.main.Main');
-//                login
-//	            break;
-//	    }
-    	
     	if (radio.ab != '1') {
-    		this.login();
+    		me.login();
     	} else {
-    		this.signup();
+    		me.signup();
     	}
     },
     
@@ -42,16 +27,6 @@ Ext.define('uber.view.login.LoginController', {
         this.getView().unmask();
         var result = uber.util.Util.decodeJSON(action.response.responseText);
         Ext.Msg.alert('Error', result.data, Ext.emptyFn);
-//        switch (action.failureType) {
-//            case Ext.form.action.Action.CLIENT_INVALID:
-//            	uber.util.Util.showErrorMsg('Form fields may not be submitted with invalid values');
-//                break;
-//            case Ext.form.action.Action.CONNECT_FAILURE:
-//            	uber.util.Util.showErrorMsg(action.response.responseText);
-//                break;
-//            case Ext.form.action.Action.SERVER_INVALID:
-//            	uber.util.Util.showErrorMsg(result.data);
-//        	}
 	},
 
 	onLoginSuccess: function (form, action) {
@@ -61,10 +36,7 @@ Ext.define('uber.view.login.LoginController', {
 		me.lookupReference('formpanel').up('login').destroy();
 		Ext.create('uber.view.main.Main');
 
-		// var mainCard = me.lookupReference('mainCardPanel');
 		var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
-		// var cardItem = mainCard.getActiveItem;
-		// var destory = cardItem.destroy();
 		var card2 = mainCard.add(Ext.create('uber.view.main.MainPage'));
         var mainLayout = mainCard.getLayout();
         var card = mainCard.setActiveItem('mainpage');
@@ -82,26 +54,16 @@ Ext.define('uber.view.login.LoginController', {
     	//4. if not valid an alert message will appear
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
-    	var model = Ext.create('uber.model.User', formPanel.getValues());
-    	var errors = model.validate();
+//    	var model = Ext.create('uber.model.User', formPanel.getValues());
     	Ext.getBody().mask('Validating... Please Wait...');
-    	if(model.isValid()){
+    	if(formPanel.getForm().isValid()){
     		formPanel.submit({ 
     			url: '/uber2/main/login!login.action',
     			method: 'POST', 
     			clientValidation: true,
     			scope: me,
     			success: 'onLoginSuccess' ,
-//    			function() {
-//    		         me.lookupReference('formpanel').up('login').destroy();
-//    		         Ext.create('uber.view.main.Main');
-//    		    },
     		    failure: 'onLoginFailure' 
-//    		    function(form, action) {
-//    		    	 var result = uber.util.Util.decodeJSON(action.response.responseText);
-////    		         console.log('server-side failure with status code ' + response.status);
-//    		         Ext.Msg.alert('Error', result.data, Ext.emptyFn);
-//    		    }
     		});
     	} else {
     		var message = "";
@@ -117,16 +79,6 @@ Ext.define('uber.view.login.LoginController', {
         this.getView().unmask();
         var result = uber.util.Util.decodeJSON(action.response.responseText);
         Ext.Msg.alert('Error', result.data, Ext.emptyFn);
-//        switch (action.failureType) {
-//            case Ext.form.action.Action.CLIENT_INVALID:
-//            	uber.util.Util.showErrorMsg('Form fields may not be submitted with invalid values');
-//                break;
-//            case Ext.form.action.Action.CONNECT_FAILURE:
-//            	uber.util.Util.showErrorMsg(action.response.responseText);
-//                break;
-//            case Ext.form.action.Action.SERVER_INVALID:
-//            	uber.util.Util.showErrorMsg(result.data);
-//        	}
 	},
 
 	onSignUpSuccess: function (form, action) {
@@ -143,11 +95,9 @@ Ext.define('uber.view.login.LoginController', {
     signup: function () {
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
-    	var model = Ext.create('uber.model.UserInfo', formPanel.getValues());
-    	var errors = model.validate();
-//    	var form = formPanel.getForm();
-    	
-    	if (model.isValid()){
+//    	var model = Ext.create('uber.model.NewUser', formPanel.getValues());
+    	Ext.getBody().mask('Validating... Please Wait...');
+    	if(formPanel.getForm().isValid()){
     		formPanel.submit({
     			//submit form for user signup
     			url: '/uber2/main/signup!save.action',
@@ -157,13 +107,11 @@ Ext.define('uber.view.login.LoginController', {
     			success: function() {
     				me.lookupReference('formpanel').up('signup').destroy();
     				Ext.create('uber.view.main.Main');
-//    				Ext.create('uber.view.verification.Verification');
     			},
 
     			failure: function(form, action) {
     				var result = uber.util.Util.decodeJSON(action.response.responseText);
     				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
-//    				Ext.Msg.alert('', 'registration failure', Ext.emptyFn )
     			},
     		})
     	} else {

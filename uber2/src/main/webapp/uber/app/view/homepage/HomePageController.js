@@ -9,10 +9,6 @@ Ext.define('uber.view.homepage.HomePageController',{
 		var login = Ext.create('uber.view.login.Login');
 		var radio = login.down('pageradio').setValue({ab: 1});
 		
-//		var me = this;
-//		var destroy = this.up('homepage').destroy;
-//		var login = Ext.create('uber.view.login.Login');
-//		var radio = login.down('pageradio').setValue({ab: 1});
 	},
 	
 	signin: function () {

@@ -5,11 +5,6 @@ Ext.define('uber.view.profile.SearchController',{
     searchresults: function () {
     	var me = this;
     	var main = me.view.up('app-main');
-//    	var main = this.setView('app-main');
-//    	mainCard.destroy();
-//    	var mainCard = main.lookupReference('mainCardPanel')
-//    	var mainLayout = mainCard.getLayout();
-//        var card = mainCard.setActiveItem('searchresults');
     	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
 		var card2 = mainCard.add(Ext.create('uber.view.search.SearchResults'));
@@ -28,12 +23,5 @@ Ext.define('uber.view.profile.SearchController',{
     	tabpanel.add(profile);
     	tabpanel.setActiveTab(profile);
     	
-//    	var mainCard = main.lookupReference('mainCardPanel')
-//    	var mainLayout = mainCard.getLayout();
-//        var card = mainCard.setActiveItem('tutorprofile');
-        
-//        var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
-//		var remove = mainCard.removeAll();
-//		var card2 = mainCard.add(Ext.create('uber.view.tutor.TutorProfile'));
     }
 })

@@ -28,7 +28,6 @@ Ext.define('uber.view.main.MainController', {
     },
     
     mainpage: function () {
-//    	debugger;
     	var me = this;
         var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
         var remove = mainCard.removeAll();
@@ -36,27 +35,10 @@ Ext.define('uber.view.main.MainController', {
     },
     
     profile: function() {
-//   	    debugger;
 		var me = this;
 		var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
 		var card2 = mainCard.add(Ext.create('uber.view.profile.Profile'));
-        
-        
-//        var result = uber.util.Util.decodeJSON(action.response.responseText);
-//		var fullname = result.data.fullname;
-//		var email = result.data.email;
-//		var mobile = result.data.mobile;
-		
-//		var profileStore = Ext.create('uber.store.Profile');
-		
-//        var fullnameText = Ext.ComponentQuery.query('#fullnameItemId')[0];
-//        var emailText = Ext.ComponentQuery.query('#emailItemId')[0];
-//        var mobileText = Ext.ComponentQuery.query('#mobileId')[0];
-//        fullnameText.setValue(fullname);
-//        emailText.setValue(email);
-//        mobileText.setValue(mobile);
-        
     },
     
     search: function() {
@@ -72,8 +54,6 @@ Ext.define('uber.view.main.MainController', {
 		var remove = mainCard.removeAll();
 		var card2 = mainCard.add(Ext.create('uber.view.password.ChangePassword'));
     },
-    
-   
     
     sessions: function () {
     	var me = this;

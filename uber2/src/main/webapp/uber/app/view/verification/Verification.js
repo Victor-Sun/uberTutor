@@ -51,9 +51,6 @@ Ext.define('uber.view.verification.Verification', {
     			        } else {
     			            Ext.Msg.alert('Verfication','Code incorrect, please input verification code', Ext.emptyFn);
     			        }
-//        				this.up('verification').destroy();
-//        				Ext.create('uber.view.main.Main');
-//        				Ext.getCmp('uberTab').setActiveTab(1);
         			}
     			}]
     		}]

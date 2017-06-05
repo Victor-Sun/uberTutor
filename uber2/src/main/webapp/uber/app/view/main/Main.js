@@ -12,10 +12,10 @@ Ext.define('uber.view.main.Main', {
     requires: [
         'Ext.plugin.Viewport',
         'Ext.window.MessageBox',
-
+        
+        'uber.view.main.MainPage',
         'uber.view.main.MainController',
         'uber.view.main.MainModel',
-        'uber.view.main.List'
     ],
 
     controller: 'main',

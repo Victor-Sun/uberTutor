@@ -6,7 +6,6 @@ Ext.define('uber.view.main.MainPage', {
     requires: [
     ],
     
-//    controller: 'profile',
     layout: {
 		type: 'vbox',
 		align: 'stretch'

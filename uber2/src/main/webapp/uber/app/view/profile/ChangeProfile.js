@@ -3,7 +3,6 @@ Ext.define('uber.view.profile.ChangeProfile',{
 	xtype: 'changeprofile',
 	
 	requires: [
-       // 'uber.view.profile.ProfileController'
     ],
 	
 	controller: 'profile',
@@ -63,50 +62,6 @@ Ext.define('uber.view.profile.ChangeProfile',{
 	                html: '<h3>User Avatar</h3>'
 	            }]
 			},profileForm
-//			{
-//				xtype: 'form',
-//				reference: 'formpanel',
-//				flex: 1,
-//				margin: 5,
-//				layout: {
-//					type: 'vbox',
-//					align: 'stretchmax'
-//			    },
-//			    defaults: {
-//			    	xtype: 'textfield',
-//		    		labelAlign: 'top',
-//		    		width: 200
-//			    },
-//				items: [{
-//	                name: 'fullname',
-//	                fieldLabel: 'Name&nbsp;*',
-//	            },{
-//	                name: 'email',
-//	                fieldLabel: 'Email&nbsp;*',
-//	            },{
-//	                name: 'mobile',
-//	                fieldLabel: 'Mobile&nbsp;*',
-//	            },{
-//	            	xtype: 'combobox',
-//	            	name: 'school',
-//	            	fieldLabel: 'School',
-//	            },{
-//	            	xtype: 'textarea',
-//	            	name: 'bio',
-//	            	maxLength: 250,
-//	            	fieldLabel: 'Bio',
-//				}],
-//				dockedItems: [{
-//					xtype:'toolbar',
-//					dock: 'bottom',
-//					items: [{
-//						xtype: 'button',
-//						text: 'Update',
-//						handler: 'update'
-//					}]
-//					
-//				}]
-//			}
 			]
 		}]
 		this.callParent(arguments);

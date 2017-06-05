@@ -1,6 +1,14 @@
 Ext.define('uber.view.login.Login',{
 	extend: 'Ext.container.Viewport',
 	xtype: 'login',
+	
+	requires: [ 
+       'uber.view.login.LoginController', 
+       'uber.view.common.Radio', 
+       'uber.view.main.Main',
+       'uber.model.User',
+       ],
+	
 	refernce: 'login',
 	itemId: 'login',
 	style: {
@@ -44,37 +52,6 @@ Ext.define('uber.view.login.Login',{
 					},{
 						//radio fields
 						xtype: 'pageradio',
-//						reference: 'pageradio',
-//				        // Arrange radio buttons into two columns, distributed vertically
-//				        columns: 2,
-//				        items: [
-//				            { boxLabel: 'New User', name: 'ab', inputValue: '1', checked: true },
-//				            { boxLabel: 'Existing User', name: 'ab', inputValue: '2'}
-//				        ],
-//				        listeners: {
-//				            change: function (field, newValue, oldValue) {
-//				            	var text = this.up('form').down('component');
-//				            	var button = this.up('form').down('button');
-//				            	var field = this.up('form').getForm().findField('name');
-//				            	//var value = Ext.ComponentQuery.query('radiofield[name=cstgrp]');
-//				                //console.log(newValue['cstgrp']);
-//
-//				                switch (parseInt(newValue['ab'])) {
-//				                    case 1:
-////				                    	debugger;
-//				                    	text.update('<h2>Sign Up</h2>');
-//				                    	button.setText('Sign Up');
-////				                    	field.setHidden('false');
-//				                    	field.show();
-//				                        break;
-//				                    case 2:
-//				                    	text.update('<h2>Sign In</h2>');
-//				                    	button.setText('Sign In');
-//				                    	field.setHidden('true');
-//				                        break;
-//				                }
-//				            }
-//				        }
 					},{
 						xtype: 'container',
 						layout: {

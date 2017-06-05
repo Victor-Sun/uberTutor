@@ -89,19 +89,6 @@ Ext.define('uber.view.tutor.TutorProfile',{
 					height: 125
 				}]
 			},{
-				//Use grid tree to display category and subjects?
-//				border: true,
-//				flex: 1,
-//				html: 'Category and Subjects taught by tutor'
-//				xtype: 'fieldset',
-//				title: 'Categories & Subjects',
-//				layout: {
-//					type: 'vbox',
-//					align: 'stretch'
-//				},
-//				items: [{
-//					
-//				}]
 				xtype: 'grid',
 				height: 250,
 				columns: [{
@@ -114,8 +101,6 @@ Ext.define('uber.view.tutor.TutorProfile',{
 			},{
 				xtype: 'tutorreviewgrid',
 				height: 300,
-//				border: true,
-//				html: 'Student Reviews and ratings'
 			}]
 		}],
 //		dockedItems: [{

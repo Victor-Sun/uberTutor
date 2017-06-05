@@ -3,6 +3,8 @@ Ext.define('uber.view.homepage.Homepage',{
 	xtype: 'homepage',
 	itemId: 'homepage',
 	
+	requires: [ 'uber.view.login.Login', 'uber.view.homepage.HomePageController'],
+	
 	layout: {
 		type: 'vbox',
 		align: 'stretch'
@@ -13,7 +15,6 @@ Ext.define('uber.view.homepage.Homepage',{
 		flex: 1,
 		layout: {
 			type: 'border',
-//			align: 'stretch'
 		},
 		items: [{
 			xtype: 'toolbar',

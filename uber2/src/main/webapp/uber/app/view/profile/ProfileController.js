@@ -2,15 +2,6 @@ Ext.define('uber.view.profile.ProfileController',{
 	extend: 'Ext.app.ViewController',
     alias: 'controller.profile',
     
-//    init: function() {
-//    	if (this.view.xtype == 'profile') {
-//    		debugger;
-//    		this.view.down('profileform').load({
-//        		url: 'uber2/main/profile!display.action'
-//        	});
-//    	}
-//    },
-    
     profilemanage: function () {
     	var me = this;
     	var main = me.view.up('app-main');
@@ -30,10 +21,10 @@ Ext.define('uber.view.profile.ProfileController',{
     getProfile: function () {
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
-    	var model = Ext.create('uber.model.User', formPanel.getValues());
-    	var errors = model.validate();
-    	var form = formPanel.getForm();
-    	var rec = Ext.create('uber.store.Profile');
+//    	var model = Ext.create('uber.model.User', formPanel.getValues());
+//    	var errors = model.validate();
+//    	var form = formPanel.getForm();
+//    	var rec = Ext.create('uber.store.Profile');
     	
     	formPanel.load({
 			//submit form for user signup
@@ -54,33 +45,15 @@ Ext.define('uber.view.profile.ProfileController',{
     	    	ExtApp.util.Util.handleRequestFailure(response);
     	    }
 		})
-//    	Ext.Ajax.request({
-//			url: '/uber2/main/profile!display.action',
-//			params: {
-//				processTaskId: 'fullname'
-//			},
-//    	    scope: me,
-//    	    success: function(response, opts) {
-//    	    	var result = uber.util.Util.decodeJSON(response.responseText);
-//    	    	var obj = Ext.JSON.decode(response.responseText);
-//    	         console.log(obj.data);
-//    	    	Ext.Msg.alert('Error', obj.data , Ext.emptyFn);
-//    	    },
-//    	    failure: function(response, opts) {
-//    	    	ExtApp.util.Util.handleRequestFailure(response);
-//    	    }
-//        });
     },
     
     update: function () {
     	var me = this;
-//    	var formPanel = this.lookupReference('formpanel');
     	var formPanel = this.view;
-    	var model = Ext.create('uber.model.UserInfo', formPanel.getValues());
-    	var errors = model.validate();
-    	var form = formPanel.getForm();
+//    	var model = Ext.create('uber.model.UserInfo', formPanel.getValues());
+//    	var form = formPanel.getForm();
     	
-    	if (model.isValid()){
+    	if(formPanel.getForm().isValid()){
     		formPanel.submit({
     			//submit form for user signup
     			url: '/uber2/main/profile!update.action',
