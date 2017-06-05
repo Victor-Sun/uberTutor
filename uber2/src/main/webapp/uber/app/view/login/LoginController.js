@@ -82,7 +82,6 @@ Ext.define('uber.view.login.LoginController', {
 	},
 
 	onSignUpSuccess: function (form, action) {
-		debugger;
 		var me = this;
 		this.getView().unmask();
 		me.lookupReference('formpanel').up('login').destroy();
