@@ -93,13 +93,12 @@ Ext.define('uber.view.login.LoginController', {
         var card = mainCard.setActiveItem('mainpage');
 
 		var result = uber.util.Util.decodeJSON(action.response.responseText);
-		var userName = result.data.userName;
+		var userName = result.data.username;
 		var userNameText = Ext.ComponentQuery.query('#userNameItemId')[0];
 		userNameText.setText(userName);
 	},
     
     signup: function () {
-    	debugger;
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
 //    	var model = Ext.create('uber.model.NewUser', formPanel.getValues());

@@ -85,6 +85,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 			}
 			entity.setPassword(EncryptUtil.encrypt(entity.getPassword()));
 			signupService.registerAccount(entity);
+			resultMap.put("username", entity.getUsername());
 			this.writeSuccessResult(resultMap);
 		} catch (Exception e){
 			e.printStackTrace();

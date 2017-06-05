@@ -5,7 +5,7 @@ Ext.define('uber.util.Util', {
         required: '<span style="color:red;font-weight:bold" data-qtip="Required"> *</span>',
 
         decodeJSON : function (text) {
-
+        	debugger;
             var result = Ext.JSON.decode(text, true);
 
             if (!result){
