@@ -49,7 +49,7 @@ public class ProfileAction extends ActionSupport{
     		mobile = Struts2Utils.getRequest().getParameter("mobile");
     		bio = Struts2Utils.getRequest().getParameter("bio");
     		school = Struts2Utils.getRequest().getParameter("school");
-    		schoolEntity = profileService.getSchoolFromName(school);
+    		schoolEntity = profileService.getSchoolByName(school);
     		schoolid = schoolEntity.getId().toString();
     		profileService.updateProfile(user.getId().toString(), fullname, email, mobile, bio, schoolid);
     	}catch(Exception e){

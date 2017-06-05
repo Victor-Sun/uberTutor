@@ -42,7 +42,7 @@ public class ProfileService {
 		return new SchoolEntity();
 	}
 
-	public SchoolEntity getSchoolFromName(String name){
+	public SchoolEntity getSchoolByName(String name){
 		String hql = "FROM SchoolEntity WHERE name = ?";
 		List<SchoolEntity> result = this.schoolDAO.find(hql, name);
 		if (result.size() > 0) {

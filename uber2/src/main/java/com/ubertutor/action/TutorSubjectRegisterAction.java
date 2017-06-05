@@ -1,0 +1,30 @@
+package com.ubertutor.action;
+
+import org.apache.struts2.convention.annotation.Namespace;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springside.modules.utils.web.struts2.Struts2Utils;
+
+import com.gnomon.common.utils.JsonResult;
+import com.opensymphony.xwork2.ActionSupport;
+import com.ubertutor.service.TutorSubjectRegisterService;
+
+@Namespace("/main")
+public class TutorSubjectRegisterAction extends ActionSupport{
+    private static final long serialVersionUID = 1L;
+
+    @Autowired
+    private TutorSubjectRegisterService tutorSubjectRegisterService;
+    
+    public void displayCategories(){
+    	JsonResult result = new JsonResult();
+    	result.buildSuccessResult(tutorSubjectRegisterService.getCategoryList());
+        Struts2Utils.renderJson(result);
+    }
+    
+    public void displayCategorySubjects(){
+    	JsonResult result = new JsonResult();
+    	String id = Struts2Utils.getParameter("categoryId");
+    	result.buildSuccessResult(tutorSubjectRegisterService.getSubjectList(id));
+        Struts2Utils.renderJson(result);
+    }
+}

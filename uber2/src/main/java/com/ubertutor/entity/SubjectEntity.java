@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.gnomon.common.base.StringIdEntity;
-
 @Entity
 @Table(name="SUBJECT")
 public class SubjectEntity implements Serializable{

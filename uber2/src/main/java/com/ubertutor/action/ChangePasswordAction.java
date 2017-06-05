@@ -28,10 +28,10 @@ public class ChangePasswordAction extends ActionSupport{
 			currentPassword = Struts2Utils.getRequest().getParameter("currentpassword");
 			p1 = Struts2Utils.getRequest().getParameter("newpassword");
 			p2 = Struts2Utils.getRequest().getParameter("newpassword2");
-			String user = SessionData.getUserId();
-			String userid = SessionData.getLoginUserId();
+			String username = SessionData.getUserId();
+			String userId = SessionData.getLoginUserId();
 
-			if(!loginService.verifyUserPassword(user, EncryptUtil.encrypt(currentPassword))){
+			if(!loginService.verifyUserPassword(username, EncryptUtil.encrypt(currentPassword))){
 				msg = "Password is incorrect! Please confirm your password and try again.";
 				throw new Exception(msg);
 			}
@@ -39,8 +39,7 @@ public class ChangePasswordAction extends ActionSupport{
 				msg = "Passwords do not match, please check your passwords then submit again!";
 				throw new Exception(msg);
 			}
-			System.out.println(user + " " + userid);
-			passwordService.updatePassword(userid, p1);
+			passwordService.updatePassword(userId, p1);
 			this.writeSuccessResult(resultMap);
 		} catch (Exception e){
 			e.printStackTrace();
