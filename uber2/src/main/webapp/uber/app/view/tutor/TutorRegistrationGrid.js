@@ -31,29 +31,26 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
                 direction:'ASC'
             }]
         });
-    	var subjectStore = Ext.create('uber.store.subject.Subject');
     	var categoryStore = Ext.create('uber.store.category.Category');
-    	categoryStore.load();
+    	var subjectStore = Ext.create('uber.store.subject.Subject');
     	var category = Ext.create('Ext.form.field.ComboBox',{
             triggerAction: 'all',
     		store: categoryStore,
     		displayField: 'TITLE',
-    		valueField: 'TITLE ',
-    		queryMode:'local',
-    		listeners: {
-    			change: function (combo, newValue, oldValue, eOpts) {
-    				subjectStore.load({params:{categoryId:newValue}});
-				}
-    		}
+    		valueField: 'TITLE',
+    		queryModel: 'local',
+//    		listeners: {
+//    			change: function (combo, newValue, oldValue, eOpts) {
+//				}
+//    		}
     	});
     	
     	
     	var subject = Ext.create('Ext.form.field.ComboBox',{
-            triggerAction: 'all',
-            store: subjectStore,
-    		displayField: 'TITLE',
-    		valueField: 'ID',
-    		queryMode:'local'
+//            triggerAction: 'all',
+//            store: subjectStore,
+//    		displayField: 'NAME',
+//    		valueField: 'ID'
     	});
     	
     	Ext.apply(this, {
@@ -66,12 +63,12 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
     	        stopSelection: false
     		},{
     			text: 'Category',
-    			dataIndex: 'TITLE',
+    			dataIndex: 'category',
     			flex: 1,
     			editor: category,
     		},{
     			text: 'Subject',
-    			dataIndex: 'TITLE',
+    			dataIndex: 'subject',
     			flex: 1,
     			editor: subject
     		},{
