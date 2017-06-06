@@ -32,18 +32,16 @@ public class TutorSubjectRegisterAction extends ActionSupport{
 		JsonResult result = new JsonResult();
 		try {
 			String id = Struts2Utils.getParameter("categoryId");
-			System.out.println(id);
 			result.buildSuccessResult(tutorSubjectRegisterService.getSubjectList(id));
 			Struts2Utils.renderJson(result);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			result.buildErrorResult(e.getMessage());
 			Struts2Utils.renderJson(result);
 		}
 	}
-	
+
 	public void displayUserSubjects(){
-		//TODO
+		JsonResult result = new JsonResult();
 	}
 }

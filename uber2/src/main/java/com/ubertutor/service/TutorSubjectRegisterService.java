@@ -29,4 +29,7 @@ public class TutorSubjectRegisterService {
 		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
 	
+	public void getUserSubjects(){
+		
+	}
 }
