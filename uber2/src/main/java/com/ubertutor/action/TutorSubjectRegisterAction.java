@@ -14,7 +14,7 @@ public class TutorSubjectRegisterAction extends ActionSupport{
 
 	@Autowired
 	private TutorSubjectRegisterService tutorSubjectRegisterService;
-
+	
 	public void displayCategories(){
 		JsonResult result = new JsonResult();
 		try{
@@ -25,7 +25,6 @@ public class TutorSubjectRegisterAction extends ActionSupport{
 			result.buildErrorResult(e.getMessage());
 			Struts2Utils.renderJson(result);
 		}
-
 	}
 
 	public void displayCategorySubject(){
@@ -43,5 +42,13 @@ public class TutorSubjectRegisterAction extends ActionSupport{
 
 	public void displayUserSubjects(){
 		JsonResult result = new JsonResult();
+		try{
+			result.buildSuccessResult(tutorSubjectRegisterService.getUserSubjects("2"));
+			Struts2Utils.renderJson(result);
+		} catch (Exception e){
+			e.printStackTrace();
+			result.buildErrorResult(e.getMessage());
+			Struts2Utils.renderJson(result);
+		}
 	}
 }

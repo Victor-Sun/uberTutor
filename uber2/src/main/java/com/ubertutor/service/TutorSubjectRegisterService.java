@@ -29,7 +29,18 @@ public class TutorSubjectRegisterService {
 		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
 	
-	public void getUserSubjects(){
-		
+	public List<Map<String,Object>> getUserSubjects(String userId){
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT SUBJECT_CATEGORY.TITLE AS CATEGORY, SUBJECT.TITLE AS SUBJECT "
+				+ "FROM SUBJECT_CATEGORY, SUBJECT, USER_SUBJECT "
+				+ "WHERE SUBJECT_CATEGORY.ID = SUBJECT.CATEGORY_ID "
+				+ "AND SUBJECT.ID = USER_SUBJECT.SUBJECT_ID AND USER_SUBJECT.USER_ID = ?");
+		params.add(userId);
+		return this.jdbcTemplate.queryForList(sql.toString());
+	}
+	
+	public List<Map<String,Object>> getUserCategories(){
+		return null;
 	}
 }

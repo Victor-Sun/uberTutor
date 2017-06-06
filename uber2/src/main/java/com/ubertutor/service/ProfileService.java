@@ -60,13 +60,6 @@ public class ProfileService {
 	public String getUserId(String username) {
 		return this.getUser(username).getUsername();
 	}
-
-	public List<Map<String,Object>> getCategorySubjectList(){
-		StringBuffer sql = new StringBuffer();
-		List<Object> params = new ArrayList<Object>();
-		 
-		return null;
-	}
 	
 	public void updateProfile(String id, String fullname, String email, String mobile, String bio, String schoolId){
 		StringBuffer sql = new StringBuffer();
