@@ -37,22 +37,27 @@ Ext.define('uber.view.profile.ProfileForm',{
         itemId: 'school'
     },{
     	xtype: 'checkbox',
+    	fieldLabel: 'Is Tutor',
     	name: 'isTutor',
-//    	handler: function () {
-//    		var checkbox = this.getValue();
-//    		if (checkbox = 1) {
-//    			
-//    		}
-//    	}
+    	handler: function () {
+    		debugger;
+    		var bio = this.up().down('bio');
+    		var subject = this.up().down('subject');
+    		var checkbox = this.getValue();
+    		if (checkbox = 1) {
+    			bio.setHidden(true);
+    			subject.setHidden(true);
+    		}
+    	}
     },{
     	xtype: 'textarea',
     	name: 'bio',
     	maxLength: 1000,
     	fieldLabel: 'Bio',
     	itemId: 'bio'
-//    },{
-//    	xtype: 'component',
-//    	name: ''
-//    	html: ''
+    },{
+    	xtype: 'button',
+    	name: 'subject',
+    	text: 'Add Subject'
     }]
 });
