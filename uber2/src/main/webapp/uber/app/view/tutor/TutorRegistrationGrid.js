@@ -22,7 +22,7 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
             model: uber.model.grid.TutorRegistrationGridRow,
             proxy: {
                 type: 'ajax',
-//                url: '',
+                url: '/uber2/main/tutor-subject-register!displayUserSubjects.action',
                 reader: {
                     type: 'json',
                 }

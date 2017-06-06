@@ -42,4 +42,8 @@ public class TutorSubjectRegisterAction extends ActionSupport{
 			Struts2Utils.renderJson(result);
 		}
 	}
+	
+	public void displayUserSubjects(){
+		//TODO
+	}
 }
