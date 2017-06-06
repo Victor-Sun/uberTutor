@@ -3,9 +3,8 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     alias: 'controller.tutorRegistration',
     
     confirm: function(btn) {
-    	debugger;
 		var me = this;
-		var form = this.up('form')getForm;
+		var form = this.up('form').getForm;
 		me.view.mask('Please Wait...')
 		form.submit({
 			clientValidation: true,

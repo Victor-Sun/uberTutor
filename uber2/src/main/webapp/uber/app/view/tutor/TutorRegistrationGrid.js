@@ -16,17 +16,17 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
     controller: 'tutorRegistration',
     frame: true,
     initComponent: function () {
-    	var store = new Ext.data.Store({
+    	var store = Ext.create('uber.model.grid.TutorRegistrationGridRow',{
             // destroy the store if the grid is destroyed
             autoDestroy: true,
             model: uber.model.grid.TutorRegistrationGridRow,
-//            proxy: {
-//                type: 'ajax',
+            proxy: {
+                type: 'ajax',
 //                url: '',
-//                reader: {
-//                    type: 'json',
-//                }
-//            },
+                reader: {
+                    type: 'json',
+                }
+            },
             sorters: [{
                 property: 'common',
                 direction:'ASC'
