@@ -2,6 +2,8 @@ Ext.define('uber.view.tutor.TutorRegistration',{
 	extend: 'Ext.panel.Panel',
 	xtype: 'tutorregistration',
 	
+	requires: ['uber.view.tutor.TutorRegistrationGrid'],
+	
 	layout: {
 		type: 'vbox',
 		align: 'stretch'
@@ -23,38 +25,8 @@ Ext.define('uber.view.tutor.TutorRegistration',{
 				html: '<h2>Tutor Registration</h2>'
 			}]
 		},{
-			xtype: 'form',
-			layout: {
-				type: 'vbox',
-				align: 'stretchmax'
-			},
-			items: [{
-				xtype: 'combobox',
-				labelAlign: 'top',
-				fieldLabel: 'Category'
-			}],
-		},{
-			xtype: 'grid',
-			flex: 1,
-			columns: [{
-				text: 'Subject',
-				dataIndex: 'subject',
-				flex: 1
-			}],
-//			dockedItems: [{
-//				xtype: 'toolbar',
-//				dock: 'bottom',
-//				items: [{
-//					xtype: 'button',
-//					text: 'Submit'
-//				},'->',{
-//					xtype: 'button',
-//					text: "Can't find Subject/Category?",
-//					handler: function () {
-//						Ext.create('uber.view.tutor.RequestCategory').show();
-//					}
-//				}]
-//			}]
+			xtype: 'tutorRegistrationGrid',
+			flex: 1
 		}]
 	}]
 });

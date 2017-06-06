@@ -26,7 +26,7 @@ public class TutorSubjectRegisterService {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT ID, NAME FROM SCHOOLS WHERE CATEGORY_ID = ?");
 		params.add(categoryId);
-		return this.jdbcTemplate.queryForList(sql.toString());
+		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
 	
 }
