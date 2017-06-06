@@ -37,18 +37,19 @@ Ext.define('uber.view.profile.ProfileForm',{
         itemId: 'school'
     },{
     	xtype: 'checkbox',
-    	fieldLabel: 'Is Tutor',
+    	readOnly: false,
+    	boxLabel: 'Is Tutor?',
     	name: 'isTutor',
-//    	handler: function (field, value) {
-//    		debugger;
-//    		var bio = this.up().down('bio');
-//    		var subject = this.up().down('subject');
-//    		var checkbox = this.getValue();
-//    		if (this.) {
-//    			bio.setHidden(true);
-//    			subject.setHidden(true);
-//    		}
-//    	}
+    	hideLabel: true,
+    	scope: this,
+    	handler: function (box, checked) {
+    		debugger;
+    		var bio = this.up().down('bio');
+    		var subject = this.up().down('subject');
+    		var checkbox = this.getValue();
+    		bio.show();
+			subject.setHidden(true);
+    	}
     },{
     	xtype: 'textarea',
     	name: 'bio',
