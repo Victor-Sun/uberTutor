@@ -33,6 +33,7 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
         });
     	var categoryStore = Ext.create('uber.store.category.Category');
     	var subjectStore = Ext.create('uber.store.subject.Subject');
+    	categoryStore.load();
     	var category = Ext.create('Ext.form.field.ComboBox',{
             triggerAction: 'all',
     		store: categoryStore,
