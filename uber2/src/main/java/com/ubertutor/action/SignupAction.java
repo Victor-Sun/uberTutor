@@ -106,32 +106,6 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 			entity = signupService.get(id);
 		}
 	}
-
-	public void changePassword() throws Exception{
-		try{
-			Map<String, Object> resultMap = new HashMap<String, Object>();
-			String msg, p1 = "", p2 = "", currentPassword = "";
-			currentPassword = Struts2Utils.getRequest().getParameter("currentpassword");
-			p1 = Struts2Utils.getRequest().getParameter("newpassword");
-			p2 = Struts2Utils.getRequest().getParameter("newpassword2");
-			String username = SessionData.getUserId();
-			String userId = SessionData.getLoginUserId();
-			if(!loginService.verifyUserPassword(username, EncryptUtil.encrypt(currentPassword))){
-				msg = "Password is incorrect! Please confirm your password and try again.";
-				throw new Exception(msg);
-			}
-			if(!p1.equals(p2)){
-				msg = "Passwords do not match, please check your passwords then submit again!";
-				throw new Exception(msg);
-			}
-			passwordService.updatePassword(userId, p1);
-			System.out.println("Works");
-			this.writeSuccessResult(resultMap);
-		} catch (Exception e){
-			e.printStackTrace();
-			this.writeErrorResult(e.getMessage());
-		}
-	}
 	
 	@Override
 	public UserEntity getModel() {

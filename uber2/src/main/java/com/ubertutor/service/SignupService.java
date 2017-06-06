@@ -1,5 +1,8 @@
 package com.ubertutor.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +41,15 @@ public class SignupService {
 //		}
 //		return true;
 //	}
-	
-	
-	
+		
 	public void registerAccount(UserEntity entity){
+		Date date = new Date();
+		Date sqlDate = new Date(date.getTime());
+		entity.setIsDisabled("N");
+		entity.setIsTutor("N");
+		entity.setIsAdmin("N");
+		entity.setCreateBy("System");
+		entity.setCreateDate(sqlDate);
 		userDAO.save(entity);
 	}
 	

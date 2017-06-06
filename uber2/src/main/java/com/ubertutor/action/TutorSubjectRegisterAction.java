@@ -10,21 +10,29 @@ import com.ubertutor.service.TutorSubjectRegisterService;
 
 @Namespace("/main")
 public class TutorSubjectRegisterAction extends ActionSupport{
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Autowired
-    private TutorSubjectRegisterService tutorSubjectRegisterService;
-    
-    public void displayCategories(){
-    	JsonResult result = new JsonResult();
-    	result.buildSuccessResult(tutorSubjectRegisterService.getCategoryList());
-        Struts2Utils.renderJson(result);
-    }
-    
-    public void displayCategorySubjects(){
-    	JsonResult result = new JsonResult();
-    	try {
+	@Autowired
+	private TutorSubjectRegisterService tutorSubjectRegisterService;
+
+	public void displayCategories(){
+		JsonResult result = new JsonResult();
+		try{
+			result.buildSuccessResult(tutorSubjectRegisterService.getCategoryList());
+			Struts2Utils.renderJson(result);	
+		} catch (Exception e){
+			e.printStackTrace();
+			result.buildErrorResult(e.getMessage());
+			Struts2Utils.renderJson(result);
+		}
+
+	}
+
+	public void displayCategorySubject(){
+		JsonResult result = new JsonResult();
+		try {
 			String id = Struts2Utils.getParameter("categoryId");
+			System.out.println(id);
 			result.buildSuccessResult(tutorSubjectRegisterService.getSubjectList(id));
 			Struts2Utils.renderJson(result);
 		} catch (Exception e) {
@@ -33,6 +41,5 @@ public class TutorSubjectRegisterAction extends ActionSupport{
 			result.buildErrorResult(e.getMessage());
 			Struts2Utils.renderJson(result);
 		}
-        
-    }
+	}
 }

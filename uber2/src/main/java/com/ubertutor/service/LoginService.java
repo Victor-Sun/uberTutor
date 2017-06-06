@@ -28,6 +28,7 @@ public class LoginService {
 	 * 验证用户密码是否正确
 	 */
 	public boolean verifyUserPassword(String loginusername, String loginPassword) {
+		
 		String hql = "FROM UserEntity WHERE username = ? AND password = ?";
 		List<UserEntity> result = this.userDAO.find(hql, loginusername, loginPassword);
         return result.size() > 0;
@@ -44,6 +45,12 @@ public class LoginService {
 		}
 		return new UserEntity();
     }
+	
+	public void caseInsensitive(){
+		String sql = "alter session set nls_comp=linguistic";
+		String sql2 = "alter session set nls_sort=Latin_AI";
+		
+	}
 	
 	/**
 	 * 保存用户登录日志

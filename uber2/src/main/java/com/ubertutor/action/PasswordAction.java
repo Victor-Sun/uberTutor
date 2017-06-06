@@ -62,7 +62,7 @@ public class PasswordAction extends ActionSupport{
 			e.printStackTrace();
 		}
 	}
-
+ 
 	public void writeErrorResult(Object data) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("success", false);

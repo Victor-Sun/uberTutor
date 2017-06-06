@@ -38,7 +38,7 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
             triggerAction: 'all',
     		store: categoryStore,
     		displayField: 'TITLE',
-    		valueField: 'ID',
+    		valueField: 'TITLE ',
     		queryMode:'local',
     		listeners: {
     			change: function (combo, newValue, oldValue, eOpts) {
@@ -51,7 +51,7 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
     	var subject = Ext.create('Ext.form.field.ComboBox',{
             triggerAction: 'all',
             store: subjectStore,
-    		displayField: 'NAME',
+    		displayField: 'TITLE',
     		valueField: 'ID',
     		queryMode:'local'
     	});

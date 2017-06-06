@@ -70,7 +70,6 @@ public class LoginAction extends ActionSupport {
 			
 			// 用户信息取得
 			UserEntity loginUser = this.loginService.getUser(username);
-			
 			//禁用的用户不允许登录
 			//TODO Change code to make it better
 			if("Y".equals(loginUser.getIsDisabled())){

@@ -174,8 +174,8 @@ public class UserEntity implements Serializable{
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreateDate(Date l) {
+		this.createDate = l;
 	}
 
 	public String getUpdateBy() {

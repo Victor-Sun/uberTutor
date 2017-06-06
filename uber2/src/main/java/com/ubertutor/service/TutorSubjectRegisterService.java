@@ -24,7 +24,7 @@ public class TutorSubjectRegisterService {
 	public List<Map<String,Object>> getSubjectList(String categoryId){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT ID, NAME FROM SCHOOLS WHERE CATEGORY_ID = ?");
+		sql.append(" SELECT ID, TITLE FROM SUBJECT WHERE CATEGORY_ID = ?");
 		params.add(categoryId);
 		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
