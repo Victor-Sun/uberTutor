@@ -39,7 +39,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     	var me = this;
     	var grid = Ext.getCmp('tutorRegistrationGrid').getStore();
     	Ext.Ajax.request({
-//    		url:''
+    		url:'/uber2/main/tutor-subject-register!removeSubject.action',
     		params: {
     			SUBJECT_ID:'SUBJECT_ID'
     		},

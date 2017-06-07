@@ -48,6 +48,15 @@ public class TutorSubjectRegisterService {
 		userSubjectDao.save(entity);
 	}
 	
+	public void removeSubject(Long userId, Long subjectId){
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" DELETE FROM USER_SUBJECT WHERE USER_ID = ? AND SUBJECT_ID = ?");
+		params.add(userId);
+		params.add(subjectId);
+		this.jdbcTemplate.update(sql.toString(),params.toArray());
+	}
+	
 	public UserSubjectEntity get(Long id){
 		return userSubjectDao.get(id);
 	}

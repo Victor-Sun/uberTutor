@@ -84,24 +84,20 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 			Struts2Utils.renderJson(result);
 		}
 	}
-
-	/**
-	 * Displays user's subject category 
-	 * @throws Exception
-	 */
-//	public void displayUserCategory() throws Exception{
-//		JsonResult result = new JsonResult();
-//		try{
-//			String subjectId = Struts2Utils.getParameter("");
-//			result.buildSuccessResult(tutorSubjectRegisterService.getUserSubjects(subjectId));
-//			Struts2Utils.renderJson(result);
-//		} catch (Exception e){
-//			e.printStackTrace();
-//			result.buildErrorResult(e.getMessage());
-//			Struts2Utils.renderJson(result);
-//		}
-//	}
-
+	
+	public void removeSubject() throws Exception{
+		JsonResult result = new JsonResult();
+		try{
+			Long userId = Long.parseLong(SessionData.getLoginUserId());
+			Long subjectId = Long.parseLong(Struts2Utils.getParameter("SUBJECT_ID"));
+			tutorSubjectRegisterService.removeSubject(userId, subjectId);
+		} catch (Exception e){
+			e.printStackTrace();
+			result.buildErrorResult(e.getMessage());
+			Struts2Utils.renderJson(result);
+		}
+	}
+	
 	@Override
 	public UserSubjectEntity getModel() {
 		return entity;

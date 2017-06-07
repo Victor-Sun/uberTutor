@@ -1,5 +1,8 @@
 package com.ubertutor.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -35,8 +38,10 @@ public class TutorProfileService {
 
 	public Integer getRatingCount(String id){
 		StringBuffer sql = new StringBuffer();
+		List<Object> params = new ArrayList<Object>();
 		sql.append(" SELECT COUNT(*) FROM FEEDBACK WHERE TUTOR_ID = ?");
-		return this.jdbcTemplate.queryForInt(sql.toString());
+		params.add(id);
+		return this.jdbcTemplate.queryForInt(sql.toString(),params.toArray());
 	}
 	
 }
