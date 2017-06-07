@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ubertutor.dao.UserSubjectDAO;
+import com.ubertutor.entity.UserEntity;
 import com.ubertutor.entity.UserSubjectEntity;
 
 @Service
@@ -52,7 +53,19 @@ public class TutorSubjectRegisterService {
 	
 	public void addTutorSubject(UserSubjectEntity entity, Long userId, Long subjectId){
 		entity.setUserid(userId);
-		entity.setUserid(subjectId);
+		entity.setSubjectid(subjectId);
 		userSubjectDao.save(entity);
+	}
+	
+	public UserSubjectEntity get(Long id){
+		return userSubjectDao.get(id);
+	}
+	
+	public void delete(UserSubjectEntity entity){
+		userSubjectDao.delete(entity);
+	}
+	
+	public void delete(Long id){
+		userSubjectDao.delete(id);
 	}
 }

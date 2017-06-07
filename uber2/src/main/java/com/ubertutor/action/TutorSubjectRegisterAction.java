@@ -6,18 +6,27 @@ import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.gnomon.common.utils.JsonResult;
 import com.gnomon.common.web.SessionData;
-import com.opensymphony.xwork2.ActionSupport;
+import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.UserSubjectEntity;
 import com.ubertutor.service.TutorSubjectRegisterService;
 
 @Namespace("/main")
-public class TutorSubjectRegisterAction extends ActionSupport{
+public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjectEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private TutorSubjectRegisterService tutorSubjectRegisterService;
 	private UserSubjectEntity entity;
-	
+	private Long id;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public void displayCategories() throws Exception{
 		JsonResult result = new JsonResult();
 		try{
@@ -55,7 +64,7 @@ public class TutorSubjectRegisterAction extends ActionSupport{
 			Struts2Utils.renderJson(result);
 		}
 	}
-	
+
 	public void displayUserCategory() throws Exception{
 		JsonResult result = new JsonResult();
 		try{
@@ -68,18 +77,58 @@ public class TutorSubjectRegisterAction extends ActionSupport{
 			Struts2Utils.renderJson(result);
 		}
 	}
-	
-	public void saveUserSubject() throws Exception{
+
+	@Override
+	public UserSubjectEntity getModel() {
+		return entity;
+	}
+
+	@Override
+	public String list() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String input() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String save() throws Exception {
 		JsonResult result = new JsonResult();
 		try{
-			String userId = SessionData.getLoginUserId();
-			String subjectId = Struts2Utils.getParameter("ID");
-			System.out.println(userId + subjectId);
-//			tutorSubjectRegisterService.addTutorSubject(entity, userId, subjectId);
+			Long userId = Long.parseLong(SessionData.getLoginUserId());
+			Long subjectId = Long.parseLong(Struts2Utils.getParameter("subject"));
+			System.out.println("User ID: " + userId + "Subject ID: " + subjectId);
+			tutorSubjectRegisterService.addTutorSubject(entity, userId, subjectId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.buildErrorResult(e.getMessage());
 			Struts2Utils.renderJson(result);
+		}
+		return null;
+	}
+
+	@Override
+	public String delete() throws Exception {
+		try {
+			tutorSubjectRegisterService.delete(id);
+			this.writeSuccessResult(null);
+		} catch (Exception e) {
+			this.writeErrorResult(e.getMessage());
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	protected void prepareModel() throws Exception {
+		if(id == null){
+			entity = new UserSubjectEntity();
+		}else{
+			entity = tutorSubjectRegisterService.get(id);
 		}
 	}
 }
