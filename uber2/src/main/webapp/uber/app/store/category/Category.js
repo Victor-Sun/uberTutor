@@ -1,7 +1,7 @@
 Ext.define('uber.store.category.Category',{
 	extend: 'Ext.data.Store',
 	alias: 'store.category',
-	autoLoad: true,
+//	autoLoad: true,
 	proxy: {
       type: 'ajax',
       url: '/uber2/main/tutor-subject-register!displayCategories.action',

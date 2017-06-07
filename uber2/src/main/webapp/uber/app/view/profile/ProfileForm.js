@@ -40,25 +40,34 @@ Ext.define('uber.view.profile.ProfileForm',{
     	readOnly: false,
     	boxLabel: 'Is Tutor?',
     	name: 'isTutor',
+    	id:'istutor',
     	hideLabel: true,
     	scope: this,
     	handler: function (box, checked) {
-    		debugger;
-    		var bio = this.up().down('bio');
-    		var subject = this.up().down('subject');
-    		var checkbox = this.getValue();
-    		bio.show();
-			subject.setHidden(true);
+    		var bio = Ext.getCmp('bio');
+    		var subject = Ext.getCmp('subject');
+    		var checkbox = Ext.getCmp('istutor').getValue();
+    		if (checkbox == true)
+    			{
+    				bio.setVisible(true);
+    				subject.setVisible(true);
+    			} else {
+    				bio.setVisible(false);
+    				subject.setVisible(false);
+    			}
     	}
     },{
     	xtype: 'textarea',
     	name: 'bio',
     	maxLength: 1000,
     	fieldLabel: 'Bio',
-    	itemId: 'bio'
+    	hidden: true,
+    	id: 'bio'
     },{
     	xtype: 'button',
     	name: 'subject',
-    	text: 'Add Subject'
+    	text: 'Add Subject',
+    	hidden: true,
+    	id: 'subject'
     }]
 });

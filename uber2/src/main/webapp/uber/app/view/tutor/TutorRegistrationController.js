@@ -2,9 +2,10 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 	extend: 'Ext.app.ViewController',
     alias: 'controller.tutorRegistration',
     
-    confirm: function(btn) {
+    submit: function(btn) {
+    	debugger;
 		var me = this;
-		var form = this.up('form').getForm;
+		var form = me.view.down('form').getForm();
 		me.view.mask('Please Wait...')
 		form.submit({
 			clientValidation: true,
@@ -23,14 +24,21 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
             	ExtApp.util.Util.handleFormFailure(action);
             }
 		});
-		var rec = new uber.model.grid.TutorRegistrationGridRow({
-            category: value.category,
-            subject: value.subject
-        });
-		grid.getStore().insert(0, rec);
+//		var rec = new uber.model.grid.TutorRegistrationGridRow({
+//            category: value.category,
+//            subject: value.subject
+//        });
+//		grid.getStore().insert(0, rec);
     },
     
     cancel: function() {
     	this.view.close();
     },
+
+    onRemoveClick: function(grid, rowIndex){
+        this.getStore().removeAt(rowIndex);
+    },
+
+
+    
 })

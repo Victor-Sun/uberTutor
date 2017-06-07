@@ -1,6 +1,6 @@
-Ext.define('uber.model.grid.TutorRegistrationGridRow', {
+Ext.define('uber.model.grid.TutorRegistrationGrid', {
     extend: 'uber.model.Base',
-    alias: 'model.gridRow',
+    alias: 'model.tutorregistrationgrid',
     
     fields: [
         // the 'name' below matches the tag name to read

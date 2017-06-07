@@ -1,14 +1,11 @@
 Ext.define('uber.store.grid.TutorRegistrationGrid', {
     extend: 'Ext.data.Store',
-    alias: 'store.tutorregistrationgride',
+    alias: 'store.tutorregistrationgrid',
 
-    fields: [
-        'category', 'subject'
-    ],
-
+//    model: 'tutorregistrationgrid'
     proxy: {
         type: 'ajax',
-//        url: 'uber2/main/',
+        url: '/uber2/main/tutor-subject-register!displayUserSubjects.action',
         reader: {
             type: 'json',
             rootProperty: 'data'
