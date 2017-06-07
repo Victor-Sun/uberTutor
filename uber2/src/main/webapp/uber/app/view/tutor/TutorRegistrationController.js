@@ -35,23 +35,26 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     	this.view.close();
     },
 
-    onRemoveClick: function () {
+    onRemoveClick: function (grid, rowIndex) {
     	var me = this;
-    	var grid = Ext.getCmp('tutorRegistrationGrid').getStore();
+//    	var grid = Ext.getCmp('tutorRegistrationGrid').getStore();
+    	var record = grid.getStore().getAt(rowIndex);
     	Ext.Ajax.request({
     		url:'/uber2/main/tutor-subject-register!removeSubject.action',
     		params: {
-    			SUBJECT_ID:'SUBJECT_ID'
+    			SUBJECT_ID:record.data.SUBJECT_ID
     		},
     		score: me,
-    		success: function(response, opts) {
-    			var obj = Ext.decode(response.responseText);
-    			if (obj.success) {
-    				//Refresh grid on sucess
-    				grid.reload();
-    			} else {
-    				uber.util.Util.handlerRequesteFailure(response);
-    			}
+    		success: function() {
+    			grid.getStore().reload();
+    			uber.util.Util.showToast("Subject was successfully removed!");
+//    			var obj = Ext.decode(response.responseText);
+//    			if (obj.success) {
+//    				//Refresh grid on sucess
+//    				
+//    			} else {
+//    				uber.util.Util.handlerRequesteFailure(response);
+//    			}
     		},
     		failure: function(response, opts) {
     			uber.util.Util.handlerRequestFailure(response);
