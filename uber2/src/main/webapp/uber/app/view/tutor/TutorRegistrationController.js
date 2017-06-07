@@ -21,7 +21,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
             },
             failure: function(form, action) {
             	me.view.unmask();
-            	ExtApp.util.Util.handleFormFailure(action);
+            	uber.util.Util.handleFormFailure(action);
             }
 		});
 //		var rec = new uber.model.grid.TutorRegistrationGridRow({
