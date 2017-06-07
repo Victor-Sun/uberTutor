@@ -16,16 +16,21 @@ public class LoginService {
 	@Autowired
 	private UserDAO userDAO;
 	
-	/*
-	 * 验证用户ID是否存在
+	/**
+	 * Verifies a user's username exists in the DB
+	 * @param loginusername
+	 * @return true if username exists, false if it does not
 	 */
 	public boolean verifyUserId(String loginusername) {
 		List<UserEntity> result = this.userDAO.findBy("username", loginusername);
         return result.size() > 0;    
     }
 	
-	/*
-	 * 验证用户密码是否正确
+	/**
+	 * Verifies that a user's username and password match
+	 * @param loginusername
+	 * @param loginPassword
+	 * @return true if the combation matches 
 	 */
 	public boolean verifyUserPassword(String loginusername, String loginPassword) {
 		
@@ -33,9 +38,11 @@ public class LoginService {
 		List<UserEntity> result = this.userDAO.find(hql, loginusername, loginPassword);
         return result.size() > 0;
     }
-	
-	/*
-	 * 用户信息取得
+
+	/**
+	 * Get the user based on username
+	 * @param loginusername
+	 * @return UserEntity object
 	 */
 	public UserEntity getUser(String loginusername) {
 		String hql = "FROM UserEntity WHERE username = ?";
@@ -45,19 +52,11 @@ public class LoginService {
 		}
 		return new UserEntity();
     }
-
 	
 	/**
-	 * 保存用户登录日志
-	 * @param userId
-	 */
-	public void saveLoginLog(String userId){
-		String sql = "INSERT INTO SYS_LOGIN_LOG(ID,USER_ID,LOGIN_DATE) VALUES(SYS_LOGIN_LOG_SEQ.NEXTVAL,?,SYSDATE)";
-		userDAO.executeSQL(sql, userId);
-	}
-	
-	/*
-	 * 用户Id取得
+	 * Get user id by username
+	 * @param loginUsername
+	 * @return User's ID as a String
 	 */
 	public String getUserId(String loginUsername) {
 		return this.getUser(loginUsername).getUsername();

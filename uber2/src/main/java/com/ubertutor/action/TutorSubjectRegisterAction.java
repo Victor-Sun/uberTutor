@@ -19,14 +19,26 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	private UserSubjectEntity entity;
 	private Long id;
 
+	/**
+	 * Get user ID
+	 * @return id as Long
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * Set user ID
+	 * @param id
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Displays all categories
+	 * @throws Exception
+	 */
 	public void displayCategories() throws Exception{
 		JsonResult result = new JsonResult();
 		try{
@@ -39,6 +51,10 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		}
 	}
 
+	/**
+	 * Displays subjects based on category
+	 * @throws Exception
+	 */
 	public void displayCategorySubject() throws Exception{
 		JsonResult result = new JsonResult();
 		try {
@@ -52,6 +68,10 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		}
 	}
 
+	/**
+	 * Displays a user's subjects
+	 * @throws Exception
+	 */
 	public void displayUserSubjects() throws Exception{
 		JsonResult result = new JsonResult();
 		try{
@@ -65,18 +85,22 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		}
 	}
 
-	public void displayUserCategory() throws Exception{
-		JsonResult result = new JsonResult();
-		try{
-			String subjectId = Struts2Utils.getParameter("");
-			result.buildSuccessResult(tutorSubjectRegisterService.getUserSubjectCategory(subjectId));
-			Struts2Utils.renderJson(result);
-		} catch (Exception e){
-			e.printStackTrace();
-			result.buildErrorResult(e.getMessage());
-			Struts2Utils.renderJson(result);
-		}
-	}
+	/**
+	 * Displays user's subject category 
+	 * @throws Exception
+	 */
+//	public void displayUserCategory() throws Exception{
+//		JsonResult result = new JsonResult();
+//		try{
+//			String subjectId = Struts2Utils.getParameter("");
+//			result.buildSuccessResult(tutorSubjectRegisterService.getUserSubjects(subjectId));
+//			Struts2Utils.renderJson(result);
+//		} catch (Exception e){
+//			e.printStackTrace();
+//			result.buildErrorResult(e.getMessage());
+//			Struts2Utils.renderJson(result);
+//		}
+//	}
 
 	@Override
 	public UserSubjectEntity getModel() {
@@ -85,13 +109,11 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 
 	@Override
 	public String list() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String input() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

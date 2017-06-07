@@ -23,6 +23,10 @@ public class ProfileAction extends ActionSupport{
     private SchoolEntity schoolEntity;
     private UserEntity user = SessionData.getLoginUser();
     
+    /**
+     * Sends Json to front end to display a user's profile
+     * @throws Exception
+     */
     public void display() throws Exception{
     	JsonResult result = new JsonResult();
         try{
@@ -42,6 +46,10 @@ public class ProfileAction extends ActionSupport{
         }
     }
     
+    /**
+     * Updates a user's profile
+     * @throws Exception
+     */
     public void update() throws Exception{
     	JsonResult result = new JsonResult();
     	try{
@@ -69,6 +77,9 @@ public class ProfileAction extends ActionSupport{
     	}
     }
     
+    /**
+     * Separate function to display school
+     */
     public void displaySchool(){
     	try{
     		JsonResult result = new JsonResult();
@@ -79,6 +90,9 @@ public class ProfileAction extends ActionSupport{
     	}
     }
     
+    /**
+     * Function to register a user as a tutor
+     */
     public void registerAsTutor(){
     	profileService.registerAsTutor(user.getId());
     }

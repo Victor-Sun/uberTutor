@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ubertutor.dao.UserSubjectDAO;
-import com.ubertutor.entity.UserEntity;
 import com.ubertutor.entity.UserSubjectEntity;
 
 @Service
@@ -35,20 +34,28 @@ public class TutorSubjectRegisterService {
 		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
 
+//	public List<Map<String,Object>> getUserSubjects(String userId){
+//		List<Object> params = new ArrayList<Object>();
+//		StringBuffer sql = new StringBuffer();
+//		sql.append(" SELECT ID, TITLE FROM USERS_SUBJECT WHERE USER_ID = ?");
+//		params.add(userId);
+//		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
+//	}
+//
+//	public List<Map<String,Object>> getUserSubjectCategory(String subjectId){
+//		List<Object> params = new ArrayList<Object>();
+//		StringBuffer sql = new StringBuffer();
+//		sql.append(" SELECT CATEGORY_ID, CATEGORY_TITLE FROM USERS_CATEGORY WHERE SUBJECT_ID = ?");
+//		params.add(subjectId);
+//		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
+//	}
+	
 	public List<Map<String,Object>> getUserSubjects(String userId){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT ID, TITLE FROM USERS_SUBJECT");
+		sql.append(" SELECT SUBJECT_ID, SUBJECT_TITLE, CATEGORY_ID, CATEGORY_TITLE FROM USERS_SUBJECT_CATEGORY WHERE USER_ID = ?");
 		params.add(userId);
-		return this.jdbcTemplate.queryForList(sql.toString());
-	}
-
-	public List<Map<String,Object>> getUserSubjectCategory(String subjectId){
-		List<Object> params = new ArrayList<Object>();
-		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT CATEGORY_ID, CATEGORY_TITLE FROM USERS_CATEGORY WHERE SUBJECT_ID = ?");
-		params.add(subjectId);
-		return this.jdbcTemplate.queryForList(sql.toString());
+		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
 	
 	public void addTutorSubject(UserSubjectEntity entity, Long userId, Long subjectId){

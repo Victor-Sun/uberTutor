@@ -24,6 +24,11 @@ public class ProfileService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	/**
+	 * Get UserEntity by username
+	 * @param username
+	 * @return UserEntity object
+	 */
 	public UserEntity getUser(String username) {
 		String hql = "FROM UserEntity WHERE username = ?";
 		List<UserEntity> result = this.userDAO.find(hql, username);
@@ -33,6 +38,11 @@ public class ProfileService {
 		return new UserEntity();
 	}
 
+	/**
+	 * Get school entity by school's id
+	 * @param schoolId
+	 * @return School Entity Object
+	 */
 	public SchoolEntity getSchool(long schoolId){
 		String hql = "FROM SchoolEntity WHERE id = ?";
 		List<SchoolEntity> result = this.schoolDAO.find(hql, schoolId);
@@ -42,6 +52,11 @@ public class ProfileService {
 		return new SchoolEntity();
 	}
 
+	/**
+	 * Get school entity by school's name
+	 * @param name
+	 * @return School Entity Object
+	 */
 	public SchoolEntity getSchoolByName(String name){
 		String hql = "FROM SchoolEntity WHERE name = ?";
 		List<SchoolEntity> result = this.schoolDAO.find(hql, name);
@@ -51,16 +66,34 @@ public class ProfileService {
 		return new SchoolEntity();
 	}
 	
+	/**
+	 * Get a list of schools by running a query
+	 * @return List of schools
+	 */
 	public List<Map<String,Object>> getSchoolList(){
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT ID, NAME FROM SCHOOLS");
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
 	
+	/**
+	 * Get a user's ID by username
+	 * @param username
+	 * @return User id as a string
+	 */
 	public String getUserId(String username) {
 		return this.getUser(username).getUsername();
 	}
 	
+	/**
+	 * Function to run a query to update a user's profile
+	 * @param id
+	 * @param fullname
+	 * @param email
+	 * @param mobile
+	 * @param bio
+	 * @param schoolId
+	 */
 	public void updateProfile(String id, String fullname, String email, String mobile, String bio, String schoolId){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
@@ -84,6 +117,10 @@ public class ProfileService {
 		this.jdbcTemplate.update(sql.toString(), params.toArray());
 	}
 	
+	/**
+	 * Function that changes the isTutor flag in db
+	 * @param id
+	 */
 	public void registerAsTutor(Long id){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();

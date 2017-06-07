@@ -27,46 +27,89 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	private ChangePasswordService passwordService;
 	private UserEntity entity;
 
+	/**
+	 * 
+	 * @return fullname as a String
+	 */
 	public String getFullName() {
 		return fullName;
 	}
 
+	/**
+	 * Set fullname
+	 * @param fullName
+	 */
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
 
+	/**
+	 * 
+	 * @return username as a String
+	 */
 	public String getUsername() {
 		return username;
 	}
 
+	/**
+	 * Set username
+	 * @param username
+	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
+	/**
+	 * 
+	 * @return email as a String
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Set email
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * 
+	 * @return password as a String
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Set password
+	 * @param password
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	/**
+	 * Get a user's ID
+	 * @return id as a Long
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * Set user id
+	 * @param id
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
+	/**
+	 * Function that registers a user
+	 */
 	@Override
 	public String save() throws Exception{
 		try {

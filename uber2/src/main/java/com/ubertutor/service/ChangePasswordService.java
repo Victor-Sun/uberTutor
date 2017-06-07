@@ -17,9 +17,15 @@ public class ChangePasswordService {
 
 	@Autowired
 	private UserDAO userDAO;
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	/**
+	 * Updates a user's password using sql query
+	 * @param id User's ID
+	 * @param password User's Password
+	 */
 	public void updatePassword(String id, String password){
 		StringBuffer sql = null;
 		List<Object> params = null;

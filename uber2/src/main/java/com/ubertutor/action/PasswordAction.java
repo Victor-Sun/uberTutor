@@ -24,6 +24,9 @@ public class PasswordAction extends ActionSupport{
     @Autowired
     private ChangePasswordService passwordService;
     
+    /**
+     * Update Password function
+     */
     public void updatePassword(){
 		try{
 			Map<String, Object> resultMap = new HashMap<String, Object>();
