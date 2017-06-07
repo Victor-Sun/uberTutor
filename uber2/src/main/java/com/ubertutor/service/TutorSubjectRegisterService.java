@@ -8,14 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springside.modules.utils.web.struts2.Struts2Utils;
+
+import com.ubertutor.dao.UserSubjectDAO;
+import com.ubertutor.entity.UserSubjectEntity;
 
 @Service
 @Transactional
 public class TutorSubjectRegisterService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
+	@Autowired
+	private UserSubjectDAO userSubjectDao;
+	
 	public List<Map<String,Object>> getCategoryList(){
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT ID, TITLE FROM SUBJECT_CATEGORY");
@@ -33,20 +37,22 @@ public class TutorSubjectRegisterService {
 	public List<Map<String,Object>> getUserSubjects(String userId){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT SUBJECT.ID, SUBJECT.TITLE "
-				+ "FROM USER_SUBJECT, SUBJECT "
-				+ "WHERE USER_SUBJECT.SUBJECT_ID = SUBJECT.ID AND USER_SUBJECT.USER_ID = ?");
+		sql.append(" SELECT ID, TITLE FROM USERS_SUBJECT");
 		params.add(userId);
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
 
-	public List<Map<String,Object>> getSubjectCategory(String subjectId){
+	public List<Map<String,Object>> getUserSubjectCategory(String subjectId){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT SUBJECT_CATEGORY.ID, SUBJECT_CATEGORY.TITLE "
-				+ "FROM SUBJECT_CATEGORY, SUBJECT "
-				+ "WHERE SUBJECT.CATEGORY_ID = SUBJECT_CATEGORY.ID AND SUBJECT.ID = ?");
+		sql.append(" SELECT CATEGORY_ID, CATEGORY_TITLE FROM USERS_CATEGORY WHERE SUBJECT_ID = ?");
 		params.add(subjectId);
 		return this.jdbcTemplate.queryForList(sql.toString());
+	}
+	
+	public void addTutorSubject(UserSubjectEntity entity, Long userId, Long subjectId){
+		entity.setUserid(userId);
+		entity.setUserid(subjectId);
+		userSubjectDao.save(entity);
 	}
 }

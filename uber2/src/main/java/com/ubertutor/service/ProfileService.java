@@ -64,7 +64,6 @@ public class ProfileService {
 	public void updateProfile(String id, String fullname, String email, String mobile, String bio, String schoolId){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
-		//TODO Find a way to update the school as well
 		sql.append(" UPDATE USERS SET");
 		sql.append(" FULLNAME = ?");
 		sql.append(",EMAIL = ?");

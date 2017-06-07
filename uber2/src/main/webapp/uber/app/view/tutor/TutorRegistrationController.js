@@ -9,7 +9,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 		me.view.mask('Please Wait...')
 		form.submit({
 			clientValidation: true,
-			url:'/uber2/main/tutor-subject-register!displayUserSubjects.action',
+			url:'/uber2/main/tutor-subject-register!saveUserSubject.action',
 			params: {
             	model: Ext.encode(form.getFieldValues())
             },
