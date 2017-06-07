@@ -40,6 +40,10 @@ public class SignupService {
 //		return true;
 //	}
 		
+	/**
+	 * Set's all flags and saves the entity to the database
+	 * @param entity
+	 */
 	public void registerAccount(UserEntity entity){
 		Date date = new Date();
 		Date sqlDate = new Date(date.getTime());
