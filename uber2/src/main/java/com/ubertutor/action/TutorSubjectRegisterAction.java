@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.gnomon.common.utils.JsonResult;
+import com.gnomon.common.web.SessionData;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ubertutor.service.TutorSubjectRegisterService;
 
@@ -43,7 +44,21 @@ public class TutorSubjectRegisterAction extends ActionSupport{
 	public void displayUserSubjects(){
 		JsonResult result = new JsonResult();
 		try{
-			result.buildSuccessResult(tutorSubjectRegisterService.getUserSubjects("2"));
+			String userId = SessionData.getLoginUserId();
+			result.buildSuccessResult(tutorSubjectRegisterService.getUserSubjects(userId));
+			Struts2Utils.renderJson(result);
+		} catch (Exception e){
+			e.printStackTrace();
+			result.buildErrorResult(e.getMessage());
+			Struts2Utils.renderJson(result);
+		}
+	}
+	
+	public void displayUserCategory(){
+		JsonResult result = new JsonResult();
+		try{
+			String subjectId = Struts2Utils.getParameter("");
+			result.buildSuccessResult(tutorSubjectRegisterService.getSubjectCategory(subjectId));
 			Struts2Utils.renderJson(result);
 		} catch (Exception e){
 			e.printStackTrace();
