@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 @Service
 @Transactional
@@ -20,7 +21,7 @@ public class TutorSubjectRegisterService {
 		sql.append(" SELECT ID, TITLE FROM SUBJECT_CATEGORY");
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
-	
+
 	public List<Map<String,Object>> getSubjectList(String categoryId){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
@@ -28,19 +29,24 @@ public class TutorSubjectRegisterService {
 		params.add(categoryId);
 		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
-	
+
 	public List<Map<String,Object>> getUserSubjects(String userId){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT SUBJECT_CATEGORY.TITLE AS CATEGORY, SUBJECT.TITLE AS SUBJECT "
-				+ "FROM SUBJECT_CATEGORY, SUBJECT, USER_SUBJECT "
-				+ "WHERE SUBJECT_CATEGORY.ID = SUBJECT.CATEGORY_ID "
-				+ "AND SUBJECT.ID = USER_SUBJECT.SUBJECT_ID AND USER_SUBJECT.USER_ID = ?");
+		sql.append(" SELECT SUBJECT.ID, SUBJECT.TITLE "
+				+ "FROM USER_SUBJECT, SUBJECT "
+				+ "WHERE USER_SUBJECT.SUBJECT_ID = SUBJECT.ID AND USER_SUBJECT.USER_ID = ?");
 		params.add(userId);
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
-	
-	public List<Map<String,Object>> getUserCategories(){
-		return null;
+
+	public List<Map<String,Object>> getSubjectCategory(String subjectId){
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT SUBJECT_CATEGORY.ID, SUBJECT_CATEGORY.TITLE "
+				+ "FROM SUBJECT_CATEGORY, SUBJECT "
+				+ "WHERE SUBJECT.CATEGORY_ID = SUBJECT_CATEGORY.ID AND SUBJECT.ID = ?");
+		params.add(subjectId);
+		return this.jdbcTemplate.queryForList(sql.toString());
 	}
 }
