@@ -12,21 +12,6 @@ Ext.define('uber.view.tutor.CategoryWindow',{
 		var subjectStore = Ext.create('uber.store.subject.Subject');
 		
 		categoryStore.load();
-//    	 var comboBoxRenderer = function(category) {
-//           return function(value) {
-//             var idx = category.store.find(category.valueField, value);
-//             var rec = category.store.getAt(idx);
-//             return (rec === null ? '' : rec.get(category.displayField) );
-//           };
-//         };
-//
-//         var comboBoxRenderer2 = function(subject) {
-//           return function(value) {
-//             var idx = subject.store.find(subject.valueField, value);
-//             var rec = subject.store.getAt(idx);
-//             return (rec === null ? '' : rec.get(subject.displayField) );
-//           };
-//         };
 		
 		var category = Ext.create('Ext.form.field.ComboBox',{
 			id: 'category',
@@ -54,10 +39,9 @@ Ext.define('uber.view.tutor.CategoryWindow',{
             store: subjectStore,
             displayField: 'TITLE',
             valueField: 'ID',
-            queryMode:'local',
-            name: 'subject'
+            queryMode:'remote',
+            name:'subject'
 		});
-		
 		
         this.items = [{
             xtype: 'form',
@@ -69,33 +53,7 @@ Ext.define('uber.view.tutor.CategoryWindow',{
             defaults: {
                 margin: 15,
             },
-            items: [category,subject
-//            {
-//                xtype: 'combobox',
-//                fieldLabel: 'Category',
-//                labelAlign: 'top',
-//                triggerAction: 'all',
-//                store: categoryStore,
-//                displayField: 'TITLE',
-//                valueField: 'ID',
-//                queryModel: 'local',
-//                listeners: {
-//                    change: function (combo, newValue, oldValue, eOpts) {
-//                        subjectStore.load({params:{categoryId:newValue}});
-//                    }
-//                }
-//            },{
-//                xtype: 'combobox',
-//                fieldLabel: 'Subject',
-//                labelAlign: 'top',
-//                triggerAction: 'all',
-//                store: subjectStore,
-//                displayField: 'TITLE',
-//                valueField: 'ID',
-//                queryMode:'local',
-//                name: 'subject'
-//            }
-            ],
+            items: [category,subject],
             dockedItems: [{
                 xtype: 'toolbar',
                 dock: 'bottom',

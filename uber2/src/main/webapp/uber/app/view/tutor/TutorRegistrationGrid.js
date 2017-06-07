@@ -5,7 +5,6 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
 	
 	flex: 1,
 	requires: [
-//	   'uber.store.category.Category',
 	    
 	   'uber.store.grid.TutorRegistrationGrid',
        'Ext.selection.CellModel',
@@ -14,38 +13,33 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
        'Ext.util.*',
        'Ext.form.*',
     ],
+    cls: 'shadow',
+    id: 'tutorRegistrationGrid',
     controller: 'tutorRegistration',
-//    store: 'tutorregistrationgrid',
-    frame: true,
-//    plugins: {ptype: 'cellediting', clicksToEdit: 1},
     initComponent: function () {
     	var me = this;
+    	var store = Ext.create('uber.store.grid.TutorRegistrationGrid');
     	me.store =  Ext.create('uber.store.grid.TutorRegistrationGrid');
-    	
-//    	Ext.apply(this, {
-//    		
-//    	});
-    	
+    	me.store.load();
     	
     	var onAddClick = function(){
             var window = Ext.create('uber.view.tutor.CategoryWindow');
             window.show();
         };
     	
-    	
+//        var onRemoveClick = function(grid, rowIndex){
+//        	
+//        	store.removeAt(rowIndex);
+//        };
+        
     	this.columns = [{
-    		xtype: 'checkcolumn',
-            dataIndex: '',
-            width: 90,
-            stopSelection: false
-    	},{
     		text: 'Category',
-    		dataIndex: 'category',
+    		dataIndex: 'CATEGORY_TITLE',
     		align: 'left',
     		flex: 1,
     	},{
     		text: 'Subject',
-    		dataIndex: 'subject',
+    		dataIndex: 'SUBJECT_TITLE',
     		align: 'left',
     		flex: 1,
     	},{
@@ -54,9 +48,9 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
             sortable: false,
             menuDisabled: true,
             items: [{
-                iconCls: 'x-fa fa-minus-circle',
+                iconCls: 'x-fa fa-minus-circle delete-button',
                 tooltip: 'Delete Row',
-                scope: this,
+//                scope: this,
                 handler: 'onRemoveClick'
             }]
     	}],
@@ -68,7 +62,7 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
 //    		scope: this,
     		text: 'Add',
     		handler: onAddClick
-    	}]
+    	}],
     	
     	this.callParent();
     },

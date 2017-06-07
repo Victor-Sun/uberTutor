@@ -4,9 +4,6 @@ Ext.define('uber.view.tutor.TutorReviewGrid',{
 	cls: 'tutor-review-grid',
 	layout: 'fit',
 	
-//	viewModel: {
-//		type: 'tutorreviewgrid'
-//	},
 	store:{
 		data: [{
 			name: "Nora Watson",
@@ -20,7 +17,6 @@ Ext.define('uber.view.tutor.TutorReviewGrid',{
 		
 		this.columns = [{
 			xtype: 'templatecolumn',
-//			dataIndex: 'data',
 			flex: 1,
 			tpl: [
 				"<div class='review'>" +

@@ -78,6 +78,7 @@ Ext.define('uber.view.tutor.MakeRequest',{
             	margin: 5,
             	fieldLabel: 'Description'
             }],
+            //TODO: SUBMIT TUTOR REQUEST
 //            dockedItems: [{
 //            	xtype: 'toolbar',
 //            	dock: 'bottom',

@@ -59,6 +59,7 @@ Ext.define('uber.view.login.LoginController', {
     	if(formPanel.getForm().isValid()){
     		formPanel.submit({ 
     			url: '/uber2/main/login!login.action',
+    			submitEmptyText: false,
     			method: 'POST', 
     			clientValidation: true,
     			scope: me,

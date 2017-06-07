@@ -1039,7 +1039,6 @@ $include-uber-view-tutor-chat: dynamic(true);;
 $include-uber-view-tutor-chatcontroller: dynamic(true);;
 $include-uber-view-tutor-makerequest: dynamic(true);;
 $include-uber-view-tutor-makerequestcontroller: dynamic(true);;
-$include-uber-view-tutor-makerequestinfo: dynamic(true);;
 $include-uber-view-tutor-requestcategory: dynamic(true);;
 $include-uber-view-tutor-tutorprofile: dynamic(true);;
 $include-uber-view-tutor-tutorprofilecontroller: dynamic(true);;
