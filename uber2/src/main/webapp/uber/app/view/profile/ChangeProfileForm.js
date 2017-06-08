@@ -39,7 +39,7 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
         },{
         	xtype: 'combobox',
         	store: school,
-        	valueField: 'NAME',
+        	valueField: 'school',
         	displayField: 'NAME',
         	name: 'NAME',
         	fieldLabel: 'School',
