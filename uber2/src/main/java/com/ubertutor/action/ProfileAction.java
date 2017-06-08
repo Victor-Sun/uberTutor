@@ -6,13 +6,13 @@ import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.gnomon.common.utils.JsonResult;
 import com.gnomon.common.web.SessionData;
-import com.opensymphony.xwork2.ActionSupport;
+import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.SchoolEntity;
 import com.ubertutor.entity.UserEntity;
 import com.ubertutor.service.ProfileService;
 
 @Namespace("/main")
-public class ProfileAction extends ActionSupport{
+public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -25,14 +25,10 @@ public class ProfileAction extends ActionSupport{
 	 * @throws Exception
 	 */
 	public void display() throws Exception{
-		JsonResult result = new JsonResult();
 		try{
-			result.buildSuccessResult(profileService.getUserInfo(user.getId()));
-			Struts2Utils.renderJson(result);
+			this.writeSuccessResult(profileService.getUserInfo(user.getId()));
 		}catch(Exception e){
 			e.printStackTrace();
-			result.buildErrorResult(e.getMessage());
-			Struts2Utils.renderJson(result);
 		}
 	}
 
@@ -102,5 +98,41 @@ public class ProfileAction extends ActionSupport{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public UserEntity getModel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String list() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String input() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String save() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String delete() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void prepareModel() throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 }
