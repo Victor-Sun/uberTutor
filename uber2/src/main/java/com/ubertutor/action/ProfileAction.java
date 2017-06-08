@@ -37,11 +37,8 @@ public class ProfileAction extends ActionSupport{
 			profileResult.put("mobile",user.getMobile());
 			profileResult.put("bio",user.getBio());
 			profileResult.put("school",school.getName());
-			if(user.getIsTutor().equals("Y")){
-				profileResult.put("isTutor",1);
-			}else{
-				profileResult.put("isTutor",2);
-			}
+			int x = (user.getIsTutor().equals("Y")) ? 1 : 0;
+			profileResult.put("isTutor",x);
 			result.buildSuccessResult(profileResult);
 			Struts2Utils.renderJson(result);
 		}catch(Exception e){
@@ -108,11 +105,8 @@ public class ProfileAction extends ActionSupport{
 	public void getTutorStatus(){
 		try{
 			JsonResult result = new JsonResult();
-			if(user.getIsTutor().equals("Y")){
-				result.buildSuccessResult("true");
-			} else {
-				result.buildSuccessResult("false");
-			}
+			int s = (user.getIsTutor().equals("Y")) ? 1 : 0;
+			result.buildSuccessResult(s);
 			Struts2Utils.renderJson(result);	
 		}catch(Exception e){
 			e.printStackTrace();

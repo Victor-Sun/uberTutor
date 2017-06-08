@@ -142,11 +142,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 
 	@Override
 	protected void prepareModel() throws Exception {
-		if(id == null){
-			entity = new UserEntity();
-		}else{
-			entity = signupService.get(id);
-		}
+		entity = (id != null) ? new UserEntity() : signupService.get(id);
 	}
 	
 	@Override
