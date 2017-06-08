@@ -17,7 +17,7 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
     },
     initComponent: function () {
     	var school = Ext.create('Ext.data.Store',{
-    		fields: [ 'NAME' ],
+    		fields: [ 'ID', 'NAME' ],
     		proxy: {
     	         type: 'ajax',
     	         url: '/uber2/main/profile!displaySchool.action',
@@ -39,7 +39,7 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
         },{
         	xtype: 'combobox',
         	store: school,
-        	valueField: 'school',
+        	valueField: 'SCHOOL_ID',
         	displayField: 'NAME',
         	name: 'NAME',
         	fieldLabel: 'School',

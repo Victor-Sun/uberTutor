@@ -44,7 +44,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 			email = Struts2Utils.getRequest().getParameter("email");
 			mobile = Struts2Utils.getRequest().getParameter("mobile");
 			bio = Struts2Utils.getRequest().getParameter("bio");
-			school = Struts2Utils.getRequest().getParameter("school");
+			school = Struts2Utils.getRequest().getParameter("NAME");
 			schoolEntity = profileService.getSchoolByName(school);
 			schoolid = schoolEntity.getId().toString();
 			String[] temp = mobile.split("[-.()]");
