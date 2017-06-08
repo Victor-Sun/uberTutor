@@ -135,10 +135,7 @@ public class ProfileService {
 	public List<Map<String,Object>> getUserInfo(Long id){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT USERS.ID, USERS.USERNAME, USERS.FULLNAME, SCHOOLS.NAME, USERS.EMAIL, "
-				+ "USERS.MOBILE, USERS.BIO, USERS.IS_TUTOR "
-				+ "FROM USERS, SCHOOLS "
-				+ "WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?;");
+		sql.append(" SELECT * FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?;");
 		params.add(id);
 		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
