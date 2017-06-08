@@ -23,6 +23,7 @@ Ext.define('uber.view.profile.ProfileForm',{
     			xtype: 'checkbox',
     			readOnly: false,
             	boxLabel: 'Is Tutor?',
+//            	inputValue: 'true',
             	name: 'isTutor',
             	id: 'isTutor',
             	hideLabel: true,
@@ -70,7 +71,7 @@ Ext.define('uber.view.profile.ProfileForm',{
     	});
     	if (checkboxForm.isValid()) {
     		Ext.Ajax.request({
-    			url:'uber2/main/profile!tutorStatus.action',
+    			url:'/uber2/main/profile!tutorStatus.action',
     			method: 'GET',
     			success: function () {
     				checkboxForm.load();

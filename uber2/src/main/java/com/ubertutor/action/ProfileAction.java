@@ -85,16 +85,8 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 */
 	public void tutorStatus(){
 		JsonResult result = new JsonResult();
-		try{
-			if(user.getIsTutor().equals("Y")){
-				result.buildSuccessResult("true");
-			} else {
-				result.buildSuccessResult("false");
-			}
-			Struts2Utils.renderJson(result);	
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		result = (user.getIsTutor().equals("Y"))?result.buildSuccessResult("true"):result.buildSuccessResult("false");
+		this.writeSuccessResult(result);
 	}
 
 	@Override
@@ -130,6 +122,6 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	@Override
 	protected void prepareModel() throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
