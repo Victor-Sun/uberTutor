@@ -1,5 +1,8 @@
 package com.ubertutor.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
@@ -84,8 +87,11 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 * Get user's isTutor status
 	 */
 	public void tutorStatus(){
-		JsonResult result = new JsonResult();
-		result = (user.getIsTutor().equals("Y"))?result.buildSuccessResult("true"):result.buildSuccessResult("false");
+//		JsonResult result = new JsonResult();
+		user = SessionData.getLoginUser();
+//		result.buildSuccessResult(user.getIsTutor());
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isTutor", user.getIsTutor());
 		this.writeSuccessResult(result);
 	}
 
