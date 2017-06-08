@@ -85,6 +85,10 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		}
 	}
 	
+	/**
+	 * Removes a user's subject
+	 * @throws Exception
+	 */
 	public void removeSubject() throws Exception{
 		JsonResult result = new JsonResult();
 		try{

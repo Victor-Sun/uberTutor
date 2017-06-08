@@ -20,15 +20,20 @@ public class TutorProfileService {
 	@Autowired
 	private UserDAO userDAO;
 
+	/**
+	 * Get a user by ID
+	 * @param id
+	 * @return UserEntity object
+	 */
 	public UserEntity getUser(Long id){
 		return userDAO.get(id);
 	}
 	
-	public String getUserFullname(Long id){
-		UserEntity user = userDAO.get(id);
-		return user.getFullname();
-	}
-
+	/**
+	 * Get a Tutor's total rating
+	 * @param id
+	 * @return Tutor's total rating
+	 */
 	public Integer getRatingTotal(String id){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
@@ -37,6 +42,11 @@ public class TutorProfileService {
 		return this.jdbcTemplate.queryForInt(sql.toString(),params.toArray());
 	}
 
+	/**
+	 * Get the total rating count a tutor has
+	 * @param id
+	 * @return Amount of ratings a tutor has received
+	 */
 	public Integer getRatingCount(String id){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
@@ -45,6 +55,11 @@ public class TutorProfileService {
 		return this.jdbcTemplate.queryForInt(sql.toString(),params.toArray()); 
 	}
 
+	/**
+	 * Get the total completed requests a tutor has
+	 * @param id
+	 * @return Total count of completed requests
+	 */
 	public Integer getTotalCompletedRequests(String id){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();

@@ -22,6 +22,10 @@ public class TutorProfileAction extends ActionSupport{
 	@Autowired
 	private TutorSubjectRegisterService tutorSubjectRegisterService;
 	
+	/**
+	 * Displays the tutor's profile
+	 * @throws Exception
+	 */
 	public void display() throws Exception{
 		JsonResult result = new JsonResult();
 		try{
@@ -41,6 +45,10 @@ public class TutorProfileAction extends ActionSupport{
 		}
 	}
 	
+	/**
+	 * Displays the reviews about the tutor
+	 * @throws Exception
+	 */
 	public void displayReviews() throws Exception{
 		JsonResult result = new JsonResult();
 		try{

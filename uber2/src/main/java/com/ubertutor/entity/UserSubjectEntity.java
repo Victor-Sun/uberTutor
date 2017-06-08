@@ -1,6 +1,7 @@
 package com.ubertutor.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +26,9 @@ public class UserSubjectEntity implements Serializable{
 	@Column(name="SUBJECT_ID") 
 	private Long subjectid;
 
+	@Column(name="ADD_DATE")
+	private Date adddate;
+	
 	public Long getId() {
 		return id;
 	}
@@ -47,5 +51,13 @@ public class UserSubjectEntity implements Serializable{
 
 	public void setSubjectid(Long subjectid) {
 		this.subjectid = subjectid;
+	}
+
+	public Date getAdddate() {
+		return adddate;
+	}
+
+	public void setAdddate(Date adddate) {
+		this.adddate = adddate;
 	}
 }
