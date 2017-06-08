@@ -37,13 +37,12 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 * @throws Exception
 	 */
 	public void update() throws Exception{
-		JsonResult result = new JsonResult();
 		try{
 			String fullname, email, mobile, bio, school, schoolid, msg, mobileNo = "";
-			fullname = Struts2Utils.getRequest().getParameter("fullname");
-			email = Struts2Utils.getRequest().getParameter("email");
-			mobile = Struts2Utils.getRequest().getParameter("mobile");
-			bio = Struts2Utils.getRequest().getParameter("bio");
+			fullname = Struts2Utils.getRequest().getParameter("FULLNAME");
+			email = Struts2Utils.getRequest().getParameter("EMAIL");
+			mobile = Struts2Utils.getRequest().getParameter("MOBILE");
+			bio = Struts2Utils.getRequest().getParameter("BIO");
 			school = Struts2Utils.getRequest().getParameter("NAME");
 			schoolEntity = profileService.getSchoolByName(school);
 			schoolid = schoolEntity.getId().toString();
@@ -58,8 +57,6 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 			profileService.updateProfile(user.getId().toString(), fullname, email, mobileNo, bio, schoolid);
 		}catch(Exception e){
 			e.printStackTrace();
-			result.buildErrorResult(e.getMessage());
-			Struts2Utils.renderJson(result);
 		}
 	}
 

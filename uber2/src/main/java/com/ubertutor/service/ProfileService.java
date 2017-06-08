@@ -132,6 +132,11 @@ public class ProfileService {
 		this.jdbcTemplate.update(sql.toString(), params.toArray());
 	}
 	
+	/**
+	 * Function that get's all of a user's info
+	 * @param id
+	 * @return Map of user's info
+	 */
 	public Map<String,Object> getUserInfo(Long id){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();

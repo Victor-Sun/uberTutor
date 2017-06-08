@@ -70,7 +70,7 @@ Ext.define('uber.view.profile.ProfileForm',{
     	});
     	if (checkboxForm.isValid()) {
     		Ext.Ajax.request({
-    			url:'uber2/main/profile!getTutorStatus.action',
+    			url:'uber2/main/profile!tutorStatus.action',
     			method: 'GET',
     			success: function () {
     				checkboxForm.load();
