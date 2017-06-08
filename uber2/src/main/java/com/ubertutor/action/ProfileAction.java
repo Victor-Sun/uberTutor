@@ -71,8 +71,8 @@ public class ProfileAction extends ActionSupport{
 	 * Separate function to display school
 	 */
 	public void displaySchool(){
+		JsonResult result = new JsonResult();
 		try{
-			JsonResult result = new JsonResult();
 			result.buildSuccessResult(profileService.getSchoolList());
 			Struts2Utils.renderJson(result);
 		}catch(Exception e){
@@ -90,9 +90,9 @@ public class ProfileAction extends ActionSupport{
 	/**
 	 * Get user's isTutor status
 	 */
-	public void getTutorStatus(){
+	public void tutorStatus(){
+		JsonResult result = new JsonResult();
 		try{
-			JsonResult result = new JsonResult();
 			if(user.getIsTutor().equals("Y")){
 				result.buildSuccessResult("true");
 			} else {

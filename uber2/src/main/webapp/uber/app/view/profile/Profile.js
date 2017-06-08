@@ -17,6 +17,7 @@ Ext.define('uber.view.profile.Profile', {
 		
 		profileInfoForm.load({
 			url: '/uber2/main/profile!display.action',
+//			url: 'app/data/userInfo.json',
 			params: {
 				fullname: 'fullname'
 			},
