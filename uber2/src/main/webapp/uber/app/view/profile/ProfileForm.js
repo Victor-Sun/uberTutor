@@ -23,32 +23,35 @@ Ext.define('uber.view.profile.ProfileForm',{
         	id: 'isTutor',
         	hideLabel: true,
         	scope: this,
+        	checkCount:0
     	});
+    	
     	checkbox.on({
-    		change: function (box, checked) {
+    		change: function (th , newValue , oldValue , eOpts) {
 	    		var bio = Ext.getCmp('bio');
 	    		var subject = Ext.getCmp('subject');
 	    		var checkbox = this.getValue();
 	    		var formPanel = this.up('form');
-	    		
-	    		formPanel.submit({
-	    			//submit form for user signup
-	    			url: '/uber2/main/profile!registerAsTutor.action',
-	    			method: 'POST',
-	    			params: {
-	    				fullname: 'fullname'
-	    			},
-	    			success: function(response, opts) {
-	    				// change to exception output
-	    				Ext.Msg.alert( '', 'update success', Ext.emptyFn )
-	    			},
+	    		if(th.checkCount > 0){
+	    			formPanel.submit({
+		    			//submit form for user signup
+		    			url: '/uber2/main/profile!registerAsTutor.action',
+		    			method: 'POST',
+		    			params: {
+		    				fullname: 'fullname'
+		    			},
+		    			success: function(response, opts) {
+		    				// change to exception output
+		    				Ext.Msg.alert( '', 'update success', Ext.emptyFn )
+		    			},
 
-	    			failure: function(response, opts) {
-	    				// similar to above
-	    				var result = uber.util.Util.decodeJSON(response.responseText);
-	    				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
-	    			},
-	    		});
+		    			failure: function(response, opts) {
+		    				// similar to above
+		    				var result = uber.util.Util.decodeJSON(response.responseText);
+		    				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
+		    			},
+		    		});
+	    		};
 	    		
 	    		if (checkbox == true)
     			{
@@ -58,6 +61,7 @@ Ext.define('uber.view.profile.ProfileForm',{
     				bio.setVisible(false);
     				subject.setVisible(false);
     			};
+    			th.checkCount = th.checkCount + 1;
 	    	},
     	})
     	this.items = [{
@@ -97,8 +101,19 @@ Ext.define('uber.view.profile.ProfileForm',{
         	name: 'addSubject',
         	text: 'Add Subject',
         	hidden: true,
-        	id: 'subject'
-        },checkbox]
+        	id: 'subject',
+        	handler: 'registration'
+        },checkbox,
+//        {
+//        	xtype: 'button',
+//        	name: 'buttonTest',
+//        	text: 'button test',
+//        	handler: function() {
+//        		var profileForm = this.up('form');
+//        		profileForm.reload();
+//        	}
+//        }
+        ]
     	this.callParent();
     },
 });

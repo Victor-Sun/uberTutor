@@ -24,7 +24,6 @@ Ext.define('uber.view.profile.ChangeProfileTutorForm',{
     	hideLabel: true,
     	scope: this,
     	handler: function (box, checked) {
-    		debugger;
     		var bio = Ext.getCmp('bio');
     		var subject = Ext.getCmp('subject');
     		var checkbox = Ext.getCmp('isTutor').getValue();

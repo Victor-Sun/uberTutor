@@ -16,6 +16,14 @@ Ext.define('uber.view.profile.ProfileController',{
     	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
 		var card2 = mainCard.add(Ext.create('uber.view.profile.Profile'));
+		profileInfoForm.reload();
+    },
+    
+    registration: function () {
+    	var me = this;
+        var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+        var remove = mainCard.removeAll();
+		var card2 = mainCard.add(Ext.create('uber.view.tutor.TutorRegistration'));
     },
     
     getProfile: function () {

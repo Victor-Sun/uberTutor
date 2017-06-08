@@ -13,10 +13,7 @@ Ext.define('uber.view.profile.Profile', {
 	},
 	cls: 'uber-panel',
 	initComponent: function () {
-//		debugger;
 		var profileInfoForm = Ext.create('uber.view.profile.ProfileForm');
-//		var profileTutorForm = Ext.create('uber.view.profile.ProfileTutorForm');
-//		var profileMainForm = this.lookupReference('profileMainForm');
 		
 		profileInfoForm.load({
 			url: '/uber2/main/profile!display.action',
