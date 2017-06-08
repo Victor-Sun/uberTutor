@@ -37,7 +37,11 @@ public class ProfileAction extends ActionSupport{
 			profileResult.put("mobile",user.getMobile());
 			profileResult.put("bio",user.getBio());
 			profileResult.put("school",school.getName());
-			profileResult.put("isTutor",user.getIsTutor());
+			if(user.getIsTutor().equals("Y")){
+				profileResult.put("isTutor","true");
+			}else{
+				profileResult.put("isTutor","false");
+			}
 			result.buildSuccessResult(profileResult);
 			Struts2Utils.renderJson(result);
 		}catch(Exception e){

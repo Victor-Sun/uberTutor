@@ -68,6 +68,11 @@ public class TutorProfileService {
 		return this.jdbcTemplate.queryForInt(sql.toString(),params.toArray());
 	}
 	
+	/**
+	 * Get all feedback regarding a user
+	 * @param id
+	 * @return List of feedbacks
+	 */
 	public List<Map<String,Object>> getFeedback(String id){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
