@@ -33,7 +33,7 @@ Ext.define('uber.view.profile.ProfileForm',{
 	    		
 	    		formPanel.submit({
 	    			//submit form for user signup
-	    			url: '/uber2/main/profile!update.action',
+	    			url: '/uber2/main/profile!registerAsTutor.action',
 	    			method: 'POST',
 	    			params: {
 	    				fullname: 'fullname'

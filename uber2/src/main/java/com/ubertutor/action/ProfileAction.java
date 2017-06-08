@@ -30,7 +30,7 @@ public class ProfileAction extends ActionSupport{
 	public void display() throws Exception{
 		JsonResult result = new JsonResult();
 		try{
-			Map<String, String> profileResult = new HashMap<String,String>();
+			Map<String, Object> profileResult = new HashMap<String,Object>();
 			SchoolEntity school = profileService.getSchool(Long.parseLong(user.getSchoolId()));
 			profileResult.put("fullname",user.getFullname());
 			profileResult.put("email",user.getEmail());
@@ -38,9 +38,9 @@ public class ProfileAction extends ActionSupport{
 			profileResult.put("bio",user.getBio());
 			profileResult.put("school",school.getName());
 			if(user.getIsTutor().equals("Y")){
-				profileResult.put("isTutor","true");
+				profileResult.put("isTutor",1);
 			}else{
-				profileResult.put("isTutor","false");
+				profileResult.put("isTutor",2);
 			}
 			result.buildSuccessResult(profileResult);
 			Struts2Utils.renderJson(result);

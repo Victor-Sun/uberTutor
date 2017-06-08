@@ -126,11 +126,8 @@ public class ProfileService {
 		List<Object> params = new ArrayList<Object>();
 		UserEntity user = userDAO.get(id);
 		sql.append(" UPDATE USERS SET IS_TUTOR = ? WHERE ID = ?");
-		if(!user.getIsTutor().equals("Y")){
-			params.add("Y");
-		} else {
-			params.add("N");
-		}
+		String status = (!user.getIsTutor().equals("Y"))?"Y":"N";
+		params.add(status);
 		params.add(id);
 		this.jdbcTemplate.update(sql.toString(), params.toArray());
 	}
