@@ -5,7 +5,7 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
 	flex: 1,
 	margin: 5,
 	controller: 'profile',
-	reference: 'formpanel',
+	reference: 'profileForm',
 	layout: {
 		type: 'vbox',
 		align: 'stretchmax'

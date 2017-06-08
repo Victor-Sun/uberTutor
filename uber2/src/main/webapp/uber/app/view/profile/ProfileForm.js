@@ -4,70 +4,101 @@ Ext.define('uber.view.profile.ProfileForm',{
 	
 	margin: 5,
 	controller: 'profile',
-    reference: 'formpanel',
+    reference: 'profileForm',
+    itemId: 'profileForm',
     layout: {
         type: 'vbox',
         align: 'stretchmax'
     },
     defaults: {
         labelAlign: 'top',
-        readOnly: true,
         width: 200
 //        anchor: '100%'
     },
-    items: [{
-		xtype: 'textfield',
-        name: 'fullname',
-        fieldLabel: 'Name',
-        itemId: 'fullname'
-    },{
-        xtype: 'textfield',
-        name: 'email',
-        fieldLabel: 'Email',
-        itemId: 'email'
-    },{
-        xtype: 'textfield',
-        name: 'mobile',
-        fieldLabel: 'Mobile',
-        itemId: 'mobile'
-    },{
-    	xtype: 'textfield',
-        name: 'school',
-        fieldLabel: 'School',
-        itemId: 'school'
-    },{
-    	xtype: 'checkbox',
-    	readOnly: false,
-    	boxLabel: 'Is Tutor?',
-    	name: 'isTutor',
-    	id:'istutor',
-    	hideLabel: true,
-    	scope: this,
-    	handler: function (box, checked) {
-    		var bio = Ext.getCmp('bio');
-    		var subject = Ext.getCmp('subject');
-    		var checkbox = Ext.getCmp('istutor').getValue();
-    		if (checkbox == true)
+    initComponent(){
+    	var checkbox = Ext.create('Ext.form.field.Checkbox',{
+        	readOnly: false,
+        	boxLabel: 'Is Tutor?',
+        	name: 'isTutor',
+        	id: 'isTutor',
+        	hideLabel: true,
+        	scope: this,
+    	});
+    	checkbox.on({
+    		change: function (box, checked) {
+	    		var bio = Ext.getCmp('bio');
+	    		var subject = Ext.getCmp('subject');
+	    		var checkbox = this.getValue();
+	    		var formPanel = this.up('form');
+	    		
+	    		formPanel.submit({
+	    			//submit form for user signup
+	    			url: '/uber2/main/profile!update.action',
+	    			method: 'POST',
+	    			params: {
+	    				fullname: 'fullname'
+	    			},
+	    			success: function(response, opts) {
+	    				// change to exception output
+	    				Ext.Msg.alert( '', 'update success', Ext.emptyFn )
+	    			},
+
+	    			failure: function(response, opts) {
+	    				// similar to above
+	    				var result = uber.util.Util.decodeJSON(response.responseText);
+	    				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
+	    			},
+	    		});
+	    		
+	    		if (checkbox == true)
     			{
     				bio.setVisible(true);
     				subject.setVisible(true);
     			} else {
     				bio.setVisible(false);
     				subject.setVisible(false);
-    			}
-    	}
-    },{
-    	xtype: 'textarea',
-    	name: 'bio',
-    	maxLength: 1000,
-    	fieldLabel: 'Bio',
-    	hidden: true,
-    	id: 'bio'
-    },{
-    	xtype: 'button',
-    	name: 'subject',
-    	text: 'Add Subject',
-    	hidden: true,
-    	id: 'subject'
-    }]
+    			};
+	    	},
+    	})
+    	this.items = [{
+    		xtype: 'textfield',
+            name: 'fullname',
+            fieldLabel: 'Name',
+            readOnly: true,
+            itemId: 'fullname'
+        },{
+            xtype: 'textfield',
+            name: 'email',
+            fieldLabel: 'Email',
+            readOnly: true,
+            itemId: 'email'
+        },{
+            xtype: 'textfield',
+            name: 'mobile',
+            fieldLabel: 'Mobile',
+            readOnly: true,
+            itemId: 'mobile'
+        },{
+        	xtype: 'textfield',
+            name: 'school',
+            fieldLabel: 'School',
+            readOnly: true,
+            itemId: 'school'
+        },{
+        	xtype: 'textarea',
+        	name: 'bio',
+        	maxLength: 1000,
+        	fieldLabel: 'Bio',
+        	readOnly: true,
+        	hidden: true,
+        	id: 'bio'
+        },{
+        	xtype: 'button',
+        	name: 'addSubject',
+        	text: 'Add Subject',
+        	hidden: true,
+        	id: 'subject'
+        },checkbox]
+    	this.callParent();
+    },
 });

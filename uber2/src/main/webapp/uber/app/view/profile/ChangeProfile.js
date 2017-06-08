@@ -24,7 +24,8 @@ Ext.define('uber.view.profile.ChangeProfile',{
 			}
 		});
 		this.items = [{
-			xtype: 'panel',
+			xtype: 'form',
+			reference: 'profileMainForm',
 			flex: 1,
 			cls: 'uber-panel-inner',
 			layout: {

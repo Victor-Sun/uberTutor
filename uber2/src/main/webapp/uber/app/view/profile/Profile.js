@@ -13,8 +13,12 @@ Ext.define('uber.view.profile.Profile', {
 	},
 	cls: 'uber-panel',
 	initComponent: function () {
-		var profileForm = Ext.create('uber.view.profile.ProfileForm');
-		profileForm.load({
+//		debugger;
+		var profileInfoForm = Ext.create('uber.view.profile.ProfileForm');
+//		var profileTutorForm = Ext.create('uber.view.profile.ProfileTutorForm');
+//		var profileMainForm = this.lookupReference('profileMainForm');
+		
+		profileInfoForm.load({
 			url: '/uber2/main/profile!display.action',
 			params: {
 				fullname: 'fullname'
@@ -26,6 +30,7 @@ Ext.define('uber.view.profile.Profile', {
 		});
 		this.items = [{
 			xtype: 'panel',
+//			reference: 'profileMainForm',
 			flex: 1,
 	    	cls: 'uber-panel-inner',
 	    	layout: {
@@ -63,7 +68,7 @@ Ext.define('uber.view.profile.Profile', {
 	                xtype: 'component',
 	                html: '<h3>User Avatar</h3>'
 	            }]
-	    	},profileForm,
+	    	},profileInfoForm
 		]
 		}];
 		this.callParent(arguments);

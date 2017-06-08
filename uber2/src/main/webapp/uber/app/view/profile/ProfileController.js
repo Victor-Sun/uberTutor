@@ -20,7 +20,7 @@ Ext.define('uber.view.profile.ProfileController',{
     
     getProfile: function () {
     	var me = this;
-    	var formPanel = this.lookupReference('formpanel');
+    	var formPanel = this.lookupReference('profileForm');
 //    	var model = Ext.create('uber.model.User', formPanel.getValues());
 //    	var errors = model.validate();
 //    	var form = formPanel.getForm();
@@ -61,14 +61,14 @@ Ext.define('uber.view.profile.ProfileController',{
     			params: {
     				fullname: 'fullname'
     			},
-    			success: function() {
+    			success: function(response, opts) {
     				// change to exception output
     				Ext.Msg.alert( '', 'update success', Ext.emptyFn )
     			},
 
-    			failure: function() {
+    			failure: function(response, opts) {
     				// similar to above
-    				var result = uber.util.Util.decodeJSON(action.response.responseText);
+    				var result = uber.util.Util.decodeJSON(response.responseText);
     				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
     			},
     		})
@@ -80,4 +80,9 @@ Ext.define('uber.view.profile.ProfileController',{
     		Ext.Msg.alert("Error", message, Ext.emptyFn);
     	}
     },
+//    /uber2/main/profile!registerAsTutor.action
+    isTutor: function(checkbox, value){
+    	var check = checkbox.getValue();
+    	checkbox.submit()
+    }
 })
