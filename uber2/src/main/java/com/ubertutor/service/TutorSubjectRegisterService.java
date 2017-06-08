@@ -1,6 +1,7 @@
 package com.ubertutor.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,12 +21,21 @@ public class TutorSubjectRegisterService {
 	@Autowired
 	private UserSubjectDAO userSubjectDao;
 	
+	/**
+	 * Get all categories
+	 * @return List of all categories
+	 */
 	public List<Map<String,Object>> getCategoryList(){
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT ID, TITLE FROM SUBJECT_CATEGORY");
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
 
+	/**
+	 * Get all subjects according to category
+	 * @param categoryId
+	 * @return List of subjects according to category
+	 */
 	public List<Map<String,Object>> getSubjectList(String categoryId){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
@@ -34,6 +44,11 @@ public class TutorSubjectRegisterService {
 		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
 	
+	/**
+	 * Get all of a user's subjects/categories
+	 * @param userId
+	 * @return List of subjects according to user
+	 */
 	public List<Map<String,Object>> getUserSubjects(String userId){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
@@ -42,12 +57,25 @@ public class TutorSubjectRegisterService {
 		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
 	
+	/**
+	 * Add subject to the table user_subject
+	 * @param entity
+	 * @param userId
+	 * @param subjectId
+	 */
 	public void addTutorSubject(UserSubjectEntity entity, Long userId, Long subjectId){
+		Date date = new Date();
 		entity.setUserid(userId);
 		entity.setSubjectid(subjectId);
+		entity.setAdddate(date);
 		userSubjectDao.save(entity);
 	}
 	
+	/**
+	 * Removes subject from user_subject
+	 * @param userId
+	 * @param subjectId
+	 */
 	public void removeSubject(Long userId, Long subjectId){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
