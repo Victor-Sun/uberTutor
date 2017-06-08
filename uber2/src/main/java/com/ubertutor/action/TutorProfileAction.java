@@ -29,7 +29,7 @@ public class TutorProfileAction extends ActionSupport{
 	public void display() throws Exception{
 		JsonResult result = new JsonResult();
 		try{
-			Map<String, String> profileResult = new HashMap<String,String>();
+			Map<String, Object> profileResult = new HashMap<String,Object>();
 			UserEntity tutor = tutorProfileService.getUser(id);
 			int avg = tutorProfileService.getRatingTotal(id)/tutorProfileService.getRatingTotal(id);
 			profileResult.put("fullname",tutor.getFullname());

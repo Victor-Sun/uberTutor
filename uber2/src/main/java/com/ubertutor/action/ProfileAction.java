@@ -1,8 +1,5 @@
 package com.ubertutor.action;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
@@ -30,16 +27,7 @@ public class ProfileAction extends ActionSupport{
 	public void display() throws Exception{
 		JsonResult result = new JsonResult();
 		try{
-			Map<String, Object> profileResult = new HashMap<String,Object>();
-			SchoolEntity school = profileService.getSchool(Long.parseLong(user.getSchoolId()));
-			profileResult.put("fullname",user.getFullname());
-			profileResult.put("email",user.getEmail());
-			profileResult.put("mobile",user.getMobile());
-			profileResult.put("bio",user.getBio());
-			profileResult.put("school",school.getName());
-			int x = (user.getIsTutor().equals("Y")) ? 1 : 0;
-			profileResult.put("isTutor",x);
-			result.buildSuccessResult(profileResult);
+			result.buildSuccessResult(profileService.getUserInfo(user.getId()));
 			Struts2Utils.renderJson(result);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -111,6 +99,5 @@ public class ProfileAction extends ActionSupport{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-
 	}
 }

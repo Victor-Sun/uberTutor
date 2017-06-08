@@ -123,7 +123,6 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		try{
 			Long userId = Long.parseLong(SessionData.getLoginUserId());
 			Long subjectId = Long.parseLong(Struts2Utils.getParameter("subject"));
-			System.out.println("User ID: " + userId + "Subject ID: " + subjectId);
 			tutorSubjectRegisterService.addTutorSubject(entity, userId, subjectId);
 		} catch (Exception e) {
 			e.printStackTrace();

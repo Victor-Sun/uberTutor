@@ -46,12 +46,11 @@ public class SignupService {
 	 */
 	public void registerAccount(UserEntity entity){
 		Date date = new Date();
-		Date sqlDate = new Date(date.getTime());
 		entity.setIsDisabled("N");
 		entity.setIsTutor("N");
 		entity.setIsAdmin("N");
 		entity.setCreateBy("System");
-		entity.setCreateDate(sqlDate);
+		entity.setCreateDate(date);
 		userDAO.save(entity);
 	}
 	
