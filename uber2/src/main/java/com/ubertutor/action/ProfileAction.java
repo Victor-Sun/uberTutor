@@ -93,8 +93,11 @@ public class ProfileAction extends ActionSupport{
 	public void getTutorStatus(){
 		try{
 			JsonResult result = new JsonResult();
-			int s = (user.getIsTutor().equals("Y")) ? 1 : 0;
-			result.buildSuccessResult(s);
+			if(user.getIsTutor().equals("Y")){
+				result.buildSuccessResult("true");
+			} else {
+				result.buildSuccessResult("false");
+			}
 			Struts2Utils.renderJson(result);	
 		}catch(Exception e){
 			e.printStackTrace();
