@@ -18,7 +18,7 @@ Ext.define('uber.view.password.ChangePasswordController',{
 
     			failure: function() {
     				var result = uber.util.Util.decodeJSON(action.response.responseText);
-    		        Ext.Msg.alert('Error', result.data, Ext.emptyFn);
+    				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
     			},
     		})
     	} else {
