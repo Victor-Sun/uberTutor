@@ -54,11 +54,11 @@ Ext.define('uber.view.main.MainController', {
 		var card2 = mainCard.add(Ext.create('uber.view.password.ChangePassword'));
     },
     
-    sessions: function () {
+    mysessions: function () {
     	var me = this;
     	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
-		var card2 = mainCard.add(Ext.create('uber.view.session.Sessions'));
+		var card2 = mainCard.add(Ext.create('uber.view.session.MySession'));
     },
     
     logout: function() {

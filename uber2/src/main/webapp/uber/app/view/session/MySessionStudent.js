@@ -30,6 +30,22 @@ Ext.define('uber.view.session.MySessionStudent',{
                 margin: 5,
                 html: '<h2>My Session (Student)</h2>'
             }]
+    	},{
+    		xtype: 'grid',
+    		flex:1,
+    		columns: [{
+    			text: 'Date',
+    			flex:1,
+    		},{
+    			text: 'Tutor',
+    			flex:1,
+    		},{
+    			text: 'Category',
+    			flex:1,
+    		},{
+    			text: 'Status',
+    			flex:1,
+    		}]
     	}]
     }]
 });

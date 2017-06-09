@@ -88,10 +88,8 @@ Ext.define('uber.view.login.LoginController', {
 		me.lookupReference('formpanel').up('login').destroy();
 		Ext.create('uber.view.main.Main');
 		var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
-		var card2 = mainCard.add(Ext.create('uber.view.main.MainPage'));
-        var mainLayout = mainCard.getLayout();
-        var card = mainCard.setActiveItem('mainpage');
-
+		var card2 = mainCard.add(Ext.create('uber.view.profile.ChangeProfile'));
+        
 		var result = uber.util.Util.decodeJSON(action.response.responseText);
 		var userName = result.data.username;
 		var userNameText = Ext.ComponentQuery.query('#userNameItemId')[0];

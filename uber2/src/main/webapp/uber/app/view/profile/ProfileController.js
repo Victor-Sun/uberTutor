@@ -33,7 +33,8 @@ Ext.define('uber.view.profile.ProfileController',{
 //    	var errors = model.validate();
 //    	var form = formPanel.getForm();
 //    	var rec = Ext.create('uber.store.Profile');
-    	
+    	Ext.getBody().mask();
+
     	formPanel.load({
 			//submit form for user signup
 			url: '/uber2/main/profile!display.action',
@@ -43,6 +44,7 @@ Ext.define('uber.view.profile.ProfileController',{
 			},
 			scope: me,
     	    success: function(response, opts) {
+    	    	Ext.getBody().unmask();
     	    	var result = uber.util.Util.decodeJSON(response.responseText);
     	    	var obj = Ext.JSON.decode(response.responseText);
     	        console.log(obj);
@@ -50,7 +52,7 @@ Ext.define('uber.view.profile.ProfileController',{
     	    },
 
     	    failure: function(response, opts) {
-    	    	ExtApp.util.Util.handleRequestFailure(response);
+    	    	uber.util.Util.handleRequestFailure(response);
     	    }
 		})
     },

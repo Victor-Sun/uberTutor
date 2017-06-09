@@ -39,7 +39,7 @@ Ext.define('uber.view.tutor.CategoryWindow',{
             store: subjectStore,
             displayField: 'TITLE',
             valueField: 'ID',
-            queryMode:'remote',
+            queryMode:'local',
             name:'subject'
 		});
 		
