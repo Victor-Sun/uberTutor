@@ -38,7 +38,6 @@ Ext.define('uber.view.profile.ProfileForm',{
                 ],
                 listeners: {
                     change: function (th , field, newValue, oldValue) {
-                    	debugger;
                         var bio = Ext.getCmp('bio');
                         var subject = Ext.getCmp('subject');
                         var checkbox = this.getValue();
@@ -57,23 +56,14 @@ Ext.define('uber.view.profile.ProfileForm',{
 //                                	Ext.Msg.alert('Error', "Value Loaded/Updated", Ext.emptyFn);
                                 },
 
-                                failure: function(response, opts) {
-                                    // similar to above
-                                    var result = uber.util.Util.decodeJSON(response.responseText);
+                                function (form, action) {
+                                	var me = this;
+                                    this.getView().unmask();
+                                    var result = uber.util.Util.decodeJSON(action.response.responseText);
                                     Ext.Msg.alert('Error', result.data, Ext.emptyFn);
-                                },
+                            	},
                             });
                         };
-//                        switch (parseInt(checkbox)) {
-//	                        case 'Y':
-//	                        	bio.setVisible(true);
-//	                            subject.setVisible(true);
-//	                            break;
-//	                        case 'N':
-//	                        	 bio.setVisible(false);
-//	                             subject.setVisible(false);
-//	                            break;
-//	                    };
                         
                         if (checkbox.IS_TUTOR == 'Y')            
                         {
@@ -142,15 +132,6 @@ Ext.define('uber.view.profile.ProfileForm',{
             handler: 'registration'
         },
         checkboxForm,
-//        {
-//          xtype: 'button',
-//          name: 'buttonTest',
-//          text: 'button test',
-//          handler: function() {
-//              var profileForm = this.up('form');
-//              profileForm.reload();
-//          }
-//        }
         ];
         
          

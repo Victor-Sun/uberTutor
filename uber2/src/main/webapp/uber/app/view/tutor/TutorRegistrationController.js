@@ -10,7 +10,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 		var me = this;
 		var grid = Ext.getCmp('tutorRegistrationGrid').getStore();
 		var form = me.view.down('form').getForm();
-		me.view.mask('Please Wait...')
+		me.view.mask('Loading...Please Wait...')
 		form.submit({
 			clientValidation: true,
 			url:'/uber2/main/tutor-subject-register!save.action',
@@ -23,12 +23,13 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
             	grid.reload();
                 me.cancel();
             },
-            failure: function(form, action) {
+            failure: function (form, action) {
             	me.view.unmask();
-            	uber.util.Util.handleFormFailure(action);
-            }
-		});
+                var result = uber.util.Util.decodeJSON(action.response.responseText);
+                Ext.Msg.alert('Error', result.data, Ext.emptyFn);
+        	},
 
+		});
     },
     
     cancel: function() {
@@ -38,6 +39,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     onRemoveClick: function (grid, rowIndex) {
     	var me = this;
     	var record = grid.getStore().getAt(rowIndex);
+    	me.view.mask('Please Wait...')
     	Ext.Ajax.request({
     		url:'/uber2/main/tutor-subject-register!removeSubject.action',
     		params: {
@@ -45,10 +47,12 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     		},
     		score: me,
     		success: function() {
+    			me.view.unmask();
+    			Ext.Msg.alert('Success', "Subject was successfully removed!", Ext.emptyFn);
     			grid.getStore().reload();
-    			uber.util.Util.showToast("Subject was successfully removed!");
     		},
     		failure: function(response, opts) {
+    			me.view.unmask();
     			uber.util.Util.handlerRequestFailure(response);
     		}
     	});

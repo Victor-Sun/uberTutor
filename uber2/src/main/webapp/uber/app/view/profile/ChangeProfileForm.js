@@ -43,7 +43,7 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
         	displayField: 'NAME',
         	name: 'NAME',
         	fieldLabel: 'School',
-        	
+        	editable: false
         },{
         	xtype: 'textarea',
         	name: 'BIO',

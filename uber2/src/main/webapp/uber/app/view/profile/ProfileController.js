@@ -62,7 +62,7 @@ Ext.define('uber.view.profile.ProfileController',{
     	var formPanel = this.view;
 //    	var model = Ext.create('uber.model.UserInfo', formPanel.getValues());
 //    	var form = formPanel.getForm();
-    	
+    	this.getView().mask('Loading...Please Wait');
     	if(formPanel.getForm().isValid()){
     		formPanel.submit({
     			//submit form for user signup
@@ -73,12 +73,14 @@ Ext.define('uber.view.profile.ProfileController',{
     			},
     			success: function(response, opts) {
     				// change to exception output
+    				this.getView().unmask();
     				Ext.Msg.alert( '', 'update success', Ext.emptyFn )
     			},
 
-    			failure: function(response, opts) {
+    			failure: function(form, action) {
     				// similar to above
-    				var result = uber.util.Util.decodeJSON(response.responseText);
+    				this.getView().unmask();
+    				var result = uber.util.Util.decodeJSON(action.response.responseText);
     				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
     			},
     		})

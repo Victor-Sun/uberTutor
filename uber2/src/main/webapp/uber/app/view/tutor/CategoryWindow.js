@@ -23,6 +23,7 @@ Ext.define('uber.view.tutor.CategoryWindow',{
             valueField: 'ID',
             queryModel: 'local',
             editable:false,
+            name: 'category',
             listeners: {
                 change: function (combo, newValue, oldValue, eOpts) {
                     subjectStore.load({params:{categoryId:newValue}});

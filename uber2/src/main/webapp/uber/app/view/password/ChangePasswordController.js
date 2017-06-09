@@ -5,7 +5,7 @@ Ext.define('uber.view.password.ChangePasswordController',{
     changePassword: function () {
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
-    	
+    	 this.getView().mask('Loading...Please Wait');
     	if(formPanel.getForm().isValid()){
     		formPanel.submit({
     			//submit form for user signup
@@ -13,10 +13,12 @@ Ext.define('uber.view.password.ChangePasswordController',{
     			method: 'POST',
     			success: function() {
     				// change to exception output
+    				this.getView().unmask();
     				Ext.Msg.alert( '', 'update success', Ext.emptyFn )
     			},
 
-    			failure: function() {
+    			failure: function (form, action) {
+    				this.getView().unmask();
     				var result = uber.util.Util.decodeJSON(action.response.responseText);
     				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
     			},

@@ -3,7 +3,8 @@ Ext.define('uber.view.profile.Profile', {
     xtype: 'profile',
 
     requires: [
-       // 'uber.view.profile.ProfileController'
+        'uber.view.profile.ProfileController',
+        'uber.view.profile.ProfileForm'
     ],
     
     controller: 'profile',
@@ -16,10 +17,9 @@ Ext.define('uber.view.profile.Profile', {
 		
 		var profileInfoForm = Ext.create('uber.view.profile.ProfileForm');
 		var loading = function () {
-			Ext.getBody().mask('Loading...Please Wait');
+//			Ext.getBody().mask('Loading...Please Wait');
 			profileInfoForm.load({
 				url: '/uber2/main/profile!display.action',
-//				url: 'app/data/userInfo.json',
 				params: {
 					fullname: 'fullname'
 				},
@@ -27,9 +27,9 @@ Ext.define('uber.view.profile.Profile', {
 					type: 'json',
 					rootProperty: 'data'
 				},
-				success: function () {
-					Ext.getBody().unmask();
-				}
+//				success: function () {
+//					Ext.getBody().unmask();
+//				}
 			});
 		};
 		
