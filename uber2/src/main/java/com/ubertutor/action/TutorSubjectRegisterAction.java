@@ -1,5 +1,10 @@
 package com.ubertutor.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import net.sf.json.JSONObject;
+
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
@@ -119,7 +124,6 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 
 	@Override
 	public String save() throws Exception {
-		JsonResult result = new JsonResult();
 		String msg = "";
 		try{
 			Long userId = Long.parseLong(SessionData.getLoginUserId());
@@ -131,8 +135,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 			tutorSubjectRegisterService.addTutorSubject(entity, userId, subjectId);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result.buildErrorResult(e.getMessage());
-			Struts2Utils.renderJson(result);
+			this.writeErrorResult(e.getMessage());
 		}
 		return null;
 	}
@@ -155,6 +158,35 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 			entity = new UserSubjectEntity();
 		}else{
 			entity = tutorSubjectRegisterService.get(id);
+		}
+	}
+	
+	public void writeSuccessResult(Object data) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", true);
+		if (null != data) {
+			resultMap.put("data", data);
+		}
+		JSONObject jsonObject = JSONObject.fromObject(resultMap);
+		try {
+			Struts2Utils.renderHtml(jsonObject.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void writeErrorResult(Object data) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+		if (null != data) {
+			resultMap.put("data", data);
+		}
+
+		JSONObject jsonObject = JSONObject.fromObject(resultMap);
+		try {
+			Struts2Utils.renderHtml(jsonObject.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }
