@@ -128,6 +128,11 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		try{
 			Long userId = Long.parseLong(SessionData.getLoginUserId());
 			Long subjectId = Long.parseLong(Struts2Utils.getParameter("subject"));
+			String category = Struts2Utils.getParameter("category");
+			if(category == null || category == ""){
+				msg = "Invalid subject, select a valid subject and try again!";
+				throw new Exception(msg);
+			}
 			if(subjectId == null || subjectId.toString() == ""){
 				msg = "Invalid subject, select a valid subject and try again!";
 				throw new Exception(msg);

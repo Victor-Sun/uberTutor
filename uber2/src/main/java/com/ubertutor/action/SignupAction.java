@@ -12,6 +12,7 @@ import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.UserEntity;
 import com.ubertutor.service.ChangePasswordService;
 import com.ubertutor.service.LoginService;
+import com.ubertutor.service.ProfileService;
 import com.ubertutor.service.SignupService;
 
 @Namespace("/main")
@@ -25,6 +26,8 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	private LoginService loginService;
 	@Autowired
 	private ChangePasswordService passwordService;
+	@Autowired
+	private ProfileService profileService;
 	private UserEntity entity = new UserEntity();;
 
 	/**
@@ -123,6 +126,10 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 			}
 			if(!p1.equals(p2)){
 				msg = "Passwords do not match, please check your passwords then submit again!";
+				throw new Exception(msg);
+			}
+			if(!profileService.isValidEmailAddress(email)){
+				msg = "Invalid email, please check that your email is written correctly, and try again.";
 				throw new Exception(msg);
 			}
 			if(signupService.usedEmail(email)){
