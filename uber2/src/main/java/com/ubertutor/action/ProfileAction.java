@@ -84,7 +84,8 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 * Function to register a user as a tutor
 	 */
 	public void registerAsTutor(){
-		profileService.registerAsTutor(user.getId());
+		String s = Struts2Utils.getParameter("IS_TUTOR");
+		profileService.registerAsTutor(user.getId(), s);
 	}
 
 	/**

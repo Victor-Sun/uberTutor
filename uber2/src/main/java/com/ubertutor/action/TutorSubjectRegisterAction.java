@@ -128,6 +128,10 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		try{
 			Long userId = Long.parseLong(SessionData.getLoginUserId());
 			Long subjectId = Long.parseLong(Struts2Utils.getParameter("subject"));
+			if(subjectId == null || subjectId.toString() == ""){
+				msg = "Invalid subject, select a valid subject and try again!";
+				throw new Exception(msg);
+			}
 			if(tutorSubjectRegisterService.subjectExists(userId, subjectId)){
 				msg = "You already registered this subject!";
 				throw new Exception(msg);

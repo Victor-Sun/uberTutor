@@ -84,13 +84,11 @@ public class ProfileService {
 	 * Function that changes the isTutor flag in db
 	 * @param id
 	 */
-	public void registerAsTutor(Long id){
+	public void registerAsTutor(Long id, String s){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
-		UserEntity user = userDAO.get(id);
 		sql.append(" UPDATE USERS SET IS_TUTOR = ? WHERE ID = ?");
-		String status = (user.getIsTutor().equals("Y"))?"Y":"N";
-		params.add(status);
+		params.add(s);
 		params.add(id);
 		this.jdbcTemplate.update(sql.toString(), params.toArray());
 	}
