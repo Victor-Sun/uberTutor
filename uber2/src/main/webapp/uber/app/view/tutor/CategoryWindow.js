@@ -22,6 +22,7 @@ Ext.define('uber.view.tutor.CategoryWindow',{
             displayField: 'TITLE',
             valueField: 'ID',
             queryModel: 'local',
+            editable:false,
             listeners: {
                 change: function (combo, newValue, oldValue, eOpts) {
                     subjectStore.load({params:{categoryId:newValue}});
@@ -40,6 +41,7 @@ Ext.define('uber.view.tutor.CategoryWindow',{
             displayField: 'TITLE',
             valueField: 'ID',
             queryMode:'local',
+            editable:false,
             name:'subject'
 		});
 		
