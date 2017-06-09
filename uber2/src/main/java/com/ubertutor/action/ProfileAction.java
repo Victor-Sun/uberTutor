@@ -45,18 +45,22 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 			fullname = Struts2Utils.getRequest().getParameter("FULLNAME");
 			email = Struts2Utils.getRequest().getParameter("EMAIL");
 			mobile = Struts2Utils.getRequest().getParameter("MOBILE");
-			bio = Struts2Utils.getRequest().getParameter("BIO");
-			school = Struts2Utils.getRequest().getParameter("NAME");
-			schoolEntity = profileService.getSchoolByName(school);
-			schoolid = schoolEntity.getId().toString();
 			String[] temp = mobile.split("[-.()]");
 			for(int i = 0; i < temp.length; i++){
 				mobileNo += temp[i];
 			}
 			if(!mobileNo.matches("\\d{10}")){
-				msg = "Invalid phone number";
+				msg = "Invalid phone number, please enter 10 digits";
 				throw new Exception(msg);
 			}
+			school = Struts2Utils.getRequest().getParameter("NAME");
+			if(school== null || school == ""){
+				msg = "School cannot be empty";
+				throw new Exception(msg);
+			}
+			schoolEntity = profileService.getSchoolByName(school);
+			schoolid = schoolEntity.getId().toString();
+			bio = Struts2Utils.getRequest().getParameter("BIO");
 			profileService.updateProfile(user.getId().toString(), fullname, email, mobileNo, bio, schoolid);
 		}catch(Exception e){
 			e.printStackTrace();

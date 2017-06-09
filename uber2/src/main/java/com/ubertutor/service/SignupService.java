@@ -49,6 +49,7 @@ public class SignupService {
 		entity.setIsDisabled("N");
 		entity.setIsTutor("N");
 		entity.setIsAdmin("N");
+		entity.setIsVerified("N");
 		entity.setCreateBy("System");
 		entity.setCreateDate(date);
 		userDAO.save(entity);

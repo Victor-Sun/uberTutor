@@ -25,34 +25,6 @@ public class ProfileService {
 	private JdbcTemplate jdbcTemplate;
 
 	/**
-	 * Get UserEntity by username
-	 * @param username
-	 * @return UserEntity object
-	 */
-	public UserEntity getUser(String username) {
-		String hql = "FROM UserEntity WHERE username = ?";
-		List<UserEntity> result = this.userDAO.find(hql, username);
-		if (result.size() > 0) {
-			return result.get(0);
-		}
-		return new UserEntity();
-	}
-
-	/**
-	 * Get school entity by school's id
-	 * @param schoolId
-	 * @return School Entity Object
-	 */
-	public SchoolEntity getSchool(long schoolId){
-		String hql = "FROM SchoolEntity WHERE id = ?";
-		List<SchoolEntity> result = this.schoolDAO.find(hql, schoolId);
-		if (result.size() > 0) {
-			return result.get(0);
-		}
-		return new SchoolEntity();
-	}
-
-	/**
 	 * Get school entity by school's name
 	 * @param name
 	 * @return School Entity Object
@@ -74,15 +46,6 @@ public class ProfileService {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT ID, NAME FROM SCHOOLS");
 		return this.jdbcTemplate.queryForList(sql.toString());
-	}
-	
-	/**
-	 * Get a user's ID by username
-	 * @param username
-	 * @return User id as a string
-	 */
-	public String getUserId(String username) {
-		return this.getUser(username).getUsername();
 	}
 	
 	/**
@@ -126,7 +89,7 @@ public class ProfileService {
 		List<Object> params = new ArrayList<Object>();
 		UserEntity user = userDAO.get(id);
 		sql.append(" UPDATE USERS SET IS_TUTOR = ? WHERE ID = ?");
-		String status = (!user.getIsTutor().equals("Y"))?"Y":"N";
+		String status = (user.getIsTutor().equals("Y"))?"Y":"N";
 		params.add(status);
 		params.add(id);
 		this.jdbcTemplate.update(sql.toString(), params.toArray());

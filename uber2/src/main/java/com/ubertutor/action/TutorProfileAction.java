@@ -21,7 +21,7 @@ public class TutorProfileAction extends ActionSupport{
 	private TutorProfileService tutorProfileService;
 	@Autowired
 	private TutorSubjectRegisterService tutorSubjectRegisterService;
-	
+	private String id = Struts2Utils.getParameter("");
 	/**
 	 * Displays the tutor's profile
 	 * @throws Exception
@@ -30,7 +30,7 @@ public class TutorProfileAction extends ActionSupport{
 		JsonResult result = new JsonResult();
 		try{
 			Map<String, Object> profileResult = new HashMap<String,Object>();
-			UserEntity tutor = tutorProfileService.getUser(id);
+			UserEntity tutor = tutorProfileService.getUser(Long.parseLong(id));
 			int avg = tutorProfileService.getRatingTotal(id)/tutorProfileService.getRatingTotal(id);
 			profileResult.put("fullname",tutor.getFullname());
 			profileResult.put("rating",avg);

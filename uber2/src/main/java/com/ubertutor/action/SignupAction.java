@@ -25,7 +25,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	private LoginService loginService;
 	@Autowired
 	private ChangePasswordService passwordService;
-	private UserEntity entity;
+	private UserEntity entity = new UserEntity();;
 
 	/**
 	 * 
@@ -129,7 +129,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 				msg = "Email has already been used!";
 				throw new Exception(msg);
 			}
-			entity.setPassword(EncryptUtil.encrypt(entity.getPassword()));
+			entity.setPassword(EncryptUtil.encrypt(p1));
 			signupService.registerAccount(entity);
 			resultMap.put("username", entity.getUsername());
 			this.writeSuccessResult(resultMap);
