@@ -44,13 +44,17 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 			String fullname, email, mobile, bio, school, schoolid, msg, mobileNo = "";
 			fullname = Struts2Utils.getRequest().getParameter("FULLNAME");
 			email = Struts2Utils.getRequest().getParameter("EMAIL");
+			if(!profileService.isValidEmailAddress(email)){
+				msg = "Invalid email, please check that your email is written correctly, and try again.";
+				throw new Exception(msg);
+			}
 			mobile = Struts2Utils.getRequest().getParameter("MOBILE");
 			String[] temp = mobile.split("[-.()]");
 			for(int i = 0; i < temp.length; i++){
 				mobileNo += temp[i];
 			}
 			if(!mobileNo.matches("\\d{10}")){
-				msg = "Invalid phone number, please enter 10 digits";
+				msg = "Invalid phone number, please enter 10 digits.";
 				throw new Exception(msg);
 			}
 			school = Struts2Utils.getRequest().getParameter("NAME");

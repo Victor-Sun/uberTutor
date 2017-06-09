@@ -37,7 +37,7 @@ public class ProfileService {
 		}
 		return new SchoolEntity();
 	}
-	
+
 	/**
 	 * Get a list of schools by running a query
 	 * @return List of schools
@@ -47,7 +47,7 @@ public class ProfileService {
 		sql.append(" SELECT ID, NAME FROM SCHOOLS");
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
-	
+
 	/**
 	 * Function to run a query to update a user's profile
 	 * @param id
@@ -79,7 +79,7 @@ public class ProfileService {
 		params.add(id);
 		this.jdbcTemplate.update(sql.toString(), params.toArray());
 	}
-	
+
 	/**
 	 * Function that changes the isTutor flag in db
 	 * @param id
@@ -92,7 +92,7 @@ public class ProfileService {
 		params.add(id);
 		this.jdbcTemplate.update(sql.toString(), params.toArray());
 	}
-	
+
 	/**
 	 * Function that get's all of a user's info
 	 * @param id
@@ -106,5 +106,17 @@ public class ProfileService {
 				+ " WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?");
 		params.add(id);
 		return this.jdbcTemplate.queryForMap(sql.toString(),params.toArray());
+	}
+
+	/**
+	 * Function that uses regex to validate an email address
+	 * @param email
+	 * @return true if the email is valid
+	 */
+	public boolean isValidEmailAddress(String email) {
+		String pattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+		java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
+		java.util.regex.Matcher m = p.matcher(email);
+		return m.matches();
 	}
 }
