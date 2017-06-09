@@ -85,6 +85,12 @@ public class TutorSubjectRegisterService {
 		this.jdbcTemplate.update(sql.toString(),params.toArray());
 	}
 	
+	public boolean subjectExists(Long userId, Long subjectId){
+		String hql = "FROM UserSubjectEntity WHERE userid = ? AND subjectid = ?";
+		List<UserSubjectEntity> result = this.userSubjectDao.find(hql, userId, subjectId);
+        return result.size() > 0; 
+	}
+	
 	public UserSubjectEntity get(Long id){
 		return userSubjectDao.get(id);
 	}

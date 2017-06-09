@@ -120,9 +120,14 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	@Override
 	public String save() throws Exception {
 		JsonResult result = new JsonResult();
+		String msg = "";
 		try{
 			Long userId = Long.parseLong(SessionData.getLoginUserId());
 			Long subjectId = Long.parseLong(Struts2Utils.getParameter("subject"));
+			if(tutorSubjectRegisterService.subjectExists(userId, subjectId)){
+				msg = "You already registered this subject!";
+				throw new Exception(msg);
+			}
 			tutorSubjectRegisterService.addTutorSubject(entity, userId, subjectId);
 		} catch (Exception e) {
 			e.printStackTrace();
