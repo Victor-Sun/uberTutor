@@ -43,7 +43,7 @@ public class ProfileService {
 	 */
 	public List<Map<String,Object>> getSchoolList(){
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT ID, NAME FROM SCHOOLS");
+		sql.append(" SELECT ID, NAME FROM SCHOOLS WHERE ID <> 1");
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
 

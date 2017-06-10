@@ -27,7 +27,7 @@ public class TutorSubjectRegisterService {
 	 */
 	public List<Map<String,Object>> getCategoryList(){
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT ID, TITLE FROM SUBJECT_CATEGORY");
+		sql.append(" SELECT ID, TITLE FROM SUBJECT_CATEGORY WHERE ID <> 1");
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
 
@@ -39,7 +39,7 @@ public class TutorSubjectRegisterService {
 	public List<Map<String,Object>> getSubjectList(String categoryId){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT ID, TITLE FROM SUBJECT WHERE CATEGORY_ID = ?");
+		sql.append(" SELECT ID, TITLE FROM SUBJECT WHERE AND CATEGORY_ID = ?");
 		params.add(categoryId);
 		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
