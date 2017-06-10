@@ -15,7 +15,6 @@ import com.ubertutor.entity.UserEntity;
 public class SignupService {
 	@Autowired
 	private UserDAO userDAO;
-	
 	/**
 	 * Check for if the email already exists
 	 * @param email
@@ -46,6 +45,7 @@ public class SignupService {
 	 */
 	public void registerAccount(UserEntity entity){
 		Date date = new Date();
+		entity.setSchoolId("1");
 		entity.setIsDisabled("N");
 		entity.setIsTutor("N");
 		entity.setIsAdmin("N");

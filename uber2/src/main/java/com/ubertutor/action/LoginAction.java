@@ -76,19 +76,19 @@ public class LoginAction extends ActionSupport {
 				msg = "用户密码错误！";
 				throw new Exception(msg);
 			}
-			UserEntity loginUser = this.loginService.getUser(username);
-			if("Y".equals(loginUser.getIsDisabled())){
+			UserEntity entity = this.loginService.getUser(username);
+			if("Y".equals(entity.getIsDisabled())){
 				msg = "用户已被禁用，不允许登录！";
 				throw new Exception(msg);
 			}
-			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_USER, loginUser);
+			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_USER, entity);
 			if(OnlineUtils.isUseRedis()){
 				if(OnlineUtils.isOnline(username)){
 					OnlineUtils.logout(username);
 				}
-				OnlineUtils.login(Struts2Utils.getSession().getId(), loginUser);
+				OnlineUtils.login(Struts2Utils.getSession().getId(), entity);
 			}
-			resultMap.put("userName", loginUser.getUsername());
+			resultMap.put("userName", entity.getUsername());
 			writeSuccessResult(resultMap);
 		} catch (Exception e) {
 			e.printStackTrace();

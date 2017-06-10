@@ -7,8 +7,10 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
+import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.EncryptUtil;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
+import com.gnomontech.pdms.redis.OnlineUtils;
 import com.ubertutor.entity.UserEntity;
 import com.ubertutor.service.ChangePasswordService;
 import com.ubertutor.service.LoginService;
@@ -28,8 +30,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	private ChangePasswordService passwordService;
 	@Autowired
 	private ProfileService profileService;
-	private UserEntity entity = new UserEntity();;
-
+	private UserEntity entity = new UserEntity();
 	/**
 	 * 
 	 * @return fullname as a String
@@ -93,7 +94,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	/**
 	 * Get a user's ID
 	 * @return id as a Long
@@ -138,6 +139,13 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 			}
 			entity.setPassword(EncryptUtil.encrypt(p1));
 			signupService.registerAccount(entity);
+			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_USER, entity);
+			if(OnlineUtils.isUseRedis()){
+				if(OnlineUtils.isOnline(username)){
+					OnlineUtils.logout(username);
+				}
+				OnlineUtils.login(Struts2Utils.getSession().getId(), entity);
+			}
 			resultMap.put("username", entity.getUsername());
 			this.writeSuccessResult(resultMap);
 		} catch (Exception e){
@@ -149,9 +157,9 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 
 	@Override
 	protected void prepareModel() throws Exception {
-		entity = (id != null) ? new UserEntity() : signupService.get(id);
+		entity = (id != null) ? signupService.get(id) : new UserEntity();
 	}
-	
+
 	@Override
 	public UserEntity getModel() {
 		// TODO Auto-generated method stub

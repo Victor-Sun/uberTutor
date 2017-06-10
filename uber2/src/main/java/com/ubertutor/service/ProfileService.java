@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ubertutor.dao.SchoolDAO;
 import com.ubertutor.dao.UserDAO;
 import com.ubertutor.entity.SchoolEntity;
-import com.ubertutor.entity.UserEntity;
 
 @Service
 @Transactional

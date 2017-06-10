@@ -12,6 +12,7 @@ import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.SchoolEntity;
 import com.ubertutor.entity.UserEntity;
+import com.ubertutor.service.LoginService;
 import com.ubertutor.service.ProfileService;
 
 @Namespace("/main")
@@ -20,9 +21,11 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 
 	@Autowired
 	private ProfileService profileService;
+	@Autowired
+	private LoginService loginService;
 	private SchoolEntity schoolEntity;
 	private UserEntity user = SessionData.getLoginUser();
-
+	
 	/**
 	 * Sends Json to front end to display a user's profile
 	 * @throws Exception
@@ -41,6 +44,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 */
 	public void update() throws Exception{
 		try{
+			UserEntity user = SessionData.getLoginUser();
 			String fullname, email, mobile, bio, school, schoolid, msg, mobileNo = "";
 			fullname = Struts2Utils.getRequest().getParameter("FULLNAME");
 			email = Struts2Utils.getRequest().getParameter("EMAIL");
@@ -88,6 +92,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 * Function to register a user as a tutor
 	 */
 	public void registerAsTutor(){
+		UserEntity user = SessionData.getLoginUser();
 		String s = Struts2Utils.getParameter("IS_TUTOR");
 		profileService.registerAsTutor(user.getId(), s);
 	}
@@ -96,6 +101,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 * Get user's isTutor status
 	 */
 	public void tutorStatus(){
+		UserEntity user = SessionData.getLoginUser();
 //		JsonResult result = new JsonResult();
 		user = SessionData.getLoginUser();
 //		result.buildSuccessResult(user.getIsTutor());
