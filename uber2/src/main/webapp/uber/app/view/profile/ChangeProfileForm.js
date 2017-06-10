@@ -16,6 +16,8 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
 		width: 200
     },
     initComponent: function () {
+//    	debugger;
+//    	var tutorCheck = 
     	var school = Ext.create('Ext.data.Store',{
     		fields: [ 'ID', 'NAME' ],
     		proxy: {
@@ -29,7 +31,7 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
     	});
     	this.items = [{
     		name: 'FULLNAME',
-            fieldLabel: 'Name&nbsp;*',
+            fieldLabel: 'Name',
             allowBlank: false
         },{
             name: 'EMAIL',
@@ -37,7 +39,7 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
             allowBlank: false
         },{
             name: 'MOBILE',
-            fieldLabel: 'Mobile&nbsp;*',
+            fieldLabel: 'Mobile',
             allowBlank: false
         },{
         	xtype: 'combobox',
@@ -45,7 +47,7 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
         	valueField: 'NAME',
         	displayField: 'NAME',
         	name: 'NAME',
-        	fieldLabel: 'School&nbsp;*',
+        	fieldLabel: 'School',
         	allowBlank: false,
         	editable: false
         },{
@@ -53,6 +55,9 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
         	name: 'BIO',
         	maxLength: 250,
         	fieldLabel: 'Bio',
+        },{
+        	xtype: 'hidden',
+        	name: 'IS_TUTOR'
     	}],
     	this.dockedItems = [{
     		xtype:'toolbar',
