@@ -1,6 +1,7 @@
 Ext.define('uber.view.profile.ChangeProfile',{
 	extend: 'Ext.panel.Panel',
 	xtype: 'changeprofile',
+	itemId: 'changeprofile',
 	
 	requires: [
     ],

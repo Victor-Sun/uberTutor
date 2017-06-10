@@ -30,19 +30,23 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
     	this.items = [{
     		name: 'FULLNAME',
             fieldLabel: 'Name&nbsp;*',
+            allowBlank: false
         },{
             name: 'EMAIL',
             fieldLabel: 'Email&nbsp;*',
+            allowBlank: false
         },{
             name: 'MOBILE',
             fieldLabel: 'Mobile&nbsp;*',
+            allowBlank: false
         },{
         	xtype: 'combobox',
         	store: school,
         	valueField: 'NAME',
         	displayField: 'NAME',
         	name: 'NAME',
-        	fieldLabel: 'School',
+        	fieldLabel: 'School&nbsp;*',
+        	allowBlank: false,
         	editable: false
         },{
         	xtype: 'textarea',
