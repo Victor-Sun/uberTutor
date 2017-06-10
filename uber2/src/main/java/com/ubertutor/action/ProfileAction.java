@@ -28,6 +28,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 
 	/**
 	 * Sends Json to front end to display a user's profile
+	 * Depends on whether the user has a school
 	 * @throws Exception
 	 */
 	public void display() throws Exception{
