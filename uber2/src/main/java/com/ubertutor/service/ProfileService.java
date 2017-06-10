@@ -43,7 +43,7 @@ public class ProfileService {
 	 */
 	public List<Map<String,Object>> getSchoolList(){
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT ID, NAME FROM SCHOOLS WHERE ID <> 1");
+		sql.append(" SELECT ID, NAME FROM SCHOOLS");
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
 
@@ -110,12 +110,12 @@ public class ProfileService {
 	 * @param id
 	 * @return size of query result
 	 */
-	public Integer hasSchool(Long id){
+	public List<Map<String, Object>> hasSchool(Long id){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?");
 		params.add(id);
-		return this.jdbcTemplate.getFetchSize(); 
+		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
 
 	/**

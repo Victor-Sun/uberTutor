@@ -33,7 +33,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 */
 	public void display() throws Exception{
 		try{
-			if(profileService.hasSchool(user.getId()) < 1){
+			if(profileService.hasSchool(user.getId()).isEmpty()){
 				this.writeSuccessResult(profileService.getUserInfo(user.getId()));
 			}else{
 				this.writeSuccessResult(profileService.getAllUserInfo(user.getId()));
