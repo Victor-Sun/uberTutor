@@ -2,7 +2,6 @@
 
 git pull
 git add .
-echo Enter commit message
-read commit
+read -p "Commit Message: " commit
 git commit -m "$commit"
 git push
