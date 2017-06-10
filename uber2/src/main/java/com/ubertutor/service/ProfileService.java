@@ -93,20 +93,44 @@ public class ProfileService {
 	}
 
 	/**
-	 * Function that get's all of a user's info
+	 * Function that get's all of a user's info minus school
 	 * @param id
 	 * @return Map of user's info
 	 */
 	public Map<String,Object> getUserInfo(Long id){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT USERS.*, SCHOOLS.NAME"
-				+ " FROM USERS, SCHOOLS"
-				+ " WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?");
+		sql.append(" SELECT * FROM USERS WHERE USERS.ID = ?");
 		params.add(id);
 		return this.jdbcTemplate.queryForMap(sql.toString(),params.toArray());
 	}
 
+	/**
+	 * Function that checks if the user has a school
+	 * @param id
+	 * @return size of query result
+	 */
+	public Integer hasSchool(Long id){
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?");
+		params.add(id);
+		return this.jdbcTemplate.getFetchSize(); 
+	}
+
+	/**
+	 * Function that get's all of a user's profile information
+	 * @param id
+	 * @return Map of user's info
+	 */
+	public Map<String, Object> getAllUserInfo(Long id){
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT USERS.*,SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?");
+		params.add(id);
+		return this.jdbcTemplate.queryForMap(sql.toString(),params.toArray());
+	}
+	
 	/**
 	 * Function that uses regex to validate an email address
 	 * @param email

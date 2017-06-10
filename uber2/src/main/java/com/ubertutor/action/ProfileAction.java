@@ -25,14 +25,18 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	private LoginService loginService;
 	private SchoolEntity schoolEntity;
 	private UserEntity user = SessionData.getLoginUser();
-	
+
 	/**
 	 * Sends Json to front end to display a user's profile
 	 * @throws Exception
 	 */
 	public void display() throws Exception{
 		try{
-			this.writeSuccessResult(profileService.getUserInfo(user.getId()));
+			if(profileService.hasSchool(user.getId()) < 1){
+				this.writeSuccessResult(profileService.getUserInfo(user.getId()));
+			}else{
+				this.writeSuccessResult(profileService.getAllUserInfo(user.getId()));
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -102,9 +106,9 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 */
 	public void tutorStatus(){
 		UserEntity user = SessionData.getLoginUser();
-//		JsonResult result = new JsonResult();
+		//		JsonResult result = new JsonResult();
 		user = SessionData.getLoginUser();
-//		result.buildSuccessResult(user.getIsTutor());
+		//		result.buildSuccessResult(user.getIsTutor());
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isTutor", user.getIsTutor());
 		this.writeSuccessResult(result);

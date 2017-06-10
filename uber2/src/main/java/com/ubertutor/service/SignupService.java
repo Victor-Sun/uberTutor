@@ -45,7 +45,6 @@ public class SignupService {
 	 */
 	public void registerAccount(UserEntity entity){
 		Date date = new Date();
-		entity.setSchoolId("1");
 		entity.setIsDisabled("N");
 		entity.setIsTutor("N");
 		entity.setIsAdmin("N");
