@@ -1,7 +1,7 @@
 #!/bin/bash
 
-git pull
-git add .
 read -p "Commit Message: " commit
+git pull
+git add.
 git commit -m "$commit"
 git push
