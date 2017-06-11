@@ -10,7 +10,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="SUBJECT_CATEGORY")
+@Table(name = "SUBJECT_CATEGORY")
 public class SubjectCategoryEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
 	@Id
@@ -18,7 +18,7 @@ public class SubjectCategoryEntity implements Serializable{
 	@SequenceGenerator(name="SUBJECT_CATEGORY_SEQ", sequenceName="SUBJECT_CATEGORY_SEQ") 
 	private Long id; 
 	
-	@Column(name="TITLE")
+	@Column(name = "TITLE")
 	private String title;
 
 	public String getTitle() {

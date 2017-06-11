@@ -31,6 +31,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	@Autowired
 	private ProfileService profileService;
 	private UserEntity entity = new UserEntity();
+	
 	/**
 	 * 
 	 * @return fullname as a String

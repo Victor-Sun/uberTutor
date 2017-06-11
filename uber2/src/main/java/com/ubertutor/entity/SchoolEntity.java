@@ -11,7 +11,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="SCHOOLS")
+@Table(name = "SCHOOLS")
 public class SchoolEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
 	@Id
@@ -19,13 +19,13 @@ public class SchoolEntity implements Serializable{
 	@SequenceGenerator(name="SCHOOLS_SEQ", sequenceName="SCHOOLS_SEQ")
 	private Long id; 
 	
-	@Column(name="NAME")
+	@Column(name = "NAME")
 	private String name;
 
-	@Column(name="CITY")
+	@Column(name = "CITY")
 	private String city;
 	
-	@Column(name="STATE")
+	@Column(name = "STATE")
 	private String state;
 
 	public Long getId() {

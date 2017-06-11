@@ -1,10 +1,5 @@
 package com.ubertutor.action;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import net.sf.json.JSONObject;
-
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
@@ -163,39 +158,6 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 
 	@Override
 	protected void prepareModel() throws Exception {
-		if(id == null){
-			entity = new UserSubjectEntity();
-		}else{
-			entity = tutorSubjectRegisterService.get(id);
-		}
-	}
-	
-	public void writeSuccessResult(Object data) {
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("success", true);
-		if (null != data) {
-			resultMap.put("data", data);
-		}
-		JSONObject jsonObject = JSONObject.fromObject(resultMap);
-		try {
-			Struts2Utils.renderHtml(jsonObject.toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void writeErrorResult(Object data) {
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("success", false);
-		if (null != data) {
-			resultMap.put("data", data);
-		}
-
-		JSONObject jsonObject = JSONObject.fromObject(resultMap);
-		try {
-			Struts2Utils.renderHtml(jsonObject.toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		entity = (id == null) ? new UserSubjectEntity() : tutorSubjectRegisterService.get(id); 
 	}
 }

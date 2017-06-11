@@ -11,7 +11,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="FEEDBACK")
+@Table(name = "FEEDBACK")
 public class FeedbackEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
 	@Id
@@ -19,22 +19,22 @@ public class FeedbackEntity implements Serializable{
 	@SequenceGenerator(name="FEEDBACK_SEQ", sequenceName="FEEDBACK_SEQ") 
 	private Long id; 
 	
-	@Column(name="USER_ID") 
-	private Long userid;
+	@Column(name = "USER_ID") 
+	private Long userId;
 	
-	@Column(name="TUTOR_ID") 
-	private Long tutorid;
+	@Column(name = "TUTOR_ID") 
+	private Long tutorId;
 	
-	@Column(name="REQUEST_ID") 
-	private Long requestid;
+	@Column(name = "REQUEST_ID") 
+	private Long requestId;
 	
-	@Column(name="CREATE_DATE") 
-	private String createdate; 
+	@Column(name = "CREATE_DATE") 
+	private String createDate; 
 	
-	@Column(name="RATING") 
+	@Column(name = "RATING") 
 	private int rating;
 	
-	@Column(name="COMMENTS") 
+	@Column(name = "COMMENTS") 
 	private String comments;
 
 	public Long getId() {
@@ -46,35 +46,35 @@ public class FeedbackEntity implements Serializable{
 	}
 
 	public Long getUserid() {
-		return userid;
+		return userId;
 	}
 
 	public void setUserid(Long userid) {
-		this.userid = userid;
+		this.userId = userid;
 	}
 
 	public Long getTutorid() {
-		return tutorid;
+		return tutorId;
 	}
 
 	public void setTutorid(Long tutorid) {
-		this.tutorid = tutorid;
+		this.tutorId = tutorid;
 	}
 
 	public Long getRequestid() {
-		return requestid;
+		return requestId;
 	}
 
 	public void setRequestid(Long requestid) {
-		this.requestid = requestid;
+		this.requestId = requestid;
 	}
 
 	public String getCreatedate() {
-		return createdate;
+		return createDate;
 	}
 
 	public void setCreatedate(String createdate) {
-		this.createdate = createdate;
+		this.createDate = createdate;
 	}
 
 	public int getRating() {

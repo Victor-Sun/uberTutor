@@ -12,7 +12,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="USERS")
+@Table(name = "USERS")
 public class UserEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
 	@Id
@@ -20,66 +20,66 @@ public class UserEntity implements Serializable{
 	@SequenceGenerator(name="USERS_SEQ", sequenceName="USERS_SEQ")
 	private Long id; 
 
-	@Column(name="UUID") 
+	@Column(name = "UUID") 
 	private String uuid;
 
-	@Column(name="USERNAME") 
+	@Column(name = "USERNAME") 
 	private String username;
 	
 
-	@Column(name="FULLNAME") 
+	@Column(name = "FULLNAME") 
 	private String fullname;
 	
 	
-	@Column(name="PASSWORD") 
+	@Column(name = "PASSWORD") 
 	private String password;
 	
-	@Column(name="SCHOOL_ID")
+	@Column(name = "SCHOOL_ID")
 	private String schoolId;
 	
 	
-	@Column(name="EMAIL") 
+	@Column(name = "EMAIL") 
 	private String email;
 	
 	
-	@Column(name="MOBILE") 
+	@Column(name = "MOBILE") 
 	private String mobile;
 	
 	
-	@Column(name="CREATE_BY") 
+	@Column(name = "CREATE_BY") 
 	private String createBy;
 	
 
-	@Column(name="CREATE_DATE") 
+	@Column(name = "CREATE_DATE") 
 	private Date createDate;	
 
-	@Column(name="UPDATE_BY") 
+	@Column(name = "UPDATE_BY") 
 	private String updateBy;
 	
-	@Column(name="UPDATE_DATE") 
+	@Column(name = "UPDATE_DATE") 
 	private Date updateDate;
 	
-	@Column(name="DELETE_BY") 
+	@Column(name = "DELETE_BY") 
 	private String deleteBy;
 	
 	
-	@Column(name="DELETE_DATE") 
+	@Column(name = "DELETE_DATE") 
 	private Date deleteDate;
 	
-	@Column(name="BIO")
+	@Column(name = "BIO")
 	private String bio;
 	
-	@Column(name="IS_DISABLED") 
+	@Column(name = "IS_DISABLED") 
 	private String isDisabled;
 
-	@Column(name="IS_TUTOR") 
+	@Column(name = "IS_TUTOR") 
 	private String isTutor;
 	
-	@Column(name="IS_ADMIN")
+	@Column(name = "IS_ADMIN")
 	private String isAdmin;
 	
 	
-	@Column(name="IS_VERIFIED") 
+	@Column(name = "IS_VERIFIED") 
 	private String isVerified;
 
 	public String getSchoolId() {

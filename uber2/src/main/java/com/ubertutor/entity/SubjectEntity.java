@@ -19,14 +19,14 @@ public class SubjectEntity implements Serializable{
 	@SequenceGenerator(name="SUBJECT_SEQ", sequenceName="SUBJECT_SEQ") 
 	private Long id; 
 	
-	@Column(name="TITLE") 
+	@Column(name = "TITLE") 
 	private String title;
 	
-	@Column(name="DESCRIPTION") 
+	@Column(name = "DESCRIPTION") 
 	private String description;
 	
-	@Column(name="CATEGORY_ID") 
-	private Long categoryid;
+	@Column(name = "CATEGORY_ID") 
+	private Long categoryId;
 	
 	public Long getId() {
 		return id;
@@ -53,10 +53,10 @@ public class SubjectEntity implements Serializable{
 	}
 
 	public Long getCategoryid() {
-		return categoryid;
+		return categoryId;
 	}
 
 	public void setCategoryid(Long categoryid) {
-		this.categoryid = categoryid;
+		this.categoryId = categoryid;
 	}
 }
