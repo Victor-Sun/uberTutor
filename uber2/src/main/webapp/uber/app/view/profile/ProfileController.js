@@ -93,8 +93,11 @@ Ext.define('uber.view.profile.ProfileController',{
     	}
     },
 //    /uber2/main/profile!registerAsTutor.action
-    isTutor: function(checkbox, value){
-    	var check = checkbox.getValue();
-    	checkbox.submit()
-    }
+    isTutor: function(){
+    	if (isTutor == 'Y'){
+			bio.setVisible(true);
+		} else {
+			bio.setVisible(false);
+    	}
+    },
 })

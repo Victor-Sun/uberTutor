@@ -1,9 +1,0 @@
-Ext.define('ExtApp.model.deptworkspace.DeptmanagementOpenIssue01Model', {
-    extend: 'ExtApp.model.Base',
-    alias: 'model.deptmanagementOpenIssue01',
-    
-    fields: [
-             'progressDescription'
-     ]
-
-});

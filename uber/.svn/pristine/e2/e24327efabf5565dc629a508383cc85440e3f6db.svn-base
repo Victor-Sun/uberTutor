@@ -1,8 +1,0 @@
-/**
- * 首页-个人设置Controller
- */
-Ext.define('ExtApp.view.toolbarsettings.PersonalSettingsController', {
-    extend: 'Ext.app.ViewController',
-    alias: 'controller.personalSettings'
-
-});

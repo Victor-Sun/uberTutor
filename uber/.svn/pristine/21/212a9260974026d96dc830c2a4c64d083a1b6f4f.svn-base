@@ -1,8 +1,0 @@
-Ext.define('ExtApp.view.projectmanagement.issue.contribution.ContributionGridModel',{
-	extend: 'Ext.data.Model',
-	fields: [
-	   {name: 'name'},
-	   {name: 'contributionCount', type: 'float'},
-	   {name: 'referenceCount', type: 'float'}
-	]
-});

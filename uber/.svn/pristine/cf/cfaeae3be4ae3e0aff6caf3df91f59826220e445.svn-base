@@ -1,9 +1,0 @@
-Ext.define('ExtApp.model.systemsettings.ProjectrolemanagerModel', {
-	extend: 'ExtApp.model.Base',
-    alias: 'model.projectrolemanagerModel',
-    
-    fields: [
-             'id','profileName','defaultrole','systemFlag'          
-      ]
-
-});

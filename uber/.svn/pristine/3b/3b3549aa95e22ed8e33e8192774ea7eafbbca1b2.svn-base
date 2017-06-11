@@ -1,7 +1,0 @@
-Ext.define('ExtApp.model.projectmanagement.SelectionModel', {
-	extend: 'ExtApp.model.Base',
-    alias: 'model.selection',
-
-    fields: ['name']
-             
-});

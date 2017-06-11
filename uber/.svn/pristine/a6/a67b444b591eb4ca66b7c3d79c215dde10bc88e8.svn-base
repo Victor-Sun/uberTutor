@@ -1,8 +1,0 @@
-/**
-  * 首页-个人设置-常用项目ViewModel
- */
-Ext.define('ExtApp.view.toolbarsettings.PersonalSettingsViewModel', {
-    extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.personalSettings'
-
-});

@@ -1,9 +1,0 @@
-Ext.define('ExtApp.view.projectManagement.gantt.store.Tasks', {
-    extend : 'Gnt.data.TaskStore',
-
-    requires                  : ['ExtApp.view.projectManagement.gantt.model.Project'],
-    reApplyFilterOnDataChange : false,
-    alias                     : 'store.advanced-task-store',
-    model                     : 'ExtApp.view.projectManagement.gantt.model.Task',
-    filterer                  : 'bottomup'
-});

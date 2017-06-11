@@ -13,7 +13,10 @@ Ext.define('uber.view.profile.ChangeProfile',{
 	},
 	cls: 'uber-panel',
 	initComponent: function () {
+		var me = this;
 		var profileForm = Ext.create('uber.view.profile.ChangeProfileForm');
+		var bio = profileForm.down('textarea');
+		var isTutor = profileForm.down('hidden');
 		profileForm.load({
 			url: '/uber2/main/profile!display.action',
 			params: {
@@ -22,7 +25,7 @@ Ext.define('uber.view.profile.ChangeProfile',{
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
-			}
+			},
 		});
 		this.items = [{
 			xtype: 'form',

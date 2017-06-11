@@ -16,8 +16,6 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
 		width: 200
     },
     initComponent: function () {
-//    	debugger;
-//    	var tutorCheck = 
     	var school = Ext.create('Ext.data.Store',{
     		fields: [ 'ID', 'NAME' ],
     		proxy: {
@@ -52,12 +50,30 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
         	editable: false
         },{
         	xtype: 'textarea',
+        	hidden: true,
+        	id: 'bio',
         	name: 'BIO',
         	maxLength: 250,
         	fieldLabel: 'Bio',
+        	listeners: {
+        		
+        	}
         },{
         	xtype: 'hidden',
-        	name: 'IS_TUTOR'
+        	name: 'IS_TUTOR',
+        	listeners: {
+        		change: function (th , field, newValue, oldValue) {
+        			var bio = Ext.getCmp('bio');
+//                    var isTutor = Ext.getCmp('isTutor');
+        			if ( th.rawValue == 'Y')            
+                    {
+                        bio.setVisible(true);
+                    } else if ( th.rawValue == 'N') 
+    				{
+                        bio.setVisible(false);
+                    };
+        		}
+        	}
     	}],
     	this.dockedItems = [{
     		xtype:'toolbar',

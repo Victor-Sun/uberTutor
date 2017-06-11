@@ -1,8 +1,0 @@
-/**
- * 项目管理-项目计划基线详细-Tree
- */
-Ext.define('ExtApp.view.projectmanagement.baseline.BaselineTree',{
-	extend: 'Ext.tree.Panel',
-	xtype: 'baselineTree',
-	rootVisible: false
-});

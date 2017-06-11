@@ -1,7 +1,0 @@
-/**
- * @class Sch.data.undoredo.mixin.StoreHint
- * @deprecated This class is kept for backward compatibility and might be removed in future releases. Please use {@link Robo.mixin.StoreHint} instead.
- */
-Ext.define('Sch.data.undoredo.mixin.StoreHint', {
-    extend : 'Robo.data.Store'
-});

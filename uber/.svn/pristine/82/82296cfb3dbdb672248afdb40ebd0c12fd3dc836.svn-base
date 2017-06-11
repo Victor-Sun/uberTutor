@@ -1,7 +1,0 @@
-Ext.define('ExtApp.model.dashboard.NodeSeriesModel', {
-	extend: 'ExtApp.model.Base',
-    alias: 'model.nodeSeries',
-    
-	fields:['process', 'PlannedRatio', 'ActualRatio', 'plannedCnt', 'actualCnt']
-
-});

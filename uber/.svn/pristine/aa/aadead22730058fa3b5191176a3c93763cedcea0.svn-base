@@ -1,7 +1,0 @@
-Ext.define('ExtApp.view.myworkspace.DoneListConnMission',{
-	extend:'Ext.panel.Panel',
-	xtype:'doneListConnMission',
-	
-	closable:true
-	
-});

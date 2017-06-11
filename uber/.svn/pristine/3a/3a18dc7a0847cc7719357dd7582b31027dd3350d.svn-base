@@ -1,7 +1,0 @@
-/**
- * 项目管理-项目模板库-主计划(质量阀)ViewModel
- */
-Ext.define('ExtApp.view.projectManagement.templatelibrary.ProjectTemplateGateNodeViewModel', {
-    extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.projectTemplateGateNode'
-});

@@ -58,7 +58,6 @@ Ext.define('uber.view.profile.ProfileForm',{
 
                                 function (form, action) {
                                 	var me = this;
-                                    this.getView().unmask();
                                     var result = uber.util.Util.decodeJSON(action.response.responseText);
                                     Ext.Msg.alert('Error', result.data, Ext.emptyFn);
                             	},

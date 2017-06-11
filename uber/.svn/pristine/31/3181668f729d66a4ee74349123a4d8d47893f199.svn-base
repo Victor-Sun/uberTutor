@@ -1,7 +1,0 @@
-/**
- * 项目管理-项目模板库-主计划(主节点)ViewModel
- */
-Ext.define('ExtApp.view.projectManagement.templatelibrary.ProjectTemplateMainNodeViewModel', {
-    extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.projectTemplateMainNode'
-});

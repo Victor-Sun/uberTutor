@@ -1,9 +1,0 @@
-/**
- *
- */
-Ext.define('Ext.overrides.form.field.Text', {
-    override: 'Ext.form.field.Text',
-    
-    labelSeparator: ''
-
-});

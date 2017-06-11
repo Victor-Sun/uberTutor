@@ -1,9 +1,0 @@
-Ext.define('ExtApp.model.Resource', {
-
-    extend : 'Sch.model.Resource',
-
-    fields      : [
-        { name: 'Type',          type : 'string' } //Type M, G or F
-    ]
-
-});

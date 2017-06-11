@@ -1,8 +1,0 @@
-/**
- * 项目管理-项目模板库-主计划(组织)ViewModel
- */
-Ext.define('ExtApp.view.projectManagement.templatelibrary.ProjectTemplateOrgNodeViewModel', {
-    extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.projectTemplateOrgNode'
-    	
-});

@@ -1,7 +1,0 @@
-/**
- * 项目管理-计划-OpenIssueViewModel
- */
-Ext.define('ExtApp.view.projectManagement.issue.ProjectOpenIssue01ViewModel', {
-    extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.projectOpenIssue01'
-});

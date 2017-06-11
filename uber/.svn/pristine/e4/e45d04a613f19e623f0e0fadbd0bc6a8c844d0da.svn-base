@@ -1,8 +1,0 @@
-/**
- * 个人管理-待办任务-工作联系单ViewModel
- */
-Ext.define('ExtApp.view.myworkspace.TodoListConnViewModel',{
-	extend: 'Ext.app.ViewModel',
-	alias: 'viewmodel.todoListConn'
-
-});

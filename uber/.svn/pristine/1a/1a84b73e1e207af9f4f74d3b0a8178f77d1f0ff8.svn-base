@@ -1,4 +1,0 @@
-Ext.define('ExtApp.view.projectmanagment.timeline.mixin.Localizable',{
-	extend: 'Sch.mixin.Localizable',
-	requires: 'ExtApp.view.projectmanagement.time.locale.Cn'
-});
