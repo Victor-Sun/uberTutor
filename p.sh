@@ -1,5 +1,4 @@
 #!/bin/bash
-
 git pull
 git add .
 read -p "Commit Message: " commit
