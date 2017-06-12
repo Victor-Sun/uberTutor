@@ -26,7 +26,7 @@ public class MySessionService {
 		List<Object> params = new ArrayList<Object>();
 		sql.append(" SELECT * FROM USER_SESSIONS WHERE STUDENT_ID = ?");
 		params.add(id);
-		return this.jdbcTemplate.queryForList(sql.toString());
+		return this.jdbcTemplate.queryForList(sql.toString(), params.toArray());
 	}
 	
 	public List<Map<String,Object>> getTutorSessions(Long id){
@@ -34,7 +34,14 @@ public class MySessionService {
 		List<Object> params = new ArrayList<Object>();
 		sql.append(" SELECT * FROM USER_SESSIONS WHERE TUTOR_ID = ?");
 		params.add(id);
-		return this.jdbcTemplate.queryForList(sql.toString());
+		return this.jdbcTemplate.queryForList(sql.toString(), params.toArray());
 	}
 	
+	public Map<String, Object> getSessionInfo(Long id){
+		StringBuffer sql = new StringBuffer();
+		List<Object> params = new ArrayList<Object>();
+		sql.append(" SELECT * FROM SESSION_INFO WHERE REQUEST_ID = ?");
+		params.add(id);
+		return this.jdbcTemplate.queryForMap(sql.toString(), params.toArray());
+	}
 }
