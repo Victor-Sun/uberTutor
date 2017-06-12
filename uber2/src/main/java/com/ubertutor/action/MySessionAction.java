@@ -16,7 +16,7 @@ public class MySessionAction extends ActionSupport {
 	private MySessionService sessionService;
 	private UserEntity entity = SessionData.getLoginUser();
 	
-	public void displaySessions(){
+	public void displayAllSessions(){
 		JsonResult result = new JsonResult();
 		result.buildSuccessResult(sessionService.getSessions());
 		Struts2Utils.renderJson(result);
