@@ -63,7 +63,7 @@ public class TutorProfileService {
 	public Integer getTotalCompletedRequests(String id){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
-		sql.append(" SELECT COUNT(*) FROM USER_REQUEST_STATUS WHERE TUTOR_ID = ?");
+		sql.append(" SELECT COUNT(*) FROM USER_REQUEST WHERE TUTOR_ID = ?");
 		params.add(id);
 		return this.jdbcTemplate.queryForInt(sql.toString(),params.toArray());
 	}
