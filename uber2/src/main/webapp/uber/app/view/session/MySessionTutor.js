@@ -35,15 +35,19 @@ Ext.define('uber.view.session.MySessionTutor',{
     		flex:1,
     		columns: [{
     			text: 'Date',
+    			dataIndex: 'date',
     			flex:1,
     		},{
     			text: 'Student',
+    			dataIndex: 'student',
     			flex:1,
     		},{
     			text: 'Category',
+    			dataIndex: 'category',
     			flex:1,
     		},{
     			text: 'Status',
+    			dataIndex: 'status',
     			flex:1,
     		}]
     	}]

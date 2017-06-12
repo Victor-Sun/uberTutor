@@ -39,6 +39,6 @@ Ext.define('uber.view.tutor.TutorReviewGrid',{
 				"</div>",
 			]
 		}]
-		this.callParent();
+		this.callParent(arguments);
 	}
 });

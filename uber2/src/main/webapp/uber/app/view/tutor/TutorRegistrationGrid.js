@@ -64,6 +64,6 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
     		handler: onAddClick
     	}],
     	
-    	this.callParent();
+    	this.callParent(arguments);
     },
 });
