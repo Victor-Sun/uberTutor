@@ -36,4 +36,5 @@ public class MySessionService {
 		params.add(id);
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
+	
 }
