@@ -29,18 +29,33 @@ public class UserRequestEntity implements Serializable{
 	@Column(name = "SUBJECT_ID")
 	private Long subjectId;
 	
+	@Column(name = "STATUS")
+	private String status;
+	
 	@Column(name = "TITLE")
 	private String title;
 	
 	@Column(name = "DESCRIPTION")
 	private String Description;
 	
-	@Column(name = "CREATE_DATE")
-	private Date createDate;
+	@Column(name = "OPEN_DATE")
+	private Date openDate;
 	
 	@Column(name = "UPDATE_DATE")
 	private Date updateDate;
-
+	
+	@Column(name = "PENDING_DATE")
+	private Date pendingDate;
+	
+	@Column(name = "PROCESS_DATE")
+	private Date processDate;
+	
+	@Column(name = "CLOSE_DATE")
+	private Date closeDate;
+	
+	@Column(name = "CANCEL_DATE")
+	private Date cancelDate;
+	
 	public Long getId() {
 		return id;
 	}
@@ -89,19 +104,59 @@ public class UserRequestEntity implements Serializable{
 		Description = description;
 	}
 
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
 	public Date getUpdateDate() {
 		return updateDate;
 	}
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Date getOpenDate() {
+		return openDate;
+	}
+
+	public void setOpenDate(Date openDate) {
+		this.openDate = openDate;
+	}
+
+	public Date getPendingDate() {
+		return pendingDate;
+	}
+
+	public void setPendingDate(Date pendingDate) {
+		this.pendingDate = pendingDate;
+	}
+
+	public Date getProcessDate() {
+		return processDate;
+	}
+
+	public void setProcessDate(Date processDate) {
+		this.processDate = processDate;
+	}
+
+	public Date getCloseDate() {
+		return closeDate;
+	}
+
+	public void setCloseDate(Date closeDate) {
+		this.closeDate = closeDate;
+	}
+
+	public Date getCancelDate() {
+		return cancelDate;
+	}
+
+	public void setCancelDate(Date cancelDate) {
+		this.cancelDate = cancelDate;
 	}
 }
