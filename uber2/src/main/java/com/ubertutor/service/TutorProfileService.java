@@ -71,13 +71,13 @@ public class TutorProfileService {
 	/**
 	 * Get all feedback regarding a user
 	 * @param id
-	 * @return List of feedbacks
+	 * @return Map of feedbacks
 	 */
-	public List<Map<String,Object>> getFeedback(Long id){
+	public Map<String,Object> getFeedback(Long id){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
 		sql.append(" SELECT * FROM FEEDBACK WHERE TUTOR_ID = ?");
 		params.add(id);
-		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
+		return this.jdbcTemplate.queryForMap(sql.toString(),params.toArray());
 	}
 }
