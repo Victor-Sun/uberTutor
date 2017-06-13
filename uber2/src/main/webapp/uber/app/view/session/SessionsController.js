@@ -2,6 +2,14 @@ Ext.define('uber.view.session.SessionsController',{
 	extend: 'Ext.app.ViewController',
     alias: 'controller.sessions',
     
+    valueCheck: function (th , field, newValue, oldValue) {
+		if (newValue != null) {
+			th.setVisible(true);
+		} else {
+			th.setHidden(true);
+		}
+	},
+    
     sessioninfo: function () {
     	var me = this;
 		var main = me.view.up('app-main');

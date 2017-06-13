@@ -2,7 +2,9 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	extend: 'Ext.window.Window',
 	xtype: 'sessionInfoWindow',
 	
+	controller: 'sessions',
 	initComponent() {
+		
 		var me = this;
 		var sessionInfo = Ext.create('Ext.form.Panel',{
 			
@@ -21,43 +23,92 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			},
 		});
 		var sessionInfoForm = Ext.create('Ext.form.Panel',{
-			
-		})
-		
-		me.store.load();
-		this.items = [{
-			// Session Info Form
-			xtype: 'form',
 			items: [{
 				xtype: 'textfield',
+				fieldLabel: 'Title',
+				name: 'TITLE'
+			},{
+				xtype: 'textfield',
+				fieldLabel: 'Tutor Name',
+				name: 'TUTOR_NAME'
+			},{
+				xtype: 'textfield',
+				fieldLabel: 'Student Name',
+				name: 'STUDENT_NAME'
+			},{
+				xtype: 'textfield',
 				fieldLabel: 'Category',
-				name: 'category'
+				name: 'CATEGORY'
 			},{
 				xtype: 'textfield',
 				fieldLabel: 'Subject',
-				name: 'subject'
+				name: 'SUBJECT'
 			},{
 				xtype: 'textfield',
-				fieldLabel: 'Request Open Date',
-				name: 'requestOpenDate'
+				fieldLabel: 'Create Date',
+				name: 'CREATE_DATE',
+				listeners: {
+					change: 'valueCheck'
+				}
 			},{
 				xtype: 'textfield',
-				fieldLabel: 'Response Date'
+				fieldLabel: 'PENDING DATE',
+				name: 'PENDING_DATE',
+				hidden: true,
+				listeners: {
+					change: 'valueCheck'
+				}
 			},{
 				xtype: 'textfield',
-				fieldLabel: 'Confirmation Date'
+				fieldLabel: 'PROCESS DATE',
+				hidden: true,
+				name: 'PROCESS_DATE',
+				listeners: {
+					change: 'valueCheck'
+				}
+			},{
+				xtype: 'textfield',
+				fieldLabel: 'CANCEL_DATE',
+				hidden: true,
+				name: 'CANCEL_DATE',
+				listeners: {
+					change: 'valueCheck'
+				}
+			},{
+				xtype: 'textfield',
+				fieldLabel: 'CLOSE_DATE',
+				hidden: true,
+				name: 'CLOSE_DATE',
+				listeners: {
+					change: 'valueCheck'
+				}
+			},{
+				xtype: 'textfield',
+				fieldLabel: 'UPDATE_DATE',
+				hidden: true,
+				name: 'UPDATE_DATE',
+				listeners: {
+					change: 'valueCheck'
+				}
 			}]
-		},{
-			// Contact Info
-			xtype: 'form',
-			items: [{
-				xtype: 'textfield',
-				fieldLabel: 'Tutor Name'
-			},{
-				xtype: 'textfield',
-				fieldLabel: 'Student Name'
-			}],
-		}];
+		});
+		
+		sessionInfoForm.load({
+			url: '/uber2/main/my-session!displaySessionInfo.action',
+			params: {
+				requestId:this.requestId,
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		
+//		me.store.load();
+		this.items = [
+			// Session Info Form
+			sessionInfoForm
+		];
 		this.callParent(arguments);
 	}
 });
