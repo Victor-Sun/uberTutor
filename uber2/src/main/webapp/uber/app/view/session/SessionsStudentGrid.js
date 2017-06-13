@@ -4,9 +4,8 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
 	
 	initComponent: function () {
 		var me = this;
-//    	var store = Ext.create('uber.store.grid.SessionsStudentGrid');
-//    	me.store =  Ext.create('uber.store.grid.SessionsStudentGrid');
-//    	me.store.load();
+    	me.store =  Ext.create('uber.store.grid.SessionsStudentGrid');
+    	me.store.load();
 		this.columns = [{
     		text: 'Create Date',
 			dataIndex: 'CREATE_DATE',
@@ -35,6 +34,9 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
 			align: 'left',
 			flex: 1
     	}];
+		this.listeners = {
+    		celldblclick: 'onCelldblclick'
+    	};
 		this.callParent(arguments);
 	}
 });

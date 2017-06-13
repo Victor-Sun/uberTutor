@@ -9,7 +9,6 @@ Ext.define('uber.view.session.SessionsStudent',{
 	cls: 'uber-panel',
 	controller: 'sessions',
     initComponent: function () {
-    	var store = 
     	this.items = [{
         	xtype: 'panel',
     		flex: 1,
@@ -30,7 +29,7 @@ Ext.define('uber.view.session.SessionsStudent',{
                 layout: 'hbox',
                 items: [{
                     margin: 5,
-                    html: '<h2>My Session (Student)</h2>'
+                    html: '<h2>Sessions</h2>'
                 }]
         	},{
         		xtype: 'sessionsStudentGrid',

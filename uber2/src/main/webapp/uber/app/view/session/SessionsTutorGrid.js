@@ -2,12 +2,10 @@ Ext.define('uber.view.session.SessionsTutorGrid',{
 	extend: 'Ext.grid.Panel',
 	xtype: 'sessionsTutorGrid',
 	
-	controller: 'sessions',
-	initComponet: function () {
+	initComponent: function () {
 		var me = this;
-//    	var store = Ext.create('uber.store.grid.SessionsTutorGrid');
-//    	me.store =  Ext.create('uber.store.grid.SessionsTutorGrid');
-//    	me.store.load();
+    	me.store =  Ext.create('uber.store.grid.SessionsTutorGrid');
+    	me.store.load();
 		this.columns = [{
     		text: 'Create Date',
 			dataIndex: 'CREATE_DATE',
@@ -36,6 +34,9 @@ Ext.define('uber.view.session.SessionsTutorGrid',{
 			align: 'left',
 			flex: 1
     	}];
+		this.listeners = {
+    		celldblclick: 'onCelldblclick'
+    	};
 		this.callParent(arguments);
 	}
 });

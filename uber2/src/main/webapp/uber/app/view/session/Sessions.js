@@ -7,18 +7,21 @@ Ext.define('uber.view.session.Sessions',{
 	items: [{
 		xtype: 'panel',
 		title: 'Admin',
-		style: {
-			backgroundColor: '#f1f2f4',
-		},
 		items: [{
 			xtype: 'sessionsAdmin',
-			flex: 1,
+//			flex: 1,
 		}]
 	},{
-		xtype: 'sessionsStudent',
-		title: 'Student'
+		xtype: 'panel',
+		title: 'Tutor',
+		items: [{
+			xtype: 'sessionsTutor',
+		}]
 	},{
-		xtype: 'sessionsTutor',
-		title: 'Tutor'
+		xtype: 'panel',
+		title: 'Student',
+		items: [{
+			xtype: 'sessionsStudent',
+		}]
 	}]
 });
