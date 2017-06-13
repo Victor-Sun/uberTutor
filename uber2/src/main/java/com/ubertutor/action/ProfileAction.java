@@ -7,7 +7,6 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import com.gnomon.common.utils.JsonResult;
 import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.SchoolEntity;
@@ -48,6 +47,10 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 		}
 	}
 
+	/**
+	 * Sends Json to display the tutor's info
+	 * @throws Exception
+	 */
 	public void displayTutorInfo() throws Exception{
 		try{
 			Map<String, Object> result = new HashMap<String, Object>();
@@ -63,6 +66,10 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 		}
 	}
 	
+	/**
+	 * Sends Json to display a tutor's subjects
+	 * @throws Exception
+	 */
 	public void displayTutorSubjects() throws Exception{
 		try{
 			this.writeSuccessResult(tutorSubjectRegisterService.getUserSubjects(tutor.getId()));
@@ -72,6 +79,10 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 		}
 	}
 	
+	/**
+	 * Sends Json to display a tutor's reviews
+	 * @throws Exception
+	 */
 	public void displayTutorReviews() throws Exception{
 		try {
 			this.writeSuccessResult(tutorProfileService.getFeedback(tutor.getId()));
