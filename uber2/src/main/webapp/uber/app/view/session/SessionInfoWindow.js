@@ -35,87 +35,110 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			        },
 					defaults:{
 						layout: {
-							type: 'hbox',
+							type: 'vbox',
+						},
+						defaults: {
+							layout: {
+								type: 'hbox'
+							},
+							margin: 5,
 						}
 					},
 					items: [{
-						xtype: 'fieldcontainer',
+						// Request Info
+						xtype: 'fieldset',
 						items: [{
-							xtype: 'textfield',
-							fieldLabel: 'Title',
-							name: 'TITLE'
+							xtype: 'fieldcontainer',
+							items: [{
+								xtype: 'textfield',
+								fieldLabel: 'Title',
+								name: 'TITLE'
+							},{
+								xtype: 'hidden',
+								name: 'REQUEST_ID'
+							}]
 						},{
-							xtype: 'textfield',
-							fieldLabel: 'Tutor Name',
-							name: 'TUTOR_NAME'
+							xtype: 'fieldcontainer',
+							items: [{
+								xtype: 'textfield',
+								fieldLabel: 'Category',
+								name: 'CATEGORY'
+							},{
+								xtype: 'textfield',
+								fieldLabel: 'Subject',
+								name: 'SUBJECT'
+							}]
 						},{
-							xtype: 'textfield',
-							fieldLabel: 'Student Name',
-							name: 'STUDENT_NAME'
+							xtype: 'fieldcontainer',
+							items: [{
+								xtype: 'textarea',
+								fieldLabel: 'Description',
+								name: 'DESCRIPTION'
+							}]
 						}]
 					},{
-						xtype: 'fieldcontainer',
+						//Session Info
+						xtype: 'fieldset',
 						items: [{
-							xtype: 'textfield',
-							fieldLabel: 'Category',
-							name: 'CATEGORY'
+							xtype: 'fieldcontainer',
+							items: [{
+								xtype: 'textfield',
+								fieldLabel: 'Tutor Name',
+								name: 'TUTOR_NAME'
+							},{
+								xtype: 'textfield',
+								fieldLabel: 'Tutor ID',
+								name: 'TUTOR_ID'
+							}]
 						},{
-							xtype: 'textfield',
-							fieldLabel: 'Subject',
-							name: 'SUBJECT'
-						}]
-					},{
-						xtype: 'fieldcontainer',
-						items: [{
-							xtype: 'textfield',
-							fieldLabel: 'Create Date',
-							name: 'CREATE_DATE',
-							listeners: {
-								change: 'valueCheck'
-							}
+							xtype: 'fieldcontainer',
+							items: [{
+								xtype: 'textfield',
+								fieldLabel: 'Student Name',
+								name: 'STUDENT_NAME'
+							},{
+								xtype: 'textfield',
+								fieldLabel: 'Tutor ID',
+								name: 'STUDENT_ID'
+							}]
 						},{
-							xtype: 'textfield',
-							fieldLabel: 'PENDING DATE',
-							name: 'PENDING_DATE',
-							hidden: true,
-							listeners: {
-								change: 'valueCheck'
-							}
+							xtype: 'fieldcontainer',
+							items: [{
+								xtype: 'textfield',
+								fieldLabel: 'Create Date',
+								name: 'CREATE_DATE',
+							},{
+								xtype: 'textfield',
+								fieldLabel: 'UPDATE_DATE',
+								hidden: true,
+								name: 'UPDATE_DATE',
+							}]
 						},{
-							xtype: 'textfield',
-							fieldLabel: 'PROCESS DATE',
-							hidden: true,
-							name: 'PROCESS_DATE',
-							listeners: {
-								change: 'valueCheck'
-							}
-						}]
-					},{
-						xtype: 'fieldcontainer',
-						items: [{
-							xtype: 'textfield',
-							fieldLabel: 'CANCEL_DATE',
-							hidden: true,
-							name: 'CANCEL_DATE',
-							listeners: {
-								change: 'valueCheck'
-							}
+							xtype: 'fieldcontainer',
+							items: [{
+								xtype: 'textfield',
+								fieldLabel: 'PENDING DATE',
+								name: 'PENDING_DATE',
+								hidden: true,
+							},{
+								xtype: 'textfield',
+								fieldLabel: 'PROCESS DATE',
+								hidden: true,
+								name: 'PROCESS_DATE',
+							}]
 						},{
-							xtype: 'textfield',
-							fieldLabel: 'CLOSE_DATE',
-							hidden: true,
-							name: 'CLOSE_DATE',
-							listeners: {
-								change: 'valueCheck'
-							}
-						},{
-							xtype: 'textfield',
-							fieldLabel: 'UPDATE_DATE',
-							hidden: true,
-							name: 'UPDATE_DATE',
-							listeners: {
-								change: 'valueCheck'
-							}
+							xtype: 'fieldcontainer',
+							items: [{
+								xtype: 'textfield',
+								fieldLabel: 'CANCEL_DATE',
+								hidden: true,
+								name: 'CANCEL_DATE',
+							},{
+								xtype: 'textfield',
+								fieldLabel: 'CLOSE_DATE',
+								hidden: true,
+								name: 'CLOSE_DATE',
+							}]
 						}]
 					}]
 				}]

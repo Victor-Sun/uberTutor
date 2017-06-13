@@ -40,8 +40,9 @@ Ext.define('uber.view.main.Main', {
 				},{
 					text: 'Search for Tutors',
 					handler: 'search'
-//				},{
-//					html: '<hr>'
+				},{
+					text: 'Make a request',
+					handler: 'makeRequest'
 				},{
 					text: 'Change Password',
 					handler: 'changepassword'

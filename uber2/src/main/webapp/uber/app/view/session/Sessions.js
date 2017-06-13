@@ -6,10 +6,12 @@ Ext.define('uber.view.session.Sessions',{
 	cls: 'test-tab',
 	items: [{
 		xtype: 'panel',
+		style: {
+			'background-color': '#f1f2f4'
+		},
 		title: 'Admin',
 		items: [{
 			xtype: 'sessionsAdmin',
-//			flex: 1,
 		}]
 	},{
 		xtype: 'panel',

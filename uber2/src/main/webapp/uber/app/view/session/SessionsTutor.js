@@ -35,6 +35,19 @@ Ext.define('uber.view.session.SessionsTutor',{
         		xtype: 'sessionsTutorGrid',
         	}]
         }];
+    	this.tbar = [{
+	    	xtype: 'button',
+	    	text: 'Session Admin',
+	    	handler: 'sessionsAdmin'
+	    },{
+	    	xtype: 'button',
+	    	text: 'Session Tutor',
+	    	handler: 'sessionsTutor'
+	    },{
+	    	xtype: 'button',
+	    	text: 'Session Studen',
+	    	handler: 'sessionsStudent'
+    	}];
     	this.callParent(arguments);
     }
 });

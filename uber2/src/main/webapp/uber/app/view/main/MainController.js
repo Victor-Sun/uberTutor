@@ -58,7 +58,14 @@ Ext.define('uber.view.main.MainController', {
     	var me = this;
     	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
-		var card2 = mainCard.add(Ext.create('uber.view.session.Sessions'));
+		var card2 = mainCard.add(Ext.create('uber.view.session.SessionsStudent'));
+    },
+    
+    makeRequest: function () {
+    	var me = this;
+    	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+		var remove = mainCard.removeAll();
+		var card2 = mainCard.add(Ext.create('uber.view.tutor.MakeRequest'));
     },
     
     logout: function() {
