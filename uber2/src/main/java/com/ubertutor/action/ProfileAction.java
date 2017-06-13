@@ -85,10 +85,10 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	}
 	
 	/**
-	 * Sends Json to display a tutor's reviews
+	 * Sends Json to display a tutor's feedbacks
 	 * @throws Exception
 	 */
-	public void displayTutorReviews() throws Exception{
+	public void displayTutorFeedbacks() throws Exception{
 		try {
 			this.writeSuccessResult(tutorProfileService.getFeedback(userEntity.getId()));
 		} catch (Exception e) {
