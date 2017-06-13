@@ -49,8 +49,8 @@ Ext.define('uber.view.main.Main', {
 					text: 'Profile',
 					handler: 'profile'
 				},{
-					text: 'My Sessions',
-					handler: 'mysessions'
+					text: 'Sessions',
+					handler: 'sessions'
 				},{
 					text: 'Tutor Registration',
 					handler: 'registration'

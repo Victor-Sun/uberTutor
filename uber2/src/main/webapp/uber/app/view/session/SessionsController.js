@@ -2,16 +2,20 @@ Ext.define('uber.view.session.SessionsController',{
 	extend: 'Ext.app.ViewController',
     alias: 'controller.sessions',
     
-    
-    onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    sessioninfo: function () {
     	var me = this;
-//    	var rec = grid.getStore().getAt(rowIndex);
-//    	console.log(rec.data);
-    	var main = me.view.up('app-main');
+		var main = me.view.up('app-main');
         
         var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
-		var card2 = mainCard.add(Ext.create('uber.view.session.MySession'));
+		var card2 = mainCard.add(Ext.create('uber.view.session.SessionInfo'));
+    },
+
+    onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    	console.log(record.data.REQUEST_ID);
+    	Ext.create('uber.view.session.SessionInfoWindow',{
+    		requestId: record.data.REQUEST_ID
+    	}).show();
     },
     
     feedback: function () {

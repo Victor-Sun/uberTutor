@@ -1,13 +1,13 @@
-Ext.define('uber.view.session.MySessionAdmin',{
+Ext.define('uber.view.session.SessionsAdmin',{
 	extend: 'Ext.panel.Panel',
-	xtype: 'mysessionadmin',
+	xtype: 'sessionsAdmin',
 	
 	layout: {
 		type: 'vbox',
 		align: 'stretch'
 	},
 	cls: 'uber-panel',
-	controller: 'session',
+	controller: 'sessions',
     items: [{
     	xtype: 'panel',
 		flex: 1,
@@ -28,10 +28,10 @@ Ext.define('uber.view.session.MySessionAdmin',{
             layout: 'hbox',
             items: [{
                 margin: 5,
-                html: '<h2>My Session (Admin)</h2>'
+                html: '<h2>Sessions</h2>'
             }]
     	},{
-    		xtype: 'mySessionAdminGrid'
+    		xtype: 'sessionAdminGrid'
     	}]
     }]
 });

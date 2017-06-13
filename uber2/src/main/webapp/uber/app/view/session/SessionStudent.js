@@ -1,14 +1,15 @@
-Ext.define('uber.view.session.MySessionStudent',{
+Ext.define('uber.view.session.SessionsStudent',{
 	extend: 'Ext.panel.Panel',
-	xtype: 'mysessionstudent',
+	xtype: 'sessionsStudent',
 	
 	layout: {
 		type: 'vbox',
 		align: 'stretch'
 	},
 	cls: 'uber-panel',
-	controller: 'session',
+	controller: 'sessions',
     initComponent: function () {
+    	var store = 
     	this.items = [{
         	xtype: 'panel',
     		flex: 1,
@@ -32,28 +33,7 @@ Ext.define('uber.view.session.MySessionStudent',{
                     html: '<h2>My Session (Student)</h2>'
                 }]
         	},{
-        		xtype: 'grid',
-//        		store: {
-//        			
-//        		},
-        		flex:1,
-        		columns: [{
-        			text: 'Date',
-        			dataIndex: 'date',
-        			flex:1,
-        		},{
-        			text: 'Tutor',
-        			dataIndex: 'tutorName',
-        			flex:1,
-        		},{
-        			text: 'Category',
-        			dataIndex: 'category',
-        			flex:1,
-        		},{
-        			text: 'Status',
-        			dataIndex: 'status',
-        			flex:1,
-        		}]
+        		xtype: 'sessionsStudentGrid',
         	}]
         }];
     	this.callParent(arguments);
