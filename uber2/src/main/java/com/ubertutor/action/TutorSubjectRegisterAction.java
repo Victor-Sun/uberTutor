@@ -75,7 +75,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	public void displayUserSubjects() throws Exception{
 		JsonResult result = new JsonResult();
 		try{
-			String userId = SessionData.getLoginUserId();
+			Long userId = Long.parseLong(SessionData.getLoginUserId());
 			result.buildSuccessResult(tutorSubjectRegisterService.getUserSubjects(userId));
 			Struts2Utils.renderJson(result);
 		} catch (Exception e){

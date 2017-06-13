@@ -12,8 +12,9 @@ import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.SchoolEntity;
 import com.ubertutor.entity.UserEntity;
-import com.ubertutor.service.LoginService;
 import com.ubertutor.service.ProfileService;
+import com.ubertutor.service.TutorProfileService;
+import com.ubertutor.service.TutorSubjectRegisterService;
 
 @Namespace("/main")
 public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
@@ -22,10 +23,13 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	@Autowired
 	private ProfileService profileService;
 	@Autowired
-	private LoginService loginService;
+	private TutorProfileService tutorProfileService;
+	@Autowired
+	private TutorSubjectRegisterService tutorSubjectRegisterService;
 	private SchoolEntity schoolEntity;
 	private UserEntity user = SessionData.getLoginUser();
-
+	private UserEntity tutor = tutorProfileService.getUser(Long.parseLong(Struts2Utils.getParameter("tutorId")));
+	
 	/**
 	 * Sends Json to front end to display a user's profile
 	 * Depends on whether the user has a school
@@ -38,11 +42,45 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 			}else{
 				this.writeSuccessResult(profileService.getAllUserInfo(user.getId()));
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
+			this.writeErrorResult(e);
 		}
 	}
 
+	public void displayTutorInfo() throws Exception{
+		try{
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("tutorName", tutorProfileService.getUser(tutor.getId()).getId());
+			int ratingAvg = tutorProfileService.getRatingTotal(tutor.getId()) / tutorProfileService.getRatingCount(tutor.getId());
+			result.put("tutorRating", ratingAvg);
+			result.put("tutorCompletedRequests", tutorProfileService.getTotalCompletedRequests(tutor.getId())); 
+			result.put("tutorBio", tutor.getBio());
+			this.writeSuccessResult(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.writeErrorResult(e);
+		}
+	}
+	
+	public void displayTutorSubjects() throws Exception{
+		try{
+			this.writeSuccessResult(tutorSubjectRegisterService.getUserSubjects(tutor.getId()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.writeErrorResult(e);
+		}
+	}
+	
+	public void displayTutorReviews() throws Exception{
+		try {
+			this.writeSuccessResult(tutorProfileService.getFeedback(tutor.getId()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.writeErrorResult(e);
+		}
+	}
+	
 	/**
 	 * Updates a user's profile
 	 * @throws Exception
@@ -77,6 +115,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 			profileService.updateProfile(user.getId().toString(), fullname, email, mobileNo, bio, schoolid);
 		}catch(Exception e){
 			e.printStackTrace();
+			this.writeErrorResult(e);
 		}
 	}
 
@@ -84,12 +123,11 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 * Separate function to display school
 	 */
 	public void displaySchool(){
-		JsonResult result = new JsonResult();
 		try{
-			result.buildSuccessResult(profileService.getSchoolList());
-			Struts2Utils.renderJson(result);
+			this.writeSuccessResult(profileService.getSchoolList());
 		}catch(Exception e){
 			e.printStackTrace();
+			this.writeErrorResult(e);
 		}
 	}
 
@@ -107,9 +145,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 */
 	public void tutorStatus(){
 		UserEntity user = SessionData.getLoginUser();
-		//		JsonResult result = new JsonResult();
 		user = SessionData.getLoginUser();
-		//		result.buildSuccessResult(user.getIsTutor());
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isTutor", user.getIsTutor());
 		this.writeSuccessResult(result);

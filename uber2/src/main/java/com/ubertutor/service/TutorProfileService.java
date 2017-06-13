@@ -34,7 +34,7 @@ public class TutorProfileService {
 	 * @param id
 	 * @return Tutor's total rating
 	 */
-	public Integer getRatingTotal(String id){
+	public Integer getRatingTotal(Long id){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
 		sql.append(" SELECT RATING FROM FEEDBACK WHERE TUTOR_ID = ?");
@@ -47,7 +47,7 @@ public class TutorProfileService {
 	 * @param id
 	 * @return Amount of ratings a tutor has received
 	 */
-	public Integer getRatingCount(String id){
+	public Integer getRatingCount(Long id){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
 		sql.append(" SELECT COUNT(*) FROM FEEDBACK WHERE TUTOR_ID = ?");
@@ -60,7 +60,7 @@ public class TutorProfileService {
 	 * @param id
 	 * @return Total count of completed requests
 	 */
-	public Integer getTotalCompletedRequests(String id){
+	public Integer getTotalCompletedRequests(Long id){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
 		sql.append(" SELECT COUNT(*) FROM USER_REQUEST WHERE TUTOR_ID = ?");
@@ -73,7 +73,7 @@ public class TutorProfileService {
 	 * @param id
 	 * @return List of feedbacks
 	 */
-	public List<Map<String,Object>> getFeedback(String id){
+	public List<Map<String,Object>> getFeedback(Long id){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
 		sql.append(" SELECT * FROM FEEDBACK WHERE TUTOR_ID = ?");
