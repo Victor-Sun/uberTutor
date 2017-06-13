@@ -1,7 +1,10 @@
 package com.ubertutor.service;
 
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,14 +26,13 @@ public class MakeRequestService {
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
 	private UserRequestDAO userRequestDao;
-	
-	//Zelin
+
 	@Autowired
 	private UserSubjectDAO userSubjectDao;
 	
-	public void makeRequest(UserRequestEntity entity){
-		userRequestDao.save(entity);
-	}
+	//public void makeRequest(UserRequestEntity entity){
+	//	userRequestDao.save(entity);
+	//}
 	
 	public UserRequestEntity get(Long id){
 		return userRequestDao.get(id);
@@ -44,13 +46,37 @@ public class MakeRequestService {
 		userRequestDao.delete(id);
 	}
 	
-	//Zelin: list all subjects based on category user select
-	public List<SubjectEntity> showSubjectList(Long categoryId){
+	//Zelin: list subjects based on category user select
+	public List<Map<String,Object>> getSubjects(String categoryId){
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT ID, TITLE FROM SUBJECT WHERE CATEGORY_ID = ?");
+		params.add(categoryId);
+		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
+	}
+	
+	/**Zelin: save all request to database
+	 * @param entity
+	 * @param userId
+	 * @param subjectId
+	 */
+	
+	public void makeRequest(UserRequestEntity requestEntity, Long userId, String description, Long subjectId, String title){
+		Date date = new Date();
+	    requestEntity.setPendingDate(date);
+	    requestEntity.setCancelDate(null);
+	    requestEntity.setCloseDate(null);
+	    requestEntity.setDescription(description);
+	    requestEntity.setOpenDate(null);
+	    requestEntity.setProcessDate(null);
+	    requestEntity.setStatus("Pending");
+	    requestEntity.setSubjectId(subjectId);
+	    requestEntity.setTitle(title);
+	    requestEntity.setTutorId(null);
+	    requestEntity.setUpdateDate(null);
+	    requestEntity.setUserId(userId);
 		
-		String hql="FROM SUBJECT WHERE id = ?";
-		List<SubjectEntity> result=this.userSubjectDao.find(hql,categoryId);
-		
-		return result;
+	    userRequestDao.save(requestEntity);
 	}
 	
 }
