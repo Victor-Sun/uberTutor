@@ -10,11 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ubertutor.dao.UserRequestDAO;
 import com.ubertutor.dao.UserSubjectDAO;
-import com.ubertutor.entity.SubjectCategoryEntity;
 import com.ubertutor.entity.SubjectEntity;
-import com.ubertutor.entity.UserEntity;
 import com.ubertutor.entity.UserRequestEntity;
-import com.ubertutor.entity.UserSubjectEntity;
 
 @Service
 @Transactional

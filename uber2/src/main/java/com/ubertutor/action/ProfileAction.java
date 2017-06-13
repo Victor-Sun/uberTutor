@@ -27,7 +27,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	private TutorSubjectRegisterService tutorSubjectRegisterService;
 	private SchoolEntity schoolEntity;
 	private UserEntity user = SessionData.getLoginUser();
-	private UserEntity tutor = tutorProfileService.getUser(Long.parseLong(Struts2Utils.getParameter("tutorId")));
+	private UserEntity userEntity = tutorProfileService.getUser(Long.parseLong(Struts2Utils.getRequest().getParameter("tutorId")));
 	
 	/**
 	 * Sends Json to front end to display a user's profile
@@ -51,14 +51,19 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 * Sends Json to display the tutor's info
 	 * @throws Exception
 	 */
-	public void displayTutorInfo() throws Exception{
+	public void displayProfileInfo() throws Exception{
 		try{
 			Map<String, Object> result = new HashMap<String, Object>();
-			result.put("tutorName", tutorProfileService.getUser(tutor.getId()).getId());
-			int ratingAvg = tutorProfileService.getRatingTotal(tutor.getId()) / tutorProfileService.getRatingCount(tutor.getId());
-			result.put("tutorRating", ratingAvg);
-			result.put("tutorCompletedRequests", tutorProfileService.getTotalCompletedRequests(tutor.getId())); 
-			result.put("tutorBio", tutor.getBio());
+			if(userEntity.getIsTutor().equals("Y")){
+				result.put("tutorName", tutorProfileService.getUser(userEntity.getId()).getId());
+				int ratingAvg = tutorProfileService.getRatingTotal(userEntity.getId()) / tutorProfileService.getRatingCount(userEntity.getId());
+				result.put("tutorRating", ratingAvg);
+				result.put("tutorCompletedRequests", tutorProfileService.getTotalCompletedRequests(userEntity.getId())); 
+				result.put("tutorBio", userEntity.getBio());
+			} else {
+				
+			}
+
 			this.writeSuccessResult(result);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,7 +77,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 */
 	public void displayTutorSubjects() throws Exception{
 		try{
-			this.writeSuccessResult(tutorSubjectRegisterService.getUserSubjects(tutor.getId()));
+			this.writeSuccessResult(tutorSubjectRegisterService.getUserSubjects(userEntity.getId()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.writeErrorResult(e);
@@ -85,7 +90,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 */
 	public void displayTutorReviews() throws Exception{
 		try {
-			this.writeSuccessResult(tutorProfileService.getFeedback(tutor.getId()));
+			this.writeSuccessResult(tutorProfileService.getFeedback(userEntity.getId()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.writeErrorResult(e);

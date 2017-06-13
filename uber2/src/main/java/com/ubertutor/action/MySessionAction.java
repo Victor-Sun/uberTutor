@@ -36,7 +36,7 @@ public class MySessionAction extends ActionSupport {
 	
 	public void displaySessionInfo(){
 		JsonResult result = new JsonResult();
-		Long id = Long.parseLong(Struts2Utils.getParameter("requestId"));
+		Long id = Long.parseLong(Struts2Utils.getRequest().getParameter("requestId"));
 		result.buildSuccessResult(sessionService.getSessionInfo((id)));
 		Struts2Utils.renderJson(result);
 	}
