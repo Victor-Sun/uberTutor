@@ -23,10 +23,26 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	private UserRequestEntity entity;
 	private Long id;
 	
-	//Zelin: Save request  
-	
+
+	/**Zelin
+	 * Function that submit a request
+	 */
 	@Override
-	public String save() throws Exception {
+	public String save() throws Exception{
+		try {
+			
+			Long userId = Long.parseLong(SessionData.getLoginUserId());
+			Long subjectId = Long.parseLong(Struts2Utils.getParameter("SUBJECT_ID"));
+			String description = Struts2Utils.getRequest().getParameter("description");
+			String title = Struts2Utils.getRequest().getParameter("title");
+	        entity.setDescription(description);
+	        entity.setTitle(title);
+	        makeRequestService.makeRequest(entity, userId, description, subjectId, title);
+	        
+		} catch (Exception e){
+			e.printStackTrace();
+			this.writeErrorResult(e.getMessage());
+		}
 		return null;
 	}
 	
