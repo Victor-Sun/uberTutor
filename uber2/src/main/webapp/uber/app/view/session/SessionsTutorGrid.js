@@ -1,26 +1,21 @@
-Ext.define('uber.view.session.MySessionAdminGrid',{
+Ext.define('uber.view.session.SessionsTutorGrid',{
 	extend: 'Ext.grid.Panel',
-	xtype: 'mySessionAdminGrid',
+	xtype: 'sessionsTutorGrid',
+	
 	initComponent: function () {
-    	var me = this;
-    	var store = Ext.create('uber.store.grid.MySessionAdminGrid');
-    	me.store =  Ext.create('uber.store.grid.MySessionAdminGrid');
+		var me = this;
+    	me.store =  Ext.create('uber.store.grid.SessionsTutorGrid');
     	me.store.load();
-    	this.columns = [{
+		this.columns = [{
     		text: 'Create Date',
 			dataIndex: 'CREATE_DATE',
-//			xtype: 'datecolumn',
-//			format: 'Y-m-d',
+			xtype: 'datecolumn',
+			format: 'Y-m-d',
 			align: 'left',
 			flex: 1
 		},{
 			text: 'Student',
-			dataIndex: 'STUDENT_ID',
-			align: 'left',
-			flex: 1
-		},{
-			text: 'Tutor',
-			dataIndex: 'TUTOR_ID',
+			dataIndex: 'STUDENT_NAME',
 			align: 'left',
 			flex: 1
 		},{
@@ -39,6 +34,10 @@ Ext.define('uber.view.session.MySessionAdminGrid',{
 			align: 'left',
 			flex: 1
     	}];
-    	this.callParent(arguments);
+		this.listeners = {
+    		celldblclick: 'onCelldblclick',
+    		selectionchange: 'onSelectionChange',
+    	};
+		this.callParent(arguments);
 	}
 });

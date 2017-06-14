@@ -49,7 +49,7 @@ public class TutorSubjectRegisterService {
 	 * @param userId
 	 * @return List of subjects according to user
 	 */
-	public List<Map<String,Object>> getUserSubjects(String userId){
+	public List<Map<String,Object>> getUserSubjects(Long userId){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT SUBJECT_ID, SUBJECT_TITLE, CATEGORY_ID, CATEGORY_TITLE FROM USERS_SUBJECT_CATEGORY WHERE USER_ID = ?");

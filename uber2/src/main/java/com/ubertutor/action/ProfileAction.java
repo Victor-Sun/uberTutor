@@ -7,13 +7,13 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import com.gnomon.common.utils.JsonResult;
 import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.SchoolEntity;
 import com.ubertutor.entity.UserEntity;
-import com.ubertutor.service.LoginService;
 import com.ubertutor.service.ProfileService;
+import com.ubertutor.service.SessionProfileService;
+import com.ubertutor.service.TutorSubjectRegisterService;
 
 @Namespace("/main")
 public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
@@ -22,7 +22,9 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	@Autowired
 	private ProfileService profileService;
 	@Autowired
-	private LoginService loginService;
+	private SessionProfileService tutorProfileService;
+	@Autowired
+	private TutorSubjectRegisterService tutorSubjectRegisterService;
 	private SchoolEntity schoolEntity;
 	private UserEntity user = SessionData.getLoginUser();
 
@@ -38,8 +40,9 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 			}else{
 				this.writeSuccessResult(profileService.getAllUserInfo(user.getId()));
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
+			this.writeErrorResult(e);
 		}
 	}
 
@@ -77,6 +80,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 			profileService.updateProfile(user.getId().toString(), fullname, email, mobileNo, bio, schoolid);
 		}catch(Exception e){
 			e.printStackTrace();
+			this.writeErrorResult(e);
 		}
 	}
 
@@ -84,12 +88,11 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 * Separate function to display school
 	 */
 	public void displaySchool(){
-		JsonResult result = new JsonResult();
 		try{
-			result.buildSuccessResult(profileService.getSchoolList());
-			Struts2Utils.renderJson(result);
+			this.writeSuccessResult(profileService.getSchoolList());
 		}catch(Exception e){
 			e.printStackTrace();
+			this.writeErrorResult(e);
 		}
 	}
 
@@ -107,9 +110,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 */
 	public void tutorStatus(){
 		UserEntity user = SessionData.getLoginUser();
-		//		JsonResult result = new JsonResult();
 		user = SessionData.getLoginUser();
-		//		result.buildSuccessResult(user.getIsTutor());
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isTutor", user.getIsTutor());
 		this.writeSuccessResult(result);

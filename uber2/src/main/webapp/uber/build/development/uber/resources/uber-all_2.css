@@ -8859,6 +8859,10 @@ tr.x-grid-subtable-row {
 .delete-button {
     color: red;
 }
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:138 */
+.test-tab {
+    background-color: #f1f2f4 !important;
+}
 /* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-tab-navigation-top {
     -webkit-border-radius: 0;

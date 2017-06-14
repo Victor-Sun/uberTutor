@@ -31,7 +31,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	@Autowired
 	private ProfileService profileService;
 	private UserEntity entity = new UserEntity();
-	
+
 	/**
 	 * 
 	 * @return fullname as a String
@@ -119,9 +119,14 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	public String save() throws Exception{
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
-			String msg, p1 = "", p2 = "";
+			String msg, p1 = "", p2 = "", un;
 			p1 = Struts2Utils.getRequest().getParameter("password");
 			p2 = Struts2Utils.getRequest().getParameter("password2");
+			un = Struts2Utils.getRequest().getParameter("username");
+			if(un.contains(" ")){
+				msg = "Invalid username, check your username and try again!";
+				throw new Exception(msg);
+			}
 			if(loginService.verifyUserId(username)){
 				msg = "Username already exists!";
 				throw new Exception(msg);

@@ -40,8 +40,9 @@ Ext.define('uber.view.main.Main', {
 				},{
 					text: 'Search for Tutors',
 					handler: 'search'
-//				},{
-//					html: '<hr>'
+				},{
+					text: 'Make a request',
+					handler: 'makeRequest'
 				},{
 					text: 'Change Password',
 					handler: 'changepassword'
@@ -49,8 +50,8 @@ Ext.define('uber.view.main.Main', {
 					text: 'Profile',
 					handler: 'profile'
 				},{
-					text: 'My Sessions',
-					handler: 'mysessions'
+					text: 'Sessions',
+					handler: 'sessions'
 				},{
 					text: 'Tutor Registration',
 					handler: 'registration'

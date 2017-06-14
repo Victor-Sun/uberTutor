@@ -58,7 +58,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	public void displayCategorySubject() throws Exception{
 		JsonResult result = new JsonResult();
 		try {
-			String id = Struts2Utils.getParameter("categoryId");
+			String id = Struts2Utils.getRequest().getParameter("categoryId");
 			result.buildSuccessResult(tutorSubjectRegisterService.getSubjectList(id));
 			Struts2Utils.renderJson(result);
 		} catch (Exception e) {
@@ -75,7 +75,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	public void displayUserSubjects() throws Exception{
 		JsonResult result = new JsonResult();
 		try{
-			String userId = SessionData.getLoginUserId();
+			Long userId = Long.parseLong(SessionData.getLoginUserId());
 			result.buildSuccessResult(tutorSubjectRegisterService.getUserSubjects(userId));
 			Struts2Utils.renderJson(result);
 		} catch (Exception e){
@@ -93,7 +93,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		JsonResult result = new JsonResult();
 		try{
 			Long userId = Long.parseLong(SessionData.getLoginUserId());
-			Long subjectId = Long.parseLong(Struts2Utils.getParameter("SUBJECT_ID"));
+			Long subjectId = Long.parseLong(Struts2Utils.getRequest().getParameter("SUBJECT_ID"));
 			tutorSubjectRegisterService.removeSubject(userId, subjectId);
 		} catch (Exception e){
 			e.printStackTrace();
@@ -122,8 +122,8 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		String msg = "";
 		try{
 			String userId = SessionData.getLoginUserId();
-			String subjectId = Struts2Utils.getParameter("subject");
-			String category = Struts2Utils.getParameter("category");
+			String subjectId = Struts2Utils.getRequest().getParameter("subject");
+			String category = Struts2Utils.getRequest().getParameter("category");
 			if(category == null || category == ""){
 				msg = "Invalid subject, select a valid subject and try again!";
 				throw new Exception(msg);
