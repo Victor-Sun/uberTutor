@@ -41,7 +41,8 @@ Ext.define('uber.view.session.SessionsAdminGrid',{
 			flex: 1
     	}];
     	this.listeners = {
-    		celldblclick: 'onCelldblclick'
+    		celldblclick: 'onCelldblclick',
+    		selectionchange: 'onSelectionChange',
     	};
     	this.callParent(arguments);
 	}

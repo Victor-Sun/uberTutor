@@ -138,7 +138,6 @@ Ext.define('uber.view.tutor.MakeRequest',{
 	            		xtype: 'button',
 	            		text: 'Submit',
 	            		handler: function () {
-	            			debugger;
 	            			var form = this.up('form');
 	            			var formValue = form.getValues();
 	            			console.log(formValue);
