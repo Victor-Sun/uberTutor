@@ -1,7 +1,5 @@
 package com.ubertutor.action;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +12,7 @@ import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.SchoolEntity;
 import com.ubertutor.entity.UserEntity;
 import com.ubertutor.service.ProfileService;
-import com.ubertutor.service.TutorProfileService;
+import com.ubertutor.service.SessionProfileService;
 import com.ubertutor.service.TutorSubjectRegisterService;
 
 @Namespace("/main")
@@ -24,13 +22,12 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	@Autowired
 	private ProfileService profileService;
 	@Autowired
-	private TutorProfileService tutorProfileService;
+	private SessionProfileService tutorProfileService;
 	@Autowired
 	private TutorSubjectRegisterService tutorSubjectRegisterService;
 	private SchoolEntity schoolEntity;
 	private UserEntity user = SessionData.getLoginUser();
-	private UserEntity userEntity = tutorProfileService.getUser(Long.parseLong(Struts2Utils.getRequest().getParameter("tutorId")));
-	
+
 	/**
 	 * Sends Json to front end to display a user's profile
 	 * Depends on whether the user has a school
@@ -48,57 +45,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 			this.writeErrorResult(e);
 		}
 	}
-	
-	/**
-	 * Sends Json to display the tutor's info
-	 * @throws Exception
-	 */
-	public void displayProfileInfo() throws Exception{
-		try{
-			Map<String, Object> result = new HashMap<String, Object>();
-			if(userEntity.getIsTutor().equals("Y")){
-				result.put("tutorName", tutorProfileService.getUser(userEntity.getId()).getId());
-				int ratingAvg = tutorProfileService.getRatingTotal(userEntity.getId()) / tutorProfileService.getRatingCount(userEntity.getId());
-				result.put("tutorRating", ratingAvg);
-				result.put("tutorCompletedRequests", tutorProfileService.getTotalCompletedRequests(userEntity.getId())); 
-				result.put("tutorBio", userEntity.getBio());
-			} else {
-				
-			}
 
-			this.writeSuccessResult(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-			this.writeErrorResult(e);
-		}
-	}
-	
-	/**
-	 * Sends Json to display a tutor's subjects
-	 * @throws Exception
-	 */
-	public void displayTutorSubjects() throws Exception{
-		try{
-			this.writeSuccessResult(tutorSubjectRegisterService.getUserSubjects(userEntity.getId()));
-		} catch (Exception e) {
-			e.printStackTrace();
-			this.writeErrorResult(e);
-		}
-	}
-	
-	/**
-	 * Sends Json to display a tutor's feedbacks
-	 * @throws Exception
-	 */
-	public void displayTutorFeedbacks() throws Exception{
-		try {
-			this.writeSuccessResult(tutorProfileService.getFeedback(userEntity.getId()));
-		} catch (Exception e) {
-			e.printStackTrace();
-			this.writeErrorResult(e);
-		}
-	}
-	
 	/**
 	 * Updates a user's profile
 	 * @throws Exception

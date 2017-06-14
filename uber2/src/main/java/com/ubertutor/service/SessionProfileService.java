@@ -14,7 +14,7 @@ import com.ubertutor.entity.UserEntity;
 
 @Service
 @Transactional
-public class TutorProfileService {
+public class SessionProfileService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
