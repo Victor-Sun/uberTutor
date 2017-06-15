@@ -80,7 +80,7 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
     		dock: 'bottom',
     		items: [{
     			xtype: 'button',
-    			text: 'Update',
+    			text: 'Save',
     			handler: 'update'
     		}]
     		

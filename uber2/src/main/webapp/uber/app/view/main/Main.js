@@ -43,18 +43,18 @@ Ext.define('uber.view.main.Main', {
 				},{
 					text: 'Make a request',
 					handler: 'makeRequest'
-				},{
-					text: 'Change Password',
-					handler: 'changepassword'
+//				},{
+//					text: 'Change Password',
+//					handler: 'changepassword'
 				},{
 					text: 'Profile',
 					handler: 'profile'
 				},{
 					text: 'Sessions',
 					handler: 'sessions'
-				},{
-					text: 'Tutor Registration',
-					handler: 'registration'
+//				},{
+//					text: 'Tutor Registration',
+//					handler: 'registration'
 				},{
 					text: 'Logout',
 					handler: 'logout'

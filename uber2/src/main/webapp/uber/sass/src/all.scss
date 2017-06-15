@@ -28,8 +28,8 @@
 }
 
 .uber-panel {
-	padding-left: 20% !important;
-	padding-right: 20% !important;
+	// padding-left: 20% !important;
+	// padding-right: 20% !important;
 }
 
 .uber-panel-margin {
@@ -41,32 +41,40 @@
 	margin: 20px;
 }
 
+.uber-header {
+	.x-panel-default-outer-border-trbl {
+		border-color: #d2d2d2 !important;
+	}
+	// background-color: transparent !important;
+}
+
 .form-layout {
 	// margin: 15px 10% !important;
 }
 //main
 
 .main-container {
-	background-color: #f1f2f4;
+	// background-color: #f1f2f4;
 }
 .main-container-wrap {
 	// background-color: #f4f4f4 !important;
 }
 
-//profile page
+//Change password
+.change-password-form {
+	padding-left: 25px !important;
+	padding-right: 75px !important;
+}
 
+//profile page
 .profile-panel-outer {
 	background: #f4f4f4 !important;
 }
-.profile-container {
-	// padding-left: 20% !important;
-	// padding-right: 20% !important;
-	// background-color: transparent !important;
+.profile-form {
+	padding-left: 75px !important;
+	padding-right: 75px !important;
 }
-.profile-panel {
-	
-	// background-color: transparent !important;
-}
+
 .profile-wrap {
 	padding: 40px !important;
     // width: 960px;

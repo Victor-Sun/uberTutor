@@ -9,11 +9,15 @@ Ext.define('uber.view.session.SessionsAdminGrid',{
     	me.store.load();
     	this.columns = [{
     		text: 'Create Date',
-			dataIndex: 'OPEN_DATE',
-			xtype: 'datecolumn',
-			format: 'Y-m-d',
+			dataIndex: 'CREATE_DATE',
+//			xtype: 'datecolumn',
+//			format: 'Y-m-d',
 			align: 'left',
-			flex: 1
+			flex: 1,
+			renderer: function (value){
+		        var dt = new Date(value);
+		        return Ext.Date.format(dt, 'Y-m-d');
+			}
 		},{
 			text: 'Student',
 			dataIndex: 'STUDENT_NAME',

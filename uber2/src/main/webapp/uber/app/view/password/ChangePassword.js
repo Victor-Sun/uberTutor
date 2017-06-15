@@ -11,20 +11,30 @@ Ext.define('uber.view.password.ChangePassword',{
     items: [{
     	xtype: 'panel',
 		flex: 1,
-    	cls: 'uber-panel-inner',
+//    	cls: 'uber-panel-inner',
     	layout: {
     		type: 'vbox',
     		align: 'stretch'
     	},
     	items: [{
-    		xtype: 'container',
+    		xtype: 'panel',
+    		border: true,
+    		cls: 'uber-header',
             layout: 'hbox',
             items: [{
-                margin: 5,
-                html: '<h2>Change Password</h2>'
+                xtype: 'container',
+                items: [{
+                	margin: 5,
+                	html: '<h2>Change Password</h2>'
+                }]
             }]
+//    	},{
+//    		xtype: 'container',
+//    		height: 25,
     	},{
     		xtype: 'form',
+    		itemId: 'changePasswordForm',
+    		cls: 'change-password-form',
             margin: 5,
             reference: 'formpanel',
             layout: {
@@ -56,18 +66,22 @@ Ext.define('uber.view.password.ChangePassword',{
                 items: [{
                     name: 'newpassword',
                     fieldLabel: 'New password',
+                    itemId: 'newpassword',
                     inputType: 'password',
                     name: 'newpassword'
-                },{
-                    name: 'newpasswordagain',
+                }]
+            },{
+            	items: [{
+            		name: 'newpasswordagain',
                     fieldLabel: 'Repeat new password',
+                    itemId: 'newpassword2',
                     inputType: 'password',
                     name: 'newpassword2',
                 	validator: function(value) {
-                        var password1 = this.previousSibling('[name=newpassword]');
+                        var password1 = Ext.ComponentQuery.query('#newpassword')[0];
                         return (value === password1.getValue()) ? true : 'Passwords do not match.'
                     }
-                }]
+            	}]
             }],
             dockedItems: [{
             	xtype: 'toolbar',
