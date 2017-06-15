@@ -13,7 +13,7 @@ Ext.define('uber.view.password.ChangePasswordController',{
     			method: 'POST',
     			success: function() {
     				// change to exception output
-    				this.getView().unmask();
+    				Ext.getBody().unmask();
     				Ext.Msg.alert( '', 'update success', Ext.emptyFn )
     			},
 

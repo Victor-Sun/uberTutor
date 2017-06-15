@@ -1,7 +1,7 @@
 Ext.define('uber.view.profile.Profile', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.tab.Panel',
     xtype: 'profile',
-
+    itemId: 'profileTab',
     requires: [
         'uber.view.profile.ProfileController',
         'uber.view.profile.ProfileForm'
@@ -13,15 +13,23 @@ Ext.define('uber.view.profile.Profile', {
 		align: 'stretch'
 	},
 	cls: 'uber-panel',
+	tabPosition: 'left',
+	tabRotation: 0,
 	initComponent: function () {
-		
-		var profileInfoForm = Ext.create('uber.view.profile.ProfileForm');
+		var fullname = Ext.ComponentQuery.query('#userNameItemId')[0].getText();
+		var profileInfoForm = Ext.create('uber.view.profile.ProfileForm',{
+			flex: 1,
+			layout: {
+            	type: 'vbox',
+            	align: 'stretch'
+            },
+		});
 		var loading = function () {
 //			Ext.getBody().mask('Loading...Please Wait');
 			profileInfoForm.load({
 				url: '/uber2/main/profile!display.action',
 				params: {
-					fullname: 'fullname'
+					fullname: this.fullname
 				},
 				reader: {
 					type: 'json',
@@ -37,46 +45,77 @@ Ext.define('uber.view.profile.Profile', {
 		
 		this.items = [{
 			xtype: 'panel',
+			title: 'profile',
 //			reference: 'profileMainForm',
 			flex: 1,
-	    	cls: 'uber-panel-inner',
+//	    	cls: 'uber-panel-inner',
 	    	layout: {
 	    		type: 'vbox',
 	    		align: 'stretch'
 	    	},
 	    	items: [{
-	    		xtype: 'container',
-	            layout: 'hbox',
+	    		xtype: 'panel',
+	    		border: true,
+	    		cls: 'uber-header',
+	    		layout: 'hbox',
+	            
 	            items: [{
-	                margin: 5,
-	                html: '<h2>Personal Information</h2>'
+//	            	xtype: 'container',
+//	            	flex: 1
+//	            },{
+	                xtype: 'container',
+	                layout: 'hbox',
+	                items: [{
+	                	margin: 5,
+		                html: '<h2>Personal Information</h2>'
+		            },{
+		                xtype: 'button',
+		                margin: 15,
+		                text: 'edit',
+		                tickCount: 0,
+		                handler: 'toggleEdit'
+	                }]
 	            },{
-	                xtype: 'button',
-	                margin: 5,
-	                text: 'edit',
-	                handler: 'profilemanage'
+	            	xtype: 'container',
+	            	flex: 1
 	            }]
 	        },{
 	            xtype: 'container',
 	            layout: 'hbox',
-	            style: {
-	            },
 	            items: [{
-	                xtype: 'container',
-	                margin: 5,
-	                cls: 'shadow image-container',
-	                items: [{
-	                	xtype: 'image',
-		                width: 80,
-		                height: 80,
-	                }]
-	                
+	            	xtype: 'container',
+	            	flex: 1
 	            },{
-	                xtype: 'component',
-	                html: '<h3>User Avatar</h3>'
+	            	xtype: 'container',
+		            layout: 'vbox',
+		            style: {
+		            },
+		            items: [{
+		            	xtype: 'component',
+		                html: '<h3>User Avatar</h3>'
+		            },{
+		                xtype: 'container',
+		                margin: 5,
+		                cls: 'shadow image-container',
+		                items: [{
+		                	xtype: 'image',
+			                width: 80,
+			                height: 80,
+		                }]
+		            }]
+	            },{
+	            	xtype: 'container',
+	            	flex: 1
 	            }]
 	    	},profileInfoForm
 		]
+		},{
+			title: 'Change Password',
+			xtype: 'changepassword'
+		},{
+			title: 'Subjects',
+			xtype: 'tutorregistration'
+//			hidden: true
 		}];
 		this.callParent(arguments);
 	}

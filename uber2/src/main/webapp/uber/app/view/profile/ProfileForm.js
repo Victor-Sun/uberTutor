@@ -3,9 +3,11 @@ Ext.define('uber.view.profile.ProfileForm',{
     xtype: 'profileform',
     
     margin: 5,
+    cls: 'profile-form',
     controller: 'profile',
     reference: 'profileForm',
     itemId: 'profileForm',
+    scrollable: 'y',
     layout: {
         type: 'vbox',
         align: 'stretchmax'
@@ -16,124 +18,131 @@ Ext.define('uber.view.profile.ProfileForm',{
 //        anchor: '100%'
     },
     initComponent(){
-        var checkboxForm = Ext.create ('Ext.form.Panel',{
-            reference: 'checkboxForm',
-            itemId: 'checkboxForm',
-            items: [{
-                xtype: 'radiogroup',
-                readOnly: false,
-                fieldLabel: 'Is Tutor?',
-                columns: 2,
-//                name: 'IS_TUTOR',
-//                inputValue: 'Y',
-//              hideLabel: true,
-//              scope: this,
-                labelAlign: 'left',
-                labelWidth: 75,
-                id: 'isTutor',
-                checkCount:0,
-                items: [
-                	{ boxLabel: 'Yes', name: 'IS_TUTOR', inputValue: 'Y' },
-                    { boxLabel: 'No', name: 'IS_TUTOR', inputValue: 'N' },
-                ],
-                listeners: {
-                    change: function (th , field, newValue, oldValue) {
-                        var bio = Ext.getCmp('bio');
-                        var subject = Ext.getCmp('subject');
-                        var checkbox = this.getValue();
-                        var formPanel = this.up('form');
-                        
-                        if(th.checkCount > 0){
-                            formPanel.submit({
-                                //submit form for user signup
-                                url: '/uber2/main/profile!registerAsTutor.action',
-                                method: 'POST',
-                                params: {
-                                    fullname: 'fullname'
-                                },
-                                success: function(response, opts) {
-                                    // change to exception output
-//                                	Ext.Msg.alert('Error', "Value Loaded/Updated", Ext.emptyFn);
-                                },
-
-                                function (form, action) {
-                                	var me = this;
-                                    var result = uber.util.Util.decodeJSON(action.response.responseText);
-                                    Ext.Msg.alert('Error', result.data, Ext.emptyFn);
-                            	},
-                            });
-                        };
-                        
-                        if (checkbox.IS_TUTOR == 'Y')            
-                        {
-                            bio.setVisible(true);
-                            subject.setVisible(true);
-                        } else if (checkbox.IS_TUTOR == 'N') 
-        				{
-                            bio.setVisible(false);
-                            subject.setVisible(false);
-                        };
-                        th.checkCount = th.checkCount + 1;
-                    },
-                }
-            }]
-        });
-        if (checkboxForm.isValid()) {
-            checkboxForm.load({
-                url:'/uber2/main/profile!display.action',
-                method: 'GET',
-                success: function () {
-                    
-                },
-                failure: function () {
-                    uber.util.Util.showToast("Error loading checkbox value");
-                }
-            })
-        }
+    		
+    	var school = Ext.create('Ext.data.Store',{
+    		fields: [ 'ID', 'NAME' ],
+    		proxy: {
+    	         type: 'ajax',
+    	         url: '/uber2/main/profile!displaySchool.action',
+    	         reader: {
+    	             type: 'json',
+    	             rootProperty: 'data'
+    	         }
+    	    },
+    	});
+//        var checkboxForm = Ext.create ('Ext.form.Panel',{
+//            reference: 'checkboxForm',
+//            itemId: 'checkboxForm',
+//            items: [{
+//                xtype: 'radiogroup',
+//                readOnly: false,
+//                fieldLabel: 'Is Tutor?',
+//                columns: 2,
+////                name: 'IS_TUTOR',
+////                inputValue: 'Y',
+////              hideLabel: true,
+////              scope: this,
+//                labelAlign: 'left',
+//                labelWidth: 75,
+//                id: 'isTutor',
+//                checkCount:0,
+//                items: [
+//                	{ boxLabel: 'Yes', name: 'IS_TUTOR', inputValue: 'Y' },
+//                    { boxLabel: 'No', name: 'IS_TUTOR', inputValue: 'N' },
+//                ],
+//            }]  
+//        });
+//        if (checkboxForm.isValid()) {
+//            checkboxForm.load({
+//                url:'/uber2/main/profile!display.action',
+//                method: 'GET',
+//                success: function () {
+//                    
+//                },
+//                failure: function () {
+//                    uber.util.Util.showToast("Error loading checkbox value");
+//                }
+//            })
+//        }
         this.items = [{
-            xtype: 'textfield',
-            name: 'FULLNAME',
-            fieldLabel: 'Name',
-            readOnly: true,
-            itemId: 'fullname'
+            xtype: 'fieldcontainer',
+            defaults: {
+            	labelAlign: 'top',
+            	flex: 1,
+            	margin: '0 5 0 0'
+            },
+            layout: {
+            	type: 'hbox',
+            	align: 'stretch'
+            },
+            items: [{
+            	xtype: 'textfield',
+	            name: 'FULLNAME',
+	            fieldLabel: 'Name',
+	            readOnly: true,
+	            itemId: 'fullname'
+            }]
         },{
-            xtype: 'textfield',
-            name: 'EMAIL',
-            fieldLabel: 'Email',
-            readOnly: true,
-            itemId: 'email'
-        },{
-            xtype: 'textfield',
-            name: 'MOBILE',
-            fieldLabel: 'Mobile',
-            readOnly: true,
-            itemId: 'mobile'
-        },{
-            xtype: 'textfield',
-            name: 'NAME',
-            fieldLabel: 'School',
-            readOnly: true,
-            itemId: 'school'
+            xtype: 'fieldcontainer',
+            defaults: {
+            	labelAlign: 'top',
+            	flex: 1,
+            	margin: '0 5 0 0'
+            },
+            layout: {
+            	type: 'hbox',
+            	align: 'stretch'
+            },
+            items: [{
+            	xtype: 'textfield',
+                name: 'EMAIL',
+                fieldLabel: 'Email',
+                readOnly: true,
+                itemId: 'email'
+            },{
+            	xtype: 'textfield',
+	            name: 'MOBILE',
+	            fieldLabel: 'Mobile',
+	            readOnly: true,
+	            itemId: 'mobile'
+	        },{
+	            xtype: 'combobox',
+	            store: school,
+	            valueField: 'NAME',
+	        	displayField: 'NAME',
+	            name: 'NAME',
+	            fieldLabel: 'School',
+	            allowBlank: false,
+	            editable: false,
+	            readOnly: true,
+	            itemId: 'school'
+            }]
         },{
             xtype: 'textarea',
             name: 'BIO',
             maxLength: 1000,
             fieldLabel: 'Bio',
             readOnly: true,
-            hidden: true,
             id: 'bio'
         },{
-            xtype: 'button',
-            name: 'addSubject',
-            text: 'Add Subject',
-            hidden: true,
-            id: 'subject',
-            handler: 'registration'
-        },
-        checkboxForm,
-        ];
-        
-         
+        	xtype: 'checkbox',
+        	fieldLabel: 'Is Tutor',
+        	name: 'IS_TUTOR',
+        	inputValue: 'Y',
+        	uncheckedValue: 'N'
+        }];
+        this.dockedItems = [{
+        	xtype: 'toolbar',
+        	dock: 'bottom',
+        	items: [{
+        		xtype: 'button',
+	    		itemId: 'buttonSave',
+	    		name: 'saveButton',
+	//    		hidden: true,
+	    		text: 'Save',
+	    		handler: 'save'
+        	}]
+        }];
         this.callParent();
     },
 });

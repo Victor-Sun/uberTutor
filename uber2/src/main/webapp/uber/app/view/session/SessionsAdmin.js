@@ -8,13 +8,16 @@ Ext.define('uber.view.session.SessionsAdmin',{
 	},
 	cls: 'uber-panel',
 	controller: 'sessions',
+	model: 'session',
 	initComponent: function () {
-		
+		var me = this;
+//		debugger;
+//		var createDate = this.view.query('#sessionInfoForm')[0].records[0].get('CREATE_DATE');
 		var sessionInfoForm = Ext.create('Ext.form.Panel',{
 			itemId: 'sessionInfoForm',
 			scrollable: 'y',
 	    	region: 'south',
-	    	height: 450,
+	    	height: 475,
 	    	split: true,
 	    	requestId:'',
 	    	collapsible: true,
@@ -107,6 +110,20 @@ Ext.define('uber.view.session.SessionsAdmin',{
 								xtype: 'textfield',
 								fieldLabel: 'Create Date',
 								name: 'CREATE_DATE',
+								itemId:'createDate',
+								editable: false,
+								hideTrigger: true,
+//								format: 'Y d m'
+//								listeners: {
+//									change: function (th, oldValue, newValue){
+//										debugger;
+//										var epoch = this.value;
+//										var date = Number(epoch);
+//								        var dt = new Date(date);
+//								        var newDate = Ext.Date.format(dt, 'Y-m-d');
+//								        th.setValue(newDate);
+//									}
+//								}
 							},{
 								xtype: 'textfield',
 								fieldLabel: 'UPDATE_DATE',
@@ -139,6 +156,11 @@ Ext.define('uber.view.session.SessionsAdmin',{
 				}]
 			}]
 		});
+//		var createDate = sessionInfoForm.down('#createDate');
+//		var dateValue = createDate.getValue();
+//        var date = new Date(Number(dateValue));
+//        var newDate = Ext.Date.format(date, 'Y-m-d');
+//        createDate.setValue(newDate);
 		
 		this.items = [{
 	    	xtype: 'panel',

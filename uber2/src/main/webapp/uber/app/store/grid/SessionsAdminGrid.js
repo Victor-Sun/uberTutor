@@ -3,7 +3,13 @@ Ext.define('uber.store.grid.SessionsAdminGrid',{
     alias: 'store.sessionsAdminGrid',
     
     fields: [
-        { name: 'CREATE_DATE' , type: "date", format: 'Y-m-d' },
+//        { name: 'CREATE_DATE' , type: 'date', format: 'Y-m-d' },
+		{ name: 'CREATE_DATE' , type: 'integer', },
+		{ name: 'CANCEL_DATE' , type: 'integer', },
+		{ name: 'CLOSE_DATE' , type: 'integer', },
+		{ name: 'PENDING_DATE' , type: 'integer', },
+		{ name: 'PROCESS_DATE' , type: 'integer', },
+		{ name: 'UPDATE_DATE' , type: 'integer', },
         { name: 'STUDENT_NAME', type: 'string' },
         { name: 'TUTOR_NAME', type: 'string' },
         { name: 'CATEGORY', type: 'string' },

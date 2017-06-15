@@ -2,6 +2,32 @@ Ext.define('uber.view.profile.ProfileController',{
 	extend: 'Ext.app.ViewController',
     alias: 'controller.profile',
     
+    toggleEdit: function(th, readOnly) {
+		var profileForm = Ext.ComponentQuery.query('#profileForm')[0];
+		var formFields = profileForm.getForm().getFields();
+		var buttonSave = Ext.ComponentQuery.query('#buttonSave')[0];
+		if (th.tickCount == 0) {
+			Ext.suspendLayouts();
+			profileForm.getForm().getFields().each(function(field) {
+				field.setReadOnly(false);
+			});
+			Ext.resumeLayouts();
+			th.tickCount = th.tickCount + 1;
+		} else {
+			Ext.suspendLayouts();
+			profileForm.getForm().getFields().each(function(field) {
+				field.setReadOnly(true);
+			});
+			Ext.resumeLayouts();
+			th.tickCount = 0 ;
+		}
+//		if (buttonSave.hidden = true ) {
+//			buttonSave.setVisible(true);
+//		} else if ( ){
+//			buttonSave.setVisible(false);
+//		}
+	},
+    
     profilemanage: function () {
     	var me = this;
     	var main = me.view.up('app-main');
@@ -10,13 +36,23 @@ Ext.define('uber.view.profile.ProfileController',{
 		var card2 = mainCard.add(Ext.create('uber.view.profile.ChangeProfile'));
     },
     
-    backprofile: function () {
+    profile: function () {
     	var me = this;
-    	var main = me.view.up('app-main');
+    	var profileForm = Ext.ComponentQuery.query('#profileForm')[0];
+//    	var main = me.view.up('app-main');
     	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
 		var card2 = mainCard.add(Ext.create('uber.view.profile.Profile'));
-		profileInfoForm.reload();
+		profileForm.load({
+			url: '/uber2/main/profile!display.action',
+			params: {
+				fullname: this.fullname
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			},
+		});
     },
     
     registration: function () {
@@ -57,24 +93,34 @@ Ext.define('uber.view.profile.ProfileController',{
 		})
     },
     
-    update: function () {
-    	var me = this;
-    	var formPanel = this.view;
-//    	var model = Ext.create('uber.model.UserInfo', formPanel.getValues());
-//    	var form = formPanel.getForm();
-    	Ext.getBody().mask('Loading...Please Wait');
-    	if(formPanel.getForm().isValid()){
-    		formPanel.submit({
+    save: function () {
+//    	debugger;
+		var profileForm = Ext.ComponentQuery.query('#profileForm')[0];
+		
+		Ext.getBody().mask('Loading...Please Wait');
+    	if(profileForm.getForm().isValid()){
+    		profileForm.submit({
     			//submit form for user signup
     			url: '/uber2/main/profile!update.action',
     			method: 'POST',
-    			params: {
-    				fullname: 'fullname'
-    			},
+//    			params: {
+//    				fullname: 'fullname'
+//    			},
     			success: function(response, opts) {
+    				var profileForm = Ext.ComponentQuery.query('#profileForm')[0];
     				// change to exception output
     				Ext.getBody().unmask();
-    				Ext.Msg.alert( '', 'update success', Ext.emptyFn )
+//    				Ext.Msg.alert( '', 'update success', Ext.emptyFn );
+    				profileForm.load({
+    					url: '/uber2/main/profile!display.action',
+    					params: {
+    						fullname: this.fullname
+    					},
+    					reader: {
+    						type: 'json',
+    						rootProperty: 'data'
+    					},
+    				});
     			},
 
     			failure: function(form, action) {
@@ -91,13 +137,6 @@ Ext.define('uber.view.profile.ProfileController',{
     		});
     		Ext.Msg.alert("Error", message, Ext.emptyFn);
     	}
-    },
-//    /uber2/main/profile!registerAsTutor.action
-    isTutor: function(){
-    	if (isTutor == 'Y'){
-			bio.setVisible(true);
-		} else {
-			bio.setVisible(false);
-    	}
-    },
+	},
+    
 })
