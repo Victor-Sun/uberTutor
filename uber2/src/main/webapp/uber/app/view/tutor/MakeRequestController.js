@@ -7,7 +7,7 @@ Ext.define('uber.view.tutor.MakeRequestController',{
     	var formpanel = Ext.ComponentQuery.query('#formpanel')[0];
     	if(formpanel.isValid()){
     		formpanel.submit({
-    			url: '/uber2/main/Make-request!save.action',
+    			url: '/uber2/main/make-request!save.action',
         		method: 'POST',
     			success: function(response, opts) {
     				console.log(response);

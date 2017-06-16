@@ -38,8 +38,8 @@ public class UserRequestEntity implements Serializable{
 	@Column(name = "DESCRIPTION")
 	private String Description;
 	
-	@Column(name = "OPEN_DATE")
-	private Date openDate;
+	@Column(name = "CREATE_DATE")
+	private Date createDate;
 	
 	@Column(name = "UPDATE_DATE")
 	private Date updateDate;
@@ -55,7 +55,7 @@ public class UserRequestEntity implements Serializable{
 	
 	@Column(name = "CANCEL_DATE")
 	private Date cancelDate;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -88,6 +88,14 @@ public class UserRequestEntity implements Serializable{
 		this.subjectId = subjectId;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -104,28 +112,20 @@ public class UserRequestEntity implements Serializable{
 		Description = description;
 	}
 
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
 	public Date getUpdateDate() {
 		return updateDate;
 	}
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public Date getOpenDate() {
-		return openDate;
-	}
-
-	public void setOpenDate(Date openDate) {
-		this.openDate = openDate;
 	}
 
 	public Date getPendingDate() {

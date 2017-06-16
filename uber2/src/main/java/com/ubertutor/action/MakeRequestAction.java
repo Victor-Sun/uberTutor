@@ -1,6 +1,8 @@
 package com.ubertutor.action;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,19 @@ import com.ubertutor.service.MakeRequestService;
 @Namespace("/main")
 public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	private static final long serialVersionUID = 1L;
-	
 	@Autowired
 	private MakeRequestService makeRequestService;
-	private UserRequestEntity entity;
+	private UserRequestEntity entity = new UserRequestEntity();
 	private Long id;
-	
+
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	/**Zelin
 	 * Function that submit a request
@@ -27,25 +36,27 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	@Override
 	public String save() throws Exception{
 		try {
-//			Long userId = Long.parseLong(SessionData.getLoginUserId());
-//			Long subjectId = Long.parseLong(Struts2Utils.getParameter("subjectId"));
-//			String description = Struts2Utils.getRequest().getParameter("description");
-//			String title = Struts2Utils.getRequest().getParameter("title");
-//			Date date = new Date();
-//			entity.setUserId(userId);
-//			entity.setSubjectId(subjectId);
-//	        entity.setDescription(description);
-//	        entity.setTitle(title);
-//	        entity.setOpenDate(date);
-//	        makeRequestService.makeRequest(entity);
-			System.out.println("Success");
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			Long userId = Long.parseLong(SessionData.getLoginUserId());
+			Long subjectId = Long.parseLong(Struts2Utils.getParameter("subjectId"));
+			String description = Struts2Utils.getRequest().getParameter("description");
+			String title = Struts2Utils.getRequest().getParameter("title");
+			Date date = new Date();
+			entity.setUserId(userId);
+			entity.setSubjectId(subjectId);
+			entity.setDescription(description);
+			entity.setTitle(title);
+			entity.setCreateDate(date);
+			makeRequestService.makeRequest(entity);
+			resultMap.put("requestId", entity.getId());
+			this.writeSuccessResult(resultMap);
 		} catch (Exception e){
 			e.printStackTrace();
 			this.writeErrorResult(e.getMessage());
 		}
 		return null;
 	}
-	
+
 	@Override
 	public UserRequestEntity getModel() {
 		return entity;

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ubertutor.dao.UserRequestDAO;
-import com.ubertutor.dao.UserSubjectDAO;
 import com.ubertutor.entity.UserRequestEntity;
 
 @Service
@@ -21,9 +20,6 @@ public class MakeRequestService {
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
 	private UserRequestDAO userRequestDao;
-
-	@Autowired
-	private UserSubjectDAO userSubjectDao;
 	
 	public UserRequestEntity get(Long id){
 		return userRequestDao.get(id);

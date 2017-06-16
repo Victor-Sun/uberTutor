@@ -86,7 +86,7 @@ public class TutorSubjectRegisterService {
 	}
 	
 	public boolean subjectExists(Long userId, Long subjectId){
-		String hql = "FROM UserSubjectEntity WHERE userid = ? AND subjectid = ?";
+		String hql = "FROM UserSubjectEntity WHERE userId = ? AND subjectId = ?";
 		List<UserSubjectEntity> result = this.userSubjectDao.find(hql, userId, subjectId);
         return result.size() > 0; 
 	}

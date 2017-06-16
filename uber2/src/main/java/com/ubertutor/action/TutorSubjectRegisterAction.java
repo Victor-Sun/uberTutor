@@ -119,8 +119,8 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 
 	@Override
 	public String save() throws Exception {
-		String msg = "";
 		try{
+			String msg = "";
 			String userId = SessionData.getLoginUserId();
 			String subjectId = Struts2Utils.getRequest().getParameter("subject");
 			String category = Struts2Utils.getRequest().getParameter("category");
@@ -158,6 +158,6 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 
 	@Override
 	protected void prepareModel() throws Exception {
-		entity = (id == null) ? new UserSubjectEntity() : tutorSubjectRegisterService.get(id); 
+		entity = (id != null) ? tutorSubjectRegisterService.get(id) : new UserSubjectEntity(); 
 	}
 }
