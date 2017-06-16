@@ -1,5 +1,6 @@
 package com.ubertutor.action;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -118,6 +119,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	@Override
 	public String save() throws Exception{
 		try {
+			Date date = new Date();
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			String msg, p1 = "", p2 = "", un;
 			p1 = Struts2Utils.getRequest().getParameter("password");
@@ -143,6 +145,12 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 				msg = "Email has already been used!";
 				throw new Exception(msg);
 			}
+			entity.setIsDisabled("N");
+			entity.setIsTutor("N");
+			entity.setIsAdmin("N");
+			entity.setIsVerified("N");
+			entity.setCreateBy("System");
+			entity.setCreateDate(date);
 			entity.setPassword(EncryptUtil.encrypt(p1));
 			signupService.registerAccount(entity);
 			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_USER, entity);

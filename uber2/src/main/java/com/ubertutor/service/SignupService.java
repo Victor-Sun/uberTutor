@@ -1,6 +1,5 @@
 package com.ubertutor.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,13 +43,6 @@ public class SignupService {
 	 * @param entity
 	 */
 	public void registerAccount(UserEntity entity){
-		Date date = new Date();
-		entity.setIsDisabled("N");
-		entity.setIsTutor("N");
-		entity.setIsAdmin("N");
-		entity.setIsVerified("N");
-		entity.setCreateBy("System");
-		entity.setCreateDate(date);
 		userDAO.save(entity);
 	}
 	
