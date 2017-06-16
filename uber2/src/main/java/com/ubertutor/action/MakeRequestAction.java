@@ -27,17 +27,18 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	@Override
 	public String save() throws Exception{
 		try {
-			Long userId = Long.parseLong(SessionData.getLoginUserId());
-			Long subjectId = Long.parseLong(Struts2Utils.getParameter("subjectId"));
-			String description = Struts2Utils.getRequest().getParameter("description");
-			String title = Struts2Utils.getRequest().getParameter("title");
-			Date date = new Date();
-			entity.setUserId(userId);
-			entity.setSubjectId(subjectId);
-	        entity.setDescription(description);
-	        entity.setTitle(title);
-	        entity.setOpenDate(date);
-	        makeRequestService.makeRequest(entity);
+//			Long userId = Long.parseLong(SessionData.getLoginUserId());
+//			Long subjectId = Long.parseLong(Struts2Utils.getParameter("subjectId"));
+//			String description = Struts2Utils.getRequest().getParameter("description");
+//			String title = Struts2Utils.getRequest().getParameter("title");
+//			Date date = new Date();
+//			entity.setUserId(userId);
+//			entity.setSubjectId(subjectId);
+//	        entity.setDescription(description);
+//	        entity.setTitle(title);
+//	        entity.setOpenDate(date);
+//	        makeRequestService.makeRequest(entity);
+			System.out.println("Success");
 		} catch (Exception e){
 			e.printStackTrace();
 			this.writeErrorResult(e.getMessage());

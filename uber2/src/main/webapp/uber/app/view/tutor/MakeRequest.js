@@ -7,11 +7,12 @@ Ext.define('uber.view.tutor.MakeRequest',{
 	extend: 'Ext.panel.Panel',
 	xtype: 'makerequest',
 
+	controller: 'makerequest',
     layout: {
 		type: 'vbox',
 		align: 'stretch'
 	},
-	cls: 'uber-panel',
+//	cls: 'uber-panel',
 	initComponent: function () {
 		var categoryStore = Ext.create('uber.store.category.Category');
 		var subjectStore = Ext.create('uber.store.subject.Subject');
@@ -20,7 +21,7 @@ Ext.define('uber.view.tutor.MakeRequest',{
 		
 		var category = Ext.create('Ext.form.field.ComboBox',{
 			id: 'category',
-			fieldLabel: 'Category',
+			fieldLabel: 'Category *',
             labelAlign: 'top',
             triggerAction: 'all',
             store: categoryStore,
@@ -40,7 +41,7 @@ Ext.define('uber.view.tutor.MakeRequest',{
 		});
 		var subject = Ext.create('Ext.form.field.ComboBox',{
 			id: 'subject',
-			fieldLabel: 'Subject',
+			fieldLabel: 'Subject *',
             labelAlign: 'top',
             triggerAction: 'all',
             store: subjectStore,
@@ -48,54 +49,35 @@ Ext.define('uber.view.tutor.MakeRequest',{
             valueField: 'ID',
             queryMode:'local',
             editable:false,
-            name:'subject'
+            name:'subjectId'
 		});
 		
 		this.items = [{
 	    	xtype: 'panel',
 			flex: 1,
-	    	cls: 'uber-panel-inner',
+//	    	cls: 'uber-panel-inner',
 	    	layout: {
 	    		type: 'vbox',
 	    		align: 'stretch'
 	    	},
 	    	items: [{
-	    		xtype: 'container',
-	            layout: 'hbox',
-	            items: [{
-	                margin: 5,
-	                html: '<h2>Make a request</h2>'
-	            }]
-//	    	},{
-//	    		xtype: 'fieldset',
-//	    		title: 'Tutor Info',
-//	    		defaults: {
-//	    			labelAlign: 'top',
-//	    		},
-//	    		items: [{
-//	    			xtype: 'textfield',
-//	    			margin: 5,
-//	    			fieldLabel: 'Tutor Name'
-//	    		},{
-//	    			xtype: 'container',
-//	    			layout: 'hbox',
-//	    			defaults: {
-//	        			labelAlign: 'top',
-//	        			margin: 5
-//	        		},
-//	    			items: [{
-//	    				xtype: 'textfield',
-//		    			fieldLabel: 'Category'
-//		    		},{
-//		    			xtype: 'textfield',
-//		    			fieldLabel: 'Subject'
-//	    			}]
-//	    		}]
+	    		xtype: 'panel',
+//	    		border: true,
+//	    		cls: 'uber-header',
+	    		layout: 'hbox',
+	    		items: [{
+	    			xtype: 'container',
+		            layout: 'hbox',
+		            items: [{
+		                margin: 5,
+		                html: '<h2>Make a request</h2>'
+		            }]
+	    		}]
 	    	},{
 	    		xtype: 'form',
 	    		margin: 15,
 	            cls: 'form-layout',
-	            reference: 'formpanel',
+	            itemId: 'formpanel',
 	            layout: {
 	                type: 'vbox',
 	                align: 'stretch'
@@ -118,16 +100,18 @@ Ext.define('uber.view.tutor.MakeRequest',{
 	            		labelAlign: 'top',
 	            		width: 350,
 	            		margin: 5,
-	        			fieldLabel: 'Title'
+	            		name: 'title',
+	        			fieldLabel: 'Title (The more descriptive you can be, the better) *'
 	            	}]
 	            },{
 	            	xtype: 'container',
 	            	items: [{
 	            		xtype: 'textarea',
-	            		width: 350,
+	            		width: 500,
 	            		labelAlign: 'top',
 		            	margin: 5,
-		            	fieldLabel: 'Description'
+		            	name: 'description',
+		            	fieldLabel: 'Description (max 1000 characters) *'
 	            	}]
 	            }],
 	            //TODO: SUBMIT TUTOR REQUEST
@@ -137,12 +121,7 @@ Ext.define('uber.view.tutor.MakeRequest',{
 	            	items: [{
 	            		xtype: 'button',
 	            		text: 'Submit',
-	            		handler: function () {
-	            			var form = this.up('form');
-	            			var formValue = form.getValues();
-	            			console.log(formValue);
-	            			Ext.toast('You have submitted the following values!'+ formValue);
-	            		}
+	            		handler: 'save'
 	            	}]
 	            }]
 	    	}]

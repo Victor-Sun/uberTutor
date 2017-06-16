@@ -68,8 +68,8 @@ Ext.define('uber.view.profile.Profile', {
 	    	},
 	    	items: [{
 	    		xtype: 'panel',
-	    		border: true,
-	    		cls: 'uber-header',
+	    		// border: true,
+	    		// cls: 'uber-header',
 	    		layout: 'hbox',
 	            
 	            items: [{

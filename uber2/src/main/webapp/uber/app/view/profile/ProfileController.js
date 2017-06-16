@@ -125,12 +125,13 @@ Ext.define('uber.view.profile.ProfileController',{
 
     			failure: function(form, action) {
     				// similar to above
-    				this.getView().unmask();
+    				Ext.getBody().unmask();
     				var result = uber.util.Util.decodeJSON(action.response.responseText);
     				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
     			},
     		})
     	} else {
+    		Ext.getBody().unmask();
     		var message = "";
     		Ext.each(errors.items, function(rec){
     			message +=rec.getMessage()+"<br>"

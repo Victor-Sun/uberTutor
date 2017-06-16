@@ -18,8 +18,8 @@ Ext.define('uber.view.password.ChangePassword',{
     	},
     	items: [{
     		xtype: 'panel',
-    		border: true,
-    		cls: 'uber-header',
+//    		border: true,
+//    		cls: 'uber-header',
             layout: 'hbox',
             items: [{
                 xtype: 'container',

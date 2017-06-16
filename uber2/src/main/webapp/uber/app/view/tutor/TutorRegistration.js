@@ -20,14 +20,14 @@ Ext.define('uber.view.tutor.TutorRegistration',{
 		},
 		items: [{
 			xtype: 'panel',
-			border: true,
-			cls: 'uber-header',
+//			border: true,
+//			cls: 'uber-header',
 			layout: 'hbox',
 			items: [{
 				xtype: 'container',
 				items: [{
 					margin: 5,
-					html: '<h2>Tutor Registration</h2>'
+					html: '<h2>Tutor Subjects</h2>'
 				}]
 			}]
 		},{
