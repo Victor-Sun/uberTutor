@@ -191,8 +191,9 @@ Ext.define('uber.view.session.SessionsAdmin',{
 			items: [{
 				xtype: 'sessionAdminGrid',
 				region: 'center'
-	    	},
-	    	sessionInfoForm
+	    	}
+//			,
+//	    	sessionInfoForm
 	    	]
 	    }];
 		this.tbar = [{

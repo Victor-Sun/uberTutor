@@ -4,8 +4,10 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	
 	title: 'Session Info',
 	controller: 'sessions',
+	requestId: '',
+	session: '',
 	layout: 'fit',
-	initComponent() {
+	initComponent: function() {
 		
 		var me = this;
 		me.store = Ext.create('uber.store.session.SessionInfo',{
@@ -18,7 +20,10 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 				reader: {
 					type: 'json',
 					rootProperty: 'data'
-				}
+				},
+//				success: {
+//					if (this.status = IN_PROCESS)
+//				}
 			},
 		});
 		var sessionInfoForm = Ext.create('Ext.form.Panel',{
@@ -27,7 +32,8 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	            align: 'stretch'
 	        },
 			items: [{
-				xtype: 'fieldset',
+				xtype: 'panel',
+				padding: 15,
 				items: [{
 					layout: {
 			            type: 'vbox',
@@ -47,8 +53,14 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 					items: [{
 						// Request Info
 						xtype: 'fieldset',
+						defaults: {
+							defaults: {
+								labelAlign: 'top'
+							},
+						},
 						items: [{
 							xtype: 'fieldcontainer',
+							
 							items: [{
 								xtype: 'textfield',
 								fieldLabel: 'Title',
@@ -155,7 +167,19 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 				rootProperty: 'data'
 			}
 		});
-		
+		this.tools = [{
+			xtype: 'button',
+			hidden: true,
+			text: 'cancel'
+		},{
+			xtype: 'button',
+			hidden: true,
+			text: 'close'
+		},{
+			xtype: 'button',
+			hidden: true,
+			text: 'accept'
+		}];
 //		me.store.load();
 		this.items = [
 			// Session Info Form

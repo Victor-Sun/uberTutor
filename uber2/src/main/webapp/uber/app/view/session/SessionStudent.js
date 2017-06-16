@@ -167,8 +167,9 @@ Ext.define('uber.view.session.SessionsStudent',{
     			items: [{
     				xtype: 'sessionsStudentGrid',
     				region: 'center'
-    	    	},
-    	    	sessionInfoForm
+    	    	}
+//    			,
+//    	    	sessionInfoForm
     	    	]
         	}]
         }];

@@ -71,6 +71,7 @@ Ext.define('uber.view.session.SessionsController',{
     	console.log(record.data.REQUEST_ID);
     	Ext.create('uber.view.session.SessionInfoWindow',{
     		requestId: record.data.REQUEST_ID
+    		status: record.data.STATUS
     	}).show();
     },
     
