@@ -23,7 +23,10 @@ Ext.define('uber.view.profile.Profile', {
             	type: 'vbox',
             	align: 'stretch'
             },
+            
 		});
+		
+		
 		var loading = function () {
 //			Ext.getBody().mask('Loading...Please Wait');
 			profileInfoForm.load({
@@ -35,14 +38,24 @@ Ext.define('uber.view.profile.Profile', {
 					type: 'json',
 					rootProperty: 'data'
 				},
-//				success: function () {
-//					Ext.getBody().unmask();
-//				}
+				success: function () {
+					Ext.getBody().unmask();
+					var tabPanel = Ext.ComponentQuery.query('tab[title="Subjects"]')[0];
+//					var tutorRegistration = Ext.ComponentQuery.query('#tutorRegistration')[0];
+//					tabPanel = tabPanel[2];
+		    		var checkBox = Ext.ComponentQuery.query('#isTutor')[0];
+		    		var checkBoxValue = checkBox.getValue();
+		    		
+		    		if (checkBoxValue == true) {
+		    			tabPanel.show();
+					} else {
+						tabPanel.hide();
+					}
+				}
 			});
 		};
 		
 		loading();
-		
 		this.items = [{
 			xtype: 'panel',
 			title: 'profile',
@@ -114,9 +127,12 @@ Ext.define('uber.view.profile.Profile', {
 			xtype: 'changepassword'
 		},{
 			title: 'Subjects',
-			xtype: 'tutorregistration'
-//			hidden: true
+			xtype: 'tutorregistration',
+			hidden: true
 		}];
+		
+
+		
 		this.callParent(arguments);
 	}
 });

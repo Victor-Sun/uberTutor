@@ -127,9 +127,23 @@ Ext.define('uber.view.profile.ProfileForm',{
         },{
         	xtype: 'checkbox',
         	fieldLabel: 'Is Tutor',
+        	itemId: 'isTutor',
         	name: 'IS_TUTOR',
         	inputValue: 'Y',
-        	uncheckedValue: 'N'
+        	uncheckedValue: 'N',
+//        	listeners: {
+//            	load: {
+//            		fn: function () {
+//                		debugger;
+//                		var tutorRegistration = Ext.ComponentQuery.query('#tutorRegistration')[0];
+//                		var checkBox = Ext.ComponentQuery.query('#isTutor')[0];
+//                		if (checkBox.getValue() = "Y") {
+//            				tutorRegistration.setVisible(true);
+//            			} else if (checkBox = "N") {
+//            				tutorRegistration.setVisible(false);
+//            			}
+//            	}
+//            }
         }];
         this.dockedItems = [{
         	xtype: 'toolbar',
