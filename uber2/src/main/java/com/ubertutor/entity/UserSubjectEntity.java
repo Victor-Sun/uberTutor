@@ -26,9 +26,15 @@ public class UserSubjectEntity implements Serializable{
 	@Column(name = "SUBJECT_ID") 
 	private Long subjectId;
 
+	@Column(name = "DESCRIPTION")
+	private String description;
+	
+	@Column(name = "IS_ACTIVE")
+	private String isActive;
+	
 	@Column(name = "ADD_DATE")
 	private Date addDate;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -36,28 +42,45 @@ public class UserSubjectEntity implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	public Long getUserid() {
+
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserid(Long userid) {
-		this.userId = userid;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
-	public Long getSubjectid() {
+	public Long getSubjectId() {
 		return subjectId;
 	}
 
-	public void setSubjectid(Long subjectid) {
-		this.subjectId = subjectid;
+	public void setSubjectId(Long subjectId) {
+		this.subjectId = subjectId;
 	}
 
-	public Date getAdddate() {
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(String isActive) {
+		this.isActive = isActive;
+	}
+
+	public Date getAddDate() {
 		return addDate;
 	}
 
-	public void setAdddate(Date adddate) {
-		this.addDate = adddate;
+	public void setAddDate(Date addDate) {
+		this.addDate = addDate;
 	}
+
 }

@@ -27,7 +27,7 @@ public class TutorSubjectRegisterService {
 	 */
 	public List<Map<String,Object>> getCategoryList(){
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT ID, TITLE FROM SUBJECT_CATEGORY WHERE ID <> 1");
+		sql.append(" SELECT ID, TITLE FROM SUBJECT_CATEGORY");
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
 
@@ -65,9 +65,9 @@ public class TutorSubjectRegisterService {
 	 */
 	public void addTutorSubject(UserSubjectEntity entity, Long userId, Long subjectId){
 		Date date = new Date();
-		entity.setUserid(userId);
-		entity.setSubjectid(subjectId);
-		entity.setAdddate(date);
+		entity.setUserId(userId);
+		entity.setSubjectId(subjectId);
+		entity.setAddDate(date);
 		userSubjectDao.save(entity);
 	}
 	

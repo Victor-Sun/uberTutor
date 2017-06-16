@@ -21,27 +21,38 @@ public class MySessionService {
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
 	
-	public List<Map<String,Object>> getUserSessions(Long id){
+	public List<Map<String,Object>> getUserSessions(Long studentId){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
 		sql.append(" SELECT * FROM USER_SESSIONS WHERE STUDENT_ID = ?");
-		params.add(id);
+		params.add(studentId);
 		return this.jdbcTemplate.queryForList(sql.toString(), params.toArray());
 	}
 	
-	public List<Map<String,Object>> getTutorSessions(Long id){
+	public List<Map<String,Object>> getTutorSessions(Long tutorId){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
 		sql.append(" SELECT * FROM USER_SESSIONS WHERE TUTOR_ID = ?");
-		params.add(id);
+		params.add(tutorId);
 		return this.jdbcTemplate.queryForList(sql.toString(), params.toArray());
 	}
 	
-	public Map<String, Object> getSessionInfo(Long id){
+	public Map<String, Object> getSessionInfo(Long requestId){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
 		sql.append(" SELECT * FROM SESSION_INFO WHERE REQUEST_ID = ?");
-		params.add(id);
+		params.add(requestId);
 		return this.jdbcTemplate.queryForMap(sql.toString(), params.toArray());
 	}
+	
+	public int updateRequest(String statusCode, Long requestId){
+		StringBuffer sql = new StringBuffer();
+		List<Object> params = new ArrayList<Object>();
+		sql.append(" UPDATE USER_REQUEST SET STATUS = ? WHERE REQUEST_ID = ?");
+		params.add(statusCode);
+		params.add(requestId);
+		return this.jdbcTemplate.update(sql.toString(), params.toArray());
+	}
+	
+	
 }

@@ -59,16 +59,7 @@ public class ProfileService {
 	public void updateProfile(String id, String fullname, String email, String mobile, String bio, String schoolId){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
-		sql.append(" UPDATE USERS SET");
-		sql.append(" FULLNAME = ?");
-		sql.append(",EMAIL = ?");
-		sql.append(",MOBILE = ?");
-		sql.append(",BIO = ?");
-		sql.append(",SCHOOL_ID = ?");
-		sql.append(",UPDATE_BY = ?");
-		sql.append(",UPDATE_DATE = SYSDATE");
-		sql.append(" WHERE");
-		sql.append(" ID = ?");
+		sql.append(" UPDATE USERS SET FULLNAME = ?, EMAIL = ?, MOBILE = ?, BIO = ?, SCHOOL_ID = ?, UPDATE_BY = ?, UPDATE_DATE = SYSDATE WHERE ID = ?");
 		params.add(fullname);
 		params.add(email);
 		params.add(mobile);

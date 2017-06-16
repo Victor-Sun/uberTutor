@@ -1,5 +1,7 @@
 package com.ubertutor.action;
 
+import java.util.Date;
+
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
@@ -25,15 +27,17 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	@Override
 	public String save() throws Exception{
 		try {
-			
 			Long userId = Long.parseLong(SessionData.getLoginUserId());
-			Long subjectId = Long.parseLong(Struts2Utils.getParameter("SUBJECT_ID"));
+			Long subjectId = Long.parseLong(Struts2Utils.getParameter("subjectId"));
 			String description = Struts2Utils.getRequest().getParameter("description");
 			String title = Struts2Utils.getRequest().getParameter("title");
+			Date date = new Date();
+			entity.setUserId(userId);
+			entity.setSubjectId(subjectId);
 	        entity.setDescription(description);
 	        entity.setTitle(title);
-	        makeRequestService.makeRequest(entity, userId, description, subjectId, title);
-	        
+	        entity.setOpenDate(date);
+	        makeRequestService.makeRequest(entity);
 		} catch (Exception e){
 			e.printStackTrace();
 			this.writeErrorResult(e.getMessage());

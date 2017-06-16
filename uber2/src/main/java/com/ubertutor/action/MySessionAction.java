@@ -40,4 +40,10 @@ public class MySessionAction extends ActionSupport {
 		result.buildSuccessResult(sessionService.getSessionInfo((id)));
 		Struts2Utils.renderJson(result);
 	}
+	
+	public void updateRequestStatus(){
+		String statusCode = Struts2Utils.getRequest().getParameter("");
+		Long requestId = Long.parseLong(Struts2Utils.getRequest().getParameter(""));
+		sessionService.updateRequest(statusCode, requestId);
+	}
 }
