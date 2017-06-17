@@ -27,11 +27,6 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
             window.show();
         };
     	
-//        var onRemoveClick = function(grid, rowIndex){
-//        	
-//        	store.removeAt(rowIndex);
-//        };
-        
     	this.columns = [{
     		text: 'Category',
     		dataIndex: 'CATEGORY_TITLE',

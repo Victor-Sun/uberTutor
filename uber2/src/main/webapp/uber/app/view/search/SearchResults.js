@@ -3,7 +3,6 @@ Ext.define('uber.view.search.SearchResults',{
 	xtype: 'searchresults',
 	layout: 'border',
 	
-	
 	controller: 'search',
 	
 	layout: {

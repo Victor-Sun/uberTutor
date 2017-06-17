@@ -64,7 +64,6 @@ Ext.define('uber.view.profile.ChangeProfileForm',{
         	listeners: {
         		change: function (th , field, newValue, oldValue) {
         			var bio = Ext.getCmp('bio');
-//                    var isTutor = Ext.getCmp('isTutor');
         			if ( th.rawValue == 'Y')            
                     {
                         bio.setVisible(true);

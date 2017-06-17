@@ -156,11 +156,6 @@ Ext.define('uber.view.session.SessionsAdmin',{
 				}]
 			}]
 		});
-//		var createDate = sessionInfoForm.down('#createDate');
-//		var dateValue = createDate.getValue();
-//        var date = new Date(Number(dateValue));
-//        var newDate = Ext.Date.format(date, 'Y-m-d');
-//        createDate.setValue(newDate);
 		
 		this.items = [{
 	    	xtype: 'panel',

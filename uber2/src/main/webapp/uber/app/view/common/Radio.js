@@ -15,15 +15,11 @@ Ext.define('uber.view.common.Radio',{
         	var button = this.up('form').down('button');
         	var field = this.up('form').getForm().findField('email');
         	var field2 = this.up('form').getForm().findField('password2');
-        	//var value = Ext.ComponentQuery.query('radiofield[name=cstgrp]');
-            //console.log(newValue['cstgrp']);
 
             switch (parseInt(newValue['ab'])) {
                 case 1:
-//                	debugger;
                 	text.update('<h2>Sign Up</h2>');
                 	button.setText('Sign Up');
-//                	field.setHidden('false');
                 	field.show();
                 	field2.show();
                     break;

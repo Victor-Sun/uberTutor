@@ -15,7 +15,6 @@ Ext.define('uber.view.profile.ProfileForm',{
     defaults: {
         labelAlign: 'top',
         width: 200
-//        anchor: '100%'
     },
     initComponent(){
     		
@@ -30,40 +29,6 @@ Ext.define('uber.view.profile.ProfileForm',{
     	         }
     	    },
     	});
-//        var checkboxForm = Ext.create ('Ext.form.Panel',{
-//            reference: 'checkboxForm',
-//            itemId: 'checkboxForm',
-//            items: [{
-//                xtype: 'radiogroup',
-//                readOnly: false,
-//                fieldLabel: 'Is Tutor?',
-//                columns: 2,
-////                name: 'IS_TUTOR',
-////                inputValue: 'Y',
-////              hideLabel: true,
-////              scope: this,
-//                labelAlign: 'left',
-//                labelWidth: 75,
-//                id: 'isTutor',
-//                checkCount:0,
-//                items: [
-//                	{ boxLabel: 'Yes', name: 'IS_TUTOR', inputValue: 'Y' },
-//                    { boxLabel: 'No', name: 'IS_TUTOR', inputValue: 'N' },
-//                ],
-//            }]  
-//        });
-//        if (checkboxForm.isValid()) {
-//            checkboxForm.load({
-//                url:'/uber2/main/profile!display.action',
-//                method: 'GET',
-//                success: function () {
-//                    
-//                },
-//                failure: function () {
-//                    uber.util.Util.showToast("Error loading checkbox value");
-//                }
-//            })
-//        }
         this.items = [{
             xtype: 'fieldcontainer',
             defaults: {
@@ -131,19 +96,6 @@ Ext.define('uber.view.profile.ProfileForm',{
         	name: 'IS_TUTOR',
         	inputValue: 'Y',
         	uncheckedValue: 'N',
-//        	listeners: {
-//            	load: {
-//            		fn: function () {
-//                		debugger;
-//                		var tutorRegistration = Ext.ComponentQuery.query('#tutorRegistration')[0];
-//                		var checkBox = Ext.ComponentQuery.query('#isTutor')[0];
-//                		if (checkBox.getValue() = "Y") {
-//            				tutorRegistration.setVisible(true);
-//            			} else if (checkBox = "N") {
-//            				tutorRegistration.setVisible(false);
-//            			}
-//            	}
-//            }
         }];
         this.dockedItems = [{
         	xtype: 'toolbar',

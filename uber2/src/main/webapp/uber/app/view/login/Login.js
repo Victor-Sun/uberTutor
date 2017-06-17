@@ -86,10 +86,6 @@ Ext.define('uber.view.login.Login',{
 							xtype: 'button',
 							text: 'Sign Up',
 							handler: 'loginPageStatus'
-//							handler: function(){
-//								this.up('login').destroy();
-//								Ext.create('uber.view.main.Main');
-//							}
 						},'->',{
 							xtype: 'component',
 //							hidden: true,

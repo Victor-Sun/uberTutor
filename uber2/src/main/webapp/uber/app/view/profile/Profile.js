@@ -41,8 +41,6 @@ Ext.define('uber.view.profile.Profile', {
 				success: function () {
 					Ext.getBody().unmask();
 					var tabPanel = Ext.ComponentQuery.query('tab[title="Subjects"]')[0];
-//					var tutorRegistration = Ext.ComponentQuery.query('#tutorRegistration')[0];
-//					tabPanel = tabPanel[2];
 		    		var checkBox = Ext.ComponentQuery.query('#isTutor')[0];
 		    		var checkBoxValue = checkBox.getValue();
 		    		
@@ -60,7 +58,6 @@ Ext.define('uber.view.profile.Profile', {
 			xtype: 'panel',
 			title: 'profile',
 			itemId: 'profile',
-//			reference: 'profileMainForm',
 			flex: 1,
 //	    	cls: 'uber-panel-inner',
 	    	layout: {
@@ -74,9 +71,6 @@ Ext.define('uber.view.profile.Profile', {
 	    		layout: 'hbox',
 	            
 	            items: [{
-//	            	xtype: 'container',
-//	            	flex: 1
-//	            },{
 	                xtype: 'container',
 	                layout: 'hbox',
 	                items: [{

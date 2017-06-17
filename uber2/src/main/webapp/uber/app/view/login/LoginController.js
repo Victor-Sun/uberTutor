@@ -24,14 +24,14 @@ Ext.define('uber.view.login.LoginController', {
     
     onLoginFailure: function (form, action) {
     	var me = this;
-        this.getView().unmask();
+    	Ext.getBody().unmask();
         var result = uber.util.Util.decodeJSON(action.response.responseText);
         Ext.Msg.alert('Error', result.data, Ext.emptyFn);
 	},
 
 	onLoginSuccess: function (form, action) {
 		var me = this;
-		this.getView().unmask();
+		Ext.getBody().unmask();
   	//if login info is correct
 		me.lookupReference('formpanel').up('login').destroy();
 		Ext.create('uber.view.main.Main');
@@ -77,14 +77,14 @@ Ext.define('uber.view.login.LoginController', {
     
     onSignUpFailure: function (form, action) {
     	var me = this;
-        this.getView().unmask();
+    	Ext.getBody().unmask();
         var result = uber.util.Util.decodeJSON(action.response.responseText);
         Ext.Msg.alert('Error', result.data, Ext.emptyFn);
 	},
 
 	onSignUpSuccess: function (form, action) {
 		var me = this;
-		this.getView().unmask();
+		Ext.getBody().unmask();
 		
 		me.lookupReference('formpanel').up('login').destroy();
 		Ext.create('uber.view.main.Main');
@@ -102,7 +102,6 @@ Ext.define('uber.view.login.LoginController', {
     signup: function () {
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
-//    	var model = Ext.create('uber.model.NewUser', formPanel.getValues());
     	Ext.getBody().mask('Validating... Please Wait...');
     	if(formPanel.getForm().isValid()){
     		formPanel.submit({

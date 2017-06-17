@@ -2,7 +2,6 @@ Ext.define('uber.view.homepage.HomePageController',{
     extend: 'Ext.app.ViewController',
 	alias: 'controller.homepage',
 	
-	
 	signup: function () {
 		var me = this;
 		this.view.destroy();

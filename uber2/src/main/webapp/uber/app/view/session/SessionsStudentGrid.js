@@ -36,7 +36,6 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
     	}];
 		this.listeners = {
     		celldblclick: 'onCelldblclick',
-//    		selectionchange: 'onSelectionChange',
     	};
 		this.callParent(arguments);
 	}

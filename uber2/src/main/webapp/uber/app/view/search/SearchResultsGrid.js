@@ -67,10 +67,8 @@ Ext.define('uber.view.search.SearchResultsGrid',{
 							xtype: 'button',
 							text: 'Submit',
 //							handler: function () {
-//								
 //								var this = me;
 //								var window = this.up('window');
-//								
 //								var main = this.view.up('app-main');
 //								var mainCard = me.lookupReference('mainCardPanel')
 //						        var mainLayout = mainCard.getLayout();

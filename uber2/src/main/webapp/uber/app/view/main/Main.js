@@ -40,9 +40,9 @@ Ext.define('uber.view.main.Main', {
 				},{
 					text: 'Search for Tutors',
 					handler: 'search'
-				},{
-					text: 'Make a request',
-					handler: 'makeRequest'
+//				},{
+//					text: 'Make a request',
+//					handler: 'makeRequest'
 //				},{
 //					text: 'Change Password',
 //					handler: 'changepassword'
@@ -68,11 +68,6 @@ Ext.define('uber.view.main.Main', {
 		cls: 'main-container-wrap',
 		layout: {
 	        type: 'border',
-//	        animate: true,
-//	        animatePolicy: {
-//	            x: true,
-//	            width: true
-//	        }
 	    },
 		items: [{
 			xtype: 'panel',
@@ -96,53 +91,6 @@ Ext.define('uber.view.main.Main', {
 					anchor: '100%'
 				},
 				items: [{
-//					xtype: 'mainpage',
-//					itemId: 'mainpage'
-//				},{
-//					xtype: 'profile',
-//					itemId: 'profile'
-//				},{
-//					xtype: 'changeprofile',
-//					itemId: 'changeprofile'
-//				},{
-//					xtype: 'changepassword',
-//					itemId: 'changepassword'
-//				},{
-//					xtype: 'search',
-//					itemId: 'search'
-//				},{
-//					xtype: 'searchresults',
-//					itemId: 'searchresults'
-//				},{
-//					xtype: 'tutorprofile',
-//					itemId: 'tutorprofile'
-//				},{
-//					xtype: 'makerequest',
-//					itemId: 'makerequest'
-//				},{
-//					xtype: 'feedback',
-//					itemId: 'feedback'
-//				},{
-//					xtype: 'sessions',
-//					itemId: 'sessions'
-//				},{
-//					xtype: 'mysession',
-//					itemId: 'mysession'
-//				},{
-//					xtype: 'mysessionstudent',
-//					itemId: 'mysessionstudent'
-//				},{
-//					xtype: 'mysessiontutor',
-//					itemId: 'mysessiontutor'
-//				},{
-//					xtype: 'mysessionadmin',
-//					itemId: 'mysessionadmin'
-//				},{
-//					xtype: 'sessioninfo',
-//					itemId: 'sessioninfo'
-//				},{
-//					xtype: 'tutorregistration',
-//					itemId: 'tutorregistration'
 				}]
 			}]
 			

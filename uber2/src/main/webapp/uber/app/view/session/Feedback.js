@@ -74,7 +74,6 @@ Ext.define('uber.view.session.Feedback', {
                 labelAlign: 'top',
                 readOnly: true,
                 width: 200
-//                anchor: '100%'
             },
             items: [{
                 xtype: 'textarea',
