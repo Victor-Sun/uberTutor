@@ -59,6 +59,7 @@ Ext.define('uber.view.profile.Profile', {
 		this.items = [{
 			xtype: 'panel',
 			title: 'profile',
+			itemId: 'profile',
 //			reference: 'profileMainForm',
 			flex: 1,
 //	    	cls: 'uber-panel-inner',
@@ -124,9 +125,11 @@ Ext.define('uber.view.profile.Profile', {
 		]
 		},{
 			title: 'Change Password',
+			itemId: 'changePassword',
 			xtype: 'changepassword'
 		},{
 			title: 'Subjects',
+			itemId: 'subjects',
 			xtype: 'tutorregistration',
 			hidden: true
 		}];
