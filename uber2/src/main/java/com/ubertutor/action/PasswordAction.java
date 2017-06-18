@@ -12,7 +12,7 @@ import org.springside.modules.utils.web.struts2.Struts2Utils;
 import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.EncryptUtil;
 import com.opensymphony.xwork2.ActionSupport;
-import com.ubertutor.service.ChangePasswordService;
+import com.ubertutor.service.PasswordService;
 import com.ubertutor.service.LoginService;
 
 @Namespace("/main")
@@ -22,7 +22,7 @@ public class PasswordAction extends ActionSupport{
     @Autowired
     private LoginService loginService;
     @Autowired
-    private ChangePasswordService passwordService;
+    private PasswordService passwordService;
     
     /**
      * Update Password function

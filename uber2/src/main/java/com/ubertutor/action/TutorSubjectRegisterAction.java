@@ -4,7 +4,6 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import com.gnomon.common.utils.JsonResult;
 import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.UserSubjectEntity;
@@ -40,14 +39,11 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	 * @throws Exception
 	 */
 	public void displayCategories() throws Exception{
-		JsonResult result = new JsonResult();
 		try{
-			result.buildSuccessResult(tutorSubjectRegisterService.getCategoryList());
-			Struts2Utils.renderJson(result);	
+			this.writeSuccessResult(tutorSubjectRegisterService.getCategoryList());
 		} catch (Exception e){
 			e.printStackTrace();
-			result.buildErrorResult(e.getMessage());
-			Struts2Utils.renderJson(result);
+			this.writeErrorResult(e);
 		}
 	}
 
@@ -56,15 +52,12 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	 * @throws Exception
 	 */
 	public void displayCategorySubject() throws Exception{
-		JsonResult result = new JsonResult();
 		try {
 			String id = Struts2Utils.getRequest().getParameter("categoryId");
-			result.buildSuccessResult(tutorSubjectRegisterService.getSubjectList(id));
-			Struts2Utils.renderJson(result);
+			this.writeSuccessResult(tutorSubjectRegisterService.getSubjectList(id));
 		} catch (Exception e) {
 			e.printStackTrace();
-			result.buildErrorResult(e.getMessage());
-			Struts2Utils.renderJson(result);
+			this.writeErrorResult(e);
 		}
 	}
 
@@ -73,15 +66,12 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	 * @throws Exception
 	 */
 	public void displayUserSubjects() throws Exception{
-		JsonResult result = new JsonResult();
 		try{
 			Long userId = Long.parseLong(SessionData.getLoginUserId());
-			result.buildSuccessResult(tutorSubjectRegisterService.getUserSubjects(userId));
-			Struts2Utils.renderJson(result);
+			this.writeSuccessResult(tutorSubjectRegisterService.getUserSubjects(userId));
 		} catch (Exception e){
 			e.printStackTrace();
-			result.buildErrorResult(e.getMessage());
-			Struts2Utils.renderJson(result);
+			this.writeErrorResult(e);
 		}
 	}
 	
@@ -90,35 +80,42 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	 * @throws Exception
 	 */
 	public void removeSubject() throws Exception{
-		JsonResult result = new JsonResult();
 		try{
 			Long userId = Long.parseLong(SessionData.getLoginUserId());
 			Long subjectId = Long.parseLong(Struts2Utils.getRequest().getParameter("SUBJECT_ID"));
 			tutorSubjectRegisterService.removeSubject(userId, subjectId);
 		} catch (Exception e){
 			e.printStackTrace();
-			result.buildErrorResult(e.getMessage());
-			Struts2Utils.renderJson(result);
+			this.writeErrorResult(e);
+		}
+	}
+	
+	public void editSubject() throws Exception{
+		try{
+			
+		} catch (Exception e){
+			e.printStackTrace();
+			this.writeErrorResult(e);
 		}
 	}
 	
 	@Override
-	public UserSubjectEntity getModel() {
+	public UserSubjectEntity getModel(){
 		return entity;
 	}
 
 	@Override
-	public String list() throws Exception {
+	public String list() throws Exception{
 		return null;
 	}
 
 	@Override
-	public String input() throws Exception {
+	public String input() throws Exception{
 		return null;
 	}
 
 	@Override
-	public String save() throws Exception {
+	public String save() throws Exception{
 		try{
 			String msg = "";
 			String userId = SessionData.getLoginUserId();
@@ -145,7 +142,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	}
 
 	@Override
-	public String delete() throws Exception {
+	public String delete() throws Exception{
 		try {
 			tutorSubjectRegisterService.delete(id);
 			this.writeSuccessResult(null);
@@ -157,7 +154,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	}
 
 	@Override
-	protected void prepareModel() throws Exception {
+	protected void prepareModel() throws Exception{
 		entity = (id != null) ? tutorSubjectRegisterService.get(id) : new UserSubjectEntity(); 
 	}
 }

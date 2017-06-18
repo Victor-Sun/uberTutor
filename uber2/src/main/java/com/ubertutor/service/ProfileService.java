@@ -56,15 +56,16 @@ public class ProfileService {
 	 * @param bio
 	 * @param schoolId
 	 */
-	public void updateProfile(String id, String fullname, String email, String mobile, String bio, String schoolId){
+	public void updateProfile(String id, String fullname, String email, String mobile, String bio, String schoolId, String isTutor){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
-		sql.append(" UPDATE USERS SET FULLNAME = ?, EMAIL = ?, MOBILE = ?, BIO = ?, SCHOOL_ID = ?, UPDATE_BY = ?, UPDATE_DATE = SYSDATE WHERE ID = ?");
+		sql.append(" UPDATE USERS SET FULLNAME = ?, EMAIL = ?, MOBILE = ?, BIO = ?, SCHOOL_ID = ?, IS_TUTOR = ?, UPDATE_BY = ?, UPDATE_DATE = SYSDATE WHERE ID = ?");
 		params.add(fullname);
 		params.add(email);
 		params.add(mobile);
 		params.add(bio);
 		params.add(schoolId);
+		params.add(isTutor);
 		params.add(id);
 		params.add(id);
 		this.jdbcTemplate.update(sql.toString(), params.toArray());
@@ -117,7 +118,7 @@ public class ProfileService {
 	public Map<String, Object> getAllUserInfo(Long id){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT USERS.*,SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?");
+		sql.append(" SELECT USERS.*, SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?");
 		params.add(id);
 		return this.jdbcTemplate.queryForMap(sql.toString(),params.toArray());
 	}

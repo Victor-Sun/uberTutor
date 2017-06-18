@@ -52,7 +52,7 @@ public class TutorSubjectRegisterService {
 	public List<Map<String,Object>> getUserSubjects(Long userId){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT SUBJECT_ID, SUBJECT_TITLE, CATEGORY_ID, CATEGORY_TITLE FROM USERS_SUBJECT_CATEGORY WHERE USER_ID = ?");
+		sql.append(" SELECT ID, SUBJECT_ID, SUBJECT_TITLE, CATEGORY_ID, CATEGORY_TITLE FROM USERS_SUBJECT_CATEGORY WHERE USER_ID = ?");
 		params.add(userId);
 		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
@@ -82,6 +82,15 @@ public class TutorSubjectRegisterService {
 		sql.append(" DELETE FROM USER_SUBJECT WHERE USER_ID = ? AND SUBJECT_ID = ?");
 		params.add(userId);
 		params.add(subjectId);
+		this.jdbcTemplate.update(sql.toString(),params.toArray());
+	}
+
+	public void editSubject(Long userSubjectId, String description){
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" UPDATE USER_SUBJECT SET DESCRIPTION = ? WHERE ID = ?");
+		params.add(description);
+		params.add(userSubjectId);
 		this.jdbcTemplate.update(sql.toString(),params.toArray());
 	}
 	

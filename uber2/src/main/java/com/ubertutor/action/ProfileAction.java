@@ -53,14 +53,15 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	public void update() throws Exception{
 		try{
 			UserEntity user = SessionData.getLoginUser();
-			String fullname, email, mobile, bio, school, schoolid, msg, mobileNo = "";
-			fullname = Struts2Utils.getRequest().getParameter("FULLNAME");
-			email = Struts2Utils.getRequest().getParameter("EMAIL");
+			String fullname, email, mobile, bio, school, schoolid, isTutor, msg, mobileNo = "";
+			fullname = Struts2Utils.getRequest().getParameter("fullname");
+			email = Struts2Utils.getRequest().getParameter("email");
+			isTutor = Struts2Utils.getRequest().getParameter("isTutor");
 			if(!profileService.isValidEmailAddress(email)){
 				msg = "Invalid email, please check that your email is written correctly, and try again.";
 				throw new Exception(msg);
 			}
-			mobile = Struts2Utils.getRequest().getParameter("MOBILE");
+			mobile = Struts2Utils.getRequest().getParameter("mobile");
 			String[] temp = mobile.split("[-.()]");
 			for(int i = 0; i < temp.length; i++){
 				mobileNo += temp[i];
@@ -69,15 +70,15 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 				msg = "Invalid phone number, please enter 10 digits.";
 				throw new Exception(msg);
 			}
-			school = Struts2Utils.getRequest().getParameter("NAME");
+			school = Struts2Utils.getRequest().getParameter("name");
 			if(school== null || school == ""){
 				msg = "School cannot be empty";
 				throw new Exception(msg);
 			}
 			schoolEntity = profileService.getSchoolByName(school);
 			schoolid = schoolEntity.getId().toString();
-			bio = Struts2Utils.getRequest().getParameter("BIO");
-			profileService.updateProfile(user.getId().toString(), fullname, email, mobileNo, bio, schoolid);
+			bio = Struts2Utils.getRequest().getParameter("bio");
+			profileService.updateProfile(user.getId().toString(), fullname, email, mobileNo, bio, schoolid, isTutor);
 		}catch(Exception e){
 			e.printStackTrace();
 			this.writeErrorResult(e);
@@ -94,15 +95,6 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 			e.printStackTrace();
 			this.writeErrorResult(e);
 		}
-	}
-
-	/**
-	 * Function to register a user as a tutor
-	 */
-	public void registerAsTutor(){
-		UserEntity user = SessionData.getLoginUser();
-		String s = Struts2Utils.getParameter("IS_TUTOR");
-		profileService.registerAsTutor(user.getId(), s);
 	}
 
 	/**

@@ -69,16 +69,16 @@ public class LoginAction extends ActionSupport {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			String msg; 
 			if (!loginService.verifyUserId(username)) {
-				msg = "用户名不存在！";
+				msg = "User does not exist";
 				throw new Exception(msg);
 			}
 			if (!loginService.verifyUserPassword(username, EncryptUtil.encrypt(password))) {
-				msg = "用户密码错误！";
+				msg = "Username and password combination is incorrect! Try again!";
 				throw new Exception(msg);
 			}
 			UserEntity entity = this.loginService.getUser(username);
 			if("Y".equals(entity.getIsDisabled())){
-				msg = "用户已被禁用，不允许登录！";
+				msg = "User has been disabled!";
 				throw new Exception(msg);
 			}
 			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_USER, entity);

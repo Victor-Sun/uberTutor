@@ -53,6 +53,4 @@ public class MySessionService {
 		params.add(requestId);
 		return this.jdbcTemplate.update(sql.toString(), params.toArray());
 	}
-	
-	
 }

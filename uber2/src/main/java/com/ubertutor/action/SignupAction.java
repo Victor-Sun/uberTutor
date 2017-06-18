@@ -13,7 +13,7 @@ import com.gnomon.pdms.common.EncryptUtil;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.gnomontech.pdms.redis.OnlineUtils;
 import com.ubertutor.entity.UserEntity;
-import com.ubertutor.service.ChangePasswordService;
+import com.ubertutor.service.PasswordService;
 import com.ubertutor.service.LoginService;
 import com.ubertutor.service.ProfileService;
 import com.ubertutor.service.SignupService;
@@ -28,7 +28,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	@Autowired
 	private LoginService loginService;
 	@Autowired
-	private ChangePasswordService passwordService;
+	private PasswordService passwordService;
 	@Autowired
 	private ProfileService profileService;
 	private UserEntity entity = new UserEntity();
