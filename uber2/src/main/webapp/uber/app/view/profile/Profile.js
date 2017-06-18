@@ -79,8 +79,7 @@ Ext.define('uber.view.profile.Profile', {
 	    		                html: '<h2>Personal Information</h2>'
 	    		            },{
 	    		            	xtype: 'button',
-	    		            	scale: 'medium',
-	    		            	iconCls: 'x-fa fa-pencil',
+	    		            	iconCls: 'x-fa fa-pencil-o',
     			                margin: 15,
 //    			                text: 'edit',
     			                tickCount: 0,

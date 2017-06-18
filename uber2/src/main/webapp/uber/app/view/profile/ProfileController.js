@@ -51,9 +51,9 @@ Ext.define('uber.view.profile.ProfileController',{
 		var card2 = mainCard.add(Ext.create('uber.view.profile.Profile'));
 		profileForm.load({
 			url: '/uber2/main/profile!display.action',
-			params: {
-				fullname: this.fullname
-			},
+//			params: {
+//				fullname: this.fullname
+//			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
@@ -81,9 +81,9 @@ Ext.define('uber.view.profile.ProfileController',{
 			//submit form for user signup
 			url: '/uber2/main/profile!display.action',
 			method: 'GET',
-			params: {
-				fullname: 'fullname'
-			},
+//			params: {
+//				fullname: 'fullname'
+//			},
 			scope: me,
     	    success: function(response, opts) {
     	    	Ext.getBody().unmask();
@@ -119,9 +119,9 @@ Ext.define('uber.view.profile.ProfileController',{
 //    				Ext.Msg.alert( '', 'update success', Ext.emptyFn );
     				profileForm.load({
     					url: '/uber2/main/profile!display.action',
-    					params: {
-    						fullname: this.fullname
-    					},
+//    					params: {
+//    						fullname: this.fullname
+//    					},
     					reader: {
     						type: 'json',
     						rootProperty: 'data'
