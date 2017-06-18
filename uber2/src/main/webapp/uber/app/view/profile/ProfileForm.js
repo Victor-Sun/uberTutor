@@ -17,7 +17,6 @@ Ext.define('uber.view.profile.ProfileForm',{
         width: 200
     },
     initComponent(){
-    		
     	var school = Ext.create('Ext.data.Store',{
     		fields: [ 'ID', 'NAME' ],
     		proxy: {
@@ -32,6 +31,7 @@ Ext.define('uber.view.profile.ProfileForm',{
         this.items = [{
             xtype: 'fieldcontainer',
             defaults: {
+            	disabled: true,
             	labelAlign: 'top',
             	flex: 1,
             	margin: '0 5 0 0'
@@ -50,6 +50,7 @@ Ext.define('uber.view.profile.ProfileForm',{
         },{
             xtype: 'fieldcontainer',
             defaults: {
+            	disabled: true,
             	labelAlign: 'top',
             	flex: 1,
             	margin: '0 5 0 0'
@@ -83,31 +84,68 @@ Ext.define('uber.view.profile.ProfileForm',{
 	            itemId: 'school'
             }]
         },{
-            xtype: 'textarea',
-            name: 'BIO',
-            maxLength: 1000,
-            fieldLabel: 'Bio',
-            readOnly: true,
-            id: 'bio'
+            xtype: 'fieldcontainer',
+            layout: {
+            	type: 'hbox',
+            	align: 'stretch'
+            },
+            defaults: {
+            	disabled: true,
+            	labelAlign: 'top',
+            	flex: 1,
+            	margin: '0 5 0 0'
+            },
+            items: [{
+            	xtype: 'textarea',
+                name: 'BIO',
+                maxLength: 1000,
+                fieldLabel: 'Bio',
+                fieldCls: true,
+                id: 'bio'
+            }]
         },{
-        	xtype: 'checkbox',
-        	fieldLabel: 'Is Tutor',
-        	itemId: 'isTutor',
-        	name: 'IS_TUTOR',
-        	inputValue: 'Y',
-        	uncheckedValue: 'N',
-        }];
-        this.dockedItems = [{
-        	xtype: 'toolbar',
-        	dock: 'bottom',
+        	xtype: 'fieldcontainer',
+        	layout: {
+            	type: 'hbox',
+            	align: 'stretch'
+            },
+        	items: [{
+        		xtype: 'checkbox',
+	        	hidden: true,
+	        	name: 'IS_TUTOR',
+	        	fieldLabel: 'Is Tutor',
+	        	itemId: 'isTutor',
+	        	inputValue: 'Y',
+	        	uncheckedValue: 'N',
+        	},{
+        		xtype: 'displayfield',
+            	fieldLabel: 'User status',
+//            	name: 'IS_TUTOR',
+            	itemId: 'isTutorDisplay',
+            	renderer: function (oldValue, value) {
+            		this.getValue();
+            		if (oldValue == true) {
+            			return newValue = "You are a tutor"
+            		} else if (oldValue == false) {
+            			return newValue = "You are a student"
+            		}
+            	}
+        	}]
+        },{
+        	xtype: 'fieldcontainer',
+        	height: 60,
+        	margin: 5,
         	items: [{
         		xtype: 'button',
-	    		itemId: 'buttonSave',
+	    		hidden: true,
+	    		itemId: 'saveButton',
 	    		name: 'saveButton',
-	//    		hidden: true,
 	    		text: 'Save',
 	    		handler: 'save'
         	}]
+        }];
+        this.dockedItems = [{
+        	
         }];
         this.callParent();
     },

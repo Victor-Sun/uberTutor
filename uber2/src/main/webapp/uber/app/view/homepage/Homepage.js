@@ -50,23 +50,31 @@ Ext.define('uber.view.homepage.Homepage',{
 		    		align: 'stretch'
 		    	},
 		    	items: [{
-		    		xtype: 'container',
-		            layout: 'hbox',
-		            items: [{
-		            	xtype: 'component',
-		                margin: 5,
-		                html: '<h2>UberTutor</h2>'
-		            }]
-		    	},{
+//		    		xtype: 'container',
+//		            layout: 'hbox',
+//		            items: [{
+//		            	xtype: 'component',
+//		                margin: 5,
+//		                html: '<h2>UberTutor</h2>'
+//		            }]
+//		    	},{
 		    		xtype: 'panel',
 		    		flex: 1,
 		    		layout: {
-		    			type: 'vbox',
+		    			type: 'hbox',
 		    			align: 'stretch'
 		    		},
 		    		items: [{
+		    			xtype: 'panel',
 		    			flex: 1,
-		    			html: '<h4>Homepage content here</h4>'
+		    		},{
+		    			xtype: 'panel',
+		    			flex: 2,
+		    			border: true,
+		    			html: '<h3>homepage placeholder</h3>'
+		    		},{
+		    			xtype: 'panel',
+		    			flex: 1,
 		    		}]
 		    	}]
 			}]

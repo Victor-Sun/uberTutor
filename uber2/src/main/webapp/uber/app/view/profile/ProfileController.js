@@ -5,11 +5,18 @@ Ext.define('uber.view.profile.ProfileController',{
     toggleEdit: function(th, readOnly) {
 		var profileForm = Ext.ComponentQuery.query('#profileForm')[0];
 		var formFields = profileForm.getForm().getFields();
-		var buttonSave = Ext.ComponentQuery.query('#buttonSave')[0];
+		var saveButton = Ext.ComponentQuery.query('#saveButton')[0];
+		var checkBox = Ext.ComponentQuery.query('#isTutor')[0];
+		var display = Ext.ComponentQuery.query('#isTutorDisplay')[0];
+		
 		if (th.tickCount == 0) {
 			Ext.suspendLayouts();
 			profileForm.getForm().getFields().each(function(field) {
 				field.setReadOnly(false);
+				field.setDisabled(false);
+				saveButton.setHidden(false);
+				checkBox.setHidden(false);
+				display.setHidden(true);
 			});
 			Ext.resumeLayouts();
 			th.tickCount = th.tickCount + 1;
@@ -17,15 +24,14 @@ Ext.define('uber.view.profile.ProfileController',{
 			Ext.suspendLayouts();
 			profileForm.getForm().getFields().each(function(field) {
 				field.setReadOnly(true);
+				field.setDisabled(true);
+				saveButton.setHidden(true);
+				checkBox.setHidden(true);
+				display.setHidden(false);
 			});
 			Ext.resumeLayouts();
 			th.tickCount = 0 ;
 		}
-//		if (buttonSave.hidden = true ) {
-//			buttonSave.setVisible(true);
-//		} else if ( ){
-//			buttonSave.setVisible(false);
-//		}
 	},
     
     profilemanage: function () {

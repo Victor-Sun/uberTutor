@@ -9,9 +9,12 @@ Ext.define('uber.view.tutor.MakeRequestController',{
     		formpanel.submit({
     			url: '/uber2/main/make-request!save.action',
         		method: 'POST',
-    			success: function(response, opts) {
-    				console.log(response);
-    				this.student();
+    			success: function(form, response, opts) {
+//    				console.log(response);
+    				var me = this;
+    		        var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+    				var remove = mainCard.removeAll();
+    				var card2 = mainCard.add(Ext.create('uber.view.session.SessionsStudent'));
     			},
     			failure: function(response, opts) {
     				// similar to above
@@ -31,9 +34,6 @@ Ext.define('uber.view.tutor.MakeRequestController',{
     },
     
     student: function () {
-    	var me = this;
-        var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
-		var remove = mainCard.removeAll();
-		var card2 = mainCard.add(Ext.create('uber.view.session.MySessionStudent'));
+    	
     },
 })

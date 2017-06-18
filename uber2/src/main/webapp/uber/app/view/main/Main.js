@@ -37,12 +37,12 @@ Ext.define('uber.view.main.Main', {
 				items: [{
 					text: 'Main Page',
 					handler: 'mainpage'
-				},{
-					text: 'Search for Tutors',
-					handler: 'search'
 //				},{
-//					text: 'Make a request',
-//					handler: 'makeRequest'
+//					text: 'Search for Tutors',
+//					handler: 'search'
+				},{
+					text: 'Make a request',
+					handler: 'makeRequest'
 //				},{
 //					text: 'Change Password',
 //					handler: 'changepassword'

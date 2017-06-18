@@ -60,11 +60,11 @@ Ext.define('uber.view.tutor.CategoryWindow',{
             dockedItems: [{
                 xtype: 'toolbar',
                 dock: 'bottom',
-                items: [{
+                items: ['->',{
                     xtype: 'button',
                     text: 'Submit',
                     handler: 'submit'
-                },'->',{
+                },{
                     xtype: 'button',
                     text: 'Cancel',
                     handler: 'cancel'
