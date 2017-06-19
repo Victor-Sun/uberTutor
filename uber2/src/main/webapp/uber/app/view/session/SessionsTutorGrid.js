@@ -7,32 +7,32 @@ Ext.define('uber.view.session.SessionsTutorGrid',{
     	me.store =  Ext.create('uber.store.grid.SessionsTutorGrid');
     	me.store.load();
 		this.columns = [{
-    		text: 'Create Date',
-			dataIndex: 'CREATE_DATE',
-			xtype: 'datecolumn',
-			format: 'Y-m-d',
+			xtype: 'templatecolumn',
 			align: 'left',
-			flex: 1
-		},{
-			text: 'Student',
-			dataIndex: 'STUDENT_NAME',
-			align: 'left',
-			flex: 1
-		},{
-			text: 'Category',
-			dataIndex: 'CATEGORY',
-			align: 'left',
-			flex: 1
-		},{
-			text: 'Subject',
-			dataIndex: 'SUBJECT',
-			align: 'left',
-			flex: 1
-		},{
-			text: 'Status',
-			dataIndex: 'STATUS',
-			align: 'left',
-			flex: 1
+			flex: 1,
+			tpl: [
+				"<div class='session'>" +
+//					"<div class='session-toolbar'>" +
+//						"<button type='button' onclick='' class='x-fa fa-comments'></button>" +
+//					"</div>" +
+					"<div class='session-frame' style='display: inline-block;'>" +
+						"<div class='session-left' style='display: inline; float: left;'>" +
+							"<ul style='list-style-type: none;'>" +
+								"<li>Title: {TITLE} </li>" +
+								"<li>Category: {CATEGORY} </li>" +
+								"<li>Status: {STATUS} </li>" +
+							"</ul>" +
+						"</div>" +
+						"<div class='session-right' style='display: inline; float: right;'>" +
+							"<ul style='list-style-type: none;'>" +
+								"<li>Student: {STUDENT_NAME} </li>" +
+								"<li>Subject: {SUBJECT} </li>" +
+								"<li>Create Date: {CREATE_DATE} </li>" +
+							"</ul>" +
+						"</div>" +
+					"</div>" +
+				"</div>",
+				]
     	}];
 		this.listeners = {
     		celldblclick: 'onCelldblclick',

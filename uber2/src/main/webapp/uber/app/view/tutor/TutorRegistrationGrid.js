@@ -1,21 +1,42 @@
 Ext.define('uber.view.tutor.TutorRegistrationGrid',{
 	extend: 'Ext.grid.Panel',
 	xtype: 'tutorRegistrationGrid',
+	itemId: 'tutorRegistrationGrid',
 	reference: 'tutorRegistrationGrid',
 	
 	flex: 1,
 	requires: [
-	    
-	   'uber.store.grid.TutorRegistrationGrid',
+	   'Ext.grid.plugin.RowExpander',
+//	   'uber.store.grid.TutorRegistrationGrid',
+	   'uber.store.News',
        'Ext.selection.CellModel',
        'Ext.grid.*',
        'Ext.data.*',
        'Ext.util.*',
        'Ext.form.*',
     ],
-    cls: 'shadow',
-    id: 'tutorRegistrationGrid',
+    cls: 'shadow subject-grid',
     controller: 'tutorRegistration',
+//    viewModel: {
+//        type: 'news'
+//    },
+//    bind: '{tutorRegistrationGrid}',
+//    bind: '{news}',
+    hideHeaders: true,
+//    
+//    plugins: [{
+//        ptype: 'ux-rowexpander',
+//        pluginId: 'rowexpander'
+//    }],
+//    
+//    viewConfig: {
+//        listeners: {
+//            itemclick: 'onCompanyClick',
+//            expandbody: 'onCompanyExpandBody',
+//            collapsebody: 'onCompanyCollapseBody'
+//        }
+//    },
+    
     initComponent: function () {
     	var me = this;
     	var store = Ext.create('uber.store.grid.TutorRegistrationGrid');
@@ -26,32 +47,44 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
             var window = Ext.create('uber.view.tutor.CategoryWindow');
             window.show();
         };
-    	
     	this.columns = [{
-    		text: 'Category',
-    		dataIndex: 'CATEGORY_TITLE',
-    		align: 'left',
-    		flex: 1,
-    	},{
-    		text: 'Subject',
-    		dataIndex: 'SUBJECT_TITLE',
-    		align: 'left',
-    		flex: 1,
+    		xtype: 'templatecolumn',
+			align: 'left',
+			flex: 1,
+			tpl: [
+				"<div class='session'>" +
+//					"<div class='session-toolbar'>" +
+//						"<button type='button' onclick='' class='x-fa fa-comments'></button>" +
+//					"</div>" +
+					"<div class='session-frame' >" +
+						"<div class='session-info' style=''>" +
+							"<div class='session-category' style='display: inline; margin-left: 10px;'><b>Category</b>: {CATEGORY_TITLE} </div>" +
+							"<div class='session-subject' style='display: inline; margin-left: 10px;'><b>Subject</b>: {SUBJECT_TITLE}</div>" +
+							"<div class='session-status' style='display: inline; margin-left: 10px;'><b>Date</b>: {CREATE_DATE}</div>" +
+						"</div>" +
+						"<hr>" +
+						"<div class='session-description' style='min-height: 50px;'><b>Description</b>: {DESCRIPTION}</div>" +
+					"</div>" +
+				"</div>",
+			]
     	},{
     		xtype: 'actioncolumn',
-            width: 30,
-            sortable: false,
-            menuDisabled: true,
-            items: [{
-                iconCls: 'x-fa fa-minus-circle delete-button',
-                tooltip: 'Delete Row',
-//                scope: this,
-                handler: 'onRemoveClick'
-            }]
+    		sortable: false,
+    		align: 'center',
+    		items: [{
+    			xtype: 'button',
+    			iconCls: 'x-fa fa-ellipsis-h',
+    			menu: [{
+//    				iconCls: 'x-fa fa-pencil',
+    				text: 'Edit'
+	    		},{
+//	    			iconCls: 'x-fa fa-trash',
+	    			text: 'Delete'
+	//              scope: this,
+	//    			handler: 'onRemoveClick'
+    			}]
+          }]
     	}],
-//    	this.selModel = {
-//            type: 'cellmodel'
-//        },
     	this.tbar = [{
     		xtype: 'button',
 //    		scope: this,

@@ -158,7 +158,7 @@ Ext.define('uber.view.session.SessionsTutor',{
                 layout: 'hbox',
                 items: [{
                     margin: 5,
-                    html: '<h2>Sessions</h2>'
+                    html: '<h2>My Sessions</h2>'
                 }]
         	},{
         		xtype: 'container',

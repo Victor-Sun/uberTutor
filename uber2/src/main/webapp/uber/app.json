@@ -94,7 +94,7 @@
          * "uber.view.Foo" to "sass/src/uber/view/Foo.scss".
          */
         "namespace": "uber",
-
+		"fashion": true,
         /**
          * Generated sass source settings
          *
@@ -517,7 +517,9 @@
      * valid regular expression.
      */
     "ignore": [
-        "(^|/)CVS(/?$|/.*?$)"
+        "(^|/)CVS(/?$|/.*?$)",
+        "^\\.svn$",
+        "^\\.git$"
     ],
 
     /**

@@ -1,6 +1,6 @@
 Ext.define('uber.view.tutor.TutorRegistration',{
 	extend: 'Ext.panel.Panel',
-	xtype: 'tutorregistration',
+	xtype: 'tutorRegistration',
 	itemId: 'tutorRegistration',
 	
 	requires: ['uber.view.tutor.TutorRegistrationGrid'],

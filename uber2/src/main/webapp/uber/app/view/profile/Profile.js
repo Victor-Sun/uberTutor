@@ -12,7 +12,7 @@ Ext.define('uber.view.profile.Profile', {
 		type: 'vbox',
 		align: 'stretch'
 	},
-	cls: 'uber-panel',
+	cls: 'uber-panel profile',
 	tabPosition: 'left',
 	tabRotation: 0,
 	initComponent: function () {
@@ -43,6 +43,13 @@ Ext.define('uber.view.profile.Profile', {
 		    		var checkBoxValue = checkBox.getValue();
 		    		var display = Ext.ComponentQuery.query('#isTutorDisplay')[0];
 		    		display.setValue(checkBoxValue);
+		    		var profileTab = Ext.ComponentQuery.query('tab[title=Subjects]')[0];
+//		    		var subjectsTab = profileTab.getTabBar();
+		    		if (checkBoxValue == true ) {
+		    			profileTab.show();
+		    		} else if (checkBoxValue == false ){
+		    			profileTab.hide();
+		    		}; 
 				}
 			});
 		};
@@ -70,16 +77,16 @@ Ext.define('uber.view.profile.Profile', {
 	    	    		// border: true,
 	    	    		// cls: 'uber-header',
 	    	    		layout: 'hbox',
-	    	            
 	    	            items: [{
 	    	                xtype: 'container',
+	    	                cls: 'btn-container',
 	    	                layout: 'hbox',
 	    	                items: [{
 	    	                	margin: 5,
 	    		                html: '<h2>Personal Information</h2>'
 	    		            },{
 	    		            	xtype: 'button',
-	    		            	iconCls: 'x-fa fa-pencil-o',
+	    		            	iconCls: 'x-fa fa-pencil',
     			                margin: 15,
 //    			                text: 'edit',
     			                tickCount: 0,
@@ -130,7 +137,7 @@ Ext.define('uber.view.profile.Profile', {
 		},{
 			title: 'Subjects',
 			itemId: 'subjects',
-			xtype: 'tutorregistration',
+			xtype: 'tutorRegistration',
 			hidden: true
 		}];
 		

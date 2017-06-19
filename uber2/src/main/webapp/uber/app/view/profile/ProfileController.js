@@ -36,7 +36,6 @@ Ext.define('uber.view.profile.ProfileController',{
     
     profilemanage: function () {
     	var me = this;
-    	var main = me.view.up('app-main');
     	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
 		var card2 = mainCard.add(Ext.create('uber.view.profile.ChangeProfile'));
@@ -45,7 +44,6 @@ Ext.define('uber.view.profile.ProfileController',{
     profile: function () {
     	var me = this;
     	var profileForm = Ext.ComponentQuery.query('#profileForm')[0];
-//    	var main = me.view.up('app-main');
     	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
 		var card2 = mainCard.add(Ext.create('uber.view.profile.Profile'));
@@ -100,28 +98,36 @@ Ext.define('uber.view.profile.ProfileController',{
     },
     
     save: function () {
-//    	debugger;
+    	debugger;
 		var profileForm = Ext.ComponentQuery.query('#profileForm')[0];
-		
+		var form = profileForm.getValues();
 		Ext.getBody().mask('Loading...Please Wait');
     	if(profileForm.getForm().isValid()){
     		profileForm.submit({
     			//submit form for user signup
     			url: '/uber2/main/profile!update.action',
     			method: 'POST',
-//    			params: {
-//    				fullname: 'fullname'
-//    			},
+    			params: {
+    				fullname: form.FULLNAME,
+    				email: form.EMAIL,
+    				mobile: form.MOBILE,
+    				name: form.NAME,
+    				bio: form.BIO,
+    				isTutor: form.IS_TUTOR
+    			},
     			success: function(response, opts) {
     				var profileForm = Ext.ComponentQuery.query('#profileForm')[0];
+    				var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+			        var remove = mainCard.removeAll();
+			        var card2 = mainCard.add(Ext.create('uber.view.profile.Profile'));
     				// change to exception output
     				Ext.getBody().unmask();
-//    				Ext.Msg.alert( '', 'update success', Ext.emptyFn );
+    				 
     				profileForm.load({
     					url: '/uber2/main/profile!display.action',
-//    					params: {
-//    						fullname: this.fullname
-//    					},
+    					params: {
+    						fullname: profileForm.FULLNAME
+    					},
     					reader: {
     						type: 'json',
     						rootProperty: 'data'
@@ -143,6 +149,7 @@ Ext.define('uber.view.profile.ProfileController',{
     			message +=rec.getMessage()+"<br>"
     		});
     		Ext.Msg.alert("Error", message, Ext.emptyFn);
+    		console.log(message);
     	}
 	},
     

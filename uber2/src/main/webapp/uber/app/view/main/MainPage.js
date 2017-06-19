@@ -57,7 +57,17 @@ Ext.define('uber.view.main.MainPage', {
     				xtype: 'widgetTitle',
     				items: [{
     					margin: 10,
-    					html: '<b>Open Request Queue</b>'
+    					html: '<b>Make A Request</b>'
+    				}]
+    			}]
+    		},{
+    			xtype: 'containerWidget',
+    			margin: '10 10 0',
+    			items: [{
+    				xtype: 'widgetTitle',
+    				items: [{
+    					margin: 10,
+    					html: '<b>Current Sessions</b>'
     				}]
     			},{
     				xtype: 'grid',
@@ -86,7 +96,7 @@ Ext.define('uber.view.main.MainPage', {
     				xtype: 'widgetTitle',
     				items: [{
     					margin: 10,
-    					html: '<b>My Request</b>'
+    					html: '<b>My Tutor</b>'
     				}]
     			},{
     				xtype: 'grid',
@@ -99,7 +109,7 @@ Ext.define('uber.view.main.MainPage', {
     				xtype: 'widgetTitle',
     				items: [{
     					margin: 10,
-    					html: '<b>My Open Sessions</b>'
+    					html: '<b>Current Requests</b>'
     				}]
     			},{
     				xtype: 'grid',
@@ -128,7 +138,7 @@ Ext.define('uber.view.main.MainPage', {
     				xtype: 'widgetTitle',
     				items: [{
     					margin: 10,
-    					html: '<b>Request Queue</b>'
+    					html: '<b>Open Requests</b>'
     				}]
     			},{
     				xtype: 'grid',

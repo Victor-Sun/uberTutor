@@ -168,6 +168,21 @@
 	}
 }
 
+.btn-container {
+	.x-btn-default-small {
+	    border-color: transparent !important;
+	    background-color: transparent !important;
+	}
+
+	.x-btn-icon-el-default-small {
+	    color: #000 !important;
+	}
+
+	.x-btn-inner-default-small {
+		color: #000 !important;
+	}
+}
+
 .info-card-item{
     /* text-align: center; */
     background: #fff;
