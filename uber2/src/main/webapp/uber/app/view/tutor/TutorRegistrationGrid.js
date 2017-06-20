@@ -63,26 +63,36 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
 							"<div class='session-status' style='display: inline; margin-left: 10px;'><b>Date</b>: {CREATE_DATE}</div>" +
 						"</div>" +
 						"<hr>" +
-						"<div class='session-description' style='min-height: 50px;'><b>Description</b>: {DESCRIPTION}</div>" +
+						"<div class='session-description' style='min-height: 50px; margin: 10px;'><b>Description</b>: {DESCRIPTION}</div>" +
 					"</div>" +
 				"</div>",
 			]
     	},{
     		xtype: 'actioncolumn',
-    		sortable: false,
     		align: 'center',
     		items: [{
+//    			xtype: 'button',
+//    			iconCls: 'x-fa fa-ellipsis-h',
+//    			menu: [{
+//    				items: [{
+////    					iconCls: 'x-fa fa-pencil',
+//        				text: 'Edit'
+//    	    		},{
+////    	    			iconCls: 'x-fa fa-trash',
+//    	    			text: 'Delete'
+//    	//              scope: this,
+//    	//    			handler: 'onRemoveClick'
+//    				}]
+//    			}]
     			xtype: 'button',
-    			iconCls: 'x-fa fa-ellipsis-h',
-    			menu: [{
-//    				iconCls: 'x-fa fa-pencil',
-    				text: 'Edit'
-	    		},{
-//	    			iconCls: 'x-fa fa-trash',
-	    			text: 'Delete'
-	//              scope: this,
-	//    			handler: 'onRemoveClick'
-    			}]
+    			tooltip: 'Edit',
+    			iconCls: 'x-fa fa-pencil',
+    			handler: '',
+    		},{
+    			xtype: 'button',
+    			tooltip: 'Remove',
+    			iconCls: 'x-fa fa-trash',
+    			handler: 'onRemoveClick'
           }]
     	}],
     	this.tbar = [{

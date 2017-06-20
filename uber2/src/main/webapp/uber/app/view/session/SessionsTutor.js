@@ -147,13 +147,13 @@ Ext.define('uber.view.session.SessionsTutor',{
         		align: 'stretch'
         	},
         	items: [{
-        		xtype: 'toolbar',
-    			items: [{
-    				xtype: 'button',
-    				text: 'Session Info',
-    				handler: 'sessioninfo'
-    			}]
-        	},{
+//        		xtype: 'toolbar',
+//    			items: [{
+//    				xtype: 'button',
+//    				text: 'Session Info',
+//    				handler: 'sessioninfo'
+//    			}]
+//        	},{
         		xtype: 'container',
                 layout: 'hbox',
                 items: [{

@@ -3,7 +3,6 @@ Ext.define('uber.view.tutor.MakeRequestController',{
     alias: 'controller.makerequest',
     
     save: function () {
-    	debugger;
     	var formpanel = Ext.ComponentQuery.query('#formpanel')[0];
     	if(formpanel.isValid()){
     		formpanel.submit({

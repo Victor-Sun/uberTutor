@@ -2,8 +2,9 @@ Ext.define('uber.view.tutor.CategoryWindow',{
 	extend: 'Ext.window.Window',
 	xtype: 'categoryWindow',
 	
-	width: 400,
-    height: 200,
+//	width: 400,
+    height: 350,
+    title: 'Add Subject Window',
     name: 'addWindow',
     layout: 'fit',
 	controller: 'tutorRegistration',
@@ -48,15 +49,42 @@ Ext.define('uber.view.tutor.CategoryWindow',{
 		
         this.items = [{
             xtype: 'form',
+            itemId: 'subjectForm',
             reference: 'addForm',
             layout: {
-                type: 'hbox',
-                align: 'stretchmax'
+            	type: 'vbox',
+            	align: 'stretchmax'
             },
             defaults: {
-                margin: 15,
+                margin: 5,
+                defaults: {
+                	padding: 5
+                }
             },
-            items: [category,subject],
+            items: [{
+            	xtype: 'fieldcontainer',
+            	layout: {
+                    type: 'hbox',
+                    align: 'stretchmax'
+                },
+            	items: [category,subject]
+            },{
+            	xtype: 'fieldcontainer',
+            	flex: 1,
+            	layout: {
+                    type: 'hbox',
+                    align: 'stretch'
+                },
+            	items: [{
+            		xtype: 'textarea',
+            		flex: 1,
+            		fieldLabel: 'Description (Max 1000 characters)',
+            		labelAlign: 'top',
+            		anchor: '100%',
+            		name: 'description',
+            		height: 100
+            	}]
+            }],
             dockedItems: [{
                 xtype: 'toolbar',
                 dock: 'bottom',

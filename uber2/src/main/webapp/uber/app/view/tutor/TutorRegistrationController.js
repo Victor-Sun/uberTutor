@@ -8,23 +8,26 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     
     submit: function(btn) {
 		var me = this;
-		var grid = Ext.getCmp('tutorRegistrationGrid').getStore();
-		var form = me.view.down('form').getForm();
-		me.view.mask('Loading...Please Wait...')
-		form.submit({
+		var grid = Ext.ComponentQuery.query('#tutorRegistrationGrid')[0];
+		var gridStore = grid.getStore();
+//		var form = me.view.down('form')
+		var form = Ext.ComponentQuery.query('#subjectForm')[0];
+		var getForm = form.getForm();
+		Ext.getBody().mask('Loading...Please Wait...')
+		getForm.submit({
 			clientValidation: true,
 			url:'/uber2/main/tutor-subject-register!save.action',
 			params: {
-            	model: Ext.encode(form.getFieldValues())
+            	model: Ext.encode(getForm.getFieldValues())
             },
             scope: me,
             success: function(form, action) {
-            	me.view.unmask();
+            	Ext.getBody().unmask();
             	grid.reload();
                 me.cancel();
             },
             failure: function (form, action) {
-            	me.view.unmask();
+            	Ext.getBody().unmask();
                 var result = uber.util.Util.decodeJSON(action.response.responseText);
                 Ext.Msg.alert('Error', result.data, Ext.emptyFn);
         	},
@@ -59,7 +62,6 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     },
     //Subject Grid 
     renderTitleColumn: function (value, metaData, record) {
-    	debugger;
         var view = this.getView(),
             plugin = view.getPlugin('rowexpander'),
             tpl = view.titleTpl;

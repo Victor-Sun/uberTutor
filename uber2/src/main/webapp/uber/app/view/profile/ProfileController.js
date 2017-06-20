@@ -98,7 +98,6 @@ Ext.define('uber.view.profile.ProfileController',{
     },
     
     save: function () {
-    	debugger;
 		var profileForm = Ext.ComponentQuery.query('#profileForm')[0];
 		var form = profileForm.getValues();
 		Ext.getBody().mask('Loading...Please Wait');

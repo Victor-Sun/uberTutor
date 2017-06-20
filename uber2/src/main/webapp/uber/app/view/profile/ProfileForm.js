@@ -8,9 +8,10 @@ Ext.define('uber.view.profile.ProfileForm',{
     reference: 'profileForm',
     itemId: 'profileForm',
     scrollable: 'y',
+    flex: 1,
     layout: {
         type: 'vbox',
-        align: 'stretchmax'
+        align: 'stretch'
     },
     defaults: {
         labelAlign: 'top',
@@ -133,7 +134,8 @@ Ext.define('uber.view.profile.ProfileForm',{
         	}]
         },{
         	xtype: 'fieldcontainer',
-        	margin: 5,
+        	height: 50,
+        	padding: 5,
         	items: [{
         		xtype: 'button',
 	    		hidden: true,

@@ -11,7 +11,6 @@ Ext.define('uber.view.session.SessionsAdmin',{
 	model: 'session',
 	initComponent: function () {
 		var me = this;
-//		debugger;
 //		var createDate = this.view.query('#sessionInfoForm')[0].records[0].get('CREATE_DATE');
 		var sessionInfoForm = Ext.create('Ext.form.Panel',{
 			itemId: 'sessionInfoForm',
@@ -116,7 +115,6 @@ Ext.define('uber.view.session.SessionsAdmin',{
 //								format: 'Y d m'
 //								listeners: {
 //									change: function (th, oldValue, newValue){
-//										debugger;
 //										var epoch = this.value;
 //										var date = Number(epoch);
 //								        var dt = new Date(date);
