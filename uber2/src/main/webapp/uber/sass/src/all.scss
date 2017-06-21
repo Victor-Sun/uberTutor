@@ -73,6 +73,20 @@
 .profile-form {
 	padding-left: 75px !important;
 	padding-right: 75px !important;
+
+	.x-form-trigger-wrap-default {
+	    border-width: 1px;
+	    border-style: solid;
+	    border-color: #5fa2dd !important;
+	}
+
+	.x-form-item-default.x-item-disabled {
+		opacity: 1 !important;
+		.x-form-trigger-wrap-default{
+			border: 1px solid rgba(0, 0, 0, 0) !important;
+			border-bottom: 1px solid #5fa2dd !important;
+		}
+	}
 }
 
 .profile-wrap {
@@ -151,21 +165,6 @@
 .text-readonly {
     background-color: #f0f0f0;
     color: #000;
-}
-.profile-form{
-
-	.x-form-trigger-wrap-default {
-	    border-width: 1px;
-	    border-style: solid;
-	    border-color: #5fa2dd !important;
-	}
-
-	.x-form-item-default.x-item-disabled {
-		opacity: 1 !important;
-		.x-form-trigger-wrap-default{
-			border: 1px solid rgba(0, 0, 0, 0) !important;
-		}
-	}
 }
 
 .btn-container {

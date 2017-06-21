@@ -41,7 +41,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     
     onEditClick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
     	debugger;
-    	var record = grid.getStore().getAt(rowIndex);
+    	var record = grid.getStore().getAt(rowIndex.internalId);
 //    	console.log(rowIndex.data.ID);
     	var window = Ext.create('uber.view.tutor.EditWindow',{
     		displayId: rowIndex.data.ID,
