@@ -34,12 +34,12 @@ Ext.define('uber.view.profile.ProfileController',{
 		}
 	},
     
-    profilemanage: function () {
-    	var me = this;
-    	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
-		var remove = mainCard.removeAll();
-		var card2 = mainCard.add(Ext.create('uber.view.profile.ChangeProfile'));
-    },
+//    profilemanage: function () {
+//    	var me = this;
+//    	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+//		var remove = mainCard.removeAll();
+//		var card2 = mainCard.add(Ext.create('uber.view.profile.ChangeProfile'));
+//    },
     
     profile: function () {
     	var me = this;
@@ -119,7 +119,6 @@ Ext.define('uber.view.profile.ProfileController',{
     				var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 			        var remove = mainCard.removeAll();
 			        var card2 = mainCard.add(Ext.create('uber.view.profile.Profile'));
-    				// change to exception output
     				Ext.getBody().unmask();
     				 
     				profileForm.load({
@@ -135,10 +134,10 @@ Ext.define('uber.view.profile.ProfileController',{
     			},
 
     			failure: function(form, action) {
-    				// similar to above
     				Ext.getBody().unmask();
     				var result = uber.util.Util.decodeJSON(action.response.responseText);
-    				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
+    				Ext.Msg.alert('Error', result.errors.reason, Ext.emptyFn);
+    				console.log(result.errors.reason);
     			},
     		})
     	} else {

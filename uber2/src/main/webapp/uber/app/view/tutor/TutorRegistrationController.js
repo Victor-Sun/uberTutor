@@ -38,7 +38,16 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     cancel: function() {
     	this.view.close();
     },
-
+    
+    onEditClick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    	debugger;
+    	var record = grid.getStore().getAt(rowIndex);
+//    	console.log(rowIndex.data.ID);
+    	Ext.create('uber.view.tutor.EditWindow',{
+    		displayId: rowIndex.data.ID,
+    	}).show();
+    },
+    
     onRemoveClick: function (grid, rowIndex) {
     	var me = this;
     	var record = grid.getStore().getAt(rowIndex);
@@ -60,6 +69,8 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     		}
     	});
     },
+    
+    
     //Subject Grid 
     renderTitleColumn: function (value, metaData, record) {
         var view = this.getView(),

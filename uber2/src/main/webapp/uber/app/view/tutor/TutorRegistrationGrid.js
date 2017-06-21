@@ -87,12 +87,12 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
     			xtype: 'button',
     			tooltip: 'Edit',
     			iconCls: 'x-fa fa-pencil',
-    			handler: '',
+//    			handler: 'onEditClick',
     		},{
     			xtype: 'button',
     			tooltip: 'Remove',
     			iconCls: 'x-fa fa-trash',
-    			handler: 'onRemoveClick'
+//    			handler: 'onRemoveClick'
           }]
     	}],
     	this.tbar = [{

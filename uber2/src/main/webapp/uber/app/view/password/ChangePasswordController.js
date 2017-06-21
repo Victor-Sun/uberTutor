@@ -6,6 +6,7 @@ Ext.define('uber.view.password.ChangePasswordController',{
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
     	Ext.getBody().mask('Loading...Please Wait');
+//    	var errors = model.validate(); console.log(errors);
     	if(formPanel.getForm().isValid()){
     		formPanel.submit({
     			//submit form for user signup
@@ -25,12 +26,16 @@ Ext.define('uber.view.password.ChangePasswordController',{
     				Ext.Msg.alert('Error', result.data, Ext.emptyFn);
     			},
     		})
-    	} else {
-    		var message = "";
-    		Ext.each(errors.items, function(rec){
-    			message +=rec.getMessage()+"<br>"
-    		});
-    		Ext.Msg.alert("Error", message, Ext.emptyFn);
+    	} 
+    	else {
+    		Ext.getBody().unmask();
+//    		var data="";
+//    		errors.each(function (item, index, length) {
+//			  // Each item in the errors collection is an instance of the Ext.data.Error class.
+//			  data = data + '|'+item.getField()+' - '+ item.getMessage() +'|';
+//			});
+//    		Ext.Msg.alert("Error", message, Ext.emptyFn);
+    		Ext.Msg.alert("Error", "An error has occured, please check the form and try again", Ext.emptyFn);
     	}
     },
     
