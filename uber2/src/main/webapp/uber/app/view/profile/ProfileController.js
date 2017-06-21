@@ -106,14 +106,14 @@ Ext.define('uber.view.profile.ProfileController',{
     			//submit form for user signup
     			url: '/uber2/main/profile!update.action',
     			method: 'POST',
-    			params: {
-    				fullname: form.FULLNAME,
-    				email: form.EMAIL,
-    				mobile: form.MOBILE,
-    				name: form.NAME,
-    				bio: form.BIO,
-    				isTutor: form.IS_TUTOR
-    			},
+//    			params: {
+    				fullname: form.fullname,
+//    				email: form.EMAIL,
+//    				mobile: form.MOBILE,
+//    				name: form.NAME,
+//    				bio: form.BIO,
+//    				isTutor: form.IS_TUTOR
+//    			},
     			success: function(response, opts) {
     				var profileForm = Ext.ComponentQuery.query('#profileForm')[0];
     				var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
@@ -124,7 +124,7 @@ Ext.define('uber.view.profile.ProfileController',{
     				profileForm.load({
     					url: '/uber2/main/profile!display.action',
     					params: {
-    						fullname: profileForm.FULLNAME
+    						fullname: profileForm.fullname
     					},
     					reader: {
     						type: 'json',
