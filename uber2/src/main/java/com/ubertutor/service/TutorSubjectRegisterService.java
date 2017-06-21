@@ -41,11 +41,8 @@ public class TutorSubjectRegisterService {
 	 * @return List of subjects according to category
 	 */
 	public List<Map<String,Object>> getSubjectList(String categoryId){
-		List<Object> params = new ArrayList<Object>();
-		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT * FROM SUBJECT WHERE CATEGORY_ID = ?");
-		params.add(categoryId);
-		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
+		String hql = " FROM SubjectEntity where categoryId = ?";
+		return this.subjectDAO.find(hql, categoryId);
 	}
 	
 	/**
@@ -67,18 +64,8 @@ public class TutorSubjectRegisterService {
 	 * @param userId
 	 * @param subjectId
 	 */
-	public void addTutorSubject(UserSubjectEntity entity){
+	public void saveTutorSubject(UserSubjectEntity entity){
 		userSubjectDAO.save(entity);
-	}
-	
-	/**
-	 * Removes subject from user_subject
-	 * @param userId
-	 * @param subjectId
-	 */
-	public void removeSubject(Long userId, Long subjectId){
-		String hql = "DELETE FROM UserSubjectEntity WHERE userId = ? AND subjectId = ?";
-		this.userSubjectDAO.executeSQL(hql, userId, subjectId);
 	}
 
 	public void editSubject(Long userSubjectId, String description){

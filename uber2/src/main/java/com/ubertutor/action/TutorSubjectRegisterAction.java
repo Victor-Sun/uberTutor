@@ -93,27 +93,11 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	}
 	
 	public void editSubject() throws Exception{
-		try{
-			
-		} catch (Exception e){
-			e.printStackTrace();
-			this.writeErrorResult(e);
-		}
-	}
-	
-	@Override
-	public UserSubjectEntity getModel(){
-		return entity;
-	}
-
-	@Override
-	public String list() throws Exception{
-		return null;
-	}
-
-	@Override
-	public String input() throws Exception{
-		return null;
+		Long subjectId = Long.parseLong(Struts2Utils.getRequest().getParameter("userSubjectId"));
+		String description = Struts2Utils.getRequest().getParameter("description");
+		entity.setDescription(description);
+		entity = tutorSubjectRegisterService.get(subjectId);
+		tutorSubjectRegisterService.saveTutorSubject(entity);
 	}
 
 	@Override
@@ -139,7 +123,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 			entity.setUserId(userId);
 			entity.setSubjectId(subjectId);
 			entity.setAddDate(date);
-			tutorSubjectRegisterService.addTutorSubject(entity);
+			tutorSubjectRegisterService.saveTutorSubject(entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.writeErrorResult(e.getMessage());
@@ -162,5 +146,20 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	@Override
 	protected void prepareModel() throws Exception{
 		entity = (id != null) ? tutorSubjectRegisterService.get(id) : new UserSubjectEntity(); 
+	}
+	
+	@Override
+	public UserSubjectEntity getModel(){
+		return entity;
+	}
+	
+	@Override
+	public String list() throws Exception{
+		return null;
+	}
+	
+	@Override
+	public String input() throws Exception{
+		return null;
 	}
 }
