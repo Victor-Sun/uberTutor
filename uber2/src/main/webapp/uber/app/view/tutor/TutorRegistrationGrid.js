@@ -69,12 +69,12 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
 //					"</div>" +
 					"<div class='session-frame' >" +
 						"<div class='session-info' style=''>" +
-							"<div class='session-category' style='display: inline; margin-left: 10px;'><b>Category</b>: {CATEGORY_TITLE} </div>" +
-							"<div class='session-subject' style='display: inline; margin-left: 10px;'><b>Subject</b>: {SUBJECT_TITLE}</div>" +
-							"<div class='session-status' style='display: inline; margin-left: 10px;'><b>Date</b>: {CREATE_DATE}</div>" +
+							"<div class='session-category' style='display: inline; margin-left: 10px;'><b>Category</b>: {categoryTitle} </div>" +
+							"<div class='session-subject' style='display: inline; margin-left: 10px;'><b>Subject</b>: {subjectTitle}</div>" +
+							"<div class='session-status' style='display: inline; margin-left: 10px;'><b>Date</b>: {createDate}</div>" +
 						"</div>" +
 						"<hr>" +
-						"<div class='session-description' style='min-height: 50px; margin: 10px;'><b>Description</b>: {DESCRIPTION}</div>" +
+						"<div class='session-description' style='min-height: 50px; margin: 10px;'><b>Description</b>: {description}</div>" +
 					"</div>" +
 				"</div>",
 			]
