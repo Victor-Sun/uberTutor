@@ -55,8 +55,8 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	 */
 	public void displayCategorySubject() throws Exception{
 		try {
-			String id = Struts2Utils.getRequest().getParameter("categoryId");
-			this.writeSuccessResult(tutorSubjectRegisterService.getSubjectList(id));
+			Long categoryId = Long.parseLong(Struts2Utils.getRequest().getParameter("categoryId"));
+			this.writeSuccessResult(tutorSubjectRegisterService.getSubjectList(categoryId));
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.writeErrorResult(e);
@@ -119,10 +119,9 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 				msg = "You already registered this subject!";
 				throw new Exception(msg);
 			}
-			Date date = new Date();
 			entity.setUserId(userId);
 			entity.setSubjectId(subjectId);
-			entity.setAddDate(date);
+			entity.setCreateDate(new Date());
 			tutorSubjectRegisterService.saveTutorSubject(entity);
 		} catch (Exception e) {
 			e.printStackTrace();

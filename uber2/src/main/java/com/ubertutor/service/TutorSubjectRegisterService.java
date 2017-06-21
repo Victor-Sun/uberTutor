@@ -40,7 +40,7 @@ public class TutorSubjectRegisterService {
 	 * @param categoryId
 	 * @return List of subjects according to category
 	 */
-	public List<Map<String,Object>> getSubjectList(String categoryId){
+	public List<Map<String,Object>> getSubjectList(Long categoryId){
 		String hql = " FROM SubjectEntity where categoryId = ?";
 		return this.subjectDAO.find(hql, categoryId);
 	}
@@ -53,7 +53,7 @@ public class TutorSubjectRegisterService {
 	public List<Map<String,Object>> getUserSubjects(Long userId){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT ID, SUBJECT_ID, SUBJECT_TITLE, CATEGORY_ID, CATEGORY_TITLE FROM USERS_SUBJECT_CATEGORY WHERE USER_ID = ?");
+		sql.append("SELECT * FROM USERS_SUBJECT_CATEGORY WHERE USER_ID = ?");
 		params.add(userId);
 		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}

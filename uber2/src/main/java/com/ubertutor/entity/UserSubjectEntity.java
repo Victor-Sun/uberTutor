@@ -32,9 +32,12 @@ public class UserSubjectEntity implements Serializable{
 	@Column(name = "IS_ACTIVE")
 	private String isActive;
 	
-	@Column(name = "ADD_DATE")
-	private Date addDate;
+	@Column(name = "CREATE_DATE")
+	private Date createDate;
 
+	@Column(name = "UPDATE_DATE")
+	private Date updateDate;
+	
 	public Long getId() {
 		return id;
 	}
@@ -75,12 +78,20 @@ public class UserSubjectEntity implements Serializable{
 		this.isActive = isActive;
 	}
 
-	public Date getAddDate() {
-		return addDate;
+	public Date getCreateDate() {
+		return createDate;
 	}
 
-	public void setAddDate(Date addDate) {
-		this.addDate = addDate;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 
 }

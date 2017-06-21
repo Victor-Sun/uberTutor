@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @Table(name = "SUBJECT_CATEGORY")
 public class SubjectCategoryEntity implements Serializable{
 	private static final long serialVersionUID = 5693315978187219180L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO,generator="SUBJECT_CATEGORY_SEQ")     
 	@SequenceGenerator(name="SUBJECT_CATEGORY_SEQ", sequenceName="SUBJECT_CATEGORY_SEQ") 
