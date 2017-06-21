@@ -42,9 +42,10 @@ public class ProfileService {
 	 * Get a list of schools from DAO
 	 * @return List of schools
 	 */
-	public List<String> getSchoolList(){
-		String hql = "FROM SchoolEntity";
-		return this.schoolDAO.find(hql);
+	public List<Map<String, Object>> getSchoolList(){
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM SCHOOLS");
+		return this.jdbcTemplate.queryForList(sql.toString());
 	}
 	
 	/**
@@ -66,6 +67,19 @@ public class ProfileService {
 	}
 
 	/**
+	 * Function that get's all of a user's profile information
+	 * @param id
+	 * @return Map of user's info
+	 */
+	public Map<String, Object> getAllUserInfo(Long id){
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT USERS.*, SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?");
+		params.add(id);
+		return this.jdbcTemplate.queryForMap(sql.toString(),params.toArray());
+	}
+	
+	/**
 	 * Function that checks if the user has a school
 	 * @param userId
 	 * @return size of query result
@@ -78,18 +92,6 @@ public class ProfileService {
 		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
 
-	/**
-	 * Function that get's all of a user's profile information
-	 * @param id
-	 * @return Map of user's info
-	 */
-	public Map<String, Object> getAllUserInfo(Long id){
-		List<Object> params = new ArrayList<Object>();
-		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT USERS.*, SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?");
-		params.add(id);
-		return this.jdbcTemplate.queryForMap(sql.toString(),params.toArray());
-	}
 	
 	/**
 	 * Function that uses regex to validate an email address

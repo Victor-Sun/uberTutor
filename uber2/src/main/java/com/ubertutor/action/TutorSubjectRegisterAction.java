@@ -1,5 +1,7 @@
 package com.ubertutor.action;
 
+import java.util.Date;
+
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
@@ -81,9 +83,9 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	 */
 	public void removeSubject() throws Exception{
 		try{
-			Long userId = Long.parseLong(SessionData.getLoginUserId());
-			Long subjectId = Long.parseLong(Struts2Utils.getRequest().getParameter("SUBJECT_ID"));
-			tutorSubjectRegisterService.removeSubject(userId, subjectId);
+			Long subjectId = Long.parseLong(Struts2Utils.getRequest().getParameter("userSubjectId"));
+			entity = tutorSubjectRegisterService.get(subjectId);
+			tutorSubjectRegisterService.delete(entity);
 		} catch (Exception e){
 			e.printStackTrace();
 			this.writeErrorResult(e);
@@ -118,8 +120,8 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	public String save() throws Exception{
 		try{
 			String msg = "";
-			String userId = SessionData.getLoginUserId();
-			String subjectId = Struts2Utils.getRequest().getParameter("subject");
+			Long userId = Long.parseLong(SessionData.getLoginUserId());
+			Long subjectId = Long.parseLong(Struts2Utils.getRequest().getParameter("subject"));
 			String category = Struts2Utils.getRequest().getParameter("category");
 			if(category == null || category == ""){
 				msg = "Invalid subject, select a valid subject and try again!";
@@ -129,11 +131,15 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 				msg = "Invalid subject, select a valid subject and try again!";
 				throw new Exception(msg);
 			}
-			if(tutorSubjectRegisterService.subjectExists(Long.parseLong(userId), Long.parseLong(subjectId))){
+			if(tutorSubjectRegisterService.subjectExists(userId, subjectId)){
 				msg = "You already registered this subject!";
 				throw new Exception(msg);
 			}
-			tutorSubjectRegisterService.addTutorSubject(entity, Long.parseLong(userId), Long.parseLong(subjectId));
+			Date date = new Date();
+			entity.setUserId(userId);
+			entity.setSubjectId(subjectId);
+			entity.setAddDate(date);
+			tutorSubjectRegisterService.addTutorSubject(entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.writeErrorResult(e.getMessage());
