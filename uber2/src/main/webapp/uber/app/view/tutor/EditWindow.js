@@ -56,7 +56,7 @@ Ext.define('uber.view.tutor.EditWindow',{
 							items: [{
 								xtype: 'textfield',
 								fieldLabel: 'Description',
-								name: 'DESCRIPTION'
+								name: 'description'
 							}]
 						}]
 					}]
@@ -64,16 +64,16 @@ Ext.define('uber.view.tutor.EditWindow',{
 			}]
 		});
 		
-		editForm.load({
+//		editForm.load({
 //			url: '/uber2/main/my-session!displaySessionInfo.action',
-			params: {
-				requestId:this.requestId,
-			},
-			reader: {
-				type: 'json',
-				rootProperty: 'data'
-			}
-		});
+//			params: {
+//				requestId:this.requestId,
+//			},
+//			reader: {
+//				type: 'json',
+//				rootProperty: 'data'
+//			}
+//		});
 		this.tools = [{
 			xtype: 'button',
 			hidden: true,

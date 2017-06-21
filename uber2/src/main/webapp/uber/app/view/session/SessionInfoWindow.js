@@ -64,28 +64,28 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 							items: [{
 								xtype: 'textfield',
 								fieldLabel: 'Title',
-								name: 'TITLE'
+								name: 'title'
 							},{
 								xtype: 'hidden',
-								name: 'REQUEST_ID'
+								name: 'requestId'
 							}]
 						},{
 							xtype: 'fieldcontainer',
 							items: [{
 								xtype: 'textfield',
 								fieldLabel: 'Category',
-								name: 'CATEGORY'
+								name: 'category'
 							},{
 								xtype: 'textfield',
 								fieldLabel: 'Subject',
-								name: 'SUBJECT'
+								name: 'subject'
 							}]
 						},{
 							xtype: 'fieldcontainer',
 							items: [{
 								xtype: 'textarea',
 								fieldLabel: 'Description',
-								name: 'DESCRIPTION'
+								name: 'description'
 							}]
 						}]
 					},{
@@ -96,60 +96,60 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 							items: [{
 								xtype: 'textfield',
 								fieldLabel: 'Tutor Name',
-								name: 'TUTOR_NAME'
+								name: 'tutorName'
 							},{
 								xtype: 'textfield',
 								fieldLabel: 'Tutor ID',
-								name: 'TUTOR_ID'
+								name: 'tutorId'
 							}]
 						},{
 							xtype: 'fieldcontainer',
 							items: [{
 								xtype: 'textfield',
 								fieldLabel: 'Student Name',
-								name: 'STUDENT_NAME'
+								name: 'studentName'
 							},{
 								xtype: 'textfield',
 								fieldLabel: 'Tutor ID',
-								name: 'STUDENT_ID'
+								name: 'studentId'
 							}]
 						},{
 							xtype: 'fieldcontainer',
 							items: [{
 								xtype: 'textfield',
 								fieldLabel: 'Create Date',
-								name: 'CREATE_DATE',
+								name: 'createDate',
 							},{
 								xtype: 'textfield',
-								fieldLabel: 'UPDATE_DATE',
+								fieldLabel: 'Update Date',
 								hidden: true,
-								name: 'UPDATE_DATE',
+								name: 'updateDate',
 							}]
 						},{
 							xtype: 'fieldcontainer',
 							items: [{
 								xtype: 'textfield',
-								fieldLabel: 'PENDING DATE',
-								name: 'PENDING_DATE',
+								fieldLabel: 'Pending Date',
+								name: 'pendingDate',
 								hidden: true,
 							},{
 								xtype: 'textfield',
-								fieldLabel: 'PROCESS DATE',
+								fieldLabel: 'Process Date',
 								hidden: true,
-								name: 'PROCESS_DATE',
+								name: 'processDate',
 							}]
 						},{
 							xtype: 'fieldcontainer',
 							items: [{
 								xtype: 'textfield',
-								fieldLabel: 'CANCEL_DATE',
+								fieldLabel: 'Cancel Date',
 								hidden: true,
-								name: 'CANCEL_DATE',
+								name: 'canceDate',
 							},{
 								xtype: 'textfield',
-								fieldLabel: 'CLOSE_DATE',
+								fieldLabel: 'Close Date',
 								hidden: true,
-								name: 'CLOSE_DATE',
+								name: 'closeDate',
 							}]
 						}]
 					}]

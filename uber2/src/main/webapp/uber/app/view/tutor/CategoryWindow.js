@@ -1,7 +1,7 @@
 Ext.define('uber.view.tutor.CategoryWindow',{
 	extend: 'Ext.window.Window',
 	xtype: 'categoryWindow',
-	
+	itemId: 'categoryWindow',
 //	width: 400,
     height: 350,
     title: 'Add Subject Window',
@@ -20,8 +20,8 @@ Ext.define('uber.view.tutor.CategoryWindow',{
             labelAlign: 'top',
             triggerAction: 'all',
             store: categoryStore,
-            displayField: 'TITLE',
-            valueField: 'ID',
+            displayField: 'title',
+            valueField: 'id',
             queryModel: 'local',
             editable:false,
             name: 'category',
@@ -40,8 +40,8 @@ Ext.define('uber.view.tutor.CategoryWindow',{
             labelAlign: 'top',
             triggerAction: 'all',
             store: subjectStore,
-            displayField: 'TITLE',
-            valueField: 'ID',
+            displayField: 'title',
+            valueField: 'id',
             queryMode:'local',
             editable:false,
             name:'subject'

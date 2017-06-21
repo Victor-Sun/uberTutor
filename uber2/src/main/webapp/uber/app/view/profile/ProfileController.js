@@ -147,7 +147,7 @@ Ext.define('uber.view.profile.ProfileController',{
 //    			message +=rec.getMessage()+"<br>"
 //    		});
 //    		Ext.Msg.alert("Error", message, Ext.emptyFn);
-    		Ext.Msg.alert("Error", "One of the fields is not valid", Ext.emptyFn);
+    		Ext.Msg.alert("Error", "One or more of the fields is not valid", Ext.emptyFn);
     		console.log(message);
     	}
 	},

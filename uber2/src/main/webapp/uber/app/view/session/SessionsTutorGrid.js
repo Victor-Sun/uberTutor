@@ -18,16 +18,16 @@ Ext.define('uber.view.session.SessionsTutorGrid',{
 					"<div class='session-frame' style='display: inline-block;'>" +
 						"<div class='session-left' style='display: inline; float: left;'>" +
 							"<ul style='list-style-type: none;'>" +
-								"<li>Title: {TITLE} </li>" +
-								"<li>Category: {CATEGORY} </li>" +
-								"<li>Status: {STATUS} </li>" +
+								"<li>Title: {title} </li>" +
+								"<li>Category: {category} </li>" +
+								"<li>Status: {status} </li>" +
 							"</ul>" +
 						"</div>" +
 						"<div class='session-right' style='display: inline; float: right;'>" +
 							"<ul style='list-style-type: none;'>" +
-								"<li>Student: {STUDENT_NAME} </li>" +
-								"<li>Subject: {SUBJECT} </li>" +
-								"<li>Create Date: {CREATE_DATE} </li>" +
+								"<li>Student: {studentName} </li>" +
+								"<li>Subject: {subject} </li>" +
+								"<li>Create Date: {createDate} </li>" +
 							"</ul>" +
 						"</div>" +
 					"</div>" +
