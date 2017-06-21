@@ -57,7 +57,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     	Ext.Ajax.request({
     		url:'/uber2/main/tutor-subject-register!removeSubject.action',
     		params: {
-    			ID:record.data.ID
+    			userSubjectId:record.data.ID
     		},
     		score: me,
     		success: function() {
