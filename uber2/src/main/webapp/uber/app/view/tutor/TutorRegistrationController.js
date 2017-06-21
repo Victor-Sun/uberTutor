@@ -43,9 +43,10 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     	debugger;
     	var record = grid.getStore().getAt(rowIndex);
 //    	console.log(rowIndex.data.ID);
-    	Ext.create('uber.view.tutor.EditWindow',{
+    	var window = Ext.create('uber.view.tutor.EditWindow',{
     		displayId: rowIndex.data.ID,
-    	}).show();
+    	});
+    	window.show();
     },
     
     onRemoveClick: function (grid, rowIndex) {
