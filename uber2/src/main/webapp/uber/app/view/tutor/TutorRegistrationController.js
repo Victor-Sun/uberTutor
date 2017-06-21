@@ -7,6 +7,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     },
     
     submit: function(btn) {
+    	debugger;
 		var me = this;
 		var grid = Ext.ComponentQuery.query('#tutorRegistrationGrid')[0];
 		var gridStore = grid.getStore();
@@ -23,8 +24,8 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
             scope: me,
             success: function(form, action) {
             	Ext.getBody().unmask();
-            	grid.reload();
-                me.cancel();
+            	this.getView().close();
+            	grid.getStore().reload();
             },
             failure: function (form, action) {
             	Ext.getBody().unmask();
