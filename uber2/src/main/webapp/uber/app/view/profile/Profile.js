@@ -32,7 +32,7 @@ Ext.define('uber.view.profile.Profile', {
 			profileInfoForm.load({
 				url: '/uber2/main/profile!display.action',
 				params: {
-					fullname: this.fullname
+					fullname: this.FULLNAME
 				},
 				reader: {
 					type: 'json',
