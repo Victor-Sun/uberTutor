@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ubertutor.dao.SubjectCategoryDAO;
 import com.ubertutor.dao.UserSubjectDAO;
 import com.ubertutor.entity.UserSubjectEntity;
 
@@ -19,7 +20,9 @@ public class TutorSubjectRegisterService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
-	private UserSubjectDAO userSubjectDao;
+	private UserSubjectDAO userSubjectDAO;
+	@Autowired
+	private SubjectCategoryDAO categoryDAO;
 	
 	/**
 	 * Get all categories
@@ -68,7 +71,7 @@ public class TutorSubjectRegisterService {
 		entity.setUserId(userId);
 		entity.setSubjectId(subjectId);
 		entity.setAddDate(date);
-		userSubjectDao.save(entity);
+		userSubjectDAO.save(entity);
 	}
 	
 	/**
@@ -96,19 +99,19 @@ public class TutorSubjectRegisterService {
 	
 	public boolean subjectExists(Long userId, Long subjectId){
 		String hql = "FROM UserSubjectEntity WHERE userId = ? AND subjectId = ?";
-		List<UserSubjectEntity> result = this.userSubjectDao.find(hql, userId, subjectId);
+		List<UserSubjectEntity> result = this.userSubjectDAO.find(hql, userId, subjectId);
         return result.size() > 0; 
 	}
 	
 	public UserSubjectEntity get(Long id){
-		return userSubjectDao.get(id);
+		return userSubjectDAO.get(id);
 	}
 	
 	public void delete(UserSubjectEntity entity){
-		userSubjectDao.delete(entity);
+		userSubjectDAO.delete(entity);
 	}
 	
 	public void delete(Long id){
-		userSubjectDao.delete(id);
+		userSubjectDAO.delete(id);
 	}
 }

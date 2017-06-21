@@ -1,5 +1,6 @@
 package com.ubertutor.action;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	@Autowired
 	private TutorSubjectRegisterService tutorSubjectRegisterService;
 	private SchoolEntity schoolEntity;
-	private UserEntity user = SessionData.getLoginUser();
+	private UserEntity entity = SessionData.getLoginUser();
 
 	/**
 	 * Sends Json to front end to display a user's profile
@@ -35,10 +36,10 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 */
 	public void display() throws Exception{
 		try{
-			if(profileService.hasSchool(user.getId()).isEmpty()){
-				this.writeSuccessResult(profileService.getUserInfo(user.getId()));
+			if(profileService.hasSchool(entity.getId()).isEmpty()){
+				this.writeSuccessResult(profileService.getUserInfo(entity.getId()));
 			}else{
-				this.writeSuccessResult(profileService.getAllUserInfo(user.getId()));
+				this.writeSuccessResult(profileService.getAllUserInfo(entity.getId()));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,8 +53,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 */
 	public void update() throws Exception{
 		try{
-			UserEntity user = SessionData.getLoginUser();
-			String fullname, email, mobile, bio, school, schoolid, isTutor, msg, mobileNo = "";
+			String fullname, email, mobile, bio, school, schoolId, isTutor, msg, mobileNo = "";
 			fullname = Struts2Utils.getRequest().getParameter("fullname");
 			email = Struts2Utils.getRequest().getParameter("email");
 			isTutor = Struts2Utils.getRequest().getParameter("isTutor");
@@ -66,6 +66,10 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 			for(int i = 0; i < temp.length; i++){
 				mobileNo += temp[i];
 			}
+			if(fullname.isEmpty()){
+				msg = "Fullname cannot be empty, please fill out your fullname and try again.";
+				throw new Exception(msg);
+			}
 			if(!mobileNo.matches("\\d{10}")){
 				msg = "Invalid phone number, please enter 10 digits.";
 				throw new Exception(msg);
@@ -76,9 +80,17 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 				throw new Exception(msg);
 			}
 			schoolEntity = profileService.getSchoolByName(school);
-			schoolid = schoolEntity.getId().toString();
+			schoolId = schoolEntity.getId().toString();
 			bio = Struts2Utils.getRequest().getParameter("bio");
-			profileService.updateProfile(user.getId().toString(), fullname, email, mobileNo, bio, schoolid, isTutor);
+			entity.setFullname(fullname);
+			entity.setEmail(email);
+			entity.setMobile(mobileNo);
+			entity.setBio(bio);
+			entity.setSchoolId(schoolId);
+			entity.setIsTutor(isTutor);
+			entity.setUpdateBy(entity.getId().toString());
+			entity.setUpdateDate(new Date());
+			profileService.updateProfile(entity);
 		}catch(Exception e){
 			e.printStackTrace();
 			this.writeErrorResult(e);
@@ -101,10 +113,9 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 * Get user's isTutor status
 	 */
 	public void tutorStatus(){
-		UserEntity user = SessionData.getLoginUser();
-		user = SessionData.getLoginUser();
+		entity = SessionData.getLoginUser();
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("isTutor", user.getIsTutor());
+		result.put("isTutor", entity.getIsTutor());
 		this.writeSuccessResult(result);
 	}
 

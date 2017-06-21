@@ -1,7 +1,6 @@
 package com.ubertutor.service;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ubertutor.dao.SubjectDAO;
 import com.ubertutor.dao.UserRequestDAO;
 import com.ubertutor.entity.UserRequestEntity;
 
@@ -19,27 +19,26 @@ public class MakeRequestService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
-	private UserRequestDAO userRequestDao;
+	private UserRequestDAO userRequestDAO;
+	@Autowired 
+	private SubjectDAO subjectDAO;
 	
 	public UserRequestEntity get(Long id){
-		return userRequestDao.get(id);
+		return userRequestDAO.get(id);
 	}
 	
 	public void delete(UserRequestEntity entity){
-		userRequestDao.delete(entity);
+		userRequestDAO.delete(entity);
 	}
 	
 	public void delete(Long id){
-		userRequestDao.delete(id);
+		userRequestDAO.delete(id);
 	}
 	
 	//Zelin: list subjects based on category user select
 	public List<Map<String,Object>> getSubjects(String categoryId){
-		List<Object> params = new ArrayList<Object>();
-		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT ID, TITLE FROM SUBJECT WHERE CATEGORY_ID = ?");
-		params.add(categoryId);
-		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
+		String hql = " FROM SubjectEntity WHERE categoryId = ?";
+		return this.subjectDAO.find(hql, categoryId);
 	}
 	
 	/**Zelin: save all request to database
@@ -49,7 +48,7 @@ public class MakeRequestService {
 	 */
 	
 	public void makeRequest(UserRequestEntity requestEntity){
-	    userRequestDao.save(requestEntity);
+	    userRequestDAO.save(requestEntity);
 	}
 	
 }

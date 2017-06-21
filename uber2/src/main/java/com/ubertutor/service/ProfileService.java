@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ubertutor.dao.SchoolDAO;
 import com.ubertutor.dao.UserDAO;
 import com.ubertutor.entity.SchoolEntity;
+import com.ubertutor.entity.UserEntity;
 
 @Service
 @Transactional
@@ -38,75 +39,42 @@ public class ProfileService {
 	}
 
 	/**
-	 * Get a list of schools by running a query
+	 * Get a list of schools from DAO
 	 * @return List of schools
 	 */
-	public List<Map<String,Object>> getSchoolList(){
-		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT ID, NAME FROM SCHOOLS");
-		return this.jdbcTemplate.queryForList(sql.toString());
+	public List<String> getSchoolList(){
+		String hql = "FROM SchoolEntity";
+		return this.schoolDAO.find(hql);
 	}
-
+	
 	/**
-	 * Function to run a query to update a user's profile
-	 * @param id
-	 * @param fullname
-	 * @param email
-	 * @param mobile
-	 * @param bio
-	 * @param schoolId
+	 * Updates a user's profile
+	 * @param entity
 	 */
-	public void updateProfile(String id, String fullname, String email, String mobile, String bio, String schoolId, String isTutor){
-		StringBuffer sql = new StringBuffer();
-		List<Object> params = new ArrayList<Object>();
-		sql.append(" UPDATE USERS SET FULLNAME = ?, EMAIL = ?, MOBILE = ?, BIO = ?, SCHOOL_ID = ?, IS_TUTOR = ?, UPDATE_BY = ?, UPDATE_DATE = SYSDATE WHERE ID = ?");
-		params.add(fullname);
-		params.add(email);
-		params.add(mobile);
-		params.add(bio);
-		params.add(schoolId);
-		params.add(isTutor);
-		params.add(id);
-		params.add(id);
-		this.jdbcTemplate.update(sql.toString(), params.toArray());
-	}
-
-	/**
-	 * Function that changes the isTutor flag in db
-	 * @param id
-	 */
-	public void registerAsTutor(Long id, String s){
-		StringBuffer sql = new StringBuffer();
-		List<Object> params = new ArrayList<Object>();
-		sql.append(" UPDATE USERS SET IS_TUTOR = ? WHERE ID = ?");
-		params.add(s);
-		params.add(id);
-		this.jdbcTemplate.update(sql.toString(), params.toArray());
+	public void updateProfile(UserEntity entity){
+		this.userDAO.save(entity);
 	}
 
 	/**
 	 * Function that get's all of a user's info minus school
-	 * @param id
+	 * @param userId
 	 * @return Map of user's info
 	 */
-	public Map<String,Object> getUserInfo(Long id){
-		List<Object> params = new ArrayList<Object>();
-		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT * FROM USERS WHERE USERS.ID = ?");
-		params.add(id);
-		return this.jdbcTemplate.queryForMap(sql.toString(),params.toArray());
+	public List<String> getUserInfo(Long userId){
+		String hql = "FROM UserEntity WHERE id = ?";
+		return this.userDAO.find(hql, userId);
 	}
 
 	/**
 	 * Function that checks if the user has a school
-	 * @param id
+	 * @param userId
 	 * @return size of query result
 	 */
-	public List<Map<String, Object>> hasSchool(Long id){
+	public List<Map<String, Object>> hasSchool(Long userId){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?");
-		params.add(id);
+		params.add(userId);
 		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
 

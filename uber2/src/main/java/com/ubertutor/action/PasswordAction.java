@@ -1,5 +1,6 @@
 package com.ubertutor.action;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springside.modules.utils.web.struts2.Struts2Utils;
 import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.EncryptUtil;
 import com.opensymphony.xwork2.ActionSupport;
+import com.ubertutor.entity.UserEntity;
 import com.ubertutor.service.PasswordService;
 import com.ubertutor.service.LoginService;
 
@@ -23,6 +25,7 @@ public class PasswordAction extends ActionSupport{
     private LoginService loginService;
     @Autowired
     private PasswordService passwordService;
+    private UserEntity entity;
     
     /**
      * Update Password function
@@ -35,7 +38,7 @@ public class PasswordAction extends ActionSupport{
 			p1 = Struts2Utils.getRequest().getParameter("newpassword");
 			p2 = Struts2Utils.getRequest().getParameter("newpassword2");
 			String username = SessionData.getUserId();
-			String userId = SessionData.getLoginUserId();
+			Long userId = Long.parseLong(SessionData.getLoginUserId());
 			if(!loginService.verifyUserPassword(username, EncryptUtil.encrypt(currentPassword))){
 				msg = "Password is incorrect! Please confirm your password and try again.";
 				throw new Exception(msg);
@@ -44,7 +47,11 @@ public class PasswordAction extends ActionSupport{
 				msg = "Passwords do not match, please check your passwords then submit again!";
 				throw new Exception(msg);
 			}
-			passwordService.updatePassword(userId, p1);
+			entity = passwordService.get(userId);
+			entity.setPassword(EncryptUtil.encrypt(p1));
+			entity.setUpdateBy(userId.toString());
+			entity.setUpdateDate(new Date());
+			passwordService.updatePassword(entity);
 			this.writeSuccessResult(resultMap);
 		} catch (Exception e){
 			e.printStackTrace();

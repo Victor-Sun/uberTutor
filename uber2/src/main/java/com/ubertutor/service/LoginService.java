@@ -12,7 +12,6 @@ import com.ubertutor.entity.UserEntity;
 @Service
 @Transactional
 public class LoginService {
-
 	@Autowired
 	private UserDAO userDAO;
 	

@@ -9,11 +9,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ubertutor.dao.UserRequestDAO;
+
 @Service
 @Transactional
 public class MySessionService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	@Autowired 
+	private UserRequestDAO userRequestDAO;
 	
 	public List<Map<String,Object>> getSessions(){
 		StringBuffer sql = new StringBuffer();

@@ -5,8 +5,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gnomon.pdms.common.EncryptUtil;
 import com.ubertutor.dao.UserDAO;
+import com.ubertutor.entity.UserEntity;
 
 @Service
 @Transactional
@@ -22,8 +22,16 @@ public class PasswordService {
 	 * @param id User's ID
 	 * @param password User's Password
 	 */
-	public void updatePassword(String id, String password){
-		String hql = " UPDATE USERS SET PASSWORD = ?, UPDATE_BY = ?, UPDATE_DATE = SYSDATE WHERE ID = ?";
-		this.userDAO.executeSQL(hql, EncryptUtil.encrypt(password), id, id);
+	public void updatePassword(UserEntity entity){
+		this.userDAO.save(entity);
+	}
+	
+	/**
+	 * Get's UserEntity from ID
+	 * @param id
+	 * @return UserEntity
+	 */
+	public UserEntity get(Long id){
+		return this.userDAO.get(id);
 	}
 }
