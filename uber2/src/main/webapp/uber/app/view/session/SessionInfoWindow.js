@@ -31,12 +31,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	            type: 'vbox',
 	            align: 'stretch'
 	        },
-	        defaults: {
-	        	layout: {
-	        		type: 'hbox',
-	        		align: 'stretch'
-	        	}
-	        },
 			items: [{
 				// Request Info
 				xtype: 'fieldset',
@@ -47,7 +41,8 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 				},
 				items: [{
 					xtype: 'fieldcontainer',
-					items: [{
+//					layout:
+					items:[{
 						xtype: 'textfield',
 						fieldLabel: 'Title',
 						name: 'TITLE'

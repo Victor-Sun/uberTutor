@@ -7,7 +7,6 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     },
     
     submit: function(btn) {
-    	debugger;
 		var me = this;
 		var grid = Ext.ComponentQuery.query('#tutorRegistrationGrid')[0];
 		var gridStore = grid.getStore();
@@ -34,21 +33,81 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
         	},
 
 		});
-    },
+	},
     
     cancel: function() {
     	this.view.close();
     },
     
-    onEditClick: function(grid, rowIndex) {
-    	debugger;
-    	var record = grid.getStore().getAt(rowIndex.internalId);
-    	var window = Ext.create('uber.view.tutor.EditWindow',{
-//    		displayId: rowIndex.data.ID,
-    	});
-//    	console.log(rowIndex.data.ID);
-    	window.show();
-    },
+    onEditClick: function(grid, rowIndex, colIndex, item, e , record) {
+    	var editForm = Ext.create('Ext.form.Panel',{
+    		itemId: 'editForm',
+			layout: {
+	            type: 'vbox',
+	            align: 'stretch'
+	        },
+			items: [{
+				xtype: 'textarea',
+				margin: 15,
+				flex: 1,
+				labelAlign: 'top',
+				itemId: 'description',
+				fieldLabel: 'Description',
+				name: 'description'
+			}]
+		});
+		var win = Ext.create('Ext.window.Window', {
+			itemId: 'editWindow',
+			title: 'Edit Window',
+				autoShow: true, 
+				width: 400,
+		        height: 300,
+				displayId: record.data.ID,
+				layout: 'fit',
+				items: [editForm],
+				listeners: {
+					show: function() {
+						var me = this;
+						editForm.down('#description').setValue(record.data.DESCRIPTION);
+			        }
+				},
+				dockedItems: [{
+					xtype: 'toolbar',
+					dock: 'bottom',
+					items: ['->',{
+						xtype: 'button',
+						text: 'Submit',
+						handler: function () {
+							var editForm = Ext.ComponentQuery.query('#editForm')[0];
+							var description = editForm.down('#description').getValue();
+							editForm.submit({
+							url: '/uber2/main/tutor-subject-register!editSubject.action',
+			    			params: {
+			    				userSubjectId:record.data.SUBJECT_ID,
+			    				description:description
+			    			},
+			    			success: function () {
+			    				var win = Ext.ComponentQuery.query('#editWindow')[0];
+			    				grid.getStore().reload();
+									win.close();
+			    			},
+			    			failure: function () {
+			    				Ext.Msg.alert("Error", 'An error has occured', Ext.emptyFn);
+			    			}
+			    		});
+						}
+					},{
+						xtype: 'button',
+						text: 'Cancel',
+						handler: function () {
+							var win = Ext.ComponentQuery.query('#editWindow')[0];
+							win.close();
+						}
+					}]
+				}],
+				
+		});
+	},
     
     onRemoveClick: function (grid, rowIndex) {
     	var me = this;
@@ -62,7 +121,6 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     		score: me,
     		success: function() {
     			me.view.unmask();
-    			Ext.Msg.alert('Success', "Subject was successfully removed!", Ext.emptyFn);
     			grid.getStore().reload();
     		},
     		failure: function(response, opts) {

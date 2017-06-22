@@ -48,23 +48,6 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
 //    	    }
     	});
     	
-    	var editForm = Ext.create('Ext.form.Panel',{
-    		itemId: 'editForm',
-			layout: {
-	            type: 'vbox',
-	            align: 'stretch'
-	        },
-			items: [{
-				xtype: 'textarea',
-				margin: 15,
-				flex: 1,
-				labelAlign: 'top',
-				itemId: 'description',
-				fieldLabel: 'Description',
-				name: 'description'
-			}]
-		});
-    	
     	
     	var onAddClick = function(){
             var window = Ext.create('uber.view.tutor.CategoryWindow');
@@ -130,64 +113,13 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
 //    				}]
 //    			}]
     			xtype: 'button',
+    			margin: 10,
     			tooltip: 'Edit',
     			iconCls: 'x-fa fa-pencil',
-    			handler: function(grid, rowIndex, colIndex, item, e , record) {
-    				var win = Ext.create('Ext.window.Window', {
-    					itemId: 'editWindow',
-    					title: 'Edit Window',
-  						autoShow: true, 
-  						width: 400,
-  				        height: 300,
-  						displayId: record.data.ID,
-  						layout: 'fit',
-  						items: [editForm],
-  						listeners: {
-  							show: function() {
-  								var me = this;
-  								editForm.down('#description').setValue(record.data.DESCRIPTION);
-  					        }
-  						},
-  						dockedItems: [{
-  							xtype: 'toolbar',
-  							dock: 'bottom',
-  							items: ['->',{
-  								xtype: 'button',
-  								text: 'Submit',
-  								handler: function () {
-  									debugger;
-  									var editForm = Ext.ComponentQuery.query('#editForm')[0];
-  									var description = editForm.down('#description').getValue();
-  									editForm.submit({
-										url: '/uber2/main/tutor-subject-register!editSubject.action',
-						    			params: {
-						    				userSubjectId:record.data.ID,
-						    				description:description
-						    			},
-						    			success: function () {
-						    				var win = Ext.ComponentQuery.query('#editWindow')[0];
-						    				grid.getStore().reload();
-		  									win.close();
-						    			},
-						    			failure: function () {
-						    				Ext.Msg.alert("Error", 'An error has occured', Ext.emptyFn);
-						    			}
-						    		});
-  								}
-  							},{
-  								xtype: 'button',
-  								text: 'Cancel',
-  								handler: function () {
-  									var win = Ext.ComponentQuery.query('#editWindow')[0];
-  									win.close();
-  								}
-  							}]
-  						}],
-  						
-					});
-				}
+    			handler: 'onEditClick'
     		},{
     			xtype: 'button',
+    			margin: 10,
     			tooltip: 'Remove',
     			iconCls: 'x-fa fa-trash',
     			handler: 'onRemoveClick'
