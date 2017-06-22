@@ -1,10 +1,10 @@
 Ext.define('uber.view.tutor.CategoryWindow',{
 	extend: 'Ext.window.Window',
 	xtype: 'categoryWindow',
-	itemId: 'categoryWindow',
+	
 //	width: 400,
     height: 350,
-    title: 'Add Subject Window',
+    title: 'Add Subject',
     name: 'addWindow',
     layout: 'fit',
 	controller: 'tutorRegistration',
@@ -28,9 +28,7 @@ Ext.define('uber.view.tutor.CategoryWindow',{
             listeners: {
                 change: function (combo, newValue, oldValue, eOpts) {
                     subjectStore.load({params:{categoryId:newValue}});
-                    if (subject.newValue != ''){
-                    	subject.setValue('');
-                    }
+                    subject.clearValue();
                 }
             }  
 		});

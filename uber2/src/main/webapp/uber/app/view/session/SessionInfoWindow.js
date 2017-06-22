@@ -60,32 +60,35 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						},
 						items: [{
 							xtype: 'fieldcontainer',
-							
 							items: [{
 								xtype: 'textfield',
 								fieldLabel: 'Title',
-								name: 'title'
+								name: 'TITLE'
 							},{
 								xtype: 'hidden',
-								name: 'requestId'
+								name: 'REQUEST_ID'
 							}]
 						},{
 							xtype: 'fieldcontainer',
+							layout: {
+								type: 'hbox',
+								align: 'stretch'
+							},
 							items: [{
 								xtype: 'textfield',
 								fieldLabel: 'Category',
-								name: 'category'
+								name: 'CATEGORY'
 							},{
 								xtype: 'textfield',
 								fieldLabel: 'Subject',
-								name: 'subject'
+								name: 'SUBJECT'
 							}]
 						},{
 							xtype: 'fieldcontainer',
 							items: [{
 								xtype: 'textarea',
 								fieldLabel: 'Description',
-								name: 'description'
+								name: 'DESCRIPTION'
 							}]
 						}]
 					},{
@@ -96,47 +99,47 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 							items: [{
 								xtype: 'textfield',
 								fieldLabel: 'Tutor Name',
-								name: 'tutorName'
+								name: 'TUTOR_NAME'
 							},{
 								xtype: 'textfield',
 								fieldLabel: 'Tutor ID',
-								name: 'tutorId'
+								name: 'TUTOR_ID'
 							}]
 						},{
 							xtype: 'fieldcontainer',
 							items: [{
 								xtype: 'textfield',
 								fieldLabel: 'Student Name',
-								name: 'studentName'
+								name: 'STUDENT_NAME'
 							},{
 								xtype: 'textfield',
 								fieldLabel: 'Tutor ID',
-								name: 'studentId'
+								name: 'STUDENT_ID'
 							}]
 						},{
 							xtype: 'fieldcontainer',
 							items: [{
 								xtype: 'textfield',
 								fieldLabel: 'Create Date',
-								name: 'createDate',
+								name: 'CREATE_DATE',
 							},{
 								xtype: 'textfield',
 								fieldLabel: 'Update Date',
 								hidden: true,
-								name: 'updateDate',
+								name: 'UPDATE_DATE',
 							}]
 						},{
 							xtype: 'fieldcontainer',
 							items: [{
 								xtype: 'textfield',
 								fieldLabel: 'Pending Date',
-								name: 'pendingDate',
+								name: 'PENDING_DATE',
 								hidden: true,
 							},{
 								xtype: 'textfield',
 								fieldLabel: 'Process Date',
 								hidden: true,
-								name: 'processDate',
+								name: 'PROCESS_DATE',
 							}]
 						},{
 							xtype: 'fieldcontainer',
@@ -144,12 +147,12 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 								xtype: 'textfield',
 								fieldLabel: 'Cancel Date',
 								hidden: true,
-								name: 'canceDate',
+								name: 'CANCEL_DATE',
 							},{
 								xtype: 'textfield',
 								fieldLabel: 'Close Date',
 								hidden: true,
-								name: 'closeDate',
+								name: 'CLOSE_DATE',
 							}]
 						}]
 					}]

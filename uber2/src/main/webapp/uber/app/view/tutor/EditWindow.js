@@ -1,5 +1,7 @@
 Ext.define('uber.view.tutor.EditWindow',{
 	xtype: 'editWindow',
+	
+	displayId: '',
 	initComponent(){
 		var me = this;
 		me.store = Ext.create('uber.store.session.SessionInfo',{
@@ -55,6 +57,7 @@ Ext.define('uber.view.tutor.EditWindow',{
 							xtype: 'fieldcontainer',
 							items: [{
 								xtype: 'textfield',
+								id: 'description',
 								fieldLabel: 'Description',
 								name: 'description'
 							}]

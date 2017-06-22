@@ -40,13 +40,13 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     	this.view.close();
     },
     
-    onEditClick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    onEditClick: function(grid, rowIndex) {
     	debugger;
     	var record = grid.getStore().getAt(rowIndex.internalId);
-//    	console.log(rowIndex.data.ID);
     	var window = Ext.create('uber.view.tutor.EditWindow',{
-    		displayId: rowIndex.data.ID,
+//    		displayId: rowIndex.data.ID,
     	});
+//    	console.log(rowIndex.data.ID);
     	window.show();
     },
     
