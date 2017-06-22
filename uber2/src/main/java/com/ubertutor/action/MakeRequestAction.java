@@ -47,6 +47,7 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 			entity.setDescription(description);
 			entity.setTitle(title);
 			entity.setCreateDate(date);
+			entity.setStatus("OPEN");
 			makeRequestService.makeRequest(entity);
 			resultMap.put("requestId", entity.getId());
 			this.writeSuccessResult(resultMap);
