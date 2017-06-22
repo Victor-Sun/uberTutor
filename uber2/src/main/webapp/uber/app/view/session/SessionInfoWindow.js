@@ -31,130 +31,115 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	            type: 'vbox',
 	            align: 'stretch'
 	        },
+	        defaults: {
+	        	layout: {
+	        		type: 'hbox',
+	        		align: 'stretch'
+	        	}
+	        },
 			items: [{
-				xtype: 'panel',
-				padding: 15,
+				// Request Info
+				xtype: 'fieldset',
+				defaults: {
+					defaults: {
+						labelAlign: 'top'
+					},
+				},
 				items: [{
+					xtype: 'fieldcontainer',
+					items: [{
+						xtype: 'textfield',
+						fieldLabel: 'Title',
+						name: 'TITLE'
+					},{
+						xtype: 'hidden',
+						name: 'REQUEST_ID'
+					}]
+				},{
+					xtype: 'fieldcontainer',
 					layout: {
-			            type: 'vbox',
-			            align: 'stretch'
-			        },
-					defaults:{
-						layout: {
-							type: 'vbox',
-						},
-						defaults: {
-							layout: {
-								type: 'hbox'
-							},
-							margin: 5,
-						}
+						type: 'hbox',
+						align: 'stretch'
 					},
 					items: [{
-						// Request Info
-						xtype: 'fieldset',
-						defaults: {
-							defaults: {
-								labelAlign: 'top'
-							},
-						},
-						items: [{
-							xtype: 'fieldcontainer',
-							items: [{
-								xtype: 'textfield',
-								fieldLabel: 'Title',
-								name: 'TITLE'
-							},{
-								xtype: 'hidden',
-								name: 'REQUEST_ID'
-							}]
-						},{
-							xtype: 'fieldcontainer',
-							layout: {
-								type: 'hbox',
-								align: 'stretch'
-							},
-							items: [{
-								xtype: 'textfield',
-								fieldLabel: 'Category',
-								name: 'CATEGORY'
-							},{
-								xtype: 'textfield',
-								fieldLabel: 'Subject',
-								name: 'SUBJECT'
-							}]
-						},{
-							xtype: 'fieldcontainer',
-							items: [{
-								xtype: 'textarea',
-								fieldLabel: 'Description',
-								name: 'DESCRIPTION'
-							}]
-						}]
+						xtype: 'textfield',
+						fieldLabel: 'Category',
+						name: 'CATEGORY'
 					},{
-						//Session Info
-						xtype: 'fieldset',
-						items: [{
-							xtype: 'fieldcontainer',
-							items: [{
-								xtype: 'textfield',
-								fieldLabel: 'Tutor Name',
-								name: 'TUTOR_NAME'
-							},{
-								xtype: 'textfield',
-								fieldLabel: 'Tutor ID',
-								name: 'TUTOR_ID'
-							}]
-						},{
-							xtype: 'fieldcontainer',
-							items: [{
-								xtype: 'textfield',
-								fieldLabel: 'Student Name',
-								name: 'STUDENT_NAME'
-							},{
-								xtype: 'textfield',
-								fieldLabel: 'Tutor ID',
-								name: 'STUDENT_ID'
-							}]
-						},{
-							xtype: 'fieldcontainer',
-							items: [{
-								xtype: 'textfield',
-								fieldLabel: 'Create Date',
-								name: 'CREATE_DATE',
-							},{
-								xtype: 'textfield',
-								fieldLabel: 'Update Date',
-								hidden: true,
-								name: 'UPDATE_DATE',
-							}]
-						},{
-							xtype: 'fieldcontainer',
-							items: [{
-								xtype: 'textfield',
-								fieldLabel: 'Pending Date',
-								name: 'PENDING_DATE',
-								hidden: true,
-							},{
-								xtype: 'textfield',
-								fieldLabel: 'Process Date',
-								hidden: true,
-								name: 'PROCESS_DATE',
-							}]
-						},{
-							xtype: 'fieldcontainer',
-							items: [{
-								xtype: 'textfield',
-								fieldLabel: 'Cancel Date',
-								hidden: true,
-								name: 'CANCEL_DATE',
-							},{
-								xtype: 'textfield',
-								fieldLabel: 'Close Date',
-								hidden: true,
-								name: 'CLOSE_DATE',
-							}]
-						}]
+						xtype: 'textfield',
+						fieldLabel: 'Subject',
+						name: 'SUBJECT'
+					}]
+				},{
+					xtype: 'fieldcontainer',
+					items: [{
+						xtype: 'textarea',
+						fieldLabel: 'Description',
+						name: 'DESCRIPTION'
+					}]
+				}]
+			},{
+				//Session Info
+				xtype: 'fieldset',
+				items: [{
+					xtype: 'fieldcontainer',
+					items: [{
+						xtype: 'textfield',
+						fieldLabel: 'Tutor Name',
+						name: 'TUTOR_NAME'
+					},{
+						xtype: 'textfield',
+						fieldLabel: 'Tutor ID',
+						name: 'TUTOR_ID'
+					}]
+				},{
+					xtype: 'fieldcontainer',
+					items: [{
+						xtype: 'textfield',
+						fieldLabel: 'Student Name',
+						name: 'STUDENT_NAME'
+					},{
+						xtype: 'textfield',
+						fieldLabel: 'Tutor ID',
+						name: 'STUDENT_ID'
+					}]
+				},{
+					xtype: 'fieldcontainer',
+					items: [{
+						xtype: 'textfield',
+						fieldLabel: 'Create Date',
+						name: 'CREATE_DATE',
+					},{
+						xtype: 'textfield',
+						fieldLabel: 'Update Date',
+						hidden: true,
+						name: 'UPDATE_DATE',
+					}]
+				},{
+					xtype: 'fieldcontainer',
+					items: [{
+						xtype: 'textfield',
+						fieldLabel: 'Pending Date',
+						name: 'PENDING_DATE',
+						hidden: true,
+					},{
+						xtype: 'textfield',
+						fieldLabel: 'Process Date',
+						hidden: true,
+						name: 'PROCESS_DATE',
+					}]
+				},{
+					xtype: 'fieldcontainer',
+					items: [{
+						xtype: 'textfield',
+						fieldLabel: 'Cancel Date',
+						hidden: true,
+						name: 'CANCEL_DATE',
+					},{
+						xtype: 'textfield',
+						fieldLabel: 'Close Date',
+						hidden: true,
+						name: 'CLOSE_DATE',
 					}]
 				}]
 			}]

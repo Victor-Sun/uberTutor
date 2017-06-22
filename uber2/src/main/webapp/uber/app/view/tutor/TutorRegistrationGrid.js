@@ -155,11 +155,14 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
   								xtype: 'button',
   								text: 'Submit',
   								handler: function () {
+  									debugger;
   									var editForm = Ext.ComponentQuery.query('#editForm')[0];
+  									var description = editForm.down('#description').getValue();
   									editForm.submit({
 										url: '/uber2/main/tutor-subject-register!editSubject.action',
 						    			params: {
 						    				userSubjectId:record.data.ID,
+						    				description:description
 						    			},
 						    			success: function () {
 						    				var win = Ext.ComponentQuery.query('#editWindow')[0];
