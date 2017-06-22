@@ -2,6 +2,20 @@
  * This is is imported by virtue of "sass.var" in "app.json".
  */
 
+
+.disabledCls  {
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1;
+}
+.disabledCls input {
+    font-weight: bold;
+    background-color: rgba(128, 128, 128, 0.17) !important;
+    color: #888888;
+}
+
 .shadow {
     -webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2) !important;
 	-moz-box-shadow:    1px 1px 2px 1px rgba(0, 0, 0, 0.2) !important;

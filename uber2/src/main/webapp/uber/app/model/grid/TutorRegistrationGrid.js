@@ -8,20 +8,14 @@ Ext.define('uber.model.grid.TutorRegistrationGrid', {
         { name: 'SUBJECT_TITLE'},
         { name: 'CREATE_DATE', type: 'date', 
         	convert:function(v,record){
-        		return Ext.Date.format(new Date(v.time), 'Y-m-d');
+        		if (v == null) {
+        			return "";
+        		} else {
+        			return Ext.Date.format(new Date(v.time), 'Y-m-d');
+        		}
+        		
         	}
         },
 		{ name: 'DESCRIPTION '}
     ],
-//    proxy: {
-//    	reader: {
-//    		type: 'json',
-//    		getData:function(data){
-//    			debugger;
-//                for(i = 0; i < data.length; i++){
-//                    data[i].CREATE_DATE.time = Ext.Date.format(new Date(data[i].CREATE_DATE.time), "Y-m-d");
-//                }
-//                return data;
-//            }
-//    	}
 });

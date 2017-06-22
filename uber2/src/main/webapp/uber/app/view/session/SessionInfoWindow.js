@@ -7,36 +7,58 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	requestId: '',
 	session: '',
 	layout: 'fit',
+//	closable: false,
+	tools: [{
+		xtype: 'button',
+		itemId: 'cancelSession',
+		text: 'cancel'
+	},{
+		xtype: 'button',
+		itemId: 'closeSession',
+		text: 'close'
+	},{
+		xtype: 'button',
+		itemId: 'acceptSession',
+		text: 'accept'
+	}],
 	initComponent: function() {
-		
 		var me = this;
-		me.store = Ext.create('uber.store.session.SessionInfo',{
-			proxy: {
-				type: 'ajax',
-				url: '/uber2/main/my-session!displaySessionInfo.action',
-				params: {
-					requestId:this.requestId,
-				},
-				reader: {
-					type: 'json',
-					rootProperty: 'data'
-				},
-//				success: {
-//					if (this.status = IN_PROCESS)
-//				}
-			},
-		});
+//		me.store = Ext.create('uber.store.session.SessionInfo',{
+//			model: 'uber.model.session.SessionInfo',
+//			proxy: {
+//				type: 'ajax',
+//				url: '/uber2/main/my-session!displaySessionInfo.action',
+//				params: {
+//					requestId:this.requestId,
+//				},
+//				reader: {
+//					type: 'json',
+//					rootProperty: 'data'
+//				},
+////				success: {
+////					if (this.status = IN_PROCESS)
+////				}
+//			},
+//		});
 		var sessionInfoForm = Ext.create('Ext.form.Panel',{
 			layout: {
 	            type: 'vbox',
 	            align: 'stretch'
+	        },
+	        defaults: {
+	        	layout: {
+		            type: 'vbox',
+		            align: 'stretch'
+		        },
+	        	margin: 5,
 	        },
 			items: [{
 				// Request Info
 				xtype: 'fieldset',
 				defaults: {
 					defaults: {
-						labelAlign: 'top'
+						labelAlign: 'top',
+						margin: 5,
 					},
 				},
 				items: [{
@@ -66,16 +88,24 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						name: 'SUBJECT'
 					}]
 				},{
-					xtype: 'fieldcontainer',
-					items: [{
-						xtype: 'textarea',
-						fieldLabel: 'Description',
-						name: 'DESCRIPTION'
-					}]
+					xtype: 'textarea',
+					labelAlign: 'top',
+					fieldLabel: 'Description',
+					name: 'DESCRIPTION'
 				}]
 			},{
 				//Session Info
 				xtype: 'fieldset',
+				defaults: {
+					layout: {
+						type: 'hbox',
+						align: 'stretch'
+					},
+					defaults: {
+						labelAlign: 'top',
+						margin: 5,
+					},
+				},
 				items: [{
 					xtype: 'fieldcontainer',
 					items: [{
@@ -103,6 +133,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 					items: [{
 						xtype: 'textfield',
 						fieldLabel: 'Create Date',
+						itemId: 'createDate',
 						name: 'CREATE_DATE',
 					},{
 						xtype: 'textfield',
@@ -141,6 +172,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 		});
 		
 		sessionInfoForm.load({
+			model: 'uber.model.session.SessionInfo',
 			url: '/uber2/main/my-session!displaySessionInfo.action',
 			params: {
 				requestId:this.requestId,
@@ -148,26 +180,32 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
+			},
+			success: function () {
+				var createDate = sessionInfoForm.down('#createDate');
+				if (createDate.getValue() == null) {
+					createDate.setValue("");
+				} else {
+					createDate.setValue(Ext.Date.format(new Date(Ext.decode(createDate.getValue())), 'Y-m-d'));
+				}
 			}
 		});
-		this.tools = [{
-			xtype: 'button',
-			hidden: true,
-			text: 'cancel'
-		},{
-			xtype: 'button',
-			hidden: true,
-			text: 'close'
-		},{
-			xtype: 'button',
-			hidden: true,
-			text: 'accept'
-		}];
 //		me.store.load();
 		this.items = [
 			// Session Info Form
 			sessionInfoForm
 		];
+//		this.dockedItems = [{
+//			xtype: 'toolbar',
+//			dock: 'top',
+//			items: ['->'{
+//				xtype: 'button',
+//				text: 'Accept'
+//			},{
+//				text: 'button',
+//				text: 'Cancel'
+//			}]
+//		}];
 		this.callParent(arguments);
 	}
 });

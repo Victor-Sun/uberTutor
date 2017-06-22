@@ -47,6 +47,31 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 	            align: 'stretch'
 	        },
 			items: [{
+				xtype: 'fieldcontainer',
+				layout: {
+					type: 'hbox',
+					align: 'stretch'
+				},
+				defaults: {
+					labelAlign: 'top',
+					readOnly: true,
+					disabled: true,
+					disabledCls: "disabledCls"
+				},
+				items: [{
+					xtype: 'textfield',
+					margin: '5 15 0 15',
+					name: 'category',
+					itemId: 'category',
+					fieldLabel: 'Category',
+				},{
+					xtype: 'textfield',
+					margin: '5 15 0 5',
+					name: 'subject',
+					itemId: 'subject',
+					fieldLabel: 'Subject',
+				}]
+			},{
 				xtype: 'textarea',
 				margin: 15,
 				flex: 1,
@@ -69,6 +94,8 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 					show: function() {
 						var me = this;
 						editForm.down('#description').setValue(record.data.DESCRIPTION);
+						editForm.down('#category').setValue(record.data.CATEGORY_TITLE);
+						editForm.down('#subject').setValue(record.data.SUBJECT_TITLE);
 			        }
 				},
 				dockedItems: [{

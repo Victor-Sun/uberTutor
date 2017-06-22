@@ -21,35 +21,33 @@ Ext.define('uber.view.tutor.MakeRequest',{
 		
 		var category = Ext.create('Ext.form.field.ComboBox',{
 			id: 'category',
-			fieldLabel: 'Category *',
+			fieldLabel: 'Category',
             labelAlign: 'top',
             triggerAction: 'all',
             store: categoryStore,
-            displayField: 'TITLE',
-            valueField: 'ID',
+            displayField: 'title',
+            valueField: 'id',
             queryModel: 'local',
             editable:false,
             name: 'category',
             listeners: {
                 change: function (combo, newValue, oldValue, eOpts) {
                     subjectStore.load({params:{categoryId:newValue}});
-                    if (subject.newValue != ''){
-                    	subject.setValue('');
-                    }
+                    subject.clearValue();
                 }
             }  
 		});
 		var subject = Ext.create('Ext.form.field.ComboBox',{
 			id: 'subject',
-			fieldLabel: 'Subject *',
+			fieldLabel: 'Subject',
             labelAlign: 'top',
             triggerAction: 'all',
             store: subjectStore,
-            displayField: 'TITLE',
-            valueField: 'ID',
+            displayField: 'title',
+            valueField: 'id',
             queryMode:'local',
             editable:false,
-            name:'subjectId'
+            name:'subject'
 		});
 		
 		this.items = [{
