@@ -1,7 +1,7 @@
 Ext.define('uber.view.session.SessionsTutorGrid',{
 	extend: 'Ext.grid.Panel',
 	xtype: 'sessionsTutorGrid',
-	
+	controller: 'sessions',
 	initComponent: function () {
 		var me = this;
     	me.store =  Ext.create('uber.store.grid.SessionsTutorGrid');
