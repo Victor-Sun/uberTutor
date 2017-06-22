@@ -58,6 +58,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 				defaults: {
 					defaults: {
 						labelAlign: 'top',
+						readOnly: true,
 						margin: 5,
 					},
 				},
@@ -89,6 +90,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 					}]
 				},{
 					xtype: 'textarea',
+					readOnly: true,
 					labelAlign: 'top',
 					fieldLabel: 'Description',
 					name: 'DESCRIPTION'
@@ -103,6 +105,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 					},
 					defaults: {
 						labelAlign: 'top',
+						readOnly: true,
 						margin: 5,
 					},
 				},
