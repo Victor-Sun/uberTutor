@@ -8,6 +8,9 @@ Ext.define('uber.view.tutor.MakeRequestController',{
     		Ext.getBody().mask('Validating... Please Wait...');
     		formpanel.submit({
     			url: '/uber2/main/make-request!save.action',
+    			params: {
+    				subjectId: formpanel.down('#subject').getValue()
+    			},
         		method: 'POST',
     			success: function(form, response, opts) {
 //    				console.log(response);

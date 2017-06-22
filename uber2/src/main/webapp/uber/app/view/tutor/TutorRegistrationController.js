@@ -18,7 +18,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 			clientValidation: true,
 			url:'/uber2/main/tutor-subject-register!save.action',
 			params: {
-            	model: Ext.encode(getForm.getFieldValues())
+            	model: Ext.encode(getForm.getFieldValues()),
             },
             scope: me,
             success: function(form, action) {
