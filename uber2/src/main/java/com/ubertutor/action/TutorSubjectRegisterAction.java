@@ -96,8 +96,8 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		try{
 			Long subjectId = Long.parseLong(Struts2Utils.getRequest().getParameter("userSubjectId"));
 			String description = Struts2Utils.getRequest().getParameter("description");
-			entity.setDescription(description);
 			entity = tutorSubjectRegisterService.get(subjectId);
+			entity.setDescription(description);
 			tutorSubjectRegisterService.saveTutorSubject(entity);
 		} catch (Exception e){
 			e.printStackTrace();

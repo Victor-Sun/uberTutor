@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ubertutor.dao.UserDAO;
+import com.ubertutor.dao.UserRequestDAO;
 import com.ubertutor.entity.UserEntity;
 
 @Service
@@ -19,7 +20,9 @@ public class SessionProfileService {
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
 	private UserDAO userDAO;
-
+	@Autowired
+	private UserRequestDAO requestDAO;
+	
 	/**
 	 * Get a user by ID
 	 * @param id
