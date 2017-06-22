@@ -94,9 +94,13 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	
 	public void editSubject() throws Exception{
 		try{
-			Long subjectId = Long.parseLong(Struts2Utils.getRequest().getParameter("userSubjectId"));
+			Long userSubjectId = Long.parseLong(Struts2Utils.getRequest().getParameter("userSubjectId"));
 			String description = Struts2Utils.getRequest().getParameter("description");
-			entity = tutorSubjectRegisterService.get(subjectId);
+			if(description.isEmpty()){
+				String msg = "Description cannot be empty! Fill in a description!";
+				throw new Exception(msg);
+			}
+			entity = tutorSubjectRegisterService.get(userSubjectId);
 			entity.setDescription(description);
 			tutorSubjectRegisterService.saveTutorSubject(entity);
 		} catch (Exception e){

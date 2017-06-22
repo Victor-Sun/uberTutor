@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ubertutor.dao.FeedbackDAO;
 import com.ubertutor.dao.UserDAO;
 import com.ubertutor.dao.UserRequestDAO;
 import com.ubertutor.entity.UserEntity;
@@ -22,6 +23,8 @@ public class SessionProfileService {
 	private UserDAO userDAO;
 	@Autowired
 	private UserRequestDAO requestDAO;
+	@Autowired
+	private FeedbackDAO feedbackDAO;
 	
 	/**
 	 * Get a user by ID
@@ -43,6 +46,7 @@ public class SessionProfileService {
 		sql.append(" SELECT RATING FROM FEEDBACK WHERE TUTOR_ID = ?");
 		params.add(id);
 		return this.jdbcTemplate.queryForInt(sql.toString(),params.toArray());
+		
 	}
 
 	/**

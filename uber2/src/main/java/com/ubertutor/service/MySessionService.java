@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ubertutor.dao.UserRequestDAO;
+import com.ubertutor.entity.UserRequestEntity;
 
 @Service
 @Transactional
@@ -49,12 +50,11 @@ public class MySessionService {
 		return this.jdbcTemplate.queryForMap(sql.toString(), params.toArray());
 	}
 	
-	public int updateRequest(String statusCode, Long requestId){
-		StringBuffer sql = new StringBuffer();
-		List<Object> params = new ArrayList<Object>();
-		sql.append(" UPDATE USER_REQUEST SET STATUS = ? WHERE REQUEST_ID = ?");
-		params.add(statusCode);
-		params.add(requestId);
-		return this.jdbcTemplate.update(sql.toString(), params.toArray());
+	public void updateRequest(UserRequestEntity entity){
+		this.userRequestDAO.save(entity);
+	}
+	
+	public UserRequestEntity get(Long id){
+		return this.userRequestDAO.get(id);
 	}
 }

@@ -7,14 +7,15 @@ import com.gnomon.common.utils.JsonResult;
 import com.gnomon.common.web.SessionData;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ubertutor.entity.UserEntity;
+import com.ubertutor.entity.UserRequestEntity;
 import com.ubertutor.service.MySessionService;
 
 public class MySessionAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
-
 	@Autowired
 	private MySessionService sessionService;
 	private UserEntity entity = SessionData.getLoginUser();
+	private UserRequestEntity requestEntity;
 	
 	public void displayAllSessions(){
 		JsonResult result = new JsonResult();
@@ -42,8 +43,8 @@ public class MySessionAction extends ActionSupport {
 	}
 	
 	public void updateRequestStatus(){
-		String statusCode = Struts2Utils.getRequest().getParameter("");
-		Long requestId = Long.parseLong(Struts2Utils.getRequest().getParameter(""));
-		sessionService.updateRequest(statusCode, requestId);
+		Long id = Long.parseLong(Struts2Utils.getRequest().getParameter(""));
+		requestEntity = sessionService.get(id);
+		sessionService.updateRequest(requestEntity);
 	}
 }

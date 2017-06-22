@@ -61,9 +61,12 @@ public class ProfileService {
 	 * @param userId
 	 * @return Map of user's info
 	 */
-	public List<String> getUserInfo(Long userId){
-		String hql = "FROM UserEntity WHERE id = ?";
-		return this.userDAO.find(hql, userId);
+	public List<Map<String, Object>> getUserInfo(Long userId){
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT * FROM USERS WHERE ID = ?");
+		params.add(userId);
+		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
 	}
 
 	/**
