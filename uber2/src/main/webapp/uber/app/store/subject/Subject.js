@@ -1,6 +1,5 @@
 Ext.define('uber.store.subject.Subject',{
 	extend: 'Ext.data.Store',
-//	autoLoad: true,
 	fields: ['ID', 'NAME'],
 	proxy: {
       type: 'ajax',

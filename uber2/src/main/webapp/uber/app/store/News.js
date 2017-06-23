@@ -1,3 +1,4 @@
+// test for grid expander
 Ext.define('uber.store.News', {
     extend: 'Ext.data.Store',
     alias: 'store.news',

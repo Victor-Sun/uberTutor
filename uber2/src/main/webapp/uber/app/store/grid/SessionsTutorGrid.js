@@ -1,7 +1,6 @@
 Ext.define('uber.store.grid.SessionsTutorGrid',{
 	extend: 'Ext.data.Store',
     alias: 'store.sessionsTutorGrid',
-//    TODO: fields for grid
     model: 'uber.model.grid.SessionsTutorGrid',
     proxy: {
         type: 'ajax',

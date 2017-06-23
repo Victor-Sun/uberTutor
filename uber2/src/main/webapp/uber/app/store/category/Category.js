@@ -1,7 +1,6 @@
 Ext.define('uber.store.category.Category',{
 	extend: 'Ext.data.Store',
 	alias: 'store.category',
-//	autoLoad: true,
 	fields: ['title'],
 	proxy: {
       type: 'ajax',

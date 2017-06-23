@@ -8,16 +8,17 @@ Ext.define('uber.model.UserInfo',{
 	],
 	validators: {
 			fullname: [
-			           { type: 'presence', name: 'fullname',message:"Enter Name"},
+			           { type: 'presence', message:"Please enter name"},
 			],
 //		    username: [
 //		               { type: 'presence', message: 'please input valid username' }
 //            ],
 			email: [
-			           { type: 'format',   name: 'emailId', matcher: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, message:"Wrong Email Format"},
+			        { type: 'presence', message: "An email is required" }
+			           { type: 'format', name: 'email', matcher: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, message:"Incorrect email format"},
 			],
 			mobile: [
-			           { type: 'presence', name: 'mobile',message:"Enter mobile"},
+			           { type: 'presence', name: 'mobile',message:"Please enter mobile"},
 			],
 			
 	}

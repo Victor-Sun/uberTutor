@@ -63,8 +63,9 @@ Ext.define('uber.view.profile.ProfileForm',{
             items: [{
             	xtype: 'textfield',
                 name: 'EMAIL',
-                fieldLabel: 'Email',
+                fieldLabel: 'Email *',
                 readOnly: true,
+                allowBlank: false,
                 itemId: 'email'
             },{
             	xtype: 'textfield',
