@@ -2,7 +2,7 @@ Ext.define('uber.view.tutor.EditWindow',{
 	xtype: 'editWindow',
 	
 	displayId: '',
-	initComponent(){
+	initComponent: function () {
 		var me = this;
 		me.store = Ext.create('uber.store.session.SessionInfo',{
 			proxy: {
@@ -67,16 +67,6 @@ Ext.define('uber.view.tutor.EditWindow',{
 			}]
 		});
 		
-//		editForm.load({
-//			url: '/uber2/main/my-session!displaySessionInfo.action',
-//			params: {
-//				requestId:this.requestId,
-//			},
-//			reader: {
-//				type: 'json',
-//				rootProperty: 'data'
-//			}
-//		});
 		this.tools = [{
 			xtype: 'button',
 			hidden: true,

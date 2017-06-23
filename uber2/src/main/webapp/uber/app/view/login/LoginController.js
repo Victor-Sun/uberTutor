@@ -54,7 +54,6 @@ Ext.define('uber.view.login.LoginController', {
     	//4. if not valid an alert message will appear
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
-//    	var model = Ext.create('uber.model.User', formPanel.getValues());
     	Ext.getBody().mask('Validating... Please Wait...');
     	if(formPanel.getForm().isValid()){
     		formPanel.submit({ 

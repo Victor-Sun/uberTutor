@@ -17,25 +17,7 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
     ],
     cls: 'shadow subject-grid',
     controller: 'tutorRegistration',
-//    viewModel: {
-//        type: 'news'
-//    },
-//    bind: '{tutorRegistrationGrid}',
-//    bind: '{news}',
     hideHeaders: true,
-//    
-//    plugins: [{
-//        ptype: 'ux-rowexpander',
-//        pluginId: 'rowexpander'
-//    }],
-//    
-//    viewConfig: {
-//        listeners: {
-//            itemclick: 'onCompanyClick',
-//            expandbody: 'onCompanyExpandBody',
-//            collapsebody: 'onCompanyCollapseBody'
-//        }
-//    },
     
     initComponent: function () {
     	var me = this;
@@ -76,19 +58,6 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
     		xtype: 'actioncolumn',
     		align: 'center',
     		items: [{
-//    			xtype: 'button',
-//    			iconCls: 'x-fa fa-ellipsis-h',
-//    			menu: [{
-//    				items: [{
-////    					iconCls: 'x-fa fa-pencil',
-//        				text: 'Edit'
-//    	    		},{
-////    	    			iconCls: 'x-fa fa-trash',
-//    	    			text: 'Delete'
-//    	//              scope: this,
-//    	//    			handler: 'onRemoveClick'
-//    				}]
-//    			}]
     			xtype: 'button',
     			margin: 10,
     			tooltip: 'Edit',

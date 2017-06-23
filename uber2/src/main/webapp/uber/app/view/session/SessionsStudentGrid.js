@@ -15,7 +15,7 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
 					"<div class='session-frame' style='display: inline-block;'>" +
 						"<div class='session-left' style='display: inline; float: left;'>" +
 							"<ul style='list-style-type: none;'>" +
-								"<li>Title: {TITLE} </li>" +
+								"<li>Title: {REQUEST_TITLE} </li>" +
 								"<li>Category: {CATEGORY} </li>" +
 								"<li>Status: {STATUS} </li>" +
 							"</ul>" +
@@ -30,7 +30,7 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
 					"</div>" +
 				"</div>",
 			]
-		}]
+		}];
 		this.listeners = {
     		celldblclick: 'onCelldblclick',
     	};

@@ -55,8 +55,8 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 				defaults: {
 					labelAlign: 'top',
 					readOnly: true,
-					disabled: true,
-					disabledCls: "disabledCls"
+//					disabled: true,
+//					disabledCls: "disabledCls"
 				},
 				items: [{
 					xtype: 'textfield',

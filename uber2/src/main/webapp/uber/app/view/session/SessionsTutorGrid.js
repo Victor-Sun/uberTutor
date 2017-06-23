@@ -12,13 +12,10 @@ Ext.define('uber.view.session.SessionsTutorGrid',{
 			flex: 1,
 			tpl: [
 				"<div class='session'>" +
-//					"<div class='session-toolbar'>" +
-//						"<button type='button' onclick='' class='x-fa fa-comments'></button>" +
-//					"</div>" +
 					"<div class='session-frame' style='display: inline-block;'>" +
 						"<div class='session-left' style='display: inline; float: left;'>" +
 							"<ul style='list-style-type: none;'>" +
-								"<li>Title: {TITLE} </li>" +
+								"<li>Title: {REQUEST_TITLE} </li>" +
 								"<li>Category: {CATEGORY} </li>" +
 								"<li>Status: {STATUS} </li>" +
 							"</ul>" +
@@ -32,7 +29,7 @@ Ext.define('uber.view.session.SessionsTutorGrid',{
 						"</div>" +
 					"</div>" +
 				"</div>",
-				]
+			]
     	}];
 		this.listeners = {
     		celldblclick: 'onCelldblclick',

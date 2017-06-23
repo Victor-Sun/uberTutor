@@ -1,7 +1,7 @@
 Ext.define('uber.view.session.SessionInfoWindow',{
 	extend: 'Ext.window.Window',
 	xtype: 'sessionInfoWindow',
-	
+	itemId: 'sessionInfoWindow',
 	title: 'Session Info',
 	controller: 'sessions',
 	requestId: '',
@@ -64,6 +64,10 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 					},
 				},
 				items: [{
+					xtype: 'hiddenfield',
+					itemId: 'requestId',
+					name: 'requestId',
+				},{
 					xtype: 'fieldcontainer',
 					layout: {
 						type: 'hbox',
@@ -76,6 +80,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 					},{
 						xtype: 'textfield',
 						fieldLabel: 'Status',
+						itemId: 'status',
 						name: 'STATUS'
 					},{
 						xtype: 'hidden',

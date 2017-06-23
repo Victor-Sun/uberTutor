@@ -73,6 +73,9 @@ Ext.define('uber.view.session.SessionsController',{
     		requestId: record.data.REQUEST_ID,
     		status: record.data.STATUS
     	}).show();
+    	var sessionInfoWindow = Ext.ComponentQuery.query('#sessionInfoWindow')[0];
+    	var requestId = sessionInfoWindow.down('#requestId').setValue(record.data.REQUEST_ID);
+    	var status = sessionInfoWindow.down('#status').setValue(record.data.STATUS);
     },
     
     feedback: function () {

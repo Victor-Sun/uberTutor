@@ -8750,110 +8750,252 @@ tr.x-grid-subtable-row {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
     opacity: 1;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:5 */
-.shadow {
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:6 */
+.disabledCls {
     /*
  * This is is imported by virtue of "sass.var" in "app.json".
  */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: opacity=100;
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:13 */
+.disabledCls input {
+    font-weight: bold;
+    background-color: rgba(128, 128, 128, 0.17) !important;
+    color: #888;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:19 */
+.shadow {
     -webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2) !important;
     -moz-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2) !important;
     box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2) !important;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:11 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:25 */
 .image-contaier {
     border-width: 5px;
     color: #f3f3f3;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:16 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:30 */
 .nav-bar {
     background-color: #4a4f4e;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:20 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:34 */
 .panel-wrap {
     background-color: transparent !important;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:23 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:37 */
 .title-component {
     background-color: transparent !important;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:26 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:40 */
 .panel-margin {
     margin: 0 20% !important;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:30 */
-.uber-panel {
-    padding-left: 20% !important;
-    padding-right: 20% !important;
-}
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:35 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:49 */
 .uber-panel-margin {
     margin-right: 20% !important;
     margin-left: 20% !important;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:40 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:54 */
 .uber-panel-inner {
     margin: 20px;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:49 */
-.main-container {
-    background-color: #f1f2f4;
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:59 */
+.uber-header .x-panel-default-outer-border-trbl {
+    border-color: #d2d2d2 !important;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:58 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:78 */
+.change-password-form {
+    padding-left: 25px !important;
+    padding-right: 75px !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:84 */
 .profile-panel-outer {
     background: #f4f4f4 !important;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:70 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:87 */
+.profile-form {
+    padding-left: 75px !important;
+    padding-right: 75px !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:91 */
+.profile-form .x-form-trigger-wrap-default {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #5fa2dd !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:97 */
+.profile-form .x-form-item-default.x-item-disabled {
+    opacity: 1 !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:99 */
+.profile-form .x-form-item-default.x-item-disabled .x-form-trigger-wrap-default {
+    border: 1px solid transparent !important;
+    border-bottom: 1px solid #5fa2dd !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:106 */
 .profile-wrap {
     padding: 40px !important;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:74 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:110 */
 .profile-manager-wrap {
     padding: 40px 40px 80px;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:78 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:114 */
 .search-panel {
     padding-left: 20% !important;
     padding-right: 20% !important;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:84 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:120 */
 .tutor-panel {
     background-color: #f1f2f4;
     padding-left: 20%;
     padding-right: 20%;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:92 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:128 */
 .tutor-review-grid .x-grid-cell-inner {
     white-space: normal !important;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:95 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:131 */
 .tutor-review-grid .x-grid-cell-inner .review {
     text-align: left;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:101 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:137 */
 .tutor-review-grid .x-grid-cell-inner .review .information-panel .review-row-one span {
     margin: 5px;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:103 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:139 */
 .tutor-review-grid .x-grid-cell-inner .review .information-panel .review-row-one span i {
     margin: 5px;
     font-style: normal !important;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:108 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:144 */
 .tutor-review-grid .x-grid-cell-inner .review .information-panel .review-row-one .user-panel {
     display: inline-block;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:112 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:148 */
 .tutor-review-grid .x-grid-cell-inner .review .information-panel .review-row-one .date-panel {
     display: inline-block;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:115 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:151 */
 .tutor-review-grid .x-grid-cell-inner .review .information-panel .review-row-one .rating-panel {
     display: inline-block;
 }
-/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:127 */
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:163 */
 .chat-panel {
     padding-left: 20%;
     padding-right: 20%;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:169 */
+.delete-button {
+    color: red;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:174 */
+.test-tab {
+    background-color: #f1f2f4 !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:179 */
+.text-readonly {
+    background-color: #f0f0f0;
+    color: #000;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:185 */
+.btn-container .x-btn-default-small {
+    border-color: transparent !important;
+    background-color: transparent !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:190 */
+.btn-container .x-btn-icon-el-default-small {
+    color: #000 !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:194 */
+.btn-container .x-btn-inner-default-small {
+    color: #000 !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:199 */
+.info-card-item {
+    /* text-align: center; */
+    /* text-align: center; */
+    background: #fff;
+    padding: 5px 10px !important;
+    font-size: 24px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:210 */
+.info-card-item.info-card-large-wrap span.x-fa {
+    /* height: 75px;
+            width: 75px; */
+    /* height: 75px;
+            width: 75px; */
+    border-radius: 38px;
+    color: #fff;
+    /* font-size: 30px; */
+    /* line-height: 75px; */
+    margin: 15px 0;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:219 */
+.info-card-item.info-card-large-wrap span.x-fa.fa-shopping-cart {
+    background-color: #458fd2;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:222 */
+.info-card-item.info-card-large-wrap span.x-fa.fa-envelope {
+    background-color: #4caf50;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:225 */
+.info-card-item.info-card-large-wrap span.x-fa.fa-code {
+    background-color: #9c27b0;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:228 */
+.info-card-item.info-card-large-wrap span.x-fa.fa-file-text {
+    background-color: #e91e63;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:232 */
+.info-card-item.info-card-large-wrap .infodiv {
+    font-size: 14px;
+    line-height: 16px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:237 */
+.info-card-item.cornflower-blue:before {
+    background: #458fd2;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:240 */
+.info-card-item.green:before {
+    background: #4caf50;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:243 */
+.info-card-item.magenta:before {
+    background: #9c27b0;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:246 */
+.info-card-item.pink:before {
+    background: #e91e63;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:249 */
+.info-card-item.orange:before {
+    background: #ffc107;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:252 */
+.info-card-item.blue:before {
+    background: #157fcc;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:255 */
+.info-card-item h2 {
+    font-size: 30px;
+    font-weight: normal;
+    margin: 0;
+    margin: 0;
+    line-height: 32px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/all.scss:271 */
+.info-card-item:before {
+    width: 100%;
+    position: absolute;
+    height: 3px;
+    content: "";
+    top: 0;
+    left: 0;
 }
 /* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-tab-navigation-top {
