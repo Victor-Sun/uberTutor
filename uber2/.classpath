@@ -34,14 +34,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="/gt-commons"/>
-	<classpathentry kind="lib" path="Z:/Resource/m2_repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar" sourcepath="Z:/Resource/m2_repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1-sources.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="commons-collections"/>
-			<attribute name="maven.artifactId" value="commons-collections"/>
-			<attribute name="maven.version" value="3.2.1"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
