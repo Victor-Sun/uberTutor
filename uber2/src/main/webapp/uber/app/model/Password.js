@@ -7,10 +7,10 @@ Ext.define('uber.model.Password',{
 	validators: {
 		currentpassword: [
 		              { type: 'presence', message: 'please input current password'}    
-	                  ]
+	                  ],
        	newpassword: [
        	              { type: 'presence', message: 'please input new password' },
        	              { type: 'length', message: 'new password must be atleast 6 characters long'}
        	              ]
 	}
-})
+});

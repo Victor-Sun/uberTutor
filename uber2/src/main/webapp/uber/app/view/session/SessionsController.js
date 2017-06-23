@@ -68,7 +68,7 @@ Ext.define('uber.view.session.SessionsController',{
     },
 
     onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
-    	console.log(record.data.REQUEST_ID);
+    	console.log("Request Id:" + record.data.REQUEST_ID);
     	Ext.create('uber.view.session.SessionInfoWindow',{
     		requestId: record.data.REQUEST_ID,
     		status: record.data.STATUS

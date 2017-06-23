@@ -24,6 +24,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	initComponent: function() {
 		var me = this;
 //		me.store = Ext.create('uber.store.session.SessionInfo',{
+//		autoLoad: true,
 //			model: 'uber.model.session.SessionInfo',
 //			proxy: {
 //				type: 'ajax',
@@ -39,7 +40,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 ////					if (this.status = IN_PROCESS)
 ////				}
 //			},
-//		});
+////		});
 		var sessionInfoForm = Ext.create('Ext.form.Panel',{
 			layout: {
 	            type: 'vbox',
@@ -156,7 +157,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 					},{
 						xtype: 'textfield',
 						fieldLabel: 'Update Date',
-						hidden: true,
+//						hidden: true,
 						name: 'UPDATE_DATE',
 					}]
 				},{
@@ -165,11 +166,11 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						xtype: 'textfield',
 						fieldLabel: 'Pending Date',
 						name: 'PENDING_DATE',
-						hidden: true,
+//						hidden: true,
 					},{
 						xtype: 'textfield',
 						fieldLabel: 'Process Date',
-						hidden: true,
+//						hidden: true,
 						name: 'PROCESS_DATE',
 					}]
 				},{
@@ -177,12 +178,12 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 					items: [{
 						xtype: 'textfield',
 						fieldLabel: 'Cancel Date',
-						hidden: true,
+//						hidden: true,
 						name: 'CANCEL_DATE',
 					},{
 						xtype: 'textfield',
 						fieldLabel: 'Close Date',
-						hidden: true,
+//						hidden: true,
 						name: 'CLOSE_DATE',
 					}]
 				}]

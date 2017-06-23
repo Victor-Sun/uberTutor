@@ -6,9 +6,6 @@ Ext.define('uber.model.NewUser',{
 		{ name: 'password', type: 'string' }
 	],
 	validators: {
-//			fullname: [
-//			           { type: 'presence', name: 'fullname',message:"Enter Name"},
-//			],
 		    username: [
 		               { type: 'presence', message: 'please input valid username' }
             ],
