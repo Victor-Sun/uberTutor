@@ -9,7 +9,6 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import com.gnomon.common.system.service.SysUserDepartmentService;
 import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.EncryptUtil;
 import com.gnomontech.pdms.redis.OnlineUtils;
@@ -22,9 +21,6 @@ public class LoginAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private LoginService loginService;
-	@Autowired
-	private SysUserDepartmentService sysUserDepartmentService;
-	
 	private String username, password;
 	
 	/**
