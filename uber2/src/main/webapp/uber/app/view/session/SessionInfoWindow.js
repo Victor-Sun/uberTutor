@@ -57,18 +57,25 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 				xtype: 'fieldset',
 				defaults: {
 					defaults: {
-						labelAlign: 'top',
+//						labelAlign: 'top',
 						readOnly: true,
 						margin: 5,
 					},
 				},
 				items: [{
 					xtype: 'fieldcontainer',
-//					layout:
+					layout: {
+						type: 'hbox',
+						align: 'stretch'
+					},
 					items:[{
 						xtype: 'textfield',
 						fieldLabel: 'Title',
 						name: 'TITLE'
+					},{
+						xtype: 'textfield',
+						fieldLabel: 'Status',
+						name: 'STATUS'
 					},{
 						xtype: 'hidden',
 						name: 'REQUEST_ID'
@@ -89,11 +96,19 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						name: 'SUBJECT'
 					}]
 				},{
-					xtype: 'textarea',
-					readOnly: true,
-					labelAlign: 'top',
-					fieldLabel: 'Description',
-					name: 'DESCRIPTION'
+					xtype: 'fieldcontainer',
+					layout: {
+						type: 'hbox',
+						align: 'stretch'
+					},
+					items: [{
+						xtype: 'textarea',
+						flex: 1,
+						readOnly: true,
+	//					labelAlign: 'top',
+						fieldLabel: 'Description',
+						name: 'DESCRIPTION'
+					}]
 				}]
 			},{
 				//Session Info
@@ -104,9 +119,9 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						align: 'stretch'
 					},
 					defaults: {
-						labelAlign: 'top',
+//						labelAlign: 'top',
 						readOnly: true,
-						margin: 5,
+						margin: 2,
 					},
 				},
 				items: [{
@@ -128,7 +143,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						name: 'STUDENT_NAME'
 					},{
 						xtype: 'textfield',
-						fieldLabel: 'Tutor ID',
+						fieldLabel: 'Student ID',
 						name: 'STUDENT_ID'
 					}]
 				},{

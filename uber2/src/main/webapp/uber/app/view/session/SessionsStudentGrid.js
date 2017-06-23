@@ -22,7 +22,7 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
 						"</div>" +
 						"<div class='session-right' style='display: inline; float: right;'>" +
 							"<ul style='list-style-type: none;'>" +
-								"<li>Student: {TUTOR_NAME} </li>" +
+								"<li>Tutor: {TUTOR_NAME} </li>" +
 								"<li>Subject: {SUBJECT} </li>" +
 								"<li>Create Date: {CREATE_DATE} </li>" +
 							"</ul>" +
