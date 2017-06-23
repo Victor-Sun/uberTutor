@@ -46,6 +46,10 @@ public class PasswordAction extends ActionSupport{
 				msg = "Passwords do not match, please check your passwords then submit again!";
 				throw new Exception(msg);
 			}
+			if(p1.equals(currentPassword)){
+				msg = "Your new password cannot be the same as your current password! Enter a different password and try again!";
+				throw new Exception(msg);
+			}
 			entity = passwordService.get(userId);
 			entity.setPassword(EncryptUtil.encrypt(p1));
 			entity.setUpdateBy(userId.toString());
