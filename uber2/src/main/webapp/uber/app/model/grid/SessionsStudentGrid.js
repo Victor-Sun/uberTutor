@@ -12,9 +12,21 @@ Ext.define('uber.model.grid.SessionsStudentGrid', {
         		
         	}
         },
-     	{ name: 'TUTOR_NAME', type: 'string' },
+     	{ name: 'TUTOR_NAME', type: 'string', 
+        	convert: function(v, record){
+        		if (v == null) {
+        			return "";
+        		}
+     		} 
+        },
      	{ name: 'CATEGORY', type: 'string' },
      	{ name: 'SUBJECT', type: 'string' },
-     	{ name: 'STATUS', type: 'string' }
+     	{ name: 'STATUS', type: 'string', 
+     		convert: function(v, record){
+        		if (v == null) {
+        			return "";
+        		}
+     		} 
+     	}
  	],
 });

@@ -17,7 +17,9 @@ Ext.define('uber.view.tutor.MakeRequest',{
 		var categoryStore = Ext.create('uber.store.category.Category');
 		var subjectStore = Ext.create('uber.store.subject.Subject');
 		
-		categoryStore.load();
+		categoryStore.load({
+//			success
+		});
 		
 		var category = Ext.create('Ext.form.field.ComboBox',{
 			id: 'category',
@@ -30,6 +32,7 @@ Ext.define('uber.view.tutor.MakeRequest',{
             queryModel: 'local',
             editable:false,
             name: 'category',
+            allowBlank: false,
             listeners: {
                 change: function (combo, newValue, oldValue, eOpts) {
                     subjectStore.load({params:{categoryId:newValue}});
@@ -47,6 +50,7 @@ Ext.define('uber.view.tutor.MakeRequest',{
             valueField: 'id',
             queryMode:'local',
             editable:false,
+            allowBlank: false,
             name:'subject'
 		});
 		
@@ -88,6 +92,7 @@ Ext.define('uber.view.tutor.MakeRequest',{
 	    			layout: 'hbox',
 	    			defaults: {
 	        			labelAlign: 'top',
+	        			
 	        			margin: 5
 	        		},
 	    			items: [category,subject]
@@ -95,6 +100,7 @@ Ext.define('uber.view.tutor.MakeRequest',{
 	            	xtype: 'container',
 	            	items: [{
 	            		xtype: 'textfield',
+	            		allowBlank: false,
 	            		labelAlign: 'top',
 	            		width: 350,
 	            		margin: 5,
@@ -105,6 +111,7 @@ Ext.define('uber.view.tutor.MakeRequest',{
 	            	xtype: 'container',
 	            	items: [{
 	            		xtype: 'textarea',
+	            		allowBlank: false,
 	            		width: 500,
 	            		labelAlign: 'top',
 		            	margin: 5,

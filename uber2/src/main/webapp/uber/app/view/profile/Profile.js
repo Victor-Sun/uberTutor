@@ -18,12 +18,12 @@ Ext.define('uber.view.profile.Profile', {
 	initComponent: function () {
 		var fullname = Ext.ComponentQuery.query('#userNameItemId')[0].getText();
 		var profileInfoForm = Ext.create('uber.view.profile.ProfileForm',{
-			flex: 1,
-			layout: {
-            	type: 'vbox',
-            	align: 'stretch'
-            },
-            
+//			flex: 1,
+//			layout: {
+//            	type: 'vbox',
+//            	align: 'stretch'
+//            },
+//            
 		});
 		
 		
@@ -140,9 +140,7 @@ Ext.define('uber.view.profile.Profile', {
 			xtype: 'tutorRegistration',
 			hidden: true
 		}];
-		
-
-		
+		profileInfoForm.getValues();
 		this.callParent(arguments);
 	}
 });

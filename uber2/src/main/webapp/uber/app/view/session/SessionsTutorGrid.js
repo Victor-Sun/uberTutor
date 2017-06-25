@@ -2,10 +2,16 @@ Ext.define('uber.view.session.SessionsTutorGrid',{
 	extend: 'Ext.grid.Panel',
 	xtype: 'sessionsTutorGrid',
 	controller: 'sessions',
+	emptyText: "<h3>You currently don't have any sessions</h3>",
 	initComponent: function () {
 		var me = this;
     	me.store =  Ext.create('uber.store.grid.SessionsTutorGrid');
-    	me.store.load();
+    	me.store.load({
+    		params: {
+    	        start: 0,
+    	        limit: 5
+    	    }
+    	});
 		this.columns = [{
 			xtype: 'templatecolumn',
 			align: 'left',
@@ -30,6 +36,12 @@ Ext.define('uber.view.session.SessionsTutorGrid',{
 					"</div>" +
 				"</div>",
 			]
+    	}];
+		this.dockedItems = [{
+    		xtype: 'pagingtoolbar',
+    		displayInfo: true,
+    		dock: 'bottom',
+    		store: me.store
     	}];
 		this.listeners = {
     		celldblclick: 'onCelldblclick',
