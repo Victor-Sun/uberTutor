@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gnomon.common.page.GTJdbcTemplate;
+import com.gnomon.common.page.GTPage;
 import com.ubertutor.dao.SubjectCategoryDAO;
 import com.ubertutor.dao.SubjectDAO;
 import com.ubertutor.dao.UserSubjectDAO;
@@ -18,7 +19,7 @@ import com.ubertutor.entity.UserSubjectEntity;
 @Transactional
 public class TutorSubjectRegisterService {
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private GTJdbcTemplate jdbcTemplate;
 	@Autowired
 	private UserSubjectDAO userSubjectDAO;
 	@Autowired
@@ -50,12 +51,12 @@ public class TutorSubjectRegisterService {
 	 * @param userId
 	 * @return List of subjects according to user
 	 */
-	public List<Map<String,Object>> getUserSubjects(Long userId){
+	public GTPage<Map<String,Object>> getUserSubjects(Long userId, int pageNo, int pageSize){
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT * FROM USERS_SUBJECT_CATEGORY WHERE USER_ID = ?");
 		params.add(userId);
-		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
+		return jdbcTemplate.queryPagination(sql.toString(),pageNo, pageSize, params.toArray());
 	}
 	
 	/**

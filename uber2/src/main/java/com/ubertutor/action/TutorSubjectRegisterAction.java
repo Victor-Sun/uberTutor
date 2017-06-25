@@ -1,11 +1,17 @@
 package com.ubertutor.action;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
+import com.gnomon.common.page.GTPage;
+import com.gnomon.common.utils.JsonResult;
 import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.UserSubjectEntity;
@@ -69,14 +75,30 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	 */
 	public void displayUserSubjects() throws Exception{
 		try{
+			JsonResult result = new JsonResult();
 			Long userId = Long.parseLong(SessionData.getLoginUserId());
-			this.writeSuccessResult(tutorSubjectRegisterService.getUserSubjects(userId));
-		} catch (Exception e){
+			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+			GTPage<Map<String,Object>> pageResult = this.tutorSubjectRegisterService.getUserSubjects(userId, this.getPage(), this.getLimit());
+			for (Map<String, Object> map : pageResult.getItems()) {
+				Map<String, Object> dataMap = new HashMap<String, Object>();
+				dataMap.put("ID", map.get("ID"));
+				dataMap.put("SUBJECT_ID", map.get("SUBJECT_ID"));
+				dataMap.put("SUBJECT_TITLE", map.get("SUBJECT_TITLE"));
+				dataMap.put("CATEGORY_ID", map.get("CATEGORY_ID"));
+				dataMap.put("CATEGORY_TITLE", map.get("CATEGORY_TITLE"));
+				dataMap.put("USER_ID", map.get("USER_ID"));
+				dataMap.put("DESCRIPTION", map.get("DESCRIPTION"));
+				dataMap.put("CREATE_DATE", map.get("CREATE_DATE"));
+				dataMap.put("UPDATE_DATE", map.get("UPDATE_DATE"));
+				data.add(dataMap);
+			}
+			result.buildSuccessResultForList(data, pageResult.getItemCount());
+			Struts2Utils.renderJson(result);
+		}catch(Exception e){
 			e.printStackTrace();
-			this.writeErrorResult(e);
 		}
 	}
-	
+
 	/**
 	 * Removes a user's subject
 	 * @throws Exception
@@ -91,7 +113,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 			this.writeErrorResult(e);
 		}
 	}
-	
+
 	public void editSubject() throws Exception{
 		try{
 			Long userSubjectId = Long.parseLong(Struts2Utils.getRequest().getParameter("userSubjectId"));
@@ -155,17 +177,17 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	protected void prepareModel() throws Exception{
 		entity = (id != null) ? tutorSubjectRegisterService.get(id) : new UserSubjectEntity(); 
 	}
-	
+
 	@Override
 	public UserSubjectEntity getModel(){
 		return entity;
 	}
-	
+
 	@Override
 	public String list() throws Exception{
 		return null;
 	}
-	
+
 	@Override
 	public String input() throws Exception{
 		return null;

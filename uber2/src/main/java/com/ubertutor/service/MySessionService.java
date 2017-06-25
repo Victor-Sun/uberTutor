@@ -35,18 +35,12 @@ public class MySessionService {
 		return jdbcTemplate.queryPagination(sql.toString(), pageNo, pageSize, params.toArray());
 	}
 	
-	public int getUserSessionCount(Long studentId){
-		String hql = "FROM UserRequestEntity WHERE userId = ?";
-		List<UserRequestEntity> result = this.userRequestDAO.find(hql, studentId);
-		return result.size();
-	}
-	
-	public List<Map<String,Object>> getTutorSessions(Long tutorId){
+	public GTPage<Map<String,Object>> getTutorSessions(Long tutorId, int pageNo, int pageSize){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
 		sql.append(" SELECT * FROM USER_SESSIONS WHERE TUTOR_ID = ?");
 		params.add(tutorId);
-		return this.jdbcTemplate.queryForList(sql.toString(), params.toArray());
+		return jdbcTemplate.queryPagination(sql.toString(), pageNo, pageSize, params.toArray());
 	}
 	
 	public Map<String, Object> getSessionInfo(Long requestId){

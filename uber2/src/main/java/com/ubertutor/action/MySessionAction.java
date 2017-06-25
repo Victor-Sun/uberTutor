@@ -14,7 +14,6 @@ import com.gnomon.common.page.GTPage;
 import com.gnomon.common.utils.JsonResult;
 import com.gnomon.common.web.SessionData;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
-import com.opensymphony.xwork2.ActionSupport;
 import com.ubertutor.entity.UserEntity;
 import com.ubertutor.entity.UserRequestEntity;
 import com.ubertutor.service.MySessionService;
@@ -59,7 +58,31 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	}
 
 	public void displayTutorSessions(){
-		this.writeSuccessResult(sessionService.getTutorSessions(entity.getId()));
+		try{
+			JsonResult result = new JsonResult();
+			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+			GTPage<Map<String,Object>> pageResult = this.sessionService.getUserSessions(entity.getId(), this.getPage(), this.getLimit());
+			for (Map<String, Object> map : pageResult.getItems()) {
+				Map<String, Object> dataMap = new HashMap<String, Object>();
+				dataMap.put("REQUEST_ID", map.get("REQUEST_ID"));
+				dataMap.put("CREATE_DATE", map.get("CREATE_DATE"));
+				dataMap.put("STUDENT_ID", map.get("STUDENT_ID"));
+				dataMap.put("STUDENT_NAME", map.get("STUDENT_NAME"));
+				dataMap.put("TUTOR_ID", map.get("TUTOR_ID"));
+				dataMap.put("TUTOR_NAME", map.get("TUTOR_NAME"));
+				dataMap.put("CATEGORY", map.get("CATEGORY"));
+				dataMap.put("SUBJECT", map.get("SUBJECT"));
+				dataMap.put("STATUS", map.get("STATUS"));
+				dataMap.put("SUBJECT_DESCRIPTION", map.get("SUBJECT_DESCRIPTION"));
+				dataMap.put("REQUEST_TITLE", map.get("REQUEST_TITLE"));
+				dataMap.put("ROW_NUM", map.get("ROW_NUM"));
+				data.add(dataMap);
+			}
+			result.buildSuccessResultForList(data, pageResult.getItemCount());
+			Struts2Utils.renderJson(result);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	public void displaySessionInfo(){
