@@ -114,22 +114,22 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		try{
 			String msg = "";
 			Long userId = Long.parseLong(SessionData.getLoginUserId());
-			Long subjectId = Long.parseLong(Struts2Utils.getRequest().getParameter("subject"));
+			String subjectId = Struts2Utils.getRequest().getParameter("subject");
 			String category = Struts2Utils.getRequest().getParameter("category");
 			if(category == null || category == ""){
 				msg = "Invalid subject, select a valid subject and try again!";
 				throw new Exception(msg);
 			}
-			if(subjectId == null || subjectId.toString() == ""){
+			if(subjectId == null || subjectId == ""){
 				msg = "Invalid subject, select a valid subject and try again!";
 				throw new Exception(msg);
 			}
-			if(tutorSubjectRegisterService.subjectExists(userId, subjectId)){
+			if(tutorSubjectRegisterService.subjectExists(userId, Long.parseLong(subjectId))){
 				msg = "You already registered this subject!";
 				throw new Exception(msg);
 			}
 			entity.setUserId(userId);
-			entity.setSubjectId(subjectId);
+			entity.setSubjectId(Long.parseLong(subjectId));
 			entity.setCreateDate(new Date());
 			tutorSubjectRegisterService.saveTutorSubject(entity);
 		} catch (Exception e) {

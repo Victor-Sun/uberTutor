@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gnomon.common.page.GTJdbcTemplate;
+import com.gnomon.common.page.GTPage;
 import com.ubertutor.dao.UserRequestDAO;
 import com.ubertutor.entity.UserRequestEntity;
 
@@ -16,7 +17,7 @@ import com.ubertutor.entity.UserRequestEntity;
 @Transactional
 public class MySessionService {
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private GTJdbcTemplate jdbcTemplate;
 	@Autowired 
 	private UserRequestDAO userRequestDAO;
 	
@@ -26,12 +27,18 @@ public class MySessionService {
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
 	
-	public List<Map<String,Object>> getUserSessions(Long studentId){
+	public GTPage<Map<String, Object>> getUserSessions(Long studentId, int pageNo, int pageSize){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
 		sql.append(" SELECT * FROM USER_SESSIONS WHERE STUDENT_ID = ?");
 		params.add(studentId);
-		return this.jdbcTemplate.queryForList(sql.toString(), params.toArray());
+		return jdbcTemplate.queryPagination(sql.toString(), pageNo, pageSize, params.toArray());
+	}
+	
+	public int getUserSessionCount(Long studentId){
+		String hql = "FROM UserRequestEntity WHERE userId = ?";
+		List<UserRequestEntity> result = this.userRequestDAO.find(hql, studentId);
+		return result.size();
 	}
 	
 	public List<Map<String,Object>> getTutorSessions(Long tutorId){

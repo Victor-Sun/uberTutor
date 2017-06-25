@@ -21,7 +21,6 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	private UserRequestEntity entity = new UserRequestEntity();
 	private Long id;
 
-
 	public Long getId() {
 		return id;
 	}
@@ -42,6 +41,15 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 			String description = Struts2Utils.getRequest().getParameter("description");
 			String title = Struts2Utils.getRequest().getParameter("title");
 			Date date = new Date();
+			String msg;
+			if(title.isEmpty() || title.startsWith(" ")){
+				msg = "Title cannot be empty! Fill it in and try again!";
+				throw new Exception(msg);
+			}
+			if(description.isEmpty() || description.startsWith(" ")){
+				msg = "Description cannot be empty! Fill it in and try again!";
+				throw new Exception(msg);
+			}
 			entity.setUserId(userId);
 			entity.setSubjectId(subjectId);
 			entity.setDescription(description);
