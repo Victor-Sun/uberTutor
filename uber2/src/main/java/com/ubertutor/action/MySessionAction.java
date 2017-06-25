@@ -52,7 +52,6 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 				data.add(dataMap);
 			}
 			result.buildSuccessResultForList(data, pageResult.getItemCount());
-			System.out.println(result);
 			Struts2Utils.renderJson(result);
 		}catch(Exception e){
 			e.printStackTrace();
