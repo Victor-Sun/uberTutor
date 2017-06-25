@@ -61,7 +61,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		try{
 			JsonResult result = new JsonResult();
 			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-			GTPage<Map<String,Object>> pageResult = this.sessionService.getUserSessions(entity.getId(), this.getPage(), this.getLimit());
+			GTPage<Map<String,Object>> pageResult = this.sessionService.getTutorSessions(entity.getId(), this.getPage(), this.getLimit());
 			for (Map<String, Object> map : pageResult.getItems()) {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
 				dataMap.put("REQUEST_ID", map.get("REQUEST_ID"));
