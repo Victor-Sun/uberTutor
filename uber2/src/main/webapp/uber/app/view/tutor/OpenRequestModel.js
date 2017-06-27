@@ -1,27 +1,25 @@
-Ext.define('uber.view.tutor.NewsModel', {
-    extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.news',
-
-    requires: [
-        'uber.model.News'
-    ],
-
-    formulas: {
+Ext.define('uber.view.tutor.OpenRequestModel',{
+	extend: 'Ext.app.ViewModel',
+	alias: 'viewmodel.openRequest',
+	
+	requires: ['uber.model.OpenRequest'],
+	
+	formulas: {
         typeFilter: function (get) {
             var category = get('category');
             return this.filters[category];
         }
     },
-
+    
     filters: {
         all:   [ 'news', 'forum' ],
         news:  [ 'news' ],
-        forum: [ 'forum' ]
+        forum: [ 'forum' ],
     },
-
+    
     stores: {
-        news: {
-            type: 'news',
+        openRequest: {
+            type: 'openRequest',
             autoLoad: true,
             sorters: [
                 { property: 'date', direction: 'DESC' }

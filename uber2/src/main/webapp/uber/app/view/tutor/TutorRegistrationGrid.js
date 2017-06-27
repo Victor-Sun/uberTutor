@@ -8,7 +8,6 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
 	requires: [
 	   'Ext.grid.plugin.RowExpander',
 //	   'uber.store.grid.TutorRegistrationGrid',
-	   'uber.store.News',
        'Ext.selection.CellModel',
        'Ext.grid.*',
        'Ext.data.*',

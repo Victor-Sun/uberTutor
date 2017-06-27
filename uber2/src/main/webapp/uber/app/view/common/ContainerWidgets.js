@@ -8,7 +8,6 @@ Ext.define('uber.view.common.ContainerWidget', {
     },
     cls: 'shadow',
     margin: 10,
-    height: 235,
 //    defaults:{
 //    	xtype:'fieldset',
 //    	layout:'fit',
@@ -16,12 +15,12 @@ Ext.define('uber.view.common.ContainerWidget', {
 //    		
 //    	}]
 //    },
-    initComponent: function(){
-        var me = this;
-
-        Ext.apply(me, {
-        });
-
-        me.callParent(arguments);
-    }
+//    initComponent: function(){
+//        var me = this;
+//
+//        Ext.apply(me, {
+//        });
+//
+//        me.callParent(arguments);
+//    }
 });
