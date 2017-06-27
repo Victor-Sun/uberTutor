@@ -11066,3 +11066,245 @@ tr.x-grid-subtable-row {
     top: 30px;
     right: -24px;
 }
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:1 */
+.news {
+    background-image: url("icons/news-icon.png") !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:4 */
+.x-ie8 .news {
+    background-image: url("icons/news-icon-small.png") !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:9 */
+.forum {
+    background-image: url("icons/forum-icon.png") !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:12 */
+.x-ie8 .forum {
+    background-image: url("icons/forum-icon-small.png") !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:17 */
+.news-title {
+    font-size: 20px;
+    line-height: 20px;
+    color: #3e4752;
+    margin-bottom: 5px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:24 */
+.news-small {
+    font-size: 10px;
+    color: #878ea2;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:28 */
+.news-small img {
+    vertical-align: top;
+    margin: 0 5px 0 10px;
+    height: 12px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:35 */
+.text-wrapper {
+    position: relative;
+    overflow: visible;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:46 */
+.text-wrapper .news-icon {
+    /* CSS3 */
+    /*white-space: -moz-pre-wrap; /* Firefox */
+    /*white-space: -pre-wrap;     /* Opera <7 */
+    /*white-space: -o-pre-wrap;   /* Opera 7 */
+    /*word-wrap: break-word;      /* IE */
+    width: 35px;
+    height: 35px;
+    margin-top: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:58 */
+.text-wrapper .news-data {
+    background-color: #fff;
+    margin: 0 0 8px 55px;
+    padding: 15px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25);
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:69 */
+.text-wrapper .news-content {
+    margin-left: 50px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:73 */
+.text-wrapper .news-author {
+    text-transform: uppercase;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:77 */
+.text-wrapper .news-paragraph {
+    background-color: #fff;
+    min-height: 20px;
+    overflow: hidden;
+    font-weight: 400;
+    margin-top: 20px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:85 */
+.text-wrapper .news-picture {
+    width: 35px;
+    height: 35px;
+    background-color: #ececec;
+    float: left;
+    border-radius: 3px;
+    overflow: hidden;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:93 */
+.text-wrapper .news-picture img {
+    width: 35px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:98 */
+.text-wrapper .news-toggle {
+    text-align: right;
+    margin-top: 15px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:102 */
+.text-wrapper .news-toggle span {
+    color: #2e6eaf;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100px;
+    display: inline-block;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:112 */
+.text-wrapper .news-toggle img {
+    height: 14px;
+    vertical-align: middle;
+    margin: 0 5px 0 5px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:120 */
+.subject-grid {
+    margin: 20px 0 0 20px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:124 */
+.subject-grid .x-grid-row-expanded .x-grid-row .news-data {
+    margin-bottom: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:130 */
+.subject-grid .x-grid-body {
+    text-transform: none;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:134 */
+.subject-grid .x-toolbar-default {
+    background-color: #ececec;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:138 */
+.subject-grid .x-grid-item {
+    border: 0px !important;
+    border-bottom: 0px;
+    background-color: transparent;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:144 */
+.subject-grid .x-grid-item:last-child {
+    margin-bottom: 15px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:148 */
+.subject-grid .x-grid-cell-inner {
+    margin-right: 20px;
+    padding: 0px;
+    overflow: visible;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:154 */
+.subject-grid .x-grid-view {
+    background-color: #ececec;
+    background-image: url("icons/icon-line-bg.png");
+    background-size: 9px 9px;
+    background-repeat: repeat-y;
+    background-position: 13px 20px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:162 */
+.subject-grid .x-grid-view:before {
+    content: '';
+    background-color: #ececec;
+    width: 50px;
+    height: 20px;
+    position: absolute;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:170 */
+.subject-grid .x-grid-with-row-lines {
+    border-top: none;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:174 */
+.subject-grid .x-grid-row {
+    background-color: transparent;
+    outline: none;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:179 */
+.subject-grid .x-grid-item-selected > tbody > .x-grid-row,
+.subject-grid .x-grid-item-over > tbody > .x-grid-row {
+    outline: none;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:183 */
+.subject-grid .x-grid-item.x-grid-item-over {
+    background-color: none;
+    border: none;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:188 */
+.subject-grid .x-grid-item-container {
+    border-top: 0px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:192 */
+.subject-grid .x-grid-rowbody {
+    padding-left: 0;
+    padding-top: 0;
+    margin-right: 5px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:196 */
+.subject-grid .x-grid-rowbody .news-data {
+    padding-top: 5px;
+    margin-bottom: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:202 */
+.subject-grid .x-grid-rowbody .news-paragraph {
+    margin-left: 50px;
+    margin-top: 0;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:209 */
+.subject-grid .x-grid-item-focused .news-content {
+    z-index: 1;
+    position: relative;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:213 */
+.subject-grid .x-grid-item-focused .news-content:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -1px;
+    right: -1px;
+    bottom: -5px;
+    left: -5px;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:224 */
+.subject-grid .x-grid-item-focused .x-grid-cell-inner:before {
+    display: none;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:231 */
+#news-menu .x-menu-body {
+    background-color: #2e6eaf !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:233 */
+#news-menu .x-menu-body span {
+    opacity: 1 !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:237 */
+#news-menu .x-menu-item-icon {
+    opacity: 1 !important;
+}
+/* D:/Workspaces/Github/uberTutor/uber2/src/main/webapp/uber/sass/src/view/test/News.scss:240 */
+#news-menu .x-menu-item-active {
+    background-color: #2e6eaf !important;
+}

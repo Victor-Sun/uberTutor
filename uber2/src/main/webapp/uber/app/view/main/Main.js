@@ -52,9 +52,12 @@ Ext.define('uber.view.main.Main', {
 				},{
 					text: 'Sessions',
 					handler: 'sessions'
-//				},{
-//					text: 'Tutor Registration',
-//					handler: 'registration'
+				},{
+					text: 'Open Request Test',
+					handler: 'openRequest'
+				},{
+					text: 'Test',
+					handler: 'test'
 				},{
 					text: 'Logout',
 					handler: 'logout'

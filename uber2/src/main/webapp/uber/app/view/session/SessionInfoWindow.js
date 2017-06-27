@@ -10,16 +10,16 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 //	closable: false,
 	tools: [{
 		xtype: 'button',
+		itemId: 'acceptSession',
+		text: 'accept'
+	},{
+		xtype: 'button',
 		itemId: 'cancelSession',
 		text: 'cancel'
 	},{
 		xtype: 'button',
 		itemId: 'closeSession',
 		text: 'close'
-	},{
-		xtype: 'button',
-		itemId: 'acceptSession',
-		text: 'accept'
 	}],
 	initComponent: function() {
 		var me = this;
@@ -77,6 +77,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						xtype: 'textfield',
 						fieldLabel: 'Title',
 						name: 'TITLE'
+						
 					},{
 						xtype: 'textfield',
 						fieldLabel: 'Status',
@@ -159,11 +160,33 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						fieldLabel: 'Create Date',
 						itemId: 'createDate',
 						name: 'CREATE_DATE',
+						hidden: true,
+						listeners: {
+							afterrender: {
+								fn: function (value) {
+//									debugger;
+									if (value !== "" || value !== null) {
+										this.setHidden(false);
+									}
+								}
+							}
+						}
 					},{
 						xtype: 'textfield',
 						fieldLabel: 'Update Date',
 //						hidden: true,
 						name: 'UPDATE_DATE',
+						hidden: true,
+						listeners: {
+							change: {
+								fn: function (value) {
+//									debugger;
+									if (value !== "" || value !== null) {
+										this.setHidden(false);
+									}
+								}
+							}
+						}
 					}]
 				},{
 					xtype: 'fieldcontainer',
@@ -171,25 +194,66 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						xtype: 'textfield',
 						fieldLabel: 'Pending Date',
 						name: 'PENDING_DATE',
-//						hidden: true,
+						hidden: true,
+						listeners: {
+							change: {
+								fn: function (value) {
+//									debugger;
+									if (value !== "" || value !== null) {
+										this.setHidden(false);
+									}
+								}
+							}
+						}
 					},{
 						xtype: 'textfield',
 						fieldLabel: 'Process Date',
 //						hidden: true,
 						name: 'PROCESS_DATE',
+						hidden: true,
+						listeners: {
+							change: {
+								fn: function (value) {
+//									debugger;
+									if (value !== "" || value !== null) {
+										this.setHidden(false);
+									}
+								}
+							}
+						}
 					}]
 				},{
 					xtype: 'fieldcontainer',
 					items: [{
 						xtype: 'textfield',
 						fieldLabel: 'Cancel Date',
-//						hidden: true,
 						name: 'CANCEL_DATE',
+						hidden: true,
+						listeners: {
+							change: {
+								fn: function (value) {
+//									debugger;
+									if (value !== "" || value !== null) {
+										this.setHidden(false);
+									}
+								}
+							}
+						}
 					},{
 						xtype: 'textfield',
 						fieldLabel: 'Close Date',
-//						hidden: true,
 						name: 'CLOSE_DATE',
+						hidden: true,
+						listeners: {
+							change: {
+								fn: function (value) {
+//									debugger;
+									if (value !== "" || value !== null) {
+										this.setHidden(false);
+									}
+								}
+							}
+						}
 					}]
 				}]
 			}]
@@ -219,17 +283,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			// Session Info Form
 			sessionInfoForm
 		];
-//		this.dockedItems = [{
-//			xtype: 'toolbar',
-//			dock: 'top',
-//			items: ['->'{
-//				xtype: 'button',
-//				text: 'Accept'
-//			},{
-//				text: 'button',
-//				text: 'Cancel'
-//			}]
-//		}];
 		this.callParent(arguments);
 	}
 });

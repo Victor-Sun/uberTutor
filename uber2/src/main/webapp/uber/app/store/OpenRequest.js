@@ -1,14 +1,13 @@
-// test for grid expander
-Ext.define('uber.store.News', {
-    extend: 'Ext.data.Store',
-    alias: 'store.news',
-
-    model: 'uber.model.News',
-    remoteFilter: true,
-
-    proxy: {
-        type: 'memory',
-        reader: 'array',
+Ext.define('uber.store.OpenRequest',{
+	extend: 'Ext.data.Store',
+	alias: 'store.openRequest',
+	
+	model: 'uber.model.OpenRequest',
+	remoteFilter: true,
+	
+	proxy: {
+		type: 'memory',
+		reader: 'array',
         data: [
             // id, type, date, time, author, group, image, title, paragraph
             [ 1,  "news",  "1/21/2013",  "10:00 PM", "Teresa Hughes",    "All News Releases", "photo-1.png", "Etiam faucibus cursus urna.", "Hey there where ya goin', not exactly knowin', who says you have to call just one place home. He's goin' everywhere, B.J. McKay and his best friend Bear. He just keeps on movin', ladies keep improvin', every day is better than the last. New dreams and better scenes, and best of all I don't pay property tax. Rollin' down to Dallas, who's providin' my palace, off to New Orleans or who knows where. Places new and ladies, too, I'm B.J. McKay and this is my best friend Bear."],
@@ -23,5 +22,5 @@ Ext.define('uber.store.News', {
             [ 9,  "forum", "9/24/2012",  "02:00 AM", "Carl Kennedy",     "Community Forum",   "photo-2.png", "In congue. Etiam justo.", "80 days around the world, we'll find a pot of gold just sitting where the rainbow's ending. Time - we'll fight against the time, and we'll fly on the white wings of the wind. 80 days around the world, no we won't say a word before the ship is really back. Round, round, all around the world. Round, all around the world. Round, all around the world. Round, all around the world.\n\nKnight Rider, a shadowy flight into the dangerous world of a man who does not exist. Michael Knight, a young loner on a crusade to champion the cause of the innocent, the helpless in a world of criminals who operate above the law.\n\nBarnaby The Bear's my name, never call me Jack or James, I will sing my way to fame, Barnaby the Bear's my name. Birds taught me to sing, when they took me to their king, first I had to fly, in the sky so high so high, so high so high so high, so - if you want to sing this way, think of what you'd like to say, add a tune and you will see, just how easy it can be. Treacle pudding, fish and chips, fizzy drinks and liquorice, flowers, rivers, sand and sea, snowflakes and the stars are free. La la la la la, la la la la la la la, la la la la la la la, la la la la la la la la la la la la la, so - Barnaby The Bear's my name, never call me Jack or James, I will sing my way to fame, Barnaby the Bear's my name." ],
             [ 10, "forum", "9/10/2013",  "05:03 PM", "Louise Carpenter", "Community Forum",   "photo-1.png", "Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.", "One for all and all for one, Muskehounds are always ready. One for all and all for one, helping everybody. One for all and all for one, it's a pretty story. Sharing everything with fun, that's the way to be. One for all and all for one, Muskehounds are always ready. One for all and all for one, helping everybody. One for all and all for one, can sound pretty corny. If you've got a problem chum, think how it could be.\n\nMutley, you snickering, floppy eared hound. When courage is needed, you're never around. Those medals you wear on your moth-eaten chest should be there for bungling at which you are best. So, stop that pigeon, stop that pigeon, stop that pigeon, stop that pigeon, stop that pigeon, stop that pigeon, stop that pigeon. Howwww! Nab him, jab him, tab him, grab him, stop that pigeon now.\n\n80 days around the world, we'll find a pot of gold just sitting where the rainbow's ending. Time - we'll fight against the time, and we'll fly on the white wings of the wind. 80 days around the world, no we won't say a word before the ship is really back. Round, round, all around the world. Round, all around the world. Round, all around the world. Round, all around the world." ]
         ]
-    }
+	}
 });

@@ -4,12 +4,15 @@ Ext.define('uber.view.session.SessionsTutorGrid',{
 	controller: 'sessions',
 	emptyText: "<h3>You currently don't have any sessions</h3>",
 	initComponent: function () {
+		var page = 5;
 		var me = this;
-    	me.store =  Ext.create('uber.store.grid.SessionsTutorGrid');
+    	me.store =  Ext.create('uber.store.grid.SessionsTutorGrid',{
+    		 pageSize: page,
+    	});
     	me.store.load({
     		params: {
     	        start: 0,
-    	        limit: 5
+    	        limit: page
     	    }
     	});
 		this.columns = [{
