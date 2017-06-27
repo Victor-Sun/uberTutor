@@ -13,6 +13,7 @@ import org.springside.modules.utils.web.struts2.Struts2Utils;
 import com.gnomon.common.page.GTPage;
 import com.gnomon.common.utils.JsonResult;
 import com.gnomon.pdms.common.PDMSCrudActionSupport;
+import com.ubertutor.entity.FeedbackEntity;
 import com.ubertutor.entity.UserRequestEntity;
 import com.ubertutor.service.SearchService;
 
@@ -22,7 +23,16 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	@Autowired
 	private SearchService searchService;
 	private UserRequestEntity entity;
+	private Long id;
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public void displayRequests() throws Exception{
 		try{
 			JsonResult result = new JsonResult();
@@ -67,8 +77,7 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	
 	@Override
 	public UserRequestEntity getModel() {
-		// TODO Auto-generated method stub
-		return null;
+		return entity;
 	}
 
 	@Override
@@ -97,7 +106,6 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 
 	@Override
 	protected void prepareModel() throws Exception {
-		// TODO Auto-generated method stub
-
+		entity = (id != null) ? searchService.get(id) : new UserRequestEntity();
 	}
 }

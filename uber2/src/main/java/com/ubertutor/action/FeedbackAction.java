@@ -17,6 +17,14 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	private FeedbackService feedbackService;
 	private Long id;
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String save() throws Exception{
 		try{
 			entity.setCreatedate(new Date());
