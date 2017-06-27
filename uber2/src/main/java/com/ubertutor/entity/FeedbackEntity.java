@@ -1,6 +1,7 @@
 package com.ubertutor.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +30,7 @@ public class FeedbackEntity implements Serializable{
 	private Long requestId;
 	
 	@Column(name = "CREATE_DATE") 
-	private String createDate; 
+	private Date createDate; 
 	
 	@Column(name = "RATING") 
 	private int rating;
@@ -69,11 +70,11 @@ public class FeedbackEntity implements Serializable{
 		this.requestId = requestid;
 	}
 
-	public String getCreatedate() {
+	public Date getCreatedate() {
 		return createDate;
 	}
 
-	public void setCreatedate(String createdate) {
+	public void setCreatedate(Date createdate) {
 		this.createDate = createdate;
 	}
 

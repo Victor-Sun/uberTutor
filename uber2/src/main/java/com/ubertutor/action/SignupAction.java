@@ -173,7 +173,6 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 
 	@Override
 	public UserEntity getModel() {
-		// TODO Auto-generated method stub
 		return entity;
 	}
 
