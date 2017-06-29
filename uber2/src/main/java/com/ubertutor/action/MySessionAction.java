@@ -90,24 +90,24 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	}
 
 	public void updateSessionToInProcess(){
-		Long id = Long.parseLong(Struts2Utils.getRequest().getParameter(""));
-		requestEntity = sessionService.get(id);
+		Long requestId = Long.parseLong(Struts2Utils.getRequest().getParameter("requestId"));
+		requestEntity = sessionService.get(requestId);
 		requestEntity.setStatus("IN PROCESS");
 		requestEntity.setProcessDate(new Date());
 		sessionService.updateRequest(requestEntity);
 	}
 
 	public void updateSessionToClosed(){
-		Long id = Long.parseLong(Struts2Utils.getRequest().getParameter(""));
-		requestEntity = sessionService.get(id);
+		Long requestId = Long.parseLong(Struts2Utils.getRequest().getParameter("requestId"));
+		requestEntity = sessionService.get(requestId);
 		requestEntity.setStatus("CLOSED");
 		requestEntity.setCloseDate(new Date());
 		sessionService.updateRequest(requestEntity);
 	}	
 
 	public void updateSessionToCanceled(){
-		Long id = Long.parseLong(Struts2Utils.getRequest().getParameter(""));
-		requestEntity = sessionService.get(id);
+		Long requestId = Long.parseLong(Struts2Utils.getRequest().getParameter("requestId"));
+		requestEntity = sessionService.get(requestId);
 		requestEntity.setStatus("CANCELED");
 		requestEntity.setCancelDate(new Date());
 		sessionService.updateRequest(requestEntity);
