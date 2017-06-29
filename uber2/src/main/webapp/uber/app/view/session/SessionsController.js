@@ -6,8 +6,8 @@ Ext.define('uber.view.session.SessionsController',{
     	var sessionInfoForm = this.view.query('#sessionInfoForm')[0]
         if (records[0]) {
         	sessionInfoForm.getForm().loadRecord(records[0]);
-        	sessionInfoForm.requestId = records[0].get('REQUEST_ID');
-        }
+        	sessionInfoForm.requestId = records[0].get('requestId');
+        };
     	sessionInfoForm.load({
 			url: '/uber2/main/my-session!displaySessionInfo.action',
 			params: {
@@ -68,14 +68,14 @@ Ext.define('uber.view.session.SessionsController',{
     },
 
     onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
-    	console.log("Request Id:" + record.data.REQUEST_ID);
+    	console.log("RequestId:" + record.data.requestId);
     	Ext.create('uber.view.session.SessionInfoWindow',{
-    		requestId: record.data.REQUEST_ID,
-    		status: record.data.STATUS
+    		requestId: record.data.requestId,
+//    		status: record.data.status
     	}).show();
-    	var sessionInfoWindow = Ext.ComponentQuery.query('#sessionInfoWindow')[0];
-    	var requestId = sessionInfoWindow.down('#requestId').setValue(record.data.REQUEST_ID);
-    	var status = sessionInfoWindow.down('#status').setValue(record.data.STATUS);
+//    	var sessionInfoWindow = Ext.ComponentQuery.query('#sessionInfoWindow')[0];
+//    	var requestId = sessionInfoWindow.down('#requestID').setValue(record.data.requestID);
+//    	var status = sessionInfoWindow.down('#status').setValue(record.data.status);
     },
     
     feedback: function () {

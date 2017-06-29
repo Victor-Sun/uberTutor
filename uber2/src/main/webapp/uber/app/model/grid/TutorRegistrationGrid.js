@@ -8,7 +8,7 @@ Ext.define('uber.model.grid.TutorRegistrationGrid', {
         { name: 'SUBJECT_TITLE'},
         { name: 'CREATE_DATE', type: 'date', 
         	convert:function(v,record){
-        		if (v == null) {
+        		if (v == null || v == "") {
         			return "";
         		} else {
         			return Ext.Date.format(new Date(v.time), 'Y-m-d');

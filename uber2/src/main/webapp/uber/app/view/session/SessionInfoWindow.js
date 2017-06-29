@@ -7,40 +7,105 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	requestId: '',
 	session: '',
 	layout: 'fit',
-//	closable: false,
+	closable: false,
 	tools: [{
 		xtype: 'button',
 		itemId: 'acceptSession',
-		text: 'accept'
+//		hidden: true,
+		text: 'accept',
+		handler: function () {
+			var form = this.up('window').down('form');
+			Ext.getBody().mask('Loading... Please Wait...');
+			form.submit({
+				url: '/uber2/main/my-session-action!updateSessionToInProcess.action',
+    			method: 'POST', 
+    			success: function () {
+    				Ext.getBody().unmask();
+    				form.load();
+    			},
+    		    failure: function () {
+    		    	Ext.getBody().unmask();
+    		    } 
+			});
+		}
 	},{
 		xtype: 'button',
 		itemId: 'cancelSession',
-		text: 'cancel'
+//		hidden: true,
+		text: 'Cancel Session',
+		handler: function () {
+			var form = this.up('window').down('form');
+			Ext.getBody().mask('Loading... Please Wait...');
+			form.submit({
+				url: '/uber2/main/my-session-action!updateSessionToCanceled.action',
+    			method: 'POST', 
+    			success: function () {
+    				Ext.getBody().unmask();
+    				form.load();
+    			},
+    		    failure: function () {
+    		    	Ext.getBody().unmask();
+    		    } 
+			});
+		}
 	},{
 		xtype: 'button',
 		itemId: 'closeSession',
-		text: 'close'
+//		hidden: true,
+		text: 'Close Session',
+		handler: function () {
+			var form = this.up('window').down('form');
+			Ext.getBody().mask('Loading... Please Wait...');
+			form.submit({
+				url: '/uber2/main/my-session-action!updateSessionToClosed.action',
+    			method: 'POST', 
+    			success: function () {
+    				Ext.getBody().unmask();
+    				form.load();
+    			},
+    		    failure: function () {
+    		    	Ext.getBody().unmask();
+    		    } 
+			});
+		}
+	},{
+		xtype: 'button',
+		itemId: 'closeWindow',
+		text: 'Close Window',
+		handler: function () {
+			this.up('window').close();
+		}
 	}],
 	initComponent: function() {
 		var me = this;
 //		me.store = Ext.create('uber.store.session.SessionInfo',{
-//		autoLoad: true,
+//			autoLoad: true,
 //			model: 'uber.model.session.SessionInfo',
 //			proxy: {
 //				type: 'ajax',
 //				url: '/uber2/main/my-session!displaySessionInfo.action',
 //				params: {
-//					requestId:this.requestId,
+//					requestID:this.requestID,
 //				},
 //				reader: {
 //					type: 'json',
 //					rootProperty: 'data'
 //				},
-////				success: {
-////					if (this.status = IN_PROCESS)
-////				}
-//			},
-////		});
+//				success: function () {
+//					var status = Ext.ComponentQuery.query('#status')[0];
+//					var cancel = Ext.ComponentQuery.query('#cancelSession')[0];
+//					var close = Ext.ComponentQuery.query('#closeSession')[0];
+//					var accept = Ext.ComponentQuery.query('#acceptSession')[0];
+//					if (status == 'PENDING') {
+//						cancel.show();
+//					} else if (status == 'IN_PROCESS') {
+//						close.show();
+//					} else if (status == 'CLOSED') {
+//						
+//					}	
+//				}
+//			}
+//		});
 		var sessionInfoForm = Ext.create('Ext.form.Panel',{
 			layout: {
 	            type: 'vbox',
@@ -64,7 +129,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 					},
 				},
 				items: [{
-					xtype: 'hiddenfield',
+					xtype: 'hidden',
 					itemId: 'requestId',
 					name: 'requestId',
 				},{
@@ -76,16 +141,13 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 					items:[{
 						xtype: 'textfield',
 						fieldLabel: 'Title',
-						name: 'TITLE'
+						name: 'REQUEST_TITLE'
 						
 					},{
 						xtype: 'textfield',
 						fieldLabel: 'Status',
 						itemId: 'status',
 						name: 'STATUS'
-					},{
-						xtype: 'hidden',
-						name: 'REQUEST_ID'
 					}]
 				},{
 					xtype: 'fieldcontainer',
@@ -114,7 +176,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						readOnly: true,
 	//					labelAlign: 'top',
 						fieldLabel: 'Description',
-						name: 'DESCRIPTION'
+						name: 'SUBJECT_DESCRIPTION'
 					}]
 				}]
 			},{
@@ -164,7 +226,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						listeners: {
 							afterrender: {
 								fn: function (value) {
-//									debugger;
 									if (value !== "" || value !== null) {
 										this.setHidden(false);
 									}
@@ -180,7 +241,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						listeners: {
 							change: {
 								fn: function (value) {
-//									debugger;
 									if (value !== "" || value !== null) {
 										this.setHidden(false);
 									}
@@ -198,7 +258,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						listeners: {
 							change: {
 								fn: function (value) {
-//									debugger;
 									if (value !== "" || value !== null) {
 										this.setHidden(false);
 									}
@@ -214,7 +273,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						listeners: {
 							change: {
 								fn: function (value) {
-//									debugger;
 									if (value !== "" || value !== null) {
 										this.setHidden(false);
 									}
@@ -232,7 +290,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						listeners: {
 							change: {
 								fn: function (value) {
-//									debugger;
 									if (value !== "" || value !== null) {
 										this.setHidden(false);
 									}
@@ -247,7 +304,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						listeners: {
 							change: {
 								fn: function (value) {
-//									debugger;
 									if (value !== "" || value !== null) {
 										this.setHidden(false);
 									}
@@ -271,10 +327,22 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			},
 			success: function () {
 				var createDate = sessionInfoForm.down('#createDate');
-				if (createDate.getValue() == null) {
+				var status = Ext.ComponentQuery.query('#status')[0];
+				var cancel = Ext.ComponentQuery.query('#cancelSession')[0];
+				var close = Ext.ComponentQuery.query('#closeSession')[0];
+				var accept = Ext.ComponentQuery.query('#acceptSession')[0];
+				if (createDate.getValue() == null || createDate.getValue() == "") {
 					createDate.setValue("");
 				} else {
+					console.log(Ext.Date.format(new Date(Ext.decode(createDate.getValue())), 'Y-m-d'));
 					createDate.setValue(Ext.Date.format(new Date(Ext.decode(createDate.getValue())), 'Y-m-d'));
+				}
+				if (status == 'PENDING') {
+					cancel.show();
+				} else if (status == 'IN_PROCESS') {
+					close.show();
+				} else if (status == 'CLOSED') {
+					
 				}
 			}
 		});

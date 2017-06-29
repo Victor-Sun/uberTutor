@@ -7,11 +7,29 @@ Ext.define('uber.view.test.NewsController', {
         view.updateActiveState = this.updateActiveState.bind(this);
     },
 
+//    onNewsClick: function(btn, menuitem) {
+//        var view = this.getView();
+//        view.setActiveState(menuitem.subject);
+//    },
+
     onNewsClick: function(btn, menuitem) {
         var view = this.getView();
-        view.setActiveState(menuitem.type);
+        view.setActiveState(menuitem.subject);
+        var grid = Ext.ComponentQuery.query('#news')[0];
+        var store = grid.getStore();
+        if ( menuitem.subjects == "all") {
+        	store.load();
+        } else {
+        	store.load({
+            	proxy: {
+            		params: {
+            			subject: menuitem.subject
+            		}
+            	}
+            });
+        }
     },
-
+    
     renderTitleColumn: function (value, metaData, record) {
         var view = this.getView(),
             plugin = view.getPlugin('rowexpander'),
