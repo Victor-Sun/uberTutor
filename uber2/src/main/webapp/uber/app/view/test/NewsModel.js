@@ -14,9 +14,9 @@ Ext.define('uber.view.test.NewsModel', {
     },
 
     filters: {
-        all:   [ 'algebra', 'calculus' ],
-        algebra: [ 'algebra' ],
-        calculus: [ 'calculus' ]
+        all:   [ 'Algebra', 'Calculus' ],
+        algebra: [ 'Algebra' ],
+        calculus: [ 'Calculus' ]
     },
 
     stores: {
@@ -27,7 +27,7 @@ Ext.define('uber.view.test.NewsModel', {
                 { property: 'date', direction: 'DESC' }
             ],
             filters: {
-                property: 'type',
+                property: 'subject',
                 operator: 'in',
                 value: '{typeFilter}'
             }

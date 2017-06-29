@@ -80,49 +80,9 @@ Ext.define('uber.view.main.MainPage', {
     				}]
     			},{
     				// Title, Category, Subject, button for details, if status closed, go to feedback
-    				xtype: 'grid',
-    				layout: 'fit',
-    				store: {
-//    					proxy: {
-//    				        type: 'ajax',
-//    				        url: '/uber2/main/my-session!displayTutorSessions.action',
-//    				        reader: {
-//    				            type: 'json',
-//    				            rootProperty: 'data',
-//    				            totalProperty: 'total'
-//    				        }
-//    				    },
-    					data: [
-    					       { 'TITLE': 'Session 1', 'SUBJECT': 'Algebra', 'STATUS': 'PENDING', 'DESCRIPTION':'THIS IS A DESCRIPTION'}
-					       ]
-    				},
-    				columns: [{
-    					xtype: 'templatecolumn',
-    					align: 'left',
-    					flex: 1,
-    					tpl: [
-							"<div class=''>" +
-								"<div class=''>" +
-									"<div class='title-section' style='display: inline; margin-left: 10px;'><b>Title:</b> {TITLE}</div>" +
-									"<div class='subject-section' style='display: inline; margin-left: 10px;'><b>Subject:</b> {SUBJECT}</div>" +
-									"<div class='status-section' style='display: inline; margin-left: 10px;'><b>Status:</b> {STATUS}</div>" +
-								"</div>" +
-								"<hr>" +
-								"<div class=''>" +
-									"<div class='description-label'><b>Description:</b></div>" +
-									"<div class='description-section'>{DESCRIPTION}</div>" +
-								"</div>" +
-							"</div>",
-							]
-    				},{
-    					xtype: 'actioncolumn',
-    					align: 'center',
-    					items:[{
-    						xtype: 'button',
-    						iconCls: 'x-fa fa-ellipsis-h',
-    						tooltip: 'Details'
-    					}]
-    				}]
+    				xtype: 'currentSessions',
+    				flex: 1,
+    				scrollable: 'y'
     			}]
     		},{
     			xtype: 'containerWidget',
@@ -136,7 +96,11 @@ Ext.define('uber.view.main.MainPage', {
     				}]
     			},{
     				xtype: 'grid',
+    				flex: 1,
     				layout: 'fit',
+    				columns: [{
+    					
+    				}]
     			}]
     		},{
     			xtype: 'containerWidget',
@@ -149,49 +113,9 @@ Ext.define('uber.view.main.MainPage', {
     					html: '<b>Current Requests</b>'
     				}]
     			},{
-    				xtype: 'grid',
-    				layout: 'fit',
-    				store: {
-//    					proxy: {
-//    				        type: 'ajax',
-//    				        url: '/uber2/main/my-session!displayTutorSessions.action',
-//    				        reader: {
-//    				            type: 'json',
-//    				            rootProperty: 'data',
-//    				            totalProperty: 'total'
-//    				        }
-//    				    },
-    					data: [
-    					       { 'TITLE': 'Session 1', 'SUBJECT': 'Algebra', 'STATUS': 'PENDING', 'DESCRIPTION':'THIS IS A DESCRIPTION'}
-					       ]
-    				},
-    				columns: [{
-    					xtype: 'templatecolumn',
-    					align: 'left',
-    					flex: 1,
-    					tpl: [
-							"<div class=''>" +
-								"<div class=''>" +
-									"<div class='title-section' style='display: inline; margin-left: 10px;'><b>Title:</b> {TITLE}</div>" +
-									"<div class='subject-section' style='display: inline; margin-left: 10px;'><b>Subject:</b> {SUBJECT}</div>" +
-									"<div class='status-section' style='display: inline; margin-left: 10px;'><b>Status:</b> {STATUS}</div>" +
-								"</div>" +
-								"<hr>" +
-								"<div class=''>" +
-									"<div class='description-label'><b>Description:</b></div>" +
-									"<div class='description-section'>{DESCRIPTION}</div>" +
-								"</div>" +
-							"</div>",
-							]
-    				},{
-    					xtype: 'actioncolumn',
-    					align: 'center',
-    					items:[{
-    						xtype: 'button',
-    						iconCls: 'x-fa fa-ellipsis-h',
-    						tooltip: 'Details'
-    					}]
-    				}]
+    				xtype: 'currentRequests',
+    				flex: 1,
+    				scrollable: 'y'
     			}]
     		},{
     			xtype: 'containerWidget',
@@ -209,49 +133,9 @@ Ext.define('uber.view.main.MainPage', {
     				}]
     			},{
     				//Title, Category, Subject, Description
-    				xtype: 'grid',
-    				layout: 'fit',
-    				store: {
-//    					proxy: {
-//    				        type: 'ajax',
-//    				        url: '/uber2/main/my-session!displayTutorSessions.action',
-//    				        reader: {
-//    				            type: 'json',
-//    				            rootProperty: 'data',
-//    				            totalProperty: 'total'
-//    				        }
-//    				    },
-    					data: [
-    					       { 'TITLE': 'Session 1', 'SUBJECT': 'Algebra', 'STATUS': 'PENDING', 'DESCRIPTION':'THIS IS A DESCRIPTION'}
-					       ]
-    				},
-    				columns: [{
-    					xtype: 'templatecolumn',
-    					align: 'left',
-    					flex: 1,
-    					tpl: [
-							"<div class=''>" +
-								"<div class=''>" +
-									"<div class='title-section' style='display: inline; margin-left: 10px;'><b>Title:</b> {TITLE}</div>" +
-									"<div class='subject-section' style='display: inline; margin-left: 10px;'><b>Subject:</b> {SUBJECT}</div>" +
-									"<div class='status-section' style='display: inline; margin-left: 10px;'><b>Status:</b> {STATUS}</div>" +
-								"</div>" +
-								"<hr>" +
-								"<div class=''>" +
-									"<div class='description-label'><b>Description:</b></div>" +
-									"<div class='description-section'>{DESCRIPTION}</div>" +
-								"</div>" +
-							"</div>",
-							]
-    				},{
-    					xtype: 'actioncolumn',
-    					align: 'center',
-    					items:[{
-    						xtype: 'button',
-    						iconCls: 'x-fa fa-ellipsis-h',
-    						tooltip: 'Details'
-    					}]
-    				}]
+    				xtype: 'openRequests',
+    				flex: 1,
+    				scrollable: 'y'
     			}]
     		}]
     	}]

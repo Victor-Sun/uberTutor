@@ -1,7 +1,7 @@
 Ext.define('uber.store.test.News', {
     extend: 'Ext.data.Store',
     alias: 'store.news',
-
+    autoLoad: true,
     model: 'uber.model.test.News',
     remoteFilter: true,
 
@@ -9,15 +9,15 @@ Ext.define('uber.store.test.News', {
 //        type: 'memory',
 //        reader: 'array',
 //        data: [
-//            // id, type, date, time, author, image, title, paragraph
+//            // id, subject, date, studentName, requestTitle, subjectDescription
 //            
-//            [ 7,  "algebra", "5/30/2013",  "10:00 PM", "Denise Lawrence",  "photo-2.png", "TITLE ONE", "THIS IS A TEST" ],
-//            [ 8,  "algebra", "11/26/2012", "09:09 AM", "Maria Young",      "photo-3.png", "TITLE TWO", "THIS IS A TEST TWO" ],
-//            [ 9,  "algebra", "5/5/2013",   "11:23 PM", "Jose Dean",        "photo-2.png", "TITLE THREE", "THIS IS A TEST THREE" ],
+//            [ 7,  "algebra", "5/30/2013",  "Denise Lawrence",  "TITLE ONE", "THIS IS A TEST" ],
+//            [ 8,  "algebra", "11/26/2012", "Maria Young",      "TITLE TWO", "THIS IS A TEST TWO" ],
+//            [ 9,  "algebra", "5/5/2013",   "Jose Dean",        "TITLE THREE", "THIS IS A TEST THREE" ],
 //            
-//            [ 10,  "calculus", "5/30/2013",  "10:00 PM", "Denise Lawrence",  "photo-2.png", "TITLE FOUR", "THIS IS A TEST FOUR" ],
-//            [ 11,  "calculus", "11/26/2012", "09:09 AM", "Maria Young",      "photo-3.png", "TITLE FIVE", "THIS IS A TEST FIVE" ],
-//            [ 12,  "calculus", "5/5/2013",   "11:23 PM", "Jose Dean",        "photo-2.png", "TITLE SIX", "THIS IS A TEST SIX" ],
+//            [ 10,  "calculus", "5/30/2013",  "Denise Lawrence",  "TITLE FOUR", "THIS IS A TEST FOUR" ],
+//            [ 11,  "calculus", "11/26/2012", "Maria Young",      "TITLE FIVE", "THIS IS A TEST FIVE" ],
+//            [ 12,  "calculus", "5/5/2013",   "Jose Dean",        "TITLE SIX", "THIS IS A TEST SIX" ],
 //        ]
 //    }
 
@@ -28,6 +28,31 @@ Ext.define('uber.store.test.News', {
 	        type: 'json',
 	        rootProperty: 'data',
 	        totalProperty: 'total'
-	    }
+	    },
+//	    writer: {
+//            allowSingle: false,
+//            writeAllFields: true,
+//            type: 'json'
+//        }
+	},
+	listeners: {
+		load: {
+			fn: function (store, records , successful , operation , eOpts )  {
+//				console.log(store.data.items);
+//				var store = this.getData();
+//				var range = this.getRange();
+//				console.log(range);
+				var datar = new Array();
+		        var jsonDataEncode = "";
+		        var records = store.getRange();
+		        for (var i = 0; i < records.length; i++) {
+		            datar.push(records[i].data);
+		        }
+		        jsonDataEncode = Ext.util.JSON.encode(datar);
+		        console.log(jsonDataEncode);
+		        return jsonDataEncode;
+		        
+			}
+		}
 	}
 });

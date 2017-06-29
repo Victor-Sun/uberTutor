@@ -2,7 +2,7 @@ Ext.define('uber.view.test.News', {
     extend: 'Ext.grid.Panel',
     xtype: 'news',
     itemId: 'news',
-    cls: 'company-news-grid',
+    cls: 'subject-grid',
 
     requires: [
         'Ext.grid.plugin.RowExpander'
@@ -22,7 +22,11 @@ Ext.define('uber.view.test.News', {
     hideHeaders: true,
 
     bind: '{news}',
-
+    
+//    initComponents: function () {
+//    	me.store.load()
+//    	this.callParents(arguments);
+//    };
     tbar: [{
         text: 'All Posts',
         xtype: 'cycle',
@@ -39,16 +43,16 @@ Ext.define('uber.view.test.News', {
             id: 'news-menu',
             items: [{
                 text: 'All Posts',
-                type: 'all',
+                subject: 'all',
                 itemId: 'all',
                 checked: true
             },{
             	text: 'Algebra',
-            	type: 'algebra',
+            	subject: 'algebra',
             	itemId: 'algebra'
             },{
             	text: 'Calculus',
-            	type: 'calculus',
+            	subject: 'calculus',
             	itemId: 'calculus'
             }]
         }
@@ -64,8 +68,8 @@ Ext.define('uber.view.test.News', {
     viewConfig: {
         listeners: {
             itemclick: 'onCompanyClick',
-            expandbody: 'onCompanyExpandBody',
-            collapsebody: 'onCompanyCollapseBody'
+//            expandbody: 'onCompanyExpandBody',
+//            collapsebody: 'onCompanyCollapseBody'
         }
     },
 
@@ -77,25 +81,25 @@ Ext.define('uber.view.test.News', {
     // This XTemplate is used by the controller to format the title column.
     titleTpl:
         '<div class="text-wrapper">' +
-            '<div class="news-icon {type}">&nbsp;</div>' +
+//            '<div class="news-icon {type}">&nbsp;</div>' +
             '<div class="news-data">' +
-                '<div class="news-picture"><img src="resources/icons/{image}"></div>' +
+//                '<div class="news-picture"><img src="resources/icons/{image}"></div>' +
                 '<div class="news-content">' +
-                    '<div class="news-title">{title}</div>' +
-                    '<div class="news-small">by <span class="news-author">{author}</span>' +
-                    '<img src="resources/icons/cal-icon.png"/>{date}' +
-                    '<img src="resources/icons/clock-icon.png"/>{time}</div>' +
-                    '<div class="news-paragraph news-paragraph-simple" {expanded}>{paragraph:ellipsis(130, true)}</div>' +
-                    '<div class="news-toggle expand" {expanded}><span>EXPAND</span>' +
-                    '<img src="resources/icons/expand-news.png"></div>' +
+                    '<div class="news-title">{requestTitle}</div>' +
+                    '<div class="news-small">by <span class="news-author">{studentName}</span>' +
+                    '<span class="x-fa fa-calendar"></span>{createDate}' +
+                    '<span class="x-fa fa-book"></span>{subject}</div>' +
+                    '<div class="news-paragraph news-paragraph-simple" {expanded}>{subjectDescription:ellipsis(130, true)}</div>' +
+//                    '<div class="news-toggle expand" {expanded}><span>EXPAND</span>' +
+//                    '<img src="resources/icons/expand-news.png"></div>' +
                 '</div>' +
             '</div>' +
         '<div>',
 
     validStates: {
         all: 1,
-        news: 1,
-        forum: 1,
+//        news: 1,
+//        forum: 1,
         algebra: 1,
         calculus: 1
     },

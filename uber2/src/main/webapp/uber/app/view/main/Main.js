@@ -53,9 +53,6 @@ Ext.define('uber.view.main.Main', {
 					text: 'Sessions',
 					handler: 'sessions'
 				},{
-					text: 'Open Request Test',
-					handler: 'openRequest'
-				},{
 					text: 'Test',
 					handler: 'test'
 				},{
