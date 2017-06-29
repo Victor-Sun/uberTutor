@@ -36,7 +36,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 			GTPage<Map<String,Object>> pageResult = this.sessionService.getUserSessions(entity.getId(), this.getPage(), this.getLimit());
 			for (Map<String, Object> map : pageResult.getItems()) {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
-				dataMap.put("requestID", map.get("REQUEST_ID"));
+				dataMap.put("requestId", map.get("REQUEST_ID"));
 				dataMap.put("createDate", map.get("CREATE_DATE"));
 				dataMap.put("studentId", map.get("STUDENT_ID"));
 				dataMap.put("studentName", map.get("STUDENT_NAME"));
@@ -63,7 +63,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 			GTPage<Map<String,Object>> pageResult = this.sessionService.getTutorSessions(entity.getId(), this.getPage(), this.getLimit());
 			for (Map<String, Object> map : pageResult.getItems()) {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
-				dataMap.put("requestID", map.get("REQUEST_ID"));
+				dataMap.put("requestId", map.get("REQUEST_ID"));
 				dataMap.put("createDate", map.get("CREATE_DATE"));
 				dataMap.put("studentId", map.get("STUDENT_ID"));
 				dataMap.put("studentName", map.get("STUDENT_NAME"));
@@ -84,9 +84,9 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	}
 
 	public void displaySessionInfo(){
-		Long id = Long.parseLong(Struts2Utils.getRequest().getParameter("requestId"));
-		requestEntity = sessionService.get(id);
-		this.writeSuccessResult(sessionService.getSessionInfo((id)));
+		Long requestId = Long.parseLong(Struts2Utils.getRequest().getParameter("requestId"));
+		requestEntity = sessionService.get(requestId);
+		this.writeSuccessResult(sessionService.getSessionInfo((requestId)));
 	}
 
 	public void updateSessionToInProcess(){

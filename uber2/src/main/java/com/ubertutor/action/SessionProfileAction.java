@@ -49,7 +49,7 @@ public class SessionProfileAction extends ActionSupport{
 	public void getTutorSubjects() throws Exception{
 		try{
 			UserEntity userEntity = sessionProfileService.getUser(Long.parseLong(Struts2Utils.getRequest().getParameter("tutorId")));
-			this.writeSuccessResult(tutorSubjectRegisterService.getUserSubjects(userEntity.getId()));
+//			this.writeSuccessResult(tutorSubjectRegisterService.getUserSubjects(userEntity.getId()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.writeErrorResult(e);
