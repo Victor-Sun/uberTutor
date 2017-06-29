@@ -11,17 +11,25 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	tools: [{
 		xtype: 'button',
 		itemId: 'acceptSession',
-//		hidden: true,
-		text: 'accept',
+		hidden: true,
+		text: 'Accept',
 		handler: function () {
-			var form = this.up('window').down('form');
+			var window = this.up('window');
+			var form = window.down('form');
+			var requestId = form.down('#requestId').getValue();
+			var grid = Ext.ComponentQuery.query('grid')[0];
+			var store = grid.getStore();
 			Ext.getBody().mask('Loading... Please Wait...');
 			form.submit({
-				url: '/uber2/main/my-session-action!updateSessionToInProcess.action',
+				url: '/uber2/main/my-session!updateSessionToInProcess.action',
+				params: {
+					requestId:requestId,
+				},
     			method: 'POST', 
     			success: function () {
     				Ext.getBody().unmask();
-    				form.load();
+    				window.close();
+    				grid.getStore().load();
     			},
     		    failure: function () {
     		    	Ext.getBody().unmask();
@@ -31,17 +39,25 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	},{
 		xtype: 'button',
 		itemId: 'cancelSession',
-//		hidden: true,
+		hidden: true,
 		text: 'Cancel Session',
 		handler: function () {
-			var form = this.up('window').down('form');
+			var window = this.up('window');
+			var form = window.down('form');
+			var requestId = form.down('#requestId').getValue();
+			var grid = Ext.ComponentQuery.query('grid')[0];
+			var store = grid.getStore();
 			Ext.getBody().mask('Loading... Please Wait...');
 			form.submit({
-				url: '/uber2/main/my-session-action!updateSessionToCanceled.action',
+				url: '/uber2/main/my-session!updateSessionToCanceled.action',
+				params: {
+					requestId:requestId,
+				},
     			method: 'POST', 
     			success: function () {
     				Ext.getBody().unmask();
-    				form.load();
+    				window.close();
+    				grid.getStore().load();
     			},
     		    failure: function () {
     		    	Ext.getBody().unmask();
@@ -51,17 +67,25 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	},{
 		xtype: 'button',
 		itemId: 'closeSession',
-//		hidden: true,
+		hidden: true,
 		text: 'Close Session',
 		handler: function () {
-			var form = this.up('window').down('form');
+			var window = this.up('window');
+			var form = window.down('form');
+			var requestId = form.down('#requestId').getValue();
+			var grid = Ext.ComponentQuery.query('grid')[0];
+			var store = grid.getStore();
 			Ext.getBody().mask('Loading... Please Wait...');
 			form.submit({
-				url: '/uber2/main/my-session-action!updateSessionToClosed.action',
+				url: '/uber2/main/my-session!updateSessionToClosed.action',
+				params: {
+					requestId:requestId,
+				},
     			method: 'POST', 
     			success: function () {
     				Ext.getBody().unmask();
-    				form.load();
+    				window.close();
+    				grid.getStore().load();
     			},
     		    failure: function () {
     		    	Ext.getBody().unmask();
@@ -71,6 +95,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	},{
 		xtype: 'button',
 		itemId: 'closeWindow',
+		hidden: true,
 		text: 'Close Window',
 		handler: function () {
 			this.up('window').close();
@@ -131,7 +156,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 				items: [{
 					xtype: 'hidden',
 					itemId: 'requestId',
-					name: 'requestId',
+					name: 'REQUEST_ID',
 				},{
 					xtype: 'fieldcontainer',
 					layout: {
@@ -222,98 +247,163 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						fieldLabel: 'Create Date',
 						itemId: 'createDate',
 						name: 'CREATE_DATE',
-						hidden: true,
-						listeners: {
-							afterrender: {
-								fn: function (value) {
-									if (value !== "" || value !== null) {
-										this.setHidden(false);
-									}
-								}
-							}
-						}
+//						hidden: true,
+//						listeners: {
+//							afterrender: {
+//								fn: function (value) {
+//									if (value !== "" || value !== null) {
+//										this.setHidden(false);
+//									}
+//								}
+//							}
+//						}
 					},{
 						xtype: 'textfield',
 						fieldLabel: 'Update Date',
-//						hidden: true,
+						itemId: 'updateDate',
 						name: 'UPDATE_DATE',
-						hidden: true,
-						listeners: {
-							change: {
-								fn: function (value) {
-									if (value !== "" || value !== null) {
-										this.setHidden(false);
-									}
-								}
-							}
-						}
+//						hidden: true,
+//						listeners: {
+//							change: {
+//								fn: function (value) {
+//									if (value !== "" || value !== null) {
+//										this.setHidden(false);
+//									}
+//								}
+//							}
+//						}
 					}]
 				},{
 					xtype: 'fieldcontainer',
 					items: [{
 						xtype: 'textfield',
 						fieldLabel: 'Pending Date',
+						itemId: 'pendingDate',
 						name: 'PENDING_DATE',
-						hidden: true,
-						listeners: {
-							change: {
-								fn: function (value) {
-									if (value !== "" || value !== null) {
-										this.setHidden(false);
-									}
-								}
-							}
-						}
+//						hidden: true,
+//						listeners: {
+//							change: {
+//								fn: function (value) {
+//									if (value !== "" || value !== null) {
+//										this.setHidden(false);
+//									}
+//								}
+//							}
+//						}
 					},{
 						xtype: 'textfield',
 						fieldLabel: 'Process Date',
-//						hidden: true,
+						itemId: 'processDate',
 						name: 'PROCESS_DATE',
-						hidden: true,
-						listeners: {
-							change: {
-								fn: function (value) {
-									if (value !== "" || value !== null) {
-										this.setHidden(false);
-									}
-								}
-							}
-						}
+//						hidden: true,
+//						listeners: {
+//							change: {
+//								fn: function (value) {
+//									if (value !== "" || value !== null) {
+//										this.setHidden(false);
+//									}
+//								}
+//							}
+//						}
 					}]
 				},{
 					xtype: 'fieldcontainer',
 					items: [{
 						xtype: 'textfield',
 						fieldLabel: 'Cancel Date',
+						itemId: 'cancelDate',
 						name: 'CANCEL_DATE',
-						hidden: true,
-						listeners: {
-							change: {
-								fn: function (value) {
-									if (value !== "" || value !== null) {
-										this.setHidden(false);
-									}
-								}
-							}
-						}
+//						hidden: true,
+//						listeners: {
+//							change: {
+//								fn: function (value) {
+//									if (value !== "" || value !== null) {
+//										this.setHidden(false);
+//									}
+//								}
+//							}
+//						}
 					},{
 						xtype: 'textfield',
 						fieldLabel: 'Close Date',
+						itemId: 'closeDate',
 						name: 'CLOSE_DATE',
-						hidden: true,
-						listeners: {
-							change: {
-								fn: function (value) {
-									if (value !== "" || value !== null) {
-										this.setHidden(false);
-									}
-								}
-							}
-						}
+//						hidden: true,
+//						listeners: {
+//							change: {
+//								fn: function (value) {
+//									if (value !== "" || value !== null) {
+//										this.setHidden(false);
+//									}
+//								}
+//							}
+//						}
 					}]
 				}]
 			}]
 		});
+		var dateCheck = function () {
+			var createDate = sessionInfoForm.down('#createDate');
+			var updateDate = sessionInfoForm.down('#updateDate');
+			var pendingDate = sessionInfoForm.down('#pendingDate');
+			var processDate = sessionInfoForm.down('#processDate');
+			var cancelDate = sessionInfoForm.down('#cancelDate');
+			var closeDate = sessionInfoForm.down('#closeDate');
+			
+			if (createDate.getValue() == null || createDate.getValue() == "") {
+				createDate.setValue("");
+			} else {
+				createDate.setValue(Ext.Date.format(new Date(Ext.decode(createDate.getValue())), 'Y-m-d'));
+			};
+			
+			if (updateDate.getValue() == null || updateDate.getValue() == "") {
+				updateDate.setValue("");
+			} else {
+				updateDate.setValue(Ext.Date.format(new Date(Ext.decode(updateDate.getValue())), 'Y-m-d'));
+			};
+			
+			if (pendingDate.getValue() == null || pendingDate.getValue() == "") {
+				pendingDate.setValue("");
+			} else {
+				pendingDate.setValue(Ext.Date.format(new Date(Ext.decode(pendingDate.getValue())), 'Y-m-d'));
+			};
+			
+			if (processDate.getValue() == null || processDate.getValue() == "") {
+				processDate.setValue("");
+			} else {
+				processDate.setValue(Ext.Date.format(new Date(Ext.decode(processDate.getValue())), 'Y-m-d'));
+			};
+			
+			if (cancelDate.getValue() == null || cancelDate.getValue() == "") {
+				cancelDate.setValue("");
+			} else {
+				cancelDate.setValue(Ext.Date.format(new Date(Ext.decode(cancelDate.getValue())), 'Y-m-d'));
+			};
+			
+			if (closeDate.getValue() == null || closeDate.getValue() == "") {
+				closeDate.setValue("");
+			} else {
+				closeDate.setValue(Ext.Date.format(new Date(Ext.decode(closeDate.getValue())), 'Y-m-d'));
+			};
+			
+		};
+		
+		var buttonCheck = function (){
+			var status = Ext.ComponentQuery.query('#status')[0];
+			var cancel = Ext.ComponentQuery.query('#cancelSession')[0];
+			var close = Ext.ComponentQuery.query('#closeSession')[0];
+			var accept = Ext.ComponentQuery.query('#acceptSession')[0];
+			var windowClose = Ext.ComponentQuery.query('#closeWindow')[0];
+			if (status.value == 'PENDING') {
+				cancel.setHidden(false);
+				windowClose.setHidden(false);
+			} else if (status.value == 'IN PROCESS') {
+				close.setHidden(false);
+				windowClose.setHidden(false);
+			} else if (status.value == 'CLOSED') {
+				windowClose.setHidden(false);
+			};
+		};
 		
 		sessionInfoForm.load({
 			model: 'uber.model.session.SessionInfo',
@@ -326,24 +416,8 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 				rootProperty: 'data'
 			},
 			success: function () {
-				var createDate = sessionInfoForm.down('#createDate');
-				var status = Ext.ComponentQuery.query('#status')[0];
-				var cancel = Ext.ComponentQuery.query('#cancelSession')[0];
-				var close = Ext.ComponentQuery.query('#closeSession')[0];
-				var accept = Ext.ComponentQuery.query('#acceptSession')[0];
-				if (createDate.getValue() == null || createDate.getValue() == "") {
-					createDate.setValue("");
-				} else {
-					console.log(Ext.Date.format(new Date(Ext.decode(createDate.getValue())), 'Y-m-d'));
-					createDate.setValue(Ext.Date.format(new Date(Ext.decode(createDate.getValue())), 'Y-m-d'));
-				}
-				if (status == 'PENDING') {
-					cancel.show();
-				} else if (status == 'IN_PROCESS') {
-					close.show();
-				} else if (status == 'CLOSED') {
-					
-				}
+				dateCheck();
+				buttonCheck();
 			}
 		});
 //		me.store.load();
