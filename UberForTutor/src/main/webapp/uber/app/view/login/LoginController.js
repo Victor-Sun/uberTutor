@@ -57,7 +57,7 @@ Ext.define('uber.view.login.LoginController', {
     	Ext.getBody().mask('Validating... Please Wait...');
     	if(formPanel.getForm().isValid()){
     		formPanel.submit({ 
-    			url: '/uber2/main/login!login.action',
+    			url: '/UberForTutor/main/login!login.action',
     			submitEmptyText: false,
     			method: 'POST', 
     			clientValidation: true,

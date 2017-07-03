@@ -1,5 +1,4 @@
 package com.gnomon.common.utils;
-
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
@@ -13,7 +12,7 @@ import net.sf.json.JsonConfig;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springside.modules.utils.PropertiesUtils;
+import org.springside.modules.utils.base.PropertiesUtil;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
@@ -22,29 +21,29 @@ import com.ubertutor.entity.UserEntity;
 
 /**
  * 
- * Redis»º´æÖĞ´æ·ÅÁ½×ékey£º
- * 1.SID_PREFIX¿ªÍ·£¬´æ·ÅµÇÂ½ÓÃ»§µÄSessionIdÓëClientUserµÄJsonÊı¾İ
- * 2.UID_PREFIX¿ªÍ·£¬´æ·ÅµÇÂ¼ÓÃ»§µÄUIDÓëSessionId¶ÔÓÚµÄÊı¾İ
- * 3.VID_PREFIX¿ªÍ·£¬´æ·ÅÎ»ÓÚÖ¸¶¨Ò³ÃæÓÃ»§µÄÊı¾İ£¨ÓëAjaxÒ»ÆğÊ¹ÓÃ£¬ÓÃÓÚÊµÏÖÖ¸¶¨Ò³ÃæÍ¬Ê±ä¯ÀÀÈËÊıµÄÏŞÖÆ¹¦ÄÜ£©
+ * Redisç¼“å­˜ä¸­å­˜æ”¾ä¸¤ç»„keyï¼š
+ * 1.SID_PREFIXå¼€å¤´ï¼Œå­˜æ”¾ç™»é™†ç”¨æˆ·çš„SessionIdä¸ClientUserçš„Jsonæ•°æ®
+ * 2.UID_PREFIXå¼€å¤´ï¼Œå­˜æ”¾ç™»å½•ç”¨æˆ·çš„UIDä¸SessionIdå¯¹äºçš„æ•°æ®
+ * 3.VID_PREFIXå¼€å¤´ï¼Œå­˜æ”¾ä½äºæŒ‡å®šé¡µé¢ç”¨æˆ·çš„æ•°æ®ï¼ˆä¸Ajaxä¸€èµ·ä½¿ç”¨ï¼Œç”¨äºå®ç°æŒ‡å®šé¡µé¢åŒæ—¶æµè§ˆäººæ•°çš„é™åˆ¶åŠŸèƒ½ï¼‰
  * 
  * @ClassName: OnlineUtils
- * @Description: ÔÚÏßÁĞ±í²Ù×÷¹¤¾ßÀà
+ * @Description: åœ¨çº¿åˆ—è¡¨æ“ä½œå·¥å…·ç±»
  *
  */
 public class OnlineUtils {
     
-    //KEYÖµ¸ù¾İSessionIDÉú³É    
+    //KEYå€¼æ ¹æ®SessionIDç”Ÿæˆ    
     private static final String SID_PREFIX = "online:sid:";
     private static final String UID_PREFIX = "online:uid:";
     private static final String VID_PREFIX = "online:vid:";
     private static final int OVERDATETIME = 30 * 60;
-    private static final int BROADCAST_OVERDATETIME = 70;//AjaxÃ¿60Ãë·¢ÆğÒ»´Î£¬³¬¹ıBROADCAST_OVERDATETIMEÊ±¼ä³¤¶ÈÎ´·¢Æğ±íÊ¾ÒÑ¾­Àë¿ª¸ÃÒ³Ãæ
+    private static final int BROADCAST_OVERDATETIME = 70;//Ajaxæ¯60ç§’å‘èµ·ä¸€æ¬¡ï¼Œè¶…è¿‡BROADCAST_OVERDATETIMEæ—¶é—´é•¿åº¦æœªå‘èµ·è¡¨ç¤ºå·²ç»ç¦»å¼€è¯¥é¡µé¢
     
     
     public static boolean getIsUseRedis() {
 		Properties p = null;
 		try {
-			p = PropertiesUtils.loadProperties("classpath:/redis.properties");
+			p = PropertiesUtil.loadProperties("classpath:/redis.properties");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,7 +63,7 @@ public class OnlineUtils {
     
     public static void broadcast(String uid,String identify){
         
-        if(uid==null||"".equals(uid)) //Òì³£Êı¾İ£¬Õı³£Çé¿öÏÂµÇÂ½ÓÃ»§²Å»á·¢Æğ¸ÃÇëÇó
+        if(uid==null||"".equals(uid)) //å¼‚å¸¸æ•°æ®ï¼Œæ­£å¸¸æƒ…å†µä¸‹ç™»é™†ç”¨æˆ·æ‰ä¼šå‘èµ·è¯¥è¯·æ±‚
             return ;
         
         Jedis jedis = RedisPoolUtils.getJedis();
@@ -85,7 +84,7 @@ public class OnlineUtils {
     /**
      * 
      * @Title: logout
-     * @Description: ÍË³ö
+     * @Description: é€€å‡º
      * @param @param sessionId
      * @return void
      * @throws
@@ -103,17 +102,17 @@ public class OnlineUtils {
     /**
      * 
      * @Title: logout
-     * @Description: ÍË³ö
-     * @param @param UserId  Ê¹Ö¸¶¨ÓÃ»§ÏÂÏß
+     * @Description: é€€å‡º
+     * @param @param UserId  ä½¿æŒ‡å®šç”¨æˆ·ä¸‹çº¿
      * @return void
      * @throws
      */
     public static void logout(String uid){
         Jedis jedis = RedisPoolUtils.getJedis();
         
-        //É¾³ısid
+        //åˆ é™¤sid
         jedis.del(SID_PREFIX+jedis.get(UID_PREFIX+uid));
-        //É¾³ıuid
+        //åˆ é™¤uid
         jedis.del(UID_PREFIX+uid);
         
         RedisPoolUtils.release(jedis);
@@ -143,7 +142,7 @@ public class OnlineUtils {
     /**
      * 
      * @Title: online
-     * @Description: ËùÓĞµÄkey
+     * @Description: æ‰€æœ‰çš„key
      * @return List  
      * @throws
      */
@@ -160,7 +159,7 @@ public class OnlineUtils {
     /**
      * 
      * @Title: online
-     * @Description: ·ÖÒ³ÏÔÊ¾ÔÚÏßÁĞ±í
+     * @Description: åˆ†é¡µæ˜¾ç¤ºåœ¨çº¿åˆ—è¡¨
      * @return List  
      * @throws
      */
@@ -212,7 +211,7 @@ public class OnlineUtils {
     /**
      * 
      * @Title: onlineCount
-     * @Description: ×ÜÔÚÏßÈËÊı
+     * @Description: æ€»åœ¨çº¿äººæ•°
      * @param @return
      * @return int
      * @throws
@@ -230,7 +229,7 @@ public class OnlineUtils {
     }
     
     /**
-     * »ñÈ¡Ö¸¶¨Ò³ÃæÔÚÏßÈËÊı×ÜÊı
+     * è·å–æŒ‡å®šé¡µé¢åœ¨çº¿äººæ•°æ€»æ•°
      */
     public static int broadcastCount(String identify) {
         Jedis jedis = RedisPoolUtils.getJedis();
@@ -245,7 +244,7 @@ public class OnlineUtils {
     }
     
     /**
-     * ×Ô¼ºÊÇ·ñÔÚÏß
+     * è‡ªå·±æ˜¯å¦åœ¨çº¿
      */
     public static boolean broadcastIsOnline(String identify,String uid) {
         
@@ -255,11 +254,11 @@ public class OnlineUtils {
         
         RedisPoolUtils.release(jedis);
         
-        return !StringUtils.isBlank(online);//²»Îª¿Õ¾Í´ú±íÒÑ¾­ÕÒµ½Êı¾İÁË£¬Ò²¾ÍÊÇÉÏÏßÁË
+        return !StringUtils.isBlank(online);//ä¸ä¸ºç©ºå°±ä»£è¡¨å·²ç»æ‰¾åˆ°æ•°æ®äº†ï¼Œä¹Ÿå°±æ˜¯ä¸Šçº¿äº†
     }
     
     /**
-     * »ñÈ¡Ö¸¶¨Ò³ÃæÔÚÏßÈËÊı×ÜÊı
+     * è·å–æŒ‡å®šé¡µé¢åœ¨çº¿äººæ•°æ€»æ•°
      */
     public static int broadcastCount() {
         Jedis jedis = RedisPoolUtils.getJedis();
@@ -275,7 +274,7 @@ public class OnlineUtils {
     /**
      * 
      * @Title: isOnline
-     * @Description: Ö¸¶¨ÕËºÅÊÇ·ñµÇÂ½
+     * @Description: æŒ‡å®šè´¦å·æ˜¯å¦ç™»é™†
      * @param @param sessionId
      * @param @return
      * @return boolean 

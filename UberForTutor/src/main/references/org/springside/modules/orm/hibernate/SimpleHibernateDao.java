@@ -26,7 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-import org.springside.modules.utils.reflection.ReflectionUtils;
+import org.springside.modules.utils.reflect.ReflectionUtil;
 
 /**
  * 封装Hibernate原生API的DAO泛型基类.
@@ -55,7 +55,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	 * public class UserDao extends SimpleHibernateDao<User, String>
 	 */
 	public SimpleHibernateDao() {
-		this.entityClass = ReflectionUtils.getSuperClassGenricType(getClass());
+		this.entityClass = ReflectionUtil.getSuperClassGenricType(getClass());
 	}
 
 	/**

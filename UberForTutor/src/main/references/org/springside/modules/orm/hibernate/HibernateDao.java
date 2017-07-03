@@ -24,13 +24,13 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.impl.CriteriaImpl;
+import org.hibernate.internal.CriteriaImpl;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.util.Assert;
 import org.springside.modules.orm.Page;
 import org.springside.modules.orm.PropertyFilter;
 import org.springside.modules.orm.PropertyFilter.MatchType;
-import org.springside.modules.utils.reflection.ReflectionUtils;
+import org.springside.modules.utils.reflect.ReflectionUtil;
 
 /**
  * 封装SpringSide扩展功能的Hibernat DAO泛型基类.
@@ -250,8 +250,8 @@ public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao
 
 		List<CriteriaImpl.OrderEntry> orderEntries = null;
 		try {
-			orderEntries = (List) ReflectionUtils.getFieldValue(impl, "orderEntries");
-			ReflectionUtils.setFieldValue(impl, "orderEntries", new ArrayList());
+			orderEntries = (List) ReflectionUtil.getFieldValue(impl, "orderEntries");
+			ReflectionUtil.setFieldValue(impl, "orderEntries", new ArrayList());
 		} catch (Exception e) {
 			logger.error("不可能抛出的异常:{}", e.getMessage());
 		}
@@ -270,7 +270,7 @@ public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao
 			c.setResultTransformer(transformer);
 		}
 		try {
-			ReflectionUtils.setFieldValue(impl, "orderEntries", orderEntries);
+			ReflectionUtil.setFieldValue(impl, "orderEntries", orderEntries);
 		} catch (Exception e) {
 			logger.error("不可能抛出的异常:{}", e.getMessage());
 		}

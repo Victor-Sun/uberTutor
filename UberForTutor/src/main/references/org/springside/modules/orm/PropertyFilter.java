@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
-import org.springside.modules.utils.reflection.ConvertUtils;
+import org.springside.modules.utils.reflect.ConvertUtils;
 import org.springside.modules.utils.web.ServletUtils;
 
 /**

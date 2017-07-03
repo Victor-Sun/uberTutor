@@ -1,5 +1,4 @@
 package com.gnomon.common.utils;
-
 import java.util.ResourceBundle;
 
 import redis.clients.jedis.Jedis;
@@ -16,7 +15,7 @@ public class RedisPoolUtils {
         if (bundle == null) {    
             throw new IllegalArgumentException("[redis.properties] is not found!");    
         }
-        //ÉèÖÃ³ØÅäÖÃÏîÖµ  
+        //è®¾ç½®æ± é…ç½®é¡¹å€¼  
         config.setMaxTotal(Integer.valueOf(bundle.getString("jedis.pool.maxActive")));    
         config.setMaxIdle(Integer.valueOf(bundle.getString("jedis.pool.maxIdle")));    
         config.setMaxWaitMillis(Long.valueOf(bundle.getString("jedis.pool.maxWait")));    
@@ -29,7 +28,7 @@ public class RedisPoolUtils {
     /**
      * 
      * @Title: release
-     * @Description: ÊÍ·ÅÁ¬½Ó
+     * @Description: é‡Šæ”¾è¿æ¥
      * @param @param jedis
      * @return void
      * @throws
@@ -41,4 +40,5 @@ public class RedisPoolUtils {
     public static Jedis getJedis(){
         return pool.getResource();
     }
+
 }

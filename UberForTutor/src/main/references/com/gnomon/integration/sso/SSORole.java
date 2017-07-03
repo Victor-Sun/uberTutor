@@ -1,7 +1,7 @@
 /**
  * Copyright 2010-2025 Gnomon Technology. All rights reserved
  */
-package com.gnomon.intergration.sso;
+package com.gnomon.integration.sso;
 
 import java.io.Serializable;
 

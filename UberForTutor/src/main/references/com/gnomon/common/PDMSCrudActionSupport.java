@@ -13,9 +13,8 @@ import net.sf.json.JSONObject;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.gnomon.common.base.CrudActionSupport;
-//import com.gnomon.common.system.service.PrivilegeService;
-import com.gnomon.intergration.sso.SSOUserInfo;
-import com.gnomon.intergration.sso.UserContext;
+import com.gnomon.integration.sso.SSOUserInfo;
+import com.gnomon.integration.sso.UserContext;
 
 public abstract class PDMSCrudActionSupport<T> extends CrudActionSupport<T> {
 
@@ -24,7 +23,7 @@ public abstract class PDMSCrudActionSupport<T> extends CrudActionSupport<T> {
 	 */
 	private static final long serialVersionUID = 495901603955879773L;
 	
-	private String programId;//ÏîÄ¿ID
+	private String programId;//ï¿½ï¿½Ä¿ID
 	
 	private int page;
 	private int limit;
@@ -110,7 +109,7 @@ public abstract class PDMSCrudActionSupport<T> extends CrudActionSupport<T> {
 
 	protected void writeErrorResult(final Exception exception) {
 
-		logger.error(exception.getMessage(),exception);
+//		logger.error(exception.getMessage(),exception);
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("success", false);
