@@ -48,7 +48,7 @@
 
 	<filter-mapping>
 		<filter-name>struts2</filter-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.action</url-pattern>
 	</filter-mapping>
 
 	<!-- 欢迎页面 -->
