@@ -2,6 +2,7 @@ package com.ubertutor.action;
 
 import java.util.Date;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,6 +11,7 @@ import com.ubertutor.entity.FeedbackEntity;
 import com.ubertutor.service.FeedbackService;
 
 @Namespace("/main")
+@AllowedMethods("save")
 public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	private static final long serialVersionUID = 1L;
 	private FeedbackEntity entity;

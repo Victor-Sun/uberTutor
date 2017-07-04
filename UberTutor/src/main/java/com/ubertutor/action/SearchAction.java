@@ -6,18 +6,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import jp.co.nec.flowlites.core.FLPage;
-import com.gnomon.common.utils.JsonResult;
 import com.gnomon.common.PDMSCrudActionSupport;
-import com.ubertutor.entity.FeedbackEntity;
+import com.gnomon.common.utils.JsonResult;
 import com.ubertutor.entity.UserRequestEntity;
 import com.ubertutor.service.SearchService;
 
+import jp.co.nec.flowlites.core.FLPage;
+
 @Namespace("/main")
+@AllowedMethods({"displayRequests","displayRequestInfo"})
 public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	private static final long serialVersionUID = 1L;
 	@Autowired

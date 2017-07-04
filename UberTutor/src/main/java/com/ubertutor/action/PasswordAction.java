@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
@@ -17,9 +18,9 @@ import com.ubertutor.service.LoginService;
 import com.ubertutor.service.PasswordService;
 
 @Namespace("/main")
+@AllowedMethods("save")
 public class PasswordAction extends ActionSupport{
     private static final long serialVersionUID = 1L;
-    
     @Autowired
     private LoginService loginService;
     @Autowired
@@ -29,7 +30,7 @@ public class PasswordAction extends ActionSupport{
     /**
      * Update Password function
      */
-    public void updatePassword(){
+    public void save(){
 		try{
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			String msg, p1 = "", p2 = "", currentPassword = "";
@@ -69,13 +70,10 @@ public class PasswordAction extends ActionSupport{
 		if (null != data) {
 			resultMap.put("data", data);
 		}
-//		JSONObject jsonObject = JSONObject.fromObject(resultMap);
 		try {
-			// Struts2Utils.getResponse().getWriter().write(jsonObject.toString());
 			Struts2Utils.renderHtml(JSON.toJSONString(resultMap));
 		} catch (Exception e) {
 			e.printStackTrace();
-//			log.error(e);
 		}
 	}
 
@@ -85,13 +83,10 @@ public class PasswordAction extends ActionSupport{
 		if (null != data) {
 			resultMap.put("data", data);
 		}
-//		JSONObject jsonObject = JSONObject.fromObject(resultMap);
 		try {
-			// Struts2Utils.getResponse().getWriter().write(jsonObject.toString());
 			Struts2Utils.renderHtml(JSON.toJSONString(resultMap));
 		} catch (Exception e) {
 			e.printStackTrace();
-//			log.error(e);
 		}
 	}
 }

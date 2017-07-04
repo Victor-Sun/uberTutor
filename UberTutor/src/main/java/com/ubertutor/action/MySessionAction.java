@@ -6,25 +6,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
+import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.alibaba.fastjson.JSON;
-import jp.co.nec.flowlites.core.FLPage;
+import com.gnomon.common.PDMSCrudActionSupport;
 import com.gnomon.common.utils.JsonResult;
 import com.gnomon.common.web.SessionData;
-import com.gnomon.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.UserEntity;
 import com.ubertutor.entity.UserRequestEntity;
 import com.ubertutor.service.MySessionService;
 
+import jp.co.nec.flowlites.core.FLPage;
+
+@Namespace("/main")
+@AllowedMethods({"displayAllSessions","displayUserSessions","displayTutorSessions","displaySessionInfo","updateSessionToInProcess","updateSessionToInProcess","updateSessionToCanceled"})
 public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private MySessionService sessionService;
 	private UserEntity entity = SessionData.getLoginUser();
 	private UserRequestEntity requestEntity;
-
+	
 	public void displayAllSessions(){
 		this.writeSuccessResult(sessionService.getSessions());
 	}
@@ -96,7 +101,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		requestEntity.setProcessDate(new Date());
 		sessionService.updateRequest(requestEntity);
 	}
-
+	
 	public void updateSessionToClosed(){
 		Long id = Long.parseLong(Struts2Utils.getRequest().getParameter(""));
 		requestEntity = sessionService.get(id);

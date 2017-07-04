@@ -3,6 +3,7 @@ package com.ubertutor.action;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
@@ -14,6 +15,7 @@ import com.ubertutor.service.SessionProfileService;
 import com.ubertutor.service.TutorSubjectRegisterService;
 
 @Namespace("/main")
+@AllowedMethods({"display","getTutorSubjects","getTutorFeedbacks"})
 public class SessionProfileAction extends ActionSupport{
     private static final long serialVersionUID = 1L;
 
@@ -77,13 +79,10 @@ public class SessionProfileAction extends ActionSupport{
 		if (null != data) {
 			resultMap.put("data", data);
 		}
-//		JSONObject jsonObject = JSONObject.fromObject(resultMap);
 		try {
-			// Struts2Utils.getResponse().getWriter().write(jsonObject.toString());
 			Struts2Utils.renderHtml(JSON.toJSONString(resultMap));
 		} catch (Exception e) {
 			e.printStackTrace();
-//			log.error(e);
 		}
 	}
 
@@ -93,13 +92,10 @@ public class SessionProfileAction extends ActionSupport{
 		if (null != data) {
 			resultMap.put("data", data);
 		}
-//		JSONObject jsonObject = JSONObject.fromObject(resultMap);
 		try {
-			// Struts2Utils.getResponse().getWriter().write(jsonObject.toString());
 			Struts2Utils.renderHtml(JSON.toJSONString(resultMap));
 		} catch (Exception e) {
 			e.printStackTrace();
-//			log.error(e);
 		}
 	}
 }

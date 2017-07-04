@@ -4,20 +4,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import com.gnomon.common.web.SessionData;
-import com.gnomon.common.utils.EncryptUtil;
 import com.gnomon.common.PDMSCrudActionSupport;
+import com.gnomon.common.utils.EncryptUtil;
 import com.gnomon.common.utils.OnlineUtils;
+import com.gnomon.common.web.SessionData;
 import com.ubertutor.entity.UserEntity;
 import com.ubertutor.service.LoginService;
 import com.ubertutor.service.ProfileService;
 import com.ubertutor.service.SignupService;
 
 @Namespace("/main")
+@AllowedMethods({"save"})
 public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	private static final long serialVersionUID = 1L;
 	private String fullName, username, email, password;
