@@ -6,7 +6,7 @@ Ext.define('uber.store.Profile',{
 	
 //	proxy: {
 //		type: 'ajax',
-//		url: '/uber2/main/profile!display.action',
+//		url: '/UberForTutor/main/profile!display.action',
 //		reader: {
 //			type: 'json',
 //			rootProperty: 'data'

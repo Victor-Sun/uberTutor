@@ -103,34 +103,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	}],
 	initComponent: function() {
 		var me = this;
-//		me.store = Ext.create('uber.store.session.SessionInfo',{
-//			autoLoad: true,
-//			model: 'uber.model.session.SessionInfo',
-//			proxy: {
-//				type: 'ajax',
-//				url: '/uber2/main/my-session!displaySessionInfo.action',
-//				params: {
-//					requestID:this.requestID,
-//				},
-//				reader: {
-//					type: 'json',
-//					rootProperty: 'data'
-//				},
-//				success: function () {
-//					var status = Ext.ComponentQuery.query('#status')[0];
-//					var cancel = Ext.ComponentQuery.query('#cancelSession')[0];
-//					var close = Ext.ComponentQuery.query('#closeSession')[0];
-//					var accept = Ext.ComponentQuery.query('#acceptSession')[0];
-//					if (status == 'PENDING') {
-//						cancel.show();
-//					} else if (status == 'IN_PROCESS') {
-//						close.show();
-//					} else if (status == 'CLOSED') {
-//						
-//					}	
-//				}
-//			}
-//		});
 		var sessionInfoForm = Ext.create('Ext.form.Panel',{
 			layout: {
 	            type: 'vbox',
@@ -385,7 +357,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			} else {
 				closeDate.setValue(Ext.Date.format(new Date(Ext.decode(closeDate.getValue())), 'Y-m-d'));
 			};
-			
 		};
 		
 		var buttonCheck = function (){

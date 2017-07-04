@@ -19,9 +19,9 @@ Ext.define('uber.Application', {
     launch: function () {
         // TODO - Launch the application
 //    	Ext.create('uber.view.main.Main');
-//    	Ext.create('uber.view.login.Login');
 //    	Ext.create('uber.view.login.Loginpage');
     	Ext.create('uber.view.homepage.Homepage');
+//    	Ext.create('uber.view.main.MainPage');
     }
 //,
 //    onAppUpdate: function () {

@@ -21,7 +21,7 @@ Ext.define('uber.store.grid.SessionsAdminGrid',{
     },
     proxy: {
         type: 'ajax',
-        url: '/uber2/main/my-session!displayAllSessions.action',
+        url: '/UberForTutor/main/my-session!displayAllSessions.action',
         reader: {
             type: 'json',
             rootProperty: 'data'

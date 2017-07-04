@@ -49,7 +49,7 @@ Ext.define('uber.view.profile.ProfileController',{
 		var remove = mainCard.removeAll();
 		var card2 = mainCard.add(Ext.create('uber.view.profile.Profile'));
 		profileForm.load({
-			url: '/uber2/main/profile!display.action',
+			url: '/UberForTutor/main/profile!display.action',
 			params: {
 				fullname: form.FULLNAME
 			},
@@ -79,7 +79,7 @@ Ext.define('uber.view.profile.ProfileController',{
 
     	formPanel.load({
 			//submit form for user signup
-			url: '/uber2/main/profile!display.action',
+			url: '/UberForTutor/main/profile!display.action',
 			method: 'GET',
 			params: {
 				fullname: 'form.FULLNAME'
@@ -106,7 +106,7 @@ Ext.define('uber.view.profile.ProfileController',{
     	if(profileForm.getForm().isValid()){
     		profileForm.submit({
     			//submit form for user signup
-    			url: '/uber2/main/profile!update.action',
+    			url: '/UberForTutor/main/profile!update.action',
     			method: 'POST',
     			params: {
     				fullname: form.FULLNAME,
@@ -124,7 +124,7 @@ Ext.define('uber.view.profile.ProfileController',{
     				Ext.getBody().unmask();
     				 
     				profileForm.load({
-    					url: '/uber2/main/profile!display.action',
+    					url: '/UberForTutor/main/profile!display.action',
     					params: {
     						fullname: profileForm.FULLNAME
     					},

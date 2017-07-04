@@ -17,7 +17,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			var form = this.up('window').down('form');
 			Ext.getBody().mask('Loading... Please Wait...');
 			form.submit({
-				url: '/uber2/main/my-session-action!updateSessionToInProcess.action',
+				url: '/UberForTutor/main/my-session-action!updateSessionToInProcess.action',
     			method: 'POST', 
     			success: function () {
     				Ext.getBody().unmask();
@@ -37,7 +37,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			var form = this.up('window').down('form');
 			Ext.getBody().mask('Loading... Please Wait...');
 			form.submit({
-				url: '/uber2/main/my-session-action!updateSessionToCanceled.action',
+				url: '/UberForTutor/main/my-session-action!updateSessionToCanceled.action',
     			method: 'POST', 
     			success: function () {
     				Ext.getBody().unmask();
@@ -57,7 +57,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			var form = this.up('window').down('form');
 			Ext.getBody().mask('Loading... Please Wait...');
 			form.submit({
-				url: '/uber2/main/my-session-action!updateSessionToClosed.action',
+				url: '/UberForTutor/main/my-session-action!updateSessionToClosed.action',
     			method: 'POST', 
     			success: function () {
     				Ext.getBody().unmask();
@@ -83,7 +83,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 //			model: 'uber.model.session.SessionInfo',
 //			proxy: {
 //				type: 'ajax',
-//				url: '/uber2/main/my-session!displaySessionInfo.action',
+//				url: '/UberForTutor/main/my-session!displaySessionInfo.action',
 //				params: {
 //					requestID:this.requestID,
 //				},
@@ -317,7 +317,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 		
 		sessionInfoForm.load({
 			model: 'uber.model.session.SessionInfo',
-			url: '/uber2/main/my-session!displaySessionInfo.action',
+			url: '/UberForTutor/main/my-session!displaySessionInfo.action',
 			params: {
 				requestId:this.requestId,
 			},

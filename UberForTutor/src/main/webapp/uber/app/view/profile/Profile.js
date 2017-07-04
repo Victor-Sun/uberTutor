@@ -30,7 +30,7 @@ Ext.define('uber.view.profile.Profile', {
 		var loading = function () {
 //			Ext.getBody().mask('Loading...Please Wait');
 			profileInfoForm.load({
-				url: '/uber2/main/profile!display.action',
+				url: '/UberForTutor/main/profile!display.action',
 				params: {
 					fullname: this.FULLNAME
 				},

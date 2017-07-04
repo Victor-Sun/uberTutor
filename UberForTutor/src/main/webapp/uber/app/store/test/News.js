@@ -23,7 +23,7 @@ Ext.define('uber.store.test.News', {
 
 	proxy: {
 	    type: 'ajax',
-	    url: '/uber2/main/my-session!displayTutorSessions.action',
+	    url: '/UberForTutor/main/my-session!displayTutorSessions.action',
 	    reader: {
 	        type: 'json',
 	        rootProperty: 'data',

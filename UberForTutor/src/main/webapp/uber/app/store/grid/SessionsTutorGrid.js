@@ -4,7 +4,7 @@ Ext.define('uber.store.grid.SessionsTutorGrid',{
     model: 'uber.model.grid.SessionsTutorGrid',
     proxy: {
         type: 'ajax',
-        url: '/uber2/main/my-session!displayTutorSessions.action',
+        url: '/UberForTutor/main/my-session!displayTutorSessions.action',
         reader: {
             type: 'json',
             rootProperty: 'data',

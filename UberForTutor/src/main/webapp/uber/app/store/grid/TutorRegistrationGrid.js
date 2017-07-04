@@ -5,7 +5,7 @@ Ext.define('uber.store.grid.TutorRegistrationGrid', {
     remoteFilter: true,
     proxy: {
         type: 'ajax',
-        url: '/uber2/main/tutor-subject-register!displayUserSubjects.action',
+        url: '/UberForTutor/main/tutor-subject-register!displayUserSubjects.action',
         reader: {
             type: 'json',
             rootProperty: 'data'

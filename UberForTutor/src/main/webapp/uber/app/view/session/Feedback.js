@@ -11,11 +11,9 @@ Ext.define('uber.view.session.Feedback', {
 		type: 'vbox',
 		align: 'stretch'
 	},
-	cls: 'uber-panel',
     items: [{
     	xtype: 'panel',
 		flex: 1,
-    	cls: 'uber-panel-inner',
     	layout: {
     		type: 'vbox',
     		align: 'stretch'

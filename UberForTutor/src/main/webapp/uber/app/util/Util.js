@@ -125,35 +125,35 @@ Ext.define('uber.util.Util', {
 			return privilege;
         },
         
-        //url 为 rpt=pm/projectNodeListReport.brt&xlsbtn&params=programId=
-        openReport:function(url){
-        	Ext.Ajax.request({
-        		url:'/pdms/com/report!getReportAddress.action',
-    			scope: me,
-    			success: function(response, opts) {
-    		    	var obj = Ext.decode(response.responseText);
-    				if (obj.success) {
-    					if (obj.data.reportAddress) {
-    						var openUrl = obj.data.reportAddress + '/report/ReportEmitter?rfscache=true&' + url;
-    						if(url.indexOf('params') != -1){
-    							openUrl = openUrl+";userId="+obj.data.userId;
-    						}else{
-    							openUrl = openUrl +"&params=userId="+obj.data.userId;
-    						}
-    						window.open(openUrl);
-    					} else {
-    						uber.util.Util.showErrorMsg('不能获取报表Server的地址！');
-    					}
-    		        } else {
-    		        	uber.util.Util.handleRequestFailure(response);
-    		        }
-    		    },
-    			failure: function(response, opts) {
-    		    	uber.util.Util.handleRequestFailure(response);
-    		    }
-        	});
-        },
-        
+//        //url 为 rpt=pm/projectNodeListReport.brt&xlsbtn&params=programId=
+//        openReport:function(url){
+//        	Ext.Ajax.request({
+//        		url:'/UberForTutor/com/report!getReportAddress.action',
+//    			scope: me,
+//    			success: function(response, opts) {
+//    		    	var obj = Ext.decode(response.responseText);
+//    				if (obj.success) {
+//    					if (obj.data.reportAddress) {
+//    						var openUrl = obj.data.reportAddress + '/report/ReportEmitter?rfscache=true&' + url;
+//    						if(url.indexOf('params') != -1){
+//    							openUrl = openUrl+";userId="+obj.data.userId;
+//    						}else{
+//    							openUrl = openUrl +"&params=userId="+obj.data.userId;
+//    						}
+//    						window.open(openUrl);
+//    					} else {
+//    						uber.util.Util.showErrorMsg('不能获取报表Server的地址！');
+//    					}
+//    		        } else {
+//    		        	uber.util.Util.handleRequestFailure(response);
+//    		        }
+//    		    },
+//    			failure: function(response, opts) {
+//    		    	uber.util.Util.handleRequestFailure(response);
+//    		    }
+//        	});
+//        },
+//        
         // 格式化时间yyyy/mm/dd
         formatDate: function(date, formatter) {
         	if (date == '' || date == null) {

@@ -3,6 +3,7 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
 	xtype: 'sessionsStudentGrid',
 	controller: 'sessions',
 	emptyText: "<h3>You currently don't have any sessions</h3>",
+	hideHeader: true,
 	initComponent: function () {
 		var page = 5;
 		var me = this;
@@ -39,6 +40,35 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
 					"</div>" +
 				"</div>",
 			]
+    	},{
+    		xtype: 'actioncolumn',
+    		items: [{
+    			xtype: 'button',
+    			itemId: 'feedback',
+    			iconCls: 'x-fa fa-comment',
+    			tooltip: 'Feedback',
+//    			disabled: true,
+//    			hidden: 'true',
+    			handler: 'feedbackClick'
+    		},{
+    			xtype: 'button',
+    			itemId: 'details',
+    			iconCls: 'x-fa fa-archive',
+    			tooltip: 'Details',
+    			handler: 'detailClick'
+    		},{
+    			
+    		}],
+//    		renderer: function (th, val, metadata, record) {
+////    			debugger;
+//    			var me = this;
+//    			var feedback = this.items[1];
+//    			switch ( metadata.data.status ) {
+//    				case 'CLOSED':
+//    					feedback.setVisible(true);
+//    					enable(); 
+//    			}
+//    		}
 		}];
     	this.dockedItems = [{
     		xtype: 'pagingtoolbar',
@@ -47,7 +77,7 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
     		store: me.store
     	}];
 		this.listeners = {
-    		celldblclick: 'onCelldblclick',
+//    		celldblclick: 'onCelldblclick',
     	};
 		this.callParent(arguments);
 	}

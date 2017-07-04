@@ -1044,6 +1044,7 @@ $include-uber-view-search-search: dynamic(true);;
 $include-uber-view-search-searchresults: dynamic(true);;
 $include-uber-view-search-searchresultsgrid: dynamic(true);;
 $include-uber-view-session-feedback: dynamic(true);;
+$include-uber-view-session-feedbackwindow: dynamic(true);;
 $include-uber-view-session-sessioninfo: dynamic(true);;
 $include-uber-view-session-sessioninfowindow: dynamic(true);;
 $include-uber-view-session-sessions: dynamic(true);;

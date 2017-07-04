@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-	id="WebApp_ID" version="3.1">
-	<display-name>struts</display-name>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<!-- Context ConfigLocation -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			classpath*:/applicationContext.xml
-		</param-value>
+		<param-value>classpath*:/spring/spring-*.xml</param-value>
 	</context-param>
-	<!-- Filter 定义 -->
-	<!-- Character Encoding filter -->
+
+	<!-- 指定以Listener方式启动Spring容器 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- 防内存泄漏监听 -->
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+
 	<filter>
+		<description>字符集过滤器</description>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
+			<description>字符集编码</description>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
 		</init-param>
@@ -24,59 +34,26 @@
 			<param-value>true</param-value>
 		</init-param>
 	</filter>
-
-	<!-- Hibernate Open Session In View filter -->
-	<!-- <filter> <filter-name>hibernateOpenSessionInViewFilter</filter-name> 
-		<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class> 
-		</filter> -->
-
-	<!-- SpringSecurity filter -->
-	<!-- <filter> <filter-name>springSecurityFilterChain</filter-name> <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> 
-		</filter> -->
-
-	<!-- Struts2 filter -->
-	<filter>
-		<filter-name>struts2Filter</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
-	</filter>
-
-	<!-- Filter 映射 -->
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!-- <filter-mapping> <filter-name>hibernateOpenSessionInViewFilter</filter-name> 
-		<url-pattern>*.action</url-pattern> <dispatcher>REQUEST</dispatcher> <dispatcher>FORWARD</dispatcher> 
-		</filter-mapping> -->
 
 
-	<!-- <filter-mapping> <filter-name>hibernateOpenSessionInViewFilter</filter-name> 
-		<url-pattern>/j_spring_security_check</url-pattern> </filter-mapping> <filter-mapping> 
-		<filter-name>springSecurityFilterChain</filter-name> <url-pattern>/*</url-pattern> 
-		<dispatcher>REQUEST</dispatcher> <dispatcher>FORWARD</dispatcher> </filter-mapping> -->
+	<!-- 定义Struts2的核心控制器FilterDispathcer -->
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
 
 	<filter-mapping>
-		<filter-name>struts2Filter</filter-name>
-		<url-pattern>*.action</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
 
-	<!--Spring的ApplicationContext 载入 -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-
-	<!-- Spring 刷新Introspector防止内存泄露 -->
-	<listener>
-		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
-	</listener>
+	<!-- 欢迎页面 -->
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+
 </web-app>

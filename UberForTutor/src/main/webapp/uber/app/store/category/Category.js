@@ -4,7 +4,7 @@ Ext.define('uber.store.category.Category',{
 	fields: ['title'],
 	proxy: {
       type: 'ajax',
-      url: '/uber2/main/tutor-subject-register!displayCategories.action',
+      url: '/UberForTutor/main/tutor-subject-register!displayCategories.action',
       reader: {
           type: 'json',
           rootProperty:'data',

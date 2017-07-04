@@ -98,8 +98,26 @@ Ext.define('uber.view.main.MainPage', {
     				xtype: 'grid',
     				flex: 1,
     				layout: 'fit',
+    				store: {
+    					field: [{
+    						name: 'tutor',
+    						type: 'string'
+    					},{
+    						name: 'rating',
+    						type: 'integer'
+    					}],
+    					data: [{
+    						'tutor': 'tutor', 'rating': 5
+    					},{
+    						'tutor': 'tutor2', 'rating': 4 
+    					}]
+    				},
     				columns: [{
-    					
+    					dataIndex: 'tutor',
+    					align: 'left',
+    					flex: 1
+//    				},{
+//    					dataIndex: 'rating'
     				}]
     			}]
     		},{
