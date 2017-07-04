@@ -78,6 +78,26 @@ Ext.define('uber.view.session.SessionsController',{
 //    	var status = sessionInfoWindow.down('#status').setValue(record.data.status);
     },
     
+    detailClick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    	console.log("RequestId:" + rowIndex.data.requestId);
+    	Ext.create('uber.view.session.SessionInfoWindow',{
+    		requestId: rowIndex.data.requestId,
+//    		status: record.data.status
+    	}).show();
+//    	var sessionInfoWindow = Ext.ComponentQuery.query('#sessionInfoWindow')[0];
+//    	var requestId = sessionInfoWindow.down('#requestID').setValue(record.data.requestID);
+//    	var status = sessionInfoWindow.down('#status').setValue(record.data.status);
+    },
+    
+    feedbackClick: function(gridview, rowIndex, colIndex, item, e, record, row) {
+        var grid=gridview.up('grid');
+        // You need to listen to this event on your grid.
+//        grid.fireEvent('hide', grid, record);
+        Ext.create('uber.view.session.FeedbackWindow',{
+        	requestId: record.data.requestId,
+        }).show();
+    },
+    
     feedback: function () {
     	var me = this;
 		var main = me.view.up('app-main');

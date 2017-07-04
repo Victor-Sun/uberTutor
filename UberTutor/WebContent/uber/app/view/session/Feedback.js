@@ -1,5 +1,5 @@
 Ext.define('uber.view.session.Feedback', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.form.Panel',
     xtype: 'feedback',
 
     requires: [
@@ -11,11 +11,9 @@ Ext.define('uber.view.session.Feedback', {
 		type: 'vbox',
 		align: 'stretch'
 	},
-	cls: 'uber-panel',
     items: [{
     	xtype: 'panel',
 		flex: 1,
-    	cls: 'uber-panel-inner',
     	layout: {
     		type: 'vbox',
     		align: 'stretch'
@@ -25,7 +23,7 @@ Ext.define('uber.view.session.Feedback', {
             layout: 'hbox',
             items: [{
                 margin: 5,
-                html: '<h2>Feedback</h2>'
+                html: '<h3>Feedback</h3>'
             }]
     	},{
     		xtype: 'container',
@@ -33,28 +31,16 @@ Ext.define('uber.view.session.Feedback', {
             items: [{
                 xtype: 'container',
                 margin: 5,
-                cls: 'shadow image-container',
-                items: [{
-                	xtype: 'image',
-	                width: 80,
-	                height: 80,
-                }]
-                
-            },{
-                xtype: 'container',
                 layout: {
                 	type: 'vbox',
                 },
                 items: [{
                 	xtype: 'component',
-                	html: '<h3>Username</h3>'
+                	margin: '5 5 0 15',
+                	html: 'Rating'
                 },{
                 	xtype: 'container',
-                	margin: 5,
-                	layout: {
-                		type: 'vbox',
-                		
-                	},
+                	margin: '20 5 5 15',
                 	items: [{
                 		xtype: 'rating',
                 		limit: '5',
@@ -63,31 +49,24 @@ Ext.define('uber.view.session.Feedback', {
                 }]
             }]
     	},{
-    		xtype: 'form',
+    		xtype: 'fieldcontainer',
             margin: 5,
             reference: 'formpanel',
             layout: {
                 type: 'vbox',
-                align: 'stretchmax'
+                align: 'stretch'
             },
             defaults: {
                 labelAlign: 'top',
                 readOnly: true,
-                width: 200
             },
             items: [{
                 xtype: 'textarea',
-                width: 425,
+                margin: '5 10 5 10',
+                height: 75,
+//                width: 425,
                 name: 'comment',
                 fieldLabel: 'Comment',
-            }],
-            dockedItems: [{
-            	xtype: 'toolbar',
-            	dock: 'bottom',
-            	items: [{
-            		xtype: 'button',
-            		text: 'Submit'
-            	}]
             }]
     	}]
     }]
