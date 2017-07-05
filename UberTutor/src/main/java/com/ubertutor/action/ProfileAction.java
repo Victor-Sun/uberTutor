@@ -19,11 +19,59 @@ import com.ubertutor.service.ProfileService;
 @AllowedMethods({"display","update","displaySchool","tutorStatus"})
 public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	private static final long serialVersionUID = 1L;
-
 	@Autowired
 	private ProfileService profileService;
 	private SchoolEntity schoolEntity;
 	private UserEntity entity = SessionData.getLoginUser();
+	private String fullname, email, mobile, bio, schoolName, isTutor;
+	
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
+
+	public String getSchoolName() {
+		return schoolName;
+	}
+
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
+
+	public String getIsTutor() {
+		return isTutor;
+	}
+
+	public void setIsTutor(String isTutor) {
+		this.isTutor = isTutor;
+	}
 
 	/**
 	 * Sends Json to front end to display a user's profile
@@ -45,19 +93,18 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 
 	/**
 	 * Updates a user's profile
+	 * @return 
 	 * @throws Exception
 	 */
-	public void update() throws Exception{
+	@Override
+	public String save() throws Exception{
 		try{
-			String fullname, email, mobile, bio, school, schoolId, isTutor, msg, mobileNo = "";
-			fullname = Struts2Utils.getRequest().getParameter("fullname");
-			email = Struts2Utils.getRequest().getParameter("email");
+			String schoolId, msg, mobileNo = "";
 			isTutor = Struts2Utils.getRequest().getParameter("isTutor");
 			if(!profileService.isValidEmailAddress(email)){
 				msg = "Invalid email, please check that your email is written correctly, and try again.";
 				throw new Exception(msg);
 			}
-			mobile = Struts2Utils.getRequest().getParameter("mobile");
 			String[] temp = mobile.split("[-.()]");
 			for(int i = 0; i < temp.length; i++){
 				mobileNo += temp[i];
@@ -70,12 +117,11 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 				msg = "Invalid phone number, please enter 10 digits.";
 				throw new Exception(msg);
 			}
-			school = Struts2Utils.getRequest().getParameter("name");
-			if(school== null || school == ""){
+			if(schoolName== null || schoolName == ""){
 				msg = "School cannot be empty";
 				throw new Exception(msg);
 			}
-			schoolEntity = profileService.getSchoolByName(school);
+			schoolEntity = profileService.getSchoolByName(schoolName);
 			schoolId = schoolEntity.getId().toString();
 			bio = Struts2Utils.getRequest().getParameter("bio");
 			entity.setFullname(fullname);
@@ -91,6 +137,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 			e.printStackTrace();
 			this.writeErrorResult(e);
 		}
+		return null;
 	}
 
 	/**
@@ -109,44 +156,31 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 * Get user's isTutor status
 	 */
 	public void tutorStatus(){
-		entity = SessionData.getLoginUser();
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isTutor", entity.getIsTutor());
 		this.writeSuccessResult(result);
 	}
 
 	public UserEntity getModel() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String list() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String input() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String save() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String delete() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected void prepareModel() throws Exception {
-		// TODO Auto-generated method stub
-
 	}
 }

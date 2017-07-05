@@ -12,6 +12,7 @@ import net.sf.json.JSONObject;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
+import com.alibaba.fastjson.JSON;
 import com.gnomon.common.base.CrudActionSupport;
 import com.gnomon.integration.sso.SSOUserInfo;
 import com.gnomon.integration.sso.UserContext;
@@ -72,45 +73,32 @@ public abstract class PDMSCrudActionSupport<T> extends CrudActionSupport<T> {
 	}
 
 	protected void writeSuccessResult(Object data) {
-
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("success", true);
 		if (null != data) {
 			resultMap.put("data", data);
 		}
-		
-		JSONObject jsonObject = JSONObject.fromObject(resultMap);
 		try {
-			// Struts2Utils.getResponse().getWriter().write(jsonObject.toString());
-			Struts2Utils.renderHtml(jsonObject.toString());
+			Struts2Utils.renderHtml(JSON.toJSONString(resultMap));
 		} catch (Exception e) {
 			e.printStackTrace();
-//			log.error(e);
 		}
 	}
 
 	protected void writeErrorResult(Object data) {
-
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("success", false);
 		if (null != data) {
 			resultMap.put("data", data);
 		}
-		
-		JSONObject jsonObject = JSONObject.fromObject(resultMap);
 		try {
-			// Struts2Utils.getResponse().getWriter().write(jsonObject.toString());
-			Struts2Utils.renderHtml(jsonObject.toString());
+			Struts2Utils.renderHtml(JSON.toJSONString(resultMap));
 		} catch (Exception e) {
 			e.printStackTrace();
-//			log.error(e);
 		}
 	}
 
 	protected void writeErrorResult(final Exception exception) {
-
-//		logger.error(exception.getMessage(),exception);
-
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("success", false);
 		resultMap.put("errors", new HashMap<String, String>() {
@@ -122,12 +110,6 @@ public abstract class PDMSCrudActionSupport<T> extends CrudActionSupport<T> {
 		JSONObject jsonObject = JSONObject.fromObject(resultMap);
 		try {
 			Struts2Utils.renderHtml(jsonObject.toString());
-//			HttpServletResponse response = Struts2Utils.getResponse();
-//            response.setContentType("application/json;charset=UTF-8");
-//		    response.setCharacterEncoding("UTF-8");
-//		    PrintWriter pw = response.getWriter();
-//		    pw.write(jsonObject.toString());
-//		    pw.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

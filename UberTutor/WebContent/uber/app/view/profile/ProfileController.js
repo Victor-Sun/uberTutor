@@ -106,7 +106,7 @@ Ext.define('uber.view.profile.ProfileController',{
     	if(profileForm.getForm().isValid()){
     		profileForm.submit({
     			//submit form for user signup
-    			url: '/UberTutor/main/profile!update.action',
+    			url: '/UberTutor/main/profile!save.action',
     			method: 'POST',
     			params: {
     				fullname: form.FULLNAME,
