@@ -6,7 +6,6 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
 	
 	flex: 1,
 	requires: [
-	   'Ext.grid.plugin.RowExpander',
 //	   'uber.store.grid.TutorRegistrationGrid',
        'Ext.selection.CellModel',
        'Ext.grid.*',

@@ -7,7 +7,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	requestId: '',
 	session: '',
 	layout: 'fit',
-	closable: false,
 	tools: [{
 		xtype: 'button',
 		itemId: 'acceptSession',
@@ -91,13 +90,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
     		    	Ext.getBody().unmask();
     		    } 
 			});
-		}
-	},{
-		xtype: 'button',
-		itemId: 'closeWindow',
-		text: 'Close Window',
-		handler: function () {
-			this.up('window').close();
 		}
 	}],
 	initComponent: function() {
@@ -230,9 +222,9 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 //						}
 					},{
 						xtype: 'textfield',
-						fieldLabel: 'Update Date',
-						itemId: 'updateDate',
-						name: 'UPDATE_DATE',
+						fieldLabel: 'Pending Date',
+						itemId: 'pendingDate',
+						name: 'PENDING_DATE',
 //						hidden: true,
 //						listeners: {
 //							change: {
@@ -247,21 +239,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 				},{
 					xtype: 'fieldcontainer',
 					items: [{
-						xtype: 'textfield',
-						fieldLabel: 'Pending Date',
-						itemId: 'pendingDate',
-						name: 'PENDING_DATE',
-//						hidden: true,
-//						listeners: {
-//							change: {
-//								fn: function (value) {
-//									if (value !== "" || value !== null) {
-//										this.setHidden(false);
-//									}
-//								}
-//							}
-//						}
-					},{
 						xtype: 'textfield',
 						fieldLabel: 'Process Date',
 						itemId: 'processDate',
@@ -276,10 +253,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 //								}
 //							}
 //						}
-					}]
-				},{
-					xtype: 'fieldcontainer',
-					items: [{
+					},{
 						xtype: 'textfield',
 						fieldLabel: 'Cancel Date',
 						itemId: 'cancelDate',
@@ -294,7 +268,10 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 //								}
 //							}
 //						}
-					},{
+					}]
+				},{
+					xtype: 'fieldcontainer',
+					items: [{
 						xtype: 'textfield',
 						fieldLabel: 'Close Date',
 						itemId: 'closeDate',
@@ -315,7 +292,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 		});
 		var dateCheck = function () {
 			var createDate = sessionInfoForm.down('#createDate');
-			var updateDate = sessionInfoForm.down('#updateDate');
 			var pendingDate = sessionInfoForm.down('#pendingDate');
 			var processDate = sessionInfoForm.down('#processDate');
 			var cancelDate = sessionInfoForm.down('#cancelDate');
@@ -325,12 +301,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 				createDate.setValue("");
 			} else {
 				createDate.setValue(Ext.Date.format(new Date(Ext.decode(createDate.getValue())), 'Y-m-d'));
-			};
-			
-			if (updateDate.getValue() == null || updateDate.getValue() == "") {
-				updateDate.setValue("");
-			} else {
-				updateDate.setValue(Ext.Date.format(new Date(Ext.decode(updateDate.getValue())), 'Y-m-d'));
 			};
 			
 			if (pendingDate.getValue() == null || pendingDate.getValue() == "") {

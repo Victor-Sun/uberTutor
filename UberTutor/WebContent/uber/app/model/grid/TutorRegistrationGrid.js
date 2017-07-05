@@ -11,7 +11,7 @@ Ext.define('uber.model.grid.TutorRegistrationGrid', {
         		if (v == null || v == "") {
         			return "";
         		} else {
-        			return Ext.Date.format(new Date(v.time), 'Y-m-d');
+        			return Ext.Date.format(new Date(v), 'Y-m-d');
         		}
         		
         	}

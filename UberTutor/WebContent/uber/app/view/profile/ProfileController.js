@@ -112,7 +112,7 @@ Ext.define('uber.view.profile.ProfileController',{
     				fullname: form.FULLNAME,
     				email: form.EMAIL,
     				mobile: form.MOBILE,
-    				schoolName: form.schoolName,
+    				schoolName: form.NAME,
     				bio: form.BIO,
     				isTutor: form.IS_TUTOR
     			},
