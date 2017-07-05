@@ -51,7 +51,7 @@ public class MySessionService {
 		return this.jdbcTemplate.queryForMap(sql.toString(), params.toArray());
 	}
 	
-	public void updateRequest(UserRequestEntity entity){
+	public void save(UserRequestEntity entity){
 		this.userRequestDAO.save(entity);
 	}
 	

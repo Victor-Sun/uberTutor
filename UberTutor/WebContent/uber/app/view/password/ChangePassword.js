@@ -60,7 +60,7 @@ Ext.define('uber.view.password.ChangePassword',{
 	                name: 'password',
 	                fieldLabel: 'Current password',
 	                inputType: 'password',
-	                name: 'currentpassword'
+	                name: 'currentPassword'
                 }]
             },{
                 items: [{
@@ -68,7 +68,7 @@ Ext.define('uber.view.password.ChangePassword',{
                     fieldLabel: 'New password',
                     itemId: 'newpassword',
                     inputType: 'password',
-                    name: 'newpassword'
+                    name: 'newPassword'
                 }]
             },{
             	items: [{
@@ -76,7 +76,7 @@ Ext.define('uber.view.password.ChangePassword',{
                     fieldLabel: 'Repeat new password',
                     itemId: 'newpassword2',
                     inputType: 'password',
-                    name: 'newpassword2',
+                    name: 'newPassword2',
                 	validator: function(value) {
                         var password1 = Ext.ComponentQuery.query('#newpassword')[0];
                         return (value === password1.getValue()) ? true : 'Passwords do not match.'

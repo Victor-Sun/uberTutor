@@ -22,7 +22,13 @@ import com.ubertutor.service.MySessionService;
 import jp.co.nec.flowlites.core.FLPage;
 
 @Namespace("/main")
-@AllowedMethods({"displayAllSessions","displayUserSessions","displayTutorSessions","displaySessionInfo","updateSessionToInProcess","updateSessionToInProcess","updateSessionToCanceled"})
+@AllowedMethods({"displayAllSessions",
+	"displayUserSessions",
+	"displayTutorSessions",
+	"displaySessionInfo",
+	"updateSessionToInProcess",
+	"updateSessionToInProcess",
+	"updateSessionToCanceled"})
 public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	private static final long serialVersionUID = 1L;
 	@Autowired
@@ -108,7 +114,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		requestEntity = sessionService.get(id);
 		requestEntity.setStatus("IN PROCESS");
 		requestEntity.setProcessDate(new Date());
-		sessionService.updateRequest(requestEntity);
+		sessionService.save(requestEntity);
 	}
 	
 	public void updateSessionToClosed(){
@@ -116,7 +122,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		requestEntity = sessionService.get(id);
 		requestEntity.setStatus("CLOSED");
 		requestEntity.setCloseDate(new Date());
-		sessionService.updateRequest(requestEntity);
+		sessionService.save(requestEntity);
 	}	
 
 	public void updateSessionToCanceled(){
@@ -124,7 +130,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		requestEntity = sessionService.get(id);
 		requestEntity.setStatus("CANCELED");
 		requestEntity.setCancelDate(new Date());
-		sessionService.updateRequest(requestEntity);
+		sessionService.save(requestEntity);
 	}	
 
 	protected void writeSuccessResult(Object data) {

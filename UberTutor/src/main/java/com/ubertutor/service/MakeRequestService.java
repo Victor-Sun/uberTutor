@@ -44,7 +44,7 @@ public class MakeRequestService {
 	 * @param subjectId
 	 */
 	
-	public void makeRequest(UserRequestEntity requestEntity){
+	public void save(UserRequestEntity requestEntity){
 	    userRequestDAO.save(requestEntity);
 	}
 	

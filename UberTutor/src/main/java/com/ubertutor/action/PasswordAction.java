@@ -26,6 +26,7 @@ public class PasswordAction extends ActionSupport{
     @Autowired
     private PasswordService passwordService;
     private UserEntity entity = SessionData.getLoginUser();
+    private String currentPassword, newpassword, newpassword2;
     
     /**
      * Update Password function

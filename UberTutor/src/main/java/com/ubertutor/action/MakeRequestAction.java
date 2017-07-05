@@ -7,11 +7,9 @@ import java.util.Map;
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.gnomon.common.PDMSCrudActionSupport;
 import com.gnomon.common.web.SessionData;
-import com.ubertutor.entity.UserEntity;
 import com.ubertutor.entity.UserRequestEntity;
 import com.ubertutor.service.MakeRequestService;
 
@@ -21,8 +19,7 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private MakeRequestService makeRequestService;
-	private UserRequestEntity requestEntity = new UserRequestEntity();
-	private UserEntity entity = SessionData.getLoginUser();
+	private UserRequestEntity entity = new UserRequestEntity();
 	private Long id;
 	private String subjectId, description, title;
 	
@@ -65,7 +62,6 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	public String save() throws Exception{
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
-			Date date = new Date();
 			String msg;
 			if(title.isEmpty() || title.startsWith(" ")){
 				msg = "Title cannot be empty! Fill it in and try again!";
@@ -75,14 +71,14 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 				msg = "Description cannot be empty! Fill it in and try again!";
 				throw new Exception(msg);
 			}
-			requestEntity.setUserId(entity.getId());
-			requestEntity.setSubjectId(Long.parseLong(subjectId));
-			requestEntity.setDescription(description);
-			requestEntity.setTitle(title);
-			requestEntity.setCreateDate(date);
-			requestEntity.setStatus("OPEN");
-			makeRequestService.makeRequest(requestEntity);
-			resultMap.put("requestId", requestEntity.getId());
+			entity.setUserId(Long.parseLong(SessionData.getLoginUserId()));
+			entity.setSubjectId(Long.parseLong(subjectId));
+			entity.setDescription(description);
+			entity.setTitle(title);
+			entity.setCreateDate(new Date());
+			entity.setStatus("OPEN");
+			makeRequestService.save(entity);
+			resultMap.put("requestId", entity.getId());
 			this.writeSuccessResult(resultMap);
 		} catch (Exception e){
 			e.printStackTrace();
@@ -92,7 +88,7 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	}
 
 	public UserRequestEntity getModel() {
-		return requestEntity;
+		return entity;
 	}
 
 	@Override
@@ -119,6 +115,6 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 
 	@Override
 	protected void prepareModel() throws Exception {
-		requestEntity = (id != null) ? makeRequestService.get(id) : new UserRequestEntity();
+		entity = (id != null) ? makeRequestService.get(id) : new UserRequestEntity();
 	}
 }
