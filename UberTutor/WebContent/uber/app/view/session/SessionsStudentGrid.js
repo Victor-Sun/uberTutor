@@ -68,13 +68,13 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
     	},{
     		xtype: 'actioncolumn',
     		items: [{
-//    			xtype: 'button',
-//    			itemId: 'feedback',
-//    			iconCls: 'x-fa fa-comment',
-//    			tooltip: 'Feedback',
-////    			hidden: 'true',
-//    			handler: 'feedbackClick'
-//    		},{
+    			xtype: 'button',
+    			itemId: 'feedback',
+    			iconCls: 'x-fa fa-comment',
+    			tooltip: 'Feedback',
+//    			hidden: 'true',
+    			handler: 'feedbackClick'
+    		},{
     			xtype: 'button',
     			itemId: 'details',
     			iconCls: 'x-fa fa-archive',
@@ -83,15 +83,14 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
 //    		},{
 //    			
     		}],
-    		renderer: function (th, val, metadata, record) {
-    			debugger;
-    			var me = this;
-    			var feedback = this.items[1];
-    			if ( metadata.data.status == 'CLOSED') {
-//    					feedback.setHidden(false);
-    				this.add(feedbackButton);
-    			}
-    		}
+//    		renderer: function (th, val, metadata, record) {
+//    			var me = this;
+//    			var feedback = this.items[1];
+//    			if ( metadata.data.status == 'CLOSED') {
+////    					feedback.setHidden(false);
+//    				this.add(feedbackButton);
+//    			}
+//    		}
 		}];
     	this.dockedItems = [{
     		xtype: 'pagingtoolbar',

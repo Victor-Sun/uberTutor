@@ -95,7 +95,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	},{
 		xtype: 'button',
 		itemId: 'closeWindow',
-		hidden: true,
 		text: 'Close Window',
 		handler: function () {
 			this.up('window').close();
@@ -367,12 +366,10 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			var windowClose = Ext.ComponentQuery.query('#closeWindow')[0];
 			if (status.value == 'PENDING') {
 				cancel.setHidden(false);
-				windowClose.setHidden(false);
 			} else if (status.value == 'IN PROCESS') {
 				close.setHidden(false);
-				windowClose.setHidden(false);
-			} else if (status.value == 'CLOSED') {
-				windowClose.setHidden(false);
+//			} else if (status.value == 'CLOSED') {
+//				windowClose.setHidden(false);
 			};
 		};
 		

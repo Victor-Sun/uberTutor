@@ -79,7 +79,12 @@ Ext.define('uber.view.password.ChangePassword',{
                     name: 'newPassword2',
                 	validator: function(value) {
                         var password1 = Ext.ComponentQuery.query('#newpassword')[0];
-                        return (value === password1.getValue()) ? true : 'Passwords do not match.'
+//                        return (value === password1.getValue()) ? true : 'Passwords do not match.'
+                        if (value == password1.getValue) {
+                        	 return true;
+                        } else {
+                        	return {success:false,  errorMessage:"Passwords do not match!"}
+                        }
                     }
             	}]
             }],

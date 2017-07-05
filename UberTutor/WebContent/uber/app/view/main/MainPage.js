@@ -96,6 +96,7 @@ Ext.define('uber.view.main.MainPage', {
     				}]
     			},{
     				xtype: 'grid',
+    				hideHeaders: false,
     				flex: 1,
     				layout: 'fit',
     				store: {
@@ -103,21 +104,33 @@ Ext.define('uber.view.main.MainPage', {
     						name: 'tutor',
     						type: 'string'
     					},{
+    						name: 'subjects',
+    						type: 'string'
+    					},{
     						name: 'rating',
     						type: 'integer'
     					}],
     					data: [{
-    						'tutor': 'tutor', 'rating': 5
+    						tutor: 'tutor', subjects: 'math', rating: 5
     					},{
-    						'tutor': 'tutor2', 'rating': 4 
+    						tutor: 'tutor2', subjects: 'algebra', rating: 4 
     					}]
     				},
     				columns: [{
     					dataIndex: 'tutor',
+    					text: 'Tutor',
     					align: 'left',
     					flex: 1
-//    				},{
-//    					dataIndex: 'rating'
+    				},{
+    					dataIndex: 'subjects',
+    					text: 'Subjects',
+    					align: 'left',
+    					flex: 1,
+    				},{
+    					dataIndex: 'rating',
+    					text: 'Averate Rating',
+    					align: 'left',
+    					flex: 1,
     				}]
     			}]
     		},{

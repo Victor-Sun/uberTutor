@@ -6,7 +6,6 @@ Ext.define('uber.view.session.FeedbackWindow',{
 	layout: 'fit',
 	initComponent: function() {
 		
-		
 		var feedback = Ext.create('uber.view.session.Feedback',{
 			flex: 2,
 		});
