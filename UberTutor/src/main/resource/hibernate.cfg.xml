@@ -5,7 +5,7 @@
 <hibernate-configuration>
 	<session-factory>
 
-		<property name="dialect">org.hibernate.dialect.OracleDialect</property>
+		<property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
 		<property name="jdbc.batch_size">20</property>
 		<property name="connection.autocommit">true</property>
 

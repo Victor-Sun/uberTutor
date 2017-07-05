@@ -6,21 +6,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import jp.co.nec.flowlites.core.FLPage;
+import com.gnomon.common.PDMSCrudActionSupport;
 import com.gnomon.common.utils.JsonResult;
 import com.gnomon.common.web.SessionData;
-import com.gnomon.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.UserSubjectEntity;
 import com.ubertutor.service.TutorSubjectRegisterService;
 
+import jp.co.nec.flowlites.core.FLPage;
+
 @Namespace("/main")
+@AllowedMethods({"displayCategories","displayCategorySubject","displayUserSubjects","removeSubject","editSubject","save"})
 public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjectEntity> {
 	private static final long serialVersionUID = 1L;
-
 	@Autowired
 	private TutorSubjectRegisterService tutorSubjectRegisterService;
 	private UserSubjectEntity entity;
@@ -113,7 +115,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 			this.writeErrorResult(e);
 		}
 	}
-
+	
 	public void editSubject() throws Exception{
 		try{
 			Long userSubjectId = Long.parseLong(Struts2Utils.getRequest().getParameter("userSubjectId"));

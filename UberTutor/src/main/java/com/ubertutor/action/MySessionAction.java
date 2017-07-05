@@ -88,10 +88,19 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		}
 	}
 
-	public void displaySessionInfo(){
-		Long id = Long.parseLong(Struts2Utils.getRequest().getParameter("requestId"));
-		requestEntity = sessionService.get(id);
-		this.writeSuccessResult(sessionService.getSessionInfo((id)));
+	public void displaySessionInfo() throws Exception{
+		try{
+			String msg;
+			if(Struts2Utils.getParameter("requestId").isEmpty()){
+				msg = "An error has occured!";
+				throw new Exception(msg);
+			}
+			Long id = Long.parseLong(Struts2Utils.getParameter("requestId"));
+			requestEntity = sessionService.get(id);
+			this.writeSuccessResult(sessionService.getSessionInfo((id)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void updateSessionToInProcess(){

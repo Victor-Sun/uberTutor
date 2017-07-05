@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,10 @@ import com.ubertutor.service.ProfileService;
 import com.ubertutor.service.SignupService;
 
 @Namespace("/main")
-@AllowedMethods({"save"})
+@AllowedMethods("save")
 public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	private static final long serialVersionUID = 1L;
-	private String fullName, username, email, password;
+	private String fullName, username, email, password, password2;
 	private Long id;
 	@Autowired
 	private SignupService signupService;
@@ -32,68 +33,44 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	private ProfileService profileService;
 	private UserEntity entity = new UserEntity();
 
-	/**
-	 * 
-	 * @return fullname as a String
-	 */
 	public String getFullName() {
 		return fullName;
 	}
 
-	/**
-	 * Set fullname
-	 * @param fullName
-	 */
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
 
-	/**
-	 * 
-	 * @return username as a String
-	 */
 	public String getUsername() {
 		return username;
 	}
 
-	/**
-	 * Set username
-	 * @param username
-	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	/**
-	 * 
-	 * @return email as a String
-	 */
 	public String getEmail() {
 		return email;
 	}
 
-	/**
-	 * Set email
-	 * @param email
-	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	/**
-	 * 
-	 * @return password as a String
-	 */
 	public String getPassword() {
 		return password;
 	}
 
-	/**
-	 * Set password
-	 * @param password
-	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPassword2() {
+		return password2;
+	}
+
+	public void setPassword2(String password2) {
+		this.password2 = password2;
 	}
 
 	/**
@@ -120,11 +97,9 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 		try {
 			Date date = new Date();
 			Map<String, Object> resultMap = new HashMap<String, Object>();
-			String msg, p1 = "", p2 = "", un;
-			p1 = Struts2Utils.getRequest().getParameter("password");
-			p2 = Struts2Utils.getRequest().getParameter("password2");
-			un = Struts2Utils.getRequest().getParameter("username");
-			if(un.contains(" ")){
+			String msg;
+			if(!StringUtils.isNotEmpty(username)){
+				//TODO Add check for inavlid username
 				msg = "Invalid username, check your username and try again!";
 				throw new Exception(msg);
 			}
@@ -132,7 +107,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 				msg = "Username already exists!";
 				throw new Exception(msg);
 			}
-			if(!p1.equals(p2)){
+			if(!password.equals(password2)){
 				msg = "Passwords do not match, please check your passwords then submit again!";
 				throw new Exception(msg);
 			}
@@ -150,7 +125,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 			entity.setIsVerified("N");
 			entity.setCreateBy("System");
 			entity.setCreateDate(date);
-			entity.setPassword(EncryptUtil.encrypt(p1));
+			entity.setPassword(EncryptUtil.encrypt(password));
 			signupService.registerAccount(entity);
 			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_USER, entity);
 			if(OnlineUtils.isUseRedis()){

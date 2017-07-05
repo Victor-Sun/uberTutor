@@ -4,28 +4,24 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import com.gnomon.common.web.SessionData;
 import com.gnomon.common.PDMSCrudActionSupport;
+import com.gnomon.common.web.SessionData;
 import com.ubertutor.entity.SchoolEntity;
 import com.ubertutor.entity.UserEntity;
 import com.ubertutor.service.ProfileService;
-import com.ubertutor.service.SessionProfileService;
-import com.ubertutor.service.TutorSubjectRegisterService;
 
 @Namespace("/main")
+@AllowedMethods({"display","update","displaySchool","tutorStatus"})
 public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private ProfileService profileService;
-	@Autowired
-	private SessionProfileService tutorProfileService;
-	@Autowired
-	private TutorSubjectRegisterService tutorSubjectRegisterService;
 	private SchoolEntity schoolEntity;
 	private UserEntity entity = SessionData.getLoginUser();
 
