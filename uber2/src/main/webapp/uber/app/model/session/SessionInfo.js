@@ -2,7 +2,6 @@ Ext.define('uber.model.session.SessionInfo',{
 	extend: 'Ext.data.Model',
 	fields: [
 		{ name: 'CREATE_DATE', type: 'date', convert:function(v,record){
-			debugger;
 				if (v == null) {
 					return "";
 				} else {

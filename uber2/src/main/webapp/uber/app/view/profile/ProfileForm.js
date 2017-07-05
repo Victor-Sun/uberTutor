@@ -22,7 +22,7 @@ Ext.define('uber.view.profile.ProfileForm',{
     		fields: [ 'ID', 'NAME' ],
     		proxy: {
     	         type: 'ajax',
-    	         url: '/uber2/main/profile!displaySchool.action',
+    	         url: '/UberTutor/main/profile!displaySchool.action',
     	         reader: {
     	             type: 'json',
     	             rootProperty: 'data'

@@ -79,7 +79,6 @@ Ext.define('uber.view.session.SessionsController',{
     },
     
     detailClick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
-    	debugger;
     	console.log("RequestId:" + rowIndex.data.requestId);
     	Ext.create('uber.view.session.SessionInfoWindow',{
     		requestId: rowIndex.data.requestId,

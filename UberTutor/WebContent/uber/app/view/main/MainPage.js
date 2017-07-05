@@ -117,20 +117,38 @@ Ext.define('uber.view.main.MainPage', {
     					}]
     				},
     				columns: [{
-    					dataIndex: 'tutor',
-    					text: 'Tutor',
-    					align: 'left',
-    					flex: 1
-    				},{
-    					dataIndex: 'subjects',
-    					text: 'Subjects',
-    					align: 'left',
+//    					dataIndex: 'tutor',
+//    					text: 'Tutor',
+//    					align: 'left',
+//    					flex: 1
+//    				},{
+//    					dataIndex: 'subjects',
+//    					text: 'Subjects',
+//    					align: 'left',
+//    					flex: 1,
+//    				},{
+//    					dataIndex: 'rating',
+//    					text: 'Averate Rating',
+//    					align: 'left',
+//    					flex: 1,
+//    				},{
+    					xtype: 'templatecolumn',
     					flex: 1,
-    				},{
-    					dataIndex: 'rating',
-    					text: 'Averate Rating',
     					align: 'left',
-    					flex: 1,
+    					tpl: [
+    						"<div class=''>" +
+	    						"<div class=''>" +
+	    							"<div class='title-section' style='display: inline; margin-left: 10px;'><b>Tutor:</b> {tutor}</div>" +
+	    							"<div class='status-section' style='display: inline; margin-left: 10px;'><b>Average Rating:</b> {rating}/10</div>" +
+	    						"</div>" +
+	    						"<hr>" +
+	    						"<div class=''>" +
+	    							"<div class='description-label'><b>Subjects:</b></div>" +
+	    							"<div class='description-section'>{subjects}</div>" +
+	    						"</div>" +
+	    					"</div>",
+    					]
+    				
     				}]
     			}]
     		},{

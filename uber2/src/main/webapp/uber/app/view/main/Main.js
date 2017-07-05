@@ -52,9 +52,9 @@ Ext.define('uber.view.main.Main', {
 				},{
 					text: 'Sessions',
 					handler: 'sessions'
-				},{
-					text: 'Test',
-					handler: 'test'
+//				},{
+//					text: 'Test',
+//					handler: 'test'
 				},{
 					text: 'Logout',
 					handler: 'logout'

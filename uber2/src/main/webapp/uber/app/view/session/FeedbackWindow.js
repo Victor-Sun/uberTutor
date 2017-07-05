@@ -6,7 +6,6 @@ Ext.define('uber.view.session.FeedbackWindow',{
 	layout: 'fit',
 	initComponent: function() {
 		
-		
 		var feedback = Ext.create('uber.view.session.Feedback',{
 			flex: 2,
 		});
@@ -150,7 +149,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 		
 		sessionInfo.load({
 //			model: 'uber.model.session.SessionInfo',
-			url: '/uber2/main/my-session!displaySessionInfo.action',
+			url: '/UberTutor/main/my-session!displaySessionInfo.action',
 			params: {
 				requestId:this.requestId,
 			},
