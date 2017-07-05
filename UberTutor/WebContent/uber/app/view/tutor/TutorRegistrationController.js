@@ -16,7 +16,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 		Ext.getBody().mask('Loading...Please Wait...')
 		getForm.submit({
 			clientValidation: true,
-			url:'/uber2/main/tutor-subject-register!save.action',
+			url:'/UberTutor/main/tutor-subject-register!save.action',
 			params: {
             	model: Ext.encode(getForm.getFieldValues()),
             },
@@ -108,7 +108,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 							var editForm = Ext.ComponentQuery.query('#editForm')[0];
 							var description = editForm.down('#description').getValue();
 							editForm.submit({
-							url: '/uber2/main/tutor-subject-register!editSubject.action',
+							url: '/UberTutor/main/tutor-subject-register!editSubject.action',
 			    			params: {
 			    				userSubjectId:record.data.SUBJECT_ID,
 			    				description:description
@@ -141,7 +141,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     	var record = grid.getStore().getAt(rowIndex);
     	me.view.mask('Please Wait...')
     	Ext.Ajax.request({
-    		url:'/uber2/main/tutor-subject-register!removeSubject.action',
+    		url:'/UberTutor/main/tutor-subject-register!removeSubject.action',
     		params: {
     			userSubjectId:record.data.ID
     		},

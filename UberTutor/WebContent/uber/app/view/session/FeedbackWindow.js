@@ -150,7 +150,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 		
 		sessionInfo.load({
 //			model: 'uber.model.session.SessionInfo',
-			url: '/uber2/main/my-session!displaySessionInfo.action',
+			url: '/UberTutor/main/my-session!displaySessionInfo.action',
 			params: {
 				requestId:this.requestId,
 			},

@@ -21,7 +21,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			var store = grid.getStore();
 			Ext.getBody().mask('Loading... Please Wait...');
 			form.submit({
-				url: '/uber2/main/my-session!updateSessionToInProcess.action',
+				url: '/UberTutor/main/my-session!updateSessionToInProcess.action',
 				params: {
 					requestId:requestId,
 				},
@@ -49,7 +49,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			var store = grid.getStore();
 			Ext.getBody().mask('Loading... Please Wait...');
 			form.submit({
-				url: '/uber2/main/my-session!updateSessionToCanceled.action',
+				url: '/UberTutor/main/my-session!updateSessionToCanceled.action',
 				params: {
 					requestId:requestId,
 				},
@@ -77,7 +77,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			var store = grid.getStore();
 			Ext.getBody().mask('Loading... Please Wait...');
 			form.submit({
-				url: '/uber2/main/my-session!updateSessionToClosed.action',
+				url: '/UberTutor/main/my-session!updateSessionToClosed.action',
 				params: {
 					requestId:requestId,
 				},
@@ -378,7 +378,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 		
 		sessionInfoForm.load({
 			model: 'uber.model.session.SessionInfo',
-			url: '/uber2/main/my-session!displaySessionInfo.action',
+			url: '/UberTutor/main/my-session!displaySessionInfo.action',
 			params: {
 				requestId:this.requestId,
 			},

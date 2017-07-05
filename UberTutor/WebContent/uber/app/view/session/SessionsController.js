@@ -9,7 +9,7 @@ Ext.define('uber.view.session.SessionsController',{
         	sessionInfoForm.requestId = records[0].get('requestId');
         };
     	sessionInfoForm.load({
-			url: '/uber2/main/my-session!displaySessionInfo.action',
+			url: '/UberTutor/main/my-session!displaySessionInfo.action',
 			params: {
 				requestId:sessionInfoForm.requestId,
 			},

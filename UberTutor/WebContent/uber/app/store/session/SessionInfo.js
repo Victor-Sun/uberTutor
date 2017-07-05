@@ -5,7 +5,7 @@ Ext.define('uber.store.session.SessionInfo',{
 	model: 'uber.model.session.SessionInfo',
 //	proxy: {
 //		type: 'ajax',
-//		url: '/uber2/main/my-session!displaySessioninfo.action',
+//		url: '/UberTutor/main/my-session!displaySessioninfo.action',
 //		params: ''
 //		reader: {
 //			type: 'json',
