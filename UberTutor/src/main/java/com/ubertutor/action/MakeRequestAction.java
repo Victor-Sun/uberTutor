@@ -9,8 +9,9 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import com.gnomon.common.web.SessionData;
 import com.gnomon.common.PDMSCrudActionSupport;
+import com.gnomon.common.web.SessionData;
+import com.ubertutor.entity.UserEntity;
 import com.ubertutor.entity.UserRequestEntity;
 import com.ubertutor.service.MakeRequestService;
 
@@ -20,15 +21,41 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private MakeRequestService makeRequestService;
-	private UserRequestEntity entity = new UserRequestEntity();
+	private UserRequestEntity requestEntity = new UserRequestEntity();
+	private UserEntity entity = SessionData.getLoginUser();
 	private Long id;
-
+	private String subjectId, description, title;
+	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getSubjectId() {
+		return subjectId;
+	}
+
+	public void setSubjectId(String subjectId) {
+		this.subjectId = subjectId;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	/**Zelin
@@ -38,10 +65,6 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	public String save() throws Exception{
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
-			Long userId = Long.parseLong(SessionData.getLoginUserId());
-			Long subjectId = Long.parseLong(Struts2Utils.getParameter("subjectId"));
-			String description = Struts2Utils.getRequest().getParameter("description");
-			String title = Struts2Utils.getRequest().getParameter("title");
 			Date date = new Date();
 			String msg;
 			if(title.isEmpty() || title.startsWith(" ")){
@@ -52,14 +75,14 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 				msg = "Description cannot be empty! Fill it in and try again!";
 				throw new Exception(msg);
 			}
-			entity.setUserId(userId);
-			entity.setSubjectId(subjectId);
-			entity.setDescription(description);
-			entity.setTitle(title);
-			entity.setCreateDate(date);
-			entity.setStatus("OPEN");
-			makeRequestService.makeRequest(entity);
-			resultMap.put("requestId", entity.getId());
+			requestEntity.setUserId(entity.getId());
+			requestEntity.setSubjectId(Long.parseLong(subjectId));
+			requestEntity.setDescription(description);
+			requestEntity.setTitle(title);
+			requestEntity.setCreateDate(date);
+			requestEntity.setStatus("OPEN");
+			makeRequestService.makeRequest(requestEntity);
+			resultMap.put("requestId", requestEntity.getId());
 			this.writeSuccessResult(resultMap);
 		} catch (Exception e){
 			e.printStackTrace();
@@ -69,7 +92,7 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	}
 
 	public UserRequestEntity getModel() {
-		return entity;
+		return requestEntity;
 	}
 
 	@Override
@@ -96,6 +119,6 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 
 	@Override
 	protected void prepareModel() throws Exception {
-		entity = (id != null) ? makeRequestService.get(id) : new UserRequestEntity();
+		requestEntity = (id != null) ? makeRequestService.get(id) : new UserRequestEntity();
 	}
 }

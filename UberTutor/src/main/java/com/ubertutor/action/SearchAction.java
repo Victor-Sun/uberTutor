@@ -42,7 +42,7 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 			FLPage<Map<String,Object>> pageResult = this.searchService.getRequests(this.getPage(), this.getLimit());
 			for (Map<String, Object> map : pageResult.getItems()) {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
-				dataMap.put("requestID", map.get("REQUEST_ID"));
+				dataMap.put("requestId", map.get("REQUEST_ID"));
 				dataMap.put("createDate", map.get("CREATE_DATE"));
 				dataMap.put("studentId", map.get("STUDENT_ID"));
 				dataMap.put("studentName", map.get("STUDENT_NAME"));

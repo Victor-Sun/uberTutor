@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +15,6 @@ import com.ubertutor.entity.UserRequestEntity;
 @Service
 @Transactional
 public class MakeRequestService {
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
 	@Autowired
 	private UserRequestDAO userRequestDAO;
 	@Autowired 
