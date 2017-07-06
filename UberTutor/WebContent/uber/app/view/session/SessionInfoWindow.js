@@ -210,31 +210,31 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						fieldLabel: 'Create Date',
 						itemId: 'createDate',
 						name: 'CREATE_DATE',
-//						hidden: true,
-//						listeners: {
-//							afterrender: {
-//								fn: function (value) {
-//									if (value !== "" || value !== null) {
-//										this.setHidden(false);
-//									}
-//								}
-//							}
-//						}
+						hidden: true,
+						listeners: {
+							afterrender: {
+								fn: function (value) {
+									if (value !== "" || value !== null) {
+										this.setHidden(false);
+									}
+								}
+							}
+						}
 					},{
 						xtype: 'textfield',
 						fieldLabel: 'Pending Date',
 						itemId: 'pendingDate',
 						name: 'PENDING_DATE',
-//						hidden: true,
-//						listeners: {
-//							change: {
-//								fn: function (value) {
-//									if (value !== "" || value !== null) {
-//										this.setHidden(false);
-//									}
-//								}
-//							}
-//						}
+						hidden: true,
+						listeners: {
+							change: {
+								fn: function (value) {
+									if (value !== "" || value !== null) {
+										this.setHidden(false);
+									}
+								}
+							}
+						}
 					}]
 				},{
 					xtype: 'fieldcontainer',
@@ -243,31 +243,31 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						fieldLabel: 'Process Date',
 						itemId: 'processDate',
 						name: 'PROCESS_DATE',
-//						hidden: true,
-//						listeners: {
-//							change: {
-//								fn: function (value) {
-//									if (value !== "" || value !== null) {
-//										this.setHidden(false);
-//									}
-//								}
-//							}
-//						}
+						hidden: true,
+						listeners: {
+							change: {
+								fn: function (value) {
+									if (value !== "" || value !== null) {
+										this.setHidden(false);
+									}
+								}
+							}
+						}
 					},{
 						xtype: 'textfield',
 						fieldLabel: 'Cancel Date',
 						itemId: 'cancelDate',
 						name: 'CANCEL_DATE',
-//						hidden: true,
-//						listeners: {
-//							change: {
-//								fn: function (value) {
-//									if (value !== "" || value !== null) {
-//										this.setHidden(false);
-//									}
-//								}
-//							}
-//						}
+						hidden: true,
+						listeners: {
+							change: {
+								fn: function (value) {
+									if (value !== "" || value !== null) {
+										this.setHidden(false);
+									}
+								}
+							}
+						}
 					}]
 				},{
 					xtype: 'fieldcontainer',
@@ -276,16 +276,16 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						fieldLabel: 'Close Date',
 						itemId: 'closeDate',
 						name: 'CLOSE_DATE',
-//						hidden: true,
-//						listeners: {
-//							change: {
-//								fn: function (value) {
-//									if (value !== "" || value !== null) {
-//										this.setHidden(false);
-//									}
-//								}
-//							}
-//						}
+						hidden: true,
+						listeners: {
+							change: {
+								fn: function (value) {
+									if (value !== "" || value !== null) {
+										this.setHidden(false);
+									}
+								}
+							}
+						}
 					}]
 				}]
 			}]

@@ -69,19 +69,16 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
     		xtype: 'actioncolumn',
     		items: [{
     			xtype: 'button',
-    			itemId: 'feedback',
-    			iconCls: 'x-fa fa-comment',
-    			tooltip: 'Feedback',
-//    			hidden: 'true',
-    			handler: 'feedbackClick'
-    		},{
-    			xtype: 'button',
     			itemId: 'details',
     			iconCls: 'x-fa fa-archive',
     			tooltip: 'Details',
     			handler: 'detailClick'
-//    		},{
-//    			
+    		},{
+				xtype: 'button',
+    			itemId: 'feedback',
+    			iconCls: 'x-fa fa-comment',
+    			tooltip: 'Feedback',
+    			handler: 'feedbackClick'
     		}],
 //    		renderer: function (th, val, metadata, record) {
 //    			var me = this;

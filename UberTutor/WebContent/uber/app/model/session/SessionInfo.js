@@ -10,7 +10,6 @@ Ext.define('uber.model.session.SessionInfo',{
 			}
 		},
 		{ name: 'UPDATE_DATE', type: 'date', convert:function(v,record){
-			debugger;
 				if (v == null) {
 					return "";
 				} else {
@@ -19,7 +18,6 @@ Ext.define('uber.model.session.SessionInfo',{
 			}
 		},
 		{ name: 'CANCEL_DATE', type: 'date', convert:function(v,record){
-			debugger;
 				if (v == null) {
 					return "";
 				} else {
@@ -28,7 +26,6 @@ Ext.define('uber.model.session.SessionInfo',{
 			}
 		},
 		{ name: 'CLOSE_DATE', type: 'date', convert:function(v,record){
-			debugger;
 				if (v == null) {
 					return "";
 				} else {
@@ -38,7 +35,6 @@ Ext.define('uber.model.session.SessionInfo',{
 			}
 		},
 		{ name: 'PENDING_DATE', type: 'date', convert:function(v,record){
-			debugger;
 				if (v == null) {
 					return "";
 				} else {

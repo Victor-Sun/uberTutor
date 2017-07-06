@@ -49,25 +49,27 @@ Ext.define('uber.view.session.Feedback', {
                 }]
             }]
     	},{
-    		xtype: 'fieldcontainer',
-            margin: 5,
-            reference: 'formpanel',
-            layout: {
-                type: 'vbox',
-                align: 'stretch'
-            },
-            defaults: {
-                labelAlign: 'top',
-                readOnly: true,
-            },
-            items: [{
-                xtype: 'textarea',
-                margin: '5 10 5 10',
-                height: 75,
-//                width: 425,
-                name: 'comment',
-                fieldLabel: 'Comment',
-            }]
+    		xtype: 'textarea',
+            labelAlign: 'top',
+            margin: '5 10 5 10',
+            height: 75,
+//            width: 425,
+            name: 'comment',
+            fieldLabel: 'Comment',
+//    		xtype: 'fieldcontainer',
+//            margin: 5,
+//            reference: 'formpanel',
+//            layout: {
+//                type: 'vbox',
+//                align: 'stretch'
+//            },
+//            defaults: {
+//                
+//                readOnly: true,
+//            },
+//            items: [{
+//                
+//            }]
     	}]
-    }]
+    }],
 });

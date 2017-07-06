@@ -71,12 +71,8 @@ Ext.define('uber.view.session.FeedbackWindow',{
 			},{
 				xtype: 'fieldcontainer',
 //				flex: 1,
-				defaults: {
-					cls: 'shadow',
-					margin: 1
-				},
 				layout: {
-					type: 'hbox',
+					type: 'vbox',
 					align: 'stretch'
 				},
 				items: [{
@@ -102,7 +98,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 					items: [{
 						xtype: 'component',
 						margin: '5 5 0 15',
-	                	html: 'Rating'
+	                	html: 'Average Rating'
 					},{
 						xtype: 'fieldcontainer',
 						
@@ -114,9 +110,9 @@ Ext.define('uber.view.session.FeedbackWindow',{
 							xtype: 'rating',
 	                		limit: '5',
 	                		rounding: '0.5',
-						},{
-							xtype: 'component',
-							html: 'xxx out of xxx'
+//						},{
+//							xtype: 'component',
+//							html: 'xxx out of xxx'
 						}]
 					}]
 				}]
@@ -172,7 +168,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 			cls: 'shadow',
 		},
 		items: [
-	        tutorInfo,
+	        
 	        {
 			//Session Info & Feedback
 			xtype: 'panel',
@@ -185,20 +181,43 @@ Ext.define('uber.view.session.FeedbackWindow',{
 				margin: 1
 			},
 			flex: 4,
-			items: [sessionInfo,feedback],
-			dockedItems: [{
-				xtype: 'toolbar',
-				dock: 'bottom',
-				items: ['->',{
-					xtype: 'button',
-					scale: 'large',
-					text: 'Submit',
-//					handler: function () {
-//						feedback.getForm.submit({
-//							
-//	 					});
-//					}
-				},'->']
+			items: [{
+				xtype: 'container',
+				layout: {
+					type: 'vbox',
+				},
+				items: [
+				tutorInfo,,sessionInfo
+				]
+			},{
+				xtype: 'panel',
+				flex: 1,
+				layout: {
+					type: 'vbox',
+					align: 'stretch'
+				},
+				items: [{
+					xtype: 'container',
+					flex: 1,
+				},feedback,
+				{
+					xtype: 'container',
+					flex: 1,
+				}],
+				dockedItems: [{
+					xtype: 'toolbar',
+					dock: 'bottom',
+					items: ['->',{
+						xtype: 'button',
+						scale: 'large',
+						text: 'Submit',
+						handler: function () {
+							feedback.submit({
+								url: '/UberTutor/main/feedback!save.action',
+							});
+						}
+					}]
+				}]
 			}]
 		}]
 	}]
