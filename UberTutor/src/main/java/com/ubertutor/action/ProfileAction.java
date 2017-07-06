@@ -7,7 +7,6 @@ import java.util.Map;
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.gnomon.common.PDMSCrudActionSupport;
 import com.gnomon.common.web.SessionData;
@@ -22,7 +21,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	@Autowired
 	private ProfileService profileService;
 	private SchoolEntity schoolEntity;
-	private UserEntity entity = SessionData.getLoginUser();
+	private UserEntity userEntity = SessionData.getLoginUser();
 	private String fullname, email, mobile, bio, schoolName, isTutor;
 	
 	public String getFullname() {
@@ -80,10 +79,10 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 */
 	public void display() throws Exception{
 		try{
-			if(profileService.hasSchool(entity.getId()).isEmpty()){
-				this.writeSuccessResult(profileService.getUserInfo(entity.getId()));
+			if(profileService.hasSchool(userEntity.getId()).isEmpty()){
+				this.writeSuccessResult(profileService.getUserInfo(userEntity.getId()));
 			}else{
-				this.writeSuccessResult(profileService.getAllUserInfo(entity.getId()));
+				this.writeSuccessResult(profileService.getAllUserInfo(userEntity.getId()));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -100,7 +99,6 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	public String save() throws Exception{
 		try{
 			String schoolId, msg, mobileNo = "";
-			isTutor = Struts2Utils.getRequest().getParameter("isTutor");
 			if(!profileService.isValidEmailAddress(email)){
 				msg = "Invalid email, please check that your email is written correctly, and try again.";
 				throw new Exception(msg);
@@ -123,16 +121,15 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 			}
 			schoolEntity = profileService.getSchoolByName(schoolName);
 			schoolId = schoolEntity.getId().toString();
-			bio = Struts2Utils.getRequest().getParameter("bio");
-			entity.setFullname(fullname);
-			entity.setEmail(email);
-			entity.setMobile(mobileNo);
-			entity.setBio(bio);
-			entity.setSchoolId(schoolId);
-			entity.setIsTutor(isTutor);
-			entity.setUpdateBy(entity.getId().toString());
-			entity.setUpdateDate(new Date());
-			profileService.updateProfile(entity);
+			userEntity.setFullname(fullname);
+			userEntity.setEmail(email);
+			userEntity.setMobile(mobileNo);
+			userEntity.setBio(bio);
+			userEntity.setSchoolId(schoolId);
+			userEntity.setIsTutor(isTutor);
+			userEntity.setUpdateBy(userEntity.getId().toString());
+			userEntity.setUpdateDate(new Date());
+			profileService.updateProfile(userEntity);
 		}catch(Exception e){
 			e.printStackTrace();
 			this.writeErrorResult(e);
@@ -157,7 +154,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	 */
 	public void tutorStatus(){
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("isTutor", entity.getIsTutor());
+		result.put("isTutor", userEntity.getIsTutor());
 		this.writeSuccessResult(result);
 	}
 

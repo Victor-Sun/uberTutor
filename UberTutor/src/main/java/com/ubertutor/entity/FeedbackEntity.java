@@ -26,17 +26,14 @@ public class FeedbackEntity implements Serializable{
 	@Column(name = "TUTOR_ID") 
 	private Long tutorId;
 	
-	@Column(name = "REQUEST_ID") 
-	private Long requestId;
-	
 	@Column(name = "CREATE_DATE") 
 	private Date createDate; 
 	
 	@Column(name = "RATING") 
 	private int rating;
 	
-	@Column(name = "COMMENTS") 
-	private String comments;
+	@Column(name = "FEEDBACK") 
+	private String feedback;
 
 	public Long getId() {
 		return id;
@@ -46,36 +43,28 @@ public class FeedbackEntity implements Serializable{
 		this.id = id;
 	}
 
-	public Long getUserid() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserid(Long userid) {
-		this.userId = userid;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
-	public Long getTutorid() {
+	public Long getTutorId() {
 		return tutorId;
 	}
 
-	public void setTutorid(Long tutorid) {
-		this.tutorId = tutorid;
+	public void setTutorId(Long tutorId) {
+		this.tutorId = tutorId;
 	}
 
-	public Long getRequestid() {
-		return requestId;
-	}
-
-	public void setRequestid(Long requestid) {
-		this.requestId = requestid;
-	}
-
-	public Date getCreatedate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreatedate(Date createdate) {
-		this.createDate = createdate;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 	public int getRating() {
@@ -86,12 +75,11 @@ public class FeedbackEntity implements Serializable{
 		this.rating = rating;
 	}
 
-	public String getComments() {
-		return comments;
+	public String getFeedback() {
+		return feedback;
 	}
 
-	public void setComments(String comments) {
-		this.comments = comments;
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
 	}
-	
 }

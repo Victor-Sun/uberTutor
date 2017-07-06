@@ -31,7 +31,7 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	private LoginService loginService;
 	@Autowired
 	private ProfileService profileService;
-	private UserEntity entity = new UserEntity();
+	private UserEntity userEntity = new UserEntity();
 
 	public String getFullName() {
 		return fullName;
@@ -119,22 +119,22 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 				msg = "Email has already been used!";
 				throw new Exception(msg);
 			}
-			entity.setIsDisabled("N");
-			entity.setIsTutor("N");
-			entity.setIsAdmin("N");
-			entity.setIsVerified("N");
-			entity.setCreateBy("System");
-			entity.setCreateDate(date);
-			entity.setPassword(EncryptUtil.encrypt(password));
-			signupService.registerAccount(entity);
-			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_USER, entity);
+			userEntity.setIsDisabled("N");
+			userEntity.setIsTutor("N");
+			userEntity.setIsAdmin("N");
+			userEntity.setIsVerified("N");
+			userEntity.setCreateBy("System");
+			userEntity.setCreateDate(date);
+			userEntity.setPassword(EncryptUtil.encrypt(password));
+			signupService.registerAccount(userEntity);
+			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_USER, userEntity);
 			if(OnlineUtils.isUseRedis()){
 				if(OnlineUtils.isOnline(username)){
 					OnlineUtils.logout(username);
 				}
-				OnlineUtils.login(Struts2Utils.getSession().getId(), entity);
+				OnlineUtils.login(Struts2Utils.getSession().getId(), userEntity);
 			}
-			resultMap.put("username", entity.getUsername());
+			resultMap.put("username", userEntity.getUsername());
 			this.writeSuccessResult(resultMap);
 		} catch (Exception e){
 			e.printStackTrace();
@@ -145,11 +145,11 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 
 	@Override
 	protected void prepareModel() throws Exception {
-		entity = (id != null) ? signupService.get(id) : new UserEntity();
+		userEntity = (id != null) ? signupService.get(id) : new UserEntity();
 	}
 
 	public UserEntity getModel() {
-		return entity;
+		return userEntity;
 	}
 
 	@Override

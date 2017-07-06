@@ -20,28 +20,66 @@ import com.ubertutor.service.TutorSubjectRegisterService;
 import jp.co.nec.flowlites.core.FLPage;
 
 @Namespace("/main")
-@AllowedMethods({"displayCategories","displayCategorySubject","displayUserSubjects","removeSubject","editSubject","save"})
+@AllowedMethods({"displayCategories",
+	"displayCategorySubject",
+	"displayUserSubjects",
+	"removeSubject",
+	"editSubject",
+	"save"})
 public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjectEntity> {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private TutorSubjectRegisterService tutorSubjectRegisterService;
-	private UserSubjectEntity entity;
+	private UserSubjectEntity subjectEntity;
 	private Long id;
+	private String categoryId, userSubjectId, description, subject, category;
 
-	/**
-	 * Get user ID
-	 * @return id as Long
-	 */
 	public Long getId() {
 		return id;
 	}
 
-	/**
-	 * Set user ID
-	 * @param id
-	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public String getUserSubjectId() {
+		return userSubjectId;
+	}
+
+	public void setUserSubjectId(String userSubjectId) {
+		this.userSubjectId = userSubjectId;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	/**
@@ -63,8 +101,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	 */
 	public void displayCategorySubject() throws Exception{
 		try {
-			Long categoryId = Long.parseLong(Struts2Utils.getRequest().getParameter("categoryId"));
-			this.writeSuccessResult(tutorSubjectRegisterService.getSubjectList(categoryId));
+			this.writeSuccessResult(tutorSubjectRegisterService.getSubjectList(Long.parseLong(categoryId)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.writeErrorResult(e);
@@ -78,9 +115,8 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	public void displayUserSubjects() throws Exception{
 		try{
 			JsonResult result = new JsonResult();
-			Long userId = Long.parseLong(SessionData.getLoginUserId());
 			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-			FLPage<Map<String,Object>> pageResult = this.tutorSubjectRegisterService.getUserSubjects(userId, this.getPage(), this.getLimit());
+			FLPage<Map<String,Object>> pageResult = this.tutorSubjectRegisterService.getUserSubjects(Long.parseLong(SessionData.getLoginUserId()), this.getPage(), this.getLimit());
 			for (Map<String, Object> map : pageResult.getItems()) {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
 				dataMap.put("ID", map.get("ID"));
@@ -107,9 +143,8 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	 */
 	public void removeSubject() throws Exception{
 		try{
-			Long subjectId = Long.parseLong(Struts2Utils.getRequest().getParameter("userSubjectId"));
-			entity = tutorSubjectRegisterService.get(subjectId);
-			tutorSubjectRegisterService.delete(entity);
+			subjectEntity = tutorSubjectRegisterService.get(Long.parseLong(userSubjectId));
+			tutorSubjectRegisterService.delete(subjectEntity);
 		} catch (Exception e){
 			e.printStackTrace();
 			this.writeErrorResult(e);
@@ -118,15 +153,13 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	
 	public void editSubject() throws Exception{
 		try{
-			Long userSubjectId = Long.parseLong(Struts2Utils.getRequest().getParameter("userSubjectId"));
-			String description = Struts2Utils.getRequest().getParameter("description");
 			if(description.isEmpty()){
 				String msg = "Description cannot be empty! Fill in a description!";
 				throw new Exception(msg);
 			}
-			entity = tutorSubjectRegisterService.get(userSubjectId);
-			entity.setDescription(description);
-			tutorSubjectRegisterService.saveTutorSubject(entity);
+			subjectEntity = tutorSubjectRegisterService.get(Long.parseLong(userSubjectId));
+			subjectEntity.setDescription(description);
+			tutorSubjectRegisterService.saveTutorSubject(subjectEntity);
 		} catch (Exception e){
 			e.printStackTrace();
 			this.writeErrorResult(e);
@@ -137,25 +170,22 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	public String save() throws Exception{
 		try{
 			String msg = "";
-			Long userId = Long.parseLong(SessionData.getLoginUserId());
-			String subjectId = Struts2Utils.getRequest().getParameter("subject");
-			String category = Struts2Utils.getRequest().getParameter("category");
 			if(category == null || category == ""){
 				msg = "Invalid subject, select a valid subject and try again!";
 				throw new Exception(msg);
 			}
-			if(subjectId == null || subjectId == ""){
+			if(subject == null || subject == ""){
 				msg = "Invalid subject, select a valid subject and try again!";
 				throw new Exception(msg);
 			}
-			if(tutorSubjectRegisterService.subjectExists(userId, Long.parseLong(subjectId))){
+			if(tutorSubjectRegisterService.subjectExists(Long.parseLong(SessionData.getLoginUserId()), Long.parseLong(subject))){
 				msg = "You already registered this subject!";
 				throw new Exception(msg);
 			}
-			entity.setUserId(userId);
-			entity.setSubjectId(Long.parseLong(subjectId));
-			entity.setCreateDate(new Date());
-			tutorSubjectRegisterService.saveTutorSubject(entity);
+			subjectEntity.setUserId(Long.parseLong(SessionData.getLoginUserId()));
+			subjectEntity.setSubjectId(Long.parseLong(subject));
+			subjectEntity.setCreateDate(new Date());
+			tutorSubjectRegisterService.saveTutorSubject(subjectEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.writeErrorResult(e.getMessage());
@@ -177,11 +207,11 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 
 	@Override
 	protected void prepareModel() throws Exception{
-		entity = (id != null) ? tutorSubjectRegisterService.get(id) : new UserSubjectEntity(); 
+		subjectEntity = (id != null) ? tutorSubjectRegisterService.get(id) : new UserSubjectEntity(); 
 	}
 
 	public UserSubjectEntity getModel(){
-		return entity;
+		return subjectEntity;
 	}
 
 	@Override

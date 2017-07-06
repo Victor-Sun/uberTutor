@@ -11,7 +11,6 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import com.alibaba.fastjson.JSON;
 import com.gnomon.common.PDMSCrudActionSupport;
 import com.gnomon.common.utils.JsonResult;
 import com.gnomon.common.web.SessionData;
@@ -33,9 +32,18 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private MySessionService sessionService;
-	private UserEntity entity = SessionData.getLoginUser();
+	private UserEntity userEntity = SessionData.getLoginUser();
 	private UserRequestEntity requestEntity;
+	private String requestId;
 	
+	public String getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(String requestId) {
+		this.requestId = requestId;
+	}
+
 	public void displayAllSessions(){
 		this.writeSuccessResult(sessionService.getSessions());
 	}
@@ -44,7 +52,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		try{
 			JsonResult result = new JsonResult();
 			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-			FLPage<Map<String,Object>> pageResult = this.sessionService.getUserSessions(entity.getId(), this.getPage(), this.getLimit());
+			FLPage<Map<String,Object>> pageResult = this.sessionService.getUserSessions(userEntity.getId(), this.getPage(), this.getLimit());
 			for (Map<String, Object> map : pageResult.getItems()) {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
 				dataMap.put("requestId", map.get("REQUEST_ID"));
@@ -71,7 +79,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		try{
 			JsonResult result = new JsonResult();
 			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-			FLPage<Map<String,Object>> pageResult = this.sessionService.getTutorSessions(entity.getId(), this.getPage(), this.getLimit());
+			FLPage<Map<String,Object>> pageResult = this.sessionService.getTutorSessions(userEntity.getId(), this.getPage(), this.getLimit());
 			for (Map<String, Object> map : pageResult.getItems()) {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
 				dataMap.put("requestId", map.get("REQUEST_ID"));
@@ -97,11 +105,11 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	public void displaySessionInfo() throws Exception{
 		try{
 			String msg;
-			if(Struts2Utils.getParameter("requestId").isEmpty()){
+			if(requestId.equals(null)){
 				msg = "An error has occured!";
 				throw new Exception(msg);
 			}
-			Long id = Long.parseLong(Struts2Utils.getParameter("requestId"));
+			Long id = Long.parseLong(requestId);
 			requestEntity = sessionService.get(id);
 			this.writeSuccessResult(sessionService.getSessionInfo((id)));
 		} catch (Exception e) {
@@ -110,7 +118,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	}
 
 	public void updateSessionToInProcess(){
-		Long id = Long.parseLong(Struts2Utils.getRequest().getParameter(""));
+		Long id = Long.parseLong(requestId);
 		requestEntity = sessionService.get(id);
 		requestEntity.setStatus("IN PROCESS");
 		requestEntity.setProcessDate(new Date());
@@ -118,7 +126,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	}
 	
 	public void updateSessionToClosed(){
-		Long id = Long.parseLong(Struts2Utils.getRequest().getParameter(""));
+		Long id = Long.parseLong(requestId);
 		requestEntity = sessionService.get(id);
 		requestEntity.setStatus("CLOSED");
 		requestEntity.setCloseDate(new Date());
@@ -126,71 +134,38 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	}	
 
 	public void updateSessionToCanceled(){
-		Long id = Long.parseLong(Struts2Utils.getRequest().getParameter(""));
+		Long id = Long.parseLong(requestId);
 		requestEntity = sessionService.get(id);
 		requestEntity.setStatus("CANCELED");
 		requestEntity.setCancelDate(new Date());
 		sessionService.save(requestEntity);
 	}	
 
-	protected void writeSuccessResult(Object data) {
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("success", true);
-		if (null != data) {
-			resultMap.put("data", data);
-		}
-		try {
-			Struts2Utils.renderHtml(JSON.toJSONString(resultMap));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	protected void writeErrorResult(Object data) {
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("success", false);
-		if (null != data) {
-			resultMap.put("data", data);
-		}
-		try {
-			Struts2Utils.renderHtml(JSON.toJSONString(resultMap));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	public UserRequestEntity getModel() {
-		// TODO Auto-generated method stub
-		return null;
+		return requestEntity;
 	}
 
 	@Override
 	public String list() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String input() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String save() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String delete() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected void prepareModel() throws Exception {
-		// TODO Auto-generated method stub
-		
 	}
 }

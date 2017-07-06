@@ -21,18 +21,18 @@ public class SearchService {
 	@Autowired 
 	private UserRequestDAO userRequestDAO;
 	
-	public FLPage<Map<String, Object>> getRequests(int pageNo, int pageSize){
-		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT * FROM USER_SESSIONS WHERE STATUS = 'OPEN' OR STATUS = 'PENDING'");
-		return jdbcTemplate.queryPagination(sql.toString(), pageNo, pageSize);
+	public FLPage<Map<String, Object>> getRequests(Long userId, int pageNo, int pageSize){
+		List<Object> params = new ArrayList<Object>();
+		String sql = "SELECT * FROM USER_SESSIONS WHERE STUDENT_ID <> ? AND STATUS = 'OPEN' OR STATUS = 'PENDING' ORDER BY STATUS";
+		params.add(userId);
+		return jdbcTemplate.queryPagination(sql, pageNo, pageSize, params.toArray());
 	}
 	
 	public Map<String, Object> getRequestInfo(Long requestId){
-		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
-		sql.append(" SELECT * FROM SESSION_INFO WHERE REQUEST_ID = ?");
+		String sql = "SELECT * FROM SESSION_INFO WHERE REQUEST_ID = ?";
 		params.add(requestId);
-		return this.jdbcTemplate.queryForMap(sql.toString(), params.toArray());
+		return this.jdbcTemplate.queryForMap(sql, params.toArray());
 	}
 	
 	public UserRequestEntity get(Long id){

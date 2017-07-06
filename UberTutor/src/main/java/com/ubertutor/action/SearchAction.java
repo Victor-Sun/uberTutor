@@ -13,19 +13,22 @@ import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.gnomon.common.PDMSCrudActionSupport;
 import com.gnomon.common.utils.JsonResult;
+import com.gnomon.common.web.SessionData;
 import com.ubertutor.entity.UserRequestEntity;
 import com.ubertutor.service.SearchService;
 
 import jp.co.nec.flowlites.core.FLPage;
 
 @Namespace("/main")
-@AllowedMethods({"displayRequests","displayRequestInfo"})
+@AllowedMethods({"displayRequests",
+	"displayRequestInfo"})
 public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private SearchService searchService;
-	private UserRequestEntity entity;
+	private UserRequestEntity requestEntity;
 	private Long id;
+	private String requestId;
 	
 	public Long getId() {
 		return id;
@@ -35,11 +38,19 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		this.id = id;
 	}
 
+	public String getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(String requestId) {
+		this.requestId = requestId;
+	}
+
 	public void displayRequests() throws Exception{
 		try{
 			JsonResult result = new JsonResult();
 			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-			FLPage<Map<String,Object>> pageResult = this.searchService.getRequests(this.getPage(), this.getLimit());
+			FLPage<Map<String,Object>> pageResult = this.searchService.getRequests(Long.parseLong(SessionData.getLoginUserId()), this.getPage(), this.getLimit());
 			for (Map<String, Object> map : pageResult.getItems()) {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
 				dataMap.put("requestId", map.get("REQUEST_ID"));
@@ -64,49 +75,45 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 
 	public void displayRequestInfo() throws Exception{
 		try {
-			Long id = Long.parseLong(Struts2Utils.getRequest().getParameter("requestId"));
-			entity = searchService.get(id);
-			if(entity.getStatus().equals("OPEN")){
-				entity.setStatus("PENDING");
-				entity.setPendingDate(new Date());
-				searchService.save(entity);
+			Long requestId = Long.parseLong(this.requestId);
+			requestEntity = searchService.get(requestId);
+			if(requestEntity.getStatus().equals("OPEN")){
+				requestEntity.setStatus("PENDING");
+				requestEntity.setPendingDate(new Date());
+				searchService.save(requestEntity);
 			}
-			this.writeSuccessResult(searchService.getRequestInfo((id)));
+			this.writeSuccessResult(searchService.getRequestInfo((requestId)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public UserRequestEntity getModel() {
-		return entity;
+		return requestEntity;
 	}
 
 	@Override
 	protected void prepareModel() throws Exception {
-		entity = (id != null) ? searchService.get(id) : new UserRequestEntity();
+		requestEntity = (id != null) ? searchService.get(id) : new UserRequestEntity();
 	}
 
 	@Override
 	public String list() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String input() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String save() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String delete() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

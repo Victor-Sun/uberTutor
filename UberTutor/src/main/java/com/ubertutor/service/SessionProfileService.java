@@ -9,9 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ubertutor.dao.FeedbackDAO;
 import com.ubertutor.dao.UserDAO;
-import com.ubertutor.dao.UserRequestDAO;
 import com.ubertutor.entity.UserEntity;
 
 @Service
@@ -21,10 +19,6 @@ public class SessionProfileService {
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
 	private UserDAO userDAO;
-	@Autowired
-	private UserRequestDAO requestDAO;
-	@Autowired
-	private FeedbackDAO feedbackDAO;
 	
 	/**
 	 * Get a user by ID
@@ -41,12 +35,9 @@ public class SessionProfileService {
 	 * @return Tutor's total rating
 	 */
 	public Integer getRatingTotal(Long id){
-		StringBuffer sql = new StringBuffer();
-		List<Object> params = new ArrayList<Object>();
-		sql.append(" SELECT RATING FROM FEEDBACK WHERE TUTOR_ID = ?");
-		params.add(id);
-		return this.jdbcTemplate.queryForInt(sql.toString(),params.toArray());
-		
+		String sql = "SELECT RATING FROM FEEDBACK WHERE TUTOR_ID = ?";
+		Integer count = this.jdbcTemplate.queryForObject(sql, new Object[] {id}, Integer.class);
+		return ((count==null) ? 0 : count);
 	}
 
 	/**
@@ -55,11 +46,9 @@ public class SessionProfileService {
 	 * @return Amount of ratings a tutor has received
 	 */
 	public Integer getRatingCount(Long id){
-		StringBuffer sql = new StringBuffer();
-		List<Object> params = new ArrayList<Object>();
-		sql.append(" SELECT COUNT(*) FROM FEEDBACK WHERE TUTOR_ID = ?");
-		params.add(id);
-		return this.jdbcTemplate.queryForInt(sql.toString(),params.toArray()); 
+		String sql = "SELECT COUNT(*) FROM FEEDBACK WHERE TUTOR_ID = ?";
+		Integer count = this.jdbcTemplate.queryForObject(sql, new Object[] {id}, Integer.class);
+		return ((count==null) ? 0 : count);
 	}
 
 	/**
@@ -68,11 +57,9 @@ public class SessionProfileService {
 	 * @return Total count of completed requests
 	 */
 	public Integer getTotalCompletedRequests(Long id){
-		StringBuffer sql = new StringBuffer();
-		List<Object> params = new ArrayList<Object>();
-		sql.append(" SELECT COUNT(*) FROM USER_REQUEST WHERE TUTOR_ID = ?");
-		params.add(id);
-		return this.jdbcTemplate.queryForInt(sql.toString(),params.toArray());
+		String sql = "SELECT COUNT(*) FROM USER_REQUEST WHERE TUTOR_ID = ?"; 
+		Integer count = this.jdbcTemplate.queryForObject(sql, new Object[] {id}, Integer.class);
+		return ((count==null) ? 0 : count);
 	}
 	
 	/**

@@ -14,7 +14,7 @@ import com.ubertutor.service.FeedbackService;
 @AllowedMethods("save")
 public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	private static final long serialVersionUID = 1L;
-	private FeedbackEntity entity;
+	private FeedbackEntity feedbackEntity;
 	@Autowired
 	private FeedbackService feedbackService;
 	private Long id;
@@ -29,8 +29,8 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 
 	public String save() throws Exception{
 		try{
-			entity.setCreatedate(new Date());
-			feedbackService.save(entity);
+			feedbackEntity.setCreateDate(new Date());
+			feedbackService.save(feedbackEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -39,7 +39,7 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	}
 
 	public FeedbackEntity getModel() {
-		return entity;
+		return feedbackEntity;
 	}
 
 	@Override
@@ -62,6 +62,6 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 
 	@Override
 	protected void prepareModel() throws Exception {
-		entity = (id != null) ? feedbackService.get(id) : new FeedbackEntity();
+		feedbackEntity = (id != null) ? feedbackService.get(id) : new FeedbackEntity();
 	}
 }

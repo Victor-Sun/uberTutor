@@ -19,7 +19,7 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private MakeRequestService makeRequestService;
-	private UserRequestEntity entity = new UserRequestEntity();
+	private UserRequestEntity requestEntity = new UserRequestEntity();
 	private Long id;
 	private String subjectId, description, title;
 	
@@ -71,14 +71,14 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 				msg = "Description cannot be empty! Fill it in and try again!";
 				throw new Exception(msg);
 			}
-			entity.setUserId(Long.parseLong(SessionData.getLoginUserId()));
-			entity.setSubjectId(Long.parseLong(subjectId));
-			entity.setDescription(description);
-			entity.setTitle(title);
-			entity.setCreateDate(new Date());
-			entity.setStatus("OPEN");
-			makeRequestService.save(entity);
-			resultMap.put("requestId", entity.getId());
+			requestEntity.setUserId(Long.parseLong(SessionData.getLoginUserId()));
+			requestEntity.setSubjectId(Long.parseLong(subjectId));
+			requestEntity.setDescription(description);
+			requestEntity.setTitle(title);
+			requestEntity.setCreateDate(new Date());
+			requestEntity.setStatus("OPEN");
+			makeRequestService.save(requestEntity);
+			resultMap.put("requestId", requestEntity.getId());
 			this.writeSuccessResult(resultMap);
 		} catch (Exception e){
 			e.printStackTrace();
@@ -88,7 +88,7 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	}
 
 	public UserRequestEntity getModel() {
-		return entity;
+		return requestEntity;
 	}
 
 	@Override
@@ -115,6 +115,6 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 
 	@Override
 	protected void prepareModel() throws Exception {
-		entity = (id != null) ? makeRequestService.get(id) : new UserRequestEntity();
+		requestEntity = (id != null) ? makeRequestService.get(id) : new UserRequestEntity();
 	}
 }

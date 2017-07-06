@@ -72,19 +72,19 @@ public class LoginAction extends PDMSCrudActionSupport<UserEntity> {
 				msg = "Username and password combination is incorrect! Try again!";
 				throw new Exception(msg);
 			}
-			UserEntity entity = this.loginService.getUser(username);
-			if("Y".equals(entity.getIsDisabled())){
+			UserEntity userEntity = this.loginService.getUser(username);
+			if("Y".equals(userEntity.getIsDisabled())){
 				msg = "User has been disabled!";
 				throw new Exception(msg);
 			}
-			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_USER, entity);
+			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_USER, userEntity);
 			if(OnlineUtils.isUseRedis()){
 				if(OnlineUtils.isOnline(username)){
 					OnlineUtils.logout(username);
 				}
-				OnlineUtils.login(Struts2Utils.getSession().getId(), entity);
+				OnlineUtils.login(Struts2Utils.getSession().getId(), userEntity);
 			}
-			resultMap.put("userName", entity.getUsername());
+			resultMap.put("userName", userEntity.getUsername());
 			writeSuccessResult(resultMap);
 		} catch (Exception e) {
 			e.printStackTrace();
