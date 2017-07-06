@@ -51,7 +51,7 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	public void setFeedback(String feedback) {
 		this.feedback = feedback;
 	}
-
+	
 	public String save() throws Exception{
 		try{
 			feedbackEntity.setCreateDate(new Date());
@@ -62,6 +62,14 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 		return null;
 	}
 
+	public void displayFeedbackInfo() throws Exception{
+		try{
+			this.writeSuccessResult(feedbackService.getFeedbackInfo(Long.parseLong(requestId)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public FeedbackEntity getModel() {
 		return feedbackEntity;
 	}
