@@ -23,7 +23,7 @@ public class SearchService {
 	
 	public FLPage<Map<String, Object>> getRequests(Long userId, int pageNo, int pageSize){
 		List<Object> params = new ArrayList<Object>();
-		String sql = "SELECT * FROM USER_SESSIONS WHERE STUDENT_ID <> ? AND STATUS = 'OPEN' OR STATUS = 'PENDING' ORDER BY STATUS";
+		String sql = "SELECT * FROM USER_SESSIONS WHERE STUDENT_ID <> ? AND STATUS = 'OPEN' OR STATUS = 'PENDING' ORDER BY REQUEST_ID, STATUS";
 		params.add(userId);
 		return jdbcTemplate.queryPagination(sql, pageNo, pageSize, params.toArray());
 	}

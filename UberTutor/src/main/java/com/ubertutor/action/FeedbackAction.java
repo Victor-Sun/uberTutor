@@ -18,13 +18,38 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	@Autowired
 	private FeedbackService feedbackService;
 	private Long id;
-	
+	private String rating, requestId, feedback;
+
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getRating() {
+		return rating;
+	}
+
+	public void setRating(String rating) {
+		this.rating = rating;
+	}
+
+	public String getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(String requestId) {
+		this.requestId = requestId;
+	}
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
 	}
 
 	public String save() throws Exception{
@@ -34,7 +59,6 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return null;
 	}
 
@@ -62,6 +86,6 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 
 	@Override
 	protected void prepareModel() throws Exception {
-		feedbackEntity = (id != null) ? feedbackService.get(id) : new FeedbackEntity();
+		feedbackEntity = (id != null) ? feedbackService.getFeedback(id) : new FeedbackEntity();
 	}
 }
