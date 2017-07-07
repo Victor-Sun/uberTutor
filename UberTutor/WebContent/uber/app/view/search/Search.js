@@ -28,6 +28,9 @@ Ext.define('uber.view.search.Search',{
             editable:false,
             name: 'category',
             listeners: {
+//            	click: function () {
+//            		categoryStore.load();
+//            	},
                 change: function (combo, newValue, oldValue, eOpts) {
                     subjectStore.load({params:{categoryId:newValue}});
                     subject.clearValue();
@@ -85,7 +88,7 @@ Ext.define('uber.view.search.Search',{
 						margin: 5,
 //						anchor: '100%'
 					},
-					items: [subject,category],
+					items: [category,subject],
 					dockedItems: [{
 						xtype: 'toolbar',
 						dock: 'bottom',

@@ -10,6 +10,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 			flex: 2,
 		});
 		var sessionInfo = Ext.create('Ext.form.Panel',{
+			itemId: 'sessionInfo',
 			flex: 1,
 			layout: {
 				type: 'vbox',
@@ -26,6 +27,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 				},
 				defaults: {
 					xtype: 'textfield',
+					readOnly: true,
 					labelAlign: 'top',
 					margin: '5 15 0 15',
 //					flex: 1
@@ -39,15 +41,45 @@ Ext.define('uber.view.session.FeedbackWindow',{
 				},{
 					fieldLabel: 'Date Created',
 					name: 'CREATE_DATE',
-					itemId: 'createDate'
+					itemId: 'createDate',
+					hidden: true,
+					listeners: {
+						change: {
+							fn: function (value) {
+								if (value !== "" || value !== null) {
+									this.setHidden(false);
+								}
+							}
+						}
+					}
 				},{
 					fieldLabel: 'Date Accepted',
 					name: 'PROCESS_DATE',
-					itemId: 'processDate'
+					itemId: 'processDate',
+					hidden: true,
+					listeners: {
+						change: {
+							fn: function (value) {
+								if (value !== "" || value !== null) {
+									this.setHidden(false);
+								}
+							}
+						}
+					}
 				},{
 					fieldLabel: 'Date Closed',
 					name: 'CLOSE_DATE',
-					itemId: 'closeDate'
+					itemId: 'closeDate',
+					hidden: true,
+					listeners: {
+						change: {
+							fn: function (value) {
+								if (value !== "" || value !== null) {
+									this.setHidden(false);
+								}
+							}
+						}
+					}
 				},{
 					xtype: 'textarea',
 					fieldLabel: 'Description',
@@ -56,6 +88,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 			}]
 		});
 		var tutorInfo = Ext.create('Ext.form.Panel',{
+			itemId: 'tutorInfo',
 			cls: 'shadow',
 			layout: {
 				type: 'vbox',
@@ -87,6 +120,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 						flex: 1,
 						margin: '5 15 0 15',
 						fieldLabel: 'Tutor Name',
+						readOnly: true,
 						labelAlign: 'top'
 					}]
 				},{
@@ -107,9 +141,9 @@ Ext.define('uber.view.session.FeedbackWindow',{
 						},
 						margin: '20 5 5 15',
 						items: [{
-							xtype: 'rating',
-	                		limit: '5',
-	                		rounding: '0.5',
+//							xtype: 'rating',
+//	                		limit: '5',
+//	                		rounding: '0.5',
 //						},{
 //							xtype: 'component',
 //							html: 'xxx out of xxx'
@@ -157,6 +191,19 @@ Ext.define('uber.view.session.FeedbackWindow',{
 				dateCheck();
 			}
 		});
+		feedback.load({
+			url: '/UberTutor/main/my-session!displaySessionInfo.action',
+			params: {
+				requestId:this.requestId,
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			},
+			success: function () {
+				dateCheck();
+			}
+		})
 		this.items = [{
 		xtype: 'panel',
 		layout: {
@@ -212,9 +259,25 @@ Ext.define('uber.view.session.FeedbackWindow',{
 						scale: 'large',
 						text: 'Submit',
 						handler: function () {
+							debugger;
 							feedback.submit({
 								url: '/UberTutor/main/feedback!save.action',
+								params: {
+									requestId:feedback.down('#requestId').getValue(),
+									rating: feedback.down('#rating').getValue()
+								},
+								reader: {
+									type: 'json',
+									rootProperty: 'data'
+								}
 							});
+//							if () {
+//								console.log('A feedback has already been submitted for this session');
+//							} else if () {
+//								feedback.submit({
+//									url: '/UberTutor/main/feedback!save.action',
+//								});
+//							}
 						}
 					}]
 				}]

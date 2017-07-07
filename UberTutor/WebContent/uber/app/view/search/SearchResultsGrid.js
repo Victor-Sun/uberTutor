@@ -1,16 +1,16 @@
 Ext.define('uber.view.search.SearchResultsGrid',{
 	extend: 'Ext.grid.Panel',
 	xtype: 'searchresultsgrid',
-	
+	itemId: 'searchresultsgrid',
 	flex: 1,
 //	layout: 'fit',
-	store: {
-		fields: [ 'name', 'signupDate', 'rating', 'sucessfulRequests'],
-		data: [
-		     { name: 'Charles', signupDate: '6/7/2009', rating: '4', successfulRequests: '20'},
-		     { name: 'Phillip', signupDate: '5/9/2005', rating: '4.5', successfulRequests: '45'}
-       ]
-	},
+//	store: {
+//		fields: [ 'name', 'signupDate', 'rating', 'sucessfulRequests'],
+//		data: [
+//		     { name: 'Charles', signupDate: '6/7/2009', rating: '4', successfulRequests: '20'},
+//		     { name: 'Phillip', signupDate: '5/9/2005', rating: '4.5', successfulRequests: '45'}
+//       ]
+//	},
 	columns: [{
 		//displays :Name, Rating, Member Since, Successful Requests
 		xtype: 'templatecolumn',

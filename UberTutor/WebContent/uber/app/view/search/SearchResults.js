@@ -10,27 +10,29 @@ Ext.define('uber.view.search.SearchResults',{
 		align: 'stretch'
 	},
 	cls: 'uber-panel',
-	items: [{
-		xtype: 'panel',
-		cls: 'uber-panel-inner',
-		layout: {
-			type: 'vbox',
-			align: 'stretch'
-		},
-		items: [{
-			//search results grid
-			xtype: 'container',
+	initComponents: function () {
+		this.items = [{
+			xtype: 'panel',
+			cls: 'uber-panel-inner',
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
 			items: [{
-				html: '<h2>Search Results</h2>'
-			}]
-		},{
-			xtype: 'tabpanel',
-			flex: 1,
-			layout: 'fit',
-			items: [{
-				xtype: 'searchresultsgrid',
-				title: 'Search Results Grid'
+				//search results grid
+				xtype: 'container',
+				items: [{
+					html: '<h2>Search Results</h2>'
+				}]
+			},{
+				xtype: 'tabpanel',
+				flex: 1,
+				layout: 'fit',
+				items: [{
+					xtype: 'searchresultsgrid',
+					title: 'Search Results Grid'
+				}]
 			}]
 		}]
-	}]
+	}
 })

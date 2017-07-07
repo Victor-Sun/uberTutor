@@ -8,7 +8,8 @@ Ext.define('uber.view.profile.SearchController',{
     	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
 		var card2 = mainCard.add(Ext.create('uber.view.search.SearchResults'));
-    	
+		var searchResultGrid = Ext.ComponentQuery.query('#searchresultsgrid')[0];
+//			uber.store.grid.SearchResultGrid
     },
     
     onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {

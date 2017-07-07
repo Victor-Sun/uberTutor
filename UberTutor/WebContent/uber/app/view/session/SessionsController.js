@@ -90,12 +90,28 @@ Ext.define('uber.view.session.SessionsController',{
     },
     
     feedbackClick: function(gridview, rowIndex, colIndex, item, e, record, row) {
+    	debugger;
         var grid=gridview.up('grid');
         // You need to listen to this event on your grid.
 //        grid.fireEvent('hide', grid, record);
-        Ext.create('uber.view.session.FeedbackWindow',{
+        var window = Ext.create('uber.view.session.FeedbackWindow',{
         	requestId: record.data.requestId,
         }).show();
+        var feedback = window.down('#feedback');
+        feedback.load({
+        	url: '/UberTutor/main/feedback!displayFeedbackInfo.action',
+			params: {
+				requestId: record.data.requestId
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			},
+			
+			success: function () {
+				feedback.down('#requestId').setValue(record.data.requestId);
+			}
+        });
     },
     
     feedback: function () {
