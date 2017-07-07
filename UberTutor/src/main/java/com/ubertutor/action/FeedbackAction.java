@@ -14,7 +14,7 @@ import com.ubertutor.service.FeedbackService;
 @AllowedMethods({"save","displayFeedbackInfo"})
 public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	private static final long serialVersionUID = 1L;
-	private FeedbackEntity feedbackEntity;
+	private FeedbackEntity feedbackEntity = new FeedbackEntity();
 	@Autowired
 	private FeedbackService feedbackService;
 	private Long id;
@@ -64,7 +64,7 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 
 	public void displayFeedbackInfo() throws Exception{
 		try{
-			this.writeSuccessResult(feedbackService.getFeedbackInfo(Long.parseLong(requestId)));
+			this.writeSuccessResult(feedbackService.getFeedbackInfo(requestId));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,19 +76,16 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 
 	@Override
 	public String list() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String input() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String delete() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

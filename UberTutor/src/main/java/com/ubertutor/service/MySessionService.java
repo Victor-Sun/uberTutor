@@ -30,7 +30,7 @@ public class MySessionService {
 	public FLPage<Map<String, Object>> getUserSessions(Long studentId, int pageNo, int pageSize){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
-		sql.append("SELECT * FROM USER_SESSIONS WHERE STUDENT_ID = ?");
+		sql.append("SELECT * FROM USER_SESSIONS WHERE STUDENT_ID = ? ORDER BY STATUS DESC, REQUEST_ID");
 		params.add(studentId);
 		return jdbcTemplate.queryPagination(sql.toString(), pageNo, pageSize, params.toArray());
 	}
@@ -38,7 +38,7 @@ public class MySessionService {
 	public FLPage<Map<String,Object>> getTutorSessions(Long tutorId, int pageNo, int pageSize){
 		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
-		sql.append("SELECT * FROM USER_SESSIONS WHERE TUTOR_ID = ?");
+		sql.append("SELECT * FROM USER_SESSIONS WHERE TUTOR_ID = ? ORDER BY STATUS DESC, REQUEST_ID");
 		params.add(tutorId);
 		return jdbcTemplate.queryPagination(sql.toString(), pageNo, pageSize, params.toArray());
 	}

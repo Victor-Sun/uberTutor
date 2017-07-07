@@ -21,6 +21,7 @@ public class FeedbackService {
 	private FeedbackDAO feedbackDAO;
 	@Autowired
 	private UserRequestDAO userRequestDAO;
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
 	public void save(FeedbackEntity entity){
@@ -35,10 +36,11 @@ public class FeedbackService {
 		return this.userRequestDAO.get(id);
 	}
 	
-	public Map<String, Object> getFeedbackInfo(Long requestId){
-		String sql = "SELECT * FROM USER_FEEDBACK WHERE FEEDBACK_ID = ?";
+	public Map<String, Object> getFeedbackInfo(String requestId){
+		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
+		sql.append("SELECT * FROM USER_FEEDBACK WHERE REQUEST_ID = ?");
 		params.add(requestId);
-		return jdbcTemplate.queryForMap(sql, params.toArray());
+		return this.jdbcTemplate.queryForMap(sql.toString(), params.toArray());
 	}
 }
