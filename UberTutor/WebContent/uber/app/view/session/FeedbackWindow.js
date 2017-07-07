@@ -130,24 +130,24 @@ Ext.define('uber.view.session.FeedbackWindow',{
 						type: 'vbox',
 					},
 					items: [{
-						xtype: 'component',
-						margin: '5 5 0 15',
-	                	html: 'Average Rating'
-					},{
-						xtype: 'fieldcontainer',
-						
-						layout: {
-							type: 'hbox',
-						},
-						margin: '20 5 5 15',
-						items: [{
-//							xtype: 'rating',
-//	                		limit: '5',
-//	                		rounding: '0.5',
-//						},{
-//							xtype: 'component',
-//							html: 'xxx out of xxx'
-						}]
+//						xtype: 'component',
+//						margin: '5 5 0 15',
+//	                	html: 'Average Rating'
+//					},{
+//						xtype: 'fieldcontainer',
+//						
+//						layout: {
+//							type: 'hbox',
+//						},
+//						margin: '20 5 5 15',
+//						items: [{
+////							xtype: 'rating',
+////	                		limit: '5',
+////	                		rounding: '0.5',
+////						},{
+////							xtype: 'component',
+////							html: 'xxx out of xxx'
+//						}]
 					}]
 				}]
 			}]
@@ -191,19 +191,21 @@ Ext.define('uber.view.session.FeedbackWindow',{
 				dateCheck();
 			}
 		});
-		feedback.load({
-			url: '/UberTutor/main/my-session!displaySessionInfo.action',
-			params: {
-				requestId:this.requestId,
-			},
-			reader: {
-				type: 'json',
-				rootProperty: 'data'
-			},
-			success: function () {
-				dateCheck();
-			}
-		})
+		
+//		feedback.load({
+//			url: '/UberTutor/main/my-session!displaySessionInfo.action',
+//			params: {
+//				requestId:this.requestId,
+//			},
+//			reader: {
+//				type: 'json',
+//				rootProperty: 'data'
+//			},
+//			success: function () {
+//				dateCheck();
+//			}
+//		});
+		
 		this.items = [{
 		xtype: 'panel',
 		layout: {
