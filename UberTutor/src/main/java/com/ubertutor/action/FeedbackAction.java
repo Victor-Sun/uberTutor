@@ -11,7 +11,7 @@ import com.ubertutor.entity.FeedbackEntity;
 import com.ubertutor.service.FeedbackService;
 
 @Namespace("/main")
-@AllowedMethods("save")
+@AllowedMethods({"save","displayFeedbackInfo"})
 public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	private static final long serialVersionUID = 1L;
 	private FeedbackEntity feedbackEntity;
