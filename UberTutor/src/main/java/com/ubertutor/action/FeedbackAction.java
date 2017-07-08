@@ -66,14 +66,9 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 
 	public void displayFeedbackInfo() throws Exception{
 		try{
-			Map<String, Object> map = new HashMap<String, Object>();
 			boolean hasFeedback = feedbackService.hasFeedback(Long.parseLong(requestId));
-			if(hasFeedback){
-				map = feedbackService.getFeedbackInfo(requestId);
-				map.put("hasFeedback", hasFeedback);
-			} else {
-				map.put("hasFeedback", hasFeedback);
-			}
+			Map<String, Object> map = (hasFeedback) ? feedbackService.getFeedbackInfo(requestId) : new HashMap<String, Object>();
+			map.put("hasFeedback", hasFeedback);
 			this.writeSuccessResult(map);
 		} catch (Exception e) {
 			e.printStackTrace();

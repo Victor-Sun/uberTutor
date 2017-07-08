@@ -43,19 +43,12 @@ public class FeedbackService {
 		return this.jdbcTemplate.queryForMap(sql, params.toArray());
 	}
 	
-//	public boolean hasFeedback(Long id){
-//		String sql = "SELECT FEEDBACK FROM USER_FEEDBACK WHERE REQUEST_ID = ?";
-//		List<Object> params = new ArrayList<Object>();
-//		params.add(id);
-//		return this.jdbcTemplate.queryForMap(sql, params.toArray()).size() > 0;
-//	}
-	
-	public boolean hasFeedback(Long id){
+	public boolean hasFeedback(Long requestId){
 		String sql = "SELECT FEEDBACK FROM USER_REQUEST WHERE ID = ?";
 		List<Object> params = new ArrayList<Object>();
-		params.add(id);
+		params.add(requestId);
 		try{
-			return this.jdbcTemplate.queryForObject(sql, new Object[] {id}, Integer.class) > 0;
+			return this.jdbcTemplate.queryForObject(sql, new Object[] {requestId}, Integer.class) > 0;
 		} catch (Exception e) {
 			return false;
 		}
