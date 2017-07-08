@@ -1,6 +1,8 @@
 package com.ubertutor.action;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -64,7 +66,15 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 
 	public void displayFeedbackInfo() throws Exception{
 		try{
-			this.writeSuccessResult(feedbackService.getFeedbackInfo(requestId));
+			Map<String, Object> map = new HashMap<String, Object>();
+			boolean hasFeedback = feedbackService.hasFeedback(Long.parseLong(requestId));
+			if(hasFeedback){
+				map = feedbackService.getFeedbackInfo(requestId);
+				map.put("hasFeedback", hasFeedback);
+			} else {
+				map.put("hasFeedback", hasFeedback);
+			}
+			this.writeSuccessResult(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

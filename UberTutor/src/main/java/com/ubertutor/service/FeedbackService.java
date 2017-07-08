@@ -42,4 +42,11 @@ public class FeedbackService {
 		params.add(requestId);
 		return this.jdbcTemplate.queryForMap(sql, params.toArray());
 	}
+	
+	public boolean hasFeedback(Long id){
+		String sql = "SELECT * FROM USER_FEEDBACK WHERE REQUEST_ID = ?";
+		List<Object> params = new ArrayList<Object>();
+		params.add(id);
+		return this.jdbcTemplate.queryForMap(sql, params.toArray()).size() > 0;
+	}
 }
