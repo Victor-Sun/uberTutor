@@ -4,9 +4,9 @@ Ext.define('uber.view.session.FeedbackWindow',{
 	minHeight: 750,
 	minWidth: 980,
 	layout: 'fit',
+	requestId: '',
 	initComponent: function() {
 		var dateCheck = function () {
-			debugger;
 			var createDate = sessionInfo.down('#createDate');
 			var processDate = sessionInfo.down('#processDate');
 			var closeDate = sessionInfo.down('#closeDate');
@@ -29,6 +29,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 				closeDate.setValue(Ext.Date.format(new Date(Ext.decode(closeDate.getValue())), 'Y-m-d'));
 			};
 		};
+		
 		var feedback = Ext.create('uber.view.session.Feedback',{
 			flex: 2,
 		});
@@ -180,21 +181,31 @@ Ext.define('uber.view.session.FeedbackWindow',{
 //			}]
 //		});
 		
-		
-		
-//		feedback.load({
-//			url: '/UberTutor/main/my-session!displaySessionInfo.action',
-//			params: {
-//				requestId:this.requestId,
-//			},
-//			reader: {
-//				type: 'json',
-//				rootProperty: 'data'
-//			},
-//			success: function () {
-//				dateCheck();
-//			}
-//		});
+		feedback.load({
+	    	model: 'uber.model.session.Feedback',
+	    	url: '/UberTutor/main/feedback!displayFeedbackInfo.action',
+			params: {
+				requestId: this.requestId
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+	    });
+		sessionInfo.load({
+			model: 'uber.model.session.SessionInfo',
+			url: '/UberTutor/main/my-session!displaySessionInfo.action',
+			params: {
+				requestId: this.requestId,
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			},
+			success: function () {
+				dateCheck();
+			}
+		});
 		
 		this.items = [{
 		xtype: 'panel',
@@ -260,7 +271,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 								params: {
 									requestId:feedback.down('#requestId').getValue(),
 									rating: feedback.down('#rating').getValue(),
-									
+									feedback: feedback.down('#feedback').getValue()
 								},
 								reader: {
 									type: 'json',
@@ -280,9 +291,11 @@ Ext.define('uber.view.session.FeedbackWindow',{
 			}]
 		}]
 	}];
-	this.listeners = {
-		load: dateCheck,
-	};
+//	this.listeners = {
+//		load: function () {
+//			 this.dateCheck(),
+//		}
+//	};
 	this.callParent(arguments);
 	}
 });

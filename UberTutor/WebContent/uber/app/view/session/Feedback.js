@@ -84,6 +84,7 @@ Ext.define('uber.view.session.Feedback', {
                 margin: '5 10 5 10',
                 height: 125,
 //                width: 425,
+                itemId: 'feedback',
                 name: 'FEEDBACK',
                 fieldLabel: 'Feedback',
 //        		xtype: 'fieldcontainer',

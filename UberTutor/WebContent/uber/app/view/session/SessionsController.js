@@ -103,44 +103,15 @@ Ext.define('uber.view.session.SessionsController',{
     
     detailClick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
     	console.log("RequestId:" + rowIndex.data.requestId);
-    	Ext.create('uber.view.session.SessionInfoWindow',{
-    		requestId: rowIndex.data.requestId,
-//    		status: record.data.status
-    	}).show();
-//    	var sessionInfoWindow = Ext.ComponentQuery.query('#sessionInfoWindow')[0];
-//    	var requestId = sessionInfoWindow.down('#requestID').setValue(record.data.requestID);
-//    	var status = sessionInfoWindow.down('#status').setValue(record.data.status);
+    	Ext.create('uber.view.session.SessionInfoWindow',{requestId: rowIndex.data.requestId}).show();
     },
     
     feedbackClick: function(gridview, rowIndex, colIndex, item, e, record, row) {
         var requestId = record.data.requestId;
-        var window = Ext.create('uber.view.session.FeedbackWindow').show();
+        var window = Ext.create('uber.view.session.FeedbackWindow',{requestId: requestId}).show();
 		var feedback = window.down('#feedback');
 		var sessionInfo = window.down('#sessionInfo');
 		
-		feedback.down('#requestId').setValue(requestId);
-		feedback.load({
-        	model: 'uber.model.session.Feedback',
-        	url: '/UberTutor/main/feedback!displayFeedbackInfo.action',
-			params: {
-				requestId: requestId
-			},
-			reader: {
-				type: 'json',
-				rootProperty: 'data'
-			}
-        });
-		sessionInfo.load({
-			model: 'uber.model.session.SessionInfo',
-			url: '/UberTutor/main/my-session!displaySessionInfo.action',
-			params: {
-				requestId: requestId,
-			},
-			reader: {
-				type: 'json',
-				rootProperty: 'data'
-			},
-		});
     },
     
 //    feedback: function () {
