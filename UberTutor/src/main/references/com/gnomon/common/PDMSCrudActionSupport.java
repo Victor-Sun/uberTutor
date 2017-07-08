@@ -18,28 +18,13 @@ import com.gnomon.integration.sso.SSOUserInfo;
 import com.gnomon.integration.sso.UserContext;
 
 public abstract class PDMSCrudActionSupport<T> extends CrudActionSupport<T> {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 495901603955879773L;
-	
-	private String programId;//��ĿID
 	
 	private int page;
 	private int limit;
 	private String filter;
 	private String sort;
 
-	
-	public String getProgramId() {
-		return programId;
-	}
-
-	public void setProgramId(String programId) {
-		this.programId = programId;
-	}
-	
 	public String getFilter() {
 		return filter;
 	}
@@ -114,30 +99,10 @@ public abstract class PDMSCrudActionSupport<T> extends CrudActionSupport<T> {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	protected String getUserDisplayName(String userid){
-//		return userService.getUserDisplayName(userid);
-		return "";
-	}
-
-
-//	public boolean hasTaskPrivilege(String taskId){
-//		try{
-//			String userId = UserContext.getUserInfo().getUserId();
-//			boolean resultList = privilegeService.hasTaskPrivilege(userId, programId, taskId, PrivilegeService.P0083);
-//			return resultList;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			logger.error(e.getMessage(), e);
-//			throw new RuntimeException(e);
-//		}
-//	}
 
 	private SSOUserInfo getCurrentUserInfo(){
 		return UserContext.getUserInfo();
 	}
-	
 
 	protected String getCurrentUserid(){
 		return getCurrentUserInfo().getUserId();
@@ -168,9 +133,6 @@ public abstract class PDMSCrudActionSupport<T> extends CrudActionSupport<T> {
 		return result;
 	}
 	
-	/*
-	 * JSONתList<Map<String, String>>
-	 */
 	public List<Map<String, String>> convertJson2List(String strJson) {
 		List<Map<String, String>> result = new ArrayList<Map<String, String>>();
 		JSONArray jsonArray = JSONArray.fromObject(strJson);

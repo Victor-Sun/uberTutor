@@ -68,10 +68,9 @@ public class SessionProfileService {
 	 * @return Map of feedbacks
 	 */
 	public Map<String,Object> getFeedback(Long id){
-		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
-		sql.append(" SELECT * FROM FEEDBACK WHERE TUTOR_ID = ?");
+		String sql = "SELECT * FROM FEEDBACK WHERE TUTOR_ID = ?";
 		params.add(id);
-		return this.jdbcTemplate.queryForMap(sql.toString(),params.toArray());
+		return this.jdbcTemplate.queryForMap(sql,params.toArray());
 	}
 }

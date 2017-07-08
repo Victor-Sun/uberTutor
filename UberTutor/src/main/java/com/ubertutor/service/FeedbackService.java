@@ -37,10 +37,9 @@ public class FeedbackService {
 	}
 	
 	public Map<String, Object> getFeedbackInfo(String requestId){
-		StringBuffer sql = new StringBuffer();
 		List<Object> params = new ArrayList<Object>();
-		sql.append("SELECT * FROM USER_FEEDBACK WHERE REQUEST_ID = ?");
+		String sql = "SELECT * FROM USER_FEEDBACK WHERE REQUEST_ID = ?";
 		params.add(requestId);
-		return this.jdbcTemplate.queryForMap(sql.toString(), params.toArray());
+		return this.jdbcTemplate.queryForMap(sql, params.toArray());
 	}
 }

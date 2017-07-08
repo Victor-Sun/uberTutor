@@ -53,10 +53,9 @@ public class TutorSubjectRegisterService {
 	 */
 	public FLPage<Map<String,Object>> getUserSubjects(Long userId, int pageNo, int pageSize){
 		List<Object> params = new ArrayList<Object>();
-		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT * FROM USERS_SUBJECT_CATEGORY WHERE USER_ID = ?");
+		String sql = "SELECT * FROM USERS_SUBJECT_CATEGORY WHERE USER_ID = ?";
 		params.add(userId);
-		return jdbcTemplate.queryPagination(sql.toString(),pageNo, pageSize, params.toArray());
+		return jdbcTemplate.queryPagination(sql,pageNo, pageSize, params.toArray());
 	}
 	
 	/**
@@ -71,11 +70,10 @@ public class TutorSubjectRegisterService {
 
 	public void editSubject(Long userSubjectId, String description){
 		List<Object> params = new ArrayList<Object>();
-		StringBuffer sql = new StringBuffer();
-		sql.append(" UPDATE USER_SUBJECT SET DESCRIPTION = ? WHERE ID = ?");
+		String sql = " UPDATE USER_SUBJECT SET DESCRIPTION = ? WHERE ID = ?";
 		params.add(description);
 		params.add(userSubjectId);
-		this.jdbcTemplate.update(sql.toString(),params.toArray());
+		this.jdbcTemplate.update(sql,params.toArray());
 	}
 	
 	public boolean subjectExists(Long userId, Long subjectId){

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -43,9 +44,8 @@ public class ProfileService {
 	 * @return List of schools
 	 */
 	public List<Map<String, Object>> getSchoolList(){
-		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT * FROM SCHOOLS");
-		return this.jdbcTemplate.queryForList(sql.toString());
+		String sql = "SELECT * FROM SCHOOLS";
+		return this.jdbcTemplate.queryForList(sql);
 	}
 	
 	/**
@@ -63,10 +63,9 @@ public class ProfileService {
 	 */
 	public List<Map<String, Object>> getUserInfo(Long userId){
 		List<Object> params = new ArrayList<Object>();
-		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT * FROM USERS WHERE ID = ?");
+		String sql = " SELECT * FROM USERS WHERE ID = ?";
 		params.add(userId);
-		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
+		return this.jdbcTemplate.queryForList(sql,params.toArray());
 	}
 
 	/**
@@ -76,8 +75,7 @@ public class ProfileService {
 	 */
 	public Map<String, Object> getAllUserInfo(Long id){
 		List<Object> params = new ArrayList<Object>();
-		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT USERS.*, SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?");
+		String sql = " SELECT USERS.*, SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?";
 		params.add(id);
 		return this.jdbcTemplate.queryForMap(sql.toString(),params.toArray());
 	}
@@ -89,10 +87,9 @@ public class ProfileService {
 	 */
 	public List<Map<String, Object>> hasSchool(Long userId){
 		List<Object> params = new ArrayList<Object>();
-		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?");
+		String sql = "SELECT SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?";
 		params.add(userId);
-		return this.jdbcTemplate.queryForList(sql.toString(),params.toArray());
+		return this.jdbcTemplate.queryForList(sql,params.toArray());
 	}
 
 	
@@ -102,9 +99,7 @@ public class ProfileService {
 	 * @return true if the email is valid
 	 */
 	public boolean isValidEmailAddress(String email) {
-		String pattern = "^[\\w!#$%&â€?*+/=?`{|}~^-]+(?:\\.[\\w!#$%&â€?*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-		java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
-		java.util.regex.Matcher m = p.matcher(email);
-		return m.matches();
+		EmailValidator validator = EmailValidator.getInstance();
+		return validator.isValid(email);
 	}
 }
