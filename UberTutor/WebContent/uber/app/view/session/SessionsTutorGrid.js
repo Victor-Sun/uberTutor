@@ -47,7 +47,7 @@ Ext.define('uber.view.session.SessionsTutorGrid',{
     		store: me.store
     	}];
 		this.listeners = {
-    		celldblclick: 'onCelldblclick',
+    		celldblclick: 'onCelldblclickTutor',
     	};
 		this.callParent(arguments);
 	}

@@ -78,6 +78,29 @@ Ext.define('uber.view.session.SessionsController',{
 //    	var status = sessionInfoWindow.down('#status').setValue(record.data.status);
     },
     
+    onCelldblclickTutor: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+    	console.log("RequestId:" + record.data.requestId);
+    	var form = Ext.create('Ext.form.Panel',{
+    		items: [{
+    			xtype: 'textfield',
+    			name: 'requestId',
+    			value: record.data.requestId
+    		}]
+    	});
+    	form.submit({
+    		url: '/UberTutor/main/my-session!updateSessionToInProcess.action',
+			method: 'POST',
+    	});
+    	Ext.create('uber.view.session.SessionInfoWindow',{
+    		requestId: record.data.requestId,
+//    		status: record.data.status
+    	}).show();
+//    	var sessionInfoWindow = Ext.ComponentQuery.query('#sessionInfoWindow')[0];
+//    	var requestId = sessionInfoWindow.down('#requestID').setValue(record.data.requestID);
+//    	var status = sessionInfoWindow.down('#status').setValue(record.data.status);
+    	
+    },
+    
     detailClick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
     	console.log("RequestId:" + rowIndex.data.requestId);
     	Ext.create('uber.view.session.SessionInfoWindow',{
@@ -90,38 +113,44 @@ Ext.define('uber.view.session.SessionsController',{
     },
     
     feedbackClick: function(gridview, rowIndex, colIndex, item, e, record, row) {
-    	debugger;
-        var grid=gridview.up('grid');
-        // You need to listen to this event on your grid.
-//        grid.fireEvent('hide', grid, record);
-        var window = Ext.create('uber.view.session.FeedbackWindow',{
-        	requestId: record.data.requestId,
-        }).show();
-        var feedback = window.down('#feedback');
-        feedback.load({
+        var requestId = record.data.requestId;
+        var window = Ext.create('uber.view.session.FeedbackWindow').show();
+		var feedback = window.down('#feedback');
+		var sessionInfo = window.down('#sessionInfo');
+		
+		feedback.down('#requestId').setValue(requestId);
+		feedback.load({
+        	model: 'uber.model.session.Feedback',
         	url: '/UberTutor/main/feedback!displayFeedbackInfo.action',
 			params: {
-				requestId: record.data.requestId
+				requestId: requestId
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+        });
+		sessionInfo.load({
+			model: 'uber.model.session.SessionInfo',
+			url: '/UberTutor/main/my-session!displaySessionInfo.action',
+			params: {
+				requestId: requestId,
 			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			},
-			
-			success: function () {
-				feedback.down('#requestId').setValue(record.data.requestId);
-			}
-        });
+		});
     },
     
-    feedback: function () {
-    	var me = this;
-		var main = me.view.up('app-main');
-        
-        var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
-		var remove = mainCard.removeAll();
-		var card2 = mainCard.add(Ext.create('uber.view.session.Feedback'));
-    },
+//    feedback: function () {
+//    	var me = this;
+//		var main = me.view.up('app-main');
+//        
+//        var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+//		var remove = mainCard.removeAll();
+//		var card2 = mainCard.add(Ext.create('uber.view.session.Feedback'));
+//    },
     
     mysession: function () {
     	var me = this;

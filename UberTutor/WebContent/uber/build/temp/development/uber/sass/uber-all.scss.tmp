@@ -1000,6 +1000,7 @@ $include-uber-model-userinfo: dynamic(true);;
 $include-uber-model-grid-sessionsstudentgrid: dynamic(true);;
 $include-uber-model-grid-sessionstutorgrid: dynamic(true);;
 $include-uber-model-grid-tutorregistrationgrid: dynamic(true);;
+$include-uber-model-session-feedback: dynamic(true);;
 $include-uber-model-session-sessioninfo: dynamic(true);;
 $include-uber-model-test-news: dynamic(true);;
 $include-uber-store-openrequest: dynamic(true);;

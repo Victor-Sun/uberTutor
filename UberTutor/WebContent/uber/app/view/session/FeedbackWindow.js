@@ -1,11 +1,34 @@
 Ext.define('uber.view.session.FeedbackWindow',{
 	extend: 'Ext.window.Window',
 	itemId: 'feedbackWindow',
-	minHeight: 800,
+	minHeight: 750,
 	minWidth: 980,
 	layout: 'fit',
 	initComponent: function() {
-		
+		var dateCheck = function () {
+			debugger;
+			var createDate = sessionInfo.down('#createDate');
+			var processDate = sessionInfo.down('#processDate');
+			var closeDate = sessionInfo.down('#closeDate');
+			
+			if (createDate.getValue() == null || createDate.getValue() == "") {
+				createDate.setValue("");
+			} else {
+				createDate.setValue(Ext.Date.format(new Date(Ext.decode(createDate.getValue())), 'Y-m-d'));
+			};
+			
+			if (processDate.getValue() == null || processDate.getValue() == "") {
+				processDate.setValue("");
+			} else {
+				processDate.setValue(Ext.Date.format(new Date(Ext.decode(processDate.getValue())), 'Y-m-d'));
+			};
+			
+			if (closeDate.getValue() == null || closeDate.getValue() == "") {
+				closeDate.setValue("");
+			} else {
+				closeDate.setValue(Ext.Date.format(new Date(Ext.decode(closeDate.getValue())), 'Y-m-d'));
+			};
+		};
 		var feedback = Ext.create('uber.view.session.Feedback',{
 			flex: 2,
 		});
@@ -33,6 +56,9 @@ Ext.define('uber.view.session.FeedbackWindow',{
 //					flex: 1
 				},
 				items: [{
+					fieldLabel: 'Tutor Name',
+					name: 'TUTOR_NAME',
+				},{
 					fieldLabel: 'Title',
 					name: 'REQUEST_TITLE'
 				},{
@@ -82,115 +108,79 @@ Ext.define('uber.view.session.FeedbackWindow',{
 					}
 				},{
 					xtype: 'textarea',
+					height: 125,
 					fieldLabel: 'Description',
-					name: 'SUBJECT_DESCRIPTION'
+					name: 'DESCRIPTION'
 				}]
 			}]
 		});
-		var tutorInfo = Ext.create('Ext.form.Panel',{
-			itemId: 'tutorInfo',
-			cls: 'shadow',
-			layout: {
-				type: 'vbox',
-				align: 'stretch'
-			},
-//			flex: 2,
-			items: [{
-				xtype: 'fieldcontainer',
-				items: [{
-					xtype: 'component',
-					html: '<h3>Tutor Info</h3>'
-				}]
-			},{
-				xtype: 'fieldcontainer',
-//				flex: 1,
-				layout: {
-					type: 'vbox',
-					align: 'stretch'
-				},
-				items: [{
-					xtype: 'fieldcontainer',
-					layout: {
-						type: 'hbox',
-						align: 'stretch'
-					},
-					flex: 1,
-					items: [{
-						xtype: 'textfield',
-						flex: 1,
-						margin: '5 15 0 15',
-						fieldLabel: 'Tutor Name',
-						readOnly: true,
-						labelAlign: 'top'
-					}]
-				},{
-					xtype: 'fieldcontainer',
-					flex: 2,
-					layout: {
-						type: 'vbox',
-					},
-					items: [{
-//						xtype: 'component',
-//						margin: '5 5 0 15',
-//	                	html: 'Average Rating'
-//					},{
-//						xtype: 'fieldcontainer',
-//						
-//						layout: {
-//							type: 'hbox',
-//						},
-//						margin: '20 5 5 15',
-//						items: [{
-////							xtype: 'rating',
-////	                		limit: '5',
-////	                		rounding: '0.5',
-////						},{
-////							xtype: 'component',
-////							html: 'xxx out of xxx'
-//						}]
-					}]
-				}]
-			}]
-		});
+//		var tutorInfo = Ext.create('Ext.form.Panel',{
+//			itemId: 'tutorInfo',
+//			cls: 'shadow',
+//			layout: {
+//				type: 'vbox',
+//				align: 'stretch'
+//			},
+////			flex: 2,
+//			items: [{
+//				xtype: 'fieldcontainer',
+//				items: [{
+//					xtype: 'component',
+//					html: '<h3>Tutor Info</h3>'
+//				}]
+//			},{
+//				xtype: 'fieldcontainer',
+////				flex: 1,
+//				layout: {
+//					type: 'vbox',
+//					align: 'stretch'
+//				},
+//				items: [{
+//					xtype: 'fieldcontainer',
+//					layout: {
+//						type: 'hbox',
+//						align: 'stretch'
+//					},
+//					flex: 1,
+//					items: [{
+//						xtype: 'textfield',
+//						flex: 1,
+//						margin: '5 15 0 15',
+//						fieldLabel: 'Tutor Name',
+//						readOnly: true,
+//						labelAlign: 'top'
+//					}]
+//				},{
+//					xtype: 'fieldcontainer',
+//					flex: 2,
+//					layout: {
+//						type: 'vbox',
+//					},
+//					items: [{
+////						xtype: 'component',
+////						margin: '5 5 0 15',
+////	                	html: 'Average Rating'
+////					},{
+////						xtype: 'fieldcontainer',
+////						
+////						layout: {
+////							type: 'hbox',
+////						},
+////						margin: '20 5 5 15',
+////						items: [{
+//////							xtype: 'rating',
+//////	                		limit: '5',
+//////	                		rounding: '0.5',
+//////						},{
+//////							xtype: 'component',
+//////							html: 'xxx out of xxx'
+////						}]
+//					}]
+//				}]
+//			}]
+//		});
 		
-		var dateCheck = function () {
-			var createDate = sessionInfo.down('#createDate');
-			var processDate = sessionInfo.down('#processDate');
-			var closeDate = sessionInfo.down('#closeDate');
-			
-			if (createDate.getValue() == null || createDate.getValue() == "") {
-				createDate.setValue("");
-			} else {
-				createDate.setValue(Ext.Date.format(new Date(Ext.decode(createDate.getValue())), 'Y-m-d'));
-			};
-			
-			if (processDate.getValue() == null || processDate.getValue() == "") {
-				processDate.setValue("");
-			} else {
-				processDate.setValue(Ext.Date.format(new Date(Ext.decode(processDate.getValue())), 'Y-m-d'));
-			};
-			
-			if (closeDate.getValue() == null || closeDate.getValue() == "") {
-				closeDate.setValue("");
-			} else {
-				closeDate.setValue(Ext.Date.format(new Date(Ext.decode(closeDate.getValue())), 'Y-m-d'));
-			};
-		};
 		
-		sessionInfo.load({
-//			model: 'uber.model.session.SessionInfo',
-			url: '/UberTutor/main/my-session!displaySessionInfo.action',
-			params: {
-				requestId:this.requestId,
-			},
-			reader: {
-				type: 'json',
-				rootProperty: 'data'
-			},
-			success: function () {
-				dateCheck();
-			}
-		});
 		
 //		feedback.load({
 //			url: '/UberTutor/main/my-session!displaySessionInfo.action',
@@ -217,7 +207,6 @@ Ext.define('uber.view.session.FeedbackWindow',{
 			cls: 'shadow',
 		},
 		items: [
-	        
 	        {
 			//Session Info & Feedback
 			xtype: 'panel',
@@ -236,7 +225,8 @@ Ext.define('uber.view.session.FeedbackWindow',{
 					type: 'vbox',
 				},
 				items: [
-				tutorInfo,,sessionInfo
+//				tutorInfo,
+				sessionInfo
 				]
 			},{
 				xtype: 'panel',
@@ -245,14 +235,17 @@ Ext.define('uber.view.session.FeedbackWindow',{
 					type: 'vbox',
 					align: 'stretch'
 				},
-				items: [{
-					xtype: 'container',
-					flex: 1,
-				},feedback,
-				{
-					xtype: 'container',
-					flex: 1,
-				}],
+				items: [
+//				{
+//					xtype: 'container',
+//					flex: 1,
+//				}
+				,feedback,
+//				{
+//					xtype: 'container',
+//					flex: 1,
+//				}
+				],
 				dockedItems: [{
 					xtype: 'toolbar',
 					dock: 'bottom',
@@ -261,12 +254,13 @@ Ext.define('uber.view.session.FeedbackWindow',{
 						scale: 'large',
 						text: 'Submit',
 						handler: function () {
-							debugger;
+//							debugger;
 							feedback.submit({
 								url: '/UberTutor/main/feedback!save.action',
 								params: {
 									requestId:feedback.down('#requestId').getValue(),
-									rating: feedback.down('#rating').getValue()
+									rating: feedback.down('#rating').getValue(),
+									
 								},
 								reader: {
 									type: 'json',
@@ -285,7 +279,10 @@ Ext.define('uber.view.session.FeedbackWindow',{
 				}]
 			}]
 		}]
-	}]
+	}];
+	this.listeners = {
+		load: dateCheck,
+	};
 	this.callParent(arguments);
 	}
 });

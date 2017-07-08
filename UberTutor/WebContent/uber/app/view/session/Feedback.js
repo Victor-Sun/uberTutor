@@ -52,11 +52,29 @@ Ext.define('uber.view.session.Feedback', {
                     	xtype: 'container',
                     	margin: '20 5 5 15',
                     	items: [{
+                    		xtype: 'hidden',
+                    		itemId: 'ratingHidden',
+                    		name: 'RATING',
+                    		listeners: {
+                    			change: function (newValue , oldValue , eOpts, value )  {
+                    				var rating = this.up('container').down('#rating');
+                    				rating.setValue(oldValue);
+                    			}
+                    		}
+                    	},{
                     		xtype: 'rating',
                     		itemId: 'rating',
-                    		name: 'rating',
+//                    		tooltip: tracking,
                     		limit: '5',
                     		rounding: '0.5',
+                    		listeners: {
+                    			change: function (picker, value) {
+                    				var ratingHidden = this.up('container').down('#ratingHidden');
+                    				if (ratingHidden.getValue() != value) {
+                    					ratingHidden.setValue(value);
+                    				}
+                    	        }
+                    		}
                     	}]
                     }]
                 }]
@@ -66,7 +84,7 @@ Ext.define('uber.view.session.Feedback', {
                 margin: '5 10 5 10',
                 height: 125,
 //                width: 425,
-                name: 'feedback',
+                name: 'FEEDBACK',
                 fieldLabel: 'Feedback',
 //        		xtype: 'fieldcontainer',
 //                margin: 5,

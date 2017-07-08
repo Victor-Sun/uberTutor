@@ -212,7 +212,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						name: 'CREATE_DATE',
 						hidden: true,
 						listeners: {
-							afterrender: {
+							change: {
 								fn: function (value) {
 									if (value !== "" || value !== null) {
 										this.setHidden(false);
@@ -334,7 +334,9 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			var close = Ext.ComponentQuery.query('#closeSession')[0];
 			var accept = Ext.ComponentQuery.query('#acceptSession')[0];
 			var windowClose = Ext.ComponentQuery.query('#closeWindow')[0];
-			if (status.value == 'PENDING') {
+			if (status.value == 'OPEN') {
+				accept.setHidden(false);
+			} else if (status.value == 'PENDING') {
 				cancel.setHidden(false);
 			} else if (status.value == 'IN PROCESS') {
 				close.setHidden(false);
