@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.gnomon.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.FeedbackEntity;
@@ -25,12 +26,16 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 
 	/**
 	 * Returns ID
-	 * @return
+	 * @return 
 	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * Set ID
+	 * @param
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
