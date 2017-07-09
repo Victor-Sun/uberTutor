@@ -21,10 +21,10 @@ Ext.define('uber.view.session.Feedback', {
         		align: 'stretch'
         	},
         	items: [{
-        		xtype: 'hiddenfield',
-        		itemId: 'feedbackSubmitted',
-        		name: 'feedbackSubmitted'
-        	},{
+//        		xtype: 'hiddenfield',
+//        		itemId: 'feedbackSubmitted',
+//        		name: 'feedbackSubmitted'
+//        	},{
         		xtype: 'hiddenfield',
         		itemId: 'requestId',
         		name: 'requestId'

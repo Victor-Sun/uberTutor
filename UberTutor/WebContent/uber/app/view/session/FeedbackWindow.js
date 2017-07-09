@@ -265,11 +265,11 @@ Ext.define('uber.view.session.FeedbackWindow',{
 						scale: 'large',
 						text: 'Submit',
 						handler: function () {
-//							debugger;
+							debugger;
 							feedback.submit({
 								url: '/UberTutor/main/feedback!save.action',
 								params: {
-									requestId:feedback.down('#requestId').getValue(),
+									requestId:feedback.up('window').requestId,
 									rating: feedback.down('#rating').getValue(),
 									feedback: feedback.down('#feedback').getValue()
 								},
