@@ -107,7 +107,6 @@ Ext.define('uber.view.session.SessionsController',{
     },
     
     feedbackClick: function(gridview, rowIndex, colIndex, item, e, record, row) {
-    	debugger;
     	 var requestId = record.data.requestId;
          var studentId = record.data.studentId;
          var tutorId = record.data.tutorId;

@@ -64,6 +64,7 @@ Ext.define('uber.view.session.Feedback', {
                     	},{
                     		xtype: 'rating',
                     		itemId: 'rating',
+//                    		rounding: '0.5',
                     		limit: '5',
                     		listeners: {
                     			change: function (picker, value) {

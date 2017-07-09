@@ -8,7 +8,6 @@ Ext.define('uber.view.session.FeedbackWindow',{
 	studentId: '',
 	tutorId: '',
 	initComponent: function() {
-		debugger;
 		var dateCheck = function () {
 			var createDate = sessionInfo.down('#createDate');
 			var processDate = sessionInfo.down('#processDate');
@@ -214,7 +213,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 			params: {
 				requestId: this.requestId,
 				tutorId: this.tutorId,
-				studentId: this.studentId
+				userId: this.studentId
 			},
 			reader: {
 				type: 'json',
@@ -279,7 +278,6 @@ Ext.define('uber.view.session.FeedbackWindow',{
 						scale: 'large',
 						text: 'Submit',
 						handler: function () {
-							debugger;
 							feedback.submit({
 								url: '/UberTutor/main/feedback!save.action',
 								params: {
@@ -287,7 +285,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 									rating: feedback.down('#rating').getValue(),
 									feedback: feedback.down('#feedback').getValue(),
 									tutorId: sessionInfo.down('#tutorId').getValue(),
-									studentId: sessionInfo.down('#studentId').getValue(),
+									userId: sessionInfo.down('#studentId').getValue(),
 								},
 								reader: {
 									type: 'json',
