@@ -111,7 +111,7 @@ Ext.define('uber.view.session.SessionsController',{
         var requestId = record.data.requestId;
         var window = Ext.create('uber.view.session.FeedbackWindow',{requestId: requestId}).show();
 		var feedback = window.down('#feedback');
-		var requestIdField = feedback.down('#requestid');
+		var requestIdField = feedback.down('hiddenfield');
 		requestIdField.setValue(requestId);
 //		var sessionInfo = window.down('#sessionInfo');
 		
