@@ -7,11 +7,9 @@ import java.util.Map;
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.gnomon.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.FeedbackEntity;
-import com.ubertutor.entity.UserRequestEntity;
 import com.ubertutor.service.FeedbackService;
 
 @Namespace("/main")
@@ -40,22 +38,42 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 		this.id = id;
 	}
 
+	/**
+	 * Returns Rating
+	 * @return
+	 */
 	public String getRating() {
 		return rating;
 	}
 
+	/**
+	 * Set Rating
+	 * @param rating
+	 */
 	public void setRating(String rating) {
 		this.rating = rating;
 	}
 
+	/**
+	 * Returns Request id 
+	 * @return
+	 */
 	public String getRequestId() {
 		return requestId;
 	}
 
+	/**
+	 * Set Request id
+	 * @param requestId
+	 */
 	public void setRequestId(String requestId) {
 		this.requestId = requestId;
 	}
 
+	/**
+	 * Returns Feedback id
+	 * @return
+	 */
 	public String getFeedback() {
 		return feedback;
 	}
@@ -71,9 +89,7 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 		try{
 			feedbackEntity.setCreateDate(new Date());
 			feedbackService.save(feedbackEntity);
-			UserRequestEntity requestEntity = feedbackService.getRequest(requestId);
-			requestEntity.setFeedback(feedbackEntity.getId());
-			feedbackService.save(requestEntity);
+			feedbackService.updateRequest(Long.parseLong(requestId), feedbackEntity.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
