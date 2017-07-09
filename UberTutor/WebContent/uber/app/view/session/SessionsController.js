@@ -107,7 +107,7 @@ Ext.define('uber.view.session.SessionsController',{
     },
     
     feedbackClick: function(gridview, rowIndex, colIndex, item, e, record, row) {
-    	debugger;
+//    	debugger;
         var requestId = record.data.requestId;
         var window = Ext.create('uber.view.session.FeedbackWindow',{requestId: requestId}).show();
 		var feedback = window.down('#feedback');

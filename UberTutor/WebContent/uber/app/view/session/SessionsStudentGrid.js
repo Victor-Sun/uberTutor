@@ -3,6 +3,7 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
 	xtype: 'sessionsStudentGrid',
 	controller: 'sessions',
 	emptyText: "<h3>You currently don't have any sessions</h3>",
+	itemId: 'sessionStudentGrid',
 	hideHeader: true,
 	initComponent: function () {
 		var page = 5;

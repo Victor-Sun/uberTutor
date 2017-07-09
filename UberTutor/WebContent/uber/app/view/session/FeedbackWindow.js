@@ -265,23 +265,27 @@ Ext.define('uber.view.session.FeedbackWindow',{
 						scale: 'large',
 						text: 'Submit',
 						handler: function () {
-							debugger;
+//							debugger;
 							feedback.submit({
 								url: '/UberTutor/main/feedback!save.action',
 								params: {
 									requestId:feedback.up('window').requestId,
 									rating: feedback.down('#rating').getValue(),
-									feedback: feedback.down('#feedback').getValue()
+									feedback: feedback.down('#feedback').getValue(),
+//									tutorId:
+//									studentId:
 								},
 								reader: {
 									type: 'json',
 									rootProperty: 'data'
 								},
 								success: function() {
-									debugger;
+									var window = Ext.ComponentQuery.query('#feedbackWindow')[0];
+									var grid = Ext.ComponentQuery.query('#sessionStudentGrid')[0];
+									window.close();
+									grid.getStore().load();
 								},
 								failure: function(form, action) {
-									debugger;
 									var me = this;
 							    	Ext.getBody().unmask();
 							        var result = uber.util.Util.decodeJSON(action.response.responseText);
