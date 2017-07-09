@@ -276,6 +276,16 @@ Ext.define('uber.view.session.FeedbackWindow',{
 								reader: {
 									type: 'json',
 									rootProperty: 'data'
+								},
+								success: function() {
+									debugger;
+								},
+								failure: function(form, action) {
+									debugger;
+									var me = this;
+							    	Ext.getBody().unmask();
+							        var result = uber.util.Util.decodeJSON(action.response.responseText);
+							        Ext.Msg.alert('Error', result.data, Ext.emptyFn);
 								}
 							});
 //							if () {
@@ -291,11 +301,6 @@ Ext.define('uber.view.session.FeedbackWindow',{
 			}]
 		}]
 	}];
-//	this.listeners = {
-//		load: function () {
-//			 this.dateCheck(),
-//		}
-//	};
 	this.callParent(arguments);
 	}
 });
