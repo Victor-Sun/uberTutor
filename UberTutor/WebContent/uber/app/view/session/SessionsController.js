@@ -107,13 +107,19 @@ Ext.define('uber.view.session.SessionsController',{
     },
     
     feedbackClick: function(gridview, rowIndex, colIndex, item, e, record, row) {
-//    	debugger;
-        var requestId = record.data.requestId;
-        var window = Ext.create('uber.view.session.FeedbackWindow',{requestId: requestId}).show();
-		var feedback = window.down('#feedback');
-		var requestIdField = feedback.down('hiddenfield');
-		requestIdField.setValue(requestId);
-//		var sessionInfo = window.down('#sessionInfo');
+    	debugger;
+    	 var requestId = record.data.requestId;
+         var studentId = record.data.studentId;
+         var tutorId = record.data.tutorId;
+         var window = Ext.create('uber.view.session.FeedbackWindow',{requestId: requestId, studentId: studentId, tutorId: tutorId}).show();
+         var feedback = window.down('#feedback');
+         var sessionInfo = window.down('#sessionInfo');
+         var requestIdField = feedback.down('hiddenfield');
+         requestIdField.setValue(requestId);
+         var studentIdField = sessionInfo.down('#studentId');
+         studentIdField.setValue(studentId);
+         var tutorIdField = sessionInfo.down('#tutorId');
+         tutorIdField.setValue(tutorId);
 		
     },
     

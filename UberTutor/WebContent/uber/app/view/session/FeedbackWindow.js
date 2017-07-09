@@ -5,7 +5,10 @@ Ext.define('uber.view.session.FeedbackWindow',{
 	minWidth: 980,
 	layout: 'fit',
 	requestId: '',
+	studentId: '',
+	tutorId: '',
 	initComponent: function() {
+		debugger;
 		var dateCheck = function () {
 			var createDate = sessionInfo.down('#createDate');
 			var processDate = sessionInfo.down('#processDate');
@@ -57,6 +60,14 @@ Ext.define('uber.view.session.FeedbackWindow',{
 //					flex: 1
 				},
 				items: [{
+					xtype: 'hidden',
+					itemId: 'studentId',
+					name: 'STUDENT_ID'
+				},{
+					xtype: 'hidden',
+					itemId: 'tutorId',
+					name: 'TUTOR_ID'
+				},{
 					fieldLabel: 'Tutor Name',
 					name: 'TUTOR_NAME',
 				},{
@@ -181,17 +192,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 //			}]
 //		});
 		
-		feedback.load({
-	    	model: 'uber.model.session.Feedback',
-	    	url: '/UberTutor/main/feedback!displayFeedbackInfo.action',
-			params: {
-				requestId: this.requestId
-			},
-			reader: {
-				type: 'json',
-				rootProperty: 'data'
-			}
-	    });
+		
 		sessionInfo.load({
 			model: 'uber.model.session.SessionInfo',
 			url: '/UberTutor/main/my-session!displaySessionInfo.action',
@@ -207,6 +208,19 @@ Ext.define('uber.view.session.FeedbackWindow',{
 			}
 		});
 		
+		feedback.load({
+	    	model: 'uber.model.session.Feedback',
+	    	url: '/UberTutor/main/feedback!displayFeedbackInfo.action',
+			params: {
+				requestId: this.requestId,
+				tutorId: this.tutorId,
+				studentId: this.studentId
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+	    });
 		this.items = [{
 		xtype: 'panel',
 		layout: {
@@ -265,15 +279,15 @@ Ext.define('uber.view.session.FeedbackWindow',{
 						scale: 'large',
 						text: 'Submit',
 						handler: function () {
-//							debugger;
+							debugger;
 							feedback.submit({
 								url: '/UberTutor/main/feedback!save.action',
 								params: {
 									requestId:feedback.up('window').requestId,
 									rating: feedback.down('#rating').getValue(),
 									feedback: feedback.down('#feedback').getValue(),
-//									tutorId:
-//									studentId:
+									tutorId: sessionInfo.down('#tutorId').getValue(),
+									studentId: sessionInfo.down('#studentId').getValue(),
 								},
 								reader: {
 									type: 'json',
