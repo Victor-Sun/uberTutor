@@ -28,12 +28,16 @@ public class FeedbackService {
 		this.feedbackDAO.save(entity);
 	}
 	
+	public void save(UserRequestEntity entity){
+		this.userRequestDAO.save(entity);
+	}
+	
 	public FeedbackEntity getFeedback(Long id){
 		return this.feedbackDAO.get(id);
 	}
 	
-	public UserRequestEntity getRequest(Long id){
-		return this.userRequestDAO.get(id);
+	public UserRequestEntity getRequest(String id){
+		return this.userRequestDAO.get(Long.parseLong(id));
 	}
 	
 	public Map<String, Object> getFeedbackInfo(String requestId){

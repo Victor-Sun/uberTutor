@@ -25,7 +25,7 @@ public class LoginAction extends PDMSCrudActionSupport<UserEntity> {
 	private String username, password;
 	
 	/**
-	 * 
+	 * Returns Username
 	 * @return Username as String
 	 */
 	public String getUsername() {
@@ -41,7 +41,7 @@ public class LoginAction extends PDMSCrudActionSupport<UserEntity> {
 	}
 	
 	/**
-	 * 
+	 * Returns Password
 	 * @return password as String
 	 */
 	public String getPassword() {

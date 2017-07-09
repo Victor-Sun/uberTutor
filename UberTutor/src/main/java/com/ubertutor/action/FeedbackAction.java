@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.gnomon.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.FeedbackEntity;
+import com.ubertutor.entity.UserRequestEntity;
 import com.ubertutor.service.FeedbackService;
 
 @Namespace("/main")
@@ -22,6 +23,10 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	private Long id;
 	private String rating, requestId, feedback;
 
+	/**
+	 * Returns ID
+	 * @return
+	 */
 	public Long getId() {
 		return id;
 	}
@@ -54,22 +59,32 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 		this.feedback = feedback;
 	}
 	
+	/**
+	 * Saves feedback to db
+	 */
 	public String save() throws Exception{
 		try{
 			feedbackEntity.setCreateDate(new Date());
 			feedbackService.save(feedbackEntity);
+			UserRequestEntity requestEntity = feedbackService.getRequest(requestId);
+			requestEntity.setFeedback(feedbackEntity.getId());
+			feedbackService.save(requestEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
+	/**
+	 * Outputs feedback information from db
+	 * @throws Exception
+	 */
 	public void displayFeedbackInfo() throws Exception{
 		try{
 			boolean hasFeedback = feedbackService.hasFeedback(Long.parseLong(requestId));
-			Map<String, Object> map = (hasFeedback) ? feedbackService.getFeedbackInfo(requestId) : new HashMap<String, Object>();
-			map.put("hasFeedback", hasFeedback);
-			this.writeSuccessResult(map);
+			Map<String, Object> result = (!hasFeedback) ? new HashMap<String, Object>() : feedbackService.getFeedbackInfo(requestId);
+			result.put("hasFeedback", hasFeedback);
+			this.writeSuccessResult(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
