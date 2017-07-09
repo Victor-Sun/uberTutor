@@ -35,19 +35,33 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	private UserEntity userEntity = SessionData.getLoginUser();
 	private UserRequestEntity requestEntity;
 	private String requestId;
-	
+
+	/**
+	 * Returns requestId
+	 * @return
+	 */
 	public String getRequestId() {
 		return requestId;
 	}
 
+	/**
+	 * Set requestId
+	 * @param requestId
+	 */
 	public void setRequestId(String requestId) {
 		this.requestId = requestId;
 	}
 
+	/**
+	 * Sends all requests to front end
+	 */
 	public void displayAllSessions(){
 		this.writeSuccessResult(sessionService.getSessions());
 	}
 
+	/**
+	 * Sends all of a user's requests to the front end
+	 */
 	public void displayUserSessions(){
 		try{
 			JsonResult result = new JsonResult();
@@ -75,6 +89,9 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		}
 	}
 
+	/**
+	 * Sends all of a tutor's requests to the front end
+	 */
 	public void displayTutorSessions(){
 		try{
 			JsonResult result = new JsonResult();
@@ -102,6 +119,10 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		}
 	}
 
+	/**
+	 * Sends a requests info to the front end
+	 * @throws Exception
+	 */
 	public void displaySessionInfo() throws Exception{
 		try{
 			String msg;
@@ -117,6 +138,9 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		}
 	}
 
+	/**
+	 * Updates a session to In Process
+	 */
 	public void updateSessionToInProcess(){
 		Long id = Long.parseLong(requestId);
 		requestEntity = sessionService.get(id);
@@ -125,6 +149,9 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		sessionService.save(requestEntity);
 	}
 	
+	/**
+	 * Updates a session to Closed
+	 */
 	public void updateSessionToClosed(){
 		Long id = Long.parseLong(requestId);
 		requestEntity = sessionService.get(id);
@@ -133,6 +160,9 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		sessionService.save(requestEntity);
 	}	
 
+	/**
+	 * Updates a session to Canceled
+	 */
 	public void updateSessionToCanceled(){
 		Long id = Long.parseLong(requestId);
 		requestEntity = sessionService.get(id);

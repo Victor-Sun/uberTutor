@@ -23,34 +23,66 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	private Long id;
 	private String subjectId, description, title;
 	
+	/**
+	 * Returns id
+	 * @return
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * Set id
+	 * @param id
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Returns subjectId
+	 * @return
+	 */
 	public String getSubjectId() {
 		return subjectId;
 	}
 
+	/**
+	 * Set subjectId
+	 * @param subjectId
+	 */
 	public void setSubjectId(String subjectId) {
 		this.subjectId = subjectId;
 	}
 	
+	/**
+	 * Returns description
+	 * @return
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * Set description
+	 * @param description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * Returns title
+	 * @return
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * Set title
+	 * @param title
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}

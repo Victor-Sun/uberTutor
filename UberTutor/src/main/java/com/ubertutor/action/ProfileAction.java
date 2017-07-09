@@ -24,50 +24,98 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	private UserEntity userEntity = SessionData.getLoginUser();
 	private String fullname, email, mobile, bio, schoolName, isTutor;
 	
+	/**
+	 * Returns fullname
+	 * @return
+	 */
 	public String getFullname() {
 		return fullname;
 	}
 
+	/**
+	 * Set fullname
+	 * @param fullname
+	 */
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
 	}
 
+	/**
+	 * Returns email
+	 * @return
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Set email
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * Returns mobile
+	 * @return
+	 */
 	public String getMobile() {
 		return mobile;
 	}
 
+	/**
+	 * Set mobile
+	 * @param mobile
+	 */
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 
+	/**
+	 * Returns bio
+	 * @return
+	 */
 	public String getBio() {
 		return bio;
 	}
 
+	/**
+	 * Set bio
+	 * @param bio
+	 */
 	public void setBio(String bio) {
 		this.bio = bio;
 	}
 
+	/**
+	 * Returns schoolName
+	 * @return
+	 */
 	public String getSchoolName() {
 		return schoolName;
 	}
 
+	/**
+	 * Set schoolname
+	 * @param schoolName
+	 */
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
 	}
 
+	/**
+	 * Returns isTutor
+	 * @return
+	 */
 	public String getIsTutor() {
 		return isTutor;
 	}
 
+	/**
+	 * Set isTutor
+	 * @param isTutor
+	 */
 	public void setIsTutor(String isTutor) {
 		this.isTutor = isTutor;
 	}
@@ -91,7 +139,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	}
 
 	/**
-	 * Updates a user's profile
+	 * Save a user's profile
 	 * @return 
 	 * @throws Exception
 	 */
@@ -138,7 +186,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	}
 
 	/**
-	 * Separate function to display school
+	 * Sends School to the front end
 	 */
 	public void displaySchool(){
 		try{

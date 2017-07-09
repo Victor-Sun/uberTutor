@@ -34,50 +34,98 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	private Long id;
 	private String categoryId, userSubjectId, description, subject, category;
 
+	/**
+	 * Returns id
+	 * @return
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * Set id
+	 * @param id
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Returns categoryId
+	 * @return
+	 */
 	public String getCategoryId() {
 		return categoryId;
 	}
 
+	/**
+	 * Set categoryId
+	 * @param categoryId
+	 */
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 
+	/**
+	 * Returns userSubjectId
+	 * @return
+	 */
 	public String getUserSubjectId() {
 		return userSubjectId;
 	}
 
+	/**
+	 * Set userSubjectId
+	 * @param userSubjectId
+	 */
 	public void setUserSubjectId(String userSubjectId) {
 		this.userSubjectId = userSubjectId;
 	}
 
+	/**
+	 * Returns description
+	 * @return
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * Set description
+	 * @param description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * Returns subject
+	 * @return
+	 */
 	public String getSubject() {
 		return subject;
 	}
 
+	/**
+	 * Set subject
+	 * @param subject
+	 */
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
 
+	/**
+	 * Returns category
+	 * @return
+	 */
 	public String getCategory() {
 		return category;
 	}
 
+	/**
+	 * Set category
+	 * @param category
+	 */
 	public void setCategory(String category) {
 		this.category = category;
 	}
@@ -151,6 +199,10 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		}
 	}
 	
+	/**
+	 * Updates a user's subject description
+	 * @throws Exception
+	 */
 	public void editSubject() throws Exception{
 		try{
 			if(description.isEmpty()){
@@ -166,6 +218,9 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		}
 	}
 
+	/**
+	 * Saves a subject to the db
+	 */
 	@Override
 	public String save() throws Exception{
 		try{
@@ -193,6 +248,9 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		return null;
 	}
 
+	/**
+	 * Deletes a subject from the db
+	 */
 	@Override
 	public String delete() throws Exception{
 		try {

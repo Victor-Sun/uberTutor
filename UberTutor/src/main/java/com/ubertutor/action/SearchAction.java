@@ -30,22 +30,41 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	private Long id;
 	private String requestId;
 	
+	/**
+	 * Returns id
+	 * @return
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * Set id
+	 * @param id
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Returns requestId
+	 * @return
+	 */
 	public String getRequestId() {
 		return requestId;
 	}
-
+	
+	/**
+	 * Set requestId
+	 * @param requestId
+	 */
 	public void setRequestId(String requestId) {
 		this.requestId = requestId;
 	}
 
+	/**
+	 * Sends User Requests to the front end
+	 */
 	public void displayRequests() throws Exception{
 		try{
 			JsonResult result = new JsonResult();
@@ -73,6 +92,10 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		}
 	}
 
+	/**
+	 * Sends request info to the front end
+	 * @throws Exception
+	 */
 	public void displayRequestInfo() throws Exception{
 		try {
 			Long requestId = Long.parseLong(this.requestId);

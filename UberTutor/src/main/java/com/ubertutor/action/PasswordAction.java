@@ -24,32 +24,56 @@ public class PasswordAction extends PDMSCrudActionSupport<UserEntity>{
     private UserEntity entity = SessionData.getLoginUser();
     private String currentPassword, newPassword, newPassword2;
     
+    /**
+     * Returns currentPassword
+     * @return
+     */
     public String getCurrentPassword() {
 		return currentPassword;
 	}
 
+    /**
+     * Set currentPassword
+     * @param currentPassword
+     */
 	public void setCurrentPassword(String currentPassword) {
 		this.currentPassword = currentPassword;
 	}
 
+	/**
+	 * Returns newPassword
+	 * @return
+	 */
 	public String getNewPassword() {
 		return newPassword;
 	}
 
+	/**
+	 * Set newPassword
+	 * @param newPassword
+	 */
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
 	}
 
+	/**
+	 * Returns newPassword2
+	 * @return
+	 */
 	public String getNewPassword2() {
 		return newPassword2;
 	}
 
+	/**
+	 * Set newPassword2
+	 * @param newPassword2
+	 */
 	public void setNewPassword2(String newPassword2) {
 		this.newPassword2 = newPassword2;
 	}
 
 	/**
-     * Update Password function
+     * Save new password to db
      */
 	@Override
     public String save(){

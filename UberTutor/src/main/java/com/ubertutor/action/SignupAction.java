@@ -23,7 +23,7 @@ import com.ubertutor.service.SignupService;
 @AllowedMethods("save")
 public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	private static final long serialVersionUID = 1L;
-	private String fullName, username, email, password, password2;
+	private String username, email, password, password2;
 	private Long id;
 	@Autowired
 	private SignupService signupService;
@@ -33,48 +33,8 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	private ProfileService profileService;
 	private UserEntity userEntity = new UserEntity();
 
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getPassword2() {
-		return password2;
-	}
-
-	public void setPassword2(String password2) {
-		this.password2 = password2;
-	}
-
 	/**
-	 * Get a user's ID
+	 * Returns id
 	 * @return id as a Long
 	 */
 	public Long getId() {
@@ -82,11 +42,74 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 	}
 
 	/**
-	 * Set user id
+	 * Set id
 	 * @param id
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	/**
+	 * Returns username
+	 * @return
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * Set username
+	 * @param username
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	/**
+	 * Returns email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * Set email
+	 * @param email
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
+	 * Returns password
+	 * @return
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * Set password
+	 * @param password
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
+	 * Returns password2
+	 * @return
+	 */
+	public String getPassword2() {
+		return password2;
+	}
+
+	/**
+	 * Set password2
+	 * @param password2
+	 */
+	public void setPassword2(String password2) {
+		this.password2 = password2;
 	}
 
 	/**

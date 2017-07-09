@@ -19,11 +19,11 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	private FeedbackEntity feedbackEntity = new FeedbackEntity();
 	@Autowired
 	private FeedbackService feedbackService;
-	private Long id;
+	private Long id, userId, tutorId;
 	private String rating, requestId, feedback;
 
 	/**
-	 * Returns ID
+	 * Returns id
 	 * @return 
 	 */
 	public Long getId() {
@@ -31,7 +31,7 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	}
 
 	/**
-	 * Set ID
+	 * Set id
 	 * @param
 	 */
 	public void setId(Long id) {
@@ -39,7 +39,7 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	}
 
 	/**
-	 * Returns Rating
+	 * Returns rating
 	 * @return
 	 */
 	public String getRating() {
@@ -47,7 +47,7 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	}
 
 	/**
-	 * Set Rating
+	 * Set rating
 	 * @param rating
 	 */
 	public void setRating(String rating) {
@@ -55,7 +55,7 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	}
 
 	/**
-	 * Returns Request id 
+	 * Returns requestId
 	 * @return
 	 */
 	public String getRequestId() {
@@ -63,7 +63,7 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	}
 
 	/**
-	 * Set Request id
+	 * Set requestId
 	 * @param requestId
 	 */
 	public void setRequestId(String requestId) {
@@ -71,23 +71,61 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	}
 
 	/**
-	 * Returns Feedback id
+	 * Returns feedback
 	 * @return
 	 */
 	public String getFeedback() {
 		return feedback;
 	}
 
+	/**
+	 * Set feedback
+	 * @param feedback
+	 */
 	public void setFeedback(String feedback) {
 		this.feedback = feedback;
 	}
 	
+	/**
+	 * Returns userId
+	 * @return
+	 */
+	public Long getUserId() {
+		return userId;
+	}
+
+	/**
+	 * Set userId
+	 * @param userId
+	 */
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	/**
+	 * Returns getTutorId
+	 * @return
+	 */
+	public Long getTutorId() {
+		return tutorId;
+	}
+
+	/**
+	 * Set getTutorId
+	 * @param tutorId
+	 */
+	public void setTutorId(Long tutorId) {
+		this.tutorId = tutorId;
+	}
+
 	/**
 	 * Saves feedback to db
 	 */
 	public String save() throws Exception{
 		try{
 			feedbackEntity.setCreateDate(new Date());
+			feedbackEntity.setUserId(userId);
+			feedbackEntity.setTutorId(tutorId);
 			feedbackService.save(feedbackEntity);
 			feedbackService.updateRequest(Long.parseLong(requestId), feedbackEntity.getId());
 		} catch (Exception e) {
@@ -103,14 +141,13 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	public void displayFeedbackInfo() throws Exception{
 		try{
 			boolean hasFeedback = feedbackService.hasFeedback(Long.parseLong(requestId));
-			Map<String, Object> result = (!hasFeedback) ? new HashMap<String, Object>() : feedbackService.getFeedbackInfo(requestId);
+			Map<String, Object> result = (hasFeedback) ? feedbackService.getFeedbackInfo(requestId) : new HashMap<String, Object>();
 			result.put("hasFeedback", hasFeedback);
 			this.writeSuccessResult(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
 	
 	public FeedbackEntity getModel() {
 		return feedbackEntity;
