@@ -30,7 +30,7 @@ public class FeedbackEntity implements Serializable{
 	private Date createDate; 
 	
 	@Column(name = "RATING") 
-	private int rating;
+	private Long rating;
 	
 	@Column(name = "FEEDBACK") 
 	private String feedback;
@@ -67,11 +67,11 @@ public class FeedbackEntity implements Serializable{
 		this.createDate = createDate;
 	}
 
-	public int getRating() {
+	public Long getRating() {
 		return rating;
 	}
 
-	public void setRating(int rating) {
+	public void setRating(Long rating) {
 		this.rating = rating;
 	}
 
