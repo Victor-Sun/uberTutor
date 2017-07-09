@@ -28,10 +28,6 @@ public class FeedbackService {
 		this.feedbackDAO.save(entity);
 	}
 	
-	public void save(UserRequestEntity entity){
-		this.userRequestDAO.save(entity);
-	}
-	
 	public FeedbackEntity getFeedback(Long id){
 		return this.feedbackDAO.get(id);
 	}
@@ -56,5 +52,13 @@ public class FeedbackService {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	public void updateRequest(Long requestId, Long feedbackId){
+		List<Object> params = new ArrayList<Object>();
+		String sql = "UPDATE USER_REQUEST SET FEEDBACK = ? WHERE ID = ?";
+		params.add(feedbackId);
+		params.add(requestId);
+		this.jdbcTemplate.update(sql, params.toArray());
 	}
 }
