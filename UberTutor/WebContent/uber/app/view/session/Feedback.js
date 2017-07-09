@@ -64,8 +64,8 @@ Ext.define('uber.view.session.Feedback', {
                     	},{
                     		xtype: 'rating',
                     		itemId: 'rating',
-//                    		tooltip: tracking,
                     		limit: '5',
+                    		rounding: '0.5',
                     		listeners: {
                     			change: function (picker, value) {
                     				var ratingHidden = this.up('container').down('#ratingHidden');
