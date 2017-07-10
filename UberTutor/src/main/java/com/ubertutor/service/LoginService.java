@@ -18,7 +18,7 @@ public class LoginService {
 	/**
 	 * Verifies a user's username exists in the DB
 	 * @param loginusername
-	 * @return true if username exists, false if it does not
+	 * @return True if username exists
 	 */
 	public boolean verifyUserId(String loginusername) {
 		List<UserEntity> result = this.userDAO.findBy("username", loginusername);
@@ -29,7 +29,7 @@ public class LoginService {
 	 * Verifies that a user's username and password match
 	 * @param loginusername
 	 * @param loginPassword
-	 * @return true if the combation matches 
+	 * @return True if the combation matches 
 	 */
 	public boolean verifyUserPassword(String loginusername, String loginPassword) {
 		String hql = "FROM UserEntity WHERE username = ? AND password = ?";

@@ -21,36 +21,68 @@ public class MySessionService {
 	@Autowired 
 	private UserRequestDAO userRequestDAO;
 	
-	public List<Map<String,Object>> getSessions(){
+	/**
+	 * Returns list of all sessions
+	 * @return
+	 */
+	public List<Map<String,Object>> getRequests(){
 		String sql = "SELECT * FROM USER_SESSIONS";
 		return this.jdbcTemplate.queryForList(sql);
 	}
 	
-	public FLPage<Map<String, Object>> getUserSessions(Long studentId, int pageNo, int pageSize){
+	/**
+	 * Returns list of a user's requests
+	 * @param studentId
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public FLPage<Map<String, Object>> getUserRequests(Long studentId, int pageNo, int pageSize){
 		List<Object> params = new ArrayList<Object>();
 		String sql = "SELECT * FROM USER_SESSIONS WHERE STUDENT_ID = ? ORDER BY STATUS DESC, REQUEST_ID";
 		params.add(studentId);
 		return jdbcTemplate.queryPagination(sql, pageNo, pageSize, params.toArray());
 	}
 	
-	public FLPage<Map<String,Object>> getTutorSessions(Long tutorId, int pageNo, int pageSize){
+	/**
+	 * Returns list of tutor's requests
+	 * @param tutorId
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public FLPage<Map<String,Object>> getTutorRequests(Long tutorId, int pageNo, int pageSize){
 		List<Object> params = new ArrayList<Object>();
 		String sql = "SELECT * FROM USER_SESSIONS WHERE TUTOR_ID = ? ORDER BY STATUS DESC, REQUEST_ID";
 		params.add(tutorId);
 		return jdbcTemplate.queryPagination(sql, pageNo, pageSize, params.toArray());
 	}
 	
-	public Map<String, Object> getSessionInfo(Long requestId){
+	/**
+	 * Returns map of RequestInfo
+	 * @param requestId
+	 * @return
+	 */
+	public Map<String, Object> getRequestInfo(Long requestId){
 		List<Object> params = new ArrayList<Object>();
 		String sql = "SELECT * FROM SESSION_INFO WHERE REQUEST_ID = ?";
 		params.add(requestId);
 		return this.jdbcTemplate.queryForMap(sql, params.toArray());
 	}
 	
+	/**
+	 * Saves UserRequestEntity
+	 * @param entity
+	 */
 	public void save(UserRequestEntity entity){
 		this.userRequestDAO.save(entity);
 	}
 	
+	/**
+	 * Returns UserRequestEntity
+	 * @param id
+	 * @return
+	 */
 	public UserRequestEntity get(Long id){
 		return this.userRequestDAO.get(id);
 	}

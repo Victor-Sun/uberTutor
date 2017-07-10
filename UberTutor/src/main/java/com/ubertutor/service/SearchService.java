@@ -21,6 +21,13 @@ public class SearchService {
 	@Autowired 
 	private UserRequestDAO userRequestDAO;
 	
+	/**
+	 * Returns a list of requests
+	 * @param userId
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
 	public FLPage<Map<String, Object>> getRequests(Long userId, int pageNo, int pageSize){
 		List<Object> params = new ArrayList<Object>();
 		String sql = "SELECT * FROM USER_SESSIONS WHERE STUDENT_ID <> ? AND STATUS = 'OPEN' OR STATUS = 'PENDING' ORDER BY REQUEST_ID, STATUS";
@@ -28,6 +35,11 @@ public class SearchService {
 		return jdbcTemplate.queryPagination(sql, pageNo, pageSize, params.toArray());
 	}
 	
+	/**
+	 * Returns a map of RequestInfo
+	 * @param requestId
+	 * @return
+	 */
 	public Map<String, Object> getRequestInfo(Long requestId){
 		List<Object> params = new ArrayList<Object>();
 		String sql = "SELECT * FROM SESSION_INFO WHERE REQUEST_ID = ?";
@@ -35,10 +47,19 @@ public class SearchService {
 		return this.jdbcTemplate.queryForMap(sql, params.toArray());
 	}
 	
+	/**
+	 * Returns UserRequestEntity
+	 * @param id
+	 * @return
+	 */
 	public UserRequestEntity get(Long id){
 		return userRequestDAO.get(id);
 	}
 	
+	/**
+	 * Saves UserRequestEntity
+	 * @param entity
+	 */
 	public void save(UserRequestEntity entity){
 		userRequestDAO.save(entity);
 	}

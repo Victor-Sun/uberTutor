@@ -68,6 +68,11 @@ public class TutorSubjectRegisterService {
 		userSubjectDAO.save(entity);
 	}
 
+	/**
+	 * Updates subject
+	 * @param userSubjectId
+	 * @param description
+	 */
 	public void editSubject(Long userSubjectId, String description){
 		List<Object> params = new ArrayList<Object>();
 		String sql = " UPDATE USER_SUBJECT SET DESCRIPTION = ? WHERE ID = ?";
@@ -76,20 +81,39 @@ public class TutorSubjectRegisterService {
 		this.jdbcTemplate.update(sql,params.toArray());
 	}
 	
+	/**
+	 * Returns true if subject exists
+	 * @param userId
+	 * @param subjectId
+	 * @return
+	 */
 	public boolean subjectExists(Long userId, Long subjectId){
 		String hql = "FROM UserSubjectEntity WHERE userId = ? AND subjectId = ?";
 		List<UserSubjectEntity> result = this.userSubjectDAO.find(hql, userId, subjectId);
         return result.size() > 0; 
 	}
 	
+	/**
+	 * Returns UserSubjectEntity
+	 * @param id
+	 * @return
+	 */
 	public UserSubjectEntity get(Long id){
 		return userSubjectDAO.get(id);
 	}
 	
+	/**
+	 * Deletes UserSubjectEntity
+	 * @param entity
+	 */
 	public void delete(UserSubjectEntity entity){
 		userSubjectDAO.delete(entity);
 	}
 	
+	/**
+	 * Deletes UserSubjectEntity
+	 * @param entity
+	 */
 	public void delete(Long id){
 		userSubjectDAO.delete(id);
 	}

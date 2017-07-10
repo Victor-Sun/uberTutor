@@ -24,18 +24,37 @@ public class FeedbackService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	/**
+	 * Saves entity to db
+	 * @param FeedbackEntity entity
+	 */
 	public void save(FeedbackEntity entity){
 		this.feedbackDAO.save(entity);
 	}
 	
+	/**
+	 * Returns FeedbackEntity
+	 * @param id
+	 * @return FeedbackEntity
+	 */
 	public FeedbackEntity getFeedback(Long id){
 		return this.feedbackDAO.get(id);
 	}
 	
+	/**
+	 * Returns UserRequestEntity
+	 * @param id
+	 * @return UserRequestEntity
+	 */
 	public UserRequestEntity getRequest(String id){
 		return this.userRequestDAO.get(Long.parseLong(id));
 	}
 	
+	/**
+	 * Returns feedback info
+	 * @param requestId
+	 * @return FeedbackInfo as Map
+	 */
 	public Map<String, Object> getFeedbackInfo(String requestId){
 		List<Object> params = new ArrayList<Object>();
 		String sql = "SELECT * FROM USER_FEEDBACK WHERE REQUEST_ID = ?";
@@ -43,6 +62,11 @@ public class FeedbackService {
 		return this.jdbcTemplate.queryForMap(sql, params.toArray());
 	}
 	
+	/**
+	 * Returns true if a request has a feedback
+	 * @param requestId
+	 * @return True if feedback has been made for request
+	 */
 	public boolean hasFeedback(Long requestId){
 		String sql = "SELECT FEEDBACK FROM USER_REQUEST WHERE ID = ?";
 		List<Object> params = new ArrayList<Object>();
@@ -54,6 +78,11 @@ public class FeedbackService {
 		}
 	}
 	
+	/**
+	 * Updates UserRequest with feedbackId
+	 * @param requestId
+	 * @param feedbackId
+	 */
 	public void updateRequest(Long requestId, Long feedbackId){
 		List<Object> params = new ArrayList<Object>();
 		String sql = "UPDATE USER_REQUEST SET FEEDBACK = ? WHERE ID = ?";

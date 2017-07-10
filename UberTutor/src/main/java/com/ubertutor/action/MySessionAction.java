@@ -56,7 +56,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	 * Sends all requests to front end
 	 */
 	public void displayAllSessions(){
-		this.writeSuccessResult(sessionService.getSessions());
+		this.writeSuccessResult(sessionService.getRequests());
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		try{
 			JsonResult result = new JsonResult();
 			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-			FLPage<Map<String,Object>> pageResult = this.sessionService.getUserSessions(userEntity.getId(), this.getPage(), this.getLimit());
+			FLPage<Map<String,Object>> pageResult = this.sessionService.getUserRequests(userEntity.getId(), this.getPage(), this.getLimit());
 			for (Map<String, Object> map : pageResult.getItems()) {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
 				dataMap.put("requestId", map.get("REQUEST_ID"));
@@ -96,7 +96,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		try{
 			JsonResult result = new JsonResult();
 			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-			FLPage<Map<String,Object>> pageResult = this.sessionService.getTutorSessions(userEntity.getId(), this.getPage(), this.getLimit());
+			FLPage<Map<String,Object>> pageResult = this.sessionService.getTutorRequests(userEntity.getId(), this.getPage(), this.getLimit());
 			for (Map<String, Object> map : pageResult.getItems()) {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
 				dataMap.put("requestId", map.get("REQUEST_ID"));
@@ -132,7 +132,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 			}
 			Long id = Long.parseLong(requestId);
 			requestEntity = sessionService.get(id);
-			this.writeSuccessResult(sessionService.getSessionInfo((id)));
+			this.writeSuccessResult(sessionService.getRequestInfo((id)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

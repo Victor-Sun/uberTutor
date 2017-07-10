@@ -20,18 +20,36 @@ public class MakeRequestService {
 	@Autowired 
 	private SubjectDAO subjectDAO;
 	
+	/**
+	 * Returns UserRequestEntity from id
+	 * @param id
+	 * @return UserRequestEntity
+	 */
 	public UserRequestEntity get(Long id){
 		return userRequestDAO.get(id);
 	}
 	
+	/**
+	 * Deletes UserRequestEntity
+	 * @param entity
+	 */
 	public void delete(UserRequestEntity entity){
 		userRequestDAO.delete(entity);
 	}
 	
+	/**
+	 * Deletes UserRequestEntity
+	 * @param id
+	 */
 	public void delete(Long id){
 		userRequestDAO.delete(id);
 	}
 	
+	/**
+	 * Returns list of all subjects
+	 * @param categoryId
+	 * @return List of all subjects
+	 */
 	//Zelin: list subjects based on category user select
 	public List<Map<String,Object>> getSubjects(String categoryId){
 		String hql = " FROM SubjectEntity WHERE categoryId = ?";
@@ -43,7 +61,6 @@ public class MakeRequestService {
 	 * @param userId
 	 * @param subjectId
 	 */
-	
 	public void save(UserRequestEntity requestEntity){
 	    userRequestDAO.save(requestEntity);
 	}

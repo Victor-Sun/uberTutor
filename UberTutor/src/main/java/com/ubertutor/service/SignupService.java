@@ -14,8 +14,9 @@ import com.ubertutor.entity.UserEntity;
 public class SignupService {
 	@Autowired
 	private UserDAO userDAO;
+	
 	/**
-	 * Check for if the email already exists
+	 * Returns true if the email exists
 	 * @param email
 	 * @return true if the email exists in the database
 	 */
@@ -39,22 +40,35 @@ public class SignupService {
 //	}
 		
 	/**
-	 * Set's all flags and saves the entity to the database
+	 * Saves UserEntity
 	 * @param entity
 	 */
 	public void registerAccount(UserEntity entity){
 		userDAO.save(entity);
 	}
 	
+	/**
+	 * Deletes UserEntity
+	 * @param entity
+	 */
 	public void delete(UserEntity entity){
 		userDAO.delete(entity);
 	}
 	
-	public UserEntity get(Long id){
-		return userDAO.get(id);
-	}
-	
+	/**
+	 * Deletes UserEntity
+	 * @param id
+	 */
 	public void delete(Long id){
 		userDAO.delete(id);
+	}
+	
+	/**
+	 * Returns UserEntity
+	 * @param id
+	 * @return
+	 */
+	public UserEntity get(Long id){
+		return userDAO.get(id);
 	}
 }
