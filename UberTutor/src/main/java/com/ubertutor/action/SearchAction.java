@@ -73,16 +73,12 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 			for (Map<String, Object> map : pageResult.getItems()) {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
 				dataMap.put("requestId", map.get("REQUEST_ID"));
-				dataMap.put("createDate", map.get("CREATE_DATE"));
-				dataMap.put("studentId", map.get("STUDENT_ID"));
-				dataMap.put("studentName", map.get("STUDENT_NAME"));
+				dataMap.put("userId", map.get("USER_ID"));
 				dataMap.put("tutorId", map.get("TUTOR_ID"));
-				dataMap.put("tutorName", map.get("TUTOR_NAME"));
-				dataMap.put("category", map.get("CATEGORY"));
-				dataMap.put("subject", map.get("SUBJECT"));
-				dataMap.put("status", map.get("STATUS"));
-				dataMap.put("subjectDescription", map.get("SUBJECT_DESCRIPTION"));
-				dataMap.put("requestTitle", map.get("REQUEST_TITLE"));
+				dataMap.put("userFullname", map.get("USER_FULLNAME"));
+				dataMap.put("subjectTitle", map.get("SUBJECT_TITLE"));
+				dataMap.put("createDate", map.get("CREATE_DATE"));
+				dataMap.put("subjectId", map.get("SUBJECT_ID"));
 				data.add(dataMap);
 			}
 			result.buildSuccessResultForList(data, pageResult.getItemCount());
