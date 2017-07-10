@@ -63,7 +63,7 @@ public class LoginAction extends PDMSCrudActionSupport<UserEntity> {
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			String msg; 
-			if (!loginService.verifyUserId(username)) {
+			if (!loginService.verifyUsername(username)) {
 				msg = "User does not exist";
 				throw new Exception(msg);
 			}

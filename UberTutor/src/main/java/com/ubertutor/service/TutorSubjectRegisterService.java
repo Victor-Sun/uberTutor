@@ -53,7 +53,7 @@ public class TutorSubjectRegisterService {
 	 */
 	public FLPage<Map<String,Object>> getUserSubjects(Long userId, int pageNo, int pageSize){
 		List<Object> params = new ArrayList<Object>();
-		String sql = "SELECT * FROM USERS_SUBJECT_CATEGORY WHERE USER_ID = ?";
+		String sql = "SELECT * FROM V_USERS_SUBJECT_CATEGORY WHERE USER_ID = ?";
 		params.add(userId);
 		return jdbcTemplate.queryPagination(sql,pageNo, pageSize, params.toArray());
 	}

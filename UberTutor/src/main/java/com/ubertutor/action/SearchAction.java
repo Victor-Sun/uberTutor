@@ -98,14 +98,13 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	 */
 	public void displayRequestInfo() throws Exception{
 		try {
-			Long requestId = Long.parseLong(this.requestId);
-			requestEntity = searchService.get(requestId);
+			requestEntity = searchService.get(Long.parseLong(requestId));
 			if(requestEntity.getStatus().equals("OPEN")){
 				requestEntity.setStatus("PENDING");
 				requestEntity.setPendingDate(new Date());
 				searchService.save(requestEntity);
 			}
-			this.writeSuccessResult(searchService.getRequestInfo((requestId)));
+			this.writeSuccessResult(searchService.getRequestInfo((Long.parseLong(requestId))));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

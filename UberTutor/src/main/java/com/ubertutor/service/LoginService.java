@@ -20,7 +20,7 @@ public class LoginService {
 	 * @param loginusername
 	 * @return True if username exists
 	 */
-	public boolean verifyUserId(String loginusername) {
+	public boolean verifyUsername(String loginusername) {
 		List<UserEntity> result = this.userDAO.findBy("username", loginusername);
         return result.size() > 0;    
     }

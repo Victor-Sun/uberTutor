@@ -57,7 +57,7 @@ public class FeedbackService {
 	 */
 	public Map<String, Object> getFeedbackInfo(String requestId){
 		List<Object> params = new ArrayList<Object>();
-		String sql = "SELECT * FROM USER_FEEDBACK WHERE REQUEST_ID = ?";
+		String sql = "SELECT * FROM V_USER_FEEDBACK WHERE REQUEST_ID = ?";
 		params.add(requestId);
 		return this.jdbcTemplate.queryForMap(sql, params.toArray());
 	}

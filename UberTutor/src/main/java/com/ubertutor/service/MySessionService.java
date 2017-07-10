@@ -26,7 +26,7 @@ public class MySessionService {
 	 * @return
 	 */
 	public List<Map<String,Object>> getRequests(){
-		String sql = "SELECT * FROM USER_SESSIONS";
+		String sql = "SELECT * FROM V_USER_SESSIONS";
 		return this.jdbcTemplate.queryForList(sql);
 	}
 	
@@ -39,7 +39,7 @@ public class MySessionService {
 	 */
 	public FLPage<Map<String, Object>> getUserRequests(Long studentId, int pageNo, int pageSize){
 		List<Object> params = new ArrayList<Object>();
-		String sql = "SELECT * FROM USER_SESSIONS WHERE STUDENT_ID = ? ORDER BY STATUS DESC, REQUEST_ID";
+		String sql = "SELECT * FROM V_USER_SESSIONS WHERE STUDENT_ID = ? ORDER BY STATUS DESC, REQUEST_ID";
 		params.add(studentId);
 		return jdbcTemplate.queryPagination(sql, pageNo, pageSize, params.toArray());
 	}
@@ -53,7 +53,7 @@ public class MySessionService {
 	 */
 	public FLPage<Map<String,Object>> getTutorRequests(Long tutorId, int pageNo, int pageSize){
 		List<Object> params = new ArrayList<Object>();
-		String sql = "SELECT * FROM USER_SESSIONS WHERE TUTOR_ID = ? ORDER BY STATUS DESC, REQUEST_ID";
+		String sql = "SELECT * FROM V_USER_SESSIONS WHERE TUTOR_ID = ? ORDER BY STATUS DESC, REQUEST_ID";
 		params.add(tutorId);
 		return jdbcTemplate.queryPagination(sql, pageNo, pageSize, params.toArray());
 	}
@@ -65,7 +65,7 @@ public class MySessionService {
 	 */
 	public Map<String, Object> getRequestInfo(Long requestId){
 		List<Object> params = new ArrayList<Object>();
-		String sql = "SELECT * FROM SESSION_INFO WHERE REQUEST_ID = ?";
+		String sql = "SELECT * FROM V_SESSION_INFO WHERE REQUEST_ID = ?";
 		params.add(requestId);
 		return this.jdbcTemplate.queryForMap(sql, params.toArray());
 	}

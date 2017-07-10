@@ -30,7 +30,7 @@ public class SearchService {
 	 */
 	public FLPage<Map<String, Object>> getRequests(Long userId, int pageNo, int pageSize){
 		List<Object> params = new ArrayList<Object>();
-		String sql = "SELECT * FROM USER_SESSIONS WHERE STUDENT_ID <> ? AND STATUS = 'OPEN' OR STATUS = 'PENDING' ORDER BY REQUEST_ID, STATUS";
+		String sql = "SELECT * FROM V_USER_SESSIONS WHERE STUDENT_ID <> ? AND STATUS = 'OPEN' OR STATUS = 'PENDING' ORDER BY REQUEST_ID, STATUS";
 		params.add(userId);
 		return jdbcTemplate.queryPagination(sql, pageNo, pageSize, params.toArray());
 	}
@@ -42,7 +42,7 @@ public class SearchService {
 	 */
 	public Map<String, Object> getRequestInfo(Long requestId){
 		List<Object> params = new ArrayList<Object>();
-		String sql = "SELECT * FROM SESSION_INFO WHERE REQUEST_ID = ?";
+		String sql = "SELECT * FROM V_SESSION_INFO WHERE REQUEST_ID = ?";
 		params.add(requestId);
 		return this.jdbcTemplate.queryForMap(sql, params.toArray());
 	}

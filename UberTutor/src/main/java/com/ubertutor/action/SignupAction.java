@@ -121,12 +121,11 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 			Date date = new Date();
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			String msg;
-			if(!StringUtils.isNotEmpty(username)){
-				//TODO Add check for inavlid username
+			if(!StringUtils.isNotEmpty(username) || StringUtils.contains(username, " ")){
 				msg = "Invalid username, check your username and try again!";
 				throw new Exception(msg);
 			}
-			if(loginService.verifyUserId(username)){
+			if(loginService.verifyUsername(username)){
 				msg = "Username already exists!";
 				throw new Exception(msg);
 			}
