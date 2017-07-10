@@ -62,7 +62,6 @@ public class UserEntity implements Serializable{
 	@Column(name = "DELETE_BY") 
 	private String deleteBy;
 	
-	
 	@Column(name = "DELETE_DATE") 
 	private Date deleteDate;
 	
@@ -77,7 +76,6 @@ public class UserEntity implements Serializable{
 	
 	@Column(name = "IS_ADMIN")
 	private String isAdmin;
-	
 	
 	@Column(name = "IS_VERIFIED") 
 	private String isVerified;
