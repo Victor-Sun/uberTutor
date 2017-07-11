@@ -41,10 +41,20 @@ Ext.define('uber.view.main.MainController', {
     },
     
     search: function() {
+    	debugger;
     	var me = this;
 		var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
-		var card2 = mainCard.add(Ext.create('uber.view.search.Search'));
+		var card2 = mainCard.add(Ext.create('uber.view.search.SearchResults'));
+		var searchResultGrid = Ext.ComponentQuery.query('#searchresultsgrid')[0];
+		
+		searchResultGrid.getStore().load({
+			url: '/UberTutor/main/search!displayRequests.action',
+//			params:{
+//				subjectId: subject.value,
+////				userId: 
+//			},
+		});
     },
     
     changepassword: function() {

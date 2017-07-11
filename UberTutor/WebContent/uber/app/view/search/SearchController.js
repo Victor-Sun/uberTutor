@@ -3,13 +3,22 @@ Ext.define('uber.view.profile.SearchController',{
     alias: 'controller.search',
     
     searchresults: function () {
+    	debugger;
     	var me = this;
-    	var main = me.view.up('app-main');
+    	var subject = Ext.ComponentQuery.query('#subject')[0];
+//    	var main = me.view.up('app-main');
     	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();
 		var card2 = mainCard.add(Ext.create('uber.view.search.SearchResults'));
 		var searchResultGrid = Ext.ComponentQuery.query('#searchresultsgrid')[0];
-//			uber.store.grid.SearchResultGrid
+		
+		searchResultGrid.getStore().load({
+			url: '/UberTutor/main/search!displayRequests.action',
+			params:{
+				subjectId: subject.value,
+//				userId: 
+			},
+		});
     },
     
     onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {

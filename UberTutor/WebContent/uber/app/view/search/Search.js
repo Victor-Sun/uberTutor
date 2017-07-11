@@ -17,7 +17,7 @@ Ext.define('uber.view.search.Search',{
 		categoryStore.load();
 		
 		var category = Ext.create('Ext.form.field.ComboBox',{
-			id: 'category',
+			itemId: 'category',
 			fieldLabel: 'Category',
             labelAlign: 'top',
             triggerAction: 'all',
@@ -38,7 +38,7 @@ Ext.define('uber.view.search.Search',{
             }  
 		});
 		var subject = Ext.create('Ext.form.field.ComboBox',{
-			id: 'subject',
+			itemId: 'subject',
 			fieldLabel: 'Subject',
             labelAlign: 'top',
             triggerAction: 'all',
@@ -71,11 +71,11 @@ Ext.define('uber.view.search.Search',{
 				items: [{
 					xtype: 'container',
 					items: [{
-						html: '<h2>Search for a Tutor</h2>'
+						html: '<h2>Search</h2>'
 					},{
 						html: '<ul>' +
 						'<li>Select Category and Subject</li>' +
-						'<li>Press search to begin tutor search</li>' +
+						'<li>Press search to begin search</li>' +
 						'</ul>',
 					}]
 				},{
@@ -93,6 +93,7 @@ Ext.define('uber.view.search.Search',{
 						xtype: 'toolbar',
 						dock: 'bottom',
 						items: [{
+							// onclick: sends subjectId/userId to backend
 							xtype: 'button',
 							text: 'search',
 							handler: 'searchresults'

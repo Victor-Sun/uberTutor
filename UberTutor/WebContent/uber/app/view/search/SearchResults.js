@@ -10,7 +10,7 @@ Ext.define('uber.view.search.SearchResults',{
 		align: 'stretch'
 	},
 	cls: 'uber-panel',
-	initComponents: function () {
+	initComponent: function () {
 		this.items = [{
 			xtype: 'panel',
 			cls: 'uber-panel-inner',
@@ -20,6 +20,8 @@ Ext.define('uber.view.search.SearchResults',{
 			},
 			items: [{
 				//search results grid
+				//TODO Change to be loaded first instead
+				//On render auto load results
 				xtype: 'container',
 				items: [{
 					html: '<h2>Search Results</h2>'
@@ -34,5 +36,6 @@ Ext.define('uber.view.search.SearchResults',{
 				}]
 			}]
 		}]
+		this.callParent(arguments);
 	}
 })

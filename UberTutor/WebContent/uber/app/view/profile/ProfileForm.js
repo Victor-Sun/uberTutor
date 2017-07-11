@@ -46,6 +46,7 @@ Ext.define('uber.view.profile.ProfileForm',{
 	            name: 'FULLNAME',
 	            fieldLabel: 'Name',
 	            readOnly: true,
+	            allowBlank: false,
 	            itemId: 'fullname'
             }]
         },{

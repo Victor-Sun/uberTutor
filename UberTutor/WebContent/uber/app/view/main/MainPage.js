@@ -96,7 +96,7 @@ Ext.define('uber.view.main.MainPage', {
     				}]
     			},{
     				xtype: 'grid',
-    				hideHeaders: false,
+    				hideHeaders: true,
     				flex: 1,
     				layout: 'fit',
     				store: {
