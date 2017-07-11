@@ -32,6 +32,7 @@ Ext.define('uber.view.tutor.TutorRegistration',{
 			}]
 		},{
 			xtype: 'tutorRegistrationGrid',
+			margin: 5,
 			flex: 1
 		}]
 	}]

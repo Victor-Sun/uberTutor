@@ -3,7 +3,7 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
 	xtype: 'tutorRegistrationGrid',
 	itemId: 'tutorRegistrationGrid',
 	reference: 'tutorRegistrationGrid',
-	
+	emptyText: "<h3>You currently don't have any subjects added</h3>",
 	flex: 1,
 	requires: [
 //	   'uber.store.grid.TutorRegistrationGrid',
@@ -13,7 +13,8 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
        'Ext.util.*',
        'Ext.form.*',
     ],
-    cls: 'shadow subject-grid',
+    cls: 'shadow uber-panel-inner',
+//    subject-grid
     controller: 'tutorRegistration',
     hideHeaders: true,
     

@@ -15,7 +15,9 @@ Ext.define('uber.view.profile.SearchController',{
 		searchResultGrid.getStore().load({
 			url: '/UberTutor/main/search!displayRequests.action',
 			params:{
-				subjectId: subject.value,
+				start: 0,
+    	        limit: 5
+//				subjectId: subject.value,
 //				userId: 
 			},
 		});
