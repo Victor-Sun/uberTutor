@@ -79,6 +79,8 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 				dataMap.put("subjectTitle", map.get("SUBJECT_TITLE"));
 				dataMap.put("createDate", map.get("CREATE_DATE"));
 				dataMap.put("subjectId", map.get("SUBJECT_ID"));
+				dataMap.put("status", map.get("STATUS"));
+				dataMap.put("requestTitle", map.get("REQUEST_TITLE"));
 				data.add(dataMap);
 			}
 			result.buildSuccessResultForList(data, pageResult.getItemCount());
