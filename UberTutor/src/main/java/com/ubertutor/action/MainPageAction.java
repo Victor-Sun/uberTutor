@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
@@ -17,6 +18,7 @@ import com.ubertutor.service.MainPageService;
 import jp.co.nec.flowlites.core.FLPage;
 
 @Namespace("/main")
+@AllowedMethods({"displayPreviousTutor","displayCurrentUserRequests","displayCurrentTutorRequests"})
 public class MainPageAction extends PDMSCrudActionSupport<UserEntity> {
 	private static final long serialVersionUID = 1L;
 	private MainPageService mainPageService;
