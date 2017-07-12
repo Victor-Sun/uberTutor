@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.gnomon.common.PDMSCrudActionSupport;
@@ -18,9 +19,12 @@ import com.ubertutor.service.MainPageService;
 import jp.co.nec.flowlites.core.FLPage;
 
 @Namespace("/main")
-@AllowedMethods({"displayPreviousTutor","displayCurrentUserRequests","displayCurrentTutorRequests"})
+@AllowedMethods({"displayPreviousTutor",
+	"displayCurrentUserRequests",
+	"displayCurrentTutorRequests"})
 public class MainPageAction extends PDMSCrudActionSupport<UserEntity> {
 	private static final long serialVersionUID = 1L;
+	@Autowired
 	private MainPageService mainPageService;
 
 	public void displayPreviousTutor() throws Exception{
