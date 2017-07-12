@@ -7,7 +7,9 @@ Ext.define('uber.view.grid.MyTutorsGrid',{
 	layout: 'fit',
 	initComponent: function () {
 		var me = this;
-		me.store = Ext.create('uber.store.grid.MyTutorsGrid');
+		me.store = Ext.create('uber.store.grid.MyTutorsGrid',{
+			pageSize: 5,
+		});
 		me.store.load();
 //		store: {
 //			field: [{
@@ -60,7 +62,12 @@ Ext.define('uber.view.grid.MyTutorsGrid',{
 			]
 		
 		}];
-		
+		this.dockedItems = [{
+    		xtype: 'pagingtoolbar',
+    		displayInfo: true,
+    		dock: 'bottom',
+    		store: me.store
+    	}];
 		this.callParent(arguments);
 	}
 });
