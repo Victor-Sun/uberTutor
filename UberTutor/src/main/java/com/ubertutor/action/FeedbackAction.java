@@ -124,8 +124,6 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	public String save() throws Exception{
 		try{
 			feedbackEntity.setCreateDate(new Date());
-			feedbackEntity.setUserId(userId);
-			feedbackEntity.setTutorId(tutorId);
 			feedbackService.save(feedbackEntity);
 			feedbackService.updateRequest(Long.parseLong(requestId), feedbackEntity.getId());
 		} catch (Exception e) {

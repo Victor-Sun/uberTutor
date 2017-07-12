@@ -78,8 +78,8 @@ public class LoginAction extends PDMSCrudActionSupport<UserEntity> {
 			}
 			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_USER, userEntity);
 			if(OnlineUtils.isUseRedis()){
-				if(OnlineUtils.isOnline(username)){
-					OnlineUtils.logout(username);
+				if(OnlineUtils.isOnline(userEntity.getUsername())){
+					OnlineUtils.logout(userEntity.getUsername());
 				}
 				OnlineUtils.login(Struts2Utils.getSession().getId(), userEntity);
 			}

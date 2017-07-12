@@ -20,12 +20,6 @@ public class FeedbackEntity implements Serializable{
 	@SequenceGenerator(name="FEEDBACK_SEQ", sequenceName="FEEDBACK_SEQ") 
 	private Long id; 
 	
-	@Column(name = "USER_ID") 
-	private Long userId;
-	
-	@Column(name = "TUTOR_ID") 
-	private Long tutorId;
-	
 	@Column(name = "CREATE_DATE") 
 	private Date createDate; 
 	
@@ -41,22 +35,6 @@ public class FeedbackEntity implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
-	public Long getTutorId() {
-		return tutorId;
-	}
-
-	public void setTutorId(Long tutorId) {
-		this.tutorId = tutorId;
 	}
 
 	public Date getCreateDate() {
