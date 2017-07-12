@@ -33,7 +33,7 @@ public class MainPageService {
 	
 	public FLPage<Map<String, Object>> getCurrentUserRequests(Long userId, int pageNo, int pageSize){
 		List<Object> params = new ArrayList<Object>();
-		String sql = "SELECT * FROM V_USER_SESSIONS WHERE USER_ID = ?";
+		String sql = "SELECT * FROM V_USER_SESSIONS WHERE STUDENT_ID = ?";
 		params.add(userId);
 		return this.jdbcTemplate.queryPagination(sql, pageNo, pageSize, params.toArray());
 	}
