@@ -5,7 +5,7 @@ Ext.define('uber.view.main.MainPage', {
     	
     requires: [
     ],
-    
+    controller: 'main',
     layout: {
 		type: 'vbox',
 		align: 'stretch'
@@ -65,7 +65,8 @@ Ext.define('uber.view.main.MainPage', {
     					//Navigate to make a request page?
     					xtype: 'button',
     					scale: 'large',
-    					text: "Click here to make a request"
+    					text: "Click here to make a request",
+    					handler: 'makeRequest'
     				}]
     			}]
     		},{

@@ -5,7 +5,7 @@ Ext.define('uber.view.grid.CurrentSessionsGrid',{
 	store: 'currentSessions',
 	initComponent: function () {
 		var me = this;
-		me.store = Ext.create('uber.store.grid.CurrentSessionsGrid');
+		me.store = Ext.create('uber.store.grid.CurrentSessionsGrid',{pageSize: 5,});
 		me.store.load();
 		this.columns = [{
 			xtype: 'templatecolumn',
@@ -34,6 +34,12 @@ Ext.define('uber.view.grid.CurrentSessionsGrid',{
 				tooltip: 'Details'
 			}]
 		}];
+		this.dockedItems = [{
+    		xtype: 'pagingtoolbar',
+    		displayInfo: true,
+    		dock: 'bottom',
+    		store: me.store
+    	}];
 		this.callParent(arguments);
 	}
 });

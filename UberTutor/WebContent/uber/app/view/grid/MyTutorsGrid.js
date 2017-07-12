@@ -7,9 +7,7 @@ Ext.define('uber.view.grid.MyTutorsGrid',{
 	layout: 'fit',
 	initComponent: function () {
 		var me = this;
-		me.store = Ext.create('uber.store.grid.MyTutorsGrid',{
-			pageSize: 5,
-		});
+		me.store = Ext.create('uber.store.grid.MyTutorsGrid',{pageSize: 5});
 		me.store.load();
 //		store: {
 //			field: [{
@@ -50,13 +48,13 @@ Ext.define('uber.view.grid.MyTutorsGrid',{
 			tpl: [
 				"<div class=''>" +
 					"<div class=''>" +
-						"<div class='title-section' style='display: inline; margin-left: 10px;'><b>Tutor:</b> {TUTOR_FULLNAME}</div>" +
-						"<div class='status-section' style='display: inline; margin-left: 10px;'><b>Date:</b> {CREATE_DATE}</div>" +
+						"<div class='title-section' style='display: inline; margin-left: 10px;'><b>Tutor:</b> {tutorFullname}</div>" +
+						"<div class='status-section' style='display: inline; margin-left: 10px;'><b>Date:</b> {createDate}</div>" +
 					"</div>" +
 					"<hr>" +
 					"<div class=''>" +
 						"<div class='description-label'><b>Subject:</b></div>" +
-						"<div class='description-section'>{SUBJECT_TITLE}</div>" +
+						"<div class='description-section'>{subjectTitle}</div>" +
 					"</div>" +
 				"</div>",
 			]

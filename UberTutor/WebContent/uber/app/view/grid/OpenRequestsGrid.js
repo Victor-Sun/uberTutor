@@ -34,6 +34,12 @@ Ext.define('uber.view.grid.OpenRequestsGrid',{
 				tooltip: 'Details'
 			}]
 		}];
+		this.dockedItems = [{
+    		xtype: 'pagingtoolbar',
+    		displayInfo: true,
+    		dock: 'bottom',
+    		store: me.store
+    	}];
 		this.callParent(arguments);
 	}
 });
