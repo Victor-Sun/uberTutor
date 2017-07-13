@@ -21,11 +21,21 @@ import jp.co.nec.flowlites.core.FLPage;
 @Namespace("/main")
 @AllowedMethods({"displayPreviousTutor",
 	"displayCurrentUserRequests",
-	"displayCurrentTutorRequests"})
+	"displayCurrentTutorRequests",
+	"displaySessionInfo"})
 public class MainPageAction extends PDMSCrudActionSupport<UserEntity> {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private MainPageService mainPageService;
+	private Long requestId;
+	
+	public Long getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(Long requestId) {
+		this.requestId = requestId;
+	}
 
 	public void displayPreviousTutor() throws Exception{
 		try{
@@ -99,6 +109,44 @@ public class MainPageAction extends PDMSCrudActionSupport<UserEntity> {
 			result.buildSuccessResultForList(data, pageResult.getItemCount());
 			Struts2Utils.renderJson(result);
 		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void displaySessionInfo() throws Exception{
+		try{
+			String msg;
+			if(requestId.equals(null)){
+				msg = "An error has occured!";
+				throw new Exception(msg);
+			}
+			this.writeSuccessResult(mainPageService.getRequestInfo(requestId));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void displayOpenRequests() throws Exception{
+		try{
+			JsonResult result = new JsonResult();
+			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+			FLPage<Map<String,Object>> pageResult = this.mainPageService.getRequests(Long.parseLong(SessionData.getLoginUserId()), this.getPage(), this.getLimit());
+			for (Map<String, Object> map : pageResult.getItems()) {
+				Map<String, Object> dataMap = new HashMap<String, Object>();
+				dataMap.put("requestId", map.get("REQUEST_ID"));
+				dataMap.put("userId", map.get("USER_ID"));
+				dataMap.put("tutorId", map.get("TUTOR_ID"));
+				dataMap.put("userFullname", map.get("USER_FULLNAME"));
+				dataMap.put("subjectTitle", map.get("SUBJECT_TITLE"));
+				dataMap.put("createDate", map.get("CREATE_DATE"));
+				dataMap.put("subjectId", map.get("SUBJECT_ID"));
+				dataMap.put("status", map.get("STATUS"));
+				dataMap.put("requestTitle", map.get("REQUEST_TITLE"));
+				data.add(dataMap);
+			}
+			result.buildSuccessResultForList(data, pageResult.getItemCount());
+			Struts2Utils.renderJson(result);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

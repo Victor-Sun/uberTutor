@@ -45,5 +45,17 @@ public class MainPageService {
 		return jdbcTemplate.queryPagination(sql, pageNo, pageSize, params.toArray());
 	}
 	
+	public Map<String, Object> getRequestInfo(Long requestId){
+		List<Object> params = new ArrayList<Object>();
+		String sql = "SELECT * FROM V_SESSION_INFO WHERE REQUEST_ID = ?";
+		params.add(requestId);
+		return this.jdbcTemplate.queryForMap(sql, params.toArray());
+	}
 	
+	public FLPage<Map<String, Object>> getRequests(Long tutorId, int pageNo, int pageSize){
+		List<Object> params = new ArrayList<Object>();
+		String sql = "SELECT * FROM V_AVAILABLE_REQUESTS WHERE TUTOR_ID = ? ORDER BY REQUEST_ID, STATUS";
+		params.add(tutorId);
+		return jdbcTemplate.queryPagination(sql, pageNo, pageSize, params.toArray());
+	}
 }
