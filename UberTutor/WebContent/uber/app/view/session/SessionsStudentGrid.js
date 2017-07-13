@@ -79,14 +79,24 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
     			itemId: 'feedback',
     			iconCls: 'x-fa fa-comment',
     			tooltip: 'Feedback',
-    			handler: 'feedbackClick'
+    			handler: 'feedbackClick',
+//    			isDisabled: function(view, rowIndex, colIndex, item, record) {
+//    				debugger;
+                    // Returns true if 'editable' is false (, null, or undefined)
+//                    return !record.get('editable');
+//                }
     		}],
 //    		renderer: function (th, val, metadata, record) {
 //    			var me = this;
 //    			var feedback = this.items[1];
 //    			if ( metadata.data.status == 'CLOSED') {
 ////    					feedback.setHidden(false);
-//    				this.add(feedbackButton);
+//    				this.add(Ext.create('Ext.button.Button',{
+//			itemId: 'feedback',
+//			iconCls: 'x-fa fa-comment',
+//			tooltip: 'Feedback',
+//			handler: 'feedbackClick'
+//		}));
 //    			}
 //    		}
 		}];

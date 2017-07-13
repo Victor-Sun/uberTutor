@@ -31,7 +31,10 @@ Ext.define('uber.view.grid.OpenRequestsGrid',{
 			items:[{
 				xtype: 'button',
 				iconCls: 'x-fa fa-ellipsis-h',
-				tooltip: 'Details'
+				tooltip: 'Details',
+				handler: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+					Ext.create('uber.view.session.SessionInfoWindow',{requestId: rowIndex.data.requestId}).show();
+				}
 			}]
 		}];
 		this.dockedItems = [{
