@@ -48,11 +48,10 @@ Ext.define('uber.view.main.MainPage', {
     		scrollable: 'y',
     		defaults: {
 //    			height: 250,
-//    			margin: '5 10',
+    			margin: '15 20 0',
     		},
     		items: [{
     			xtype: 'containerWidget',
-    			margin: '10 10 0',
     			items: [{
     				xtype: 'widgetTitle',
     				items: [{
@@ -71,8 +70,7 @@ Ext.define('uber.view.main.MainPage', {
     			}]
     		},{
     			xtype: 'containerWidget',
-    		    height: 235,
-    			margin: '10 10 0',
+    		    height: 275,
     			items: [{
     				xtype: 'widgetTitle',
     				items: [{
@@ -87,8 +85,7 @@ Ext.define('uber.view.main.MainPage', {
     			}]
     		},{
     			xtype: 'containerWidget',
-    		    height: 235,
-    			margin: '10 10 0',
+    			height: 275,
     			items: [{
     				xtype: 'widgetTitle',
     				items: [{
@@ -102,8 +99,7 @@ Ext.define('uber.view.main.MainPage', {
     			}]
     		},{
     			xtype: 'containerWidget',
-    		    height: 235,
-    			margin: '10 10 0',
+    			height: 275,
     			items: [{
     				xtype: 'widgetTitle',
     				items: [{
@@ -117,8 +113,7 @@ Ext.define('uber.view.main.MainPage', {
     			}]
     		},{
     			xtype: 'containerWidget',
-    		    height: 235,
-    			margin: '10 10 0',
+    			height: 275,
     			layout: {
     				type: 'vbox',
     				align: 'stretch'
