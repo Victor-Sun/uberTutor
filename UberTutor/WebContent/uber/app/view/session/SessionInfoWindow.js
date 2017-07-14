@@ -196,6 +196,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 					xtype: 'fieldcontainer',
 					items: [{
 						xtype: 'textfield',
+						itemId: 'studentName',
 						fieldLabel: 'Student Name',
 						name: 'STUDENT_NAME'
 					},{
@@ -329,13 +330,17 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 		};
 		
 		var buttonCheck = function (){
+			debugger;
+			var userNameItemId = Ext.ComponentQuery.query('#userNameItemId')[0];
+			var studentName = Ext.ComponentQuery.query('#studentName')[0];
 			var status = Ext.ComponentQuery.query('#status')[0];
 			var cancel = Ext.ComponentQuery.query('#cancelSession')[0];
 			var close = Ext.ComponentQuery.query('#closeSession')[0];
 			var accept = Ext.ComponentQuery.query('#acceptSession')[0];
-			var windowClose = Ext.ComponentQuery.query('#closeWindow')[0];
 			if (status.value == 'OPEN') {
-				accept.setHidden(false);
+				if (studentName.value != userNameItemId.text) {
+					accept.setHidden(false);
+				}
 			} else if (status.value == 'PENDING') {
 				cancel.setHidden(false);
 			} else if (status.value == 'IN PROCESS') {

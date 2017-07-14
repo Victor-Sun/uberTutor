@@ -79,11 +79,21 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
     			itemId: 'feedback',
     			iconCls: 'x-fa fa-comment',
     			tooltip: 'Feedback',
+//    			disabled: true,
     			handler: 'feedbackClick',
+    			getClass: function (value, meta, record) {
+                    if(record.get('status') == 'CLOSED'){
+                        return 'x-hidden'; // when u want to hide icon
+                    } else {
+                    	return 'x-fa fa-comment' ; // show icon
+                    }
+                    
+                },
+                    
 //    			isDisabled: function(view, rowIndex, colIndex, item, record) {
 //    				debugger;
-                    // Returns true if 'editable' is false (, null, or undefined)
-//                    return !record.get('editable');
+////                     Returns true if 'editable' is false (, null, or undefined)
+//                    return !record.get('status');
 //                }
     		}],
 //    		renderer: function (th, val, metadata, record) {
