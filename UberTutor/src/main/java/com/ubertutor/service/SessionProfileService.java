@@ -22,21 +22,21 @@ public class SessionProfileService {
 	
 	/**
 	 * Get a user by ID
-	 * @param id
+	 * @param userId
 	 * @return UserEntity object
 	 */
-	public UserEntity getUser(Long id){
-		return userDAO.get(id);
+	public UserEntity getUser(Long userId){
+		return userDAO.get(userId);
 	}
 	
 	/**
 	 * Get a Tutor's total rating
-	 * @param id
+	 * @param tutorId
 	 * @return Tutor's total rating
 	 */
-	public Integer getRatingTotal(Long id){
+	public Integer getRatingTotal(Long tutorId){
 		String sql = "SELECT RATING FROM FEEDBACK WHERE TUTOR_ID = ?";
-		Integer count = this.jdbcTemplate.queryForObject(sql, new Object[] {id}, Integer.class);
+		Integer count = this.jdbcTemplate.queryForObject(sql, new Object[] {tutorId}, Integer.class);
 		return ((count==null) ? 0 : count);
 	}
 

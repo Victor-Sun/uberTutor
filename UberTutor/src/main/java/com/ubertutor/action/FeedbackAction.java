@@ -19,8 +19,8 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	private FeedbackEntity feedbackEntity = new FeedbackEntity();
 	@Autowired
 	private FeedbackService feedbackService;
-	private Long id, userId, tutorId;
-	private String rating, requestId, feedback;
+	private Long id, userId, tutorId, requestId;
+	private String rating, feedback;
 
 	/**
 	 * Returns id
@@ -55,18 +55,16 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	}
 
 	/**
-	 * Returns requestId
-	 * @return
+	 * @return the requestId
 	 */
-	public String getRequestId() {
+	public Long getRequestId() {
 		return requestId;
 	}
 
 	/**
-	 * Set requestId
-	 * @param requestId
+	 * @param requestId the requestId to set
 	 */
-	public void setRequestId(String requestId) {
+	public void setRequestId(Long requestId) {
 		this.requestId = requestId;
 	}
 
@@ -125,7 +123,7 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 		try{
 			feedbackEntity.setCreateDate(new Date());
 			feedbackService.save(feedbackEntity);
-			feedbackService.updateRequest(Long.parseLong(requestId), feedbackEntity.getId());
+			feedbackService.updateRequest(requestId, feedbackEntity.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -138,7 +136,7 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	 */
 	public void displayFeedbackInfo() throws Exception{
 		try{
-			boolean hasFeedback = feedbackService.hasFeedback(Long.parseLong(requestId));
+			boolean hasFeedback = feedbackService.hasFeedback(requestId);
 			Map<String, Object> result = (hasFeedback) ? feedbackService.getFeedbackInfo(requestId) : new HashMap<String, Object>();
 			result.put("hasFeedback", hasFeedback);
 			this.writeSuccessResult(result);

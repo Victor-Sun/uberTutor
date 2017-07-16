@@ -31,8 +31,8 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	@Autowired
 	private TutorSubjectRegisterService tutorSubjectRegisterService;
 	private UserSubjectEntity subjectEntity;
-	private Long id;
-	private String categoryId, userSubjectId, description, subject, category;
+	private Long id, categoryId, userSubjectId ;
+	private String description, subject, category;
 
 	/**
 	 * Returns id
@@ -51,34 +51,30 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	}
 
 	/**
-	 * Returns categoryId
-	 * @return
+	 * @return the categoryId
 	 */
-	public String getCategoryId() {
+	public Long getCategoryId() {
 		return categoryId;
 	}
 
 	/**
-	 * Set categoryId
-	 * @param categoryId
+	 * @param categoryId the categoryId to set
 	 */
-	public void setCategoryId(String categoryId) {
+	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
 
 	/**
-	 * Returns userSubjectId
-	 * @return
+	 * @return the userSubjectId
 	 */
-	public String getUserSubjectId() {
+	public Long getUserSubjectId() {
 		return userSubjectId;
 	}
 
 	/**
-	 * Set userSubjectId
-	 * @param userSubjectId
+	 * @param userSubjectId the userSubjectId to set
 	 */
-	public void setUserSubjectId(String userSubjectId) {
+	public void setUserSubjectId(Long userSubjectId) {
 		this.userSubjectId = userSubjectId;
 	}
 
@@ -149,7 +145,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	 */
 	public void displayCategorySubject() throws Exception{
 		try {
-			this.writeSuccessResult(tutorSubjectRegisterService.getSubjectList(Long.parseLong(categoryId)));
+			this.writeSuccessResult(tutorSubjectRegisterService.getSubjectList(categoryId));
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.writeErrorResult(e);
@@ -191,7 +187,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	 */
 	public void removeSubject() throws Exception{
 		try{
-			subjectEntity = tutorSubjectRegisterService.get(Long.parseLong(userSubjectId));
+			subjectEntity = tutorSubjectRegisterService.get(userSubjectId);
 			tutorSubjectRegisterService.delete(subjectEntity);
 		} catch (Exception e){
 			e.printStackTrace();
@@ -209,7 +205,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 				String msg = "Description cannot be empty! Fill in a description!";
 				throw new Exception(msg);
 			}
-			subjectEntity = tutorSubjectRegisterService.get(Long.parseLong(userSubjectId));
+			subjectEntity = tutorSubjectRegisterService.get(userSubjectId);
 			subjectEntity.setDescription(description);
 			tutorSubjectRegisterService.saveTutorSubject(subjectEntity);
 		} catch (Exception e){

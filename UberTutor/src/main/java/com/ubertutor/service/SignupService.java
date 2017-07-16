@@ -14,7 +14,7 @@ import com.ubertutor.entity.UserEntity;
 public class SignupService {
 	@Autowired
 	private UserDAO userDAO;
-	
+
 	/**
 	 * Returns true if the email exists
 	 * @param email
@@ -22,53 +22,39 @@ public class SignupService {
 	 */
 	public boolean usedEmail(String email){
 		List<UserEntity> result = this.userDAO.findBy("email", email);
-        return result.size() > 0;
+		return result.size() > 0;
 	}
-	
-	/**
-	 * Checks if the password is valid
-	 * @param password
-	 * @return true if the password is valid 
-	 */
-//	public boolean validPassword(String password){
-		//TODO Password validation: Check if the password is specific number of characters, 
-//		if the password has any illegal characters
-//		if(){
-//			return false;
-//		}
-//		return true;
-//	}
-		
+
 	/**
 	 * Saves UserEntity
-	 * @param entity
+	 * @param userEntity
 	 */
-	public void registerAccount(UserEntity entity){
-		userDAO.save(entity);
+	public void registerAccount(UserEntity userEntity){
+		userDAO.save(userEntity);
 	}
-	
+
 	/**
 	 * Deletes UserEntity
-	 * @param entity
+	 * @param userEntity
 	 */
-	public void delete(UserEntity entity){
-		userDAO.delete(entity);
+	public void delete(UserEntity userEntity){
+		userDAO.delete(userEntity);
 	}
-	
+
 	/**
 	 * Deletes UserEntity
-	 * @param id
+	 * @param userId
 	 */
-	public void delete(Long id){
-		userDAO.delete(id);
+	public void delete(Long userId){
+		userDAO.delete(userId);
 	}
-	
+
 	/**
 	 * Returns UserEntity
-	 * @param id
+	 * @param userId
 	 * @return
 	 */
-	public UserEntity get(Long id){
-		return userDAO.get(id);
+	public UserEntity get(Long userId){
+		return userDAO.get(userId);
 	}
 }

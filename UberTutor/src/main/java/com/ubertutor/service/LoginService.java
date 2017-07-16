@@ -43,8 +43,7 @@ public class LoginService {
 	 * @return UserEntity object
 	 */
 	public UserEntity getUser(String loginusername) {
-		String hql = "FROM UserEntity WHERE username = ?";
-		List<UserEntity> result = this.userDAO.find(hql, loginusername);
+		List<UserEntity> result = this.userDAO.findBy("username", loginusername);
 		if (result.size() > 0) {
 			return result.get(0);
 		}

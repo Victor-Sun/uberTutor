@@ -27,8 +27,7 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	@Autowired
 	private SearchService searchService;
 	private UserRequestEntity requestEntity;
-	private Long id;
-	private String requestId;
+	private Long id, requestId;
 	
 	/**
 	 * Returns id
@@ -47,18 +46,16 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	}
 
 	/**
-	 * Returns requestId
-	 * @return
+	 * @return the requestId
 	 */
-	public String getRequestId() {
+	public Long getRequestId() {
 		return requestId;
 	}
-	
+
 	/**
-	 * Set requestId
-	 * @param requestId
+	 * @param requestId the requestId to set
 	 */
-	public void setRequestId(String requestId) {
+	public void setRequestId(Long requestId) {
 		this.requestId = requestId;
 	}
 
@@ -96,13 +93,13 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	 */
 	public void displayRequestInfo() throws Exception{
 		try {
-			requestEntity = searchService.get(Long.parseLong(requestId));
+			requestEntity = searchService.get(requestId);
 			if(requestEntity.getStatus().equals("OPEN") && requestEntity.getUserId().equals(SessionData.getLoginUserId()) == false){
 				requestEntity.setStatus("PENDING");
 				requestEntity.setPendingDate(new Date());
 				searchService.save(requestEntity);
 			}
-			this.writeSuccessResult(searchService.getRequestInfo((Long.parseLong(requestId))));
+			this.writeSuccessResult(searchService.getRequestInfo(requestId));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

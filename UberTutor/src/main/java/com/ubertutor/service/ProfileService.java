@@ -27,12 +27,12 @@ public class ProfileService {
 
 	/**
 	 * Get school entity by school's name
-	 * @param name
+	 * @param schoolName
 	 * @return School Entity Object
 	 */
-	public SchoolEntity getSchoolByName(String name){
+	public SchoolEntity getSchoolByName(String schoolName){
 		String hql = "FROM SchoolEntity WHERE name = ?";
-		List<SchoolEntity> result = this.schoolDAO.find(hql, name);
+		List<SchoolEntity> result = this.schoolDAO.find(hql, schoolName);
 		if (result.size() > 0) {
 			return result.get(0);
 		}
@@ -50,10 +50,10 @@ public class ProfileService {
 	
 	/**
 	 * Updates a user's profile
-	 * @param entity
+	 * @param userEntity
 	 */
-	public void updateProfile(UserEntity entity){
-		this.userDAO.save(entity);
+	public void updateProfile(UserEntity userEntity){
+		this.userDAO.save(userEntity);
 	}
 
 	/**
@@ -70,13 +70,13 @@ public class ProfileService {
 
 	/**
 	 * Function that get's all of a user's profile information
-	 * @param id
+	 * @param userId
 	 * @return Map of user's info
 	 */
-	public Map<String, Object> getAllUserInfo(Long id){
+	public Map<String, Object> getAllUserInfo(Long userId){
 		List<Object> params = new ArrayList<Object>();
 		String sql = " SELECT USERS.*, SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?";
-		params.add(id);
+		params.add(userId);
 		return this.jdbcTemplate.queryForMap(sql.toString(),params.toArray());
 	}
 	

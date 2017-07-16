@@ -18,16 +18,16 @@ public class PasswordService {
 	 * @param id User's ID
 	 * @param password User's Password
 	 */
-	public void updatePassword(UserEntity entity){
-		this.userDAO.save(entity);
+	public void updatePassword(UserEntity userEntity){
+		this.userDAO.save(userEntity);
 	}
 	
 	/**
 	 * Get's UserEntity from ID
-	 * @param id
+	 * @param userId
 	 * @return UserEntity
 	 */
-	public UserEntity get(Long id){
-		return this.userDAO.get(id);
+	public UserEntity get(Long userId){
+		return this.userDAO.get(userId);
 	}
 }

@@ -22,7 +22,7 @@ public class LoginAction extends PDMSCrudActionSupport<UserEntity> {
 	@Autowired
 	private LoginService loginService;
 	private String username, password;
-	
+
 	/**
 	 * Returns username
 	 * @return Username as String
@@ -38,7 +38,7 @@ public class LoginAction extends PDMSCrudActionSupport<UserEntity> {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	/**
 	 * Returns password
 	 * @return password as String
@@ -63,34 +63,39 @@ public class LoginAction extends PDMSCrudActionSupport<UserEntity> {
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			String msg; 
+			UserEntity userEntity = this.loginService.getUser(username);
+			username = userEntity.getUsername();
+			if(username.isEmpty() || password.isEmpty()){
+				msg = "Username and password cannot be empty!";
+				throw new Exception(msg);
+			}
 			if (!loginService.verifyUsername(username)) {
 				msg = "User does not exist";
 				throw new Exception(msg);
 			}
 			if (!loginService.verifyUserPassword(username, EncryptUtil.encrypt(password))) {
-				msg = "Username and password combination is incorrect! Try again!";
+				msg = "Username and password combination is incorrect!";
 				throw new Exception(msg);
 			}
-			UserEntity userEntity = this.loginService.getUser(username);
-			if("Y".equals(userEntity.getIsDisabled())){
+			if(userEntity.getIsDisabled().equals("Y")){
 				msg = "User has been disabled!";
 				throw new Exception(msg);
 			}
 			Struts2Utils.getSession().setAttribute(SessionData.KEY_LOGIN_USER, userEntity);
 			if(OnlineUtils.isUseRedis()){
-				if(OnlineUtils.isOnline(userEntity.getUsername())){
-					OnlineUtils.logout(userEntity.getUsername());
+				if(OnlineUtils.isOnline(username)){
+					OnlineUtils.logout(username);
 				}
 				OnlineUtils.login(Struts2Utils.getSession().getId(), userEntity);
 			}
-			resultMap.put("userName", userEntity.getUsername());
+			resultMap.put("userName", username);
 			writeSuccessResult(resultMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.writeErrorResult(e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Logout function
 	 */
@@ -137,6 +142,6 @@ public class LoginAction extends PDMSCrudActionSupport<UserEntity> {
 	@Override
 	protected void prepareModel() throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

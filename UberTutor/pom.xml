@@ -8,9 +8,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.7</jdk.version>
-
-		<spring.version>4.1.6.RELEASE</spring.version>
 		<struts2.version>2.5.10.1</struts2.version>
+		<spring.version>4.1.6.RELEASE</spring.version>
 		<hibernate.version>4.3.7.Final</hibernate.version>
 		<fasterxml.version>2.9.0.pr4</fasterxml.version>
 		<log4j.version>2.7</log4j.version>

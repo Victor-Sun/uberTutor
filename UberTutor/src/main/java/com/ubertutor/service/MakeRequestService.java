@@ -22,11 +22,11 @@ public class MakeRequestService {
 	
 	/**
 	 * Returns UserRequestEntity from id
-	 * @param id
+	 * @param requestId
 	 * @return UserRequestEntity
 	 */
-	public UserRequestEntity get(Long id){
-		return userRequestDAO.get(id);
+	public UserRequestEntity get(Long requestId){
+		return userRequestDAO.get(requestId);
 	}
 	
 	/**
@@ -39,10 +39,10 @@ public class MakeRequestService {
 	
 	/**
 	 * Deletes UserRequestEntity
-	 * @param id
+	 * @param requestId
 	 */
-	public void delete(Long id){
-		userRequestDAO.delete(id);
+	public void delete(Long requestId){
+		userRequestDAO.delete(requestId);
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class MakeRequestService {
 	 * @return List of all subjects
 	 */
 	//Zelin: list subjects based on category user select
-	public List<Map<String,Object>> getSubjects(String categoryId){
+	public List<Map<String,Object>> getSubjects(Long categoryId){
 		String hql = " FROM SubjectEntity WHERE categoryId = ?";
 		return this.subjectDAO.find(hql, categoryId);
 	}

@@ -20,8 +20,8 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	@Autowired
 	private MakeRequestService makeRequestService;
 	private UserRequestEntity requestEntity = new UserRequestEntity();
-	private Long id;
-	private String subjectId, description, title;
+	private Long id, subjectId;
+	private String description, title;
 	
 	/**
 	 * Returns id
@@ -40,21 +40,19 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 	}
 
 	/**
-	 * Returns subjectId
-	 * @return
+	 * @return the subjectId
 	 */
-	public String getSubjectId() {
+	public Long getSubjectId() {
 		return subjectId;
 	}
 
 	/**
-	 * Set subjectId
-	 * @param subjectId
+	 * @param subjectId the subjectId to set
 	 */
-	public void setSubjectId(String subjectId) {
+	public void setSubjectId(Long subjectId) {
 		this.subjectId = subjectId;
 	}
-	
+
 	/**
 	 * Returns description
 	 * @return
@@ -104,7 +102,7 @@ public class MakeRequestAction extends PDMSCrudActionSupport<UserRequestEntity>{
 				throw new Exception(msg);
 			}
 			requestEntity.setUserId(Long.parseLong(SessionData.getLoginUserId()));
-			requestEntity.setSubjectId(Long.parseLong(subjectId));
+			requestEntity.setSubjectId(subjectId);
 			requestEntity.setDescription(description);
 			requestEntity.setTitle(title);
 			requestEntity.setCreateDate(new Date());

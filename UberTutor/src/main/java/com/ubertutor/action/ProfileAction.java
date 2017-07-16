@@ -151,19 +151,19 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 				msg = "Invalid email, please check that your email is written correctly, and try again.";
 				throw new Exception(msg);
 			}
-			String[] temp = mobile.split("[-.()]");
-			for(int i = 0; i < temp.length; i++){
-				mobileNo += temp[i];
-			}
 			if(fullname.isEmpty()){
 				msg = "Fullname cannot be empty, please fill out your fullname and try again.";
 				throw new Exception(msg);
+			}
+			String[] temp = mobile.split("[-.()]");
+			for(int i = 0; i < temp.length; i++){
+				mobileNo += temp[i];
 			}
 			if(!mobileNo.matches("\\d{10}")){
 				msg = "Invalid phone number, please enter 10 digits.";
 				throw new Exception(msg);
 			}
-			if(schoolName== null || schoolName == ""){
+			if(schoolName == null || schoolName == ""){
 				msg = "School cannot be empty";
 				throw new Exception(msg);
 			}

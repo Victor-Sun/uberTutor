@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,8 +120,12 @@ public class SignupAction extends PDMSCrudActionSupport<UserEntity> {
 			Date date = new Date();
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			String msg;
-			if(!StringUtils.isNotEmpty(username) || StringUtils.contains(username, " ")){
+			if(username.isEmpty() || username.contains(" ")){
 				msg = "Invalid username, check your username and try again!";
+				throw new Exception(msg);
+			}
+			if(password.isEmpty() || password.contains(" ") || password.length() < 6 || password.length() > 16){
+				msg = "Password must be 6-16 characters with no whitespaces!";
 				throw new Exception(msg);
 			}
 			if(loginService.verifyUsername(username)){

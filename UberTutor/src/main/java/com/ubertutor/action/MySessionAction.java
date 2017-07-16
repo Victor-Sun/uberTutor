@@ -34,21 +34,19 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	private MySessionService sessionService;
 	private UserEntity userEntity = SessionData.getLoginUser();
 	private UserRequestEntity requestEntity;
-	private String requestId;
+	private Long requestId;
 
 	/**
-	 * Returns requestId
-	 * @return
+	 * @return the requestId
 	 */
-	public String getRequestId() {
+	public Long getRequestId() {
 		return requestId;
 	}
 
 	/**
-	 * Set requestId
-	 * @param requestId
+	 * @param requestId the requestId to set
 	 */
-	public void setRequestId(String requestId) {
+	public void setRequestId(Long requestId) {
 		this.requestId = requestId;
 	}
 
@@ -130,9 +128,8 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 				msg = "An error has occured!";
 				throw new Exception(msg);
 			}
-			Long id = Long.parseLong(requestId);
-			requestEntity = sessionService.get(id);
-			this.writeSuccessResult(sessionService.getRequestInfo((id)));
+			requestEntity = sessionService.get(requestId);
+			this.writeSuccessResult(sessionService.getRequestInfo((requestId)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -142,8 +139,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	 * Updates a session to In Process
 	 */
 	public void updateSessionToInProcess(){
-		Long id = Long.parseLong(requestId);
-		requestEntity = sessionService.get(id);
+		requestEntity = sessionService.get(requestId);
 		requestEntity.setStatus("IN PROCESS");
 		requestEntity.setProcessDate(new Date());
 		sessionService.save(requestEntity);
@@ -153,8 +149,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	 * Updates a session to Closed
 	 */
 	public void updateSessionToClosed(){
-		Long id = Long.parseLong(requestId);
-		requestEntity = sessionService.get(id);
+		requestEntity = sessionService.get(requestId);
 		requestEntity.setStatus("CLOSED");
 		requestEntity.setCloseDate(new Date());
 		sessionService.save(requestEntity);
@@ -164,8 +159,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	 * Updates a session to Canceled
 	 */
 	public void updateSessionToCanceled(){
-		Long id = Long.parseLong(requestId);
-		requestEntity = sessionService.get(id);
+		requestEntity = sessionService.get(requestId);
 		requestEntity.setStatus("CANCELED");
 		requestEntity.setCancelDate(new Date());
 		sessionService.save(requestEntity);

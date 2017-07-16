@@ -80,10 +80,10 @@ public class MySessionService {
 	
 	/**
 	 * Returns UserRequestEntity
-	 * @param id
+	 * @param requestId
 	 * @return
 	 */
-	public UserRequestEntity get(Long id){
-		return this.userRequestDAO.get(id);
+	public UserRequestEntity get(Long requestId){
+		return this.userRequestDAO.get(requestId);
 	}
 }

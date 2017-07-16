@@ -60,12 +60,12 @@ public class TutorSubjectRegisterService {
 	
 	/**
 	 * Add subject to the table user_subject
-	 * @param entity
+	 * @param userSubjectEntity
 	 * @param userId
 	 * @param subjectId
 	 */
-	public void saveTutorSubject(UserSubjectEntity entity){
-		userSubjectDAO.save(entity);
+	public void saveTutorSubject(UserSubjectEntity userSubjectEntity){
+		userSubjectDAO.save(userSubjectEntity);
 	}
 
 	/**
@@ -95,26 +95,26 @@ public class TutorSubjectRegisterService {
 	
 	/**
 	 * Returns UserSubjectEntity
-	 * @param id
+	 * @param userSubjectId
 	 * @return
 	 */
-	public UserSubjectEntity get(Long id){
-		return userSubjectDAO.get(id);
+	public UserSubjectEntity get(Long userSubjectId){
+		return userSubjectDAO.get(userSubjectId);
+	}
+	
+	/**
+	 * Deletes UserSubjectEntity
+	 * @param userSubjectEntity
+	 */
+	public void delete(UserSubjectEntity userSubjectEntity){
+		userSubjectDAO.delete(userSubjectEntity);
 	}
 	
 	/**
 	 * Deletes UserSubjectEntity
 	 * @param entity
 	 */
-	public void delete(UserSubjectEntity entity){
-		userSubjectDAO.delete(entity);
-	}
-	
-	/**
-	 * Deletes UserSubjectEntity
-	 * @param entity
-	 */
-	public void delete(Long id){
-		userSubjectDAO.delete(id);
+	public void delete(Long userSubjectId){
+		userSubjectDAO.delete(userSubjectId);
 	}
 }

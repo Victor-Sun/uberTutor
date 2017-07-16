@@ -43,11 +43,11 @@ public class FeedbackService {
 	
 	/**
 	 * Returns UserRequestEntity
-	 * @param id
+	 * @param requestId
 	 * @return UserRequestEntity
 	 */
-	public UserRequestEntity getRequest(String id){
-		return this.userRequestDAO.get(Long.parseLong(id));
+	public UserRequestEntity getRequest(Long requestId){
+		return this.userRequestDAO.get(requestId);
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class FeedbackService {
 	 * @param requestId
 	 * @return FeedbackInfo as Map
 	 */
-	public Map<String, Object> getFeedbackInfo(String requestId){
+	public Map<String, Object> getFeedbackInfo(Long requestId){
 		List<Object> params = new ArrayList<Object>();
 		String sql = "SELECT * FROM V_USER_FEEDBACK WHERE REQUEST_ID = ?";
 		params.add(requestId);

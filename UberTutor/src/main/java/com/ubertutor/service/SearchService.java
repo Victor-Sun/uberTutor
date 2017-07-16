@@ -49,18 +49,18 @@ public class SearchService {
 	
 	/**
 	 * Returns UserRequestEntity
-	 * @param id
+	 * @param requestId
 	 * @return
 	 */
-	public UserRequestEntity get(Long id){
-		return userRequestDAO.get(id);
+	public UserRequestEntity get(Long requestId){
+		return userRequestDAO.get(requestId);
 	}
 	
 	/**
 	 * Saves UserRequestEntity
-	 * @param entity
+	 * @param requestEntity
 	 */
-	public void save(UserRequestEntity entity){
-		userRequestDAO.save(entity);
+	public void save(UserRequestEntity requestEntity){
+		userRequestDAO.save(requestEntity);
 	}
 }
