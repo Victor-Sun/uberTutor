@@ -83,9 +83,9 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
     			handler: 'feedbackClick',
     			getClass: function (value, meta, record) {
                     if(record.get('status') == 'CLOSED'){
-                        return 'x-hidden'; // when u want to hide icon
+                    	return 'x-fa fa-comment' ;  
                     } else {
-                    	return 'x-fa fa-comment' ; // show icon
+                    	return 'x-hidden';
                     }
                     
                 },
@@ -116,9 +116,9 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
     		dock: 'bottom',
     		store: me.store
     	}];
-		this.listeners = {
+//		this.listeners = {
 //    		celldblclick: 'onCelldblclick',
-    	};
+//    	};
 		this.callParent(arguments);
 	}
 });

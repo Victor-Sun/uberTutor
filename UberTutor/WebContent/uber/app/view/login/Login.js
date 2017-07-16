@@ -6,10 +6,9 @@ Ext.define('uber.view.login.Login',{
        'uber.view.login.LoginController', 
        'uber.view.common.Radio', 
        'uber.view.main.Main',
-       'uber.model.User',
+//       'uber.model.User',
        ],
-	
-	refernce: 'login',
+	reference: 'login',
 	itemId: 'login',
 	style: {
 		'background-color': '#f4f4f4',
@@ -38,7 +37,8 @@ Ext.define('uber.view.login.Login',{
 				layout: 'fit',
 				items: [{
 					xtype: 'form',
-					reference: 'formpanel',
+					itemId: 'loginSignUpForm',
+//					modelValidation: true,
 					padding: 30,
 					items: [{
 						//Login/SignUp title
@@ -67,18 +67,23 @@ Ext.define('uber.view.login.Login',{
 							emptyText: 'Username',
 							name: 'username',
 							reference: 'username',
+//							allowBlank: false,
 //							hidden: true,
 						},{
 							emptyText: 'Email',
-							name: 'email'
+							itemId: 'email',
+							name: 'email',
+//							allowBlank: false
 						},{
 							emptyText: 'Password',
 							name: 'password',
-							inputType: 'password'
+							inputType: 'password',
+//							allowBlank: false,
 						},{
 							emptyText: 'Confirm Password',
 							name: 'password2',
-							inputType: 'password'
+							inputType: 'password',
+							allowBlank: false
 						}]
 					},{
 						xtype: 'toolbar',

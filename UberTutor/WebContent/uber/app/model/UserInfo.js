@@ -18,7 +18,7 @@ Ext.define('uber.model.UserInfo',{
 			        { type: 'format', name: 'email', matcher: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, message:"Incorrect email format"},
 			],
 			mobile: [
-			           { type: 'presence', name: 'mobile',message:"Please enter mobile"},
+			        { type: 'presence', name: 'mobile',message:"Please enter mobile"},
 			],
 			
 	}

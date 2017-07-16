@@ -205,6 +205,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 			success: function () {
 				dateCheck();
 			}
+			
 		});
 		
 		feedback.load({

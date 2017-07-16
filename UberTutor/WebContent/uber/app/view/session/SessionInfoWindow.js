@@ -330,7 +330,6 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 		};
 		
 		var buttonCheck = function (){
-			debugger;
 			var userNameItemId = Ext.ComponentQuery.query('#userNameItemId')[0];
 			var studentName = Ext.ComponentQuery.query('#studentName')[0];
 			var status = Ext.ComponentQuery.query('#status')[0];
@@ -340,6 +339,9 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			if (status.value == 'OPEN') {
 				if (studentName.value != userNameItemId.text) {
 					accept.setHidden(false);
+					
+				} else {
+					cancel.setHidden(false);
 				}
 			} else if (status.value == 'PENDING') {
 				cancel.setHidden(false);

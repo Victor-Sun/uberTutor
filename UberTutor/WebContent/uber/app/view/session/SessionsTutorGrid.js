@@ -39,6 +39,15 @@ Ext.define('uber.view.session.SessionsTutorGrid',{
 					"</div>" +
 				"</div>",
 			]
+		},{
+			xtype: 'actioncolumn',
+    		items: [{
+    			xtype: 'button',
+    			itemId: 'details',
+    			iconCls: 'x-fa fa-archive',
+    			tooltip: 'Details',
+    			handler: 'detailClick'
+    		}]
     	}];
 		this.dockedItems = [{
     		xtype: 'pagingtoolbar',
@@ -46,9 +55,9 @@ Ext.define('uber.view.session.SessionsTutorGrid',{
     		dock: 'bottom',
     		store: me.store
     	}];
-		this.listeners = {
-    		celldblclick: 'onCelldblclickTutor',
-    	};
+//		this.listeners = {
+//    		celldblclick: 'onCelldblclickTutor',
+//    	};
 		this.callParent(arguments);
 	}
 });
