@@ -220,15 +220,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	@Override
 	public String save() throws Exception{
 		try{
-			String msg = "";
-			if(category == null || category == ""){
-				msg = "Invalid category, select a valid category and try again!";
-				throw new Exception(msg);
-			}
-			if(subject == null || subject == ""){
-				msg = "Invalid subject, select a valid subject and try again!";
-				throw new Exception(msg);
-			}
+			String msg;
 			if(tutorSubjectRegisterService.subjectExists(Long.parseLong(SessionData.getLoginUserId()), Long.parseLong(subject))){
 				msg = "You already registered this subject!";
 				throw new Exception(msg);
