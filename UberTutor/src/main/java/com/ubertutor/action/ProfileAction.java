@@ -151,7 +151,7 @@ public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 				msg = "Invalid email, please check that your email is written correctly, and try again.";
 				throw new Exception(msg);
 			}
-			if(fullname.isEmpty()){
+			if(fullname.isEmpty() || fullname.equals(" ")){
 				msg = "Fullname cannot be empty, please fill out your fullname and try again.";
 				throw new Exception(msg);
 			}

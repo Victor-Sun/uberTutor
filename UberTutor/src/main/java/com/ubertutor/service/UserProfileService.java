@@ -14,7 +14,7 @@ import com.ubertutor.entity.UserEntity;
 
 @Service
 @Transactional
-public class SessionProfileService {
+public class UserProfileService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
@@ -29,27 +29,27 @@ public class SessionProfileService {
 		return userDAO.get(userId);
 	}
 	
-	/**
-	 * Get a Tutor's total rating
-	 * @param tutorId
-	 * @return Tutor's total rating
-	 */
-	public Integer getRatingTotal(Long tutorId){
-		String sql = "SELECT RATING FROM FEEDBACK WHERE TUTOR_ID = ?";
-		Integer count = this.jdbcTemplate.queryForObject(sql, new Object[] {tutorId}, Integer.class);
-		return ((count==null) ? 0 : count);
-	}
-
-	/**
-	 * Get the total rating count a tutor has
-	 * @param id
-	 * @return Amount of ratings a tutor has received
-	 */
-	public Integer getRatingCount(Long id){
-		String sql = "SELECT COUNT(*) FROM FEEDBACK WHERE TUTOR_ID = ?";
-		Integer count = this.jdbcTemplate.queryForObject(sql, new Object[] {id}, Integer.class);
-		return ((count==null) ? 0 : count);
-	}
+//	/**
+//	 * Get a Tutor's total rating
+//	 * @param tutorId
+//	 * @return Tutor's total rating
+//	 */
+//	public Integer getRatingTotal(Long tutorId){
+//		String sql = "SELECT RATING FROM FEEDBACK WHERE TUTOR_ID = ?";
+//		Integer count = this.jdbcTemplate.queryForObject(sql, new Object[] {tutorId}, Integer.class);
+//		return ((count==null) ? 0 : count);
+//	}
+//
+//	/**
+//	 * Get the total rating count a tutor has
+//	 * @param id
+//	 * @return Amount of ratings a tutor has received
+//	 */
+//	public Integer getRatingCount(Long id){
+//		String sql = "SELECT COUNT(*) FROM FEEDBACK WHERE TUTOR_ID = ?";
+//		Integer count = this.jdbcTemplate.queryForObject(sql, new Object[] {id}, Integer.class);
+//		return ((count==null) ? 0 : count);
+//	}
 
 	/**
 	 * Get the total completed requests a tutor has

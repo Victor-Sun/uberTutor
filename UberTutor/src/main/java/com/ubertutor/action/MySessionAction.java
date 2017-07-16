@@ -138,11 +138,20 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	/**
 	 * Updates a session to In Process
 	 */
-	public void updateSessionToInProcess(){
-		requestEntity = sessionService.get(requestId);
-		requestEntity.setStatus("IN PROCESS");
-		requestEntity.setProcessDate(new Date());
-		sessionService.save(requestEntity);
+	public void updateSessionToInProcess() throws Exception{
+		try{
+			requestEntity = sessionService.get(requestId);
+			if(requestEntity.getStatus() != "OPEN"){
+				String msg = "Request has already been accepted! Try accepting a different request!";
+				throw new Exception(msg);
+			}
+			requestEntity.setStatus("IN PROCESS");
+			requestEntity.setProcessDate(new Date());
+			sessionService.save(requestEntity);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 	
 	/**

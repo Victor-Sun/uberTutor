@@ -11,16 +11,16 @@ import org.springside.modules.utils.web.struts2.Struts2Utils;
 import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ubertutor.entity.UserEntity;
-import com.ubertutor.service.SessionProfileService;
+import com.ubertutor.service.UserProfileService;
 import com.ubertutor.service.TutorSubjectRegisterService;
 
 @Namespace("/main")
 @AllowedMethods({"display","getTutorSubjects","getTutorFeedbacks"})
-public class SessionProfileAction extends ActionSupport{
+public class UserProfileAction extends ActionSupport{
     private static final long serialVersionUID = 1L;
 
     @Autowired
-    private SessionProfileService sessionProfileService;
+    private UserProfileService sessionProfileService;
     @Autowired
     private TutorSubjectRegisterService tutorSubjectRegisterService;
     private UserEntity userEntity;

@@ -222,7 +222,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 		try{
 			String msg = "";
 			if(category == null || category == ""){
-				msg = "Invalid subject, select a valid subject and try again!";
+				msg = "Invalid category, select a valid category and try again!";
 				throw new Exception(msg);
 			}
 			if(subject == null || subject == ""){
@@ -237,6 +237,9 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 			subjectEntity.setSubjectId(Long.parseLong(subject));
 			subjectEntity.setCreateDate(new Date());
 			tutorSubjectRegisterService.saveTutorSubject(subjectEntity);
+		} catch (NumberFormatException e){
+			e.printStackTrace();
+			this.writeErrorResult("Invalid Subject! Select a valid subject and try again!");
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.writeErrorResult(e.getMessage());

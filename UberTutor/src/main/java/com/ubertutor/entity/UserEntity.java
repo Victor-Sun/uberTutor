@@ -59,12 +59,6 @@ public class UserEntity implements Serializable{
 	@Column(name = "UPDATE_DATE") 
 	private Date updateDate;
 	
-	@Column(name = "DELETE_BY") 
-	private String deleteBy;
-	
-	@Column(name = "DELETE_DATE") 
-	private Date deleteDate;
-	
 	@Column(name = "BIO")
 	private String bio;
 	
@@ -190,22 +184,6 @@ public class UserEntity implements Serializable{
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
-	}
-
-	public String getDeleteBy() {
-		return deleteBy;
-	}
-
-	public void setDeleteBy(String deleteBy) {
-		this.deleteBy = deleteBy;
-	}
-
-	public Date getDeleteDate() {
-		return deleteDate;
-	}
-
-	public void setDeleteDate(Date deleteDate) {
-		this.deleteDate = deleteDate;
 	}
 
 	public String getIsDisabled() {

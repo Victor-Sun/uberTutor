@@ -44,9 +44,6 @@ public class UserRequestEntity implements Serializable{
 	@Column(name = "CREATE_DATE")
 	private Date createDate;
 	
-	@Column(name = "PENDING_DATE")
-	private Date pendingDate;
-	
 	@Column(name = "PROCESS_DATE")
 	private Date processDate;
 	
@@ -126,14 +123,6 @@ public class UserRequestEntity implements Serializable{
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
-	}
-
-	public Date getPendingDate() {
-		return pendingDate;
-	}
-
-	public void setPendingDate(Date pendingDate) {
-		this.pendingDate = pendingDate;
 	}
 
 	public Date getProcessDate() {

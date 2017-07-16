@@ -1,7 +1,6 @@
 package com.ubertutor.action;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,11 +93,6 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	public void displayRequestInfo() throws Exception{
 		try {
 			requestEntity = searchService.get(requestId);
-			if(requestEntity.getStatus().equals("OPEN") && requestEntity.getUserId().equals(SessionData.getLoginUserId()) == false){
-				requestEntity.setStatus("PENDING");
-				requestEntity.setPendingDate(new Date());
-				searchService.save(requestEntity);
-			}
 			this.writeSuccessResult(searchService.getRequestInfo(requestId));
 		} catch (Exception e) {
 			e.printStackTrace();

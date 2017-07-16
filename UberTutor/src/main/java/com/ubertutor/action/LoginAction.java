@@ -63,8 +63,6 @@ public class LoginAction extends PDMSCrudActionSupport<UserEntity> {
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			String msg; 
-			UserEntity userEntity = this.loginService.getUser(username);
-			username = userEntity.getUsername();
 			if(username.isEmpty() || password.isEmpty()){
 				msg = "Username and password cannot be empty!";
 				throw new Exception(msg);
@@ -73,6 +71,8 @@ public class LoginAction extends PDMSCrudActionSupport<UserEntity> {
 				msg = "User does not exist";
 				throw new Exception(msg);
 			}
+			UserEntity userEntity = this.loginService.getUser(username);
+			username = userEntity.getUsername();
 			if (!loginService.verifyUserPassword(username, EncryptUtil.encrypt(password))) {
 				msg = "Username and password combination is incorrect!";
 				throw new Exception(msg);
