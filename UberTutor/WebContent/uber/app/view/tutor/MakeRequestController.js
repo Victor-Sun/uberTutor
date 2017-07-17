@@ -24,7 +24,6 @@ Ext.define('uber.view.tutor.MakeRequestController',{
     				Ext.getBody().unmask();
     				// similar to above
     				var result = uber.util.Util.decodeJSON(response.responseText);
-    				console.log(response);
     				console.log(" success: " + result.success + " result: " + result.data);
     				Ext.Msg.alert('Error', " success: " + result.success + " result: " + result.data, Ext.emptyFn);
     			},

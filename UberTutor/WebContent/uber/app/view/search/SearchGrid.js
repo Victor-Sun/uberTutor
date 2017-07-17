@@ -10,14 +10,6 @@ Ext.define('uber.view.search.SearchGrid',{
 	flex: 1,
 	hideHeaders: false,
 	plugins: 'gridfilters',
-//	layout: 'fit',
-//	store: {
-//		fields: [ 'name', 'signupDate', 'rating', 'sucessfulRequests'],
-//		data: [
-//		     { name: 'Charles', signupDate: '6/7/2009', rating: '4', successfulRequests: '20'},
-//		     { name: 'Phillip', signupDate: '5/9/2005', rating: '4.5', successfulRequests: '45'}
-//       ]
-//	},
 	initComponent: function () {
 		var me = this;
 		var page = 5;
@@ -70,42 +62,6 @@ Ext.define('uber.view.search.SearchGrid',{
 			filter: {
 				type: 'date',
 			}
-//		},{
-//			xtype: 'actioncolumn',
-//			width: 50,
-//			sortable: false,
-//			dragable: false,
-//			enableColumnHide: false,
-//			items: [{
-//				iconCls: 'x-fa fa-user',
-//				margin: 5,
-//				tooltip: 'Details',
-//				handler: 
-////				function() {
-////					Ext.create('Ext.window.Window',{
-////						header: false,
-////						width: 900,
-////						height: 700,
-////						layout: 'fit',
-////						items: [{
-////							xtype: 'tutorprofile',
-////							title: 'Profile'
-////						}],
-////						dockedItems: [{
-////							xtype: 'toolbar',
-////							dock: 'bottom',
-////							items: [{
-////								xtype: 'button',
-////								text: 'Close',
-////								handler: function () {
-////									var window = this.up('window');
-////									window.close();
-////								}
-////							}]
-////						}]
-////					}).show();
-////				}
-//			}]
 		}];
 		this.dockedItems = [{
     		xtype: 'pagingtoolbar',

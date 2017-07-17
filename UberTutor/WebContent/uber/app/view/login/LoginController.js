@@ -55,14 +55,14 @@ Ext.define('uber.view.login.LoginController', {
 				var obj = Ext.decode(response.responseText);
 				var tutor = obj.data.IS_TUTOR;
 				var tutorCheck = Ext.ComponentQuery.query('#isTutorCheck')[0].setValue(tutor);
-				console.dir(obj);
+//				console.dir(obj);
 				if (tutor == "Y") {
 					search.show();
 				}
 				
 			},
 			failure: function(response, opts) {
-				console.log('server-side failure with status code ' + response.status);
+//				console.log('server-side failure with status code ' + response.status);
 			}
 		});
 	},

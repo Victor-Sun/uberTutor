@@ -119,8 +119,11 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 			    				grid.getStore().reload();
 									win.close();
 			    			},
-			    			failure: function () {
-			    				Ext.Msg.alert("Error", 'An error has occured', Ext.emptyFn);
+			    			failure: function(form, action) {
+			    				Ext.getBody().unmask();
+//			    				var result = uber.util.Util.decodeJSON(action.response.responseText);
+			    				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+//			    				console.log(result.errors.reason);
 			    			}
 			    		});
 						}
@@ -140,25 +143,24 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     onRemoveClick: function (grid, rowIndex) {
     	var me = this;
     	var record = grid.getStore().getAt(rowIndex);
-    	me.view.mask('Please Wait...')
+    	Ext.getBody().mask('Please Wait...')
     	Ext.Ajax.request({
     		url:'/UberTutor/main/tutor-subject-register!removeSubject.action',
     		params: {
     			userSubjectId:record.data.ID
     		},
-    		score: me,
+    		scope: me,
     		success: function() {
-    			me.view.unmask();
+    			Ext.getBody().unmask();
     			grid.getStore().reload();
     		},
     		failure: function(response, opts) {
-    			me.view.unmask();
-    			uber.util.Util.handlerRequestFailure(response);
+    			Ext.getBody().unmask();
+//    			uber.util.Util.handlerRequestFailure(response);
+    			Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
     		}
     	});
     },
-    
-    
     //Subject Grid 
     renderTitleColumn: function (value, metaData, record) {
         var view = this.getView(),
@@ -195,15 +197,15 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
         }
     },
 
-    onCompanyExpandBody: function (rowNode) {   // , record, expandRow, eOpts
-        Ext.fly(rowNode).addCls('x-grid-row-expanded');
-        Ext.fly(rowNode).down('.news-paragraph-simple').enableDisplayMode().hide();
-        Ext.fly(rowNode).down('.expand').enableDisplayMode().hide();
-    },
-
-    onCompanyCollapseBody: function (rowNode) {  //, record, expandRow, eOpts
-        Ext.fly(rowNode).removeCls('x-grid-row-expanded');
-        Ext.fly(rowNode).down('.news-paragraph-simple').enableDisplayMode().show();
-        Ext.fly(rowNode).down('.expand').enableDisplayMode().show();
-    }
+//    onCompanyExpandBody: function (rowNode) {   // , record, expandRow, eOpts
+//        Ext.fly(rowNode).addCls('x-grid-row-expanded');
+//        Ext.fly(rowNode).down('.news-paragraph-simple').enableDisplayMode().hide();
+//        Ext.fly(rowNode).down('.expand').enableDisplayMode().hide();
+//    },
+//
+//    onCompanyCollapseBody: function (rowNode) {  //, record, expandRow, eOpts
+//        Ext.fly(rowNode).removeCls('x-grid-row-expanded');
+//        Ext.fly(rowNode).down('.news-paragraph-simple').enableDisplayMode().show();
+//        Ext.fly(rowNode).down('.expand').enableDisplayMode().show();
+//    }
 })

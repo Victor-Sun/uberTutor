@@ -7,7 +7,11 @@ Ext.define('uber.view.grid.CurrentRequestsGrid',{
 	initComponent: function () {
 		var me = this;
 		me.store = Ext.create('uber.store.grid.CurrentRequests',{pageSize: 5,});
-		me.store.load();
+		me.store.load({
+			failure: function(response, opts) {
+//				console.log('server-side failure with status code ' + response.status);
+			}
+		});
 		this.columns = [{
 			xtype: 'templatecolumn',
 			align: 'left',

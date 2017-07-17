@@ -9,7 +9,6 @@ Ext.define('uber.view.session.SessionsTutor',{
 	cls: 'uber-panel',
 	controller: 'sessions',
 	initComponent: function () {
-		
 		var sessionInfoForm = Ext.create('Ext.form.Panel',{
 			itemId: 'sessionInfoForm',
 			scrollable: 'y',
@@ -147,13 +146,6 @@ Ext.define('uber.view.session.SessionsTutor',{
         		align: 'stretch'
         	},
         	items: [{
-//        		xtype: 'toolbar',
-//    			items: [{
-//    				xtype: 'button',
-//    				text: 'Session Info',
-//    				handler: 'sessioninfo'
-//    			}]
-//        	},{
         		xtype: 'container',
                 layout: 'hbox',
                 items: [{
@@ -167,10 +159,7 @@ Ext.define('uber.view.session.SessionsTutor',{
     			items: [{
     				xtype: 'sessionsTutorGrid',
     				region: 'center'
-    	    	}
-//    			,
-//    	    	sessionInfoForm
-    	    	]
+    	    	}]
         	}]
         }];
     	this.tbar = [{

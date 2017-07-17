@@ -25,9 +25,17 @@ Ext.define('uber.view.session.Feedback', {
 //        		itemId: 'feedbackSubmitted',
 //        		name: 'feedbackSubmitted'
 //        	},{
-        		xtype: 'hiddenfield',
+        		xtype: 'hidden',
         		itemId: 'requestId',
         		name: 'requestId'
+        	},{
+        		xtype: 'hidden',
+        		itemId: 'hasFeedback',
+        		name: 'hasFeedback'
+        	},{
+        		xtype: 'hidden',
+        		itemId: 'feedbackId',
+        		name: 'FEEDBACK_ID'
         	},{
         		xtype: 'container',
                 layout: 'hbox',
@@ -86,20 +94,6 @@ Ext.define('uber.view.session.Feedback', {
                 itemId: 'feedback',
                 name: 'FEEDBACK',
                 fieldLabel: 'Feedback',
-//        		xtype: 'fieldcontainer',
-//                margin: 5,
-//                reference: 'formpanel',
-//                layout: {
-//                    type: 'vbox',
-//                    align: 'stretch'
-//                },
-//                defaults: {
-//                    
-//                    readOnly: true,
-//                },
-//                items: [{
-//                    
-//                }]
         	}]
         }],
     	this.callParent(arguments);

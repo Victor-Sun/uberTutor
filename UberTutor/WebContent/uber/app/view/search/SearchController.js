@@ -20,6 +20,12 @@ Ext.define('uber.view.profile.SearchController',{
 //				subjectId: subject.value,
 //				userId: 
 			},
+			failure: function(form, action) {
+				Ext.getBody().unmask();
+//				var result = uber.util.Util.decodeJSON(action.response.responseText);
+				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+//				console.log(result.errors.reason);
+			},
 		});
     },
     

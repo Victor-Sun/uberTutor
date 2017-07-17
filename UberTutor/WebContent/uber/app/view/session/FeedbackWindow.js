@@ -221,7 +221,14 @@ Ext.define('uber.view.session.FeedbackWindow',{
 				rootProperty: 'data'
 			},
 			success: function (response, opts) {
-				debugger;
+				var hasFeedback = Ext.ComponentQuery.query('#hasFeedback')[0];
+				var feedbackSubmitBtn = Ext.ComponentQuery.query('#feedbackSubmitBtn')[0];
+				var hasFeedbackValue = hasFeedback.getValue();
+				if (hasFeedbackValue != "true") {
+					feedbackSubmitBtn.show();
+				}
+//				var obj = Ext.decode(response.responseText);
+//				var feedbackValues = feedback.loadRecord(record);
 			}
 	    });
 		this.items = [{
@@ -279,8 +286,10 @@ Ext.define('uber.view.session.FeedbackWindow',{
 					dock: 'bottom',
 					items: ['->',{
 						xtype: 'button',
-						scale: 'large',
+						itemId: 'feedbackSubmitBtn',
+//						scale: 'large',
 						text: 'Submit',
+						hidden: true,
 						handler: function () {
 							feedback.submit({
 								url: '/UberTutor/main/feedback!save.action',
@@ -308,13 +317,6 @@ Ext.define('uber.view.session.FeedbackWindow',{
 							        Ext.Msg.alert('Error', result.data, Ext.emptyFn);
 								}
 							});
-//							if () {
-//								console.log('A feedback has already been submitted for this session');
-//							} else if () {
-//								feedback.submit({
-//									url: '/UberTutor/main/feedback!save.action',
-//								});
-//							}
 						}
 					}]
 				}]

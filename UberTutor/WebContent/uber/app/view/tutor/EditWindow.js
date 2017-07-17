@@ -58,7 +58,7 @@ Ext.define('uber.view.tutor.EditWindow',{
 							xtype: 'fieldcontainer',
 							items: [{
 								xtype: 'textfield',
-								id: 'description',
+								itemId: 'description',
 								fieldLabel: 'Description',
 								name: 'description'
 							}]

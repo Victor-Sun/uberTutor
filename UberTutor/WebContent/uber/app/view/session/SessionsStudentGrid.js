@@ -23,8 +23,13 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
     	        start: 0,
     	        limit: page
     	    },
+    	    failure: function(form, action) {
+				Ext.getBody().unmask();
+//				var result = uber.util.Util.decodeJSON(action.response.responseText);
+				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+			},
     	});
-    	me.store.on({
+//    	me.store.on({
 //    		load: function (grid, gridview, rowIndex, colIndex) {
 //    			debugger;
 //    			var obj = gridview.length;
@@ -41,7 +46,7 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
 ////	    			
 ////    			}
 //    		},
-    	});
+//    	});
     	this.columns = [{
 			xtype: 'templatecolumn',
 			align: 'left',
@@ -79,7 +84,6 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
     			itemId: 'feedback',
     			iconCls: 'x-fa fa-comment',
     			tooltip: 'Feedback',
-//    			disabled: true,
     			handler: 'feedbackClick',
     			getClass: function (value, meta, record) {
                     if(record.get('status') == 'CLOSED'){
@@ -89,26 +93,7 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
                     }
                     
                 },
-                    
-//    			isDisabled: function(view, rowIndex, colIndex, item, record) {
-//    				debugger;
-////                     Returns true if 'editable' is false (, null, or undefined)
-//                    return !record.get('status');
-//                }
     		}],
-//    		renderer: function (th, val, metadata, record) {
-//    			var me = this;
-//    			var feedback = this.items[1];
-//    			if ( metadata.data.status == 'CLOSED') {
-////    					feedback.setHidden(false);
-//    				this.add(Ext.create('Ext.button.Button',{
-//			itemId: 'feedback',
-//			iconCls: 'x-fa fa-comment',
-//			tooltip: 'Feedback',
-//			handler: 'feedbackClick'
-//		}));
-//    			}
-//    		}
 		}];
     	this.dockedItems = [{
     		xtype: 'pagingtoolbar',

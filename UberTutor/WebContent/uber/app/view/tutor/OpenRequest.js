@@ -53,13 +53,11 @@ Ext.define('uber.view.tutor.OpenRequest',{
             }]
         }
     }],
-    
     columns: [{
     	dataIndex: 'title',
     	flex: 1,
     	renderer: 'renderTitleColumn'
     }],
-    
     viewConfig: {
     	listeners: {
             itemclick: 'onCompanyClick',
@@ -67,12 +65,10 @@ Ext.define('uber.view.tutor.OpenRequest',{
             collapsebody: 'onCompanyCollapseBody'
         }
     },
-    
     plugins: [{
         ptype: 'ux-rowexpander',
         pluginId: 'rowexpander'
     }],
-    
     titleTpl:
         '<div class="text-wrapper">' +
             '<div class="news-icon {type}">&nbsp;</div>' +
@@ -95,7 +91,6 @@ Ext.define('uber.view.tutor.OpenRequest',{
         news: 1,
         forum: 1
     },
-
     isValidState: function (state) {
         return state in this.validStates;
     }

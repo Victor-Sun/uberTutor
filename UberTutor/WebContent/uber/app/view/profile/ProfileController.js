@@ -89,7 +89,7 @@ Ext.define('uber.view.profile.ProfileController',{
     	    	Ext.getBody().unmask();
     	    	var result = uber.util.Util.decodeJSON(response.responseText);
     	    	var obj = Ext.JSON.decode(response.responseText);
-    	        console.log(obj);
+//    	        console.log(obj);
     	    	Ext.Msg.alert('Error', obj , Ext.emptyFn);
     	    },
 
@@ -122,16 +122,21 @@ Ext.define('uber.view.profile.ProfileController',{
 			        var remove = mainCard.removeAll();
 			        var card2 = mainCard.add(Ext.create('uber.view.profile.Profile'));
     				Ext.getBody().unmask();
-    				 
     				profileForm.load({
     					url: '/UberTutor/main/profile!display.action',
     					params: {
-    						fullname: profileForm.FULLNAME
+    						fullname: form.FULLNAME
     					},
     					reader: {
     						type: 'json',
     						rootProperty: 'data'
     					},
+    					failure: function(form, action) {
+    	    				Ext.getBody().unmask();
+//    	    				var result = uber.util.Util.decodeJSON(action.response.responseText);
+    	    				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+//    	    				console.log(result.errors.reason);
+    	    			},
     				});
     			},
 
@@ -139,7 +144,7 @@ Ext.define('uber.view.profile.ProfileController',{
     				Ext.getBody().unmask();
     				var result = uber.util.Util.decodeJSON(action.response.responseText);
     				Ext.Msg.alert('Error', result.errors.reason, Ext.emptyFn);
-    				console.log(result.errors.reason);
+//    				console.log(result.errors.reason);
     			},
     		})
     	} else {
@@ -150,7 +155,7 @@ Ext.define('uber.view.profile.ProfileController',{
 //    		});
 //    		Ext.Msg.alert("Error", message, Ext.emptyFn);
     		Ext.Msg.alert("Error", "One or more of the fields is not valid", Ext.emptyFn);
-    		console.log(message);
+//    		console.log(message);
     	}
 	},
     

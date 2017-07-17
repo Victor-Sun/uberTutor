@@ -12,7 +12,14 @@ Ext.define('uber.view.tutor.CategoryWindow',{
 		var categoryStore = Ext.create('uber.store.category.Category');
 		var subjectStore = Ext.create('uber.store.subject.Subject');
 		
-		categoryStore.load();
+		categoryStore.load({
+			failure: function(form, action) {
+				Ext.getBody().unmask();
+//				var result = uber.util.Util.decodeJSON(action.response.responseText);
+				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+//				console.log(result.errors.reason);
+			},
+		});
 		
 		var category = Ext.create('Ext.form.field.ComboBox',{
 			id: 'category',

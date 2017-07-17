@@ -10,23 +10,6 @@ Ext.define('uber.view.grid.MyTutorsGrid',{
 		var me = this;
 		me.store = Ext.create('uber.store.grid.MyTutorsGrid',{pageSize: 5});
 		me.store.load();
-//		store: {
-//			field: [{
-//				name: 'tutor',
-//				type: 'string'
-//			},{
-//				name: 'subjects',
-//				type: 'string'
-//			},{
-//				name: 'rating',
-//				type: 'integer'
-//			}],
-//			data: [{
-//				tutor: 'tutor', subjects: 'math', rating: 5
-//			},{
-//				tutor: 'tutor2', subjects: 'algebra', rating: 4 
-//			}]
-//		},
 		this.columns = [{
 //			dataIndex: 'tutor',
 //			text: 'Tutor',

@@ -72,6 +72,7 @@ Ext.define('uber.view.profile.ProfileForm',{
             	xtype: 'textfield',
 	            name: 'MOBILE',
 	            fieldLabel: 'Mobile',
+	            allowBlank: false,
 	            readOnly: true,
 	            itemId: 'mobile'
 	        },{
@@ -104,7 +105,7 @@ Ext.define('uber.view.profile.ProfileForm',{
                 maxLength: 1000,
                 fieldLabel: 'Bio',
                 fieldCls: true,
-                id: 'bio'
+                itemId: 'bio',
             }]
         },{
         	xtype: 'fieldcontainer',

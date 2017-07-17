@@ -68,7 +68,7 @@ Ext.define('uber.view.session.SessionsController',{
     },
 
     onCelldblclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
-    	console.log("RequestId:" + record.data.requestId);
+//    	console.log("RequestId:" + record.data.requestId);
     	Ext.create('uber.view.session.SessionInfoWindow',{
     		requestId: record.data.requestId,
 //    		status: record.data.status
@@ -79,7 +79,7 @@ Ext.define('uber.view.session.SessionsController',{
     },
     
     onCelldblclickTutor: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
-    	console.log("RequestId:" + record.data.requestId);
+//    	console.log("RequestId:" + record.data.requestId);
     	var form = Ext.create('Ext.form.Panel',{
     		items: [{
     			xtype: 'textfield',
@@ -90,6 +90,12 @@ Ext.define('uber.view.session.SessionsController',{
     	form.submit({
     		url: '/UberTutor/main/my-session!updateRequestToInProcess.action',
 			method: 'POST',
+			failure: function(form, action) {
+				Ext.getBody().unmask();
+//				var result = uber.util.Util.decodeJSON(action.response.responseText);
+				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+//				console.log(result.errors.reason);
+			},
     	});
     	Ext.create('uber.view.session.SessionInfoWindow',{
     		requestId: record.data.requestId,
@@ -102,7 +108,7 @@ Ext.define('uber.view.session.SessionsController',{
     },
     
     detailClick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
-    	console.log("RequestId:" + rowIndex.data.requestId);
+//    	console.log("RequestId:" + rowIndex.data.requestId);
     	Ext.create('uber.view.session.SessionInfoWindow',{requestId: rowIndex.data.requestId}).show();
     },
     

@@ -58,9 +58,12 @@ Ext.define('uber.view.session.SessionInfoWindow',{
     				window.close();
     				grid.getStore().load();
     			},
-    		    failure: function () {
-    		    	Ext.getBody().unmask();
-    		    } 
+    			failure: function(form, action) {
+    				Ext.getBody().unmask();
+//    				var result = uber.util.Util.decodeJSON(action.response.responseText);
+    				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+//    				console.log(result.errors.reason);
+    			},
 			});
 		}
 	},{
@@ -76,7 +79,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			var store = grid.getStore();
 			Ext.getBody().mask('Loading... Please Wait...');
 			form.submit({
-				url: '/UberTutor/main/my-session!updateRequestToInProcess.action',
+				url: '/UberTutor/main/my-session!updateRequestToClosed.action',
 				params: {
 					requestId:requestId,
 				},
@@ -86,9 +89,12 @@ Ext.define('uber.view.session.SessionInfoWindow',{
     				window.close();
     				grid.getStore().load();
     			},
-    		    failure: function () {
-    		    	Ext.getBody().unmask();
-    		    } 
+    			failure: function(form, action) {
+    				Ext.getBody().unmask();
+//    				var result = uber.util.Util.decodeJSON(action.response.responseText);
+    				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+//    				console.log(result.errors.reason);
+    			},
 			});
 		}
 	}],
@@ -190,19 +196,17 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 						name: 'TUTOR_NAME'
 					},{
 						xtype: 'textfield',
-						fieldLabel: 'Tutor ID',
-						name: 'TUTOR_ID'
+						itemId: 'studentName',
+						fieldLabel: 'Student Name',
+						name: 'STUDENT_NAME'
 					}]
 				},{
 					xtype: 'fieldcontainer',
 					items: [{
-						xtype: 'textfield',
-						itemId: 'studentName',
-						fieldLabel: 'Student Name',
-						name: 'STUDENT_NAME'
+						xtype: 'hidden',
+						name: 'TUTOR_ID'
 					},{
-						xtype: 'textfield',
-						fieldLabel: 'Student ID',
+						xtype: 'hidden',
 						name: 'STUDENT_ID'
 					}]
 				},{
@@ -366,7 +370,13 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			success: function () {
 				dateCheck();
 				buttonCheck();
-			}
+			},
+			failure: function(form, action) {
+				Ext.getBody().unmask();
+//				var result = uber.util.Util.decodeJSON(action.response.responseText);
+				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+//				console.log(result.errors.reason);
+			},
 		});
 //		me.store.load();
 		this.items = [

@@ -9,15 +9,15 @@ Ext.define('uber.view.main.MainController', {
 
     alias: 'controller.main',
 
-    onItemSelected: function (sender, record) {
-        Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
-    },
-
-    onConfirm: function (choice) {
-        if (choice === 'yes') {
-            //
-        }
-    },
+//    onItemSelected: function (sender, record) {
+//        Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
+//    },
+//
+//    onConfirm: function (choice) {
+//        if (choice === 'yes') {
+//            //
+//        }
+//    },
     
     registration: function () {
     	var me = this;
@@ -47,11 +47,16 @@ Ext.define('uber.view.main.MainController', {
 		var card2 = mainCard.add(Ext.create('uber.view.search.Search'));
 		var searchGrid = Ext.ComponentQuery.query('#searchgrid')[0];
 		searchGrid.getStore().load({
-			
 //			params:{
 //				subjectId: subject.value,
 ////				userId: 
 //			},
+			failure: function(form, action) {
+				Ext.getBody().unmask();
+//				var result = uber.util.Util.decodeJSON(action.response.responseText);
+				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+//				console.log(result.errors.reason);
+			},
 		});
     },
     

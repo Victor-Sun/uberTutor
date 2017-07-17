@@ -22,14 +22,17 @@ Ext.define('uber.view.search.SearchInfoWindow',{
 					requestId:requestId,
 				},
     			method: 'POST', 
-    			success: function () {
+    			success: function (form, action, response) {
     				Ext.getBody().unmask();
     				window.close();
     				grid.getStore().load();
     			},
-    		    failure: function () {
+    			failure: function (form, action, response) {
+    		    	var me = this;
     		    	Ext.getBody().unmask();
-    		    } 
+    		        var result = uber.util.Util.decodeJSON(action.response.responseText);
+    		        Ext.Msg.alert('Error', result.data, Ext.emptyFn);
+    			},
 			});
 		}
 	}],
@@ -131,18 +134,17 @@ Ext.define('uber.view.search.SearchInfoWindow',{
 						name: 'TUTOR_NAME'
 					},{
 						xtype: 'textfield',
-						fieldLabel: 'Tutor ID',
-						name: 'TUTOR_ID'
+						itemId: 'studentName',
+						fieldLabel: 'Student Name',
+						name: 'STUDENT_NAME'
 					}]
 				},{
 					xtype: 'fieldcontainer',
 					items: [{
-						xtype: 'textfield',
-						fieldLabel: 'Student Name',
-						name: 'STUDENT_NAME'
+						xtype: 'hidden',
+						name: 'TUTOR_ID'
 					},{
-						xtype: 'textfield',
-						fieldLabel: 'Student ID',
+						xtype: 'hidden',
 						name: 'STUDENT_ID'
 					}]
 				},{
