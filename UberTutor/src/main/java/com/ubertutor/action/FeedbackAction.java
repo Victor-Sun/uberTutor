@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.gnomon.common.PDMSCrudActionSupport;
 import com.ubertutor.entity.FeedbackEntity;
+import com.ubertutor.entity.UserRequestEntity;
 import com.ubertutor.service.FeedbackService;
 
 @Namespace("/main")
@@ -17,6 +18,7 @@ import com.ubertutor.service.FeedbackService;
 public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	private static final long serialVersionUID = 1L;
 	private FeedbackEntity feedbackEntity = new FeedbackEntity();
+	private UserRequestEntity userRequestEntity = new UserRequestEntity();
 	@Autowired
 	private FeedbackService feedbackService;
 	private Long id, userId, tutorId, requestId;
@@ -123,7 +125,9 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 		try{
 			feedbackEntity.setCreateDate(new Date());
 			feedbackService.save(feedbackEntity);
-			feedbackService.updateRequest(requestId, feedbackEntity.getId());
+			userRequestEntity = feedbackService.getRequest(requestId);
+			userRequestEntity.setFeedback(feedbackEntity.getId());
+			feedbackService.save(userRequestEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
