@@ -26,7 +26,7 @@ import jp.co.nec.flowlites.core.FLPage;
 	"displayTutorSessions",
 	"displayRequestInfo",
 	"updateRequestToInProcess",
-	"updateRequestToInProcess",
+	"updateRequestToClosed",
 "updateRequestToCanceled"})
 public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	private static final long serialVersionUID = 1L;
