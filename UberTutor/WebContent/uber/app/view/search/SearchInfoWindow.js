@@ -17,7 +17,7 @@ Ext.define('uber.view.search.SearchInfoWindow',{
 			var store = grid.getStore();
 			Ext.getBody().mask('Loading... Please Wait...');
 			form.submit({
-				url: '/UberTutor/main/my-session!updateSessionToInProcess.action',
+				url: '/UberTutor/main/my-session!updateRequestToInProcess.action',
 				params: {
 					requestId:requestId,
 				},

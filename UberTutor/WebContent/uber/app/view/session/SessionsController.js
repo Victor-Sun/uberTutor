@@ -9,7 +9,7 @@ Ext.define('uber.view.session.SessionsController',{
         	sessionInfoForm.requestId = records[0].get('requestId');
         };
     	sessionInfoForm.load({
-			url: '/UberTutor/main/my-session!displaySessionInfo.action',
+			url: '/UberTutor/main/my-session!displayRequestInfo.action',
 			params: {
 				requestId:sessionInfoForm.requestId,
 			},
@@ -88,7 +88,7 @@ Ext.define('uber.view.session.SessionsController',{
     		}]
     	});
     	form.submit({
-    		url: '/UberTutor/main/my-session!updateSessionToInProcess.action',
+    		url: '/UberTutor/main/my-session!updateRequestToInProcess.action',
 			method: 'POST',
     	});
     	Ext.create('uber.view.session.SessionInfoWindow',{

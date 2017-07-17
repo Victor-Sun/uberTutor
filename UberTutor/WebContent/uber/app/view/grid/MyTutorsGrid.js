@@ -5,6 +5,7 @@ Ext.define('uber.view.grid.MyTutorsGrid',{
 	hideHeaders: true,
 	flex: 1,
 	layout: 'fit',
+	emptyText: "<h3>You currently don't have any recent tutors</h3>",
 	initComponent: function () {
 		var me = this;
 		me.store = Ext.create('uber.store.grid.MyTutorsGrid',{pageSize: 5});

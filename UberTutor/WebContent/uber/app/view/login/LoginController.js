@@ -52,7 +52,6 @@ Ext.define('uber.view.login.LoginController', {
 				fullname: userName
 			},
 			success: function(response, opts) {
-				debugger;
 				var obj = Ext.decode(response.responseText);
 				var tutor = obj.data.IS_TUTOR;
 				var tutorCheck = Ext.ComponentQuery.query('#isTutorCheck')[0].setValue(tutor);

@@ -194,7 +194,7 @@ Ext.define('uber.view.session.FeedbackWindow',{
 		
 		sessionInfo.load({
 			model: 'uber.model.session.SessionInfo',
-			url: '/UberTutor/main/my-session!displaySessionInfo.action',
+			url: '/UberTutor/main/my-session!displayRequestInfo.action',
 			params: {
 				requestId: this.requestId,
 			},
@@ -219,6 +219,9 @@ Ext.define('uber.view.session.FeedbackWindow',{
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
+			},
+			success: function (response, opts) {
+				debugger;
 			}
 	    });
 		this.items = [{

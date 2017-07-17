@@ -8,7 +8,7 @@ Ext.define('uber.view.tutor.EditWindow',{
 		me.store = Ext.create('uber.store.session.SessionInfo',{
 			proxy: {
 				type: 'ajax',
-//				url: '/UberTutor/main/my-session!displaySessionInfo.action',
+//				url: '/UberTutor/main/my-session!displayRequestInfo.action',
 				params: {
 					requestId:this.id,
 				},
