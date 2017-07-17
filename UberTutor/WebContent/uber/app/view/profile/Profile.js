@@ -17,15 +17,7 @@ Ext.define('uber.view.profile.Profile', {
 	tabRotation: 0,
 	initComponent: function () {
 		var fullname = Ext.ComponentQuery.query('#userNameItemId')[0].getText();
-		var profileInfoForm = Ext.create('uber.view.profile.ProfileForm',{
-//			flex: 1,
-//			layout: {
-//            	type: 'vbox',
-//            	align: 'stretch'
-//            },
-//            
-		});
-		
+		var profileInfoForm = Ext.create('uber.view.profile.ProfileForm',{});
 		
 		var loading = function () {
 //			Ext.getBody().mask('Loading...Please Wait');

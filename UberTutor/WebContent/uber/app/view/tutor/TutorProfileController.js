@@ -20,4 +20,4 @@ Ext.define('uber.view.tutor.TutorProfileController',{
     	var mainLayout = mainCard.getLayout();
         var card = mainCard.setActiveItem('chat');
     }
-})
+});

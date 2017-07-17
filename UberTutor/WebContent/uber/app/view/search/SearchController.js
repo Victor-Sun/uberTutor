@@ -3,7 +3,6 @@ Ext.define('uber.view.profile.SearchController',{
     alias: 'controller.search',
     
     searchresults: function () {
-//    	debugger;
     	var me = this;
     	var subject = Ext.ComponentQuery.query('#subject')[0];
 //    	var main = me.view.up('app-main');

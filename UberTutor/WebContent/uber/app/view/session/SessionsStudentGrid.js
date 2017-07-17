@@ -29,24 +29,6 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
 				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
 			},
     	});
-//    	me.store.on({
-//    		load: function (grid, gridview, rowIndex, colIndex) {
-//    			debugger;
-//    			var obj = gridview.length;
-//    			
-//    			var view = Ext.widget('sessionsStudentGrid');
-//    			var actionColumn = view.down('actioncolumn');
-//    			var feedback = actionColumn.items[0];
-//    			Ext.each(gridview, function (data){
-//    				if ( gridview[i].data.status == "CLOSED") {
-////	    				feedback.setHidden('false');
-//	    			}
-//    			});
-////    			for (var i = 0; i<; i++) {
-////	    			
-////    			}
-//    		},
-//    	});
     	this.columns = [{
 			xtype: 'templatecolumn',
 			align: 'left',

@@ -55,9 +55,13 @@ Ext.define('uber.view.login.LoginController', {
 				var obj = Ext.decode(response.responseText);
 				var tutor = obj.data.IS_TUTOR;
 				var tutorCheck = Ext.ComponentQuery.query('#isTutorCheck')[0].setValue(tutor);
+				var currentRequests = Ext.ComponentQuery.query('#currentRequests')[0];
+				var openRequests = Ext.ComponentQuery.query('#openRequests')[0];
 //				console.dir(obj);
 				if (tutor == "Y") {
 					search.show();
+					currentRequests.show();
+					openRequests.show();
 				}
 				
 			},
@@ -68,7 +72,6 @@ Ext.define('uber.view.login.LoginController', {
 	},
     
     login: function () {
-//    	debugger;
     	//1. takes the values from textfields and uses a data model to validate the username and password fields
     	//2. if valid the form is submitted to the server through ajax
     	//3. if username and password is valid the login page is destroyed and the main page is loaded
@@ -115,9 +118,9 @@ Ext.define('uber.view.login.LoginController', {
     	} else {
     		Ext.getBody().unmask();
     		var message = "";
-//    		Ext.each(errors.items,function(rec){
-//    			message +=rec.getMessage()+"<br>";
-//    		});
+    		Ext.each(errors.items,function(rec){
+    			message +=rec.getMessage()+"<br>";
+    		});
     		Ext.Msg.alert("Validation failed", message, Ext.emptyFn);
     	}
     },
@@ -139,9 +142,9 @@ Ext.define('uber.view.login.LoginController', {
 //		var card2 = mainCard.add(Ext.create('uber.view.profile.Profile'));
 //		var mainLayout = mainCard.getLayout();
 //	    var card = mainCard.setActiveItem('profileTab');
-		var card2 = mainCard.add(Ext.create('uber.view.main.MainPage'));
+		var card2 = mainCard.add(Ext.create('uber.view.profile.Profile'));
         var mainLayout = mainCard.getLayout();
-        var card = mainCard.setActiveItem('mainpage');
+        var card = mainCard.setActiveItem(card2);
         
 		var result = uber.util.Util.decodeJSON(action.response.responseText);
 		var userName = result.data.username;

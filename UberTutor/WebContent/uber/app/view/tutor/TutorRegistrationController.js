@@ -14,26 +14,29 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 		var form = Ext.ComponentQuery.query('#subjectForm')[0];
 		var getForm = form.getForm();
 		var subjectDescription = Ext.ComponentQuery.query('#subjectDescription')[0];
-		Ext.getBody().mask('Loading...Please Wait...')
-		getForm.submit({
-			clientValidation: true,
-			url:'/UberTutor/main/tutor-subject-register!save.action',
-			params: {
-            	model: Ext.encode(getForm.getFieldValues()),
-            },
-            scope: me,
-            success: function(form, action, response) {
-            	Ext.getBody().unmask();
-            	this.getView().close();
-            	grid.getStore().reload();
-            },
-            failure: function (form, action, response) {
-            	Ext.getBody().unmask();
-                var result = uber.util.Util.decodeJSON(action.response.responseText);
-                Ext.Msg.alert('Error', result.data, Ext.emptyFn);
-        	},
-
-		});
+		if (subjectDescription.getValue() != "" ) {
+			Ext.getBody().mask('Loading...Please Wait...')
+			getForm.submit({
+				clientValidation: true,
+				url:'/UberTutor/main/tutor-subject-register!save.action',
+//				params: {
+//	            	model: Ext.encode(getForm.getFieldValues()),
+//	            },
+	            scope: me,
+	            success: function(form, action, response) {
+	            	Ext.getBody().unmask();
+	            	this.getView().close();
+	            	grid.getStore().reload();
+	            },
+	            failure: function (form, action, response) {
+	            	Ext.getBody().unmask();
+	                var result = uber.util.Util.decodeJSON(action.response.responseText);
+	                Ext.Msg.alert('Error', result.data, Ext.emptyFn);
+	        	},
+			});
+		} else {
+			Ext.Msg.alert('Error', "A Description is required! Please fill in the description and try again.", Ext.emptyFn);
+		}
 	},
     
     cancel: function() {
@@ -109,23 +112,23 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 							var editForm = Ext.ComponentQuery.query('#editForm')[0];
 							var description = editForm.down('#description').getValue();
 							editForm.submit({
-							url: '/UberTutor/main/tutor-subject-register!editSubject.action',
-			    			params: {
-			    				userSubjectId:record.data.SUBJECT_ID,
-			    				description:description
-			    			},
-			    			success: function () {
-			    				var win = Ext.ComponentQuery.query('#editWindow')[0];
-			    				grid.getStore().reload();
-									win.close();
-			    			},
-			    			failure: function(form, action) {
-			    				Ext.getBody().unmask();
-//			    				var result = uber.util.Util.decodeJSON(action.response.responseText);
-			    				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
-//			    				console.log(result.errors.reason);
-			    			}
-			    		});
+								url: '/UberTutor/main/tutor-subject-register!editSubject.action',
+				    			params: {
+				    				userSubjectId:record.data.SUBJECT_ID,
+				    				description:description
+				    			},
+				    			success: function () {
+				    				var win = Ext.ComponentQuery.query('#editWindow')[0];
+				    				grid.getStore().reload();
+										win.close();
+				    			},
+				    			failure: function(form, action) {
+				    				Ext.getBody().unmask();
+	//			    				var result = uber.util.Util.decodeJSON(action.response.responseText);
+				    				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+	//			    				console.log(result.errors.reason);
+				    			}
+				    		});
 						}
 					},{
 						xtype: 'button',
@@ -208,4 +211,4 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 //        Ext.fly(rowNode).down('.news-paragraph-simple').enableDisplayMode().show();
 //        Ext.fly(rowNode).down('.expand').enableDisplayMode().show();
 //    }
-})
+});

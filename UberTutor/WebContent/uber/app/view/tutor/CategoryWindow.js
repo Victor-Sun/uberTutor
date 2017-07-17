@@ -7,7 +7,7 @@ Ext.define('uber.view.tutor.CategoryWindow',{
     title: 'Add Subject',
     name: 'addWindow',
     layout: 'fit',
-	controller: 'tutorRegistration',
+	controller: 'categoryWindow',
 	initComponent: function () {
 		var categoryStore = Ext.create('uber.store.category.Category');
 		var subjectStore = Ext.create('uber.store.subject.Subject');
@@ -31,6 +31,7 @@ Ext.define('uber.view.tutor.CategoryWindow',{
             valueField: 'id',
             queryModel: 'local',
             editable:false,
+            allowBlank: false,
             name: 'category',
             listeners: {
                 change: function (combo, newValue, oldValue, eOpts) {
@@ -49,6 +50,7 @@ Ext.define('uber.view.tutor.CategoryWindow',{
             valueField: 'id',
             queryMode:'local',
             editable:false,
+            allowBlank: false,
             name:'subject'
 		});
 		
