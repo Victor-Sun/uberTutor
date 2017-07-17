@@ -15,7 +15,10 @@ import com.ubertutor.entity.UserEntity;
 import com.ubertutor.service.ProfileService;
 
 @Namespace("/main")
-@AllowedMethods({"display","update","displaySchool","tutorStatus"})
+@AllowedMethods({"display",
+	"update",
+	"displaySchool",
+	"tutorStatus"})
 public class ProfileAction extends PDMSCrudActionSupport<UserEntity>{
 	private static final long serialVersionUID = 1L;
 	@Autowired

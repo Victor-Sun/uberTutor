@@ -22,7 +22,7 @@ import jp.co.nec.flowlites.core.FLPage;
 @AllowedMethods({"displayPreviousTutor",
 	"displayCurrentUserRequests",
 	"displayCurrentTutorRequests",
-	"displaySessionInfo"})
+	"displayRequestInfo"})
 public class MainPageAction extends PDMSCrudActionSupport<UserEntity> {
 	private static final long serialVersionUID = 1L;
 	@Autowired
@@ -113,7 +113,7 @@ public class MainPageAction extends PDMSCrudActionSupport<UserEntity> {
 		}
 	}
 	
-	public void displaySessionInfo() throws Exception{
+	public void displayRequestInfo() throws Exception{
 		try{
 			String msg;
 			if(requestId.equals(null)){

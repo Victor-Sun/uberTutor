@@ -22,12 +22,12 @@ import jp.co.nec.flowlites.core.FLPage;
 
 @Namespace("/main")
 @AllowedMethods({"displayAllSessions",
-	"displayUserSessions",
+	"displayUserRequests",
 	"displayTutorSessions",
-	"displaySessionInfo",
-	"updateSessionToInProcess",
-	"updateSessionToInProcess",
-	"updateSessionToCanceled"})
+	"displayRequestInfo",
+	"updateRequestToInProcess",
+	"updateRequestToInProcess",
+	"updateRequestToCanceled"})
 public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	private static final long serialVersionUID = 1L;
 	@Autowired
@@ -51,16 +51,16 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	}
 
 	/**
-	 * Sends all requests to front end
+	 * Displays all requests
 	 */
 	public void displayAllSessions(){
 		this.writeSuccessResult(sessionService.getRequests());
 	}
 
 	/**
-	 * Sends all of a user's requests to the front end
+	 * Displays all of the User's requests/sessions
 	 */
-	public void displayUserSessions(){
+	public void displayUserRequests(){
 		try{
 			JsonResult result = new JsonResult();
 			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
@@ -88,7 +88,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	}
 
 	/**
-	 * Sends all of a tutor's requests to the front end
+	 * Displays all of a Tutor's sessions
 	 */
 	public void displayTutorSessions(){
 		try{
@@ -118,10 +118,10 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	}
 
 	/**
-	 * Sends a requests info to the front end
+	 * Displays the info for a request
 	 * @throws Exception
 	 */
-	public void displaySessionInfo() throws Exception{
+	public void displayRequestInfo() throws Exception{
 		try{
 			String msg;
 			if(requestId.equals(null)){
@@ -136,9 +136,9 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	}
 
 	/**
-	 * Updates a session to In Process
+	 * Updates a request to In Process
 	 */
-	public void updateSessionToInProcess() throws Exception{
+	public void updateRequestToInProcess() throws Exception{
 		try{
 			requestEntity = sessionService.get(requestId);
 			if(requestEntity.getStatus() != "OPEN"){
@@ -155,9 +155,9 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	}
 	
 	/**
-	 * Updates a session to Closed
+	 * Updates a request to Closed
 	 */
-	public void updateSessionToClosed(){
+	public void updateRequestToClosed(){
 		requestEntity = sessionService.get(requestId);
 		requestEntity.setStatus("CLOSED");
 		requestEntity.setCloseDate(new Date());
@@ -165,15 +165,16 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	}	
 
 	/**
-	 * Updates a session to Canceled
+	 * Updates a request to Canceled
 	 */
-	public void updateSessionToCanceled(){
+	public void updateRequestToCanceled(){
 		requestEntity = sessionService.get(requestId);
 		requestEntity.setStatus("CANCELED");
 		requestEntity.setCancelDate(new Date());
 		sessionService.save(requestEntity);
 	}	
 
+	@Override
 	public UserRequestEntity getModel() {
 		return requestEntity;
 	}

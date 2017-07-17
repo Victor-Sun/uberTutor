@@ -99,6 +99,7 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		}
 	}
 	
+	@Override
 	public UserRequestEntity getModel() {
 		return requestEntity;
 	}
