@@ -33,7 +33,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	@Autowired
 	private MySessionService mySessionService;
 	private UserEntity userEntity = SessionData.getLoginUser();
-	private UserRequestEntity requestEntity = new UserRequestEntity();
+	private UserRequestEntity requestEntity;
 	private Long requestId;
 
 	/**
@@ -139,18 +139,19 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	 */
 	public void updateRequestToInProcess() throws Exception{
 		try{
-			requestEntity = mySessionService.getRequest(requestId);
-			if(requestEntity.getStatus() != "OPEN"){
+			UserRequestEntity requestEntity = mySessionService.getRequest(requestId);
+			if(!requestEntity.getStatus().equals("OPEN")){
 				String msg = "Request has already been accepted! Try accepting a different request!";
 				throw new Exception(msg);
+			} else {
+				requestEntity.setStatus("IN PROCESS");
+				requestEntity.setTutorId(userEntity.getId());
+				requestEntity.setProcessDate(new Date());
+				mySessionService.save(requestEntity);
 			}
-			requestEntity.setStatus("IN PROCESS");
-			requestEntity.setProcessDate(new Date());
-			mySessionService.save(requestEntity);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
