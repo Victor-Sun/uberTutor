@@ -27,13 +27,13 @@ import jp.co.nec.flowlites.core.FLPage;
 	"displayRequestInfo",
 	"updateRequestToInProcess",
 	"updateRequestToInProcess",
-	"updateRequestToCanceled"})
+"updateRequestToCanceled"})
 public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	private static final long serialVersionUID = 1L;
 	@Autowired
-	private MySessionService sessionService;
+	private MySessionService mySessionService;
 	private UserEntity userEntity = SessionData.getLoginUser();
-	private UserRequestEntity requestEntity;
+	private UserRequestEntity requestEntity = new UserRequestEntity();
 	private Long requestId;
 
 	/**
@@ -54,7 +54,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	 * Displays all requests
 	 */
 	public void displayAllSessions(){
-		this.writeSuccessResult(sessionService.getRequests());
+		this.writeSuccessResult(mySessionService.getRequests());
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		try{
 			JsonResult result = new JsonResult();
 			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-			FLPage<Map<String,Object>> pageResult = this.sessionService.getUserRequests(userEntity.getId(), this.getPage(), this.getLimit());
+			FLPage<Map<String,Object>> pageResult = this.mySessionService.getUserRequests(userEntity.getId(), this.getPage(), this.getLimit());
 			for (Map<String, Object> map : pageResult.getItems()) {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
 				dataMap.put("requestId", map.get("REQUEST_ID"));
@@ -94,7 +94,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 		try{
 			JsonResult result = new JsonResult();
 			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-			FLPage<Map<String,Object>> pageResult = this.sessionService.getTutorRequests(userEntity.getId(), this.getPage(), this.getLimit());
+			FLPage<Map<String,Object>> pageResult = this.mySessionService.getTutorRequests(userEntity.getId(), this.getPage(), this.getLimit());
 			for (Map<String, Object> map : pageResult.getItems()) {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
 				dataMap.put("requestId", map.get("REQUEST_ID"));
@@ -128,8 +128,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 				msg = "An error has occured!";
 				throw new Exception(msg);
 			}
-			requestEntity = sessionService.get(requestId);
-			this.writeSuccessResult(sessionService.getRequestInfo((requestId)));
+			this.writeSuccessResult(mySessionService.getRequestInfo((requestId)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -140,38 +139,38 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	 */
 	public void updateRequestToInProcess() throws Exception{
 		try{
-			requestEntity = sessionService.get(requestId);
+			requestEntity = mySessionService.getRequest(requestId);
 			if(requestEntity.getStatus() != "OPEN"){
 				String msg = "Request has already been accepted! Try accepting a different request!";
 				throw new Exception(msg);
 			}
 			requestEntity.setStatus("IN PROCESS");
 			requestEntity.setProcessDate(new Date());
-			sessionService.save(requestEntity);
+			mySessionService.save(requestEntity);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	/**
 	 * Updates a request to Closed
 	 */
 	public void updateRequestToClosed(){
-		requestEntity = sessionService.get(requestId);
+		UserRequestEntity requestEntity = mySessionService.getRequest(requestId);
 		requestEntity.setStatus("CLOSED");
 		requestEntity.setCloseDate(new Date());
-		sessionService.save(requestEntity);
+		mySessionService.save(requestEntity);
 	}	
 
 	/**
 	 * Updates a request to Canceled
 	 */
 	public void updateRequestToCanceled(){
-		requestEntity = sessionService.get(requestId);
-		requestEntity.setStatus("CANCELED");
-		requestEntity.setCancelDate(new Date());
-		sessionService.save(requestEntity);
+		UserRequestEntity requestEntityCanceled = mySessionService.getRequest(requestId);
+		requestEntityCanceled.setStatus("CANCELED");
+		requestEntityCanceled.setCancelDate(new Date());
+		mySessionService.save(requestEntityCanceled);
 	}	
 
 	@Override
@@ -201,5 +200,6 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 
 	@Override
 	protected void prepareModel() throws Exception {
+		requestEntity = (requestId != null) ? mySessionService.getRequest(requestId) : new UserRequestEntity();
 	}
 }

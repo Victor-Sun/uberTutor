@@ -18,7 +18,6 @@ import com.ubertutor.service.TutorSubjectRegisterService;
 @AllowedMethods({"display","getTutorSubjects","getTutorFeedbacks"})
 public class UserProfileAction extends ActionSupport{
     private static final long serialVersionUID = 1L;
-
     @Autowired
     private UserProfileService sessionProfileService;
     @Autowired
@@ -33,8 +32,8 @@ public class UserProfileAction extends ActionSupport{
 		try{
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("tutorName", sessionProfileService.getUser(userEntity.getId()).getId());
-			int ratingAvg = sessionProfileService.getRatingTotal(userEntity.getId()) / sessionProfileService.getRatingCount(userEntity.getId());
-			result.put("tutorRating", ratingAvg);
+//			int ratingAvg = sessionProfileService.getRatingTotal(userEntity.getId()) / sessionProfileService.getRatingCount(userEntity.getId());
+//			result.put("tutorRating", ratingAvg);
 			result.put("tutorCompletedRequests", sessionProfileService.getTotalCompletedRequests(userEntity.getId())); 
 			result.put("tutorBio", userEntity.getBio());
 			this.writeSuccessResult(result);

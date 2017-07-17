@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jp.co.nec.flowlites.core.FLJdbcTemplate;
-import jp.co.nec.flowlites.core.FLPage;
 import com.ubertutor.dao.UserRequestDAO;
 import com.ubertutor.entity.UserRequestEntity;
+
+import jp.co.nec.flowlites.core.FLJdbcTemplate;
+import jp.co.nec.flowlites.core.FLPage;
 
 @Service
 @Transactional
@@ -83,7 +84,7 @@ public class MySessionService {
 	 * @param requestId
 	 * @return
 	 */
-	public UserRequestEntity get(Long requestId){
+	public UserRequestEntity getRequest(Long requestId){
 		return this.userRequestDAO.get(requestId);
 	}
 }

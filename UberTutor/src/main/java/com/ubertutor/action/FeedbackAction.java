@@ -127,7 +127,7 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return SUCCESS;
+		return null;
 	}
 
 	/**

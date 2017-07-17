@@ -17,11 +17,8 @@
 		<property name="connection.characterEncoding">UTF-8</property>
 		<!-- update：表示自动根据model对象来更新表结构 -->
 		<property name="hibernate.hbm2ddl.auto">update</property>
-
+		<property name="hibernate.enable_lazy_load_no_trans">true</property>
 		<!-- 缓存设置 -->
-		<!-- <property name="cache.provider_configuration_file_resource_path">/ehcache.xml</property> -->
-		<!-- <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property> -->
-		<!-- <property name="cache.use_query_cache">true</property> -->
 
 	</session-factory>
 </hibernate-configuration>
