@@ -45,6 +45,27 @@ Ext.define('uber.view.login.LoginController', {
 		var userName = result.data.userName;
 		var userNameText = Ext.ComponentQuery.query('#userNameItemId')[0];
 		userNameText.setText(userName);
+		var search = Ext.ComponentQuery.query('#menuItemSearch')[0];
+		Ext.Ajax.request({
+			url: '/UberTutor/main/profile!display.action',
+			params: {
+				fullname: userName
+			},
+			success: function(response, opts) {
+				debugger;
+				var obj = Ext.decode(response.responseText);
+				var tutor = obj.data.IS_TUTOR;
+				var tutorCheck = Ext.ComponentQuery.query('#isTutorCheck')[0].setValue(tutor);
+				console.dir(obj);
+				if (tutor == "Y") {
+					search.show();
+				}
+				
+			},
+			failure: function(response, opts) {
+				console.log('server-side failure with status code ' + response.status);
+			}
+		});
 	},
     
     login: function () {
@@ -78,6 +99,7 @@ Ext.define('uber.view.login.LoginController', {
 //    		var message = "";
 //    		Ext.each(errors.items,function(rec){
 //    			message +=rec.getMessage()+"<br>";
+//    		url: '/UberTutor/main/login!login.action',
 //    		});
 //    		Ext.Msg.alert("Error", "The following errors occured: <br>" + message, Ext.emptyFn);
 //    	}
@@ -130,7 +152,7 @@ Ext.define('uber.view.login.LoginController', {
     
     signup: function () {
     	var me = this;
-    	var formPanel = this.lookupReference('formpanel');
+    	var formPanel = Ext.ComponentQuery.query('#loginSignUpForm')[0];
     	var model = Ext.create('uber.model.SignUp', formPanel.getValues());
     	var errors = model.validate();
     	Ext.getBody().mask('Validating... Please Wait...');
@@ -138,6 +160,7 @@ Ext.define('uber.view.login.LoginController', {
     		formPanel.submit({ 
     			url: '/UberTutor/main/signup!save.action',
     			method: 'POST', 
+    			scope: this,
     			success: 'onSignUpSuccess',
     			failure: 'onSignUpFailure' 
 //    		    failure: function(response, opts) {

@@ -14,7 +14,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 		text: 'Accept',
 		handler: function () {
 			var window = this.up('window');
-			var form = window.down('form');
+			var form = window.down('#sessionInfoForm');
 			var requestId = form.down('#requestId').getValue();
 			var grid = Ext.ComponentQuery.query('grid')[0];
 			var store = grid.getStore();
@@ -42,7 +42,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 		text: 'Cancel Session',
 		handler: function () {
 			var window = this.up('window');
-			var form = window.down('form');
+			var form = window.down('#sessionInfoForm');
 			var requestId = form.down('#requestId').getValue();
 			var grid = Ext.ComponentQuery.query('grid')[0];
 			var store = grid.getStore();
@@ -70,7 +70,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 		text: 'Close Session',
 		handler: function () {
 			var window = this.up('window');
-			var form = window.down('form');
+			var form = window.down('#sessionInfoForm');
 			var requestId = form.down('#requestId').getValue();
 			var grid = Ext.ComponentQuery.query('grid')[0];
 			var store = grid.getStore();
@@ -95,6 +95,7 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 	initComponent: function() {
 		var me = this;
 		var sessionInfoForm = Ext.create('Ext.form.Panel',{
+			itemId: 'sessionInfoForm',
 			layout: {
 	            type: 'vbox',
 	            align: 'stretch'

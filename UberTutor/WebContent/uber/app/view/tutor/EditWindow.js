@@ -1,4 +1,5 @@
 Ext.define('uber.view.tutor.EditWindow',{
+	extend: 'Ext.window.Window',
 	xtype: 'editWindow',
 	
 	displayId: '',

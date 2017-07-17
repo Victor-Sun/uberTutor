@@ -11,14 +11,15 @@ Ext.define('uber.view.search.SearchInfoWindow',{
 		text: 'Accept',
 		handler: function () {
 			var window = this.up('window');
-			var form = window.down('form');
+			var form = window.down('#searchInfoForm');
+			var requestId = form.down('#requestId').getValue();
 			var grid = Ext.ComponentQuery.query('grid')[0];
 			var store = grid.getStore();
 			Ext.getBody().mask('Loading... Please Wait...');
 			form.submit({
 				url: '/UberTutor/main/my-session!updateSessionToInProcess.action',
 				params: {
-					requestId:this.requestId,
+					requestId:requestId,
 				},
     			method: 'POST', 
     			success: function () {
@@ -35,6 +36,7 @@ Ext.define('uber.view.search.SearchInfoWindow',{
 	initComponent: function() {
 		var me = this;
 		var searchInfoForm = Ext.create('Ext.form.Panel',{
+			itemId: 'searchInfoForm',
 			layout: {
 	            type: 'vbox',
 	            align: 'stretch'

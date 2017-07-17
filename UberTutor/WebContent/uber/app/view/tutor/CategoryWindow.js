@@ -75,6 +75,8 @@ Ext.define('uber.view.tutor.CategoryWindow',{
                 },
             	items: [{
             		xtype: 'textarea',
+            		itemId: 'subjectDescription',
+            		allowBlank: false,
             		flex: 1,
             		fieldLabel: 'Description (Max 1000 characters)',
             		labelAlign: 'top',

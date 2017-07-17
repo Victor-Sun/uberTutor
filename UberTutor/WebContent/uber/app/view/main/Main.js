@@ -29,6 +29,9 @@ Ext.define('uber.view.main.Main', {
 			xtype: 'component',
 			html: '<h1 style="color: #fff;">UberTutor</h1>'
 		},'->',{
+			xtype: 'hidden',
+			itemId: 'isTutorCheck',
+		},{
 			xtype: 'button',
 			iconCls: 'x-fa fa-user',
 			itemId:'userNameItemId',
@@ -42,19 +45,15 @@ Ext.define('uber.view.main.Main', {
 					handler: 'makeRequest'
 				},{
 					text: 'Search',
+					itemId: 'menuItemSearch',
+					hidden: true,
 					handler: 'search'
-//				},{
-//					text: 'Change Password',
-//					handler: 'changepassword'
 				},{
 					text: 'Profile',
 					handler: 'profile'
 				},{
 					text: 'Sessions',
 					handler: 'sessions'
-//				},{
-//					text: 'Test',
-//					handler: 'test'
 				},{
 					text: 'Logout',
 					handler: 'logout'

@@ -13,6 +13,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 //		var form = me.view.down('form')
 		var form = Ext.ComponentQuery.query('#subjectForm')[0];
 		var getForm = form.getForm();
+		var subjectDescription = Ext.ComponentQuery.query('#subjectDescription')[0];
 		Ext.getBody().mask('Loading...Please Wait...')
 		getForm.submit({
 			clientValidation: true,
@@ -21,12 +22,12 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
             	model: Ext.encode(getForm.getFieldValues()),
             },
             scope: me,
-            success: function(form, action) {
+            success: function(form, action, response) {
             	Ext.getBody().unmask();
             	this.getView().close();
             	grid.getStore().reload();
             },
-            failure: function (form, action) {
+            failure: function (form, action, response) {
             	Ext.getBody().unmask();
                 var result = uber.util.Util.decodeJSON(action.response.responseText);
                 Ext.Msg.alert('Error', result.data, Ext.emptyFn);
