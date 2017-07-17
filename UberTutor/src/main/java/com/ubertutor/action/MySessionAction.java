@@ -139,7 +139,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	 */
 	public void updateRequestToInProcess() throws Exception{
 		try{
-			UserRequestEntity requestEntity = mySessionService.getRequest(requestId);
+			requestEntity = mySessionService.getRequest(requestId);
 			if(!requestEntity.getStatus().equals("OPEN")){
 				String msg = "Request has already been accepted! Try accepting a different request!";
 				throw new Exception(msg);
@@ -158,7 +158,7 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	 * Updates a request to Closed
 	 */
 	public void updateRequestToClosed(){
-		UserRequestEntity requestEntity = mySessionService.getRequest(requestId);
+		requestEntity = mySessionService.getRequest(requestId);
 		requestEntity.setStatus("CLOSED");
 		requestEntity.setCloseDate(new Date());
 		mySessionService.save(requestEntity);
@@ -168,10 +168,10 @@ public class MySessionAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	 * Updates a request to Canceled
 	 */
 	public void updateRequestToCanceled(){
-		UserRequestEntity requestEntityCanceled = mySessionService.getRequest(requestId);
-		requestEntityCanceled.setStatus("CANCELED");
-		requestEntityCanceled.setCancelDate(new Date());
-		mySessionService.save(requestEntityCanceled);
+		requestEntity = mySessionService.getRequest(requestId);
+		requestEntity.setStatus("CANCELED");
+		requestEntity.setCancelDate(new Date());
+		mySessionService.save(requestEntity);
 	}	
 
 	@Override
