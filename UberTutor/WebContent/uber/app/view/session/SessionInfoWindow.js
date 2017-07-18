@@ -344,13 +344,14 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			var close = Ext.ComponentQuery.query('#closeSession')[0];
 			var accept = Ext.ComponentQuery.query('#acceptSession')[0];
 			if (status.value == 'OPEN') {
+				cancel.setHidden(false);
 				if (studentName.value != userNameItemId.text) {
 					accept.setHidden(false);
-				} else {
+				} 
+			} else if (status.value == 'PENDING') {
+				if ( tutorName.value != userNameItemId.text ) {
 					cancel.setHidden(false);
 				}
-			} else if (status.value == 'PENDING') {
-				cancel.setHidden(false);
 			} else if (status.value == 'IN PROCESS') {
 				if ( tutorName.value != userNameItemId.text ) {
 					close.setHidden(false);

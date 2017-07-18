@@ -4,7 +4,7 @@ Ext.define('uber.view.grid.CurrentSessionsGrid',{
 	layout: 'fit',
 	store: 'currentSessions',
 	emptyText: "<h3>You currently don't have any sessions</h3>",
-	cls: 'grid-container',
+//	cls: 'grid-container',
 	initComponent: function () {
 		var me = this;
 		me.store = Ext.create('uber.store.grid.CurrentSessionsGrid',{pageSize: 5,});

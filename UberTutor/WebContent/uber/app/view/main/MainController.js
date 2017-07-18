@@ -31,6 +31,32 @@ Ext.define('uber.view.main.MainController', {
         var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
         var remove = mainCard.removeAll();
 		var card2 = mainCard.add(Ext.create('uber.view.main.MainPage'));
+		
+		var userName = Ext.ComponentQuery.query('#userNameItemId')[0].text;
+		var search = Ext.ComponentQuery.query('#menuItemSearch')[0];
+		Ext.Ajax.request({
+			url: '/UberTutor/main/profile!display.action',
+			params: {
+				fullname: userName
+			},
+			success: function(response, opts) {
+				var obj = Ext.decode(response.responseText);
+				var tutor = obj.data.IS_TUTOR;
+				var tutorCheck = Ext.ComponentQuery.query('#isTutorCheck')[0].setValue(tutor);
+				var currentRequests = Ext.ComponentQuery.query('#currentRequests')[0];
+				var openRequests = Ext.ComponentQuery.query('#openRequests')[0];
+//				console.dir(obj);
+				if (tutor == "Y") {
+					search.show();
+					currentRequests.show();
+					openRequests.show();
+				}
+				
+			},
+			failure: function(response, opts) {
+//				console.log('server-side failure with status code ' + response.status);
+			}
+		});
     },
     
     profile: function() {

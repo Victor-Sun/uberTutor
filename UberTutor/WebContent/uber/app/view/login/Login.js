@@ -61,29 +61,42 @@ Ext.define('uber.view.login.Login',{
 						defaults: {
 							anchor: '100%',
 							xtype: 'textfield',
-							submitEmptyText: false
+							submitEmptyText: false,
 						},
 						items: [{
 							emptyText: 'Username',
 							name: 'username',
 							reference: 'username',
-//							allowBlank: false,
+							msgTarget: 'side',
+							allowBlank: false
 //							hidden: true,
 						},{
 							emptyText: 'Email',
 							itemId: 'email',
 							name: 'email',
-//							allowBlank: false
+							vtype: 'email',
+							msgTarget: 'side',
+							allowBlank: false
 						},{
 							emptyText: 'Password',
 							name: 'password',
 							inputType: 'password',
-//							allowBlank: false,
+							vtype: 'password',
+							msgTarget: 'side',
+							allowBlank: false,
+							minLength: 6
 						},{
 							emptyText: 'Confirm Password',
 							name: 'password2',
 							inputType: 'password',
-							allowBlank: false
+							msgTarget: 'side',
+							allowBlank: false,
+							validator: function (value) {
+								var password1 = this.previousSibling('[name=password]');
+								if (value != password1.getValue()) {
+									return 'Passwords do not match'
+								}
+							}
 						}]
 					},{
 						xtype: 'toolbar',

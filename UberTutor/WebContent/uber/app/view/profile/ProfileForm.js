@@ -45,6 +45,7 @@ Ext.define('uber.view.profile.ProfileForm',{
             	xtype: 'textfield',
 	            name: 'FULLNAME',
 	            fieldLabel: 'Name',
+	            msgTarget: 'under',
 	            readOnly: true,
 	            allowBlank: false,
 	            itemId: 'fullname'
@@ -65,6 +66,7 @@ Ext.define('uber.view.profile.ProfileForm',{
             	xtype: 'textfield',
                 name: 'EMAIL',
                 fieldLabel: 'Email *',
+                msgTarget: 'title',
                 readOnly: true,
                 allowBlank: false,
                 itemId: 'email'
@@ -72,6 +74,7 @@ Ext.define('uber.view.profile.ProfileForm',{
             	xtype: 'textfield',
 	            name: 'MOBILE',
 	            fieldLabel: 'Mobile',
+	            msgTarget: 'under',
 	            allowBlank: false,
 	            readOnly: true,
 	            itemId: 'mobile'
@@ -82,6 +85,7 @@ Ext.define('uber.view.profile.ProfileForm',{
 	        	displayField: 'NAME',
 	            name: 'NAME',
 	            fieldLabel: 'School',
+	            msgTarget: 'under',
 	            allowBlank: false,
 	            editable: false,
 	            readOnly: true,
