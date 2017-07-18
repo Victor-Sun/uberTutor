@@ -85,11 +85,11 @@ public class ProfileService {
 	 * @param userId
 	 * @return size of query result
 	 */
-	public Map<String, Object> hasSchool(Long userId){
+	public List<Map<String, Object>> hasSchool(Long userId){
 		List<Object> params = new ArrayList<Object>();
 		String sql = "SELECT SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?";
 		params.add(userId);
-		return this.jdbcTemplate.queryForMap(sql,params.toArray());
+		return this.jdbcTemplate.queryForList(sql,params.toArray());
 	}
 
 	
