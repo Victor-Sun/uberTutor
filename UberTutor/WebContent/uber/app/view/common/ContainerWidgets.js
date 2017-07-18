@@ -8,19 +8,4 @@ Ext.define('uber.view.common.ContainerWidget', {
     },
     cls: 'shadow',
     margin: 10,
-//    defaults:{
-//    	xtype:'fieldset',
-//    	layout:'fit',
-//    	items:[{
-//    		
-//    	}]
-//    },
-//    initComponent: function(){
-//        var me = this;
-//
-//        Ext.apply(me, {
-//        });
-//
-//        me.callParent(arguments);
-//    }
 });

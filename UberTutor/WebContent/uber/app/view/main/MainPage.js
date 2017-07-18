@@ -57,13 +57,14 @@ Ext.define('uber.view.main.MainPage', {
 	    		items: [{
 	    			xtype: 'containerWidget',
 	    			itemId: 'makeRequest',
+	    			title: '<b>Make A Request</b>',
 	    			items: [{
-	    				xtype: 'widgetTitle',
-	    				items: [{
-	    					margin: 10,
-	    					html: '<b>Make A Request</b>'
-	    				}]
-	    			},{
+//	    				xtype: 'widgetTitle',
+//	    				items: [{
+//	    					margin: 10,
+//	    					html: 
+//	    				}]
+//	    			},{
 	    				xtype: 'toolbar',
 	    				items: [{
 	    					//Navigate to make a request page?
@@ -76,14 +77,14 @@ Ext.define('uber.view.main.MainPage', {
 	    		},{
 	    			xtype: 'containerWidget',
 	    			itemId: 'currentSession',
+	    			title: '<b>Current Requests</b>',
 	    		    height: 275,
 	    			items: [{
-	    				xtype: 'widgetTitle',
-	    				items: [{
-	    					margin: 10,
-	    					html: '<b>Current Requests</b>'
-	    				}]
-	    			},{
+//	    				xtype: 'widgetTitle',
+//	    				items: [{
+//	    					margin: 10,
+//	    				}]
+//	    			},{
 	    				// Title, Category, Subject, button for details, if status closed, go to feedback
 	    				xtype: 'currentSessions',
 	    				flex: 1,
@@ -92,14 +93,15 @@ Ext.define('uber.view.main.MainPage', {
 	    		},{
 	    			xtype: 'containerWidget',
 	    			itemId: 'myTutors',
+	    			title: '<b>My Tutors</b>',
 	    			height: 275,
 	    			items: [{
-	    				xtype: 'widgetTitle',
-	    				items: [{
-	    					margin: 10,
-	    					html: '<b>My Tutors</b>'
-	    				}]
-	    			},{
+//	    				xtype: 'widgetTitle',
+//	    				items: [{
+//	    					margin: 10,
+//	    					html: 
+//	    				}]
+//	    			},{
 	    				xtype: 'myTutorsGrid',
 	    				flex: 1,
 	    				scrollable: 'y'
@@ -107,6 +109,7 @@ Ext.define('uber.view.main.MainPage', {
 	    		},{
 	    			xtype: 'containerWidget',
 	    			itemId: 'openRequests',
+	    			title: '<b>Open Requests</b>',
 	    			hidden: true,
 	    			height: 275,
 	    			layout: {
@@ -114,12 +117,12 @@ Ext.define('uber.view.main.MainPage', {
 	    				align: 'stretch'
 	    			},
 	    			items: [{
-	    				xtype: 'widgetTitle',
-	    				items: [{
-	    					margin: 10,
-	    					html: '<b>Open Requests</b>'
-	    				}]
-	    			},{
+//	    				xtype: 'widgetTitle',
+//	    				items: [{
+//	    					margin: 10,
+//	    					html: 
+//	    				}]
+//	    			},{
 	    				//Title, Category, Subject, Description
 	    				xtype: 'openRequests',
 	    				flex: 1,
@@ -128,15 +131,16 @@ Ext.define('uber.view.main.MainPage', {
 	    		},{
 	    			xtype: 'containerWidget',
 	    			itemId: 'currentRequests',
+	    			title: "<b>Current Requests (Tutor's) </b>",
 	    			hidden: true,
 	    			height: 275,
 	    			items: [{
-	    				xtype: 'widgetTitle',
-	    				items: [{
-	    					margin: 10,
-	    					html: "<b>Current Requests (Tutor's) </b>"
-	    				}]
-	    			},{
+//	    				xtype: 'widgetTitle',
+//	    				items: [{
+//	    					margin: 10,
+//	    					html: 
+//	    				}]
+//	    			},{
 	    				xtype: 'currentRequests',
 	    				flex: 1,
 	    				scrollable: 'y'

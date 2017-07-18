@@ -4,6 +4,7 @@ Ext.define('uber.view.grid.OpenRequestsGrid',{
 	layout: 'fit',
 	store: 'currentRequests',
 	emptyText: "<h3>You currently don't have any open requests</h3>",
+	cls: 'grid-container',
 	initComponent: function () {
 		var me = this;
 		me.store = Ext.create('uber.store.grid.CurrentRequests');
@@ -28,6 +29,7 @@ Ext.define('uber.view.grid.OpenRequestsGrid',{
 				]
 		},{
 			xtype: 'actioncolumn',
+			width: 50,
 			align: 'center',
 			items:[{
 				xtype: 'button',

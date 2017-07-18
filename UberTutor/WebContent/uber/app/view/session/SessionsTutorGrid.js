@@ -47,6 +47,7 @@ Ext.define('uber.view.session.SessionsTutorGrid',{
 			]
 		},{
 			xtype: 'actioncolumn',
+			width: 50,
     		items: [{
     			xtype: 'button',
     			itemId: 'details',
