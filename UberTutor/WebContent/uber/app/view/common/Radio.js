@@ -13,24 +13,28 @@ Ext.define('uber.view.common.Radio',{
         change: function (field, newValue, oldValue) {
         	var text = this.up('form').down('component');
         	var button = this.up('form').down('button');
-        	var field = this.up('form').getForm().findField('email');
-        	var field2 = this.up('form').getForm().findField('password2');
+        	var email = this.up('form').getForm().findField('email');
+        	var password2 = this.up('form').getForm().findField('password2');
             switch (parseInt(newValue['ab'])) {
                 case 1:
                 	text.update('<h2>Sign Up</h2>');
                 	button.setText('Sign Up');
-                	field.show();
-                	field.allowBlank = false;
-                	field2.show();
-                	field2.allowBlank = false;
+                	email.show();
+                	email.allowBlank = false;
+                	email.disabled = false;
+                	password2.show();
+                	password2.allowBlank = false;
+                	password2.disabled = false;
                     break;
                 case 2:
                 	text.update('<h2>Sign In</h2>');
                 	button.setText('Sign In');
-                	field.setHidden('true');
-                	field.allowBlank = true;
-                	field2.setHidden('true');
-                	field2.allowBlank = true;
+                	email.setHidden('true');
+                	email.allowBlank = true;
+                	email.disabled = true;
+                	password2.setHidden('true');
+                	password2.allowBlank = true;
+                	password2.disabled = true;
                     break;
             }
         }

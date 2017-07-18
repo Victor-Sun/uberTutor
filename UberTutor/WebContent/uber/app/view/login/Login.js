@@ -65,6 +65,7 @@ Ext.define('uber.view.login.Login',{
 						},
 						items: [{
 							emptyText: 'Username',
+							itemId: 'username',
 							name: 'username',
 							reference: 'username',
 							msgTarget: 'side',
@@ -76,21 +77,20 @@ Ext.define('uber.view.login.Login',{
 							name: 'email',
 							vtype: 'email',
 							msgTarget: 'side',
-							allowBlank: false
 						},{
 							emptyText: 'Password',
+							itemId: 'password',
 							name: 'password',
 							inputType: 'password',
-							vtype: 'password',
 							msgTarget: 'side',
 							allowBlank: false,
 							minLength: 6
 						},{
 							emptyText: 'Confirm Password',
+							itemId: 'password2',
 							name: 'password2',
 							inputType: 'password',
 							msgTarget: 'side',
-							allowBlank: false,
 							validator: function (value) {
 								var password1 = this.previousSibling('[name=password]');
 								if (value != password1.getValue()) {
