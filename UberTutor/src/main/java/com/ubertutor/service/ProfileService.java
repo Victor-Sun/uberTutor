@@ -43,9 +43,9 @@ public class ProfileService {
 	 * Get a list of schools from DAO
 	 * @return List of schools
 	 */
-	public List<Map<String, Object>> getSchoolList(){
+	public Map<String, Object> getSchoolList(){
 		String sql = "SELECT * FROM SCHOOLS";
-		return this.jdbcTemplate.queryForList(sql);
+		return this.jdbcTemplate.queryForMap(sql);
 	}
 	
 	/**
@@ -61,11 +61,11 @@ public class ProfileService {
 	 * @param userId
 	 * @return Map of user's info
 	 */
-	public List<Map<String, Object>> getUserInfo(Long userId){
+	public Map<String, Object> getUserInfo(Long userId){
 		List<Object> params = new ArrayList<Object>();
 		String sql = " SELECT * FROM USERS WHERE ID = ?";
 		params.add(userId);
-		return this.jdbcTemplate.queryForList(sql,params.toArray());
+		return this.jdbcTemplate.queryForMap(sql,params.toArray());
 	}
 
 	/**
@@ -85,11 +85,11 @@ public class ProfileService {
 	 * @param userId
 	 * @return size of query result
 	 */
-	public List<Map<String, Object>> hasSchool(Long userId){
+	public Map<String, Object> hasSchool(Long userId){
 		List<Object> params = new ArrayList<Object>();
 		String sql = "SELECT SCHOOLS.NAME FROM USERS, SCHOOLS WHERE USERS.SCHOOL_ID = SCHOOLS.ID AND USERS.ID = ?";
 		params.add(userId);
-		return this.jdbcTemplate.queryForList(sql,params.toArray());
+		return this.jdbcTemplate.queryForMap(sql,params.toArray());
 	}
 
 	
