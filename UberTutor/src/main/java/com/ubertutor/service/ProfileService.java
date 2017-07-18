@@ -43,9 +43,9 @@ public class ProfileService {
 	 * Get a list of schools from DAO
 	 * @return List of schools
 	 */
-	public Map<String, Object> getSchoolList(){
+	public List<Map<String, Object>> getSchoolList(){
 		String sql = "SELECT * FROM SCHOOLS";
-		return this.jdbcTemplate.queryForMap(sql);
+		return this.jdbcTemplate.queryForList(sql);
 	}
 	
 	/**
