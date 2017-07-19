@@ -1,6 +1,7 @@
 Ext.define('uber.view.grid.OpenRequestsGrid',{
 	extend:'Ext.grid.Panel',
 	xtype: 'openRequests',
+	itemId: 'openRequestsGrid',
 	layout: 'fit',
 	store: 'currentRequests',
 	emptyText: "<h3>You currently don't have any open requests</h3>",
@@ -41,6 +42,26 @@ Ext.define('uber.view.grid.OpenRequestsGrid',{
 			}]
 		}];
 		this.dockedItems = [{
+//			xtype: 'toolbar',
+//			dock: 'top',
+//			items: [{
+//				xtype: 'combobox',
+//				itemId: 'searchBox',
+//				
+//			},{
+//				xtype: 'button',
+//				text: 'Search',
+//				handler: function () {
+//					var searchBox = Ext.ComponentQuery.query('#searchBox')[0];
+//					var grid = Ext.ComponentQuery.query('#openRequestsGrid')[0];
+//					me.store.load({
+//						params: {
+//							subject: 
+//						}
+//					})
+//				}
+//			}]
+//		},{
     		xtype: 'pagingtoolbar',
     		displayInfo: true,
     		dock: 'bottom',

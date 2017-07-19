@@ -62,6 +62,7 @@ Ext.define('uber.view.session.Feedback', {
                     	items: [{
                     		xtype: 'hidden',
                     		itemId: 'ratingHidden',
+                    		allowBlank: false,
                     		name: 'RATING',
                     		listeners: {
                     			change: function (newValue , oldValue , eOpts, value )  {
@@ -92,6 +93,7 @@ Ext.define('uber.view.session.Feedback', {
                 height: 125,
 //                width: 425,
                 itemId: 'feedback',
+                allowBlank: false,
                 name: 'FEEDBACK',
                 fieldLabel: 'Feedback',
         	}]

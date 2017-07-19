@@ -4,6 +4,8 @@ Ext.define('uber.view.tutor.MakeRequestController',{
     
     save: function () {
     	var formpanel = Ext.ComponentQuery.query('#formpanel')[0];
+    	var model = Ext.create('uber.model.MakeRequest', formpanel.getValues());
+    	var errors = model.validate();
     	if(formpanel.isValid()){
     		Ext.getBody().mask('Validating... Please Wait...');
     		formpanel.submit({
@@ -30,12 +32,12 @@ Ext.define('uber.view.tutor.MakeRequestController',{
     		})
     	} else {
     		Ext.getBody().unmask();
-//    		var message = "";
-//    		Ext.each(errors.items, function(rec){
-//    			message +=rec.getMessage();
-//    		});
-//    		Ext.Msg.alert("Error", message, Ext.emptyFn);
-    		Ext.Msg.alert("Error", "One or more of the fields is not valid", Ext.emptyFn);
+    		var message = "";
+    		Ext.each(errors.items, function(rec){
+    			message +=rec.getMessage()+"<br>";
+    		});
+    		Ext.Msg.alert("Error", message, Ext.emptyFn);
+//    		Ext.Msg.alert("Error", "One or more of the fields is not valid", Ext.emptyFn);
     	}
     },
     
