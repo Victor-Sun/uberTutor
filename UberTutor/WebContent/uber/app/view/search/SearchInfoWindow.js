@@ -129,27 +129,15 @@ Ext.define('uber.view.search.SearchInfoWindow',{
 				items: [{
 					xtype: 'fieldcontainer',
 					items: [{
-						xtype: 'textfield',
-						fieldLabel: 'Tutor Name',
-						name: 'TUTOR_NAME'
-					},{
+//						xtype: 'textfield',
+//						fieldLabel: 'Tutor Name',
+//						name: 'TUTOR_NAME'
+//					},{
 						xtype: 'textfield',
 						itemId: 'studentName',
 						fieldLabel: 'Student Name',
 						name: 'STUDENT_NAME'
-					}]
-				},{
-					xtype: 'fieldcontainer',
-					items: [{
-						xtype: 'hidden',
-						name: 'TUTOR_ID'
 					},{
-						xtype: 'hidden',
-						name: 'STUDENT_ID'
-					}]
-				},{
-					xtype: 'fieldcontainer',
-					items: [{
 						xtype: 'textfield',
 						fieldLabel: 'Create Date',
 						itemId: 'createDate',
@@ -164,82 +152,105 @@ Ext.define('uber.view.search.SearchInfoWindow',{
 								}
 							}
 						}
-					},{
-						xtype: 'textfield',
-						fieldLabel: 'Pending Date',
-						itemId: 'pendingDate',
-						name: 'PENDING_DATE',
-						hidden: true,
-						listeners: {
-							change: {
-								fn: function (value) {
-									if (value !== "" || value !== null) {
-										this.setHidden(false);
-									}
-								}
-							}
-						}
 					}]
 				},{
 					xtype: 'fieldcontainer',
 					items: [{
-						xtype: 'textfield',
-						fieldLabel: 'Process Date',
-						itemId: 'processDate',
-						name: 'PROCESS_DATE',
-						hidden: true,
-						listeners: {
-							change: {
-								fn: function (value) {
-									if (value !== "" || value !== null) {
-										this.setHidden(false);
-									}
-								}
-							}
-						}
-					},{
-						xtype: 'textfield',
-						fieldLabel: 'Cancel Date',
-						itemId: 'cancelDate',
-						name: 'CANCEL_DATE',
-						hidden: true,
-						listeners: {
-							change: {
-								fn: function (value) {
-									if (value !== "" || value !== null) {
-										this.setHidden(false);
-									}
-								}
-							}
-						}
+//						xtype: 'hidden',
+//						name: 'TUTOR_ID'
+//					},{
+						xtype: 'hidden',
+						name: 'STUDENT_ID'
 					}]
 				},{
-					xtype: 'fieldcontainer',
-					items: [{
-						xtype: 'textfield',
-						fieldLabel: 'Close Date',
-						itemId: 'closeDate',
-						name: 'CLOSE_DATE',
-						hidden: true,
-						listeners: {
-							change: {
-								fn: function (value) {
-									if (value !== "" || value !== null) {
-										this.setHidden(false);
-									}
-								}
-							}
-						}
+//					xtype: 'fieldcontainer',
+//					items: [{
+//						xtype: 'textfield',
+//						fieldLabel: 'Create Date',
+//						itemId: 'createDate',
+//						name: 'CREATE_DATE',
+//						hidden: true,
+//						listeners: {
+//							change: {
+//								fn: function (value) {
+//									if (value !== "" || value !== null) {
+//										this.setHidden(false);
+//									}
+//								}
+//							}
+//						}
+//					},{
+//						xtype: 'textfield',
+//						fieldLabel: 'Pending Date',
+//						itemId: 'pendingDate',
+//						name: 'PENDING_DATE',
+//						hidden: true,
+//						listeners: {
+//							change: {
+//								fn: function (value) {
+//									if (value !== "" || value !== null) {
+//										this.setHidden(false);
+//									}
+//								}
+//							}
+//						}
+//					}]
+//				},{
+//					xtype: 'fieldcontainer',
+//					items: [{
+//						xtype: 'textfield',
+//						fieldLabel: 'Process Date',
+//						itemId: 'processDate',
+//						name: 'PROCESS_DATE',
+//						hidden: true,
+//						listeners: {
+//							change: {
+//								fn: function (value) {
+//									if (value !== "" || value !== null) {
+//										this.setHidden(false);
+//									}
+//								}
+//							}
+//						}
+//					},{
+//						xtype: 'textfield',
+//						fieldLabel: 'Cancel Date',
+//						itemId: 'cancelDate',
+//						name: 'CANCEL_DATE',
+//						hidden: true,
+//						listeners: {
+//							change: {
+//								fn: function (value) {
+//									if (value !== "" || value !== null) {
+//										this.setHidden(false);
+//									}
+//								}
+//							}
+//						}
 					}]
-				}]
+//				},{
+//					xtype: 'fieldcontainer',
+//					items: [{
+//						xtype: 'textfield',
+//						fieldLabel: 'Close Date',
+//						itemId: 'closeDate',
+//						name: 'CLOSE_DATE',
+//						hidden: true,
+//						listeners: {
+//							change: {
+//								fn: function (value) {
+//									if (value !== "" || value !== null) {
+//										this.setHidden(false);
+//									}
+//								}
+//							}
+//						}
+//					}]
+//				}]
 			}]
 		});
 		var dateCheck = function () {
-			var createDate = sessionInfoForm.down('#createDate');
-			var pendingDate = sessionInfoForm.down('#pendingDate');
-			var processDate = sessionInfoForm.down('#processDate');
-			var cancelDate = sessionInfoForm.down('#cancelDate');
-			var closeDate = sessionInfoForm.down('#closeDate');
+			var createDate = searchInfoForm.down('#createDate');
 			
 			if (createDate.getValue() == null || createDate.getValue() == "") {
 				createDate.setValue("");
@@ -247,29 +258,6 @@ Ext.define('uber.view.search.SearchInfoWindow',{
 				createDate.setValue(Ext.Date.format(new Date(Ext.decode(createDate.getValue())), 'Y-m-d'));
 			};
 			
-			if (pendingDate.getValue() == null || pendingDate.getValue() == "") {
-				pendingDate.setValue("");
-			} else {
-				pendingDate.setValue(Ext.Date.format(new Date(Ext.decode(pendingDate.getValue())), 'Y-m-d'));
-			};
-			
-			if (processDate.getValue() == null || processDate.getValue() == "") {
-				processDate.setValue("");
-			} else {
-				processDate.setValue(Ext.Date.format(new Date(Ext.decode(processDate.getValue())), 'Y-m-d'));
-			};
-			
-			if (cancelDate.getValue() == null || cancelDate.getValue() == "") {
-				cancelDate.setValue("");
-			} else {
-				cancelDate.setValue(Ext.Date.format(new Date(Ext.decode(cancelDate.getValue())), 'Y-m-d'));
-			};
-			
-			if (closeDate.getValue() == null || closeDate.getValue() == "") {
-				closeDate.setValue("");
-			} else {
-				closeDate.setValue(Ext.Date.format(new Date(Ext.decode(closeDate.getValue())), 'Y-m-d'));
-			};
 		};
 		
 //		var buttonCheck = function (){
@@ -290,7 +278,7 @@ Ext.define('uber.view.search.SearchInfoWindow',{
 //		};
 		
 		searchInfoForm.load({
-//			model: 'uber.model.session.SessionInfo',
+//			model: 'uber.model.SearchInfoWindow',
 			url: '/UberTutor/main/search!displayRequestInfo.action',
 			params: {
 				requestId:this.requestId,
@@ -300,7 +288,7 @@ Ext.define('uber.view.search.SearchInfoWindow',{
 				rootProperty: 'data'
 			},
 			success: function () {
-//				dateCheck();
+				dateCheck();
 			}
 		});
 		this.items = [

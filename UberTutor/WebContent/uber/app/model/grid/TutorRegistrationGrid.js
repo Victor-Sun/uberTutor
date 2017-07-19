@@ -4,9 +4,9 @@ Ext.define('uber.model.grid.TutorRegistrationGrid', {
     
     fields: [
 //        // the 'name' below matches the tag name to read
-        { name: 'CATEGORY_TITLE'},
-        { name: 'SUBJECT_TITLE'},
-        { name: 'CREATE_DATE', type: 'date', 
+        { name: 'categoryTitle'},
+        { name: 'subjectTitle'},
+        { name: 'createDate', type: 'date', 
         	convert:function(v,record){
         		if (v == null || v == "") {
         			return "";
@@ -16,6 +16,6 @@ Ext.define('uber.model.grid.TutorRegistrationGrid', {
         		
         	}
         },
-		{ name: 'DESCRIPTION '}
+		{ name: 'description '}
     ],
 });
