@@ -207,7 +207,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 			}
 			subjectEntity = tutorSubjectRegisterService.get(userSubjectId);
 			subjectEntity.setDescription(description);
-			tutorSubjectRegisterService.saveTutorSubject(subjectEntity);
+			tutorSubjectRegisterService.save(subjectEntity);
 		} catch (Exception e){
 			e.printStackTrace();
 			this.writeErrorResult(e);
@@ -228,7 +228,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 			subjectEntity.setUserId(Long.parseLong(SessionData.getLoginUserId()));
 			subjectEntity.setSubjectId(Long.parseLong(subject));
 			subjectEntity.setCreateDate(new Date());
-			tutorSubjectRegisterService.saveTutorSubject(subjectEntity);
+			tutorSubjectRegisterService.save(subjectEntity);
 		} catch (NumberFormatException e){
 			e.printStackTrace();
 			this.writeErrorResult("Invalid Subject! Select a valid subject and try again!");

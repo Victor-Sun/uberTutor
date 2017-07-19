@@ -64,7 +64,7 @@ public class TutorSubjectRegisterService {
 	 * @param userId
 	 * @param subjectId
 	 */
-	public void saveTutorSubject(UserSubjectEntity userSubjectEntity){
+	public void save(UserSubjectEntity userSubjectEntity){
 		userSubjectDAO.save(userSubjectEntity);
 	}
 
