@@ -30,7 +30,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private TutorSubjectRegisterService tutorSubjectRegisterService;
-	private UserSubjectEntity subjectEntity;
+	private UserSubjectEntity subjectEntity = new UserSubjectEntity();
 	private Long id, categoryId, userSubjectId ;
 	private String description, subject, category;
 
