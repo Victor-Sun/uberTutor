@@ -1,5 +1,6 @@
 Ext.define('uber.store.test.FilterTestGrid',{
-	extend: 'store.filterTestGrid',
+	extend: 'Ext.data.Store',
+	alias: 'store.filterTestGrid',
 	 proxy: {
 //       type: 'memory',
 //       reader: 'array',

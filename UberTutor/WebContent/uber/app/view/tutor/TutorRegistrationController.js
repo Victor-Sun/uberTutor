@@ -32,13 +32,13 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 				items: [{
 					xtype: 'textfield',
 					margin: '5 15 0 15',
-					name: 'category',
+					name: 'categoryTitle',
 					itemId: 'category',
 					fieldLabel: 'Category',
 				},{
 					xtype: 'textfield',
 					margin: '5 15 0 5',
-					name: 'subject',
+					name: 'subjectTitle',
 					itemId: 'subject',
 					fieldLabel: 'Subject',
 				}]
@@ -65,9 +65,9 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 				listeners: {
 					show: function() {
 						var me = this;
-						editForm.down('#description').setValue(record.data.DESCRIPTION);
-						editForm.down('#category').setValue(record.data.CATEGORY_TITLE);
-						editForm.down('#subject').setValue(record.data.SUBJECT_TITLE);
+						editForm.down('#description').setValue(record.data.description);
+						editForm.down('#category').setValue(record.data.categoryTitle);
+						editForm.down('#subject').setValue(record.data.subjectTitle);
 			        }
 				},
 				dockedItems: [{
@@ -79,13 +79,13 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 						handler: function () {
 							var editForm = Ext.ComponentQuery.query('#editForm')[0];
 							var description = editForm.down('#description').getValue();
-							var model = Ext.create('uber.model.CategoryWindow', editForm.getValues());
+							var model = Ext.create('uber.model.EditWindow', editForm.getValues());
 							var errors = model.validate();
 							if (model.isValid()) {
 								editForm.submit({
 									url: '/UberTutor/main/tutor-subject-register!editSubject.action',
 					    			params: {
-					    				userSubjectId:record.data.SUBJECT_ID,
+					    				userSubjectId:record.data.userSubjectId,
 					    				description:description
 					    			},
 					    			success: function () {
