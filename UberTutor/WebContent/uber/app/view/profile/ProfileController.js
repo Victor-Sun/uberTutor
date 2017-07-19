@@ -102,6 +102,8 @@ Ext.define('uber.view.profile.ProfileController',{
     save: function () {
 		var profileForm = Ext.ComponentQuery.query('#profileForm')[0];
 		var form = profileForm.getValues();
+		var model = Ext.create('uber.model.Profile', profileForm.getValues());
+    	var errors = model.validate();
 		Ext.getBody().mask('Loading...Please Wait');
     	if(profileForm.getForm().isValid()){
     		profileForm.submit({
@@ -150,13 +152,13 @@ Ext.define('uber.view.profile.ProfileController',{
     	} else {
     		Ext.getBody().unmask();
     		var message = "";
-//    		Ext.each(errors.items, function(rec){
-//    			message +=rec.getMessage()+"<br>"
-//    		});
-//    		Ext.Msg.alert("Error", message, Ext.emptyFn);
-    		Ext.Msg.alert("Error", "One or more of the fields is not valid", Ext.emptyFn);
+    		Ext.each(errors.items, function(rec){
+    			message +=rec.getMessage()+"<br>"
+    		});
+    		Ext.Msg.alert("Error", message, Ext.emptyFn);
+//    		Ext.Msg.alert("Error", "One or more of the fields is not valid", Ext.emptyFn);
 //    		console.log(message);
     	}
 	},
     
-})
+});

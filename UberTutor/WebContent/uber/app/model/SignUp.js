@@ -13,6 +13,6 @@ Ext.define('uber.model.SignUp',{
 		username: { type: 'presence', message: 'A valid username is required' },
 		email: { type: 'presence', message: 'A valid email is required' },
 		password: { type: 'presence', message: 'A valid password is required' },
-		password2: { type: 'presence', message: 'Please re-enter new password' },
+//		password2: { type: 'presence', message: 'Please re-enter new password' },
 	}
 })

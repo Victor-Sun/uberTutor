@@ -40,6 +40,9 @@ Ext.define('uber.view.main.Main', {
 				items: [{
 					text: 'Main Page',
 					handler: 'mainpage'
+//				},{
+//					text: 'Test',
+//					handler: 'test'
 				},{
 					text: 'Make a request',
 					handler: 'makeRequest'

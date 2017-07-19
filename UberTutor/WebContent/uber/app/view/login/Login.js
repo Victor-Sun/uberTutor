@@ -91,9 +91,11 @@ Ext.define('uber.view.login.Login',{
 							name: 'password2',
 							inputType: 'password',
 							msgTarget: 'side',
-							validator: function (value) {
-								var password1 = this.previousSibling('[name=password]');
-								if (value != password1.getValue()) {
+							validator: function (value, field) {
+								var password1 = Ext.ComponentQuery.query('#password')[0];
+								if (value == password1.getValue()) {
+									return true
+								} else {
 									return 'Passwords do not match'
 								}
 							}

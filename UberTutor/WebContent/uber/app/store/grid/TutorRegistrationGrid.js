@@ -8,7 +8,8 @@ Ext.define('uber.store.grid.TutorRegistrationGrid', {
         url: '/UberTutor/main/tutor-subject-register!displayUserSubjects.action',
         reader: {
             type: 'json',
-            rootProperty: 'data'
+            rootProperty: 'data',
+            totalProperty: 'total'
         }
     }
 });

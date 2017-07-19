@@ -125,72 +125,6 @@ Ext.define('uber.view.session.FeedbackWindow',{
 				}]
 			}]
 		});
-//		var tutorInfo = Ext.create('Ext.form.Panel',{
-//			itemId: 'tutorInfo',
-//			cls: 'shadow',
-//			layout: {
-//				type: 'vbox',
-//				align: 'stretch'
-//			},
-////			flex: 2,
-//			items: [{
-//				xtype: 'fieldcontainer',
-//				items: [{
-//					xtype: 'component',
-//					html: '<h3>Tutor Info</h3>'
-//				}]
-//			},{
-//				xtype: 'fieldcontainer',
-////				flex: 1,
-//				layout: {
-//					type: 'vbox',
-//					align: 'stretch'
-//				},
-//				items: [{
-//					xtype: 'fieldcontainer',
-//					layout: {
-//						type: 'hbox',
-//						align: 'stretch'
-//					},
-//					flex: 1,
-//					items: [{
-//						xtype: 'textfield',
-//						flex: 1,
-//						margin: '5 15 0 15',
-//						fieldLabel: 'Tutor Name',
-//						readOnly: true,
-//						labelAlign: 'top'
-//					}]
-//				},{
-//					xtype: 'fieldcontainer',
-//					flex: 2,
-//					layout: {
-//						type: 'vbox',
-//					},
-//					items: [{
-////						xtype: 'component',
-////						margin: '5 5 0 15',
-////	                	html: 'Average Rating'
-////					},{
-////						xtype: 'fieldcontainer',
-////						
-////						layout: {
-////							type: 'hbox',
-////						},
-////						margin: '20 5 5 15',
-////						items: [{
-//////							xtype: 'rating',
-//////	                		limit: '5',
-//////	                		rounding: '0.5',
-//////						},{
-//////							xtype: 'component',
-//////							html: 'xxx out of xxx'
-////						}]
-//					}]
-//				}]
-//			}]
-//		});
-		
 		
 		sessionInfo.load({
 			model: 'uber.model.session.SessionInfo',
@@ -291,32 +225,46 @@ Ext.define('uber.view.session.FeedbackWindow',{
 						text: 'Submit',
 						hidden: true,
 						handler: function () {
-							feedback.submit({
-								url: '/UberTutor/main/feedback!save.action',
-								params: {
-									requestId:feedback.up('window').requestId,
-									rating: feedback.down('#rating').getValue(),
-									feedback: feedback.down('#feedback').getValue(),
-									tutorId: sessionInfo.down('#tutorId').getValue(),
-									userId: sessionInfo.down('#studentId').getValue(),
-								},
-								reader: {
-									type: 'json',
-									rootProperty: 'data'
-								},
-								success: function() {
-									var window = Ext.ComponentQuery.query('#feedbackWindow')[0];
-									var grid = Ext.ComponentQuery.query('#sessionStudentGrid')[0];
-									window.close();
-									grid.getStore().load();
-								},
-								failure: function(form, action) {
-									var me = this;
-							    	Ext.getBody().unmask();
-							        var result = uber.util.Util.decodeJSON(action.response.responseText);
-							        Ext.Msg.alert('Error', result.data, Ext.emptyFn);
-								}
-							});
+							var rating = Ext.ComponentQuery.query('#ratingHidden')[0];
+							var formPanel = Ext.ComponentQuery.query('#loginSignUpForm')[0];
+					    	var model = Ext.create('uber.model.Feedback', feedback.getValues());
+					    	var errors = model.validate();
+					    	if(feedback.getForm().isValid()){
+					    		feedback.submit({
+									url: '/UberTutor/main/feedback!save.action',
+									params: {
+										requestId:feedback.up('window').requestId,
+										rating: feedback.down('#rating').getValue(),
+										feedback: feedback.down('#feedback').getValue(),
+										tutorId: sessionInfo.down('#tutorId').getValue(),
+										userId: sessionInfo.down('#studentId').getValue(),
+									},
+									reader: {
+										type: 'json',
+										rootProperty: 'data'
+									},
+									success: function() {
+										var window = Ext.ComponentQuery.query('#feedbackWindow')[0];
+										var grid = Ext.ComponentQuery.query('#sessionStudentGrid')[0];
+										window.close();
+										grid.getStore().load();
+									},
+									failure: function(form, action) {
+										var me = this;
+								    	Ext.getBody().unmask();
+								        var result = uber.util.Util.decodeJSON(action.response.responseText);
+								        Ext.Msg.alert('Error', result.data, Ext.emptyFn);
+									}
+								});
+					    	} else {
+					    		Ext.getBody().unmask();
+					    		var message = "";
+					    		Ext.each(errors.items,function(rec){
+					    			message +=rec.getMessage()+"<br>";
+					    		});
+					    		Ext.Msg.alert("Validation failed", message, Ext.emptyFn);
+					    	}
+							
 						}
 					}]
 				}]

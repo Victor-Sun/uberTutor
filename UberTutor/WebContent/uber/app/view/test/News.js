@@ -5,7 +5,9 @@ Ext.define('uber.view.test.News', {
     cls: 'subject-grid',
 
     requires: [
-        'Ext.grid.plugin.RowExpander'
+        'Ext.grid.plugin.RowExpander',
+        'uber.view.test.NewsController',
+        'uber.view.test.NewsModel'
     ],
 
     config: {

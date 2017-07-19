@@ -6,7 +6,8 @@ Ext.define('uber.view.password.ChangePasswordController',{
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
     	Ext.getBody().mask('Loading...Please Wait');
-//    	var errors = model.validate(); console.log(errors);
+    	var model = Ext.create('uber.model.Password', formPanel.getValues());
+    	var errors = model.validate(); 
     	if(formPanel.getForm().isValid()){
     		formPanel.submit({
     			//submit form for user signup

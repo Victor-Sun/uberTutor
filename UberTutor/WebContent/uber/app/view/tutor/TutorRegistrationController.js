@@ -6,39 +6,6 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     	var me = this;
     },
     
-    submit: function(btn) {
-		var me = this;
-		var grid = Ext.ComponentQuery.query('#tutorRegistrationGrid')[0];
-		var gridStore = grid.getStore();
-//		var form = me.view.down('form')
-		var form = Ext.ComponentQuery.query('#subjectForm')[0];
-		var getForm = form.getForm();
-		var subjectDescription = Ext.ComponentQuery.query('#subjectDescription')[0];
-		if (subjectDescription.getValue() != "" ) {
-			Ext.getBody().mask('Loading...Please Wait...')
-			getForm.submit({
-				clientValidation: true,
-				url:'/UberTutor/main/tutor-subject-register!save.action',
-//				params: {
-//	            	model: Ext.encode(getForm.getFieldValues()),
-//	            },
-	            scope: me,
-	            success: function(form, action, response) {
-	            	Ext.getBody().unmask();
-	            	this.getView().close();
-	            	grid.getStore().reload();
-	            },
-	            failure: function (form, action, response) {
-	            	Ext.getBody().unmask();
-	                var result = uber.util.Util.decodeJSON(action.response.responseText);
-	                Ext.Msg.alert('Error', result.data, Ext.emptyFn);
-	        	},
-			});
-		} else {
-			Ext.Msg.alert('Error', "A Description is required! Please fill in the description and try again.", Ext.emptyFn);
-		}
-	},
-    
     cancel: function() {
     	this.view.close();
     },
@@ -82,7 +49,8 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 				labelAlign: 'top',
 				itemId: 'description',
 				fieldLabel: 'Description',
-				name: 'description'
+				name: 'description',
+				allowBlank: false
 			}]
 		});
 		var win = Ext.create('Ext.window.Window', {
@@ -111,24 +79,36 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 						handler: function () {
 							var editForm = Ext.ComponentQuery.query('#editForm')[0];
 							var description = editForm.down('#description').getValue();
-							editForm.submit({
-								url: '/UberTutor/main/tutor-subject-register!editSubject.action',
-				    			params: {
-				    				userSubjectId:record.data.SUBJECT_ID,
-				    				description:description
-				    			},
-				    			success: function () {
-				    				var win = Ext.ComponentQuery.query('#editWindow')[0];
-				    				grid.getStore().reload();
-										win.close();
-				    			},
-				    			failure: function(form, action) {
-				    				Ext.getBody().unmask();
-	//			    				var result = uber.util.Util.decodeJSON(action.response.responseText);
-				    				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
-	//			    				console.log(result.errors.reason);
-				    			}
-				    		});
+							var model = Ext.create('uber.model.CategoryWindow', editForm.getValues());
+							var errors = model.validate();
+							if (model.isValid()) {
+								editForm.submit({
+									url: '/UberTutor/main/tutor-subject-register!editSubject.action',
+					    			params: {
+					    				userSubjectId:record.data.SUBJECT_ID,
+					    				description:description
+					    			},
+					    			success: function () {
+					    				var win = Ext.ComponentQuery.query('#editWindow')[0];
+					    				win.close();
+					    				grid.getStore().load();
+											
+					    			},
+					    			failure: function(form, action) {
+					    				Ext.getBody().unmask();
+		//			    				var result = uber.util.Util.decodeJSON(action.response.responseText);
+					    				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+		//			    				console.log(result.errors.reason);
+					    			}
+					    		});
+							} else {
+								Ext.getBody().unmask();
+					    		var message = "";
+					    		Ext.each(errors.items,function(rec){
+					    			message +=rec.getMessage()+"<br>";
+					    		});
+					    		Ext.Msg.alert("Error", message, Ext.emptyFn);
+							}
 						}
 					},{
 						xtype: 'button',

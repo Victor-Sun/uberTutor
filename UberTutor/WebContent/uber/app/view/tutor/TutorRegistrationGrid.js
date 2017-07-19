@@ -13,7 +13,7 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
        'Ext.util.*',
        'Ext.form.*',
     ],
-    cls: 'shadow uber-panel-inner',
+    cls: 'uber-panel-inner',
 //    subject-grid
     controller: 'tutorRegistration',
     hideHeaders: true,
@@ -27,6 +27,10 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
 //    		callback : function(r, record, options, success) {
 //    	        console.log(r.data)
 //    	    }
+    		params: {
+    			start: 0,
+    	        limit: 5
+    		}
     	});
     	
     	
@@ -75,6 +79,11 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
     		text: 'Add',
     		handler: onAddClick
     	}],
+    	this.bbar = [{
+    		xtype: 'pagingtoolbar',
+    		displayInfo: true,
+    		store: me.store
+    	}]
     	
     	this.callParent(arguments);
     },
