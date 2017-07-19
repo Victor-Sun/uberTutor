@@ -55,7 +55,7 @@ public class TutorSubjectRegisterService {
 		List<Object> params = new ArrayList<Object>();
 		String sql = "SELECT * FROM V_USERS_SUBJECT_CATEGORY WHERE USER_ID = ?";
 		params.add(userId);
-		return jdbcTemplate.queryPagination(sql,pageNo, pageSize, params.toArray());
+		return this.jdbcTemplate.queryPagination(sql,pageNo, pageSize, params.toArray());
 	}
 	
 	/**

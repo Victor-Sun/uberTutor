@@ -163,15 +163,15 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 			FLPage<Map<String,Object>> pageResult = this.tutorSubjectRegisterService.getUserSubjects(Long.parseLong(SessionData.getLoginUserId()), this.getPage(), this.getLimit());
 			for (Map<String, Object> map : pageResult.getItems()) {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
-				dataMap.put("ID", map.get("ID"));
-				dataMap.put("SUBJECT_ID", map.get("SUBJECT_ID"));
-				dataMap.put("SUBJECT_TITLE", map.get("SUBJECT_TITLE"));
-				dataMap.put("CATEGORY_ID", map.get("CATEGORY_ID"));
-				dataMap.put("CATEGORY_TITLE", map.get("CATEGORY_TITLE"));
-				dataMap.put("USER_ID", map.get("USER_ID"));
-				dataMap.put("DESCRIPTION", map.get("DESCRIPTION"));
-				dataMap.put("CREATE_DATE", map.get("CREATE_DATE"));
-				dataMap.put("UPDATE_DATE", map.get("UPDATE_DATE"));
+				dataMap.put("userSubjectId", map.get("USER_SUBJECT_ID"));
+				dataMap.put("subjectId", map.get("SUBJECT_ID"));
+				dataMap.put("subjectTitle", map.get("SUBJECT_TITLE"));
+				dataMap.put("categoryId", map.get("CATEGORY_ID"));
+				dataMap.put("categoryTitle", map.get("CATEGORY_TITLE"));
+				dataMap.put("userId", map.get("USER_ID"));
+				dataMap.put("description", map.get("DESCRIPTION"));
+				dataMap.put("createDate", map.get("CREATE_DATE"));
+				dataMap.put("updateDate", map.get("UPDATE_DATE"));
 				data.add(dataMap);
 			}
 			result.buildSuccessResultForList(data, pageResult.getItemCount());
@@ -205,8 +205,9 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 				String msg = "Description cannot be empty! Fill in a description!";
 				throw new Exception(msg);
 			}
-			subjectEntity = tutorSubjectRegisterService.get(userSubjectId);
+			UserSubjectEntity subjectEntity = tutorSubjectRegisterService.get(userSubjectId);
 			subjectEntity.setDescription(description);
+			subjectEntity.setUpdateDate(new Date());
 			tutorSubjectRegisterService.save(subjectEntity);
 		} catch (Exception e){
 			e.printStackTrace();
