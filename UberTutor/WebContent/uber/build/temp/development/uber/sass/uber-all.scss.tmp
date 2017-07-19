@@ -997,6 +997,7 @@ $include-uber-model-newuser: dynamic(true);;
 $include-uber-model-openrequest: dynamic(true);;
 $include-uber-model-password: dynamic(true);;
 $include-uber-model-profile: dynamic(true);;
+$include-uber-model-searchinfowindow: dynamic(true);;
 $include-uber-model-session: dynamic(true);;
 $include-uber-model-signin: dynamic(true);;
 $include-uber-model-signup: dynamic(true);;
