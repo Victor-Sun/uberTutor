@@ -205,7 +205,7 @@ public class TutorSubjectRegisterAction extends PDMSCrudActionSupport<UserSubjec
 				String msg = "Description cannot be empty! Fill in a description!";
 				throw new Exception(msg);
 			}
-			UserSubjectEntity subjectEntity = tutorSubjectRegisterService.get(userSubjectId);
+			subjectEntity = tutorSubjectRegisterService.get(userSubjectId);
 			subjectEntity.setDescription(description);
 			subjectEntity.setUpdateDate(new Date());
 			tutorSubjectRegisterService.save(subjectEntity);
