@@ -7,9 +7,6 @@
 
     "framework": "ext",
     "toolkit": "classic",
-    //"requires": [
-    //    ...
-    //],
 
     "creator": "Sencha",
     "summary": "Adds Touch Sizing to a Theme",
