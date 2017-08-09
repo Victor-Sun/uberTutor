@@ -38,8 +38,11 @@ public class UserRequestEntity implements Serializable{
 	@Column(name = "DESCRIPTION")
 	private String Description;
 	
-	@Column(name = "FEEDBACK")
-	private Long feedback;
+	@Column(name = "USER_FEEDBACK")
+	private Long userFeedback;
+	
+	@Column(name = "TUTOR_FEEDBACK")
+	private Long tutorFeedback;
 	
 	@Column(name = "CREATE_DATE")
 	private Date createDate;
@@ -109,12 +112,20 @@ public class UserRequestEntity implements Serializable{
 		Description = description;
 	}
 
-	public Long getFeedback() {
-		return feedback;
+	public Long getUserFeedback() {
+		return userFeedback;
 	}
 
-	public void setFeedback(Long feedback) {
-		this.feedback = feedback;
+	public void setUserFeedback(Long userFeedback) {
+		this.userFeedback = userFeedback;
+	}
+
+	public Long getTutorFeedback() {
+		return tutorFeedback;
+	}
+
+	public void setTutorFeedback(Long tutorFeedback) {
+		this.tutorFeedback = tutorFeedback;
 	}
 
 	public Date getCreateDate() {

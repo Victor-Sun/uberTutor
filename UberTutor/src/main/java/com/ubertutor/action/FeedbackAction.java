@@ -9,6 +9,7 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.gnomon.common.PDMSCrudActionSupport;
+import com.gnomon.common.web.SessionData;
 import com.ubertutor.entity.FeedbackEntity;
 import com.ubertutor.entity.UserRequestEntity;
 import com.ubertutor.service.FeedbackService;
@@ -85,7 +86,7 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	public void setFeedback(String feedback) {
 		this.feedback = feedback;
 	}
-	
+
 	/**
 	 * Returns userId
 	 * @return
@@ -122,12 +123,22 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	 * Saves feedback to db
 	 */
 	public String save() throws Exception{
+		Long userId = Long.parseLong(SessionData.getLoginUserId());
 		try{
 			feedbackEntity.setCreateDate(new Date());
 			feedbackService.save(feedbackEntity);
 			userRequestEntity = feedbackService.getRequest(requestId);
-			userRequestEntity.setFeedback(feedbackEntity.getId());
-			feedbackService.save(userRequestEntity);
+			if(userRequestEntity.getUserId() == userId){
+				userRequestEntity.setUserFeedback(feedbackEntity.getId());
+				feedbackService.save(userRequestEntity);
+			} else if (userRequestEntity.getTutorId() ==  userId) {
+				userRequestEntity.setTutorFeedback(feedbackEntity.getId());
+				feedbackService.save(userRequestEntity);
+			} else {
+				String msg = "An error has occured";
+				System.out.println("No feedback was saved");
+				throw new Exception(msg);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -139,16 +150,19 @@ public class FeedbackAction extends PDMSCrudActionSupport<FeedbackEntity> {
 	 * @throws Exception
 	 */
 	public void displayFeedbackInfo() throws Exception{
+		Long userId = Long.parseLong(SessionData.getLoginUserId());
 		try{
-			boolean hasFeedback = feedbackService.hasFeedback(requestId);
-			Map<String, Object> result = (hasFeedback) ? feedbackService.getFeedbackInfo(requestId) : new HashMap<String, Object>();
+			userRequestEntity = feedbackService.getRequest(requestId);
+			boolean isUser = userRequestEntity.getUserId().equals(userId);
+			boolean hasFeedback = feedbackService.hasFeedback(requestId, isUser);
+			Map<String, Object> result = (hasFeedback) ? feedbackService.getFeedbackInfo(requestId, isUser) : new HashMap<String, Object>();
 			result.put("hasFeedback", hasFeedback);
 			this.writeSuccessResult(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public FeedbackEntity getModel() {
 		return feedbackEntity;
 	}

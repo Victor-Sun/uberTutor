@@ -63,9 +63,9 @@ public class FeedbackService {
 	 * @param requestId
 	 * @return FeedbackInfo as Map
 	 */
-	public Map<String, Object> getFeedbackInfo(Long requestId){
+	public Map<String, Object> getFeedbackInfo(Long requestId, boolean isUser){
 		List<Object> params = new ArrayList<Object>();
-		String sql = "SELECT * FROM V_USER_FEEDBACK WHERE REQUEST_ID = ?";
+		String sql = (!isUser) ? "SELECT * FROM V_USER_FEEDBACK WHERE REQUEST_ID = ?" : "SELECT * FROM V_TUTOR_FEEDBACK WHERE REQUEST_ID = ?";
 		params.add(requestId);
 		return this.jdbcTemplate.queryForMap(sql, params.toArray());
 	}
@@ -75,27 +75,14 @@ public class FeedbackService {
 	 * @param requestId
 	 * @return True if feedback has been made for request
 	 */
-	public boolean hasFeedback(Long requestId){
+	public boolean hasFeedback(Long requestId, boolean isUser){
 		try{
-			String sql = "SELECT FEEDBACK FROM USER_REQUEST WHERE ID = ?";
+			String sql = (!isUser) ? "SELECT TUTOR_FEEDBACK FROM USER_REQUEST WHERE ID = ?" : "SELECT USER_FEEDBACK FROM USER_REQUEST WHERE ID = ?"; 
 			List<Object> params = new ArrayList<Object>();
 			params.add(requestId);
 			return this.jdbcTemplate.queryForObject(sql, new Object[] {requestId}, Integer.class) > 0;
 		} catch (Exception e) {
 			return false;
 		}
-	}
-
-	/**
-	 * Updates UserRequest with feedbackId
-	 * @param requestId
-	 * @param feedbackId
-	 */
-	public void updateRequest(Long requestId, Long feedbackId){
-		List<Object> params = new ArrayList<Object>();
-		String sql = "UPDATE USER_REQUEST SET FEEDBACK = ? WHERE ID = ?";
-		params.add(feedbackId);
-		params.add(requestId);
-		this.jdbcTemplate.update(sql, params.toArray());
 	}
 }
