@@ -70,6 +70,7 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 				Map<String, Object> dataMap = new HashMap<String, Object>();
 				dataMap.put("requestId", map.get("REQUEST_ID"));
 				dataMap.put("userId", map.get("USER_ID"));
+				dataMap.put("averageRating", map.get("AVERAGE_RATING"));
 				dataMap.put("tutorId", map.get("TUTOR_ID"));
 				dataMap.put("userFullname", map.get("USER_FULLNAME"));
 				dataMap.put("subjectTitle", map.get("SUBJECT_TITLE"));
