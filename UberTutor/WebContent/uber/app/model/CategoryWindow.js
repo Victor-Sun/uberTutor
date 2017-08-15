@@ -8,7 +8,7 @@ Ext.define('uber.model.CategoryWindow',{
 		{ name: 'description', type: 'string' },
 	],
 	validators: {
-		subject: { type: 'presence', message: 'A Subject is required' },
-		description: { type: 'presence', message: 'A description is required' },
+		subject: { type: 'presence', message: 'Subject required, please select a subject' },
+		description: { type: 'presence', message: 'Description required, please fill in desciption' },
 	}
 })

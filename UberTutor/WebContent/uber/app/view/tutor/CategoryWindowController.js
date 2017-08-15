@@ -8,7 +8,7 @@ Ext.define('uber.view.tutor.CategoryWindowController',{
 		var gridStore = grid.getStore();
 		var form = Ext.ComponentQuery.query('#subjectForm')[0];
 		var model = Ext.create('uber.model.CategoryWindow', form.getValues());
-		var errors = model.validate();
+		var validation = model.getValidation(); 
 		var getForm = form.getForm();
 		var subjectDescription = Ext.ComponentQuery.query('#subjectDescription')[0];
 		Ext.getBody().mask('Loading...Please Wait...');
@@ -24,6 +24,13 @@ Ext.define('uber.view.tutor.CategoryWindowController',{
 	            	Ext.getBody().unmask();
 	            	this.getView().close();
 	            	grid.getStore().reload();
+	            	Ext.toast({
+                    	html: 'Subject register success!',
+                    	align: 't',
+                    	slideInDuration: 400,
+                    	slideBackDuration: 400,
+                        minWidth: 400
+                    });
 	            },
 	            failure: function (form, action, response) {
 	            	Ext.getBody().unmask();
@@ -33,11 +40,14 @@ Ext.define('uber.view.tutor.CategoryWindowController',{
 			});
 		} else {
 			Ext.getBody().unmask();
-    		var message = "";
-    		Ext.each(errors.items,function(rec){
-    			message +=rec.getMessage()+"<br>";
-    		});
-    		Ext.Msg.alert("Error", message, Ext.emptyFn);
+			var msg = "<ul class='error'>";
+            for (var i in validation.data) {
+                if(validation.data[i] !== true){
+                    msg += "<li>" + " " + validation.data[i] + "</li>" ;
+                }
+            }
+            msg += "</ul>";
+    		Ext.Msg.alert("Validation failed", msg, Ext.emptyFn);
 		}
 	},
     

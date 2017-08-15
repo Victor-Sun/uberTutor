@@ -71,10 +71,6 @@ Ext.define('uber.view.profile.ProfileController',{
     	var me = this;
     	var formPanel = this.lookupReference('profileForm');
     	var form = formPanel.getValues();
-//    	var model = Ext.create('uber.model.User', formPanel.getValues());
-//    	var errors = model.validate();
-//    	var form = formPanel.getForm();
-//    	var rec = Ext.create('uber.store.Profile');
     	Ext.getBody().mask();
 
     	formPanel.load({
@@ -103,7 +99,7 @@ Ext.define('uber.view.profile.ProfileController',{
 		var profileForm = Ext.ComponentQuery.query('#profileForm')[0];
 		var form = profileForm.getValues();
 		var model = Ext.create('uber.model.Profile', profileForm.getValues());
-    	var errors = model.validate();
+		var validation = model.getValidation(); 
 		Ext.getBody().mask('Loading...Please Wait');
     	if(profileForm.getForm().isValid()){
     		profileForm.submit({
@@ -151,11 +147,14 @@ Ext.define('uber.view.profile.ProfileController',{
     		})
     	} else {
     		Ext.getBody().unmask();
-    		var message = "";
-    		Ext.each(errors.items, function(rec){
-    			message +=rec.getMessage()+"<br>"
-    		});
-    		Ext.Msg.alert("Error", message, Ext.emptyFn);
+    		var msg = "<ul class='error'>";
+            for (var i in validation.data) {
+                if(validation.data[i] !== true){
+                    msg += "<li>" + " " + validation.data[i] + "</li>" ;
+                }
+            }
+            msg += "</ul>";
+    		Ext.Msg.alert("Error", msg, Ext.emptyFn);
 //    		Ext.Msg.alert("Error", "One or more of the fields is not valid", Ext.emptyFn);
 //    		console.log(message);
     	}

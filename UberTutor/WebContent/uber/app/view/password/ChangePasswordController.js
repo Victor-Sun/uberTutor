@@ -7,20 +7,29 @@ Ext.define('uber.view.password.ChangePasswordController',{
     	var formPanel = this.lookupReference('formpanel');
     	Ext.getBody().mask('Loading...Please Wait');
     	var model = Ext.create('uber.model.Password', formPanel.getValues());
-    	var errors = model.validate(); 
+    	var changeResult = Ext.ComponentQuery.query('#passwordChangeResult')[0];
+    	var profile = Ext.ComponentQuery.query('#profileTab')[0];
+    	var profileForm = Ext.ComponentQuery.query('#profileForm')[0];
+        var mainLayout = profile.getLayout();
+        var changePasswordForm = Ext.ComponentQuery.query('#changePasswordForm')[0];
+    	var validation = model.getValidation(); 
     	if(formPanel.getForm().isValid()){
     		formPanel.submit({
     			//submit form for user signup
     			url: '/UberTutor/main/password!save.action',
     			method: 'POST',
     			success: function() {
-    				// change to exception output
     				Ext.getBody().unmask();
-//    				Ext.Msg.alert( '', 'password change success', Ext.emptyFn );
-    				var changePasswordForm = Ext.ComponentQuery.query('#changePasswordForm')[0];
     				changePasswordForm.reset();
+                    Ext.toast({
+                    	html: 'New Password has been saved',
+                    	align: 't',
+                    	slideInDuration: 400,
+                    	slideBackDuration: 400,
+                        minWidth: 400
+                    });
+                    profile.setActiveItem(0);
     			},
-
     			failure: function (form, action) {
     				Ext.getBody().unmask();
     				var result = uber.util.Util.decodeJSON(action.response.responseText);
@@ -30,13 +39,19 @@ Ext.define('uber.view.password.ChangePasswordController',{
     	} 
     	else {
     		Ext.getBody().unmask();
-//    		var data="";
-//    		errors.each(function (item, index, length) {
-//			  // Each item in the errors collection is an instance of the Ext.data.Error class.
-//			  data = data + '|'+item.getField()+' - '+ item.getMessage() +'|';
-//			});
-//    		Ext.Msg.alert("Error", message, Ext.emptyFn);
-    		Ext.Msg.alert("Error", "An error has occured, please check the form and try again", Ext.emptyFn);
+    		// var message = [];
+    		// Ext.each(errors.items,function(rec){
+    		// 	message +=rec.getMessage()+"<br>";
+    		// });
+            var msg = "<ul class='error'>";
+            for (var i in validation.data) {
+                if(validation.data[i] !== true){
+                    msg += "<li>" + " " + validation.data[i] + "</li>" ;
+                }
+            }
+            msg += "</ul>";
+    		Ext.Msg.alert("Validation failed", msg, Ext.emptyFn);
+//    		Ext.Msg.alert("Error", "An error has occured, please check the form and try again", Ext.emptyFn);
     	}
     },
     

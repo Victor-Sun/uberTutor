@@ -7,13 +7,13 @@ Ext.define('uber.model.NewUser',{
 	],
 	validators: {
 		    username: [
-		               { type: 'presence', message: 'please input valid username' }
+		               { type: 'presence', message: 'Username required, please input valid username' }
             ],
 			email: [
-			           { type: 'format',   name: 'emailId', matcher: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, message:"Wrong Email Format"},
+			           { type: 'format',   name: 'emailId', matcher: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, message:"Incorrect email format, the required email format: 'user@example.com'"},
 			],
 			password: [
-			           { type: 'presence', name: 'mobile',message:"Enter Password"},
+			           { type: 'presence', name: 'mobile',message:"Password required, please endter password"},
 			],
 			
 	}

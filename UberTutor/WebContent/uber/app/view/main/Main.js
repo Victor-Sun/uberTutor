@@ -47,7 +47,7 @@ Ext.define('uber.view.main.Main', {
 					text: 'Make a request',
 					handler: 'makeRequest'
 				},{
-					text: 'Search',
+					text: 'View Requests',
 					itemId: 'menuItemSearch',
 					hidden: true,
 					handler: 'search'

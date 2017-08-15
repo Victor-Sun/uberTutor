@@ -31,6 +31,7 @@ Ext.define('uber.view.test.NewsController', {
     },
     
     renderTitleColumn: function (value, metaData, record) {
+    	debugger;
         var view = this.getView(),
             plugin = view.getPlugin('rowexpander'),
             tpl = view.titleTpl;
@@ -39,9 +40,11 @@ Ext.define('uber.view.test.NewsController', {
             view.titleTpl = tpl = new Ext.XTemplate(tpl);
         }
 
-        var data = Ext.Object.chain(record.data);
+//        var data = Ext.Object.chain(record.data);
+        var data = record.data;
 
         data.expanded = plugin.recordsExpanded[record.internalId] ? ' style="display: none"' : '';
+//        data.expanded = data.subjectDescription;
 
         return tpl.apply(data);
     },
@@ -60,6 +63,7 @@ Ext.define('uber.view.test.NewsController', {
     // RowExpander management
 
     onCompanyClick: function(dv, record, item, index, e) {
+    	debugger;
         if (e.getTarget('.news-toggle')) {
             var grid = this.getView(),
                 plugin = grid.getPlugin('rowexpander');
@@ -69,12 +73,14 @@ Ext.define('uber.view.test.NewsController', {
     },
 
     onCompanyExpandBody: function (rowNode) {   // , record, expandRow, eOpts
+    	debugger;
         Ext.fly(rowNode).addCls('x-grid-row-expanded');
         Ext.fly(rowNode).down('.news-paragraph-simple').enableDisplayMode().hide();
         Ext.fly(rowNode).down('.expand').enableDisplayMode().hide();
     },
 
     onCompanyCollapseBody: function (rowNode) {  //, record, expandRow, eOpts
+    	debugger;
         Ext.fly(rowNode).removeCls('x-grid-row-expanded');
         Ext.fly(rowNode).down('.news-paragraph-simple').enableDisplayMode().show();
         Ext.fly(rowNode).down('.expand').enableDisplayMode().show();

@@ -10,6 +10,24 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     	this.view.close();
     },
     
+    showToast: function(s, title) {
+        Ext.toast({
+            html: s,
+            closable: false,
+            align: 't',
+            slideInDuration: 400,
+            minWidth: 400
+        });
+    },
+    
+    showResult: function(btn, text) {
+        this.showToast(Ext.String.format('You clicked the {0} button', btn));
+    },
+    
+    onToggleClick: function (grid, rowIndex, colIndex, item, e, record) {
+    	Ext.MessageBox.confirm('Confirm', 'Are you sure?', this.showResult, this);
+    },
+    
     onEditClick: function(grid, rowIndex, colIndex, item, e , record) {
     	var editForm = Ext.create('Ext.form.Panel',{
     		itemId: 'editForm',
@@ -80,7 +98,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 							var editForm = Ext.ComponentQuery.query('#editForm')[0];
 							var description = editForm.down('#description').getValue();
 							var model = Ext.create('uber.model.EditWindow', editForm.getValues());
-							var errors = model.validate();
+							var validation = model.getValidation(); 
 							if (model.isValid()) {
 								editForm.submit({
 									url: '/UberTutor/main/tutor-subject-register!editSubject.action',
@@ -103,11 +121,14 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 					    		});
 							} else {
 								Ext.getBody().unmask();
-					    		var message = "";
-					    		Ext.each(errors.items,function(rec){
-					    			message +=rec.getMessage()+"<br>";
-					    		});
-					    		Ext.Msg.alert("Error", message, Ext.emptyFn);
+								var msg = "<ul class='error'>";
+					            for (var i in validation.data) {
+					                if(validation.data[i] !== true){
+					                    msg += "<li>" + " " + validation.data[i] + "</li>" ;
+					                }
+					            }
+					            msg += "</ul>";
+					    		Ext.Msg.alert("Validation failed", msg, Ext.emptyFn);
 							}
 						}
 					},{
@@ -130,7 +151,7 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     	Ext.Ajax.request({
     		url:'/UberTutor/main/tutor-subject-register!removeSubject.action',
     		params: {
-    			userSubjectId:record.data.ID
+    			userSubjectId:record.data.userSubjectId,
     		},
     		scope: me,
     		success: function() {
@@ -144,41 +165,41 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
     		}
     	});
     },
-    //Subject Grid 
-    renderTitleColumn: function (value, metaData, record) {
-        var view = this.getView(),
-            plugin = view.getPlugin('rowexpander'),
-            tpl = view.titleTpl;
-
-        if (!tpl.isTemplate) {
-            view.titleTpl = tpl = new Ext.XTemplate(tpl);
-        }
-
-        var data = Ext.Object.chain(record.data);
-
-        data.expanded = plugin.recordsExpanded[record.internalId] ? ' style="display: none"' : '';
-
-        return tpl.apply(data);
-    },
-
-    updateActiveState: function (activeState) {
-        var viewModel = this.getViewModel();
-        var filterButton = this.lookupReference('filterButton');
-
-        filterButton.setActiveItem(activeState);
-        viewModel.set('category', activeState);
-
-        this.fireEvent('changeroute', this, 'news/' + activeState);
-    },
-    
-    onCompanyClick: function(dv, record, item, index, e) {
-        if (e.getTarget('.news-toggle')) {
-            var grid = this.getView(),
-                plugin = grid.getPlugin('rowexpander');
-
-            plugin.toggleRow(index, record);
-        }
-    },
+//    //Subject Grid 
+//    renderTitleColumn: function (value, metaData, record) {
+//        var view = this.getView(),
+//            plugin = view.getPlugin('rowexpander'),
+//            tpl = view.titleTpl;
+//
+//        if (!tpl.isTemplate) {
+//            view.titleTpl = tpl = new Ext.XTemplate(tpl);
+//        }
+//
+//        var data = Ext.Object.chain(record.data);
+//
+//        data.expanded = plugin.recordsExpanded[record.internalId] ? ' style="display: none"' : '';
+//
+//        return tpl.apply(data);
+//    },
+//
+//    updateActiveState: function (activeState) {
+//        var viewModel = this.getViewModel();
+//        var filterButton = this.lookupReference('filterButton');
+//
+//        filterButton.setActiveItem(activeState);
+//        viewModel.set('category', activeState);
+//
+//        this.fireEvent('changeroute', this, 'news/' + activeState);
+//    },
+//    
+//    onCompanyClick: function(dv, record, item, index, e) {
+//        if (e.getTarget('.news-toggle')) {
+//            var grid = this.getView(),
+//                plugin = grid.getPlugin('rowexpander');
+//
+//            plugin.toggleRow(index, record);
+//        }
+//    },
 
 //    onCompanyExpandBody: function (rowNode) {   // , record, expandRow, eOpts
 //        Ext.fly(rowNode).addCls('x-grid-row-expanded');

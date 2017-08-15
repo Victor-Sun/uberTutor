@@ -72,18 +72,18 @@ Ext.define('uber.view.main.MainController', {
 		var remove = mainCard.removeAll();
 		var card2 = mainCard.add(Ext.create('uber.view.search.Search'));
 		var searchGrid = Ext.ComponentQuery.query('#searchgrid')[0];
-		searchGrid.getStore().load({
-//			params:{
-//				subjectId: subject.value,
-////				userId: 
+//		searchGrid.getStore().load({
+////			params:{
+////				subjectId: subject.value,
+//////				userId: 
+////			},
+//			failure: function(form, action) {
+//				Ext.getBody().unmask();
+////				var result = uber.util.Util.decodeJSON(action.response.responseText);
+//				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+////				console.log(result.errors.reason);
 //			},
-			failure: function(form, action) {
-				Ext.getBody().unmask();
-//				var result = uber.util.Util.decodeJSON(action.response.responseText);
-				Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
-//				console.log(result.errors.reason);
-			},
-		});
+//		});
     },
     
     changepassword: function() {
@@ -108,6 +108,20 @@ Ext.define('uber.view.main.MainController', {
     },
     
     test: function () {
+    	var me = this;
+    	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+		var remove = mainCard.removeAll();
+		var card2 = mainCard.add(Ext.create('uber.view.test.News'));
+    },
+    
+    testRequest: function () {
+    	var me = this;
+    	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
+		var remove = mainCard.removeAll();
+		var card2 = mainCard.add(Ext.create('uber.view.test.TestRequest'));
+    },
+    
+    testSession: function () {
     	var me = this;
     	var mainCard = Ext.ComponentQuery.query('#mainCardPanel')[0];
 		var remove = mainCard.removeAll();

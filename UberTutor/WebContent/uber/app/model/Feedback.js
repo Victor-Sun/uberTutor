@@ -8,7 +8,7 @@
 	],
 	validators: {
 		RATING: [
-			{ type: 'presence', message:"Rating required, please select rating"},
+			{ type: 'presence', message:"Rating must be a value from 1 to 5"},
 		],
 		FEEDBACK: [
 			{ type: 'presence', message:"Feedback required, please fill in feedback"},

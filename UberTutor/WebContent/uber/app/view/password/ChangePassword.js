@@ -61,6 +61,7 @@ Ext.define('uber.view.password.ChangePassword',{
 	                fieldLabel: 'Current password',
 	                inputType: 'password',
 	                name: 'currentPassword',
+	                itemId: 'currentPassword',
 	                msgTarget: 'side',
 	                allowBlank: false
                 }]
@@ -68,12 +69,20 @@ Ext.define('uber.view.password.ChangePassword',{
                 items: [{
                     name: 'newpassword',
                     fieldLabel: 'New password',
-                    itemId: 'newpassword',
+                    itemId: 'newPassword',
                     inputType: 'password',
                     name: 'newPassword',
                     allowBlank: false,
                     msgTarget: 'side',
-                    minLength: 6
+                    minLength: 6,
+                    validator: function (value, field) {
+						var password1 = Ext.ComponentQuery.query('#currentPassword')[0];
+						if (value == password1.getValue()) {
+							return 'New password must be different from the current password!'
+						} else {
+							return true
+						}
+					}
                 }]
             },{
             	items: [{
@@ -85,7 +94,7 @@ Ext.define('uber.view.password.ChangePassword',{
                     allowBlank: false,
                     msgTarget: 'side',
                     validator: function (value, field) {
-						var password1 = Ext.ComponentQuery.query('#newpassword')[0];
+						var password1 = Ext.ComponentQuery.query('#newPassword')[0];
 						if (value == password1.getValue()) {
 							return true
 						} else {
@@ -102,6 +111,11 @@ Ext.define('uber.view.password.ChangePassword',{
             		bindForm: true,
             		text: 'Save',
             		handler: 'changePassword'
+            	},{
+            		xtype: 'component',
+            		margin: 5,
+            		itemId: 'passwordChangeResult',
+            		html: ''
             	}]
             }]
     	}]

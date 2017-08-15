@@ -80,7 +80,7 @@ Ext.define('uber.view.profile.ProfileForm',{
 	            readOnly: true,
 	            itemId: 'mobile',
 	            minLength: '10',
-	            vtype: 'alphanum'
+//	            vtype: 'alphanum'
 	        },{
 	            xtype: 'combobox',
 	            store: school,

@@ -161,12 +161,13 @@ Ext.define('uber.view.session.SessionsStudent',{
                     html: '<h2>My Sessions</h2>'
                 }]
         	},{
-        		xtype: 'container',
-    			layout: 'border',
+        		xtype: 'tabpanel',
+    			layout: 'fit',
     			flex: 1,
     			items: [{
     				xtype: 'sessionsStudentGrid',
-    				region: 'center'
+    				title: 'Student Session',
+//    				region: 'center'
     	    	}
 //    			,
 //    	    	sessionInfoForm

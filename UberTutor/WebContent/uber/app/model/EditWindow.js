@@ -7,6 +7,6 @@ Ext.define('uber.model.EditWindow',{
 		{ name: 'description', type: 'string' },
 	],
 	validators: {
-		description: { type: 'presence', message: 'A description is required' },
+		description: { type: 'presence', message: 'Description required, please fill in description' },
 	}
 })

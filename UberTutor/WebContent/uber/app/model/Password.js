@@ -1,15 +1,16 @@
 Ext.define('uber.model.Password',{
 	extend: 'Ext.data.Model',
 	fields: [
-		{ name: 'currentpassword', type: 'string' },
-		{ name: 'newpassword', type: 'string' },
+		{ name: 'currentPassword', type: 'string' },
+		{ name: 'newPassword', type: 'string' },
 	],
 	validators: {
-		currentpassword: [
-		              { type: 'presence', message: 'please input current password'}    
-	                  ],
-       	newpassword: [
-       	              { type: 'length', message: 'new password must be atleast 6 characters long'}
-       	              ]
+		currentPassword: [
+			{ type: 'presence', message: 'Currnet password required, please input current password'}    
+		],
+		newPassword: [
+       		{ type: 'presence', message: 'New password required, please input new password'},
+       		{ type: 'length', min: 6, message: 'New password must be atleast 6 characters long'},
+        ]
 	}
 });

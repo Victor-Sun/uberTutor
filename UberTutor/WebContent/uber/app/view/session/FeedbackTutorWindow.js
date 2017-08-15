@@ -1,6 +1,6 @@
-Ext.define('uber.view.session.FeedbackWindow',{
+Ext.define('uber.view.session.FeedbackTutorWindow',{
 	extend: 'Ext.window.Window',
-	itemId: 'feedbackWindow',
+	itemId: 'feedbackTutorWindow',
 	minHeight: 750,
 	minWidth: 980,
 	layout: 'fit',

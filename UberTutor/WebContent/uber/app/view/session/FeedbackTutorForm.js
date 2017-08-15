@@ -1,7 +1,7 @@
-Ext.define('uber.view.session.Feedback', {
+Ext.define('uber.view.session.FeedbackTutorForm', {
     extend: 'Ext.form.Panel',
-    xtype: 'feedback',
-    itemId: 'feedback',
+    xtype: 'feedbackTutorForm',
+    itemId: 'feedbackTutorForm',
     
     requires: [
        // 'uber.view.profile.ProfileController'

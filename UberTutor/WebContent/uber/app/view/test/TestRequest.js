@@ -1,6 +1,6 @@
-Ext.define('uber.view.search.Search',{
+Ext.define('uber.view.test.TestRequest',{
 	extend: 'Ext.panel.Panel',
-	xtype: 'search',
+	xtype: 'testRequest',
 	layout: 'border',
 	
 	controller: 'search',

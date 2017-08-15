@@ -125,7 +125,6 @@ Ext.define('uber.view.session.SessionsController',{
          studentIdField.setValue(studentId);
          var tutorIdField = sessionInfo.down('#tutorId');
          tutorIdField.setValue(tutorId);
-		
     },
     
 //    feedback: function () {

@@ -48,6 +48,7 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
 				"<div class='session'>" +
 					"<div class='session-frame' >" +
 						"<div class='session-info' style=''>" +
+							"<div class='session-category' style='display: inline; margin-left: 10px;'><b>Enabled?</b>: {isActive} </div>" +
 							"<div class='session-category' style='display: inline; margin-left: 10px;'><b>Category</b>: {categoryTitle} </div>" +
 							"<div class='session-subject' style='display: inline; margin-left: 10px;'><b>Subject</b>: {subjectTitle}</div>" +
 				            "<div class='session-status' style='display: inline; margin-left: 10px;'><b>Date</b>: {createDate}</div>" +
@@ -61,6 +62,12 @@ Ext.define('uber.view.tutor.TutorRegistrationGrid',{
     		xtype: 'actioncolumn',
     		align: 'center',
     		items: [{
+    			xtype: 'button',
+    			margin: 10,
+    			tooltip: 'Enable/Disable',
+    			iconCls: 'x-fa fa-check-circle',
+    			handler: 'onToggleClick'
+    		},{
     			xtype: 'button',
     			margin: 10,
     			tooltip: 'Edit',

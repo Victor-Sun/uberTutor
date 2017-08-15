@@ -79,31 +79,8 @@ Ext.define('uber.view.login.LoginController', {
     	var me = this; 
     	var formPanel = Ext.ComponentQuery.query('#loginSignUpForm')[0];
     	var model = Ext.create('uber.model.SignIn', formPanel.getValues());
-    	var errors = model.validate();
+    	var validation = model.getValidation();
     	Ext.getBody().mask('Validating... Please Wait...');
-//    	if(model.isValid()){
-//    		formPanel.submit({ 
-//    			url: '/UberTutor/main/login!login.action',
-//    			method: 'POST', 
-//    			submitEmptyText: false,
-//    			clientValidation: true,
-//    			scope: me,
-//    			success: 'onLoginSuccess',
-//    			failure: 'onLoginFailure' 
-////    		    failure: function(response, opts) {
-////    		         console.log('server-side failure with status code ' + response.status);
-////    		         Ext.Msg.alert('', 'Error', Ext.emptyFn);
-////    		    }
-//    		});
-//    	} else {
-//    		Ext.getBody().unmask();
-//    		var message = "";
-//    		Ext.each(errors.items,function(rec){
-//    			message +=rec.getMessage()+"<br>";
-//    		url: '/UberTutor/main/login!login.action',
-//    		});
-//    		Ext.Msg.alert("Error", "The following errors occured: <br>" + message, Ext.emptyFn);
-//    	}
     	if(formPanel.getForm().isValid()){
     		formPanel.submit({ 
     			url: '/UberTutor/main/login!login.action',
@@ -116,11 +93,14 @@ Ext.define('uber.view.login.LoginController', {
     		});
     	} else {
     		Ext.getBody().unmask();
-    		var message = "";
-    		Ext.each(errors.items,function(rec){
-    			message +=rec.getMessage()+"<br>";
-    		});
-    		Ext.Msg.alert("Validation failed", message, Ext.emptyFn);
+    		 var msg = "<ul class='error'>";
+             for (var i in validation.data) {
+                 if(validation.data[i] !== true){
+                     msg += "<li>" + " " + validation.data[i] + "</li>" ;
+                 }
+             }
+             msg += "</ul>";
+     		Ext.Msg.alert("Validation failed", msg, Ext.emptyFn);
     	}
     },
     
@@ -155,7 +135,7 @@ Ext.define('uber.view.login.LoginController', {
     	var me = this;
     	var formPanel = Ext.ComponentQuery.query('#loginSignUpForm')[0];
     	var model = Ext.create('uber.model.SignUp', formPanel.getValues());
-    	var errors = model.validate();
+    	var validation = model.getValidation(); 
     	Ext.getBody().mask('Validating... Please Wait...');
     	if(model.isValid()){
     		formPanel.submit({ 
@@ -171,11 +151,14 @@ Ext.define('uber.view.login.LoginController', {
     		});
     	} else {
     		Ext.getBody().unmask();
-    		var message = "";
-    		Ext.each(errors.items,function(rec){
-    			message +=rec.getMessage()+"<br>";
-    		});
-    		Ext.Msg.alert("Error", "The following errors occured: <br>" + message, Ext.emptyFn);
+    		var msg = "<ul class='error'>";
+            for (var i in validation.data) {
+                if(validation.data[i] !== true){
+                    msg += "<li>" + " " + validation.data[i] + "</li>" ;
+                }
+            }
+            msg += "</ul>";
+     		Ext.Msg.alert("Validation failed", msg, Ext.emptyFn);
     	}
 //    	if(formPanel.getForm().isValid()){
 //    		formPanel.submit({

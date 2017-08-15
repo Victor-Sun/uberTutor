@@ -76,7 +76,7 @@ Ext.define('uber.view.session.SessionsStudentGrid',{
                     	return 'x-hidden';
                     }
                     
-                },
+               },
     		}],
 		}];
     	this.dockedItems = [{

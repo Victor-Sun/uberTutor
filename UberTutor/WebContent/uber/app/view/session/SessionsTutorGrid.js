@@ -54,6 +54,19 @@ Ext.define('uber.view.session.SessionsTutorGrid',{
     			iconCls: 'x-fa fa-archive',
     			tooltip: 'Details',
     			handler: 'detailClick'
+    		},{
+    			xtype: 'button',
+    			itemId: 'feedback',
+    			iconCls: 'x-fa fa-comment',
+    			tooltip: 'Feedback',
+    			handler: 'feedbackClick',
+    			getClass: function (value, meta, record) {
+                    if(record.get('status') == 'CLOSED'){
+                    	return 'x-fa fa-comment' ;  
+                    } else {
+                    	return 'x-hidden';
+                    }
+               },
     		}]
     	}];
 		this.dockedItems = [{

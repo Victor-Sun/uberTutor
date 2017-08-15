@@ -70,8 +70,8 @@ Ext.define('uber.view.test.News', {
     viewConfig: {
         listeners: {
             itemclick: 'onCompanyClick',
-//            expandbody: 'onCompanyExpandBody',
-//            collapsebody: 'onCompanyCollapseBody'
+            expandbody: 'onCompanyExpandBody',
+            collapsebody: 'onCompanyCollapseBody'
         }
     },
 
@@ -92,8 +92,8 @@ Ext.define('uber.view.test.News', {
                     '<span class="x-fa fa-calendar"></span>{createDate}' +
                     '<span class="x-fa fa-book"></span>{subject}</div>' +
                     '<div class="news-paragraph news-paragraph-simple" {expanded}>{subjectDescription:ellipsis(130, true)}</div>' +
-//                    '<div class="news-toggle expand" {expanded}><span>EXPAND</span>' +
-//                    '<img src="resources/icons/expand-news.png"></div>' +
+                    '<div class="news-toggle expand" {expanded}><span>EXPAND</span>' +
+                    '<img src="resources/icons/expand-news.png"></div>' +
                 '</div>' +
             '</div>' +
         '<div>',

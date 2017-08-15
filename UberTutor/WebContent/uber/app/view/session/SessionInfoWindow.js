@@ -345,9 +345,9 @@ Ext.define('uber.view.session.SessionInfoWindow',{
 			var accept = Ext.ComponentQuery.query('#acceptSession')[0];
 			if (status.value == 'OPEN') {
 				cancel.setHidden(false);
-				if (studentName.value != userNameItemId.text) {
-					accept.setHidden(false);
-				} 
+//				if (studentName.value != userNameItemId.text) {
+//					accept.setHidden(false);
+//				} 
 			} else if (status.value == 'PENDING') {
 				if ( tutorName.value != userNameItemId.text ) {
 					cancel.setHidden(false);
