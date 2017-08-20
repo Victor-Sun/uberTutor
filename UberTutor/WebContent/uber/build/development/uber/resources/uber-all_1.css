@@ -3170,12 +3170,6 @@ body > .x-mask {
     border: 0 solid #5fa2dd;
     pointer-events: none;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-progress-bar-default:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/ProgressBar.scss:160 */
 .x-progressbar-default-cell > .x-grid-cell-inner,
 .x-progress-default-cell > .x-grid-cell-inner,
@@ -3293,12 +3287,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-btn-default-small-mc {
     padding: 7px 7px 7px 7px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-default-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:1px 1px 1px 1px, corners:url(images/btn/btn-default-small-corners.gif), sides:url(images/btn/btn-default-small-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:445 */
 .x-btn-default-small {
@@ -3739,42 +3727,6 @@ body > .x-mask {
     border-width: 1px;
     border-color: #ced8e1;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-default-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-small-focus-corners.gif), sides:url(images/btn/btn-default-small-focus-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-over.x-btn-default-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-small-over-corners.gif), sides:url(images/btn/btn-default-small-over-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-over.x-btn-default-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-small-focus-over-corners.gif), sides:url(images/btn/btn-default-small-focus-over-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-pressed.x-btn-default-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-small-pressed-corners.gif), sides:url(images/btn/btn-default-small-pressed-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-pressed.x-btn-default-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-small-focus-pressed-corners.gif), sides:url(images/btn/btn-default-small-focus-pressed-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-disabled.x-btn-default-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-small-disabled-corners.gif), sides:url(images/btn/btn-default-small-disabled-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:1246 */
 .x-button-default-small-cell > .x-grid-cell-inner {
     padding-top: 0px;
@@ -3888,12 +3840,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-btn-default-medium-mc {
     padding: 8px 8px 8px 8px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-default-medium:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:1px 1px 1px 1px, corners:url(images/btn/btn-default-medium-corners.gif), sides:url(images/btn/btn-default-medium-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:445 */
 .x-btn-default-medium {
@@ -4334,42 +4280,6 @@ body > .x-mask {
     border-width: 1px;
     border-color: #ced8e1;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-default-medium:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-medium-focus-corners.gif), sides:url(images/btn/btn-default-medium-focus-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-over.x-btn-default-medium:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-medium-over-corners.gif), sides:url(images/btn/btn-default-medium-over-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-over.x-btn-default-medium:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-medium-focus-over-corners.gif), sides:url(images/btn/btn-default-medium-focus-over-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-pressed.x-btn-default-medium:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-medium-pressed-corners.gif), sides:url(images/btn/btn-default-medium-pressed-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-pressed.x-btn-default-medium:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-medium-focus-pressed-corners.gif), sides:url(images/btn/btn-default-medium-focus-pressed-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-disabled.x-btn-default-medium:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-medium-disabled-corners.gif), sides:url(images/btn/btn-default-medium-disabled-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:1246 */
 .x-button-default-medium-cell > .x-grid-cell-inner {
     padding-top: 0;
@@ -4483,12 +4393,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-btn-default-large-mc {
     padding: 9px 9px 9px 9px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-default-large:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:1px 1px 1px 1px, corners:url(images/btn/btn-default-large-corners.gif), sides:url(images/btn/btn-default-large-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:445 */
 .x-btn-default-large {
@@ -4929,42 +4833,6 @@ body > .x-mask {
     border-width: 1px;
     border-color: #ced8e1;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-default-large:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-large-focus-corners.gif), sides:url(images/btn/btn-default-large-focus-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-over.x-btn-default-large:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-large-over-corners.gif), sides:url(images/btn/btn-default-large-over-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-over.x-btn-default-large:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-large-focus-over-corners.gif), sides:url(images/btn/btn-default-large-focus-over-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-pressed.x-btn-default-large:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-large-pressed-corners.gif), sides:url(images/btn/btn-default-large-pressed-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-pressed.x-btn-default-large:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-large-focus-pressed-corners.gif), sides:url(images/btn/btn-default-large-focus-pressed-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-disabled.x-btn-default-large:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-large-disabled-corners.gif), sides:url(images/btn/btn-default-large-disabled-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:1246 */
 .x-button-default-large-cell > .x-grid-cell-inner {
     padding-top: 0;
@@ -5078,12 +4946,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-btn-default-toolbar-small-mc {
     padding: 7px 7px 7px 7px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-default-toolbar-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:1px 1px 1px 1px, corners:url(images/btn/btn-default-toolbar-small-corners.gif), sides:url(images/btn/btn-default-toolbar-small-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:445 */
 .x-btn-default-toolbar-small {
@@ -5524,42 +5386,6 @@ body > .x-mask {
     border-width: 1px;
     border-color: #5fa2dd;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-default-toolbar-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-small-focus-corners.gif), sides:url(images/btn/btn-default-toolbar-small-focus-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-over.x-btn-default-toolbar-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-small-over-corners.gif), sides:url(images/btn/btn-default-toolbar-small-over-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-over.x-btn-default-toolbar-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-small-focus-over-corners.gif), sides:url(images/btn/btn-default-toolbar-small-focus-over-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-pressed.x-btn-default-toolbar-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-small-pressed-corners.gif), sides:url(images/btn/btn-default-toolbar-small-pressed-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-pressed.x-btn-default-toolbar-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-small-focus-pressed-corners.gif), sides:url(images/btn/btn-default-toolbar-small-focus-pressed-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-disabled.x-btn-default-toolbar-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-small-disabled-corners.gif), sides:url(images/btn/btn-default-toolbar-small-disabled-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:1246 */
 .x-button-default-toolbar-small-cell > .x-grid-cell-inner {
     padding-top: 0px;
@@ -5673,12 +5499,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-btn-default-toolbar-medium-mc {
     padding: 8px 8px 8px 8px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-default-toolbar-medium:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:1px 1px 1px 1px, corners:url(images/btn/btn-default-toolbar-medium-corners.gif), sides:url(images/btn/btn-default-toolbar-medium-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:445 */
 .x-btn-default-toolbar-medium {
@@ -6119,42 +5939,6 @@ body > .x-mask {
     border-width: 1px;
     border-color: #5fa2dd;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-default-toolbar-medium:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-medium-focus-corners.gif), sides:url(images/btn/btn-default-toolbar-medium-focus-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-over.x-btn-default-toolbar-medium:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-medium-over-corners.gif), sides:url(images/btn/btn-default-toolbar-medium-over-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-over.x-btn-default-toolbar-medium:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-medium-focus-over-corners.gif), sides:url(images/btn/btn-default-toolbar-medium-focus-over-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-pressed.x-btn-default-toolbar-medium:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-medium-pressed-corners.gif), sides:url(images/btn/btn-default-toolbar-medium-pressed-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-pressed.x-btn-default-toolbar-medium:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-medium-focus-pressed-corners.gif), sides:url(images/btn/btn-default-toolbar-medium-focus-pressed-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-disabled.x-btn-default-toolbar-medium:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-medium-disabled-corners.gif), sides:url(images/btn/btn-default-toolbar-medium-disabled-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:1246 */
 .x-button-default-toolbar-medium-cell > .x-grid-cell-inner {
     padding-top: 0;
@@ -6268,12 +6052,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-btn-default-toolbar-large-mc {
     padding: 9px 9px 9px 9px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-default-toolbar-large:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:1px 1px 1px 1px, corners:url(images/btn/btn-default-toolbar-large-corners.gif), sides:url(images/btn/btn-default-toolbar-large-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:445 */
 .x-btn-default-toolbar-large {
@@ -6713,42 +6491,6 @@ body > .x-mask {
 .x-nbr .x-segmented-button-item.x-btn-focus.x-btn-pressed.x-btn-default-toolbar-large:after {
     border-width: 1px;
     border-color: #5fa2dd;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-default-toolbar-large:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-large-focus-corners.gif), sides:url(images/btn/btn-default-toolbar-large-focus-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-over.x-btn-default-toolbar-large:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-large-over-corners.gif), sides:url(images/btn/btn-default-toolbar-large-over-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-over.x-btn-default-toolbar-large:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-large-focus-over-corners.gif), sides:url(images/btn/btn-default-toolbar-large-focus-over-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-pressed.x-btn-default-toolbar-large:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-large-pressed-corners.gif), sides:url(images/btn/btn-default-toolbar-large-pressed-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-pressed.x-btn-default-toolbar-large:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-large-focus-pressed-corners.gif), sides:url(images/btn/btn-default-toolbar-large-focus-pressed-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-disabled.x-btn-default-toolbar-large:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:2px 2px 2px 2px, corners:url(images/btn/btn-default-toolbar-large-disabled-corners.gif), sides:url(images/btn/btn-default-toolbar-large-disabled-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:1246 */
 .x-button-default-toolbar-large-cell > .x-grid-cell-inner {
@@ -7513,12 +7255,6 @@ body > .x-mask {
 .x-toolbar-more-icon:before {
     content: "\f0c9";
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-toolbar-default:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/toolbar/Toolbar.scss:232 */
 .x-toolbar-footer {
     padding: 6px 0 6px 6px;
@@ -7674,12 +7410,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/etc/mixins/font-icon.scss:126 */
 .x-toolbar-more-icon:before {
     content: "\f0c9";
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-toolbar-footer:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/dd/StatusProxy.scss:1 */
 .x-dd-drag-proxy {
@@ -7903,30 +7633,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/panel/Panel.scss:750 */
 .x-panel .x-panel-header-default-collapsed-border-left {
     border-right-width: 1px !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-panel-header-default-top:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-panel-header-default-bottom:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:top" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-panel-header-default-left:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:right" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-panel-header-default-right:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:left" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/panel/Panel.scss:786 */
 .x-panel-header-default-horizontal .x-tool-after-title {
@@ -8346,12 +8052,6 @@ body > .x-mask {
 .x-panel-default-framed-mc {
     padding: 0px 0px 0px 0px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-panel-default-framed:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/panel/panel-default-framed-corners.gif), sides:url(images/panel/panel-default-framed-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-panel-header-default-framed-top {
     -moz-border-radius-topleft: 0;
@@ -8463,12 +8163,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-panel-header-default-framed-top-mc {
     padding: 10px 14px 10px 14px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-panel-header-default-framed-top:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 0 2px, corners:url(images/panel-header/panel-header-default-framed-top-corners.gif), sides:url(images/panel-header/panel-header-default-framed-top-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-panel-header-default-framed-right {
@@ -8596,12 +8290,6 @@ body > .x-mask {
 .x-panel-header-default-framed-right-mc {
     padding: 14px 10px 14px 10px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-panel-header-default-framed-right:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 0, corners:url(images/panel-header/panel-header-default-framed-right-corners.gif), corners-rtl:url(images/panel-header/panel-header-default-framed-right-corners-rtl.gif), sides:url(images/panel-header/panel-header-default-framed-right-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-panel-header-default-framed-bottom {
     -moz-border-radius-topleft: 0;
@@ -8713,12 +8401,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-panel-header-default-framed-bottom-mc {
     padding: 10px 14px 10px 14px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-panel-header-default-framed-bottom:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:0 2px 2px 2px, corners:url(images/panel-header/panel-header-default-framed-bottom-corners.gif), sides:url(images/panel-header/panel-header-default-framed-bottom-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-panel-header-default-framed-left {
@@ -8846,12 +8528,6 @@ body > .x-mask {
 .x-panel-header-default-framed-left-mc {
     padding: 14px 10px 14px 10px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-panel-header-default-framed-left:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 0 2px 2px, corners:url(images/panel-header/panel-header-default-framed-left-corners.gif), corners-rtl:url(images/panel-header/panel-header-default-framed-left-corners-rtl.gif), sides:url(images/panel-header/panel-header-default-framed-left-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-panel-header-default-framed-collapsed-top {
     -moz-border-radius-topleft: 0;
@@ -8963,12 +8639,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-panel-header-default-framed-collapsed-top-mc {
     padding: 10px 14px 10px 14px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-panel-header-default-framed-collapsed-top:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/panel-header/panel-header-default-framed-collapsed-top-corners.gif), sides:url(images/panel-header/panel-header-default-framed-collapsed-top-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-panel-header-default-framed-collapsed-right {
@@ -9096,12 +8766,6 @@ body > .x-mask {
 .x-panel-header-default-framed-collapsed-right-mc {
     padding: 14px 10px 14px 10px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-panel-header-default-framed-collapsed-right:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/panel-header/panel-header-default-framed-collapsed-right-corners.gif), corners-rtl:url(images/panel-header/panel-header-default-framed-collapsed-right-corners-rtl.gif), sides:url(images/panel-header/panel-header-default-framed-collapsed-right-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-panel-header-default-framed-collapsed-bottom {
     -moz-border-radius-topleft: 0;
@@ -9213,12 +8877,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-panel-header-default-framed-collapsed-bottom-mc {
     padding: 10px 14px 10px 14px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-panel-header-default-framed-collapsed-bottom:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/panel-header/panel-header-default-framed-collapsed-bottom-corners.gif), sides:url(images/panel-header/panel-header-default-framed-collapsed-bottom-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-panel-header-default-framed-collapsed-left {
@@ -9345,12 +9003,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-panel-header-default-framed-collapsed-left-mc {
     padding: 14px 10px 14px 10px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-panel-header-default-framed-collapsed-left:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/panel-header/panel-header-default-framed-collapsed-left-corners.gif), corners-rtl:url(images/panel-header/panel-header-default-framed-collapsed-left-corners-rtl.gif), sides:url(images/panel-header/panel-header-default-framed-collapsed-left-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/panel/Panel.scss:638 */
 .x-panel .x-panel-header-default-framed-top {
@@ -9699,12 +9351,6 @@ body > .x-mask {
 .x-btn-group-default-framed-mc {
     padding: 0px 0px 0px 0px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-group-default-framed:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/btn-group/btn-group-default-framed-corners.gif), sides:url(images/btn-group/btn-group-default-framed-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-btn-group-default-framed-notitle {
     -webkit-border-radius: 2px;
@@ -9809,12 +9455,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-btn-group-default-framed-notitle-mc {
     padding: 0px 0px 0px 0px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-group-default-framed-notitle:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/btn-group/btn-group-default-framed-notitle-corners.gif), sides:url(images/btn-group/btn-group-default-framed-notitle-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/container/ButtonGroup.scss:101 */
 .x-btn-group-default-framed {
@@ -10008,12 +9648,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-window-default-mc {
     padding: 0px 0px 0px 0px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-window-default:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/window/window-default-corners.gif), sides:url(images/window/window-default-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/window/Window.scss:250 */
 .x-window-body-default {
@@ -10218,12 +9852,6 @@ body > .x-mask {
 .x-window-header-default-top-mc {
     padding: 10px 14px 10px 14px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-window-header-default-top:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/window-header/window-header-default-top-corners.gif), sides:url(images/window-header/window-header-default-top-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-window-header-default-right {
     -moz-border-radius-topleft: 0;
@@ -10345,12 +9973,6 @@ body > .x-mask {
 .x-window-header-default-right-mc {
     padding: 14px 10px 14px 10px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-window-header-default-right:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/window-header/window-header-default-right-corners.gif), corners-rtl:url(images/window-header/window-header-default-right-corners-rtl.gif), sides:url(images/window-header/window-header-default-right-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-window-header-default-bottom {
     -moz-border-radius-topleft: 0;
@@ -10462,12 +10084,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-window-header-default-bottom-mc {
     padding: 10px 14px 10px 14px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-window-header-default-bottom:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/window-header/window-header-default-bottom-corners.gif), sides:url(images/window-header/window-header-default-bottom-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-window-header-default-left {
@@ -10590,12 +10206,6 @@ body > .x-mask {
 .x-window-header-default-left-mc {
     padding: 14px 10px 14px 10px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-window-header-default-left:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/window-header/window-header-default-left-corners.gif), corners-rtl:url(images/window-header/window-header-default-left-corners-rtl.gif), sides:url(images/window-header/window-header-default-left-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-window-header-default-collapsed-top {
     -moz-border-radius-topleft: 0;
@@ -10707,12 +10317,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-window-header-default-collapsed-top-mc {
     padding: 10px 14px 10px 14px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-window-header-default-collapsed-top:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/window-header/window-header-default-collapsed-top-corners.gif), sides:url(images/window-header/window-header-default-collapsed-top-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-window-header-default-collapsed-right {
@@ -10835,12 +10439,6 @@ body > .x-mask {
 .x-window-header-default-collapsed-right-mc {
     padding: 14px 10px 14px 10px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-window-header-default-collapsed-right:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/window-header/window-header-default-collapsed-right-corners.gif), corners-rtl:url(images/window-header/window-header-default-collapsed-right-corners-rtl.gif), sides:url(images/window-header/window-header-default-collapsed-right-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-window-header-default-collapsed-bottom {
     -moz-border-radius-topleft: 0;
@@ -10952,12 +10550,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-window-header-default-collapsed-bottom-mc {
     padding: 10px 14px 10px 14px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-window-header-default-collapsed-bottom:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/window-header/window-header-default-collapsed-bottom-corners.gif), sides:url(images/window-header/window-header-default-collapsed-bottom-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-window-header-default-collapsed-left {
@@ -11079,12 +10671,6 @@ body > .x-mask {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-window-header-default-collapsed-left-mc {
     padding: 14px 10px 14px 10px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-window-header-default-collapsed-left:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/window-header/window-header-default-collapsed-left-corners.gif), corners-rtl:url(images/window-header/window-header-default-collapsed-left-corners-rtl.gif), sides:url(images/window-header/window-header-default-collapsed-left-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/window/Window.scss:540 */
 .x-window-header-default .x-window-header-icon {
@@ -12176,18 +11762,6 @@ a.x-monthpicker-yearnav-button:hover {
 .x-monthpicker-small .x-monthpicker-yearnav-button {
     margin-top: 12px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-datepicker-header:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-datepicker-footer:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/form/field/Date.scss:2 */
 .x-form-field-date .x-form-date-trigger {
     font-size: 16px;
@@ -12336,12 +11910,6 @@ a.x-monthpicker-yearnav-button:hover {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-tip-default-mc {
     padding: 0px 0px 0px 0px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-tip-default:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/tip/tip-default-corners.gif), sides:url(images/tip/tip-default-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/var/tip/Tip.scss:313 */
 .x-tip-default {
@@ -12524,12 +12092,6 @@ a.x-monthpicker-yearnav-button:hover {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-tip-form-invalid-mc {
     padding: 0px 0px 0px 0px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-tip-form-invalid:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:2px 2px 2px 2px, corners:url(images/tip/tip-form-invalid-corners.gif), sides:url(images/tip/tip-form-invalid-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/var/tip/Tip.scss:313 */
 .x-tip-form-invalid {
@@ -13311,18 +12873,6 @@ a.x-color-picker-item:hover {
 .x-no-header-borders .x-column-header .x-column-header-inner {
     padding-top: 7px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-column-header:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-column-header-over:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/grid/column/Action.scss:1 */
 .x-grid-cell-inner-action-col {
     padding: 7px 4px 7px 4px;
@@ -13492,12 +13042,6 @@ a.x-color-picker-item:hover {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-btn-grid-cell-small-mc {
     padding: 7px 7px 7px 7px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-grid-cell-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:1px 1px 1px 1px, corners:url(images/btn/btn-grid-cell-small-corners.gif), sides:url(images/btn/btn-grid-cell-small-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:445 */
 .x-btn-grid-cell-small {
@@ -13901,42 +13445,6 @@ a.x-color-picker-item:hover {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:1183 */
 .x-nbr .x-segmented-button-item-vertical.x-btn-grid-cell-small.x-segmented-button-last:after {
     bottom: 1px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-grid-cell-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:1px 1px 1px 1px, corners:url(images/btn/btn-grid-cell-small-focus-corners.gif), sides:url(images/btn/btn-grid-cell-small-focus-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-over.x-btn-grid-cell-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:1px 1px 1px 1px, corners:url(images/btn/btn-grid-cell-small-over-corners.gif), sides:url(images/btn/btn-grid-cell-small-over-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-over.x-btn-grid-cell-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:1px 1px 1px 1px, corners:url(images/btn/btn-grid-cell-small-focus-over-corners.gif), sides:url(images/btn/btn-grid-cell-small-focus-over-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-pressed.x-btn-grid-cell-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:1px 1px 1px 1px, corners:url(images/btn/btn-grid-cell-small-pressed-corners.gif), sides:url(images/btn/btn-grid-cell-small-pressed-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-focus.x-btn-pressed.x-btn-grid-cell-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:1px 1px 1px 1px, corners:url(images/btn/btn-grid-cell-small-focus-pressed-corners.gif), sides:url(images/btn/btn-grid-cell-small-focus-pressed-sides.gif)" !important;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-btn-disabled.x-btn-grid-cell-small:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, stretch:bottom, frame:1px 1px 1px 1px, corners:url(images/btn/btn-grid-cell-small-disabled-corners.gif), sides:url(images/btn/btn-grid-cell-small-disabled-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/button/Button.scss:1246 */
 .x-button-grid-cell-small-cell > .x-grid-cell-inner {
@@ -15067,12 +14575,6 @@ a.x-color-picker-item:hover {
 .x-grid-row-editor-buttons-default-bottom-mc {
     padding: 5px 1px 1px 1px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-grid-row-editor-buttons-default-bottom:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:0 5px 5px 5px, corners:url(images/grid-row-editor-buttons/grid-row-editor-buttons-default-bottom-corners.gif), sides:url(images/grid-row-editor-buttons/grid-row-editor-buttons-default-bottom-sides.gif)" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-grid-row-editor-buttons-default-top {
     -moz-border-radius-topleft: 5px;
@@ -15184,12 +14686,6 @@ a.x-color-picker-item:hover {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-grid-row-editor-buttons-default-top-mc {
     padding: 1px 1px 5px 1px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-grid-row-editor-buttons-default-top:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:5px 5px 0 5px, corners:url(images/grid-row-editor-buttons/grid-row-editor-buttons-default-top-corners.gif), sides:url(images/grid-row-editor-buttons/grid-row-editor-buttons-default-top-sides.gif)" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/grid/plugin/RowEditing.scss:108 */
 .x-grid-row-editor-buttons {
@@ -15833,12 +15329,6 @@ div.x-border-layout-ct {
 .x-tab-default-top-mc {
     padding: 8px 10px 8px 10px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-tab-default-top:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:0 0 0 0" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-tab-default-bottom {
     -moz-border-radius-topleft: 0;
@@ -15933,12 +15423,6 @@ div.x-border-layout-ct {
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
 .x-tab-default-bottom-mc {
     padding: 8px 10px 8px 10px;
-}
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-tab-default-bottom:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:0 0 0 0" !important;
 }
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-tab-default-left {
@@ -16035,12 +15519,6 @@ div.x-border-layout-ct {
 .x-tab-default-left-mc {
     padding: 8px 10px 8px 10px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-tab-default-left:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:0 0 0 0" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-tab-default-right {
     -moz-border-radius-topleft: 0;
@@ -16136,12 +15614,6 @@ div.x-border-layout-ct {
 .x-tab-default-right-mc {
     padding: 8px 10px 8px 10px;
 }
-/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
-.x-cmd-slicer.x-tab-default-right:before {
-    /*<if slicer>*/
-    display: none;
-    content: "x-slicer:, frame:0 0 0 0" !important;
-}
 /* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:1597 */
 .x-tab-default {
     border-color: transparent;
@@ -16236,4 +15708,300 @@ div.x-border-layout-ct {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:1946 */
+.x-tab-default-bottom.x-tab-focus.x-tab-over {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:1975 */
+.x-tab-default-bottom.x-tab-focus.x-tab-active {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2001 */
+.x-tab-default-left {
+    margin: 0 0 4px 0;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2005 */
+.x-tab-default-left.x-rtl {
+    margin: 0 0 4px 0;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2010 */
+.x-tab-default-left.x-tab-rotate-right {
+    margin: 4px 0 0 0;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2014 */
+.x-tab-default-left.x-tab-rotate-right.x-rtl {
+    margin: 4px 0 0 0;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2032 */
+.x-tab-default-left.x-tab-focus {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2061 */
+.x-tab-default-left.x-tab-focus.x-tab-over {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2090 */
+.x-tab-default-left.x-tab-focus.x-tab-active {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2116 */
+.x-tab-button-default {
+    height: 20px;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2121 */
+.x-tab-inner-default {
+    font: 400 13px/20px 'Open Sans', 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
+    color: #f0f0f0;
+    max-width: 100%;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2129 */
+.x-tab-bar-plain .x-tab-inner-default {
+    color: #606060;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2137 */
+.x-tab-icon-right > .x-tab-inner-default,
+.x-tab-icon-left > .x-tab-inner-default {
+    max-width: calc(100% - 20px);
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2145 */
+.x-tab-icon-el-default {
+    min-height: 20px;
+    background-position: center center;
+    font-size: 20px;
+    line-height: 20px;
+    color: #f0f0f0;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2146 */
+.x-tab-icon-left > .x-tab-icon-el-default,
+.x-tab-icon-right > .x-tab-icon-el-default {
+    width: 20px;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2151 */
+.x-tab-icon-top > .x-tab-icon-el-default,
+.x-tab-icon-bottom > .x-tab-icon-el-default {
+    min-width: 20px;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2162 */
+.x-tab-bar-plain .x-tab-icon-el-default {
+    color: #606060;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2167 */
+.x-tab-icon-el-default.x-tab-glyph {
+    opacity: 0.7;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2187 */
+.x-tab-text.x-tab-icon-left > .x-tab-icon-el-default {
+    margin-right: 6px;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2191 */
+.x-tab-text.x-tab-icon-left > .x-tab-icon-el-default.x-rtl {
+    margin-right: 0;
+    margin-left: 6px;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2198 */
+.x-tab-text.x-tab-icon-right > .x-tab-icon-el-default {
+    margin-left: 6px;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2202 */
+.x-tab-text.x-tab-icon-right > .x-tab-icon-el-default.x-rtl {
+    margin-left: 0;
+    margin-right: 6px;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2209 */
+.x-tab-text.x-tab-icon-top > .x-tab-icon-el-default {
+    margin-bottom: 6px;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2213 */
+.x-tab-text.x-tab-icon-bottom > .x-tab-icon-el-default {
+    margin-top: 6px;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2218 */
+.x-tab-focus.x-tab-default {
+    border-color: transparent;
+    background-color: transparent;
+    outline: 1px solid #5fa2dd;
+    outline-offset: -3px;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:64 */
+.x-ie .x-tab-focus.x-tab-default,
+.x-ie10p .x-tab-focus.x-tab-default,
+.x-edge .x-tab-focus.x-tab-default {
+    outline: none;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:40 */
+.x-ie .x-tab-focus.x-tab-default:after,
+.x-ie10p .x-tab-focus.x-tab-default:after,
+.x-edge .x-tab-focus.x-tab-default:after {
+    position: absolute;
+    content: ' ';
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+    border: 1px solid #5fa2dd;
+    pointer-events: none;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2314 */
+.x-tab-bar-plain .x-tab-focus.x-tab-default .x-tab-inner-default {
+    color: #606060;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2346 */
+.x-tab-bar-plain .x-tab-focus.x-tab-default .x-tab-icon-el {
+    color: #606060;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2354 */
+.x-tab-over.x-tab-default {
+    border-color: #000;
+    background-image: none;
+    background-color: rgba(0, 0, 0, 0.08);
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/background-opacity.scss:19 */
+.x-ie8 .x-tab-over.x-tab-default {
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#14000000, endColorstr=#14000000)";
+    zoom: 1;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2383 */
+.x-ie8 .x-tab-over.x-tab-default.x-tab-rotate-left {
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2389 */
+.x-ie8 .x-tab-over.x-tab-default.x-tab-rotate-right {
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2415 */
+.x-tab-bar-plain .x-tab-over.x-tab-default .x-tab-inner-default {
+    color: #606060;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2446 */
+.x-tab-bar-plain .x-tab-over.x-tab-default .x-tab-icon-el {
+    color: #606060;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2466 */
+.x-tab-focus.x-tab-over.x-tab-default {
+    border-color: #000;
+    background-image: none;
+    background-color: rgba(0, 0, 0, 0.08);
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-base/sass/etc/mixins/background-opacity.scss:19 */
+.x-ie8 .x-tab-focus.x-tab-over.x-tab-default {
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#14000000, endColorstr=#14000000)";
+    zoom: 1;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2495 */
+.x-ie8 .x-tab-focus.x-tab-over.x-tab-default.x-tab-rotate-left {
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2501 */
+.x-ie8 .x-tab-focus.x-tab-over.x-tab-default.x-tab-rotate-right {
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2527 */
+.x-tab-bar-plain .x-tab-focus.x-tab-over.x-tab-default .x-tab-inner-default {
+    color: #606060;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2558 */
+.x-tab-bar-plain .x-tab-focus.x-tab-over.x-tab-default .x-tab-icon-el {
+    color: #606060;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2581 */
+.x-tab.x-tab-active.x-tab-default {
+    border-color: #fff;
+    background-color: #fff;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2637 */
+.x-tab.x-tab-active.x-tab-default .x-tab-inner-default {
+    color: #4c82b1;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2642 */
+.x-tab-bar-plain .x-tab.x-tab-active.x-tab-default .x-tab-inner-default {
+    color: #404040;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2657 */
+.x-tab.x-tab-active.x-tab-default .x-tab-icon-el {
+    color: #4c82b1;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2665 */
+.x-ie8 .x-tab.x-tab-active.x-tab-default .x-tab-icon-el {
+    color: #82a7c8;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2671 */
+.x-tab-bar-plain .x-tab.x-tab-active.x-tab-default .x-tab-icon-el {
+    color: #404040;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2692 */
+.x-tab-focus.x-tab-active.x-tab-default {
+    border-color: #fff;
+    background-color: #fff;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2753 */
+.x-tab-bar-plain .x-tab-focus.x-tab-active.x-tab-default .x-tab-inner-default {
+    color: #404040;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2784 */
+.x-tab-bar-plain .x-tab-focus.x-tab-active.x-tab-default .x-tab-icon-el {
+    color: #404040;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2808 */
+.x-tab.x-tab-disabled.x-tab-default {
+    border-color: transparent;
+    background-color: transparent;
+    cursor: default;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2868 */
+.x-tab.x-tab-disabled.x-tab-default .x-tab-inner-default {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+    opacity: 0.3;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2873 */
+.x-tab-bar-plain .x-tab.x-tab-disabled.x-tab-default .x-tab-inner-default {
+    color: #606060;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2892 */
+.x-tab.x-tab-disabled.x-tab-default .x-tab-icon-el-default {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    opacity: 0.5;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2897 */
+.x-tab.x-tab-disabled.x-tab-default .x-tab-icon-el {
+    color: #f0f0f0;
+    opacity: 0.3;
+    filter: none;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2918 */
+.x-tab-bar-plain .x-tab.x-tab-disabled.x-tab-default .x-tab-icon-el {
+    color: #606060;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2938 */
+.x-nbr .x-tab-default {
+    background-image: none;
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2957 */
+.x-tab-over .x-tab-default-top-tl,
+.x-tab-over .x-tab-default-top-bl,
+.x-tab-over .x-tab-default-top-tr,
+.x-tab-over .x-tab-default-top-br,
+.x-tab-over .x-tab-default-top-tc,
+.x-tab-over .x-tab-default-top-bc {
+    background-image: url(images/tab/tab-default-top-over-corners.gif);
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2966 */
+.x-tab-over .x-tab-default-top-ml,
+.x-tab-over .x-tab-default-top-mr {
+    background-image: url(images/tab/tab-default-top-over-sides.gif);
+}
+/* D:/Workspaces/Github/uberTutor/UberTutor/WebContent/uber/ext/classic/theme-neutral/sass/src/tab/Tab.scss:2971 */
+.x-tab-over .x-tab-default-top-mc {
+    background-repeat: repeat-x;
+    background-image: url(images/tab/tab-default-top-over-fbg.gif);
 }

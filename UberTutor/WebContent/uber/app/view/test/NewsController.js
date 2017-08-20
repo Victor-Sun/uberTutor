@@ -63,7 +63,7 @@ Ext.define('uber.view.test.NewsController', {
     // RowExpander management
 
     onCompanyClick: function(dv, record, item, index, e) {
-    	debugger;
+//    	debugger;
         if (e.getTarget('.news-toggle')) {
             var grid = this.getView(),
                 plugin = grid.getPlugin('rowexpander');
@@ -73,14 +73,14 @@ Ext.define('uber.view.test.NewsController', {
     },
 
     onCompanyExpandBody: function (rowNode) {   // , record, expandRow, eOpts
-    	debugger;
+//    	debugger;
         Ext.fly(rowNode).addCls('x-grid-row-expanded');
         Ext.fly(rowNode).down('.news-paragraph-simple').enableDisplayMode().hide();
         Ext.fly(rowNode).down('.expand').enableDisplayMode().hide();
     },
 
     onCompanyCollapseBody: function (rowNode) {  //, record, expandRow, eOpts
-    	debugger;
+//    	debugger;
         Ext.fly(rowNode).removeCls('x-grid-row-expanded');
         Ext.fly(rowNode).down('.news-paragraph-simple').enableDisplayMode().show();
         Ext.fly(rowNode).down('.expand').enableDisplayMode().show();

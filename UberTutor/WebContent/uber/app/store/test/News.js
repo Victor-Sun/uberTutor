@@ -35,24 +35,24 @@ Ext.define('uber.store.test.News', {
 //            type: 'json'
 //        }
 	},
-	listeners: {
-		load: {
-			fn: function (store, records , successful , operation , eOpts )  {
-//				console.log(store.data.items);
-//				var store = this.getData();
-//				var range = this.getRange();
-//				console.log(range);
-				var datar = new Array();
-		        var jsonDataEncode = "";
-		        var records = store.getRange();
-		        for (var i = 0; i < records.length; i++) {
-		            datar.push(records[i].data);
-		        }
-		        jsonDataEncode = Ext.util.JSON.encode(datar);
-		        console.log(jsonDataEncode);
-		        return jsonDataEncode;
-		        
-			}
-		}
-	}
+//	listeners: {
+//		load: {
+//			fn: function (store, records , successful , operation , eOpts )  {
+////				console.log(store.data.items);
+////				var store = this.getData();
+////				var range = this.getRange();
+////				console.log(range);
+//				var datar = new Array();
+//		        var jsonDataEncode = "";
+//		        var records = store.getRange();
+//		        for (var i = 0; i < records.length; i++) {
+//		            datar.push(records[i].data);
+//		        }
+//		        jsonDataEncode = Ext.util.JSON.encode(datar);
+//		        console.log(jsonDataEncode);
+//		        return jsonDataEncode;
+//		        
+//			}
+//		}
+//	}
 });

@@ -1,18 +1,9 @@
-Ext.define('uber.view.session.Feedback', {
-    extend: 'Ext.form.Panel',
-    xtype: 'feedback',
-    itemId: 'feedback',
-    
-    requires: [
-       // 'uber.view.profile.ProfileController'
-    ],
-    
-    controller: 'profile',
-    layout: {
-		type: 'vbox',
-		align: 'stretch'
-	},
-    initComponent: function () {
+Ext.define('uber.view.test.TestStudentFeedback',{
+	extdend: 'Ext.form.Fieldset',
+	xtype: 'testStudentFeedback',
+	title: 'Student Feedback',
+	
+	initComponent: function () {
     	
     	this.items = [{
         	xtype: 'panel',
@@ -37,13 +28,13 @@ Ext.define('uber.view.session.Feedback', {
         		xtype: 'hidden',
         		itemId: 'feedbackId',
         		name: 'FEEDBACK_ID'
-//        	},{
-//        		xtype: 'container',
-//                layout: 'hbox',
-//                items: [{
-//                    margin: 5,
-//                    html: '<h3>Feedback</h3>'
-//                }]
+        	},{
+        		xtype: 'container',
+                layout: 'hbox',
+                items: [{
+                    margin: 5,
+                    html: '<h3>Feedback</h3>'
+                }]
         	},{
         		xtype: 'container',
                 layout: 'hbox',
