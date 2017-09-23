@@ -68,7 +68,7 @@ public class LoginAction extends PDMSCrudActionSupport<UserEntity> {
 				throw new Exception(msg);
 			}
 			if (!loginService.verifyUsername(username)) {
-				msg = "User does not exist";
+				msg = "Username and password combination is incorrect!";
 				throw new Exception(msg);
 			}
 			UserEntity userEntity = this.loginService.getUser(username);

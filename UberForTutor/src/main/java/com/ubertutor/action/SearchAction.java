@@ -10,19 +10,19 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
-import jp.co.nec.flowlites.core.FLPage;
-import com.gnomon.common.utils.JsonResult;
 import com.gnomon.common.PDMSCrudActionSupport;
-import com.ubertutor.entity.FeedbackEntity;
+import com.gnomon.common.utils.JsonResult;
 import com.ubertutor.entity.UserRequestEntity;
 import com.ubertutor.service.SearchService;
+
+import jp.co.nec.flowlites.core.FLPage;
 
 @Namespace("/main")
 public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private SearchService searchService;
-	private UserRequestEntity entity;
+	private UserRequestEntity userRequestEntity;
 	private Long id;
 	
 	public Long getId() {
@@ -45,7 +45,6 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 				dataMap.put("studentId", map.get("STUDENT_ID"));
 				dataMap.put("studentName", map.get("STUDENT_NAME"));
 				dataMap.put("tutorId", map.get("TUTOR_ID"));
-				dataMap.put("tutorName", map.get("TUTOR_NAME"));
 				dataMap.put("category", map.get("CATEGORY"));
 				dataMap.put("subject", map.get("SUBJECT"));
 				dataMap.put("status", map.get("STATUS"));
@@ -63,11 +62,11 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	public void displayRequestInfo() throws Exception{
 		try {
 			Long id = Long.parseLong(Struts2Utils.getRequest().getParameter("requestId"));
-			entity = searchService.get(id);
-			if(entity.getStatus().equals("OPEN")){
-				entity.setStatus("PENDING");
-				entity.setPendingDate(new Date());
-				searchService.save(entity);
+			userRequestEntity = searchService.get(id);
+			if(userRequestEntity.getStatus().equals("OPEN")){
+				userRequestEntity.setStatus("PENDING");
+				userRequestEntity.setPendingDate(new Date());
+				searchService.save(userRequestEntity);
 			}
 			this.writeSuccessResult(searchService.getRequestInfo((id)));
 		} catch (Exception e) {
@@ -76,12 +75,12 @@ public class SearchAction extends PDMSCrudActionSupport<UserRequestEntity> {
 	}
 	
 	public UserRequestEntity getModel() {
-		return entity;
+		return userRequestEntity;
 	}
 
 	@Override
 	protected void prepareModel() throws Exception {
-		entity = (id != null) ? searchService.get(id) : new UserRequestEntity();
+		userRequestEntity = (id != null) ? searchService.get(id) : new UserRequestEntity();
 	}
 
 	@Override
