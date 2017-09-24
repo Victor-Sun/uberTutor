@@ -65,11 +65,19 @@ public class FeedbackService {
 	 */
 	public Map<String, Object> getFeedbackInfo(Long requestId, boolean isUser){
 		List<Object> params = new ArrayList<Object>();
-		String sql = (!isUser) ? "SELECT * FROM V_USER_FEEDBACK WHERE REQUEST_ID = ?" : "SELECT * FROM V_TUTOR_FEEDBACK WHERE REQUEST_ID = ?";
+		String sql = (isUser) ? "SELECT * FROM V_USER_FEEDBACK WHERE REQUEST_ID = ?" : "SELECT * FROM V_TUTOR_FEEDBACK WHERE REQUEST_ID = ?";
 		params.add(requestId);
 		return this.jdbcTemplate.queryForMap(sql, params.toArray());
 	}
 
+	//TODO
+	public Map<String, Object> getAllFeedbackInfo(){
+		List<Object> params = new ArrayList<Object>();
+		String sql = "";
+		return this.jdbcTemplate.queryForMap(sql, params.toArray());
+	}
+	
+	
 	/**
 	 * Returns true if a request has a feedback
 	 * @param requestId
@@ -77,7 +85,7 @@ public class FeedbackService {
 	 */
 	public boolean hasFeedback(Long requestId, boolean isUser){
 		try{
-			String sql = (!isUser) ? "SELECT TUTOR_FEEDBACK FROM USER_REQUEST WHERE ID = ?" : "SELECT USER_FEEDBACK FROM USER_REQUEST WHERE ID = ?"; 
+			String sql = (isUser) ? "SELECT USER_FEEDBACK FROM USER_REQUEST WHERE ID = ?" : "SELECT TUTOR_FEEDBACK FROM USER_REQUEST WHERE ID = ?"; 
 			List<Object> params = new ArrayList<Object>();
 			params.add(requestId);
 			return this.jdbcTemplate.queryForObject(sql, new Object[] {requestId}, Integer.class) > 0;
