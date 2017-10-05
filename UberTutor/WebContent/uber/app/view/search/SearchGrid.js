@@ -12,11 +12,13 @@ Ext.define('uber.view.search.SearchGrid',{
 //	hideHeaders: true,
 	initComponent: function () {
 		var me = this;
-		store = Ext.create('uber.store.grid.SearchGrid');
-		var page = 5;
-		Ext.apply(me, {
-			store: store,
-		});
+		var searchStore = Ext.create('uber.store.grid.SearchGrid');
+		me.store = searchStore;
+		searchStore.load();
+//		var page = 5;
+//		Ext.apply(me, {
+//			store: store,
+//		});
 		this.columns = [{
 			//displays :Name, Rating, Member Since, Successful Requests
 			// SUBJECT DATE USER TITLE
@@ -93,7 +95,7 @@ Ext.define('uber.view.search.SearchGrid',{
 	}, 
 	listeners: {
 		celldblclick: function (gridview, rowIndex, colIndex, item, e, record, row) {
-			Ext.create('uber.view.search.SearchInfoWindow',{requestId:item.data.requestId}).show();
+			Ext.create('uber.view.search.SearchInfoWindow',{requestId:item.data.requestId, grid: gridview}).show();
 		}
 	}
 });

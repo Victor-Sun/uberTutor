@@ -37,36 +37,46 @@ Ext.define('uber.view.main.Main', {
 			itemId:'userNameItemId',
 			text: '',
 			menu: {
-				items: [{
-					text: 'Main Page',
-					handler: 'mainpage'
-				},{
-					text: 'Test',
-					handler: 'test'
-				},{
-					text: 'Test Request',
-					handler: 'testRequest'
-				},{
-					text: 'Test Session',
-					handler: 'testSession'
-				},{
-					text: 'Make a request',
-					handler: 'makeRequest'
-				},{
-					text: 'View Requests',
-					itemId: 'menuItemSearch',
-					hidden: true,
-					handler: 'search'
-				},{
-					text: 'Profile',
-					handler: 'profile'
-				},{
-					text: 'Sessions',
-					handler: 'sessions'
-				},{
-					text: 'Logout',
-					handler: 'logout'
-				}],
+				items: [
+					{
+						text: 'Main Page',
+						handler: 'mainpage'
+					},
+					{
+						text: 'Test',
+						handler: 'test'
+					},
+					{
+						text: 'Test Request',
+						handler: 'testRequest'
+					},
+					{
+						text: 'Test Session',
+						handler: 'testSession'
+					},
+					{
+						text: 'Make a request',
+						handler: 'makeRequest'
+					},
+					{
+						text: 'View Requests',
+						itemId: 'menuItemSearch',
+						hidden: true,
+						handler: 'search'
+					},
+					{
+						text: 'Profile',
+						handler: 'profile'
+					},
+					{
+						text: 'Sessions',
+						handler: 'sessions'
+					},
+					{
+						text: 'Logout',
+						handler: 'logout'
+					}
+				],
 			}
 		}]
 	},{

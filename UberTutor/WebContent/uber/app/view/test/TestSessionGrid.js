@@ -19,7 +19,8 @@ Ext.define('uber.view.session.TestSessionGrid',{
 	   			 "requestTitle", 
 	   			 "requestId", 
 	   			 "subject", 
-	   			 "category", 
+	   			 "category",
+	   			 "hasFeedback",
 	   			 { name: 'createDate', type: 'date', 
 	            	convert:function(v,record){
 	            		var date = record.data.createDate;
@@ -168,6 +169,7 @@ Ext.define('uber.view.session.TestSessionGrid',{
 				widget: {
 		            xtype: 'form',
 		            itemId: 'rowWidgetForm',
+		            store: me.store,
 		            bodyPadding: 20,
 		            bind: true,
 		            items: [
@@ -253,26 +255,27 @@ Ext.define('uber.view.session.TestSessionGrid',{
 					                    				feedbackStudent.show();
 					                    				feedbackTutor.show();
 					                    				//check for student form
-//					                    				if ( username == studentName ) {
-//					                    					if ( hasFeedback != "true") {
-//						                    					feedbackFormTutor.disabled();
-//						                    					feedbackFormTutor.addDocked({
-//						                    						xtype: 'component',
-//						                    						dock: 'top',
-//						                    						html: '<p>Tutor has not submitted any feedback yet</p>'
-//						                    					});
-//						                    					
-//						                    				}
-//					                    				} else if ( username == tutorName ) {
-//					                    					if ( hasFeedback != "true" ) {
-//					                    						feedbackFormStudent.disabled();
-//					                    						feedbackFormStudent.addDocked({
-//					                    							xtype: 'component',
-//					                    							dock: 'top',
-//					                    							html: '<p>Student has not submitted any feedback yet</p>'
-//					                    						});
-//					                    					}
-//					                    				}
+					                    				if ( username == studentName ) {
+					                    					if ( hasFeedback != "true") {
+						                    					feedbackFormTutor.disable();
+						                    					feedbackFormTutor.addDocked({
+						                    						xtype: 'component',
+						                    						dock: 'top',
+						                    						html: '<p><h3>Tutor has not submitted any feedback yet</h3></p>'
+						                    					});
+						                    					
+						                    				}
+					                    				// check for tutor form
+					                    				} else if ( username == tutorName ) {
+					                    					if ( hasFeedback != "true" ) {
+					                    						feedbackFormStudent.disable();
+					                    						feedbackFormStudent.addDocked({
+					                    							xtype: 'component',
+					                    							dock: 'top',
+					                    							html: '<p><h3>Student has not submitted any feedback yet</h3></p>'
+					                    						});
+					                    					}
+					                    				}
 					                    			}
 					                    			
 //					                    			if ( username == "admin" ) {

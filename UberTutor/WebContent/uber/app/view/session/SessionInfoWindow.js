@@ -27,8 +27,9 @@ Ext.define('uber.view.session.SessionInfoWindow',{
     			method: 'POST', 
     			success: function () {
     				Ext.getBody().unmask();
-    				window.close();
     				grid.getStore().load();
+    				window.close();
+    				
     			},
     		    failure: function () {
     		    	Ext.getBody().unmask();
@@ -55,8 +56,8 @@ Ext.define('uber.view.session.SessionInfoWindow',{
     			method: 'POST', 
     			success: function () {
     				Ext.getBody().unmask();
-    				window.close();
     				grid.getStore().load();
+    				window.close();
     			},
     			failure: function(form, action) {
     				Ext.getBody().unmask();
@@ -86,8 +87,9 @@ Ext.define('uber.view.session.SessionInfoWindow',{
     			method: 'POST', 
     			success: function () {
     				Ext.getBody().unmask();
-    				window.close();
     				grid.getStore().load();
+    				window.close();
+    				
     			},
     			failure: function(form, action) {
     				Ext.getBody().unmask();

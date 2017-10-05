@@ -10,11 +10,12 @@ Ext.define('uber.view.search.SearchInfoWindow',{
 //		hidden: true,
 		text: 'Accept',
 		handler: function () {
+			debugger;
 			var window = this.up('window');
 			var form = window.down('#searchInfoForm');
 			var requestId = form.down('#requestId').getValue();
-			var grid = Ext.ComponentQuery.query('grid')[0];
-			var store = grid.getStore();
+//			var grid = Ext.ComponentQuery.query('grid')[0];
+//			var store = grid.getStore();
 			Ext.getBody().mask('Loading... Please Wait...');
 			form.submit({
 				url: '/UberTutor/main/my-session!updateRequestToInProcess.action',
@@ -23,9 +24,11 @@ Ext.define('uber.view.search.SearchInfoWindow',{
 				},
     			method: 'POST', 
     			success: function (form, action, response) {
+    				debugger;
     				Ext.getBody().unmask();
+    				window.grid.getStore().load();
     				window.close();
-    				grid.getStore().load();
+    				
     			},
     			failure: function (form, action, response) {
     		    	var me = this;
