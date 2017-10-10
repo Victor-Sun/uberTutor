@@ -18,7 +18,6 @@ Ext.define('uber.view.password.ChangePassword',{
     	},
     	items: [{
     		xtype: 'panel',
-//    		border: true,
 //    		cls: 'uber-header',
             layout: 'hbox',
             items: [{
@@ -28,9 +27,6 @@ Ext.define('uber.view.password.ChangePassword',{
                 	html: '<h2>Change Password</h2>'
                 }]
             }]
-//    	},{
-//    		xtype: 'container',
-//    		height: 25,
     	},{
     		xtype: 'form',
     		itemId: 'changePasswordForm',
@@ -52,7 +48,6 @@ Ext.define('uber.view.password.ChangePassword',{
                 	margin: 5,
                 	labelAlign: 'top',
                     width: 200
-//                    anchor: '100%'
                 }
             },
             items: [{
@@ -87,19 +82,21 @@ Ext.define('uber.view.password.ChangePassword',{
             },{
             	items: [{
             		name: 'newpasswordagain',
-                    fieldLabel: 'Repeat new password',
+                    fieldLabel: 'Confirm new password',
                     itemId: 'newpassword2',
                     inputType: 'password',
                     name: 'newPassword2',
                     allowBlank: false,
                     msgTarget: 'side',
                     validator: function (value, field) {
+//                    	debugger;
 						var password1 = Ext.ComponentQuery.query('#newPassword')[0];
 						if (value == password1.getValue()) {
 							return true
 						} else {
 							return 'Passwords do not match'
 						}
+						
 					}
             	}]
             }],

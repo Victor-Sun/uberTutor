@@ -3,15 +3,14 @@ Ext.define('uber.view.test.TestSession',{
 	xtype: 'testSession',
 	
 	layout: {
-		type: 'vbox',
-		align: 'stretch'
+		type: 'fit',
+//		align: 'stretch'
 	},
 	cls: 'uber-panel',
 	controller: 'sessions',
 	initComponent: function () {
     	this.items = [{
         	xtype: 'panel',
-    		flex: 1,
         	cls: 'uber-panel-inner',
         	layout: {
         		type: 'vbox',
@@ -19,19 +18,49 @@ Ext.define('uber.view.test.TestSession',{
         	},
         	items: [{
         		xtype: 'container',
-                layout: 'hbox',
-                items: [{
-                    margin: 5,
-                    html: '<h2>My Sessions</h2>'
-                }]
+                items: [
+                	{
+//	                    margin: 5,
+                		width: 1080,
+	                    cls: 'uber-base',
+	                    html: '<h2>My Sessions</h2>'
+                	}
+            	]
         	},{
         		xtype: 'container',
-    			layout: 'border',
+    			layout: {
+    				type: 'hbox',
+    				align: 'stretch'
+    			},
     			flex: 1,
-    			items: [{
-    				xtype: 'testSessionGrid',
-    				region: 'center'
-    	    	}]
+//    			minHeight: 980,
+//    			layout: {
+//    				type: 'vbox',
+//    				align: 'stretch'
+//    			},
+    			cls: 'uber-container',
+    			items: [
+    				{
+    					xtype: 'panel',
+    					region: 'west',
+    					flex: 1,
+//    					width: '15%',
+    				},
+    				{
+	    				xtype: 'testSessionGrid',
+	    				cls: 'uber-base',
+	    				width: 1080,
+//	    				flex: 1
+//	    				height: '100%'
+//	    				region: 'center'
+    				},
+    				{
+    					xtype: 'panel',
+    					region: 'east',
+    					flex: 1,
+//    					width: '15%',
+    				}
+				]
         	}]
         }];
     	this.callParent(arguments);

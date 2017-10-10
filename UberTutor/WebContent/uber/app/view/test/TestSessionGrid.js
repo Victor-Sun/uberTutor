@@ -20,7 +20,8 @@ Ext.define('uber.view.session.TestSessionGrid',{
 	   			 "requestId", 
 	   			 "subject", 
 	   			 "category",
-	   			 "hasFeedback",
+	   			 "hasStudentFeedback",
+	   			 "hasTutorFeedback",
 	   			 { name: 'createDate', type: 'date', 
 	            	convert:function(v,record){
 	            		var date = record.data.createDate;
@@ -42,15 +43,20 @@ Ext.define('uber.view.session.TestSessionGrid',{
 	   		 data: [
 	   			{
 	   				 "studentId":4,
+	   				 "tutorId":2,
+	   				 "tutorName":"tutor",
 	   				 "requestId":12,
 	   				 "subject":"Algebra",
 	   				 "subjectDescription":"TEST AGAIN",
-	   				 "studentName":"111",
-	   				 "requestTitle":"TEST",
+	   				 "studentName":"student",
+	   				 "studentEmail": "student@domain.com",
+	   				 "tutorEmail": "tutor@domain.com",
+	   				 "requestTitle":"TEST OPEN",
 	   				 "category":"Math",
 	   				 "createDate":1500307056929,
 	   				 "status":"OPEN",
-	   				 "hasFeedback":"false"
+	   				 "hasStudentFeedback":"false",
+  					 "hasTutorFeedback":"false"
 				 },
 	   			 {
 	   				 "studentId":4,
@@ -59,12 +65,15 @@ Ext.define('uber.view.session.TestSessionGrid',{
 	   				 "requestId":13,
 	   				 "subject":"Algebra",
 	   				 "subjectDescription":"TEST AGAIN",
-	   				 "studentName":"111",
-	   				 "requestTitle":"TEST",
+	   				 "studentName":"student",
+	   				 "studentEmail": "student@domain.com",
+	   				 "tutorEmail": "tutor@domain.com",
+	   				 "requestTitle":"TEST IN PROCESS",
 	   				 "category":"Algebra",
 	   				 "createDate":1500307056929,
 	   				 "status":"IN PROCESS",
-	   				 "hasFeedback":"false"
+	   				 "hasStudentFeedback":"false",
+  					 "hasTutorFeedback":"false"
 				 },
 				 {
 	   				 "studentId":4,
@@ -73,57 +82,79 @@ Ext.define('uber.view.session.TestSessionGrid',{
 	   				 "requestId":14,
 	   				 "subject":"Algebra",
 	   				 "subjectDescription":"TEST AGAIN",
-	   				 "studentName":"111",
-	   				 "requestTitle":"TEST",
+	   				 "studentName":"student",
+	   				 "studentEmail": "student@domain.com",
+	   				 "tutorEmail": "tutor@domain.com",
+	   				 "requestTitle":"TEST CLOSED",
 	   				 "category":"Calculus",
 	   				 "createDate":1500307056929,
 	   				 "status":"CLOSED",
-	   				 "hasFeedback":"false"
-				 }
+	   				 "hasStudentFeedback":"false",
+   					 "hasTutorFeedback":"false"
+				 },
+				 {
+	   				 "studentId":4,
+	   				 "tutorId":2,
+	   				 "tutorName":"tutor",
+	   				 "requestId":14,
+	   				 "subject":"Algebra",
+	   				 "subjectDescription":"TEST AGAIN",
+	   				 "studentName":"student",
+	   				 "studentEmail": "student@domain.com",
+	   				 "tutorEmail": "tutor@domain.com",
+	   				 "requestTitle":"TEST TUTOR FEEDBACK",
+	   				 "category":"Calculus",
+	   				 "createDate":1500307056929,
+	   				 "status":"CLOSED",
+	   				 "hasStudentFeedback":"false",
+   					 "hasTutorFeedback":"true"
+				 },
+				 {
+	   				 "studentId":4,
+	   				 "tutorId":2,
+	   				 "tutorName":"tutor",
+	   				 "requestId":14,
+	   				 "subject":"Algebra",
+	   				 "subjectDescription":"TEST AGAIN",
+	   				 "studentName":"student",
+	   				 "studentEmail": "student@domain.com",
+	   				 "tutorEmail": "tutor@domain.com",
+	   				 "requestTitle":"TEST STUDENT FEEDBACK",
+	   				 "category":"Calculus",
+	   				 "createDate":1500307056929,
+	   				 "status":"CLOSED",
+	   				 "hasStudentFeedback":"true",
+   					 "hasTutorFeedback":"false"
+				 },
    			 ],
 	   	});
-    	var feedbackFormStudent = Ext.create('uber.view.session.Feedback',{
-    		dockedItems: [{
-    			xtype: 'toolbar',
-    			dock: 'bottom',
-    			items: ['->',{
-    				xtype: 'button',
-    				text: 'Reset'
-    			},{
-    				xtype: 'button',
-    				text: 'Submit',
-    				handler: function () {
-    					var rating = Ext.ComponentQuery.query('#ratingHidden')[0];
-				    	var model = Ext.create('uber.model.Feedback', feedbackFormStudent.getValues());
-				    	var validation = model.getValidation();
-				    	Ext.MessageBox.confirm('Confirm', 'Are you sure you want submit your feedback? This cannot be undone.', function () {
-				    		
-				    	}, this);
-    				}
-    			}]
-    		}]
+    	
+    	var feedbackFormToolbar = Ext.create('Ext.toolbar.Toolbar',{
+    		dock: 'bottom',
+    		items: ['->',{
+				xtype: 'button',
+				text: 'Reset'
+			},{
+				xtype: 'button',
+				text: 'Submit',
+				handler: function () {
+					var rating = Ext.ComponentQuery.query('#ratingHidden')[0];
+			    	var model = Ext.create('uber.model.Feedback', feedbackFormStudent.getValues());
+			    	var validation = model.getValidation();
+			    	Ext.MessageBox.confirm('Confirm', 'Are you sure you want submit your feedback? This cannot be undone.', function () {
+			    		
+			    	}, this);
+				}
+			}]
     	});
+    	
+    	var feedbackFormTutorStore = Ext.create('uber.store.session.FeedbackTutor');
+    	
+    	var feedbackFormStudent = Ext.create('uber.view.session.Feedback');
     	var feedbackFormTutor = Ext.create('uber.view.session.Feedback',{
-    		dockedItems: [{
-    			xtype: 'toolbar',
-    			dock: 'bottom',
-    			items: ['->',{
-    				xtype: 'button',
-    				text: 'Reset'
-    			},{
-    				xtype: 'button',
-    				text: 'Submit',
-    				handler: function () {
-    					var rating = Ext.ComponentQuery.query('#ratingHidden')[0];
-				    	var model = Ext.create('uber.model.Feedback', feedbackFormTutor.getValues());
-				    	var validation = model.getValidation();
-				    	Ext.MessageBox.confirm('Confirm', 'Are you sure you want submit your feedback? This cannot be undone.', function () {
-				    		
-				    	}, this);
-    				}
-    			}]
-    		}]
+    		store: Ext.create('uber.store.session.FeedbackTutor')
     	});
+    	
     	var feedbackStudent = Ext.create('Ext.form.FieldSet',{
     		title: 'Feedback Student',
     		itemId: 'feedbackStudent',
@@ -166,6 +197,7 @@ Ext.define('uber.view.session.TestSessionGrid',{
 			plugins: [{
 				ptype: 'rowwidget',
 				pluginId: 'rowwidget',
+				expandOnDblClick: true,
 				widget: {
 		            xtype: 'form',
 		            itemId: 'rowWidgetForm',
@@ -194,10 +226,18 @@ Ext.define('uber.view.session.TestSessionGrid',{
 			                    		},
 			                    		{
 			                    			xtype: 'hidden',
-			                    			itemId: 'hasFeedback',
-			                    			name: 'hasFeedback',
+			                    			itemId: 'hasStudentFeedback',
+			                    			name: 'hasStudentFeedback',
 			                    			bind: {
-			                    				value: '{record.hasFeedback}'
+			                    				value: '{record.hasStudentFeedback}'
+			                    			}
+			                    		},
+			                    		{
+			                    			xtype: 'hidden',
+			                    			itemId: 'hasTutorFeedback',
+			                    			name: 'hasTutorFeedback',
+			                    			bind: {
+			                    				value: '{record.hasTutorFeedback}'
 			                    			}
 			                    		},
 			                    		{
@@ -243,53 +283,71 @@ Ext.define('uber.view.session.TestSessionGrid',{
 					                    		value: '{record.status}'
 					                    	},
 					                    	listeners: {
-					                    		change: function ( th , newValue , oldValue , eOpts ) {
-					                    			debugger;
-					                    			var feedbackStudent = Ext.ComponentQuery.query('#feedbackStudent')[0];
-					                    			var feedbackTutor = Ext.ComponentQuery.query('#feedbackTutor')[0];
-					                    			var hasFeedback = Ext.ComponentQuery.query('#hasFeedback')[0].getValue();
-					                    			var studentName = Ext.ComponentQuery.query('#studentName')[0].getValue();
-					                    			var tutorName = Ext.ComponentQuery.query('#tutorName')[0].getValue();
-					                    			var username = Ext.ComponentQuery.query('#userNameItemId')[0].getText();
-					                    			if ( newValue == "CLOSED") {
-					                    				feedbackStudent.show();
-					                    				feedbackTutor.show();
-					                    				//check for student form
-					                    				if ( username == studentName ) {
-					                    					if ( hasFeedback != "true") {
-						                    					feedbackFormTutor.disable();
-						                    					feedbackFormTutor.addDocked({
-						                    						xtype: 'component',
-						                    						dock: 'top',
-						                    						html: '<p><h3>Tutor has not submitted any feedback yet</h3></p>'
-						                    					});
-						                    					
-						                    				}
-					                    				// check for tutor form
-					                    				} else if ( username == tutorName ) {
-					                    					if ( hasFeedback != "true" ) {
-					                    						feedbackFormStudent.disable();
-					                    						feedbackFormStudent.addDocked({
-					                    							xtype: 'component',
-					                    							dock: 'top',
-					                    							html: '<p><h3>Student has not submitted any feedback yet</h3></p>'
-					                    						});
-					                    					}
-					                    				}
-					                    			}
-					                    			
-//					                    			if ( username == "admin" ) {
-//														feedbackTutor.show();
-//														feedbackStudent.show();
-//					                    			} else if ( newValue == "CLOSED" && username == studentName ) {
+//					                    		change: function ( th , newValue , oldValue , eOpts ) {
+//					                    			debugger;
+//					                    			var feedbackStudent = Ext.ComponentQuery.query('#feedbackStudent')[0];
+//					                    			var feedbackTutor = Ext.ComponentQuery.query('#feedbackTutor')[0];
+//					                    			var hasStudentFeedback = Ext.ComponentQuery.query('#hasStudentFeedback')[0].getValue();
+//					                    			var hasTutorFeedback = Ext.ComponentQuery.query('#hasTutorFeedback')[0].getValue();
+//					                    			var studentName = Ext.ComponentQuery.query('#studentName')[0].getValue();
+//					                    			var tutorName = Ext.ComponentQuery.query('#tutorName')[0].getValue();
+//					                    			var username = Ext.ComponentQuery.query('#userNameItemId')[0].getText();
+//					                    			if ( newValue == "CLOSED") {
 //					                    				feedbackStudent.show();
-//					                    			} else if ( newValue == "CLOSED" && username == tutorName ){
 //					                    				feedbackTutor.show();
-//					                    			} else {
-//					                    				feedbackStudent.hide();
-//														feedbackTutor.hide();
+//					                    				
+////					                    				//check for student form
+//					                    				if ( username == studentName ) {
+//					                    					if ( hasFeedback != "true") {
+//						                    					feedbackFormTutor.disable();
+//						                    					feedbackTutor.add({
+//						                    						xtype: 'component',
+//						                    						dock: 'top',
+//						                    						html: '<p><h3>Tutor has not submitted any feedback yet</h3></p>'
+//						                    					});
+//						                    					
+//						                    				}
+//					                    				// check for tutor form
+//					                    				} 
+//					                    				if ( username == tutorName ) {			
+//						                    				if ( hasStudentFeedback == "false" || hasStudentFeedback == "" ) {
+//						                    					feedbackFormStudent.hide();
+//						                    					feedbackStudent.add({
+//					                    							xtype: 'component',
+//					                    							dock: 'top',
+//					                    							html: '<p><h3>Student has not submitted any feedback yet</h3></p>'
+//					                    						});
+//						                    				} else {
+////						                    					feedbackFormStudent
+//						                    				}
+//					                    					if ( hasTutorFeedback == "false" || hasStudentFeedback == "" ) {
+//						                    					feedbackFormTutor.addDocked(
+//					                    							{
+//							                    						xtype: 'component',
+//							                    						docked: 'top',
+//							                    						html: '<p><h3>You have not submitted any feedback</h3></p>'
+//							                    					}
+//						                    					);
+//						                    					feedbackFormTutor.addDocked(feedbackFormToolbar);
+//						                    				} else {
+//						                    					feedbackFormTutor.store.load();
+//						                    				}
+//
+//					                    				}
 //					                    			}
-					                    		}
+//					                    			
+////					                    			if ( username == "admin" ) {
+////														feedbackTutor.show();
+////														feedbackStudent.show();
+////					                    			} else if ( newValue == "CLOSED" && username == studentName ) {
+////					                    				feedbackStudent.show();
+////					                    			} else if ( newValue == "CLOSED" && username == tutorName ){
+////					                    				feedbackTutor.show();
+////					                    			} else {
+////					                    				feedbackStudent.hide();
+////														feedbackTutor.hide();
+////					                    			}
+//					                    		}
 					                    	}
 					                    }
 				                    ]
@@ -344,12 +402,103 @@ Ext.define('uber.view.session.TestSessionGrid',{
 		                		items: [{
 		                			xtype: 'textfield',
 		                			name: 'tutorEmail',
-		                			fieldLabel: 'Tutor Email'
+		                			fieldLabel: 'Tutor Email',
+		                			bind: {
+		                    			value: '{record.tutorEmail}'
+		                    		}
 		                		},
 		                		{
 		                			xtype: 'textfield',
 		                			name: 'studentEmail',
-		                			fieldLabel: 'Student Email'
+		                			fieldLabel: 'Student Email',
+		                			bind: {
+		                    			value: '{record.studentEmail}'
+		                    		},
+		                			listeners: {
+		                				change: function ( th , newValue , oldValue , eOpts ) {
+			                    			debugger;
+			                    			var	rowWidgetForm = this.up('#rowWidgetForm');
+			                    			var sessionStatus = rowWidgetForm.down('#status').getValue();
+			                    			var feedbackStudent = rowWidgetForm.down('#feedbackStudent');
+			                    			var feedbackTutor = rowWidgetForm.down('#feedbackTutor');
+			                    			var hasStudentFeedback = rowWidgetForm.down('#hasStudentFeedback').getValue();
+			                    			var hasTutorFeedback = rowWidgetForm.down('#hasTutorFeedback').getValue();
+			                    			var studentName = rowWidgetForm.down('#studentName').getValue();
+			                    			var tutorName = rowWidgetForm.down('#tutorName').getValue();
+			                    			var username = Ext.ComponentQuery.query('#userNameItemId')[0].getText();
+			                    			
+			                    			if ( sessionStatus == "CLOSED") {
+			                    				feedbackStudent.show();
+			                    				feedbackTutor.show();
+			                    				
+//			                    				//check for student form
+			                    				if ( username == studentName ) {
+			                    					if ( hasStudentFeedback == "false" || hasStudentFeedback == "" ) {
+				                    					feedbackStudent.add(
+			                    							{
+				                    							xtype: 'component',
+				                    							dock: 'top',
+				                    							html: '<p><h3>You have not submitted any feedback yet</h3></p>'
+			                    							}
+		                    							);
+				                    				} else {
+//				                    					feedbackFormStudent.store.load();
+				                    				}
+			                    					if ( hasTutorFeedback == "false" || hasStudentFeedback == "" ) {
+			                    						feedbackFormTutor.hide();
+				                    					feedbackFormTutor.addDocked(
+			                    							{
+					                    						xtype: 'component',
+					                    						docked: 'top',
+					                    						html: '<p><h3>Tutor has not submitted any feedback yet</h3></p>'
+					                    					}
+				                    					);
+				                    					feedbackFormTutor.addDocked(feedbackFormToolbar);
+				                    				} else {
+				                    					feedbackFormTutor.store.load();
+				                    				}
+			                    				// check for tutor form
+			                    				} 
+			                    				if ( username == tutorName ) {			
+				                    				if ( hasStudentFeedback == "false" || hasStudentFeedback == "" ) {
+				                    					feedbackFormStudent.hide();
+				                    					feedbackStudent.add({
+			                    							xtype: 'component',
+			                    							dock: 'top',
+			                    							html: '<p><h3>Student has not submitted any feedback yet</h3></p>'
+			                    						});
+				                    				} else {
+//				                    					feedbackFormStudent.store.load();
+				                    				}
+			                    					if ( hasTutorFeedback == "false" || hasStudentFeedback == "" ) {
+				                    					feedbackFormTutor.addDocked(
+			                    							{
+					                    						xtype: 'component',
+					                    						docked: 'top',
+					                    						html: '<p><h3>You have not submitted any feedback yet</h3></p>'
+					                    					}
+				                    					);
+				                    					feedbackFormTutor.addDocked(feedbackFormToolbar);
+				                    				} else {
+				                    					feedbackFormTutor.store.load();
+				                    				}
+
+			                    				}
+			                    			}
+			                    			
+//			                    			if ( username == "admin" ) {
+//												feedbackTutor.show();
+//												feedbackStudent.show();
+//			                    			} else if ( newValue == "CLOSED" && username == studentName ) {
+//			                    				feedbackStudent.show();
+//			                    			} else if ( newValue == "CLOSED" && username == tutorName ){
+//			                    				feedbackTutor.show();
+//			                    			} else {
+//			                    				feedbackStudent.hide();
+//												feedbackTutor.hide();
+//			                    			}
+			                    		}
+		                			}
 		                		}]
 		                	}]
 		                },

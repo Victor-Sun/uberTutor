@@ -10,7 +10,7 @@ Ext.define('uber.view.search.SearchInfoWindow',{
 //		hidden: true,
 		text: 'Accept',
 		handler: function () {
-			debugger;
+//			debugger;
 			var window = this.up('window');
 			var form = window.down('#searchInfoForm');
 			var requestId = form.down('#requestId').getValue();
@@ -24,7 +24,7 @@ Ext.define('uber.view.search.SearchInfoWindow',{
 				},
     			method: 'POST', 
     			success: function (form, action, response) {
-    				debugger;
+//    				debugger;
     				Ext.getBody().unmask();
     				window.grid.getStore().load();
     				window.close();

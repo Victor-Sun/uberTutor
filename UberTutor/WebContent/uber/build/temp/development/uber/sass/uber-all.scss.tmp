@@ -1024,6 +1024,7 @@ $include-uber-store-grid-sessionsadmingrid: dynamic(true);;
 $include-uber-store-grid-sessionsstudentgrid: dynamic(true);;
 $include-uber-store-grid-sessionstutorgrid: dynamic(true);;
 $include-uber-store-grid-tutorregistrationgrid: dynamic(true);;
+$include-uber-store-session-feedbacktutor: dynamic(true);;
 $include-uber-store-session-sessioninfo: dynamic(true);;
 $include-uber-store-subject-subject: dynamic(true);;
 $include-uber-store-test-news: dynamic(true);;

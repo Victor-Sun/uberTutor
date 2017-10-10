@@ -100,6 +100,9 @@ Ext.define('uber.view.profile.ProfileController',{
 		var form = profileForm.getValues();
 		var model = Ext.create('uber.model.Profile', profileForm.getValues());
 		var validation = model.getValidation(); 
+		var isTutorValue = Ext.ComponentQuery.query('#isTutor')[0];
+		var menuButton = Ext.ComponentQuery.query('#userNameItemId')[0];
+		var search = Ext.ComponentQuery.query('#menuItemSearch')[0];
 		Ext.getBody().mask('Loading...Please Wait');
     	if(profileForm.getForm().isValid()){
     		profileForm.submit({
@@ -136,15 +139,19 @@ Ext.define('uber.view.profile.ProfileController',{
 //    	    				console.log(result.errors.reason);
     	    			},
     				});
+    	    		if (isTutorValue.getValue() == true) {
+    	    			search.show();
+    	    		} else {
+    	    			search.hide();
+    	    		}
     			},
-
     			failure: function(form, action) {
     				Ext.getBody().unmask();
     				var result = uber.util.Util.decodeJSON(action.response.responseText);
     				Ext.Msg.alert('Error', result.errors.reason, Ext.emptyFn);
 //    				console.log(result.errors.reason);
     			},
-    		})
+    		});
     	} else {
     		Ext.getBody().unmask();
     		var msg = "<ul class='error'>";

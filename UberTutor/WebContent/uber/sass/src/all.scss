@@ -41,9 +41,28 @@
 	margin: 0 20% !important;
 }
 
+.uber-base {
+	zoom: 1;
+	margin: 0 auto;
+	padding: 0 5px;
+	position: relative;
+	width: 980px;
+}
+
 .uber-panel {
 	// padding-left: 20% !important;
 	// padding-right: 20% !important;
+}
+
+.uber-panel-test {
+	margin-left: 15%;
+	margin-right: 15%;
+}
+
+.uber-container {
+	.x-autocontainer-innerCt {
+		display: block;
+	}
 }
 
 .uber-panel-margin {

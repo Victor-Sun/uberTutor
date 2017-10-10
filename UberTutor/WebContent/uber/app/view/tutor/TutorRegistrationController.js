@@ -143,27 +143,35 @@ Ext.define('uber.view.tutor.TutorRegistrationController',{
 				
 		});
 	},
+	
+//	showResult: function(btn, text) {
+//        debugger;
+//    },
     
     onRemoveClick: function (grid, rowIndex) {
     	var me = this;
     	var record = grid.getStore().getAt(rowIndex);
-    	Ext.getBody().mask('Please Wait...')
-    	Ext.Ajax.request({
-    		url:'/UberTutor/main/tutor-subject-register!removeSubject.action',
-    		params: {
-    			userSubjectId:record.data.userSubjectId,
-    		},
-    		scope: me,
-    		success: function() {
-    			Ext.getBody().unmask();
-    			grid.getStore().reload();
-    		},
-    		failure: function(response, opts) {
-    			Ext.getBody().unmask();
-//    			uber.util.Util.handlerRequestFailure(response);
-    			Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+    	Ext.MessageBox.confirm('Confirm', 'Are you sure you want to do that?', function(btn) {
+    		if (btn == "yes") {
+    	    	Ext.getBody().mask('Please Wait...')
+    	    	Ext.Ajax.request({
+    	    		url:'/UberTutor/main/tutor-subject-register!removeSubject.action',
+    	    		params: {
+    	    			userSubjectId:record.data.userSubjectId,
+    	    		},
+    	    		scope: me,
+    	    		success: function() {
+    	    			Ext.getBody().unmask();
+    	    			grid.getStore().reload();
+    	    		},
+    	    		failure: function(response, opts) {
+    	    			Ext.getBody().unmask();
+//    	    			uber.util.Util.handlerRequestFailure(response);
+    	    			Ext.Msg.alert('Error', "An error has occured, please try again", Ext.emptyFn);
+    	    		}
+    	    	});
     		}
-    	});
+    	}, this);
     },
 //    //Subject Grid 
 //    renderTitleColumn: function (value, metaData, record) {

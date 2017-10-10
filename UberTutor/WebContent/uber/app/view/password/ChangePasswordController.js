@@ -3,6 +3,7 @@ Ext.define('uber.view.password.ChangePasswordController',{
     alias: 'controller.changepassword',
     
     changePassword: function () {
+//    	debugger;
     	var me = this;
     	var formPanel = this.lookupReference('formpanel');
     	Ext.getBody().mask('Loading...Please Wait');

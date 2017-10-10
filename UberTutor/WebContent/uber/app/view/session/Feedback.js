@@ -35,6 +35,14 @@ Ext.define('uber.view.session.Feedback', {
         		name: 'hasFeedback'
         	},{
         		xtype: 'hidden',
+        		itemId: 'hasTutorFeedback',
+        		name: 'hasTutorFeedback'
+        	},{
+        		xtype: 'hidden',
+        		itemId: 'hasStudentFeedback',
+        		name: 'hasStudentFeedback'
+        	},{
+        		xtype: 'hidden',
         		itemId: 'feedbackId',
         		name: 'FEEDBACK_ID'
 //        	},{
