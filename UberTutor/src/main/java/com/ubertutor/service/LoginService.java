@@ -31,7 +31,7 @@ public class LoginService {
 	 * @param loginPassword
 	 * @return True if the combation matches 
 	 */
-	public boolean verifyUserPassword(String loginusername, String loginPassword) {
+	public boolean verifyPassword(String loginusername, String loginPassword) {
 		String hql = "FROM UserEntity WHERE username = ? AND password = ?";
 		List<UserEntity> result = this.userDAO.find(hql, loginusername, loginPassword);
         return result.size() > 0;

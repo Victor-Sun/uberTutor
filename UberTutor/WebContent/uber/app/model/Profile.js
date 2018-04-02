@@ -11,16 +11,16 @@ Ext.define('uber.model.Profile',{
 	],
 	validators: {
 		FULLNAME: [
-			           { type: 'presence', message:"Name required, please enter name"},
+			{ type: 'presence', message:"Name required, please enter name"},
 		],
 		EMAIL: [
-		        { type: 'format', name: 'email', matcher: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, message:"Incorrect email format, the required email format: 'user@example.com'"},
+			{ type: 'format', name: 'email', matcher: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, message:"Incorrect email format, the required email format: 'user@example.com'"},
 		],
 		MOBILE: [
-				{ type: 'presence', message: 'Phone number required, please enter a valid phone number' }
+			{ type: 'presence', message: 'Phone number required, please enter a valid phone number' }
 		],
 		NAME: [
-				{ type: 'presence', message: 'School required, please select a school'}
+			{ type: 'presence', message: 'School required, please select a school'}
 		],
 		BIO: [
 			{ type: 'presence', message: 'Bio required, please fill in bio'}

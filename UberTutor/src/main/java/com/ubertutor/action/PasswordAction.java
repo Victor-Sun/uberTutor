@@ -85,7 +85,7 @@ public class PasswordAction extends PDMSCrudActionSupport<UserEntity>{
 				msg = "Password must be 6-16 characters with no whitespaces!";
 				throw new Exception(msg);
 			}
-			if(!loginService.verifyUserPassword(username, EncryptUtil.encrypt(currentPassword))){
+			if(!loginService.verifyPassword(username, EncryptUtil.encrypt(currentPassword))){
 				msg = "Password is incorrect! Please confirm your password and try again.";
 				throw new Exception(msg);
 			}
